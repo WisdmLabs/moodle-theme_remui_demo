@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<activity id="38" moduleid="60" modulename="page" contextid="130">
+  <page id="38">
+    <name>Tips on writing articles</name>
+    <intro>&lt;p&gt;Introduction and tips (Writing articles)&lt;br&gt;&lt;/p&gt;</intro>
+    <introformat>1</introformat>
+    <content>&lt;h5&gt;Introduction and tips
+(Writing articles)&lt;/h5&gt;&lt;p&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;ANSWER THE QUESTION&lt;/li&gt;&lt;li&gt;PLAN your article.&lt;/li&gt;&lt;li&gt;Give your article a title.&lt;/li&gt;&lt;li&gt;Make sure you have at least 4 paragraphs.&lt;/li&gt;&lt;li&gt;Ask rhetorical questions to get your readers' attention. Eg. What would the world be like without oil? What will life be like in 20 years time?&lt;/li&gt;&lt;li&gt;Speak directly to your readers. Eg. Let's just imagine some of the possibilities.&lt;/li&gt;&lt;li&gt;Give examples where appropriate.&lt;/li&gt;&lt;li&gt;Use humour where appropriate&lt;/li&gt;&lt;li&gt;Give a conclusion and summary in the last paragraph.&lt;/li&gt;&lt;li&gt;Finally, give your opinion where appropriate.&lt;/li&gt;&lt;li&gt;REVISE your article to correct mistakes.&amp;nbsp;&lt;/li&gt;&lt;/ul&gt;&lt;h5&gt;Useful phrases
+(Writing articles)&amp;nbsp;&lt;/h5&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;Rhetorical phrases:&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Have you ever ........?&lt;/li&gt;&lt;li&gt;What do you think
+about ........?&amp;nbsp;&lt;/li&gt;&lt;li&gt;Are you one of those people who thinks that ......?&lt;/li&gt;&lt;li&gt;Are you one of those people who .......?&lt;/li&gt;&lt;li&gt;What would life be like if ......?&lt;/li&gt;&lt;li&gt;Will the future bring us ..... ?&amp;nbsp;&lt;/li&gt;&lt;/ul&gt;&lt;b&gt;Introducing your first point:&lt;/b&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Firstly&lt;/li&gt;&lt;li&gt;In the first place&lt;/li&gt;&lt;li&gt;First of all&lt;/li&gt;&lt;li&gt;The first thing to consider is&lt;/li&gt;&lt;li&gt;One thing to consider is&lt;/li&gt;&lt;li&gt;To begin with&amp;nbsp;&lt;/li&gt;&lt;/ul&gt;&lt;span style="font-size: 14px;"&gt;&lt;b&gt;&amp;nbsp;Introducing more points:&lt;/b&gt;&lt;/span&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Secondly&lt;/li&gt;&lt;li&gt;Another consideration&lt;/li&gt;&lt;li&gt;Yet another consideration&lt;/li&gt;&lt;li&gt;Another thing to consider is&lt;/li&gt;&lt;li&gt;Added to that&lt;/li&gt;&lt;li&gt;Apart from that&lt;/li&gt;&lt;li&gt;In addition to this&lt;br&gt;&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;/p&gt;&lt;b&gt;Introducing your final points:&lt;/b&gt;&lt;p&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;In conclusion&lt;/li&gt;&lt;li&gt;To conclude&lt;/li&gt;&lt;li&gt;To sum up&lt;/li&gt;&lt;li&gt;So&amp;nbsp;&lt;/li&gt;&lt;/ul&gt;&lt;b&gt;Introducing your opinion:&lt;/b&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;I think&lt;/li&gt;&lt;li&gt;In my opinion&lt;/li&gt;&lt;li&gt;Personally I believe that&lt;/li&gt;&lt;li&gt;In my view&lt;/li&gt;&lt;li&gt;If you ask me&lt;/li&gt;&lt;li&gt;To my mind&lt;/li&gt;&lt;li&gt;My personal opinion is&lt;br&gt;&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;&lt;/p&gt;</content>
+    <contentformat>1</contentformat>
+    <legacyfiles>0</legacyfiles>
+    <legacyfileslast>$@NULL@$</legacyfileslast>
+    <display>5</display>
+    <displayoptions>a:2:{s:12:"printheading";s:1:"1";s:10:"printintro";s:1:"0";}</displayoptions>
+    <revision>4</revision>
+    <timemodified>1503737530</timemodified>
+  </page>
+</activity>

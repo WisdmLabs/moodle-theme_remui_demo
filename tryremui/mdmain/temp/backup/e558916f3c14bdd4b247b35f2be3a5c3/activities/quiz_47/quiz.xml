@@ -1,0 +1,1268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<activity id="2" moduleid="47" modulename="quiz" contextid="117">
+  <quiz id="2">
+    <name>Unit 1: Talking about a petition</name>
+    <intro></intro>
+    <introformat>1</introformat>
+    <timeopen>0</timeopen>
+    <timeclose>0</timeclose>
+    <timelimit>0</timelimit>
+    <overduehandling>autosubmit</overduehandling>
+    <graceperiod>0</graceperiod>
+    <preferredbehaviour>deferredfeedback</preferredbehaviour>
+    <canredoquestions>0</canredoquestions>
+    <attempts_number>0</attempts_number>
+    <attemptonlast>0</attemptonlast>
+    <grademethod>1</grademethod>
+    <decimalpoints>2</decimalpoints>
+    <questiondecimalpoints>-1</questiondecimalpoints>
+    <reviewattempt>69888</reviewattempt>
+    <reviewcorrectness>4352</reviewcorrectness>
+    <reviewmarks>4352</reviewmarks>
+    <reviewspecificfeedback>4352</reviewspecificfeedback>
+    <reviewgeneralfeedback>4352</reviewgeneralfeedback>
+    <reviewrightanswer>4352</reviewrightanswer>
+    <reviewoverallfeedback>4352</reviewoverallfeedback>
+    <questionsperpage>1</questionsperpage>
+    <navmethod>free</navmethod>
+    <shuffleanswers>1</shuffleanswers>
+    <sumgrades>15.00000</sumgrades>
+    <grade>10.00000</grade>
+    <timecreated>0</timecreated>
+    <timemodified>1560161667</timemodified>
+    <password></password>
+    <subnet></subnet>
+    <browsersecurity>-</browsersecurity>
+    <delay1>0</delay1>
+    <delay2>0</delay2>
+    <showuserpicture>0</showuserpicture>
+    <showblocks>0</showblocks>
+    <completionattemptsexhausted>0</completionattemptsexhausted>
+    <completionpass>0</completionpass>
+    <allowofflineattempts>0</allowofflineattempts>
+    <subplugin_quizaccess_seb_quiz>
+    </subplugin_quizaccess_seb_quiz>
+    <question_instances>
+      <question_instance id="4">
+        <slot>1</slot>
+        <page>1</page>
+        <requireprevious>0</requireprevious>
+        <questionid>4</questionid>
+        <questioncategoryid>$@NULL@$</questioncategoryid>
+        <includingsubcategories>$@NULL@$</includingsubcategories>
+        <maxmark>6.0000000</maxmark>
+        <tags>
+        </tags>
+      </question_instance>
+      <question_instance id="5">
+        <slot>2</slot>
+        <page>1</page>
+        <requireprevious>0</requireprevious>
+        <questionid>43</questionid>
+        <questioncategoryid>$@NULL@$</questioncategoryid>
+        <includingsubcategories>$@NULL@$</includingsubcategories>
+        <maxmark>1.0000000</maxmark>
+        <tags>
+        </tags>
+      </question_instance>
+      <question_instance id="6">
+        <slot>3</slot>
+        <page>1</page>
+        <requireprevious>0</requireprevious>
+        <questionid>5</questionid>
+        <questioncategoryid>$@NULL@$</questioncategoryid>
+        <includingsubcategories>$@NULL@$</includingsubcategories>
+        <maxmark>6.0000000</maxmark>
+        <tags>
+        </tags>
+      </question_instance>
+      <question_instance id="7">
+        <slot>4</slot>
+        <page>1</page>
+        <requireprevious>0</requireprevious>
+        <questionid>44</questionid>
+        <questioncategoryid>$@NULL@$</questioncategoryid>
+        <includingsubcategories>$@NULL@$</includingsubcategories>
+        <maxmark>1.0000000</maxmark>
+        <tags>
+        </tags>
+      </question_instance>
+      <question_instance id="8">
+        <slot>5</slot>
+        <page>1</page>
+        <requireprevious>0</requireprevious>
+        <questionid>45</questionid>
+        <questioncategoryid>$@NULL@$</questioncategoryid>
+        <includingsubcategories>$@NULL@$</includingsubcategories>
+        <maxmark>1.0000000</maxmark>
+        <tags>
+        </tags>
+      </question_instance>
+    </question_instances>
+    <sections>
+      <section id="2">
+        <firstslot>1</firstslot>
+        <heading></heading>
+        <shufflequestions>0</shufflequestions>
+      </section>
+    </sections>
+    <feedbacks>
+      <feedback id="2">
+        <feedbacktext></feedbacktext>
+        <feedbacktextformat>1</feedbacktextformat>
+        <mingrade>0.00000</mingrade>
+        <maxgrade>11.00000</maxgrade>
+      </feedback>
+    </feedbacks>
+    <overrides>
+    </overrides>
+    <grades>
+      <grade id="3">
+        <userid>9</userid>
+        <gradeval>1.33333</gradeval>
+        <timemodified>1560255197</timemodified>
+      </grade>
+    </grades>
+    <attempts>
+      <attempt id="5">
+        <userid>8</userid>
+        <attemptnum>1</attemptnum>
+        <uniqueid>5</uniqueid>
+        <layout>1,2,3,4,5,0</layout>
+        <currentpage>0</currentpage>
+        <preview>0</preview>
+        <state>finished</state>
+        <timestart>1560254145</timestart>
+        <timefinish>1560254315</timefinish>
+        <timemodified>1560254315</timemodified>
+        <timemodifiedoffline>0</timemodifiedoffline>
+        <timecheckstate>0</timecheckstate>
+        <sumgrades>$@NULL@$</sumgrades>
+        <question_usage id="5">
+          <component>mod_quiz</component>
+          <preferredbehaviour>deferredfeedback</preferredbehaviour>
+          <question_attempts>
+            <question_attempt id="11">
+              <slot>1</slot>
+              <behaviour>deferredfeedback</behaviour>
+              <questionid>4</questionid>
+              <variant>1</variant>
+              <maxmark>6.0000000</maxmark>
+              <minfraction>0.0000000</minfraction>
+              <maxfraction>1.0000000</maxfraction>
+              <flagged>0</flagged>
+              <questionsummary>Listen and match the sentence halves.
+
+ xx
+ {Oliver and Karen go to the city council
+
+; Karen says that she
+
+; She says that they want to build
+
+; Karen says that they want to cut down
+
+; They want to write a petition
+
+; The city planner wants them to
+
+} -&gt; {and organise a protest march.; support the city council.; and speak to a city planner there.; wants the others to talk to other people in the park.; a car park.; trees and make the park smaller.}</questionsummary>
+              <rightanswer>Oliver and Karen go to the city council
+
+ -&gt; and speak to a city planner there.; Karen says that she
+
+ -&gt; wants the others to talk to other people in the park.; She says that they want to build
+
+ -&gt; a car park.; Karen says that they want to cut down
+
+ -&gt; trees and make the park smaller.; They want to write a petition
+
+ -&gt; and organise a protest march.; The city planner wants them to
+
+ -&gt; support the city council.</rightanswer>
+              <responsesummary>Oliver and Karen go to the city council
+
+ -&gt; and organise a protest march.; Karen says that she
+
+ -&gt; and speak to a city planner there.; She says that they want to build
+
+ -&gt; support the city council.; Karen says that they want to cut down
+
+ -&gt; wants the others to talk to other people in the park.; They want to write a petition
+
+ -&gt; a car park.; The city planner wants them to
+
+ -&gt; trees and make the park smaller.</responsesummary>
+              <timemodified>1560254315</timemodified>
+              <steps>
+                <step id="26">
+                  <sequencenumber>0</sequencenumber>
+                  <state>todo</state>
+                  <fraction>$@NULL@$</fraction>
+                  <timecreated>1560254145</timecreated>
+                  <userid>8</userid>
+                  <response>
+                    <variable>
+                      <name>_stemorder</name>
+                      <value>4,3,2,1,6,5</value>
+                    </variable>
+                    <variable>
+                      <name>_choiceorder</name>
+                      <value>6,5,4,3,2,1</value>
+                    </variable>
+                  </response>
+                </step>
+                <step id="27">
+                  <sequencenumber>1</sequencenumber>
+                  <state>complete</state>
+                  <fraction>$@NULL@$</fraction>
+                  <timecreated>1560254304</timecreated>
+                  <userid>8</userid>
+                  <response>
+                    <variable>
+                      <name>sub0</name>
+                      <value>1</value>
+                    </variable>
+                    <variable>
+                      <name>sub1</name>
+                      <value>3</value>
+                    </variable>
+                    <variable>
+                      <name>sub2</name>
+                      <value>2</value>
+                    </variable>
+                    <variable>
+                      <name>sub3</name>
+                      <value>4</value>
+                    </variable>
+                    <variable>
+                      <name>sub4</name>
+                      <value>5</value>
+                    </variable>
+                    <variable>
+                      <name>sub5</name>
+                      <value>6</value>
+                    </variable>
+                  </response>
+                </step>
+                <step id="28">
+                  <sequencenumber>2</sequencenumber>
+                  <state>gradedwrong</state>
+                  <fraction>0.0000000</fraction>
+                  <timecreated>1560254315</timecreated>
+                  <userid>8</userid>
+                  <response>
+                    <variable>
+                      <name>-finish</name>
+                      <value>1</value>
+                    </variable>
+                  </response>
+                </step>
+              </steps>
+            </question_attempt>
+            <question_attempt id="12">
+              <slot>2</slot>
+              <behaviour>deferredfeedback</behaviour>
+              <questionid>43</questionid>
+              <variant>1</variant>
+              <maxmark>1.0000000</maxmark>
+              <minfraction>0.0000000</minfraction>
+              <maxfraction>1.0000000</maxfraction>
+              <flagged>0</flagged>
+              <questionsummary>What is the capital city of Japan?
+</questionsummary>
+              <rightanswer>Tokyo</rightanswer>
+              <responsesummary>Osaka</responsesummary>
+              <timemodified>1560254315</timemodified>
+              <steps>
+                <step id="29">
+                  <sequencenumber>0</sequencenumber>
+                  <state>todo</state>
+                  <fraction>$@NULL@$</fraction>
+                  <timecreated>1560254145</timecreated>
+                  <userid>8</userid>
+                  <response>
+                  </response>
+                </step>
+                <step id="30">
+                  <sequencenumber>1</sequencenumber>
+                  <state>complete</state>
+                  <fraction>$@NULL@$</fraction>
+                  <timecreated>1560254304</timecreated>
+                  <userid>8</userid>
+                  <response>
+                    <variable>
+                      <name>answer</name>
+                      <value>Osaka</value>
+                    </variable>
+                  </response>
+                </step>
+                <step id="31">
+                  <sequencenumber>2</sequencenumber>
+                  <state>gradedwrong</state>
+                  <fraction>0.0000000</fraction>
+                  <timecreated>1560254315</timecreated>
+                  <userid>8</userid>
+                  <response>
+                    <variable>
+                      <name>-finish</name>
+                      <value>1</value>
+                    </variable>
+                  </response>
+                </step>
+              </steps>
+            </question_attempt>
+            <question_attempt id="13">
+              <slot>3</slot>
+              <behaviour>deferredfeedback</behaviour>
+              <questionid>5</questionid>
+              <variant>1</variant>
+              <maxmark>6.0000000</maxmark>
+              <minfraction>0.0000000</minfraction>
+              <maxfraction>1.0000000</maxfraction>
+              <flagged>0</flagged>
+              <questionsummary>Complete the sentences with the words below.
+
+		1.
+		It is very important to [[1]] water.
+
+		2.
+		You should really buy [[2]] food.
+
+		3.
+		I never take the [[3]] provided at the supermarket.
+
+		4.
+		We always take glass bottles to the bottle bank and [[4]] them.
+
+		5.
+		Only [[5]] leave bottles and cans on the beach.
+
+		6.
+		People shouldn't drive short [[6]], they should use their bikes or walk.
+
+; [[1]] -&gt; {save / locally produced / plastic bags / recycle / litter louts / distances}</questionsummary>
+              <rightanswer>{save} {locally produced} {plastic bags} {recycle} {litter louts} {distances}</rightanswer>
+              <responsesummary>{save} {locally produced} {litter louts} {plastic bags} {recycle} {distances}</responsesummary>
+              <timemodified>1560254315</timemodified>
+              <steps>
+                <step id="32">
+                  <sequencenumber>0</sequencenumber>
+                  <state>todo</state>
+                  <fraction>$@NULL@$</fraction>
+                  <timecreated>1560254145</timecreated>
+                  <userid>8</userid>
+                  <response>
+                    <variable>
+                      <name>_choiceorder1</name>
+                      <value>1,2,3,4,5,6</value>
+                    </variable>
+                  </response>
+                </step>
+                <step id="33">
+                  <sequencenumber>1</sequencenumber>
+                  <state>complete</state>
+                  <fraction>$@NULL@$</fraction>
+                  <timecreated>1560254304</timecreated>
+                  <userid>8</userid>
+                  <response>
+                    <variable>
+                      <name>p1</name>
+                      <value>1</value>
+                    </variable>
+                    <variable>
+                      <name>p2</name>
+                      <value>2</value>
+                    </variable>
+                    <variable>
+                      <name>p3</name>
+                      <value>5</value>
+                    </variable>
+                    <variable>
+                      <name>p4</name>
+                      <value>3</value>
+                    </variable>
+                    <variable>
+                      <name>p5</name>
+                      <value>4</value>
+                    </variable>
+                    <variable>
+                      <name>p6</name>
+                      <value>6</value>
+                    </variable>
+                  </response>
+                </step>
+                <step id="34">
+                  <sequencenumber>2</sequencenumber>
+                  <state>gradedpartial</state>
+                  <fraction>0.5000000</fraction>
+                  <timecreated>1560254315</timecreated>
+                  <userid>8</userid>
+                  <response>
+                    <variable>
+                      <name>-finish</name>
+                      <value>1</value>
+                    </variable>
+                  </response>
+                </step>
+              </steps>
+            </question_attempt>
+            <question_attempt id="14">
+              <slot>4</slot>
+              <behaviour>manualgraded</behaviour>
+              <questionid>44</questionid>
+              <variant>1</variant>
+              <maxmark>1.0000000</maxmark>
+              <minfraction>0.0000000</minfraction>
+              <maxfraction>1.0000000</maxfraction>
+              <flagged>0</flagged>
+              <questionsummary>Describe the city of Tokyo in 5 sentences?
+</questionsummary>
+              <rightanswer>$@NULL@$</rightanswer>
+              <responsesummary>Tokyo is capital of Japan. It is an old city.
+</responsesummary>
+              <timemodified>1560254315</timemodified>
+              <steps>
+                <step id="35">
+                  <sequencenumber>0</sequencenumber>
+                  <state>todo</state>
+                  <fraction>$@NULL@$</fraction>
+                  <timecreated>1560254145</timecreated>
+                  <userid>8</userid>
+                  <response>
+                  </response>
+                </step>
+                <step id="36">
+                  <sequencenumber>1</sequencenumber>
+                  <state>complete</state>
+                  <fraction>$@NULL@$</fraction>
+                  <timecreated>1560254304</timecreated>
+                  <userid>8</userid>
+                  <response>
+                    <variable>
+                      <name>answer</name>
+                      <value>&lt;p&gt;Tokyo is capital of Japan. It is an old city.&lt;/p&gt;</value>
+                    </variable>
+                    <variable>
+                      <name>answerformat</name>
+                      <value>1</value>
+                    </variable>
+                  </response>
+                </step>
+                <step id="37">
+                  <sequencenumber>2</sequencenumber>
+                  <state>needsgrading</state>
+                  <fraction>$@NULL@$</fraction>
+                  <timecreated>1560254315</timecreated>
+                  <userid>8</userid>
+                  <response>
+                    <variable>
+                      <name>-finish</name>
+                      <value>1</value>
+                    </variable>
+                  </response>
+                </step>
+              </steps>
+            </question_attempt>
+            <question_attempt id="15">
+              <slot>5</slot>
+              <behaviour>manualgraded</behaviour>
+              <questionid>45</questionid>
+              <variant>1</variant>
+              <maxmark>1.0000000</maxmark>
+              <minfraction>0.0000000</minfraction>
+              <maxfraction>1.0000000</maxfraction>
+              <flagged>0</flagged>
+              <questionsummary>WRITE AN ESSAY ON THE FOLLOWING TOPIC-
+'EFFECTS OF MODERN URBAN LIFESTYLE ON HEALTH AND WELL-BEING'
+
+</questionsummary>
+              <rightanswer>$@NULL@$</rightanswer>
+              <responsesummary>Modern lifestyle with no exercise is harmful to our lives. 
+</responsesummary>
+              <timemodified>1560254315</timemodified>
+              <steps>
+                <step id="38">
+                  <sequencenumber>0</sequencenumber>
+                  <state>todo</state>
+                  <fraction>$@NULL@$</fraction>
+                  <timecreated>1560254145</timecreated>
+                  <userid>8</userid>
+                  <response>
+                  </response>
+                </step>
+                <step id="39">
+                  <sequencenumber>1</sequencenumber>
+                  <state>complete</state>
+                  <fraction>$@NULL@$</fraction>
+                  <timecreated>1560254304</timecreated>
+                  <userid>8</userid>
+                  <response>
+                    <variable>
+                      <name>answer</name>
+                      <value>&lt;p&gt;Modern lifestyle with no exercise is harmful to our lives.&amp;nbsp;&lt;/p&gt;</value>
+                    </variable>
+                    <variable>
+                      <name>answerformat</name>
+                      <value>1</value>
+                    </variable>
+                  </response>
+                </step>
+                <step id="40">
+                  <sequencenumber>2</sequencenumber>
+                  <state>needsgrading</state>
+                  <fraction>$@NULL@$</fraction>
+                  <timecreated>1560254315</timecreated>
+                  <userid>8</userid>
+                  <response>
+                    <variable>
+                      <name>-finish</name>
+                      <value>1</value>
+                    </variable>
+                  </response>
+                </step>
+              </steps>
+            </question_attempt>
+          </question_attempts>
+        </question_usage>
+      </attempt>
+      <attempt id="6">
+        <userid>9</userid>
+        <attemptnum>1</attemptnum>
+        <uniqueid>6</uniqueid>
+        <layout>1,2,3,4,5,0</layout>
+        <currentpage>0</currentpage>
+        <preview>0</preview>
+        <state>finished</state>
+        <timestart>1560255172</timestart>
+        <timefinish>1560255197</timefinish>
+        <timemodified>1560255197</timemodified>
+        <timemodifiedoffline>0</timemodifiedoffline>
+        <timecheckstate>0</timecheckstate>
+        <sumgrades>2.00000</sumgrades>
+        <question_usage id="6">
+          <component>mod_quiz</component>
+          <preferredbehaviour>deferredfeedback</preferredbehaviour>
+          <question_attempts>
+            <question_attempt id="16">
+              <slot>1</slot>
+              <behaviour>deferredfeedback</behaviour>
+              <questionid>4</questionid>
+              <variant>1</variant>
+              <maxmark>6.0000000</maxmark>
+              <minfraction>0.0000000</minfraction>
+              <maxfraction>1.0000000</maxfraction>
+              <flagged>0</flagged>
+              <questionsummary>Listen and match the sentence halves.
+
+ xx
+ {Oliver and Karen go to the city council
+
+; The city planner wants them to
+
+; Karen says that they want to cut down
+
+; They want to write a petition
+
+; She says that they want to build
+
+; Karen says that she
+
+} -&gt; {wants the others to talk to other people in the park.; and organise a protest march.; trees and make the park smaller.; a car park.; and speak to a city planner there.; support the city council.}</questionsummary>
+              <rightanswer>Oliver and Karen go to the city council
+
+ -&gt; and speak to a city planner there.; The city planner wants them to
+
+ -&gt; support the city council.; Karen says that they want to cut down
+
+ -&gt; trees and make the park smaller.; They want to write a petition
+
+ -&gt; and organise a protest march.; She says that they want to build
+
+ -&gt; a car park.; Karen says that she
+
+ -&gt; wants the others to talk to other people in the park.</rightanswer>
+              <responsesummary>Oliver and Karen go to the city council
+
+ -&gt; wants the others to talk to other people in the park.; The city planner wants them to
+
+ -&gt; and organise a protest march.; Karen says that they want to cut down
+
+ -&gt; trees and make the park smaller.; They want to write a petition
+
+ -&gt; a car park.; She says that they want to build
+
+ -&gt; and speak to a city planner there.; Karen says that she
+
+ -&gt; support the city council.</responsesummary>
+              <timemodified>1560255197</timemodified>
+              <steps>
+                <step id="41">
+                  <sequencenumber>0</sequencenumber>
+                  <state>todo</state>
+                  <fraction>$@NULL@$</fraction>
+                  <timecreated>1560255172</timecreated>
+                  <userid>9</userid>
+                  <response>
+                    <variable>
+                      <name>_stemorder</name>
+                      <value>4,5,1,6,2,3</value>
+                    </variable>
+                    <variable>
+                      <name>_choiceorder</name>
+                      <value>3,6,1,2,4,5</value>
+                    </variable>
+                  </response>
+                </step>
+                <step id="42">
+                  <sequencenumber>1</sequencenumber>
+                  <state>complete</state>
+                  <fraction>$@NULL@$</fraction>
+                  <timecreated>1560255193</timecreated>
+                  <userid>9</userid>
+                  <response>
+                    <variable>
+                      <name>sub0</name>
+                      <value>1</value>
+                    </variable>
+                    <variable>
+                      <name>sub1</name>
+                      <value>2</value>
+                    </variable>
+                    <variable>
+                      <name>sub2</name>
+                      <value>3</value>
+                    </variable>
+                    <variable>
+                      <name>sub3</name>
+                      <value>4</value>
+                    </variable>
+                    <variable>
+                      <name>sub4</name>
+                      <value>5</value>
+                    </variable>
+                    <variable>
+                      <name>sub5</name>
+                      <value>6</value>
+                    </variable>
+                  </response>
+                </step>
+                <step id="43">
+                  <sequencenumber>2</sequencenumber>
+                  <state>gradedpartial</state>
+                  <fraction>0.1666667</fraction>
+                  <timecreated>1560255197</timecreated>
+                  <userid>9</userid>
+                  <response>
+                    <variable>
+                      <name>-finish</name>
+                      <value>1</value>
+                    </variable>
+                  </response>
+                </step>
+              </steps>
+            </question_attempt>
+            <question_attempt id="17">
+              <slot>2</slot>
+              <behaviour>deferredfeedback</behaviour>
+              <questionid>43</questionid>
+              <variant>1</variant>
+              <maxmark>1.0000000</maxmark>
+              <minfraction>0.0000000</minfraction>
+              <maxfraction>1.0000000</maxfraction>
+              <flagged>0</flagged>
+              <questionsummary>What is the capital city of Japan?
+</questionsummary>
+              <rightanswer>Tokyo</rightanswer>
+              <responsesummary>Tokyo</responsesummary>
+              <timemodified>1560255197</timemodified>
+              <steps>
+                <step id="44">
+                  <sequencenumber>0</sequencenumber>
+                  <state>todo</state>
+                  <fraction>$@NULL@$</fraction>
+                  <timecreated>1560255172</timecreated>
+                  <userid>9</userid>
+                  <response>
+                  </response>
+                </step>
+                <step id="45">
+                  <sequencenumber>1</sequencenumber>
+                  <state>complete</state>
+                  <fraction>$@NULL@$</fraction>
+                  <timecreated>1560255193</timecreated>
+                  <userid>9</userid>
+                  <response>
+                    <variable>
+                      <name>answer</name>
+                      <value>Tokyo</value>
+                    </variable>
+                  </response>
+                </step>
+                <step id="46">
+                  <sequencenumber>2</sequencenumber>
+                  <state>gradedright</state>
+                  <fraction>1.0000000</fraction>
+                  <timecreated>1560255197</timecreated>
+                  <userid>9</userid>
+                  <response>
+                    <variable>
+                      <name>-finish</name>
+                      <value>1</value>
+                    </variable>
+                  </response>
+                </step>
+              </steps>
+            </question_attempt>
+            <question_attempt id="18">
+              <slot>3</slot>
+              <behaviour>deferredfeedback</behaviour>
+              <questionid>5</questionid>
+              <variant>1</variant>
+              <maxmark>6.0000000</maxmark>
+              <minfraction>0.0000000</minfraction>
+              <maxfraction>1.0000000</maxfraction>
+              <flagged>0</flagged>
+              <questionsummary>Complete the sentences with the words below.
+
+		1.
+		It is very important to [[1]] water.
+
+		2.
+		You should really buy [[2]] food.
+
+		3.
+		I never take the [[3]] provided at the supermarket.
+
+		4.
+		We always take glass bottles to the bottle bank and [[4]] them.
+
+		5.
+		Only [[5]] leave bottles and cans on the beach.
+
+		6.
+		People shouldn't drive short [[6]], they should use their bikes or walk.
+
+; [[1]] -&gt; {save / locally produced / plastic bags / recycle / litter louts / distances}</questionsummary>
+              <rightanswer>{save} {locally produced} {plastic bags} {recycle} {litter louts} {distances}</rightanswer>
+              <responsesummary>$@NULL@$</responsesummary>
+              <timemodified>1560255197</timemodified>
+              <steps>
+                <step id="47">
+                  <sequencenumber>0</sequencenumber>
+                  <state>todo</state>
+                  <fraction>$@NULL@$</fraction>
+                  <timecreated>1560255172</timecreated>
+                  <userid>9</userid>
+                  <response>
+                    <variable>
+                      <name>_choiceorder1</name>
+                      <value>1,2,3,4,5,6</value>
+                    </variable>
+                  </response>
+                </step>
+                <step id="48">
+                  <sequencenumber>1</sequencenumber>
+                  <state>gaveup</state>
+                  <fraction>$@NULL@$</fraction>
+                  <timecreated>1560255197</timecreated>
+                  <userid>9</userid>
+                  <response>
+                    <variable>
+                      <name>-finish</name>
+                      <value>1</value>
+                    </variable>
+                  </response>
+                </step>
+              </steps>
+            </question_attempt>
+            <question_attempt id="19">
+              <slot>4</slot>
+              <behaviour>manualgraded</behaviour>
+              <questionid>44</questionid>
+              <variant>1</variant>
+              <maxmark>1.0000000</maxmark>
+              <minfraction>0.0000000</minfraction>
+              <maxfraction>1.0000000</maxfraction>
+              <flagged>0</flagged>
+              <questionsummary>Describe the city of Tokyo in 5 sentences?
+</questionsummary>
+              <rightanswer>$@NULL@$</rightanswer>
+              <responsesummary>$@NULL@$</responsesummary>
+              <timemodified>1560255197</timemodified>
+              <steps>
+                <step id="49">
+                  <sequencenumber>0</sequencenumber>
+                  <state>todo</state>
+                  <fraction>$@NULL@$</fraction>
+                  <timecreated>1560255172</timecreated>
+                  <userid>9</userid>
+                  <response>
+                  </response>
+                </step>
+                <step id="50">
+                  <sequencenumber>1</sequencenumber>
+                  <state>gaveup</state>
+                  <fraction>$@NULL@$</fraction>
+                  <timecreated>1560255197</timecreated>
+                  <userid>9</userid>
+                  <response>
+                    <variable>
+                      <name>-finish</name>
+                      <value>1</value>
+                    </variable>
+                  </response>
+                </step>
+              </steps>
+            </question_attempt>
+            <question_attempt id="20">
+              <slot>5</slot>
+              <behaviour>manualgraded</behaviour>
+              <questionid>45</questionid>
+              <variant>1</variant>
+              <maxmark>1.0000000</maxmark>
+              <minfraction>0.0000000</minfraction>
+              <maxfraction>1.0000000</maxfraction>
+              <flagged>0</flagged>
+              <questionsummary>WRITE AN ESSAY ON THE FOLLOWING TOPIC-
+'EFFECTS OF MODERN URBAN LIFESTYLE ON HEALTH AND WELL-BEING'
+
+</questionsummary>
+              <rightanswer>$@NULL@$</rightanswer>
+              <responsesummary>$@NULL@$</responsesummary>
+              <timemodified>1560255197</timemodified>
+              <steps>
+                <step id="51">
+                  <sequencenumber>0</sequencenumber>
+                  <state>todo</state>
+                  <fraction>$@NULL@$</fraction>
+                  <timecreated>1560255172</timecreated>
+                  <userid>9</userid>
+                  <response>
+                  </response>
+                </step>
+                <step id="52">
+                  <sequencenumber>1</sequencenumber>
+                  <state>gaveup</state>
+                  <fraction>$@NULL@$</fraction>
+                  <timecreated>1560255197</timecreated>
+                  <userid>9</userid>
+                  <response>
+                    <variable>
+                      <name>-finish</name>
+                      <value>1</value>
+                    </variable>
+                  </response>
+                </step>
+              </steps>
+            </question_attempt>
+          </question_attempts>
+        </question_usage>
+      </attempt>
+      <attempt id="7">
+        <userid>10</userid>
+        <attemptnum>1</attemptnum>
+        <uniqueid>7</uniqueid>
+        <layout>1,2,3,4,5,0</layout>
+        <currentpage>0</currentpage>
+        <preview>0</preview>
+        <state>finished</state>
+        <timestart>1560256127</timestart>
+        <timefinish>1560256273</timefinish>
+        <timemodified>1560256273</timemodified>
+        <timemodifiedoffline>0</timemodifiedoffline>
+        <timecheckstate>0</timecheckstate>
+        <sumgrades>$@NULL@$</sumgrades>
+        <question_usage id="7">
+          <component>mod_quiz</component>
+          <preferredbehaviour>deferredfeedback</preferredbehaviour>
+          <question_attempts>
+            <question_attempt id="21">
+              <slot>1</slot>
+              <behaviour>deferredfeedback</behaviour>
+              <questionid>4</questionid>
+              <variant>1</variant>
+              <maxmark>6.0000000</maxmark>
+              <minfraction>0.0000000</minfraction>
+              <maxfraction>1.0000000</maxfraction>
+              <flagged>0</flagged>
+              <questionsummary>Listen and match the sentence halves.
+
+ xx
+ {She says that they want to build
+
+; Karen says that they want to cut down
+
+; Karen says that she
+
+; They want to write a petition
+
+; The city planner wants them to
+
+; Oliver and Karen go to the city council
+
+} -&gt; {wants the others to talk to other people in the park.; and speak to a city planner there.; support the city council.; trees and make the park smaller.; and organise a protest march.; a car park.}</questionsummary>
+              <rightanswer>She says that they want to build
+
+ -&gt; a car park.; Karen says that they want to cut down
+
+ -&gt; trees and make the park smaller.; Karen says that she
+
+ -&gt; wants the others to talk to other people in the park.; They want to write a petition
+
+ -&gt; and organise a protest march.; The city planner wants them to
+
+ -&gt; support the city council.; Oliver and Karen go to the city council
+
+ -&gt; and speak to a city planner there.</rightanswer>
+              <responsesummary>She says that they want to build
+
+ -&gt; a car park.; Karen says that they want to cut down
+
+ -&gt; trees and make the park smaller.; Karen says that she
+
+ -&gt; wants the others to talk to other people in the park.; They want to write a petition
+
+ -&gt; and organise a protest march.; The city planner wants them to
+
+ -&gt; support the city council.; Oliver and Karen go to the city council
+
+ -&gt; and speak to a city planner there.</responsesummary>
+              <timemodified>1560256273</timemodified>
+              <steps>
+                <step id="53">
+                  <sequencenumber>0</sequencenumber>
+                  <state>todo</state>
+                  <fraction>$@NULL@$</fraction>
+                  <timecreated>1560256127</timecreated>
+                  <userid>10</userid>
+                  <response>
+                    <variable>
+                      <name>_stemorder</name>
+                      <value>2,1,3,6,5,4</value>
+                    </variable>
+                    <variable>
+                      <name>_choiceorder</name>
+                      <value>3,4,5,1,6,2</value>
+                    </variable>
+                  </response>
+                </step>
+                <step id="54">
+                  <sequencenumber>1</sequencenumber>
+                  <state>complete</state>
+                  <fraction>$@NULL@$</fraction>
+                  <timecreated>1560256269</timecreated>
+                  <userid>10</userid>
+                  <response>
+                    <variable>
+                      <name>sub0</name>
+                      <value>6</value>
+                    </variable>
+                    <variable>
+                      <name>sub1</name>
+                      <value>4</value>
+                    </variable>
+                    <variable>
+                      <name>sub2</name>
+                      <value>1</value>
+                    </variable>
+                    <variable>
+                      <name>sub3</name>
+                      <value>5</value>
+                    </variable>
+                    <variable>
+                      <name>sub4</name>
+                      <value>3</value>
+                    </variable>
+                    <variable>
+                      <name>sub5</name>
+                      <value>2</value>
+                    </variable>
+                  </response>
+                </step>
+                <step id="55">
+                  <sequencenumber>2</sequencenumber>
+                  <state>gradedright</state>
+                  <fraction>1.0000000</fraction>
+                  <timecreated>1560256273</timecreated>
+                  <userid>10</userid>
+                  <response>
+                    <variable>
+                      <name>-finish</name>
+                      <value>1</value>
+                    </variable>
+                  </response>
+                </step>
+              </steps>
+            </question_attempt>
+            <question_attempt id="22">
+              <slot>2</slot>
+              <behaviour>deferredfeedback</behaviour>
+              <questionid>43</questionid>
+              <variant>1</variant>
+              <maxmark>1.0000000</maxmark>
+              <minfraction>0.0000000</minfraction>
+              <maxfraction>1.0000000</maxfraction>
+              <flagged>0</flagged>
+              <questionsummary>What is the capital city of Japan?
+</questionsummary>
+              <rightanswer>Tokyo</rightanswer>
+              <responsesummary>Tokyo</responsesummary>
+              <timemodified>1560256273</timemodified>
+              <steps>
+                <step id="56">
+                  <sequencenumber>0</sequencenumber>
+                  <state>todo</state>
+                  <fraction>$@NULL@$</fraction>
+                  <timecreated>1560256127</timecreated>
+                  <userid>10</userid>
+                  <response>
+                  </response>
+                </step>
+                <step id="57">
+                  <sequencenumber>1</sequencenumber>
+                  <state>complete</state>
+                  <fraction>$@NULL@$</fraction>
+                  <timecreated>1560256269</timecreated>
+                  <userid>10</userid>
+                  <response>
+                    <variable>
+                      <name>answer</name>
+                      <value>Tokyo</value>
+                    </variable>
+                  </response>
+                </step>
+                <step id="58">
+                  <sequencenumber>2</sequencenumber>
+                  <state>gradedright</state>
+                  <fraction>1.0000000</fraction>
+                  <timecreated>1560256273</timecreated>
+                  <userid>10</userid>
+                  <response>
+                    <variable>
+                      <name>-finish</name>
+                      <value>1</value>
+                    </variable>
+                  </response>
+                </step>
+              </steps>
+            </question_attempt>
+            <question_attempt id="23">
+              <slot>3</slot>
+              <behaviour>deferredfeedback</behaviour>
+              <questionid>5</questionid>
+              <variant>1</variant>
+              <maxmark>6.0000000</maxmark>
+              <minfraction>0.0000000</minfraction>
+              <maxfraction>1.0000000</maxfraction>
+              <flagged>0</flagged>
+              <questionsummary>Complete the sentences with the words below.
+
+		1.
+		It is very important to [[1]] water.
+
+		2.
+		You should really buy [[2]] food.
+
+		3.
+		I never take the [[3]] provided at the supermarket.
+
+		4.
+		We always take glass bottles to the bottle bank and [[4]] them.
+
+		5.
+		Only [[5]] leave bottles and cans on the beach.
+
+		6.
+		People shouldn't drive short [[6]], they should use their bikes or walk.
+
+; [[1]] -&gt; {save / locally produced / plastic bags / recycle / litter louts / distances}</questionsummary>
+              <rightanswer>{save} {locally produced} {plastic bags} {recycle} {litter louts} {distances}</rightanswer>
+              <responsesummary>{save} {locally produced} {plastic bags} {recycle} {litter louts} {distances}</responsesummary>
+              <timemodified>1560256273</timemodified>
+              <steps>
+                <step id="59">
+                  <sequencenumber>0</sequencenumber>
+                  <state>todo</state>
+                  <fraction>$@NULL@$</fraction>
+                  <timecreated>1560256127</timecreated>
+                  <userid>10</userid>
+                  <response>
+                    <variable>
+                      <name>_choiceorder1</name>
+                      <value>1,2,3,4,5,6</value>
+                    </variable>
+                  </response>
+                </step>
+                <step id="60">
+                  <sequencenumber>1</sequencenumber>
+                  <state>complete</state>
+                  <fraction>$@NULL@$</fraction>
+                  <timecreated>1560256269</timecreated>
+                  <userid>10</userid>
+                  <response>
+                    <variable>
+                      <name>p1</name>
+                      <value>1</value>
+                    </variable>
+                    <variable>
+                      <name>p2</name>
+                      <value>2</value>
+                    </variable>
+                    <variable>
+                      <name>p3</name>
+                      <value>3</value>
+                    </variable>
+                    <variable>
+                      <name>p4</name>
+                      <value>4</value>
+                    </variable>
+                    <variable>
+                      <name>p5</name>
+                      <value>5</value>
+                    </variable>
+                    <variable>
+                      <name>p6</name>
+                      <value>6</value>
+                    </variable>
+                  </response>
+                </step>
+                <step id="61">
+                  <sequencenumber>2</sequencenumber>
+                  <state>gradedright</state>
+                  <fraction>1.0000000</fraction>
+                  <timecreated>1560256273</timecreated>
+                  <userid>10</userid>
+                  <response>
+                    <variable>
+                      <name>-finish</name>
+                      <value>1</value>
+                    </variable>
+                  </response>
+                </step>
+              </steps>
+            </question_attempt>
+            <question_attempt id="24">
+              <slot>4</slot>
+              <behaviour>manualgraded</behaviour>
+              <questionid>44</questionid>
+              <variant>1</variant>
+              <maxmark>1.0000000</maxmark>
+              <minfraction>0.0000000</minfraction>
+              <maxfraction>1.0000000</maxfraction>
+              <flagged>0</flagged>
+              <questionsummary>Describe the city of Tokyo in 5 sentences?
+</questionsummary>
+              <rightanswer>$@NULL@$</rightanswer>
+              <responsesummary>TOKYO (東京 _Tōkyō_, English: /ˈtoʊkioʊ/,[8] Japanese: [toːkʲoː] ([About this sound] listen); lit. "Eastern Capital"), officially TOKYO METROPOLIS (東京都_Tōkyō-to_), one of the 47 prefectures of Japan, has served as the Japanese capital since 1869.[9][10] As of 2018, the Greater Tokyo Area ranked as the most populous metropolitan area in the world.[11] The urban area houses the seat of the Emperor of Japan, of the Japanese government and of the National Diet. Tokyo forms part of the Kantō region on the southeastern side of Japan's main island, Honshu, and includes the Izu Islands and Ogasawara Islands.[12] Tokyo was formerly named Edo when _Shōgun_ Tokugawa Ieyasu made the city his headquarters in 1603. It became the capital after Emperor Meiji moved his seat to the city from Kyoto in 1868; at that time Edo was renamed Tokyo. Tokyo Metropolis formed in 1943 from the merger of the former Tokyo Prefecture (東京府 _Tōkyō-fu_) and the city of Tokyo (東京市 _Tōkyō-shi_). Tokyo is often referred to as a city but is officially known and governed as a "metropolitan prefecture", which differs from and combines elements of a city and a prefecture, a characteristic unique to Tokyo.
+
+</responsesummary>
+              <timemodified>1560256273</timemodified>
+              <steps>
+                <step id="62">
+                  <sequencenumber>0</sequencenumber>
+                  <state>todo</state>
+                  <fraction>$@NULL@$</fraction>
+                  <timecreated>1560256127</timecreated>
+                  <userid>10</userid>
+                  <response>
+                  </response>
+                </step>
+                <step id="63">
+                  <sequencenumber>1</sequencenumber>
+                  <state>complete</state>
+                  <fraction>$@NULL@$</fraction>
+                  <timecreated>1560256269</timecreated>
+                  <userid>10</userid>
+                  <response>
+                    <variable>
+                      <name>answer</name>
+                      <value>&lt;p&gt;&lt;b&gt;Tokyo&lt;/b&gt;&amp;nbsp;(&lt;span lang="ja"&gt;東京&lt;/span&gt;&amp;nbsp;&lt;i&gt;Tōkyō&lt;/i&gt;,&amp;nbsp;&lt;small&gt;English:&amp;nbsp;&lt;/small&gt;&lt;a href="https://en.wikipedia.org/wiki/Help:IPA/English" title="Help:IPA/English"&gt;/&lt;span title="/ˈ/: primary stress follows"&gt;ˈ&lt;/span&gt;&lt;span title="'t' in 'tie'"&gt;t&lt;/span&gt;&lt;span title="/oʊ/: 'o' in 'code'"&gt;oʊ&lt;/span&gt;&lt;span title="'k' in 'kind'"&gt;k&lt;/span&gt;&lt;span title="/i/: 'y' in 'happy'"&gt;i&lt;/span&gt;&lt;span title="/oʊ/: 'o' in 'code'"&gt;oʊ&lt;/span&gt;/&lt;/a&gt;,&lt;sup id="cite_ref-8"&gt;&lt;a href="https://en.wikipedia.org/wiki/Tokyo#cite_note-8"&gt;[8]&lt;/a&gt;&lt;/sup&gt;&amp;nbsp;&lt;small&gt;Japanese:&amp;nbsp;&lt;/small&gt;&lt;span title="Representation in the International Phonetic Alphabet (IPA)"&gt;&lt;a href="https://en.wikipedia.org/wiki/Help:IPA/Japanese" title="Help:IPA/Japanese"&gt;[toːkʲoː]&lt;/a&gt;&lt;/span&gt;&amp;nbsp;(&lt;a href="https://en.wikipedia.org/wiki/File:Ja-Tokyo.ogg" title="About this sound"&gt;&lt;img alt="About this sound" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Loudspeaker.svg/11px-Loudspeaker.svg.png" decoding="async" width="11" height="11" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Loudspeaker.svg/17px-Loudspeaker.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Loudspeaker.svg/22px-Loudspeaker.svg.png 2x" data-file-width="20" data-file-height="20"&gt;&lt;/a&gt;&lt;a href="https://upload.wikimedia.org/wikipedia/commons/c/cf/Ja-Tokyo.ogg" title="Ja-Tokyo.ogg"&gt;listen&lt;/a&gt;);&amp;nbsp;&lt;abbr title="literally"&gt;lit.&lt;/abbr&gt;&amp;nbsp;"Eastern Capital"), officially&amp;nbsp;&lt;b&gt;Tokyo Metropolis&lt;/b&gt;&amp;nbsp;(&lt;span lang="ja"&gt;東京都&lt;/span&gt;&lt;i&gt;Tōkyō-to&lt;/i&gt;), one of the 47&amp;nbsp;&lt;a href="https://en.wikipedia.org/wiki/Prefectures_of_Japan" title="Prefectures of Japan"&gt;prefectures&lt;/a&gt;&amp;nbsp;of&amp;nbsp;&lt;a href="https://en.wikipedia.org/wiki/Japan" title="Japan"&gt;Japan&lt;/a&gt;, has served as the&amp;nbsp;&lt;a href="https://en.wikipedia.org/wiki/Capital_of_Japan" title="Capital of Japan"&gt;Japanese capital&lt;/a&gt;&amp;nbsp;since 1869.&lt;sup id="cite_ref-9"&gt;&lt;a href="https://en.wikipedia.org/wiki/Tokyo#cite_note-9"&gt;[9]&lt;/a&gt;&lt;/sup&gt;&lt;sup id="cite_ref-10"&gt;&lt;a href="https://en.wikipedia.org/wiki/Tokyo#cite_note-10"&gt;[10]&lt;/a&gt;&lt;/sup&gt;&amp;nbsp;As of 2018, the&amp;nbsp;&lt;a href="https://en.wikipedia.org/wiki/Greater_Tokyo_Area" title="Greater Tokyo Area"&gt;Greater Tokyo Area&lt;/a&gt;&amp;nbsp;ranked as the&amp;nbsp;&lt;a href="https://en.wikipedia.org/wiki/List_of_metropolitan_areas_by_population" title="List of metropolitan areas by population"&gt;most populous metropolitan area&lt;/a&gt;&amp;nbsp;in the world.&lt;sup id="cite_ref-UN-World-Cities-2018_11-0"&gt;&lt;a href="https://en.wikipedia.org/wiki/Tokyo#cite_note-UN-World-Cities-2018-11"&gt;[11]&lt;/a&gt;&lt;/sup&gt;&amp;nbsp;The urban area houses the seat of the&amp;nbsp;&lt;a href="https://en.wikipedia.org/wiki/Emperor_of_Japan" title="Emperor of Japan"&gt;Emperor of Japan&lt;/a&gt;, of the&amp;nbsp;&lt;a href="https://en.wikipedia.org/wiki/Government_of_Japan" title="Government of Japan"&gt;Japanese government&lt;/a&gt;&amp;nbsp;and of the&amp;nbsp;&lt;a href="https://en.wikipedia.org/wiki/National_Diet" title="National Diet"&gt;National Diet&lt;/a&gt;. Tokyo forms part of the&amp;nbsp;&lt;a href="https://en.wikipedia.org/wiki/Kant%C5%8D_region" title="Kantō region"&gt;Kantō region&lt;/a&gt;&amp;nbsp;on the southeastern side of Japan's main island,&amp;nbsp;&lt;a href="https://en.wikipedia.org/wiki/Honshu" title="Honshu"&gt;Honshu&lt;/a&gt;, and includes the&amp;nbsp;&lt;a href="https://en.wikipedia.org/wiki/Izu_Islands" title="Izu Islands"&gt;Izu Islands&lt;/a&gt;&amp;nbsp;and&amp;nbsp;&lt;a href="https://en.wikipedia.org/wiki/Ogasawara_Islands" title="Ogasawara Islands"&gt;Ogasawara Islands&lt;/a&gt;.&lt;sup id="cite_ref-nussbaum981_12-0"&gt;&lt;a href="https://en.wikipedia.org/wiki/Tokyo#cite_note-nussbaum981-12"&gt;[12]&lt;/a&gt;&lt;/sup&gt;&amp;nbsp;Tokyo was formerly named&amp;nbsp;&lt;a href="https://en.wikipedia.org/wiki/Edo" title="Edo"&gt;Edo&lt;/a&gt;&amp;nbsp;when&amp;nbsp;&lt;i&gt;&lt;a href="https://en.wikipedia.org/wiki/Sh%C5%8Dgun" title="Shōgun"&gt;Shōgun&lt;/a&gt;&lt;/i&gt;&amp;nbsp;&lt;a href="https://en.wikipedia.org/wiki/Tokugawa_Ieyasu" title="Tokugawa Ieyasu"&gt;Tokugawa Ieyasu&lt;/a&gt;&amp;nbsp;made the city his headquarters in 1603. It became the capital after&amp;nbsp;&lt;a href="https://en.wikipedia.org/wiki/Emperor_Meiji" title="Emperor Meiji"&gt;Emperor Meiji&lt;/a&gt;&amp;nbsp;moved his seat to the city from&amp;nbsp;&lt;a href="https://en.wikipedia.org/wiki/Kyoto" title="Kyoto"&gt;Kyoto&lt;/a&gt;&amp;nbsp;in 1868; at that time Edo was renamed Tokyo. Tokyo Metropolis formed in 1943 from the merger of the former&amp;nbsp;&lt;a href="https://en.wikipedia.org/wiki/Tokyo_Prefecture" title="Tokyo Prefecture"&gt;Tokyo Prefecture&lt;/a&gt;&amp;nbsp;(&lt;span lang="ja"&gt;東京府&lt;/span&gt;&amp;nbsp;&lt;i&gt;Tōkyō-fu&lt;/i&gt;)&amp;nbsp;and the&amp;nbsp;&lt;a href="https://en.wikipedia.org/wiki/Tokyo_City" title="Tokyo City"&gt;city of Tokyo&lt;/a&gt;&amp;nbsp;(&lt;span lang="ja"&gt;東京市&lt;/span&gt;&amp;nbsp;&lt;i&gt;Tōkyō-shi&lt;/i&gt;). Tokyo is often referred to as a city but is officially known and governed as a "metropolitan prefecture", which differs from and combines elements of a city and a prefecture, a characteristic unique to Tokyo.&lt;br&gt;&lt;/p&gt;</value>
+                    </variable>
+                    <variable>
+                      <name>answerformat</name>
+                      <value>1</value>
+                    </variable>
+                  </response>
+                </step>
+                <step id="64">
+                  <sequencenumber>2</sequencenumber>
+                  <state>needsgrading</state>
+                  <fraction>$@NULL@$</fraction>
+                  <timecreated>1560256273</timecreated>
+                  <userid>10</userid>
+                  <response>
+                    <variable>
+                      <name>-finish</name>
+                      <value>1</value>
+                    </variable>
+                  </response>
+                </step>
+              </steps>
+            </question_attempt>
+            <question_attempt id="25">
+              <slot>5</slot>
+              <behaviour>manualgraded</behaviour>
+              <questionid>45</questionid>
+              <variant>1</variant>
+              <maxmark>1.0000000</maxmark>
+              <minfraction>0.0000000</minfraction>
+              <maxfraction>1.0000000</maxfraction>
+              <flagged>0</flagged>
+              <questionsummary>WRITE AN ESSAY ON THE FOLLOWING TOPIC-
+'EFFECTS OF MODERN URBAN LIFESTYLE ON HEALTH AND WELL-BEING'
+
+</questionsummary>
+              <rightanswer>$@NULL@$</rightanswer>
+              <responsesummary>The modern lifestyle has a number of advantages which includes easing peoples life, saving hundreds of peoples lives by the new development of medicine and vaccines. On the other hand different modern life style patterns have negative effects on health physically, psychologically, and socially. One of these modern ways of living is the high intake of fast foods. This is due to specific reasons such as the short time specified for eating and choosing healthy food. Lack of physical activity combination with fast foods leads to bad effects on the heart’s health. Use of high technology machines is another way of modernity. Although use of these machines has helped in saving the time to do a lot of tasks, the wrong use of them will indirectly affect health. Another point is the advanced transportation which reduces the time needed to travel and made travelling an enjoyable time. Last, is the use of computers and internet in the communication, transfer of information, and entertainment as well. Altogether will constitute the elements of a sedentary life style. That means, high fatty foods intake and lack of physical activity. Which both are caused by fast foods, depending on high technology machines and transportation, and sitting long hours in front of the computer.
+
+</responsesummary>
+              <timemodified>1560256273</timemodified>
+              <steps>
+                <step id="65">
+                  <sequencenumber>0</sequencenumber>
+                  <state>todo</state>
+                  <fraction>$@NULL@$</fraction>
+                  <timecreated>1560256127</timecreated>
+                  <userid>10</userid>
+                  <response>
+                  </response>
+                </step>
+                <step id="66">
+                  <sequencenumber>1</sequencenumber>
+                  <state>complete</state>
+                  <fraction>$@NULL@$</fraction>
+                  <timecreated>1560256269</timecreated>
+                  <userid>10</userid>
+                  <response>
+                    <variable>
+                      <name>answer</name>
+                      <value>&lt;p&gt;The modern lifestyle has a number of advantages which includes easing peoples life, saving hundreds of peoples lives by the new development of medicine and vaccines. On the other hand different modern life style patterns have negative effects on health physically, psychologically, and socially. One of these modern ways of living is the high intake of fast foods. This is due to specific reasons such as the short time specified for eating and choosing healthy food. Lack of physical activity combination with fast foods leads to bad effects on the heart’s health. Use of high technology machines is another way of modernity. Although use of these machines has helped in saving the time to do a lot of tasks, the wrong use of them will indirectly affect health. Another point is the advanced transportation which reduces the time needed to travel and made travelling an enjoyable time. Last, is the use of computers and internet in the communication, transfer of information, and entertainment as well. Altogether will constitute the elements of a sedentary life style. That means, high fatty foods intake and lack of physical activity. Which both are caused by fast foods, depending on high technology machines and transportation, and sitting long hours in front of the computer.&lt;br&gt;&lt;/p&gt;</value>
+                    </variable>
+                    <variable>
+                      <name>answerformat</name>
+                      <value>1</value>
+                    </variable>
+                  </response>
+                </step>
+                <step id="67">
+                  <sequencenumber>2</sequencenumber>
+                  <state>needsgrading</state>
+                  <fraction>$@NULL@$</fraction>
+                  <timecreated>1560256273</timecreated>
+                  <userid>10</userid>
+                  <response>
+                    <variable>
+                      <name>-finish</name>
+                      <value>1</value>
+                    </variable>
+                  </response>
+                </step>
+              </steps>
+            </question_attempt>
+          </question_attempts>
+        </question_usage>
+      </attempt>
+    </attempts>
+  </quiz>
+</activity>

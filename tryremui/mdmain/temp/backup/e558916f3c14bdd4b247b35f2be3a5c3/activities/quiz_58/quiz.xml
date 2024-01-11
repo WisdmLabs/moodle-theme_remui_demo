@@ -1,0 +1,506 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<activity id="5" moduleid="58" modulename="quiz" contextid="128">
+  <quiz id="5">
+    <name>Unit 1: Polluting the Environment (Reading and Use of English: Part 3)</name>
+    <intro></intro>
+    <introformat>1</introformat>
+    <timeopen>0</timeopen>
+    <timeclose>0</timeclose>
+    <timelimit>0</timelimit>
+    <overduehandling>autosubmit</overduehandling>
+    <graceperiod>0</graceperiod>
+    <preferredbehaviour>deferredfeedback</preferredbehaviour>
+    <canredoquestions>0</canredoquestions>
+    <attempts_number>0</attempts_number>
+    <attemptonlast>0</attemptonlast>
+    <grademethod>1</grademethod>
+    <decimalpoints>2</decimalpoints>
+    <questiondecimalpoints>-1</questiondecimalpoints>
+    <reviewattempt>69904</reviewattempt>
+    <reviewcorrectness>4368</reviewcorrectness>
+    <reviewmarks>4368</reviewmarks>
+    <reviewspecificfeedback>4368</reviewspecificfeedback>
+    <reviewgeneralfeedback>4368</reviewgeneralfeedback>
+    <reviewrightanswer>4368</reviewrightanswer>
+    <reviewoverallfeedback>4368</reviewoverallfeedback>
+    <questionsperpage>1</questionsperpage>
+    <navmethod>free</navmethod>
+    <shuffleanswers>1</shuffleanswers>
+    <sumgrades>11.00000</sumgrades>
+    <grade>10.00000</grade>
+    <timecreated>0</timecreated>
+    <timemodified>1512301763</timemodified>
+    <password></password>
+    <subnet></subnet>
+    <browsersecurity>-</browsersecurity>
+    <delay1>0</delay1>
+    <delay2>0</delay2>
+    <showuserpicture>0</showuserpicture>
+    <showblocks>0</showblocks>
+    <completionattemptsexhausted>0</completionattemptsexhausted>
+    <completionpass>0</completionpass>
+    <allowofflineattempts>0</allowofflineattempts>
+    <subplugin_quizaccess_seb_quiz>
+    </subplugin_quizaccess_seb_quiz>
+    <question_instances>
+      <question_instance id="15">
+        <slot>1</slot>
+        <page>1</page>
+        <requireprevious>0</requireprevious>
+        <questionid>32</questionid>
+        <questioncategoryid>$@NULL@$</questioncategoryid>
+        <includingsubcategories>$@NULL@$</includingsubcategories>
+        <maxmark>10.0000000</maxmark>
+        <tags>
+        </tags>
+      </question_instance>
+      <question_instance id="16">
+        <slot>2</slot>
+        <page>1</page>
+        <requireprevious>0</requireprevious>
+        <questionid>48</questionid>
+        <questioncategoryid>$@NULL@$</questioncategoryid>
+        <includingsubcategories>$@NULL@$</includingsubcategories>
+        <maxmark>1.0000000</maxmark>
+        <tags>
+        </tags>
+      </question_instance>
+    </question_instances>
+    <sections>
+      <section id="5">
+        <firstslot>1</firstslot>
+        <heading></heading>
+        <shufflequestions>0</shufflequestions>
+      </section>
+    </sections>
+    <feedbacks>
+      <feedback id="5">
+        <feedbacktext></feedbacktext>
+        <feedbacktextformat>1</feedbacktextformat>
+        <mingrade>0.00000</mingrade>
+        <maxgrade>11.00000</maxgrade>
+      </feedback>
+    </feedbacks>
+    <overrides>
+    </overrides>
+    <grades>
+      <grade id="5">
+        <userid>9</userid>
+        <gradeval>0.00000</gradeval>
+        <timemodified>1560255347</timemodified>
+      </grade>
+    </grades>
+    <attempts>
+      <attempt id="14">
+        <userid>8</userid>
+        <attemptnum>1</attemptnum>
+        <uniqueid>14</uniqueid>
+        <layout>1,2,0</layout>
+        <currentpage>0</currentpage>
+        <preview>0</preview>
+        <state>finished</state>
+        <timestart>1560254878</timestart>
+        <timefinish>1560255112</timefinish>
+        <timemodified>1560255112</timemodified>
+        <timemodifiedoffline>0</timemodifiedoffline>
+        <timecheckstate>0</timecheckstate>
+        <sumgrades>$@NULL@$</sumgrades>
+        <question_usage id="14">
+          <component>mod_quiz</component>
+          <preferredbehaviour>deferredfeedback</preferredbehaviour>
+          <question_attempts>
+            <question_attempt id="44">
+              <slot>1</slot>
+              <behaviour>deferredfeedback</behaviour>
+              <questionid>32</questionid>
+              <variant>1</variant>
+              <maxmark>10.0000000</maxmark>
+              <minfraction>0.0000000</minfraction>
+              <maxfraction>1.0000000</maxfraction>
+              <flagged>0</flagged>
+              <questionsummary>For questions 1-10, read the text below. Use the word given in capitals  to form a word that fits in the gap. There is an example at the beginning.
+
+POLLUTING THE ENVIRONMENT
+
+Oil on beaches, vehicle exhaust fumes, litter and many other waste (0) PRODUCTS (PRODUCE) are called pollutants, because they pollute our environment. Pollutants can affect our health and harm animals and plants. Releasing (1) _____ (CHEMIST) waste from factories and power stations is one of the main ways in which we pollute our (2) _____ (SURROUND). These waste substances are the (3) _____ (WANT) results of modern living.
+
+Pollution itself is not new - a hundred years ago factories sent out great clouds of (4) _____ (POISON) smoke and (5) _____ (FORTUNATE}, pollution has spread to the land, air and water of every corner of our planet. Our (6)_____ (SCIENCE) have much to learn about pollution, but we do know more about how to control it. The use of solar energy, instead of coal and gas, will help in the fight as it is very much cleaner than fossil fuels. We can also achieve some (7) _____ (REDUCE) in pollution by recycling waste and using biodegradable materials which eventually break down in the soil and (8)_____ (APPEAR).
+
+The use of cars which run on (9) _____ (ELECTRIC) instead of petrol is also a key feature in the fight against pollution. It is up to everyone to be as (10) _____ (ECONOMIC) as they can with the Earth's limited resources.
+
+</questionsummary>
+              <rightanswer>part 1: chemical; part 2: surroundings; part 3: unwanted; part 4: poisonous; part 5: unfortunately; part 6: scientists; part 7: reduction; part 8: disappear; part 9: electricity; part 10: economical</rightanswer>
+              <responsesummary>part 1: Chemicals; part 2: Surrounding; part 3: Want; part 4: Poisonous; part 5: Fortunate; part 6: ; part 7: Reduction; part 8: ; part 9: ; part 10: </responsesummary>
+              <timemodified>1560255112</timemodified>
+              <steps>
+                <step id="119">
+                  <sequencenumber>0</sequencenumber>
+                  <state>todo</state>
+                  <fraction>$@NULL@$</fraction>
+                  <timecreated>1560254878</timecreated>
+                  <userid>8</userid>
+                  <response>
+                  </response>
+                </step>
+                <step id="120">
+                  <sequencenumber>1</sequencenumber>
+                  <state>invalid</state>
+                  <fraction>$@NULL@$</fraction>
+                  <timecreated>1560255109</timecreated>
+                  <userid>8</userid>
+                  <response>
+                    <variable>
+                      <name>sub1_answer</name>
+                      <value>Chemicals</value>
+                    </variable>
+                    <variable>
+                      <name>sub2_answer</name>
+                      <value>Surrounding</value>
+                    </variable>
+                    <variable>
+                      <name>sub3_answer</name>
+                      <value>Want</value>
+                    </variable>
+                    <variable>
+                      <name>sub4_answer</name>
+                      <value>Poisonous</value>
+                    </variable>
+                    <variable>
+                      <name>sub5_answer</name>
+                      <value>Fortunate</value>
+                    </variable>
+                    <variable>
+                      <name>sub6_answer</name>
+                      <value></value>
+                    </variable>
+                    <variable>
+                      <name>sub7_answer</name>
+                      <value>Reduction</value>
+                    </variable>
+                    <variable>
+                      <name>sub8_answer</name>
+                      <value></value>
+                    </variable>
+                    <variable>
+                      <name>sub9_answer</name>
+                      <value></value>
+                    </variable>
+                    <variable>
+                      <name>sub10_answer</name>
+                      <value></value>
+                    </variable>
+                  </response>
+                </step>
+                <step id="121">
+                  <sequencenumber>2</sequencenumber>
+                  <state>gradedpartial</state>
+                  <fraction>0.2000000</fraction>
+                  <timecreated>1560255112</timecreated>
+                  <userid>8</userid>
+                  <response>
+                    <variable>
+                      <name>-finish</name>
+                      <value>1</value>
+                    </variable>
+                  </response>
+                </step>
+              </steps>
+            </question_attempt>
+            <question_attempt id="45">
+              <slot>2</slot>
+              <behaviour>manualgraded</behaviour>
+              <questionid>48</questionid>
+              <variant>1</variant>
+              <maxmark>1.0000000</maxmark>
+              <minfraction>0.0000000</minfraction>
+              <maxfraction>1.0000000</maxfraction>
+              <flagged>0</flagged>
+              <questionsummary>What are the various sources of environment pollution?
+</questionsummary>
+              <rightanswer>$@NULL@$</rightanswer>
+              <responsesummary>Industries, Population etc
+</responsesummary>
+              <timemodified>1560255112</timemodified>
+              <steps>
+                <step id="122">
+                  <sequencenumber>0</sequencenumber>
+                  <state>todo</state>
+                  <fraction>$@NULL@$</fraction>
+                  <timecreated>1560254878</timecreated>
+                  <userid>8</userid>
+                  <response>
+                  </response>
+                </step>
+                <step id="123">
+                  <sequencenumber>1</sequencenumber>
+                  <state>complete</state>
+                  <fraction>$@NULL@$</fraction>
+                  <timecreated>1560255109</timecreated>
+                  <userid>8</userid>
+                  <response>
+                    <variable>
+                      <name>answer</name>
+                      <value>&lt;p&gt;Industries, Population etc&lt;/p&gt;</value>
+                    </variable>
+                    <variable>
+                      <name>answerformat</name>
+                      <value>1</value>
+                    </variable>
+                  </response>
+                </step>
+                <step id="124">
+                  <sequencenumber>2</sequencenumber>
+                  <state>needsgrading</state>
+                  <fraction>$@NULL@$</fraction>
+                  <timecreated>1560255112</timecreated>
+                  <userid>8</userid>
+                  <response>
+                    <variable>
+                      <name>-finish</name>
+                      <value>1</value>
+                    </variable>
+                  </response>
+                </step>
+              </steps>
+            </question_attempt>
+          </question_attempts>
+        </question_usage>
+      </attempt>
+      <attempt id="15">
+        <userid>9</userid>
+        <attemptnum>1</attemptnum>
+        <uniqueid>15</uniqueid>
+        <layout>1,2,0</layout>
+        <currentpage>0</currentpage>
+        <preview>0</preview>
+        <state>finished</state>
+        <timestart>1560255338</timestart>
+        <timefinish>1560255347</timefinish>
+        <timemodified>1560255347</timemodified>
+        <timemodifiedoffline>0</timemodifiedoffline>
+        <timecheckstate>0</timecheckstate>
+        <sumgrades>0.00000</sumgrades>
+        <question_usage id="15">
+          <component>mod_quiz</component>
+          <preferredbehaviour>deferredfeedback</preferredbehaviour>
+          <question_attempts>
+            <question_attempt id="46">
+              <slot>1</slot>
+              <behaviour>deferredfeedback</behaviour>
+              <questionid>32</questionid>
+              <variant>1</variant>
+              <maxmark>10.0000000</maxmark>
+              <minfraction>0.0000000</minfraction>
+              <maxfraction>1.0000000</maxfraction>
+              <flagged>0</flagged>
+              <questionsummary>For questions 1-10, read the text below. Use the word given in capitals  to form a word that fits in the gap. There is an example at the beginning.
+
+POLLUTING THE ENVIRONMENT
+
+Oil on beaches, vehicle exhaust fumes, litter and many other waste (0) PRODUCTS (PRODUCE) are called pollutants, because they pollute our environment. Pollutants can affect our health and harm animals and plants. Releasing (1) _____ (CHEMIST) waste from factories and power stations is one of the main ways in which we pollute our (2) _____ (SURROUND). These waste substances are the (3) _____ (WANT) results of modern living.
+
+Pollution itself is not new - a hundred years ago factories sent out great clouds of (4) _____ (POISON) smoke and (5) _____ (FORTUNATE}, pollution has spread to the land, air and water of every corner of our planet. Our (6)_____ (SCIENCE) have much to learn about pollution, but we do know more about how to control it. The use of solar energy, instead of coal and gas, will help in the fight as it is very much cleaner than fossil fuels. We can also achieve some (7) _____ (REDUCE) in pollution by recycling waste and using biodegradable materials which eventually break down in the soil and (8)_____ (APPEAR).
+
+The use of cars which run on (9) _____ (ELECTRIC) instead of petrol is also a key feature in the fight against pollution. It is up to everyone to be as (10) _____ (ECONOMIC) as they can with the Earth's limited resources.
+
+</questionsummary>
+              <rightanswer>part 1: chemical; part 2: surroundings; part 3: unwanted; part 4: poisonous; part 5: unfortunately; part 6: scientists; part 7: reduction; part 8: disappear; part 9: electricity; part 10: economical</rightanswer>
+              <responsesummary>part 1: ; part 2: ; part 3: ; part 4: ; part 5: ; part 6: ; part 7: ; part 8: ; part 9: ; part 10: </responsesummary>
+              <timemodified>1560255347</timemodified>
+              <steps>
+                <step id="125">
+                  <sequencenumber>0</sequencenumber>
+                  <state>todo</state>
+                  <fraction>$@NULL@$</fraction>
+                  <timecreated>1560255338</timecreated>
+                  <userid>9</userid>
+                  <response>
+                  </response>
+                </step>
+                <step id="126">
+                  <sequencenumber>1</sequencenumber>
+                  <state>gaveup</state>
+                  <fraction>$@NULL@$</fraction>
+                  <timecreated>1560255347</timecreated>
+                  <userid>9</userid>
+                  <response>
+                    <variable>
+                      <name>-finish</name>
+                      <value>1</value>
+                    </variable>
+                  </response>
+                </step>
+              </steps>
+            </question_attempt>
+            <question_attempt id="47">
+              <slot>2</slot>
+              <behaviour>manualgraded</behaviour>
+              <questionid>48</questionid>
+              <variant>1</variant>
+              <maxmark>1.0000000</maxmark>
+              <minfraction>0.0000000</minfraction>
+              <maxfraction>1.0000000</maxfraction>
+              <flagged>0</flagged>
+              <questionsummary>What are the various sources of environment pollution?
+</questionsummary>
+              <rightanswer>$@NULL@$</rightanswer>
+              <responsesummary>$@NULL@$</responsesummary>
+              <timemodified>1560255347</timemodified>
+              <steps>
+                <step id="127">
+                  <sequencenumber>0</sequencenumber>
+                  <state>todo</state>
+                  <fraction>$@NULL@$</fraction>
+                  <timecreated>1560255338</timecreated>
+                  <userid>9</userid>
+                  <response>
+                  </response>
+                </step>
+                <step id="128">
+                  <sequencenumber>1</sequencenumber>
+                  <state>gaveup</state>
+                  <fraction>$@NULL@$</fraction>
+                  <timecreated>1560255347</timecreated>
+                  <userid>9</userid>
+                  <response>
+                    <variable>
+                      <name>-finish</name>
+                      <value>1</value>
+                    </variable>
+                  </response>
+                </step>
+              </steps>
+            </question_attempt>
+          </question_attempts>
+        </question_usage>
+      </attempt>
+      <attempt id="16">
+        <userid>10</userid>
+        <attemptnum>1</attemptnum>
+        <uniqueid>16</uniqueid>
+        <layout>1,2,0</layout>
+        <currentpage>0</currentpage>
+        <preview>0</preview>
+        <state>finished</state>
+        <timestart>1560256400</timestart>
+        <timefinish>1560256427</timefinish>
+        <timemodified>1560256427</timemodified>
+        <timemodifiedoffline>0</timemodifiedoffline>
+        <timecheckstate>0</timecheckstate>
+        <sumgrades>$@NULL@$</sumgrades>
+        <question_usage id="16">
+          <component>mod_quiz</component>
+          <preferredbehaviour>deferredfeedback</preferredbehaviour>
+          <question_attempts>
+            <question_attempt id="48">
+              <slot>1</slot>
+              <behaviour>deferredfeedback</behaviour>
+              <questionid>32</questionid>
+              <variant>1</variant>
+              <maxmark>10.0000000</maxmark>
+              <minfraction>0.0000000</minfraction>
+              <maxfraction>1.0000000</maxfraction>
+              <flagged>0</flagged>
+              <questionsummary>For questions 1-10, read the text below. Use the word given in capitals  to form a word that fits in the gap. There is an example at the beginning.
+
+POLLUTING THE ENVIRONMENT
+
+Oil on beaches, vehicle exhaust fumes, litter and many other waste (0) PRODUCTS (PRODUCE) are called pollutants, because they pollute our environment. Pollutants can affect our health and harm animals and plants. Releasing (1) _____ (CHEMIST) waste from factories and power stations is one of the main ways in which we pollute our (2) _____ (SURROUND). These waste substances are the (3) _____ (WANT) results of modern living.
+
+Pollution itself is not new - a hundred years ago factories sent out great clouds of (4) _____ (POISON) smoke and (5) _____ (FORTUNATE}, pollution has spread to the land, air and water of every corner of our planet. Our (6)_____ (SCIENCE) have much to learn about pollution, but we do know more about how to control it. The use of solar energy, instead of coal and gas, will help in the fight as it is very much cleaner than fossil fuels. We can also achieve some (7) _____ (REDUCE) in pollution by recycling waste and using biodegradable materials which eventually break down in the soil and (8)_____ (APPEAR).
+
+The use of cars which run on (9) _____ (ELECTRIC) instead of petrol is also a key feature in the fight against pollution. It is up to everyone to be as (10) _____ (ECONOMIC) as they can with the Earth's limited resources.
+
+</questionsummary>
+              <rightanswer>part 1: chemical; part 2: surroundings; part 3: unwanted; part 4: poisonous; part 5: unfortunately; part 6: scientists; part 7: reduction; part 8: disappear; part 9: electricity; part 10: economical</rightanswer>
+              <responsesummary>part 1: ; part 2: ; part 3: ; part 4: ; part 5: ; part 6: ; part 7: ; part 8: ; part 9: ; part 10: </responsesummary>
+              <timemodified>1560256427</timemodified>
+              <steps>
+                <step id="129">
+                  <sequencenumber>0</sequencenumber>
+                  <state>todo</state>
+                  <fraction>$@NULL@$</fraction>
+                  <timecreated>1560256400</timecreated>
+                  <userid>10</userid>
+                  <response>
+                  </response>
+                </step>
+                <step id="130">
+                  <sequencenumber>1</sequencenumber>
+                  <state>gaveup</state>
+                  <fraction>$@NULL@$</fraction>
+                  <timecreated>1560256427</timecreated>
+                  <userid>10</userid>
+                  <response>
+                    <variable>
+                      <name>-finish</name>
+                      <value>1</value>
+                    </variable>
+                  </response>
+                </step>
+              </steps>
+            </question_attempt>
+            <question_attempt id="49">
+              <slot>2</slot>
+              <behaviour>manualgraded</behaviour>
+              <questionid>48</questionid>
+              <variant>1</variant>
+              <maxmark>1.0000000</maxmark>
+              <minfraction>0.0000000</minfraction>
+              <maxfraction>1.0000000</maxfraction>
+              <flagged>0</flagged>
+              <questionsummary>What are the various sources of environment pollution?
+</questionsummary>
+              <rightanswer>$@NULL@$</rightanswer>
+              <responsesummary>The SOURCES OF POLLUTION in general are divided into pointSOURCES and nonpoint SOURCES. Point SOURCES are localized identifiable SOURCES of contaminants, such as power plants, refineries, mines, factories, wastewater treatment plants, etc.
+
+</responsesummary>
+              <timemodified>1560256427</timemodified>
+              <steps>
+                <step id="131">
+                  <sequencenumber>0</sequencenumber>
+                  <state>todo</state>
+                  <fraction>$@NULL@$</fraction>
+                  <timecreated>1560256400</timecreated>
+                  <userid>10</userid>
+                  <response>
+                  </response>
+                </step>
+                <step id="132">
+                  <sequencenumber>1</sequencenumber>
+                  <state>complete</state>
+                  <fraction>$@NULL@$</fraction>
+                  <timecreated>1560256423</timecreated>
+                  <userid>10</userid>
+                  <response>
+                    <variable>
+                      <name>answer</name>
+                      <value>&lt;p&gt;The&amp;nbsp;&lt;b&gt;sources of pollution&lt;/b&gt;&amp;nbsp;in general are divided into point&lt;b&gt;sources&lt;/b&gt;&amp;nbsp;and nonpoint&amp;nbsp;&lt;b&gt;sources&lt;/b&gt;. Point&amp;nbsp;&lt;b&gt;sources&lt;/b&gt;&amp;nbsp;are localized identifiable&amp;nbsp;&lt;b&gt;sources&lt;/b&gt;&amp;nbsp;of contaminants, such as power plants, refineries, mines, factories, wastewater treatment plants, etc.&lt;br&gt;&lt;/p&gt;</value>
+                    </variable>
+                    <variable>
+                      <name>answerformat</name>
+                      <value>1</value>
+                    </variable>
+                  </response>
+                </step>
+                <step id="133">
+                  <sequencenumber>2</sequencenumber>
+                  <state>needsgrading</state>
+                  <fraction>$@NULL@$</fraction>
+                  <timecreated>1560256427</timecreated>
+                  <userid>10</userid>
+                  <response>
+                    <variable>
+                      <name>-finish</name>
+                      <value>1</value>
+                    </variable>
+                  </response>
+                </step>
+              </steps>
+            </question_attempt>
+          </question_attempts>
+        </question_usage>
+      </attempt>
+    </attempts>
+  </quiz>
+</activity>

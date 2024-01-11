@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<activity id="8" moduleid="59" modulename="label" contextid="129">
+  <label id="8">
+    <name> Extra Resources</name>
+    <intro>&lt;p&gt;&lt;img src="https://www.bispschool.com/icon/extra.jpg" alt="extra" width="51" height="52" role="presentation" style="vertical-align: middle;" /&gt; &lt;span style="color: #3a3a3a; font-family: inherit; font-size: 1.5rem;"&gt;&lt;b&gt;Extra Resources&lt;/b&gt;&lt;/span&gt;&lt;/p&gt;</intro>
+    <introformat>1</introformat>
+    <timemodified>1510924247</timemodified>
+  </label>
+</activity>

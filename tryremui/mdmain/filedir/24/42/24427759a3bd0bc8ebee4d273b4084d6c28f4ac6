@@ -1,0 +1,382 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:p="urn:schemas-microsoft-com:office:powerpoint"
+xmlns:oa="urn:schemas-microsoft-com:office:activation"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=Windows-1254">
+<meta name=ProgId content=PowerPoint.Slide>
+<meta name=Generator content="Microsoft PowerPoint 12">
+<link id=Main-File rel=Main-File
+href="../Chapter_2_Boolean_Algebra_and_Logic_Gates.htm">
+<link rel=Preview href=preview.wmf>
+<!--[if !mso]>
+<style>
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+p\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+v\:textbox {display:none;}
+</style>
+<![endif]-->
+<title>Boolean_Algebra_and_Logic_Gates</title>
+<meta name=Description content="11/08/2010: Boolean Theorems">
+<link rel=Stylesheet href="master22_stylesheet.css">
+<!--[if gte IE 5]>
+<object id=MSOANIM classid="CLSID:A4639D2F-774E-11D3-A490-00C04F6843FB"></object>
+<object id=MSOTIME classid="CLSID:A4639D29-774E-11D3-A490-00C04F6843FB"></object>
+<![endif]-->
+<![if !ppt]>
+<style media=print>
+<!--.sld
+	{left:0px !important;
+	width:6.0in !important;
+	height:4.5in !important;
+	font-size:107% !important;}
+-->
+</style>
+<style>
+<!--
+oa\:* { BEHAVIOR: url(#MSOANIM#ANIM) url(#MSOTIME#TIME) }
+oa\:par,oa\:seq,oa\:iterate { BEHAVIOR:url(#MSOTIME) }
+oa\:video,oa\:audio {BEHAVIOR:url(#MSOTIME) url(#MSOTIME#MEDIA) }
+-->
+</style>
+<script src=script.js></script><script><!--
+if( !IsNts() ) Redirect( "PPTSld" );
+//--></script><script><!--
+g_animItemsToHide=new Array("_x0000_s16389_314_362","_x0000_s16389_272_314","_x0000_s16389_238_272","_x0000_s16389_156_238","_x0000_s16389_137_156","_x0000_s16389_95_137","_x0000_s16389_72_95","_x0000_s16389_45_72");
+
+//--></script><!--[if vml]><script>g_vml = 1;
+</script><![endif]--><![endif]><p:slidetransition advancetime="0"
+ effect="random" direction="transition" flag="1"/><o:shapelayout v:ext="edit">
+ <o:idmap v:ext="edit" data="16"/>
+</o:shapelayout>
+</head>
+
+<body lang=EN-US style='margin:0px;background-color:black'
+onclick="DocumentOnClick()" onresize="_RSW()" onload="LoadSld()"
+onkeypress="_KPH()" oa:clockstart="onstart">
+
+<div id=SlideObj class=sld style='position:absolute;top:0px;left:0px;
+width:534px;height:400px;font-size:16px;background-color:#FFFFE1;clip:rect(0%, 101%, 101%, 0%);
+visibility:hidden;filter:revealtrans(Duration=1, Transition=23)'><p:slide
+ coordsize="720,540"
+ colors="#ffffe1,#000000,#330033,#330033,#cccc99,#ff0000,#990033,#b2b2b2"
+ masterhref="master22.xml">
+ <p:shaperange href="master22.xml#_x0000_s1025"/><![if !ppt]><p:shaperange
+  href="master22.xml#_x0000_s1026"/><![if !vml]><img border=0
+ v:shapes="_x0000_s1026,_x0000_s1034,_x0000_s1036,_x0000_s1037"
+ src="master22_image005.gif" style='position:absolute;top:-7.75%;left:0%;
+ width:95.5%;height:71.5%'><![endif]><p:shaperange
+  href="master22.xml#_x0000_s1029"/>
+ <div v:shape="_x0000_s1029" class=O style='mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:95.25%;left:11.04%;width:19.85%;height:2.25%'><span
+ lang=EN-US style='font-size:56%'>November 8, 2010</span></div>
+ <p:shaperange href="master22.xml#_x0000_s1030"/><p:shaperange
+  href="master22.xml#_x0000_s1031"/>
+ <div v:shape="_x0000_s1031" class=O>
+ <div style='text-align:right;mso-char-wrap:1;mso-kinsoku-overflow:1;
+ position:absolute;top:96.25%;left:75.09%;width:18.91%;height:2.25%'><span
+ lang=EN-US style='font-size:56%'>‹#›</span></div>
+ </div>
+ <p:shaperange href="master22.xml#_x0000_s1032"/><![if !vml]><img border=0
+ v:shapes="_x0000_s1032" src="master22_image006.gif" style='position:absolute;
+ top:70.75%;left:-.18%;width:7.49%;height:1.0%'><![endif]><p:shaperange
+  href="master22.xml#Picture_x0020_13"/><![if !vml]><img border=0
+ v:shapes="Picture_x0020_13" src="master22_image007.gif"
+ alt="emu_300x300_72dpi_black" style='position:absolute;top:2.75%;left:1.87%;
+ width:7.11%;height:9.5%'><![endif]><![endif]><v:shapetype id="_x0000_t202"
+  coordsize="21600,21600" o:spt="202" path="m,l,21600r21600,l21600,xe">
+  <v:stroke joinstyle="miter"/>
+  <v:path gradientshapeok="t" o:connecttype="rect"/>
+ </v:shapetype><v:shape id="_x0000_s16386" type="#_x0000_t202" style='position:absolute;
+  left:1in;top:510pt;width:156pt;height:18.25pt;visibility:visible;
+  mso-wrap-style:square;v-text-anchor:top' filled="f" stroked="f">
+  <v:fill o:detectmouseclick="t"/>
+  <v:path arrowok="t"/>
+  <o:lock v:ext="edit" grouping="t"/>
+  <v:textbox style='mso-rotate-with-shape:t'/>
+ </v:shape><v:shape id="_x0000_s16387" type="#_x0000_t202" style='position:absolute;
+  left:534pt;top:516pt;width:150pt;height:12pt;visibility:visible;
+  mso-wrap-style:square;v-text-anchor:top' filled="f" stroked="f">
+  <v:fill o:detectmouseclick="t"/>
+  <v:path arrowok="t"/>
+  <o:lock v:ext="edit" grouping="t"/>
+  <v:textbox style='mso-rotate-with-shape:t'/>
+ </v:shape><p:shaperange href="master22.xml#_x0000_m1027"/><v:shape id="_x0000_s16388"
+  type="#_x0000_m1027" style='position:absolute;left:1in;top:12pt;width:612pt;
+  height:56.125pt;visibility:visible;mso-wrap-style:square;v-text-anchor:middle'>
+  <v:stroke o:forcedash="f"/>
+  <v:path arrowok="f"/>
+  <o:lock v:ext="edit" rotation="f" aspectratio="f" position="f" selection="f"
+   verticies="f" text="f" adjusthandles="f" grouping="t" shapetype="f"/>
+  <v:textbox style='layout-flow:horizontal;mso-rotate-with-shape:t' inset="7.2pt,3.6pt,7.2pt,3.6pt"/>
+  <p:placeholder type="title" position="-1"/><p:tag
+   name="_INSTRUCTOR VIEW19C14C36-AC8E-43BC-9DB6-C2AAF774C7DC|PANE__TAG"
+   type="string" value="_"/></v:shape>
+ <div v:shape="_x0000_s16386">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='mso-char-wrap:1;mso-kinsoku-overflow:1;position:absolute;
+ top:95.25%;left:11.04%;width:19.85%;height:2.25%'><span lang=EN-US
+ style='font-size:56%'>November 8, 2010</span></div>
+ </div>
+ <div v:shape="_x0000_s16387">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:right;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:96.25%;left:75.09%;width:18.91%;height:2.25%'><span
+ lang=EN-US style='font-size:56%'>14</span></div>
+ </div>
+ <div v:shape="_x0000_s16388" class=T style='mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:3.75%;left:11.04%;width:83.14%;height:8.0%'><span
+ lang=EN-US style='font-family:"Times New Roman";mso-ascii-font-family:"Times New Roman";
+ font-size:90%'>Boolean Theorems</span></div>
+ <p:shaperange href="master22.xml#_x0000_m1028"/><v:shape id="_x0000_s16389"
+  type="#_x0000_m1028" style='position:absolute;left:54pt;top:84pt;width:530pt;
+  height:408pt;visibility:visible;mso-wrap-style:square;v-text-anchor:top'
+  o:gfxdata="UEsDBBQABgAIAAAAIQDb4fbL7gAAAIUBAAATAAAAW0NvbnRlbnRfVHlwZXNdLnhtbHyQz07DMAyH
+70i8Q+QralM4IITa7kDhCAiNB7ASt43WOlEcyvb2pNu4IODoPz9/n1xv9vOkForiPDdwXVagiI23
+jocG3rdPxR0oScgWJ8/UwIEENu3lRb09BBKV0ywNjCmFe63FjDSjlD4Q50nv44wpl3HQAc0OB9I3
+VXWrjedEnIq03oC27qjHjympx31un0wiTQLq4bS4shrAECZnMGVTvbD9QSnOhDInjzsyuiBXWQP0
+r4R18jfgnHvJr4nOknrFmJ5xzhraRtHWf3Kkpfz/yGo5S+H73hkquyhdjr3R8m2lj09svwAAAP//
+AwBQSwMEFAAGAAgAAAAhAFr0LFu/AAAAFQEAAAsAAABfcmVscy8ucmVsc2zPwWrDMAwG4Ptg72B0
+X5TuUMaI01uh19I+gLGVxCy2jGSy9e1nemrHjpL4P0nD4SetZiPRyNnCruvBUPYcYp4tXC/Htw8w
+Wl0ObuVMFm6kcBhfX4Yzra62kC6xqGlKVgtLreUTUf1CyWnHhXKbTCzJ1VbKjMX5LzcTvvf9HuXR
+gPHJNKdgQU5hB+ZyK23zHztFL6w81c5zQp6m6P9TMfB3PtPWFCczVQtB9N4U2rp2HOA44NMz4y8A
+AAD//wMAUEsDBBQABgAIAAAAIQCjLdTi2wAAAP4AAAAPAAAAZHJzL2Rvd25yZXYueG1sRI/dSgMx
+EIXvBd8hjOCdTWypW9dOS6mKWqnQrg8wbmZ/dJMsSWy3b2/wQi8P5/AdvvlyMJ04sA+tswjXIwWC
+bel0a2uE9+LxagYiRLKaOmcZ4cQBlovzsznl2h3tjg/7WIsEsSEnhCbGPpcylA0bCiPXs01d5byh
+mKKvpfZ0THDTybFSN9JQa9NDQz2vGy6/9t8Goc82Dy/3q+msWBdusqk/syG8vSJeXgyrOxCRh/g/
+rrbjQm3/yl/Us0aYKpVNbkFUT6cP3+odhcgeIQkm3aQKcvEDAAD//wMAUEsBAi0AFAAGAAgAAAAh
+ANvh9svuAAAAhQEAABMAAAAAAAAAAAAAAAAAAAAAAFtDb250ZW50X1R5cGVzXS54bWxQSwECLQAU
+AAYACAAAACEAWvQsW78AAAAVAQAACwAAAAAAAAAAAAAAAAAfAQAAX3JlbHMvLnJlbHNQSwECLQAU
+AAYACAAAACEAoy3U4tsAAAD+AAAADwAAAAAAAAAAAAAAAAAHAgAAZHJzL2Rvd25yZXYueG1sUEsF
+BgAAAAADAAMAtwAAAA8DAAAAAA==
+">
+  <v:stroke o:forcedash="f"/>
+  <v:path arrowok="f"/>
+  <o:lock v:ext="edit" rotation="f" aspectratio="f" position="f" selection="f"
+   verticies="f" text="f" adjusthandles="f" grouping="t" shapetype="f"/>
+  <v:textbox style='layout-flow:horizontal;mso-rotate-with-shape:t' inset="7.2pt,3.6pt,7.2pt,3.6pt"/>
+  <p:placeholder type="body" position="-1"/><p:animation number="2" delay="0"
+   type="object" effect="cut" direction="noBlack" flag="16384"/><p:tag
+   name="_INSTRUCTOR VIEW19C14C36-AC8E-43BC-9DB6-C2AAF774C7DC|PANE__TAG"
+   type="string" value="_"/></v:shape>
+ <div v:shape="_x0000_s16389" style='position:absolute;top:16.5%;left:8.42%;
+ width:78.27%;height:74.0%'>
+ <div class=B style='mso-char-wrap:1;mso-kinsoku-overflow:1;position:absolute;
+ top:0%;left:0%;width:100.0%;height:7.09%'><span style='position:absolute;
+ top:0%;left:4.78%;width:95.21%;height:100.0%'><span style='mso-special-format:
+ bullet;color:#B2B2B2;mso-color-index:7;position:absolute;left:-5.02%;
+ top:.1em;font-family:Wingdings;font-size:90%'>n</span><span lang=EN-US>Huntington’s
+ postulates define some rules&#13;</span></span></div>
+ <div class=B style='mso-char-wrap:1;mso-kinsoku-overflow:1;position:absolute;
+ top:8.78%;left:0%;width:91.62%;height:7.09%'><span style='position:absolute;
+ top:0%;left:5.22%;width:94.77%;height:100.0%'><span style='visibility:hidden'><span
+ style='mso-special-format:bullet;color:#B2B2B2;mso-color-index:7;position:
+ absolute;left:-5.5%;font-family:Wingdings;font-size:90%'>n</span></span><span
+ lang=EN-US style='display:none'>&#13;</span></span></div>
+ <div class=B style='mso-char-wrap:1;mso-kinsoku-overflow:1;position:absolute;
+ top:17.22%;left:0%;width:91.62%;height:7.09%'><span style='position:absolute;
+ top:0%;left:5.22%;width:94.77%;height:100.0%'><span style='visibility:hidden'><span
+ style='mso-special-format:bullet;color:#B2B2B2;mso-color-index:7;position:
+ absolute;left:-5.5%;font-family:Wingdings;font-size:90%'>n</span></span><span
+ lang=EN-US style='display:none'>&#13;</span></span></div>
+ <div class=B style='mso-char-wrap:1;mso-kinsoku-overflow:1;position:absolute;
+ top:26.01%;left:0%;width:91.62%;height:7.09%'><span style='position:absolute;
+ top:0%;left:5.22%;width:94.77%;height:100.0%'><span style='visibility:hidden'><span
+ style='mso-special-format:bullet;color:#B2B2B2;mso-color-index:7;position:
+ absolute;left:-5.5%;font-family:Wingdings;font-size:90%'>n</span></span><span
+ lang=EN-US style='display:none'>&#13;</span></span></div>
+ <div id="_x0000_s16389_45_72" class=B style='mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:34.45%;left:0%;width:91.62%;height:7.09%;white-space:
+ nowrap'><span style='position:absolute;top:0%;left:5.22%;width:94.77%;
+ height:100.0%'><span style='mso-special-format:bullet;color:#B2B2B2;
+ mso-color-index:7;position:absolute;left:-5.5%;top:.1em;font-family:Wingdings;
+ font-size:90%'>n</span><span lang=EN-US>Need more rules to modify &#13;</span></span></div>
+ <div id="_x0000_s16389_72_95" class=B style='mso-line-spacing:"70 20 0";
+ mso-char-wrap:1;mso-kinsoku-overflow:1;position:absolute;top:41.55%;
+ left:0%;width:91.62%;height:7.09%;white-space:nowrap'><span style='mso-special-format:
+ nobullet;display:none;color:#B2B2B2;mso-color-index:7;font-family:Wingdings;
+ font-size:90%'>n</span><span lang=EN-US><span style='mso-tab-count:1;
+ width:5.22%'> </span>algebraic expressions&#13;</span></div>
+ <div id="_x0000_s16389_95_137" class=B1 style='mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:49.32%;left:6.45%;width:85.4%;height:6.08%;white-space:
+ nowrap'><span style='position:absolute;top:0%;left:4.76%;width:95.23%;
+ height:100.0%'><span style='mso-special-format:bullet;color:#CCCC99;
+ mso-color-index:4;position:absolute;left:-5.0%;top:.3em;font-family:Wingdings;
+ font-size:75%'>q</span><span lang=EN-US>Theorems that are derived from
+ postulates&#13;</span></span></div>
+ <div id="_x0000_s16389_137_156" class=B style='mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:56.75%;left:0%;width:91.62%;height:7.09%;white-space:
+ nowrap'><span style='position:absolute;top:0%;left:5.22%;width:94.77%;
+ height:100.0%'><span style='mso-special-format:bullet;color:#B2B2B2;
+ mso-color-index:7;position:absolute;left:-5.5%;top:.1em;font-family:Wingdings;
+ font-size:90%'>n</span><span lang=EN-US>What is a theorem?&#13;</span></span></div>
+ <div id="_x0000_s16389_156_238" class=B1 style='mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:65.2%;left:6.45%;width:85.4%;height:11.82%;white-space:
+ nowrap'><span style='position:absolute;top:0%;left:4.76%;width:95.23%;
+ height:51.42%'><span style='mso-special-format:bullet;color:#CCCC99;
+ mso-color-index:4;position:absolute;left:-5.0%;top:.3em;font-family:Wingdings;
+ font-size:75%'>q</span><span lang=EN-US>A formula or statement that is derived
+ from </span></span><span style='position:absolute;top:51.42%;left:4.76%;
+ width:95.23%;height:51.42%'><span lang=EN-US>postulates (or other proven
+ theorems)&#13;</span></span></div>
+ <div id="_x0000_s16389_238_272" class=B style='mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:78.71%;left:0%;width:91.62%;height:7.09%;white-space:
+ nowrap'><span style='position:absolute;top:0%;left:5.22%;width:94.77%;
+ height:100.0%'><span style='mso-special-format:bullet;color:#B2B2B2;
+ mso-color-index:7;position:absolute;left:-5.5%;top:.1em;font-family:Wingdings;
+ font-size:90%'>n</span><span lang=EN-US>Basic theorems of Boolean algebra&#13;</span></span></div>
+ <div id="_x0000_s16389_272_314" class=B1 style='mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:87.16%;left:6.45%;width:85.4%;height:6.08%;white-space:
+ nowrap'><span style='position:absolute;top:0%;left:4.76%;width:95.23%;
+ height:100.0%'><span style='mso-special-format:bullet;color:#CCCC99;
+ mso-color-index:4;position:absolute;left:-5.0%;top:.3em;font-family:Wingdings;
+ font-size:75%'>q</span><span lang=EN-US>Theorem 1 (a): </span><span
+ lang=EN-US><i>x + x = x<span style='mso-spacerun:yes'>   </span></i></span><span
+ lang=EN-US>(b):</span><span lang=EN-US><i> x · x = x&#13;</i></span></span></div>
+ <div id="_x0000_s16389_314_362" class=B1 style='mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:94.25%;left:6.45%;width:93.06%;height:6.08%;
+ white-space:nowrap'><span style='position:absolute;top:0%;left:4.37%;
+ width:95.62%;height:100.0%'><span style='mso-special-format:bullet;color:#CCCC99;
+ mso-color-index:4;position:absolute;left:-4.56%;top:.3em;font-family:Wingdings;
+ font-size:75%'>q</span><span lang=EN-US>Looks straightforward, but needs to be
+ proven !</span></span></div>
+ </div>
+ <v:shape id="_x0000_s16390" type="#_x0000_t202" style='position:absolute;
+  left:384pt;top:114pt;width:354pt;height:138pt;visibility:visible;
+  mso-wrap-style:square;v-text-anchor:top' filled="f" strokecolor="black [1]"
+  strokeweight="1pt">
+  <v:textbox style='mso-rotate-with-shape:t;mso-fit-shape-to-text:t'/>
+  <p:tag name="_INSTRUCTOR VIEW19C14C36-AC8E-43BC-9DB6-C2AAF774C7DC|PANE__TAG"
+   type="string" value="_"/></v:shape><![if !vml]><img border=0
+ v:shapes="_x0000_s16390" src="slide0059_image017.gif" style='position:absolute;
+ top:21.0%;left:53.18%;width:49.62%;height:26.25%'><![endif]>
+ <div v:shape="_x0000_s16390">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='position:absolute;top:21.75%;left:54.49%;width:47.19%;
+ height:4.25%'><span lang=EN-US style='font-family:Verdana;mso-ascii-font-family:
+ Verdana;mso-hansi-font-family:Verdana'>Post. 1:<span
+ style='mso-spacerun:yes'>  </span>closure&#13;</span></div>
+ <div class=O style='position:absolute;top:25.75%;left:54.49%;width:50.93%;
+ height:4.25%'><span lang=EN-US style='font-family:Verdana;mso-ascii-font-family:
+ Verdana;mso-hansi-font-family:Verdana'>Post. 2:<span
+ style='mso-spacerun:yes'>  </span>(a) </span><span lang=EN-US
+ style='font-family:Verdana;mso-ascii-font-family:Verdana;mso-hansi-font-family:
+ Verdana'><i>x+0=x</i></span><span lang=EN-US style='font-family:Verdana;
+ mso-ascii-font-family:Verdana;mso-hansi-font-family:Verdana'>, <span
+ style='mso-tab-count:1;width:6.54%'> </span>(b) </span><span lang=EN-US
+ style='font-family:Verdana;mso-ascii-font-family:Verdana;mso-hansi-font-family:
+ Verdana'><i>x·1=x&#13;</i></span></div>
+ <div class=O style='position:absolute;top:29.75%;left:54.49%;width:53.55%;
+ height:4.25%'><span lang=EN-US style='font-family:Verdana;mso-ascii-font-family:
+ Verdana;mso-hansi-font-family:Verdana'>Post. 3:<span
+ style='mso-spacerun:yes'>  </span>(a) </span><span lang=EN-US
+ style='font-family:Verdana;mso-ascii-font-family:Verdana;mso-hansi-font-family:
+ Verdana'><i>x+y=y+x</i></span><span lang=EN-US style='font-family:Verdana;
+ mso-ascii-font-family:Verdana;mso-hansi-font-family:Verdana'>, (b) </span><span
+ lang=EN-US style='font-family:Verdana;mso-ascii-font-family:Verdana;
+ mso-hansi-font-family:Verdana'><i>x·y=y·x&#13;</i></span></div>
+ <div class=O><span style='position:absolute;top:33.75%;left:54.49%;width:47.19%;
+ height:4.25%'><span lang=EN-US style='font-family:Verdana;mso-ascii-font-family:
+ Verdana;mso-hansi-font-family:Verdana'>Post. 4:<span
+ style='mso-spacerun:yes'>  </span>(a) </span><span lang=EN-US
+ style='font-family:Verdana;mso-ascii-font-family:Verdana;mso-hansi-font-family:
+ Verdana'><i>x(y+z) = xy+xz</i></span><span lang=EN-US style='font-family:Verdana;
+ mso-ascii-font-family:Verdana;mso-hansi-font-family:Verdana'>, <br>
+  </span></span><span style='position:absolute;top:37.75%;left:54.49%;
+ width:50.37%;height:4.25%'><span lang=EN-US style='font-family:Verdana;
+ mso-ascii-font-family:Verdana;mso-hansi-font-family:Verdana'><span
+ style='mso-tab-count:1;width:19.84%'> </span><span style='mso-spacerun:yes'>  
+ </span>(b) </span><span lang=EN-US style='font-family:Verdana;mso-ascii-font-family:
+ Verdana;mso-hansi-font-family:Verdana'><i>x+yz = (x+y)(x+z)&#13;</i></span></span></div>
+ <div class=O style='position:absolute;top:41.75%;left:54.49%;width:51.68%;
+ height:4.25%'><span lang=EN-US style='font-family:Verdana;mso-ascii-font-family:
+ Verdana;mso-hansi-font-family:Verdana'>Post. 5:<span
+ style='mso-spacerun:yes'>  </span>(a) </span><span lang=EN-US
+ style='font-family:Verdana;mso-ascii-font-family:Verdana;mso-hansi-font-family:
+ Verdana'><i>x+x’=1</i></span><span lang=EN-US style='font-family:Verdana;
+ mso-ascii-font-family:Verdana;mso-hansi-font-family:Verdana'>, <span
+ style='mso-tab-count:1;width:5.13%'> </span>(b) </span><span lang=EN-US
+ style='font-family:Verdana;mso-ascii-font-family:Verdana;mso-hansi-font-family:
+ Verdana'><i>x·x’=0</i></span></div>
+ </div>
+</p:slide></div>
+
+<p:animation number="2075544836"/><oa:par id="TimeNode0" dur="indefinite"
+ restart="never" p:nodeType="timingRoot">
+ <oa:seq id="TimeNode1" dur="indefinite" prev="document.onpptprev"
+  next="document.onpptnext" concurrent="enabled" nextAction="seek"
+  p:nodeType="mainSeq">
+  <oa:par id="TimeNode2" begin="indefinite" fill="hold">
+   <oa:par id="TimeNode3" begin="0.0" fill="hold">
+    <oa:par id="TimeNode4" o:presetID="ppt_1" o:presetClass="entrance"
+     o:presetSubType="0x0" begin="0.0" fill="hold" p:nodeType="clickEffect">
+     <oa:set id="TimeNode5" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s16389_45_72" attributeName="style.visibility"
+      to="visible"/>
+    </oa:par>
+    <oa:par id="TimeNode6" o:presetID="ppt_1" o:presetClass="entrance"
+     o:presetSubType="0x0" begin="0.0" fill="hold" p:nodeType="withEffect">
+     <oa:set id="TimeNode7" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s16389_72_95" attributeName="style.visibility"
+      to="visible"/>
+    </oa:par>
+    <oa:par id="TimeNode8" o:presetID="ppt_1" o:presetClass="entrance"
+     o:presetSubType="0x0" begin="0.0" fill="hold" p:nodeType="withEffect">
+     <oa:set id="TimeNode9" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s16389_95_137" attributeName="style.visibility"
+      to="visible"/>
+    </oa:par>
+    <oa:par id="TimeNode10" o:presetID="ppt_1" o:presetClass="entrance"
+     o:presetSubType="0x0" begin="0.0" fill="hold" p:nodeType="withEffect">
+     <oa:set id="TimeNode11" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s16389_137_156" attributeName="style.visibility"
+      to="visible"/>
+    </oa:par>
+    <oa:par id="TimeNode12" o:presetID="ppt_1" o:presetClass="entrance"
+     o:presetSubType="0x0" begin="0.0" fill="hold" p:nodeType="withEffect">
+     <oa:set id="TimeNode13" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s16389_156_238" attributeName="style.visibility"
+      to="visible"/>
+    </oa:par>
+   </oa:par>
+  </oa:par>
+  <oa:par id="TimeNode14" begin="indefinite" fill="hold">
+   <oa:par id="TimeNode15" begin="0.0" fill="hold">
+    <oa:par id="TimeNode16" o:presetID="ppt_1" o:presetClass="entrance"
+     o:presetSubType="0x0" begin="0.0" fill="hold" p:nodeType="clickEffect">
+     <oa:set id="TimeNode17" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s16389_238_272" attributeName="style.visibility"
+      to="visible"/>
+    </oa:par>
+    <oa:par id="TimeNode18" o:presetID="ppt_1" o:presetClass="entrance"
+     o:presetSubType="0x0" begin="0.0" fill="hold" p:nodeType="withEffect">
+     <oa:set id="TimeNode19" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s16389_272_314" attributeName="style.visibility"
+      to="visible"/>
+    </oa:par>
+    <oa:par id="TimeNode20" o:presetID="ppt_1" o:presetClass="entrance"
+     o:presetSubType="0x0" begin="0.0" fill="hold" p:nodeType="withEffect">
+     <oa:set id="TimeNode21" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s16389_314_362" attributeName="style.visibility"
+      to="visible"/>
+    </oa:par>
+   </oa:par>
+  </oa:par>
+ </oa:seq>
+</oa:par>
+</body>
+
+</html>

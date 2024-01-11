@@ -1,0 +1,2857 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<question_categories>
+  <question_category id="9">
+    <name>top</name>
+    <contextid>106</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>6</contextinstanceid>
+    <info></info>
+    <infoformat>0</infoformat>
+    <stamp>remui.edwiser.org+210810112353+vl4F6g</stamp>
+    <parent>0</parent>
+    <sortorder>0</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="10">
+    <name>Default for Unit 1: Talking about a petition</name>
+    <contextid>117</contextid>
+    <contextlevel>70</contextlevel>
+    <contextinstanceid>47</contextinstanceid>
+    <info>The default category for questions shared in context 'Unit 1: Talking about a petition'.</info>
+    <infoformat>0</infoformat>
+    <stamp>www.esleschool.com+171203112017+wljIT0</stamp>
+    <parent>15</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="11">
+    <name>Default for English B2 Course</name>
+    <contextid>106</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>6</contextinstanceid>
+    <info>The default category for questions shared in context 'English B2 Course'.</info>
+    <infoformat>0</infoformat>
+    <stamp>www.esleschool.com+171203112017+N7Matn</stamp>
+    <parent>9</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+      <question id="4">
+        <parent>0</parent>
+        <name>Environment 1</name>
+        <questiontext>&lt;p&gt;Listen and match the sentence halves.&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;a href="https://www.esleschool.com/audio/B2/environmentB2.mp3"&gt;xx&lt;/a&gt;&lt;/p&gt;</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>6.0000000</defaultmark>
+        <penalty>0.3333333</penalty>
+        <qtype>match</qtype>
+        <length>1</length>
+        <stamp>www.esleschool.com+171203112307+1X3qhe</stamp>
+        <version>www.esleschool.com+171203112308+Zk7uuh</version>
+        <hidden>0</hidden>
+        <timecreated>1512300187</timecreated>
+        <timemodified>1512300187</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <idnumber>$@NULL@$</idnumber>
+        <plugin_qtype_match_question>
+          <matchoptions id="1">
+            <shuffleanswers>1</shuffleanswers>
+            <correctfeedback>Your answer is correct.</correctfeedback>
+            <correctfeedbackformat>1</correctfeedbackformat>
+            <partiallycorrectfeedback>Your answer is partially correct.</partiallycorrectfeedback>
+            <partiallycorrectfeedbackformat>1</partiallycorrectfeedbackformat>
+            <incorrectfeedback>Your answer is incorrect.</incorrectfeedback>
+            <incorrectfeedbackformat>1</incorrectfeedbackformat>
+            <shownumcorrect>1</shownumcorrect>
+          </matchoptions>
+          <matches>
+            <match id="1">
+              <questiontext>&lt;p&gt;Karen says that they want to cut down&lt;br&gt;&lt;/p&gt;</questiontext>
+              <questiontextformat>1</questiontextformat>
+              <answertext>trees and make the park smaller.</answertext>
+            </match>
+            <match id="2">
+              <questiontext>&lt;p&gt;She says that they want to build&lt;br&gt;&lt;/p&gt;</questiontext>
+              <questiontextformat>1</questiontextformat>
+              <answertext>a car park.</answertext>
+            </match>
+            <match id="3">
+              <questiontext>&lt;p&gt;Karen says that she&lt;br&gt;&lt;/p&gt;</questiontext>
+              <questiontextformat>1</questiontextformat>
+              <answertext>wants the others to talk to other people in the park.</answertext>
+            </match>
+            <match id="4">
+              <questiontext>&lt;p&gt;Oliver and Karen go to the city council&lt;br&gt;&lt;/p&gt;</questiontext>
+              <questiontextformat>1</questiontextformat>
+              <answertext>and speak to a city planner there.</answertext>
+            </match>
+            <match id="5">
+              <questiontext>&lt;p&gt;The city planner wants them to&lt;br&gt;&lt;/p&gt;</questiontext>
+              <questiontextformat>1</questiontextformat>
+              <answertext>support the city council.</answertext>
+            </match>
+            <match id="6">
+              <questiontext>&lt;p&gt;They want to write a petition&lt;br&gt;&lt;/p&gt;</questiontext>
+              <questiontextformat>1</questiontextformat>
+              <answertext>and organise a protest march.</answertext>
+            </match>
+          </matches>
+        </plugin_qtype_match_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="5">
+        <parent>0</parent>
+        <name>Environment 2</name>
+        <questiontext>&lt;p&gt;Complete the sentences with the words below.&lt;/p&gt;
+&lt;table border="0"&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;1.&lt;/td&gt;
+&lt;td&gt;It is very important to [[1]] water.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;2.&lt;/td&gt;
+&lt;td&gt;You should really buy [[2]] food.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;3.&lt;/td&gt;
+&lt;td&gt;I never take the [[3]] provided at the supermarket.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;4.&lt;/td&gt;
+&lt;td&gt;We always take glass bottles to the bottle bank and [[4]] them.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;5.&lt;/td&gt;
+&lt;td&gt;Only [[5]] leave bottles and cans on the beach.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;6.&lt;/td&gt;
+&lt;td&gt;People shouldn't drive short [[6]], they should use their bikes or walk.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>6.0000000</defaultmark>
+        <penalty>0.3333333</penalty>
+        <qtype>ddwtos</qtype>
+        <length>1</length>
+        <stamp>www.esleschool.com+171203112516+6IvPyj</stamp>
+        <version>www.esleschool.com+171203112516+MxwJeC</version>
+        <hidden>0</hidden>
+        <timecreated>1512300316</timecreated>
+        <timemodified>1512300316</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <idnumber>$@NULL@$</idnumber>
+        <plugin_qtype_ddwtos_question>
+          <answers>
+            <answer id="13">
+              <answertext>save</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback>O:8:"stdClass":2:{s:9:"draggroup";s:1:"1";s:8:"infinite";b:0;}</feedback>
+              <feedbackformat>0</feedbackformat>
+            </answer>
+            <answer id="14">
+              <answertext>locally produced</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback>O:8:"stdClass":2:{s:9:"draggroup";s:1:"1";s:8:"infinite";b:0;}</feedback>
+              <feedbackformat>0</feedbackformat>
+            </answer>
+            <answer id="15">
+              <answertext>plastic bags</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback>O:8:"stdClass":2:{s:9:"draggroup";s:1:"1";s:8:"infinite";b:0;}</feedback>
+              <feedbackformat>0</feedbackformat>
+            </answer>
+            <answer id="16">
+              <answertext>recycle</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback>O:8:"stdClass":2:{s:9:"draggroup";s:1:"1";s:8:"infinite";b:0;}</feedback>
+              <feedbackformat>0</feedbackformat>
+            </answer>
+            <answer id="17">
+              <answertext>litter louts</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback>O:8:"stdClass":2:{s:9:"draggroup";s:1:"1";s:8:"infinite";b:0;}</feedback>
+              <feedbackformat>0</feedbackformat>
+            </answer>
+            <answer id="18">
+              <answertext>distances</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback>O:8:"stdClass":2:{s:9:"draggroup";s:1:"1";s:8:"infinite";b:0;}</feedback>
+              <feedbackformat>0</feedbackformat>
+            </answer>
+          </answers>
+          <ddwtos id="1">
+            <shuffleanswers>0</shuffleanswers>
+            <correctfeedback>Your answer is correct.</correctfeedback>
+            <correctfeedbackformat>1</correctfeedbackformat>
+            <partiallycorrectfeedback>Your answer is partially correct.</partiallycorrectfeedback>
+            <partiallycorrectfeedbackformat>1</partiallycorrectfeedbackformat>
+            <incorrectfeedback>Your answer is incorrect.</incorrectfeedback>
+            <incorrectfeedbackformat>1</incorrectfeedbackformat>
+            <shownumcorrect>1</shownumcorrect>
+          </ddwtos>
+        </plugin_qtype_ddwtos_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="6">
+        <parent>0</parent>
+        <name>Word Formation</name>
+        <questiontext>&lt;p&gt;1. By 11:00 I felt so &lt;span&gt;&lt;strong&gt;tiring / [tired]&lt;/strong&gt;&lt;/span&gt;&amp;nbsp;that I went to bed.&lt;/p&gt;
+&lt;p&gt;2. I heard the film was good, but it was very &lt;strong&gt;[disappointing] /disappointed&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;3. Tim gets &lt;strong&gt;[bored] / boring&lt;/strong&gt; if he has to study too much.&lt;/p&gt;
+&lt;p&gt;4. It is very &lt;strong&gt;confused / [confusing]&lt;/strong&gt; to be taught in so many classrooms.&lt;/p&gt;
+&lt;p&gt;5. Cycling to school has one &lt;strong&gt;[disadvantage] / advantage&lt;/strong&gt;. It makes you feel hot and sweaty.&lt;/p&gt;
+&lt;p&gt;6. Because of the &lt;strong&gt;disunderstanding / [misunderstanding]&lt;/strong&gt;, half the class went to the wrong classroom.&lt;/p&gt;
+&lt;p&gt;7. My alarm clock didn't go off, and so I &lt;strong&gt;outsleep / [overslept]&lt;/strong&gt; this morning.&lt;/p&gt;
+&lt;p&gt;8. Ming decided to &lt;strong&gt;[underline] / outline&lt;/strong&gt; all the important words in the text.&lt;/p&gt;
+&lt;p&gt;9. Most people have no &lt;strong&gt;believe / [belief]&lt;/strong&gt; in ghosts.&lt;/p&gt;
+&lt;p&gt;10. Eddie put the &lt;strong&gt;[frozen] / freeze&lt;/strong&gt; food in the freezer.&lt;/p&gt;
+&lt;p&gt;11. Our teacher was really &lt;strong&gt;[angry] / anger&lt;/strong&gt; when she found out.&lt;/p&gt;
+&lt;p&gt;12. You have to have a lot of &lt;strong&gt;patient / [patience]&lt;/strong&gt; to go fishing.&lt;/p&gt;</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>12.0000000</defaultmark>
+        <penalty>0.3333333</penalty>
+        <qtype>wordselect</qtype>
+        <length>1</length>
+        <stamp>www.esleschool.com+171203113041+CtHJ3e</stamp>
+        <version>www.esleschool.com+171203113042+WVTatC</version>
+        <hidden>0</hidden>
+        <timecreated>1512300641</timecreated>
+        <timemodified>1512300641</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <idnumber>$@NULL@$</idnumber>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="7">
+        <parent>0</parent>
+        <name>Grammar practice (reported speech)</name>
+        <questiontext>&lt;p&gt;&lt;span style="text-decoration: underline;"&gt;&lt;strong&gt;Part 1&lt;/strong&gt;&lt;/span&gt;&lt;br&gt;Choose the correct option.&lt;/p&gt;
+&lt;table border="0"&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;1.&lt;/td&gt;
+&lt;td&gt;He {#1} that he doesn't speak English very well.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;2.&lt;/td&gt;
+&lt;td&gt;They&amp;nbsp;&lt;span&gt;{#2} they were Spanish.&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;3.&lt;/td&gt;
+&lt;td&gt;She&amp;nbsp;&lt;span&gt;{#3} she wasn't coming.&amp;nbsp;&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;4.&lt;/td&gt;
+&lt;td&gt;He&amp;nbsp;&lt;span&gt;{#4} he wanted more rice.&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;br&gt;&lt;span style="text-decoration: underline;"&gt;&lt;strong&gt;Part 2&lt;/strong&gt;&lt;/span&gt;&lt;br&gt;Complete the sentences.&lt;/p&gt;
+&lt;table border="0"&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;1.&lt;/td&gt;
+&lt;td&gt;"I'm hungry," said Peter.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;Peter said that {#5}.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;2.&lt;/td&gt;
+&lt;td&gt;"We're going home," Jenny told me.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;Jenny told me {#6}.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;3.&lt;/td&gt;
+&lt;td&gt;"I'm not hungry," said Sue.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;Sue {#7}.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;4.&lt;/td&gt;
+&lt;td&gt;"You are tired!" she told us.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;She&amp;nbsp;&lt;span&gt;{#8}.&lt;/span&gt;&lt;br&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;5.&lt;/td&gt;
+&lt;td&gt;"He has finished his homework," says May.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;May {#9}.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>9.0000000</defaultmark>
+        <penalty>0.3333333</penalty>
+        <qtype>multianswer</qtype>
+        <length>1</length>
+        <stamp>www.esleschool.com+171203113403+iiF5Qr</stamp>
+        <version>www.esleschool.com+171203113406+rRKuuz</version>
+        <hidden>0</hidden>
+        <timecreated>1512300843</timecreated>
+        <timemodified>1512300844</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <idnumber>$@NULL@$</idnumber>
+        <plugin_qtype_multianswer_question>
+          <answers>
+          </answers>
+          <multianswer id="1">
+            <question>7</question>
+            <sequence>8,9,10,11,12,13,14,15,16</sequence>
+          </multianswer>
+        </plugin_qtype_multianswer_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="8">
+        <parent>7</parent>
+        <name>Grammar practice (reported speech)</name>
+        <questiontext>{1:MULTICHOICE:=said~said me}</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.0000000</penalty>
+        <qtype>multichoice</qtype>
+        <length>1</length>
+        <stamp>www.esleschool.com+171203113404+FVnVLU</stamp>
+        <version>www.esleschool.com+171203113405+eNQkKC</version>
+        <hidden>0</hidden>
+        <timecreated>1512300844</timecreated>
+        <timemodified>1512300844</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <idnumber>$@NULL@$</idnumber>
+        <plugin_qtype_multichoice_question>
+          <answers>
+            <answer id="19">
+              <answertext>said</answertext>
+              <answerformat>1</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="20">
+              <answertext>said me</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <multichoice id="4">
+            <layout>0</layout>
+            <single>1</single>
+            <shuffleanswers>0</shuffleanswers>
+            <correctfeedback></correctfeedback>
+            <correctfeedbackformat>1</correctfeedbackformat>
+            <partiallycorrectfeedback></partiallycorrectfeedback>
+            <partiallycorrectfeedbackformat>1</partiallycorrectfeedbackformat>
+            <incorrectfeedback></incorrectfeedback>
+            <incorrectfeedbackformat>1</incorrectfeedbackformat>
+            <answernumbering>0</answernumbering>
+            <shownumcorrect>0</shownumcorrect>
+            <showstandardinstruction>1</showstandardinstruction>
+          </multichoice>
+        </plugin_qtype_multichoice_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="9">
+        <parent>7</parent>
+        <name>Grammar practice (reported speech)</name>
+        <questiontext>{1:MULTICHOICE:told~=told us}</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.0000000</penalty>
+        <qtype>multichoice</qtype>
+        <length>1</length>
+        <stamp>www.esleschool.com+171203113405+OSJSOg</stamp>
+        <version>www.esleschool.com+171203113405+0x3fZI</version>
+        <hidden>0</hidden>
+        <timecreated>1512300845</timecreated>
+        <timemodified>1512300845</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <idnumber>$@NULL@$</idnumber>
+        <plugin_qtype_multichoice_question>
+          <answers>
+            <answer id="21">
+              <answertext>told</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="22">
+              <answertext>told us</answertext>
+              <answerformat>1</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <multichoice id="5">
+            <layout>0</layout>
+            <single>1</single>
+            <shuffleanswers>0</shuffleanswers>
+            <correctfeedback></correctfeedback>
+            <correctfeedbackformat>1</correctfeedbackformat>
+            <partiallycorrectfeedback></partiallycorrectfeedback>
+            <partiallycorrectfeedbackformat>1</partiallycorrectfeedbackformat>
+            <incorrectfeedback></incorrectfeedback>
+            <incorrectfeedbackformat>1</incorrectfeedbackformat>
+            <answernumbering>0</answernumbering>
+            <shownumcorrect>0</shownumcorrect>
+            <showstandardinstruction>1</showstandardinstruction>
+          </multichoice>
+        </plugin_qtype_multichoice_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="10">
+        <parent>7</parent>
+        <name>Grammar practice (reported speech)</name>
+        <questiontext>{1:MULTICHOICE:told~=told her}</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.0000000</penalty>
+        <qtype>multichoice</qtype>
+        <length>1</length>
+        <stamp>www.esleschool.com+171203113405+aEqn7i</stamp>
+        <version>www.esleschool.com+171203113405+yPIJRK</version>
+        <hidden>0</hidden>
+        <timecreated>1512300845</timecreated>
+        <timemodified>1512300845</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <idnumber>$@NULL@$</idnumber>
+        <plugin_qtype_multichoice_question>
+          <answers>
+            <answer id="23">
+              <answertext>told</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="24">
+              <answertext>told her</answertext>
+              <answerformat>1</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <multichoice id="6">
+            <layout>0</layout>
+            <single>1</single>
+            <shuffleanswers>0</shuffleanswers>
+            <correctfeedback></correctfeedback>
+            <correctfeedbackformat>1</correctfeedbackformat>
+            <partiallycorrectfeedback></partiallycorrectfeedback>
+            <partiallycorrectfeedbackformat>1</partiallycorrectfeedbackformat>
+            <incorrectfeedback></incorrectfeedback>
+            <incorrectfeedbackformat>1</incorrectfeedbackformat>
+            <answernumbering>0</answernumbering>
+            <shownumcorrect>0</shownumcorrect>
+            <showstandardinstruction>1</showstandardinstruction>
+          </multichoice>
+        </plugin_qtype_multichoice_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="11">
+        <parent>7</parent>
+        <name>Grammar practice (reported speech)</name>
+        <questiontext>{1:MULTICHOICE:=said~said him}</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.0000000</penalty>
+        <qtype>multichoice</qtype>
+        <length>1</length>
+        <stamp>www.esleschool.com+171203113405+18az5V</stamp>
+        <version>www.esleschool.com+171203113405+eiAAl8</version>
+        <hidden>0</hidden>
+        <timecreated>1512300845</timecreated>
+        <timemodified>1512300845</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <idnumber>$@NULL@$</idnumber>
+        <plugin_qtype_multichoice_question>
+          <answers>
+            <answer id="25">
+              <answertext>said</answertext>
+              <answerformat>1</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="26">
+              <answertext>said him</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <multichoice id="7">
+            <layout>0</layout>
+            <single>1</single>
+            <shuffleanswers>0</shuffleanswers>
+            <correctfeedback></correctfeedback>
+            <correctfeedbackformat>1</correctfeedbackformat>
+            <partiallycorrectfeedback></partiallycorrectfeedback>
+            <partiallycorrectfeedbackformat>1</partiallycorrectfeedbackformat>
+            <incorrectfeedback></incorrectfeedback>
+            <incorrectfeedbackformat>1</incorrectfeedbackformat>
+            <answernumbering>0</answernumbering>
+            <shownumcorrect>0</shownumcorrect>
+            <showstandardinstruction>1</showstandardinstruction>
+          </multichoice>
+        </plugin_qtype_multichoice_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="12">
+        <parent>7</parent>
+        <name>Grammar practice (reported speech)</name>
+        <questiontext>{1:SHORTANSWER:=he is hungry~=he's hungry~=he was hungry}</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.0000000</penalty>
+        <qtype>shortanswer</qtype>
+        <length>1</length>
+        <stamp>www.esleschool.com+171203113405+a9enDL</stamp>
+        <version>www.esleschool.com+171203113405+ClpxXp</version>
+        <hidden>0</hidden>
+        <timecreated>1512300845</timecreated>
+        <timemodified>1512300845</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <idnumber>$@NULL@$</idnumber>
+        <plugin_qtype_shortanswer_question>
+          <answers>
+            <answer id="27">
+              <answertext>he is hungry</answertext>
+              <answerformat>0</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="28">
+              <answertext>he's hungry</answertext>
+              <answerformat>0</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="29">
+              <answertext>he was hungry</answertext>
+              <answerformat>0</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <shortanswer id="1">
+            <usecase>0</usecase>
+          </shortanswer>
+        </plugin_qtype_shortanswer_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="13">
+        <parent>7</parent>
+        <name>Grammar practice (reported speech)</name>
+        <questiontext>{1:SHORTANSWER:=they're going home~=they are going home~=that they are going home~=they were going home}</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.0000000</penalty>
+        <qtype>shortanswer</qtype>
+        <length>1</length>
+        <stamp>www.esleschool.com+171203113405+6B4SI6</stamp>
+        <version>www.esleschool.com+171203113405+UT25qb</version>
+        <hidden>0</hidden>
+        <timecreated>1512300845</timecreated>
+        <timemodified>1512300845</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <idnumber>$@NULL@$</idnumber>
+        <plugin_qtype_shortanswer_question>
+          <answers>
+            <answer id="30">
+              <answertext>they're going home</answertext>
+              <answerformat>0</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="31">
+              <answertext>they are going home</answertext>
+              <answerformat>0</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="32">
+              <answertext>that they are going home</answertext>
+              <answerformat>0</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="33">
+              <answertext>they were going home</answertext>
+              <answerformat>0</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <shortanswer id="2">
+            <usecase>0</usecase>
+          </shortanswer>
+        </plugin_qtype_shortanswer_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="14">
+        <parent>7</parent>
+        <name>Grammar practice (reported speech)</name>
+        <questiontext>{1:SHORTANSWER:=said that she's not hungry~=said that she is not hungry~=said she isn't hungry~=said that she isn't hungry~=said that she wasn't hungry~=said she wasn't hungry}</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.0000000</penalty>
+        <qtype>shortanswer</qtype>
+        <length>1</length>
+        <stamp>www.esleschool.com+171203113405+oAFa93</stamp>
+        <version>www.esleschool.com+171203113405+iZvFEn</version>
+        <hidden>0</hidden>
+        <timecreated>1512300845</timecreated>
+        <timemodified>1512300845</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <idnumber>$@NULL@$</idnumber>
+        <plugin_qtype_shortanswer_question>
+          <answers>
+            <answer id="34">
+              <answertext>said that she's not hungry</answertext>
+              <answerformat>0</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="35">
+              <answertext>said that she is not hungry</answertext>
+              <answerformat>0</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="36">
+              <answertext>said she isn't hungry</answertext>
+              <answerformat>0</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="37">
+              <answertext>said that she isn't hungry</answertext>
+              <answerformat>0</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="38">
+              <answertext>said that she wasn't hungry</answertext>
+              <answerformat>0</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="39">
+              <answertext>said she wasn't hungry</answertext>
+              <answerformat>0</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <shortanswer id="3">
+            <usecase>0</usecase>
+          </shortanswer>
+        </plugin_qtype_shortanswer_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="15">
+        <parent>7</parent>
+        <name>Grammar practice (reported speech)</name>
+        <questiontext>{1:SHORTANSWER:=told us that we are tired~=told us that we're tired=told us we are tired~=told us we're tired~=told us that we were tired~=told us we were tired&lt;span style="background-color: transparent;"&gt;}</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.0000000</penalty>
+        <qtype>shortanswer</qtype>
+        <length>1</length>
+        <stamp>www.esleschool.com+171203113405+IchszG</stamp>
+        <version>www.esleschool.com+171203113405+ZQMvXb</version>
+        <hidden>0</hidden>
+        <timecreated>1512300845</timecreated>
+        <timemodified>1512300845</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <idnumber>$@NULL@$</idnumber>
+        <plugin_qtype_shortanswer_question>
+          <answers>
+            <answer id="40">
+              <answertext>told us that we are tired</answertext>
+              <answerformat>0</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="41">
+              <answertext>told us that we're tired=told us we are tired</answertext>
+              <answerformat>0</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="42">
+              <answertext>told us we're tired</answertext>
+              <answerformat>0</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="43">
+              <answertext>told us that we were tired</answertext>
+              <answerformat>0</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="44">
+              <answertext>told us we were tired&lt;span style="background-color: transparent;"&gt;</answertext>
+              <answerformat>0</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <shortanswer id="4">
+            <usecase>0</usecase>
+          </shortanswer>
+        </plugin_qtype_shortanswer_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="16">
+        <parent>7</parent>
+        <name>Grammar practice (reported speech)</name>
+        <questiontext>{1:SHORTANSWER:=said he has finished his homework~=said that he has finished his homework~=said that he has finished his homework~=said that he had finished his homework~=said he had finished his homework}</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.0000000</penalty>
+        <qtype>shortanswer</qtype>
+        <length>1</length>
+        <stamp>www.esleschool.com+171203113405+0AP68X</stamp>
+        <version>www.esleschool.com+171203113405+7O38mw</version>
+        <hidden>0</hidden>
+        <timecreated>1512300845</timecreated>
+        <timemodified>1512300845</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <idnumber>$@NULL@$</idnumber>
+        <plugin_qtype_shortanswer_question>
+          <answers>
+            <answer id="45">
+              <answertext>said he has finished his homework</answertext>
+              <answerformat>0</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="46">
+              <answertext>said that he has finished his homework</answertext>
+              <answerformat>0</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="47">
+              <answertext>said that he has finished his homework</answertext>
+              <answerformat>0</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="48">
+              <answertext>said that he had finished his homework</answertext>
+              <answerformat>0</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="49">
+              <answertext>said he had finished his homework</answertext>
+              <answerformat>0</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <shortanswer id="5">
+            <usecase>0</usecase>
+          </shortanswer>
+        </plugin_qtype_shortanswer_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="17">
+        <parent>0</parent>
+        <name>Reported Speech 2</name>
+        <questiontext>&lt;p&gt;&lt;span style="text-decoration: underline;"&gt;&lt;strong&gt;Part 3&lt;/strong&gt;&lt;/span&gt;&lt;br&gt;Put the words in order to make sentences.&lt;br&gt;&lt;br&gt;1. [[1]] [[2]] [[3]] [[4]] [[5]].&lt;/p&gt;
+&lt;p&gt;2. [[6]] [[7]] [[8]] [[9]] [[10]] [[11]] [[12]].&lt;/p&gt;
+&lt;p&gt;3. [[13]] [[14]] [[15]] [[16]] [[17]] [[18]] [[19]].&lt;/p&gt;
+&lt;p&gt;4. [[20]] [[21]] [[22]] [[23]] [[24]] [[25]] [[26]].&lt;/p&gt;</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>13.0000000</defaultmark>
+        <penalty>0.3333333</penalty>
+        <qtype>ddwtos</qtype>
+        <length>1</length>
+        <stamp>www.esleschool.com+171203114054+IAAW8O</stamp>
+        <version>www.esleschool.com+171203114054+GfeDyJ</version>
+        <hidden>0</hidden>
+        <timecreated>1512301254</timecreated>
+        <timemodified>1512301254</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <idnumber>$@NULL@$</idnumber>
+        <plugin_qtype_ddwtos_question>
+          <answers>
+            <answer id="50">
+              <answertext>He</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback>O:8:"stdClass":2:{s:9:"draggroup";s:1:"1";s:8:"infinite";b:0;}</feedback>
+              <feedbackformat>0</feedbackformat>
+            </answer>
+            <answer id="51">
+              <answertext>asked</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback>O:8:"stdClass":2:{s:9:"draggroup";s:1:"1";s:8:"infinite";b:0;}</feedback>
+              <feedbackformat>0</feedbackformat>
+            </answer>
+            <answer id="52">
+              <answertext>me to</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback>O:8:"stdClass":2:{s:9:"draggroup";s:1:"1";s:8:"infinite";b:0;}</feedback>
+              <feedbackformat>0</feedbackformat>
+            </answer>
+            <answer id="53">
+              <answertext>recycle</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback>O:8:"stdClass":2:{s:9:"draggroup";s:1:"1";s:8:"infinite";b:0;}</feedback>
+              <feedbackformat>0</feedbackformat>
+            </answer>
+            <answer id="54">
+              <answertext>the paper.</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback>O:8:"stdClass":2:{s:9:"draggroup";s:1:"1";s:8:"infinite";b:0;}</feedback>
+              <feedbackformat>0</feedbackformat>
+            </answer>
+            <answer id="55">
+              <answertext>She</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback>O:8:"stdClass":2:{s:9:"draggroup";s:1:"2";s:8:"infinite";b:0;}</feedback>
+              <feedbackformat>0</feedbackformat>
+            </answer>
+            <answer id="56">
+              <answertext>asked</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback>O:8:"stdClass":2:{s:9:"draggroup";s:1:"2";s:8:"infinite";b:0;}</feedback>
+              <feedbackformat>0</feedbackformat>
+            </answer>
+            <answer id="57">
+              <answertext>him</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback>O:8:"stdClass":2:{s:9:"draggroup";s:1:"2";s:8:"infinite";b:0;}</feedback>
+              <feedbackformat>0</feedbackformat>
+            </answer>
+            <answer id="58">
+              <answertext>to</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback>O:8:"stdClass":2:{s:9:"draggroup";s:1:"2";s:8:"infinite";b:0;}</feedback>
+              <feedbackformat>0</feedbackformat>
+            </answer>
+            <answer id="59">
+              <answertext>buy</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback>O:8:"stdClass":2:{s:9:"draggroup";s:1:"2";s:8:"infinite";b:0;}</feedback>
+              <feedbackformat>0</feedbackformat>
+            </answer>
+            <answer id="60">
+              <answertext>some</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback>O:8:"stdClass":2:{s:9:"draggroup";s:1:"2";s:8:"infinite";b:0;}</feedback>
+              <feedbackformat>0</feedbackformat>
+            </answer>
+            <answer id="61">
+              <answertext>plastic bags.</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback>O:8:"stdClass":2:{s:9:"draggroup";s:1:"2";s:8:"infinite";b:0;}</feedback>
+              <feedbackformat>0</feedbackformat>
+            </answer>
+            <answer id="62">
+              <answertext>They</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback>O:8:"stdClass":2:{s:9:"draggroup";s:1:"3";s:8:"infinite";b:0;}</feedback>
+              <feedbackformat>0</feedbackformat>
+            </answer>
+            <answer id="63">
+              <answertext>asked</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback>O:8:"stdClass":2:{s:9:"draggroup";s:1:"3";s:8:"infinite";b:0;}</feedback>
+              <feedbackformat>0</feedbackformat>
+            </answer>
+            <answer id="64">
+              <answertext>me</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback>O:8:"stdClass":2:{s:9:"draggroup";s:1:"3";s:8:"infinite";b:0;}</feedback>
+              <feedbackformat>0</feedbackformat>
+            </answer>
+            <answer id="65">
+              <answertext>not</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback>O:8:"stdClass":2:{s:9:"draggroup";s:1:"3";s:8:"infinite";b:0;}</feedback>
+              <feedbackformat>0</feedbackformat>
+            </answer>
+            <answer id="66">
+              <answertext>to</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback>O:8:"stdClass":2:{s:9:"draggroup";s:1:"3";s:8:"infinite";b:0;}</feedback>
+              <feedbackformat>0</feedbackformat>
+            </answer>
+            <answer id="67">
+              <answertext>drop</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback>O:8:"stdClass":2:{s:9:"draggroup";s:1:"3";s:8:"infinite";b:0;}</feedback>
+              <feedbackformat>0</feedbackformat>
+            </answer>
+            <answer id="68">
+              <answertext>my rubbish.</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback>O:8:"stdClass":2:{s:9:"draggroup";s:1:"3";s:8:"infinite";b:0;}</feedback>
+              <feedbackformat>0</feedbackformat>
+            </answer>
+            <answer id="69">
+              <answertext>I</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback>O:8:"stdClass":2:{s:9:"draggroup";s:1:"4";s:8:"infinite";b:0;}</feedback>
+              <feedbackformat>0</feedbackformat>
+            </answer>
+            <answer id="70">
+              <answertext>told</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback>O:8:"stdClass":2:{s:9:"draggroup";s:1:"4";s:8:"infinite";b:0;}</feedback>
+              <feedbackformat>0</feedbackformat>
+            </answer>
+            <answer id="71">
+              <answertext>her</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback>O:8:"stdClass":2:{s:9:"draggroup";s:1:"4";s:8:"infinite";b:0;}</feedback>
+              <feedbackformat>0</feedbackformat>
+            </answer>
+            <answer id="72">
+              <answertext>to</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback>O:8:"stdClass":2:{s:9:"draggroup";s:1:"4";s:8:"infinite";b:0;}</feedback>
+              <feedbackformat>0</feedbackformat>
+            </answer>
+            <answer id="73">
+              <answertext>wait</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback>O:8:"stdClass":2:{s:9:"draggroup";s:1:"4";s:8:"infinite";b:0;}</feedback>
+              <feedbackformat>0</feedbackformat>
+            </answer>
+            <answer id="74">
+              <answertext>for me</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback>O:8:"stdClass":2:{s:9:"draggroup";s:1:"4";s:8:"infinite";b:0;}</feedback>
+              <feedbackformat>0</feedbackformat>
+            </answer>
+            <answer id="75">
+              <answertext>at the beach.</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback>O:8:"stdClass":2:{s:9:"draggroup";s:1:"4";s:8:"infinite";b:0;}</feedback>
+              <feedbackformat>0</feedbackformat>
+            </answer>
+          </answers>
+          <ddwtos id="2">
+            <shuffleanswers>1</shuffleanswers>
+            <correctfeedback>Your answer is correct.</correctfeedback>
+            <correctfeedbackformat>1</correctfeedbackformat>
+            <partiallycorrectfeedback>Your answer is partially correct.</partiallycorrectfeedback>
+            <partiallycorrectfeedbackformat>1</partiallycorrectfeedbackformat>
+            <incorrectfeedback>Your answer is incorrect.</incorrectfeedback>
+            <incorrectfeedbackformat>1</incorrectfeedbackformat>
+            <shownumcorrect>1</shownumcorrect>
+          </ddwtos>
+        </plugin_qtype_ddwtos_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="18">
+        <parent>0</parent>
+        <name>Greenpeace (R &amp; U Of E Part 1)</name>
+        <questiontext>&lt;p&gt;Read the following article about the environment group Greenpeace and decide which answer best fits each gap.&lt;/p&gt;&lt;p style="text-align: center;"&gt;&lt;b&gt;Greenpeace&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;img src="http://www.ouest-france.fr/sites/default/files/styles/image-640x360/public/2013/09/27/archipel-des-glenan.action-dun-navire-de-greenpeace-pour-sauver-la-peche.jpg?itok=DsPtpXcF" alt="" width="350" height="197" role="presentation" style="" class="img-responsive atto_image_button_right"&gt;Greenpeace is an independent organisation that campaigns to {#1} the environment. It has approximately 4.5 million members worldwide in 158 countries, 300, 000 of these in the United Kingdom. {#2} in North America in 1971, it has since opened offices round the world. As {#3} as its campaigning {#4}, it also has a charitable trust which {#5} scientific research and {#6} educational projects on environmental issues. Greenpeace {#7} in non-violet direct action. Activists {#8} public attention to serious threats to the environment. {#9} issues on which the organisation is campaigning include the atmosphere (global warming), the {#10} of the rainforests and toxic {#11} being emitted from factories. Greenpeace is committed to the principles of political independence and internationalism. By exposing {#12} to the environment and in working to {#13} solutions, Greenpeace has no permanent allies or enemies.&lt;/p&gt;</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>13.0000000</defaultmark>
+        <penalty>0.3333333</penalty>
+        <qtype>multianswer</qtype>
+        <length>1</length>
+        <stamp>www.esleschool.com+171203114610+iTjaEh</stamp>
+        <version>www.esleschool.com+171203114610+F4TZWy</version>
+        <hidden>0</hidden>
+        <timecreated>1512301570</timecreated>
+        <timemodified>1512301570</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <idnumber>$@NULL@$</idnumber>
+        <plugin_qtype_multianswer_question>
+          <answers>
+          </answers>
+          <multianswer id="2">
+            <question>18</question>
+            <sequence>19,20,21,22,23,24,25,26,27,28,29,30,31</sequence>
+          </multianswer>
+        </plugin_qtype_multianswer_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="19">
+        <parent>18</parent>
+        <name>Greenpeace (R &amp; U Of E Part 1)</name>
+        <questiontext>{1:MULTICHOICE:=protect~care~look~tend}</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.0000000</penalty>
+        <qtype>multichoice</qtype>
+        <length>1</length>
+        <stamp>www.esleschool.com+171203114610+wITJ0N</stamp>
+        <version>www.esleschool.com+171203114610+yIEIWW</version>
+        <hidden>0</hidden>
+        <timecreated>1512301570</timecreated>
+        <timemodified>1512301570</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <idnumber>$@NULL@$</idnumber>
+        <plugin_qtype_multichoice_question>
+          <answers>
+            <answer id="76">
+              <answertext>protect</answertext>
+              <answerformat>1</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="77">
+              <answertext>care</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="78">
+              <answertext>look</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="79">
+              <answertext>tend</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <multichoice id="8">
+            <layout>0</layout>
+            <single>1</single>
+            <shuffleanswers>0</shuffleanswers>
+            <correctfeedback></correctfeedback>
+            <correctfeedbackformat>1</correctfeedbackformat>
+            <partiallycorrectfeedback></partiallycorrectfeedback>
+            <partiallycorrectfeedbackformat>1</partiallycorrectfeedbackformat>
+            <incorrectfeedback></incorrectfeedback>
+            <incorrectfeedbackformat>1</incorrectfeedbackformat>
+            <answernumbering>0</answernumbering>
+            <shownumcorrect>0</shownumcorrect>
+            <showstandardinstruction>1</showstandardinstruction>
+          </multichoice>
+        </plugin_qtype_multichoice_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="20">
+        <parent>18</parent>
+        <name>Greenpeace (R &amp; U Of E Part 1)</name>
+        <questiontext>{1:MULTICHOICE:Built~=Formed~Invented~Produced}</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.0000000</penalty>
+        <qtype>multichoice</qtype>
+        <length>1</length>
+        <stamp>www.esleschool.com+171203114610+8UfMPF</stamp>
+        <version>www.esleschool.com+171203114610+H0rFqV</version>
+        <hidden>0</hidden>
+        <timecreated>1512301570</timecreated>
+        <timemodified>1512301570</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <idnumber>$@NULL@$</idnumber>
+        <plugin_qtype_multichoice_question>
+          <answers>
+            <answer id="80">
+              <answertext>Built</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="81">
+              <answertext>Formed</answertext>
+              <answerformat>1</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="82">
+              <answertext>Invented</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="83">
+              <answertext>Produced</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <multichoice id="9">
+            <layout>0</layout>
+            <single>1</single>
+            <shuffleanswers>0</shuffleanswers>
+            <correctfeedback></correctfeedback>
+            <correctfeedbackformat>1</correctfeedbackformat>
+            <partiallycorrectfeedback></partiallycorrectfeedback>
+            <partiallycorrectfeedbackformat>1</partiallycorrectfeedbackformat>
+            <incorrectfeedback></incorrectfeedback>
+            <incorrectfeedbackformat>1</incorrectfeedbackformat>
+            <answernumbering>0</answernumbering>
+            <shownumcorrect>0</shownumcorrect>
+            <showstandardinstruction>1</showstandardinstruction>
+          </multichoice>
+        </plugin_qtype_multichoice_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="21">
+        <parent>18</parent>
+        <name>Greenpeace (R &amp; U Of E Part 1)</name>
+        <questiontext>{1:MULTICHOICE:long~far~good~=well}</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.0000000</penalty>
+        <qtype>multichoice</qtype>
+        <length>1</length>
+        <stamp>www.esleschool.com+171203114610+nNkEBM</stamp>
+        <version>www.esleschool.com+171203114610+hXkP6y</version>
+        <hidden>0</hidden>
+        <timecreated>1512301570</timecreated>
+        <timemodified>1512301570</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <idnumber>$@NULL@$</idnumber>
+        <plugin_qtype_multichoice_question>
+          <answers>
+            <answer id="84">
+              <answertext>long</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="85">
+              <answertext>far</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="86">
+              <answertext>good</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="87">
+              <answertext>well</answertext>
+              <answerformat>1</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <multichoice id="10">
+            <layout>0</layout>
+            <single>1</single>
+            <shuffleanswers>0</shuffleanswers>
+            <correctfeedback></correctfeedback>
+            <correctfeedbackformat>1</correctfeedbackformat>
+            <partiallycorrectfeedback></partiallycorrectfeedback>
+            <partiallycorrectfeedbackformat>1</partiallycorrectfeedbackformat>
+            <incorrectfeedback></incorrectfeedback>
+            <incorrectfeedbackformat>1</incorrectfeedbackformat>
+            <answernumbering>0</answernumbering>
+            <shownumcorrect>0</shownumcorrect>
+            <showstandardinstruction>1</showstandardinstruction>
+          </multichoice>
+        </plugin_qtype_multichoice_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="22">
+        <parent>18</parent>
+        <name>Greenpeace (R &amp; U Of E Part 1)</name>
+        <questiontext>{1:MULTICHOICE:=works~jobs~occupation~position}</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.0000000</penalty>
+        <qtype>multichoice</qtype>
+        <length>1</length>
+        <stamp>www.esleschool.com+171203114610+xkY5qR</stamp>
+        <version>www.esleschool.com+171203114610+ktfVVE</version>
+        <hidden>0</hidden>
+        <timecreated>1512301570</timecreated>
+        <timemodified>1512301570</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <idnumber>$@NULL@$</idnumber>
+        <plugin_qtype_multichoice_question>
+          <answers>
+            <answer id="88">
+              <answertext>works</answertext>
+              <answerformat>1</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="89">
+              <answertext>jobs</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="90">
+              <answertext>occupation</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="91">
+              <answertext>position</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <multichoice id="11">
+            <layout>0</layout>
+            <single>1</single>
+            <shuffleanswers>0</shuffleanswers>
+            <correctfeedback></correctfeedback>
+            <correctfeedbackformat>1</correctfeedbackformat>
+            <partiallycorrectfeedback></partiallycorrectfeedback>
+            <partiallycorrectfeedbackformat>1</partiallycorrectfeedbackformat>
+            <incorrectfeedback></incorrectfeedback>
+            <incorrectfeedbackformat>1</incorrectfeedbackformat>
+            <answernumbering>0</answernumbering>
+            <shownumcorrect>0</shownumcorrect>
+            <showstandardinstruction>1</showstandardinstruction>
+          </multichoice>
+        </plugin_qtype_multichoice_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="23">
+        <parent>18</parent>
+        <name>Greenpeace (R &amp; U Of E Part 1)</name>
+        <questiontext>{1:MULTICHOICE:pays~=funds~rewards~earns}</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.0000000</penalty>
+        <qtype>multichoice</qtype>
+        <length>1</length>
+        <stamp>www.esleschool.com+171203114610+YAfLca</stamp>
+        <version>www.esleschool.com+171203114610+5DWI2L</version>
+        <hidden>0</hidden>
+        <timecreated>1512301570</timecreated>
+        <timemodified>1512301570</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <idnumber>$@NULL@$</idnumber>
+        <plugin_qtype_multichoice_question>
+          <answers>
+            <answer id="92">
+              <answertext>pays</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="93">
+              <answertext>funds</answertext>
+              <answerformat>1</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="94">
+              <answertext>rewards</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="95">
+              <answertext>earns</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <multichoice id="12">
+            <layout>0</layout>
+            <single>1</single>
+            <shuffleanswers>0</shuffleanswers>
+            <correctfeedback></correctfeedback>
+            <correctfeedbackformat>1</correctfeedbackformat>
+            <partiallycorrectfeedback></partiallycorrectfeedback>
+            <partiallycorrectfeedbackformat>1</partiallycorrectfeedbackformat>
+            <incorrectfeedback></incorrectfeedback>
+            <incorrectfeedbackformat>1</incorrectfeedbackformat>
+            <answernumbering>0</answernumbering>
+            <shownumcorrect>0</shownumcorrect>
+            <showstandardinstruction>1</showstandardinstruction>
+          </multichoice>
+        </plugin_qtype_multichoice_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="24">
+        <parent>18</parent>
+        <name>Greenpeace (R &amp; U Of E Part 1)</name>
+        <questiontext>{1:MULTICHOICE:=undertakes~engages~commits~enters}</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.0000000</penalty>
+        <qtype>multichoice</qtype>
+        <length>1</length>
+        <stamp>www.esleschool.com+171203114610+Jc5KeK</stamp>
+        <version>www.esleschool.com+171203114610+aOMI7w</version>
+        <hidden>0</hidden>
+        <timecreated>1512301570</timecreated>
+        <timemodified>1512301570</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <idnumber>$@NULL@$</idnumber>
+        <plugin_qtype_multichoice_question>
+          <answers>
+            <answer id="96">
+              <answertext>undertakes</answertext>
+              <answerformat>1</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="97">
+              <answertext>engages</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="98">
+              <answertext>commits</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="99">
+              <answertext>enters</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <multichoice id="13">
+            <layout>0</layout>
+            <single>1</single>
+            <shuffleanswers>0</shuffleanswers>
+            <correctfeedback></correctfeedback>
+            <correctfeedbackformat>1</correctfeedbackformat>
+            <partiallycorrectfeedback></partiallycorrectfeedback>
+            <partiallycorrectfeedbackformat>1</partiallycorrectfeedbackformat>
+            <incorrectfeedback></incorrectfeedback>
+            <incorrectfeedbackformat>1</incorrectfeedbackformat>
+            <answernumbering>0</answernumbering>
+            <shownumcorrect>0</shownumcorrect>
+            <showstandardinstruction>1</showstandardinstruction>
+          </multichoice>
+        </plugin_qtype_multichoice_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="25">
+        <parent>18</parent>
+        <name>Greenpeace (R &amp; U Of E Part 1)</name>
+        <questiontext>{1:MULTICHOICE:accepts~depends~holds~=believes}</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.0000000</penalty>
+        <qtype>multichoice</qtype>
+        <length>1</length>
+        <stamp>www.esleschool.com+171203114610+zCE6qd</stamp>
+        <version>www.esleschool.com+171203114610+IrfTsh</version>
+        <hidden>0</hidden>
+        <timecreated>1512301570</timecreated>
+        <timemodified>1512301570</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <idnumber>$@NULL@$</idnumber>
+        <plugin_qtype_multichoice_question>
+          <answers>
+            <answer id="100">
+              <answertext>accepts</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="101">
+              <answertext>depends</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="102">
+              <answertext>holds</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="103">
+              <answertext>believes</answertext>
+              <answerformat>1</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <multichoice id="14">
+            <layout>0</layout>
+            <single>1</single>
+            <shuffleanswers>0</shuffleanswers>
+            <correctfeedback></correctfeedback>
+            <correctfeedbackformat>1</correctfeedbackformat>
+            <partiallycorrectfeedback></partiallycorrectfeedback>
+            <partiallycorrectfeedbackformat>1</partiallycorrectfeedbackformat>
+            <incorrectfeedback></incorrectfeedback>
+            <incorrectfeedbackformat>1</incorrectfeedbackformat>
+            <answernumbering>0</answernumbering>
+            <shownumcorrect>0</shownumcorrect>
+            <showstandardinstruction>1</showstandardinstruction>
+          </multichoice>
+        </plugin_qtype_multichoice_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="26">
+        <parent>18</parent>
+        <name>Greenpeace (R &amp; U Of E Part 1)</name>
+        <questiontext>{1:MULTICHOICE:=draw~pay~get~take}</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.0000000</penalty>
+        <qtype>multichoice</qtype>
+        <length>1</length>
+        <stamp>www.esleschool.com+171203114610+ydG3v7</stamp>
+        <version>www.esleschool.com+171203114610+PSPm3n</version>
+        <hidden>0</hidden>
+        <timecreated>1512301570</timecreated>
+        <timemodified>1512301570</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <idnumber>$@NULL@$</idnumber>
+        <plugin_qtype_multichoice_question>
+          <answers>
+            <answer id="104">
+              <answertext>draw</answertext>
+              <answerformat>1</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="105">
+              <answertext>pay</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="106">
+              <answertext>get</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="107">
+              <answertext>take</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <multichoice id="15">
+            <layout>0</layout>
+            <single>1</single>
+            <shuffleanswers>0</shuffleanswers>
+            <correctfeedback></correctfeedback>
+            <correctfeedbackformat>1</correctfeedbackformat>
+            <partiallycorrectfeedback></partiallycorrectfeedback>
+            <partiallycorrectfeedbackformat>1</partiallycorrectfeedbackformat>
+            <incorrectfeedback></incorrectfeedback>
+            <incorrectfeedbackformat>1</incorrectfeedbackformat>
+            <answernumbering>0</answernumbering>
+            <shownumcorrect>0</shownumcorrect>
+            <showstandardinstruction>1</showstandardinstruction>
+          </multichoice>
+        </plugin_qtype_multichoice_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="27">
+        <parent>18</parent>
+        <name>Greenpeace (R &amp; U Of E Part 1)</name>
+        <questiontext>{1:MULTICHOICE:Instant~=Current~Immediate~Next}</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.0000000</penalty>
+        <qtype>multichoice</qtype>
+        <length>1</length>
+        <stamp>www.esleschool.com+171203114610+68IGmy</stamp>
+        <version>www.esleschool.com+171203114610+6UyCfD</version>
+        <hidden>0</hidden>
+        <timecreated>1512301570</timecreated>
+        <timemodified>1512301570</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <idnumber>$@NULL@$</idnumber>
+        <plugin_qtype_multichoice_question>
+          <answers>
+            <answer id="108">
+              <answertext>Instant</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="109">
+              <answertext>Current</answertext>
+              <answerformat>1</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="110">
+              <answertext>Immediate</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="111">
+              <answertext>Next</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <multichoice id="16">
+            <layout>0</layout>
+            <single>1</single>
+            <shuffleanswers>0</shuffleanswers>
+            <correctfeedback></correctfeedback>
+            <correctfeedbackformat>1</correctfeedbackformat>
+            <partiallycorrectfeedback></partiallycorrectfeedback>
+            <partiallycorrectfeedbackformat>1</partiallycorrectfeedbackformat>
+            <incorrectfeedback></incorrectfeedback>
+            <incorrectfeedbackformat>1</incorrectfeedbackformat>
+            <answernumbering>0</answernumbering>
+            <shownumcorrect>0</shownumcorrect>
+            <showstandardinstruction>1</showstandardinstruction>
+          </multichoice>
+        </plugin_qtype_multichoice_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="28">
+        <parent>18</parent>
+        <name>Greenpeace (R &amp; U Of E Part 1)</name>
+        <questiontext>{1:MULTICHOICE:ruin~extinction~=destruction~downfall}</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.0000000</penalty>
+        <qtype>multichoice</qtype>
+        <length>1</length>
+        <stamp>www.esleschool.com+171203114610+bUNoWF</stamp>
+        <version>www.esleschool.com+171203114610+3mzE76</version>
+        <hidden>0</hidden>
+        <timecreated>1512301570</timecreated>
+        <timemodified>1512301570</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <idnumber>$@NULL@$</idnumber>
+        <plugin_qtype_multichoice_question>
+          <answers>
+            <answer id="112">
+              <answertext>ruin</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="113">
+              <answertext>extinction</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="114">
+              <answertext>destruction</answertext>
+              <answerformat>1</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="115">
+              <answertext>downfall</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <multichoice id="17">
+            <layout>0</layout>
+            <single>1</single>
+            <shuffleanswers>0</shuffleanswers>
+            <correctfeedback></correctfeedback>
+            <correctfeedbackformat>1</correctfeedbackformat>
+            <partiallycorrectfeedback></partiallycorrectfeedback>
+            <partiallycorrectfeedbackformat>1</partiallycorrectfeedbackformat>
+            <incorrectfeedback></incorrectfeedback>
+            <incorrectfeedbackformat>1</incorrectfeedbackformat>
+            <answernumbering>0</answernumbering>
+            <shownumcorrect>0</shownumcorrect>
+            <showstandardinstruction>1</showstandardinstruction>
+          </multichoice>
+        </plugin_qtype_multichoice_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="29">
+        <parent>18</parent>
+        <name>Greenpeace (R &amp; U Of E Part 1)</name>
+        <questiontext>{1:MULTICHOICE:=waste~litter~rubbish~leftovers}</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.0000000</penalty>
+        <qtype>multichoice</qtype>
+        <length>1</length>
+        <stamp>www.esleschool.com+171203114610+0b4x3V</stamp>
+        <version>www.esleschool.com+171203114610+qCH7yi</version>
+        <hidden>0</hidden>
+        <timecreated>1512301570</timecreated>
+        <timemodified>1512301570</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <idnumber>$@NULL@$</idnumber>
+        <plugin_qtype_multichoice_question>
+          <answers>
+            <answer id="116">
+              <answertext>waste</answertext>
+              <answerformat>1</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="117">
+              <answertext>litter</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="118">
+              <answertext>rubbish</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="119">
+              <answertext>leftovers</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <multichoice id="18">
+            <layout>0</layout>
+            <single>1</single>
+            <shuffleanswers>0</shuffleanswers>
+            <correctfeedback></correctfeedback>
+            <correctfeedbackformat>1</correctfeedbackformat>
+            <partiallycorrectfeedback></partiallycorrectfeedback>
+            <partiallycorrectfeedbackformat>1</partiallycorrectfeedbackformat>
+            <incorrectfeedback></incorrectfeedback>
+            <incorrectfeedbackformat>1</incorrectfeedbackformat>
+            <answernumbering>0</answernumbering>
+            <shownumcorrect>0</shownumcorrect>
+            <showstandardinstruction>1</showstandardinstruction>
+          </multichoice>
+        </plugin_qtype_multichoice_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="30">
+        <parent>18</parent>
+        <name>Greenpeace (R &amp; U Of E Part 1)</name>
+        <questiontext>{1:MULTICHOICE:warning~=threats~promises~difficulties}</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.0000000</penalty>
+        <qtype>multichoice</qtype>
+        <length>1</length>
+        <stamp>www.esleschool.com+171203114610+PLCSAj</stamp>
+        <version>www.esleschool.com+171203114610+9FAA0u</version>
+        <hidden>0</hidden>
+        <timecreated>1512301570</timecreated>
+        <timemodified>1512301570</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <idnumber>$@NULL@$</idnumber>
+        <plugin_qtype_multichoice_question>
+          <answers>
+            <answer id="120">
+              <answertext>warning</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="121">
+              <answertext>threats</answertext>
+              <answerformat>1</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="122">
+              <answertext>promises</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="123">
+              <answertext>difficulties</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <multichoice id="19">
+            <layout>0</layout>
+            <single>1</single>
+            <shuffleanswers>0</shuffleanswers>
+            <correctfeedback></correctfeedback>
+            <correctfeedbackformat>1</correctfeedbackformat>
+            <partiallycorrectfeedback></partiallycorrectfeedback>
+            <partiallycorrectfeedbackformat>1</partiallycorrectfeedbackformat>
+            <incorrectfeedback></incorrectfeedback>
+            <incorrectfeedbackformat>1</incorrectfeedbackformat>
+            <answernumbering>0</answernumbering>
+            <shownumcorrect>0</shownumcorrect>
+            <showstandardinstruction>1</showstandardinstruction>
+          </multichoice>
+        </plugin_qtype_multichoice_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="31">
+        <parent>18</parent>
+        <name>Greenpeace (R &amp; U Of E Part 1)</name>
+        <questiontext>{1:MULTICHOICE:=find~make~set~sort}</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.0000000</penalty>
+        <qtype>multichoice</qtype>
+        <length>1</length>
+        <stamp>www.esleschool.com+171203114610+saMdw3</stamp>
+        <version>www.esleschool.com+171203114610+qmquzQ</version>
+        <hidden>0</hidden>
+        <timecreated>1512301570</timecreated>
+        <timemodified>1512301570</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <idnumber>$@NULL@$</idnumber>
+        <plugin_qtype_multichoice_question>
+          <answers>
+            <answer id="124">
+              <answertext>find</answertext>
+              <answerformat>1</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="125">
+              <answertext>make</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="126">
+              <answertext>set</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="127">
+              <answertext>sort</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <multichoice id="20">
+            <layout>0</layout>
+            <single>1</single>
+            <shuffleanswers>0</shuffleanswers>
+            <correctfeedback></correctfeedback>
+            <correctfeedbackformat>1</correctfeedbackformat>
+            <partiallycorrectfeedback></partiallycorrectfeedback>
+            <partiallycorrectfeedbackformat>1</partiallycorrectfeedbackformat>
+            <incorrectfeedback></incorrectfeedback>
+            <incorrectfeedbackformat>1</incorrectfeedbackformat>
+            <answernumbering>0</answernumbering>
+            <shownumcorrect>0</shownumcorrect>
+            <showstandardinstruction>1</showstandardinstruction>
+          </multichoice>
+        </plugin_qtype_multichoice_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="32">
+        <parent>0</parent>
+        <name>Reading and Use of English (Part 3)</name>
+        <questiontext>For questions 1-10, read the text below. Use the word given in capitals &amp;nbsp;to form a word that fits in the gap. There is an example at the beginning.&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p style="text-align: center;"&gt;&lt;b&gt;POLLUTING THE ENVIRONMENT&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Oil on beaches, vehicle exhaust fumes, litter and many other waste (0) &lt;u&gt;PRODUCTS&lt;/u&gt;&amp;nbsp;(PRODUCE) are called pollutants, because they pollute our environment. Pollutants can affect our health and harm animals and plants. Releasing (1) {#1} (CHEMIST) waste from factories and power stations is one of the main ways in which we pollute our (2) {#2} (SURROUND). These waste substances are the (3) {#3} (WANT) results of modern living.&lt;/p&gt;&lt;p&gt;Pollution itself is not new - a hundred years ago factories sent out great clouds of (4) {#4} (POISON) smoke and (5) {#5} (FORTUNATE}, pollution has spread to the land, air and water of every corner of our planet. Our (6){#6} (SCIENCE) have much to learn about pollution, but we do know more about how to control it. The use of solar energy, instead of coal and gas, will help in the fight as it is very much cleaner than fossil fuels. We can also achieve some (7) {#7} (REDUCE) in pollution by recycling waste and using biodegradable materials which eventually break down in the soil and (8){#8} (APPEAR).&lt;/p&gt;&lt;p&gt;The use of cars which run on (9) {#9} (ELECTRIC) instead of petrol is also a key feature in the fight against pollution. It is up to everyone to be as (10) {#10} (ECONOMIC) as they can with the Earth's limited resources.&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>10.0000000</defaultmark>
+        <penalty>0.3333333</penalty>
+        <qtype>multianswer</qtype>
+        <length>1</length>
+        <stamp>www.esleschool.com+171203114847+Sb5leJ</stamp>
+        <version>www.esleschool.com+171203114847+r0aPeF</version>
+        <hidden>0</hidden>
+        <timecreated>1512301727</timecreated>
+        <timemodified>1512301727</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <idnumber>$@NULL@$</idnumber>
+        <plugin_qtype_multianswer_question>
+          <answers>
+          </answers>
+          <multianswer id="3">
+            <question>32</question>
+            <sequence>33,34,35,36,37,38,39,40,41,42</sequence>
+          </multianswer>
+        </plugin_qtype_multianswer_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="33">
+        <parent>32</parent>
+        <name>Reading and Use of English (Part 3)</name>
+        <questiontext>{1:SHORTANSWER:=chemical}</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.0000000</penalty>
+        <qtype>shortanswer</qtype>
+        <length>1</length>
+        <stamp>www.esleschool.com+171203114847+ZoqVqA</stamp>
+        <version>www.esleschool.com+171203114847+3lg4s9</version>
+        <hidden>0</hidden>
+        <timecreated>1512301727</timecreated>
+        <timemodified>1512301727</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <idnumber>$@NULL@$</idnumber>
+        <plugin_qtype_shortanswer_question>
+          <answers>
+            <answer id="128">
+              <answertext>chemical</answertext>
+              <answerformat>0</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <shortanswer id="6">
+            <usecase>0</usecase>
+          </shortanswer>
+        </plugin_qtype_shortanswer_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="34">
+        <parent>32</parent>
+        <name>Reading and Use of English (Part 3)</name>
+        <questiontext>{1:SHORTANSWER:=surroundings}</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.0000000</penalty>
+        <qtype>shortanswer</qtype>
+        <length>1</length>
+        <stamp>www.esleschool.com+171203114847+lHEiq5</stamp>
+        <version>www.esleschool.com+171203114847+f6ipJS</version>
+        <hidden>0</hidden>
+        <timecreated>1512301727</timecreated>
+        <timemodified>1512301727</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <idnumber>$@NULL@$</idnumber>
+        <plugin_qtype_shortanswer_question>
+          <answers>
+            <answer id="129">
+              <answertext>surroundings</answertext>
+              <answerformat>0</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <shortanswer id="7">
+            <usecase>0</usecase>
+          </shortanswer>
+        </plugin_qtype_shortanswer_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="35">
+        <parent>32</parent>
+        <name>Reading and Use of English (Part 3)</name>
+        <questiontext>{1:SHORTANSWER:=unwanted}</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.0000000</penalty>
+        <qtype>shortanswer</qtype>
+        <length>1</length>
+        <stamp>www.esleschool.com+171203114847+hZtedM</stamp>
+        <version>www.esleschool.com+171203114847+h7OR9L</version>
+        <hidden>0</hidden>
+        <timecreated>1512301727</timecreated>
+        <timemodified>1512301727</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <idnumber>$@NULL@$</idnumber>
+        <plugin_qtype_shortanswer_question>
+          <answers>
+            <answer id="130">
+              <answertext>unwanted</answertext>
+              <answerformat>0</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <shortanswer id="8">
+            <usecase>0</usecase>
+          </shortanswer>
+        </plugin_qtype_shortanswer_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="36">
+        <parent>32</parent>
+        <name>Reading and Use of English (Part 3)</name>
+        <questiontext>{1:SHORTANSWER:=poisonous}</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.0000000</penalty>
+        <qtype>shortanswer</qtype>
+        <length>1</length>
+        <stamp>www.esleschool.com+171203114847+zKOJVS</stamp>
+        <version>www.esleschool.com+171203114847+WbMpzX</version>
+        <hidden>0</hidden>
+        <timecreated>1512301727</timecreated>
+        <timemodified>1512301727</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <idnumber>$@NULL@$</idnumber>
+        <plugin_qtype_shortanswer_question>
+          <answers>
+            <answer id="131">
+              <answertext>poisonous</answertext>
+              <answerformat>0</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <shortanswer id="9">
+            <usecase>0</usecase>
+          </shortanswer>
+        </plugin_qtype_shortanswer_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="37">
+        <parent>32</parent>
+        <name>Reading and Use of English (Part 3)</name>
+        <questiontext>{1:SHORTANSWER:=unfortunately}</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.0000000</penalty>
+        <qtype>shortanswer</qtype>
+        <length>1</length>
+        <stamp>www.esleschool.com+171203114847+5ZLfJh</stamp>
+        <version>www.esleschool.com+171203114847+X0o0Fu</version>
+        <hidden>0</hidden>
+        <timecreated>1512301727</timecreated>
+        <timemodified>1512301727</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <idnumber>$@NULL@$</idnumber>
+        <plugin_qtype_shortanswer_question>
+          <answers>
+            <answer id="132">
+              <answertext>unfortunately</answertext>
+              <answerformat>0</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <shortanswer id="10">
+            <usecase>0</usecase>
+          </shortanswer>
+        </plugin_qtype_shortanswer_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="38">
+        <parent>32</parent>
+        <name>Reading and Use of English (Part 3)</name>
+        <questiontext>{1:SHORTANSWER:=scientists}</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.0000000</penalty>
+        <qtype>shortanswer</qtype>
+        <length>1</length>
+        <stamp>www.esleschool.com+171203114847+Kh3RZO</stamp>
+        <version>www.esleschool.com+171203114847+wY1Qen</version>
+        <hidden>0</hidden>
+        <timecreated>1512301727</timecreated>
+        <timemodified>1512301727</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <idnumber>$@NULL@$</idnumber>
+        <plugin_qtype_shortanswer_question>
+          <answers>
+            <answer id="133">
+              <answertext>scientists</answertext>
+              <answerformat>0</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <shortanswer id="11">
+            <usecase>0</usecase>
+          </shortanswer>
+        </plugin_qtype_shortanswer_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="39">
+        <parent>32</parent>
+        <name>Reading and Use of English (Part 3)</name>
+        <questiontext>{1:SHORTANSWER:=reduction~=reductions}</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.0000000</penalty>
+        <qtype>shortanswer</qtype>
+        <length>1</length>
+        <stamp>www.esleschool.com+171203114847+vh1vBx</stamp>
+        <version>www.esleschool.com+171203114847+IAAmAo</version>
+        <hidden>0</hidden>
+        <timecreated>1512301727</timecreated>
+        <timemodified>1512301727</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <idnumber>$@NULL@$</idnumber>
+        <plugin_qtype_shortanswer_question>
+          <answers>
+            <answer id="134">
+              <answertext>reduction</answertext>
+              <answerformat>0</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="135">
+              <answertext>reductions</answertext>
+              <answerformat>0</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <shortanswer id="12">
+            <usecase>0</usecase>
+          </shortanswer>
+        </plugin_qtype_shortanswer_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="40">
+        <parent>32</parent>
+        <name>Reading and Use of English (Part 3)</name>
+        <questiontext>{1:SHORTANSWER:=disappear}</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.0000000</penalty>
+        <qtype>shortanswer</qtype>
+        <length>1</length>
+        <stamp>www.esleschool.com+171203114847+XAkCmX</stamp>
+        <version>www.esleschool.com+171203114847+UbNaWg</version>
+        <hidden>0</hidden>
+        <timecreated>1512301727</timecreated>
+        <timemodified>1512301727</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <idnumber>$@NULL@$</idnumber>
+        <plugin_qtype_shortanswer_question>
+          <answers>
+            <answer id="136">
+              <answertext>disappear</answertext>
+              <answerformat>0</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <shortanswer id="13">
+            <usecase>0</usecase>
+          </shortanswer>
+        </plugin_qtype_shortanswer_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="41">
+        <parent>32</parent>
+        <name>Reading and Use of English (Part 3)</name>
+        <questiontext>{1:SHORTANSWER:=electricity}</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.0000000</penalty>
+        <qtype>shortanswer</qtype>
+        <length>1</length>
+        <stamp>www.esleschool.com+171203114847+zAn7eP</stamp>
+        <version>www.esleschool.com+171203114847+CvkjUK</version>
+        <hidden>0</hidden>
+        <timecreated>1512301727</timecreated>
+        <timemodified>1512301727</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <idnumber>$@NULL@$</idnumber>
+        <plugin_qtype_shortanswer_question>
+          <answers>
+            <answer id="137">
+              <answertext>electricity</answertext>
+              <answerformat>0</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <shortanswer id="14">
+            <usecase>0</usecase>
+          </shortanswer>
+        </plugin_qtype_shortanswer_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="42">
+        <parent>32</parent>
+        <name>Reading and Use of English (Part 3)</name>
+        <questiontext>{1:SHORTANSWER:=economical}</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.0000000</penalty>
+        <qtype>shortanswer</qtype>
+        <length>1</length>
+        <stamp>www.esleschool.com+171203114847+r3DTT1</stamp>
+        <version>www.esleschool.com+171203114847+hu9B2E</version>
+        <hidden>0</hidden>
+        <timecreated>1512301727</timecreated>
+        <timemodified>1512301727</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <idnumber>$@NULL@$</idnumber>
+        <plugin_qtype_shortanswer_question>
+          <answers>
+            <answer id="138">
+              <answertext>economical</answertext>
+              <answerformat>0</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <shortanswer id="15">
+            <usecase>0</usecase>
+          </shortanswer>
+        </plugin_qtype_shortanswer_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="43">
+        <parent>0</parent>
+        <name>Guess the city</name>
+        <questiontext>&lt;p&gt;What is the capital city of Japan?&lt;/p&gt;</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.3333333</penalty>
+        <qtype>shortanswer</qtype>
+        <length>1</length>
+        <stamp>sarangnair12.tryrapidgrader.edwiser.org+190610102448+FwMdlP</stamp>
+        <version>sarangnair12.tryrapidgrader.edwiser.org+190610102448+8Rd8AF</version>
+        <hidden>0</hidden>
+        <timecreated>1560162288</timecreated>
+        <timemodified>1560162288</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <idnumber>$@NULL@$</idnumber>
+        <plugin_qtype_shortanswer_question>
+          <answers>
+            <answer id="139">
+              <answertext>Tokyo</answertext>
+              <answerformat>0</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="140">
+              <answertext>Osaka</answertext>
+              <answerformat>0</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="141">
+              <answertext>Seoul</answertext>
+              <answerformat>0</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <shortanswer id="16">
+            <usecase>0</usecase>
+          </shortanswer>
+        </plugin_qtype_shortanswer_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="44">
+        <parent>0</parent>
+        <name>Describe City</name>
+        <questiontext>&lt;p&gt;Describe the city of Tokyo in 5 sentences?&lt;/p&gt;</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.0000000</penalty>
+        <qtype>essay</qtype>
+        <length>1</length>
+        <stamp>sarangnair12.tryrapidgrader.edwiser.org+190610103455+AFlIsi</stamp>
+        <version>sarangnair12.tryrapidgrader.edwiser.org+190610103455+7agvG7</version>
+        <hidden>0</hidden>
+        <timecreated>1560162895</timecreated>
+        <timemodified>1560162895</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <idnumber>$@NULL@$</idnumber>
+        <plugin_qtype_essay_question>
+          <essay id="1">
+            <responseformat>editor</responseformat>
+            <responserequired>1</responserequired>
+            <responsefieldlines>5</responsefieldlines>
+            <attachments>0</attachments>
+            <attachmentsrequired>0</attachmentsrequired>
+            <graderinfo>&lt;p&gt;Answers should be graded on following factors,&lt;/p&gt;&lt;p&gt;&lt;ul&gt;&lt;li&gt;The answer should be unique and cannot be copied from any source,&lt;/li&gt;&lt;li&gt;Score should be allotted on the basis of vocabulary used and language skills displayed.&lt;/li&gt;&lt;/ul&gt;&lt;/p&gt;</graderinfo>
+            <graderinfoformat>1</graderinfoformat>
+            <responsetemplate></responsetemplate>
+            <responsetemplateformat>1</responsetemplateformat>
+            <filetypeslist></filetypeslist>
+          </essay>
+        </plugin_qtype_essay_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="45">
+        <parent>0</parent>
+        <name>essay</name>
+        <questiontext>&lt;p&gt;&lt;h4&gt;Write an essay on the following topic-&lt;br&gt;'Effects of modern urban lifestyle on health and well-being'&lt;/h4&gt;&lt;br&gt;&lt;/p&gt;</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.0000000</penalty>
+        <qtype>essay</qtype>
+        <length>1</length>
+        <stamp>sarangnair12.tryrapidgrader.edwiser.org+190610111301+b1HKxc</stamp>
+        <version>sarangnair12.tryrapidgrader.edwiser.org+190610111301+4pDZN3</version>
+        <hidden>0</hidden>
+        <timecreated>1560165181</timecreated>
+        <timemodified>1560165181</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <idnumber>$@NULL@$</idnumber>
+        <plugin_qtype_essay_question>
+          <essay id="2">
+            <responseformat>editor</responseformat>
+            <responserequired>1</responserequired>
+            <responsefieldlines>15</responsefieldlines>
+            <attachments>0</attachments>
+            <attachmentsrequired>0</attachmentsrequired>
+            <graderinfo>&lt;p&gt;Answers should be graded on following factors,&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;The answer should be unique and cannot be copied from any source,&lt;/li&gt;&lt;li&gt;Score should be allotted on the basis of vocabulary used and language skills displayed.&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;/p&gt;</graderinfo>
+            <graderinfoformat>1</graderinfoformat>
+            <responsetemplate></responsetemplate>
+            <responsetemplateformat>1</responsetemplateformat>
+            <filetypeslist></filetypeslist>
+          </essay>
+        </plugin_qtype_essay_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="46">
+        <parent>0</parent>
+        <name>Share your experience</name>
+        <questiontext>&lt;p&gt;Share your experience up until now&lt;/p&gt;</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.0000000</penalty>
+        <qtype>essay</qtype>
+        <length>1</length>
+        <stamp>sarangnair12.tryrapidgrader.edwiser.org+190610132441+AGgeHm</stamp>
+        <version>sarangnair12.tryrapidgrader.edwiser.org+190610132441+dgBX3V</version>
+        <hidden>0</hidden>
+        <timecreated>1560173081</timecreated>
+        <timemodified>1560173081</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <idnumber>$@NULL@$</idnumber>
+        <plugin_qtype_essay_question>
+          <essay id="3">
+            <responseformat>editor</responseformat>
+            <responserequired>1</responserequired>
+            <responsefieldlines>15</responsefieldlines>
+            <attachments>0</attachments>
+            <attachmentsrequired>0</attachmentsrequired>
+            <graderinfo></graderinfo>
+            <graderinfoformat>1</graderinfoformat>
+            <responsetemplate></responsetemplate>
+            <responsetemplateformat>1</responsetemplateformat>
+            <filetypeslist></filetypeslist>
+          </essay>
+        </plugin_qtype_essay_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="47">
+        <parent>0</parent>
+        <name>Details about Greenpeace</name>
+        <questiontext>&lt;p&gt;What does Greenpeace stand for?&lt;/p&gt;</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.0000000</penalty>
+        <qtype>essay</qtype>
+        <length>1</length>
+        <stamp>sarangnair12.tryrapidgrader.edwiser.org+190610134606+KjP1ls</stamp>
+        <version>sarangnair12.tryrapidgrader.edwiser.org+190610134606+Inhd2i</version>
+        <hidden>0</hidden>
+        <timecreated>1560174366</timecreated>
+        <timemodified>1560174366</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <idnumber>$@NULL@$</idnumber>
+        <plugin_qtype_essay_question>
+          <essay id="4">
+            <responseformat>editor</responseformat>
+            <responserequired>1</responserequired>
+            <responsefieldlines>15</responsefieldlines>
+            <attachments>0</attachments>
+            <attachmentsrequired>0</attachmentsrequired>
+            <graderinfo></graderinfo>
+            <graderinfoformat>1</graderinfoformat>
+            <responsetemplate></responsetemplate>
+            <responsetemplateformat>1</responsetemplateformat>
+            <filetypeslist></filetypeslist>
+          </essay>
+        </plugin_qtype_essay_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="48">
+        <parent>0</parent>
+        <name>Environment Pollution</name>
+        <questiontext>&lt;p&gt;What are the various sources of environment pollution?&lt;/p&gt;</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.0000000</penalty>
+        <qtype>essay</qtype>
+        <length>1</length>
+        <stamp>sarangnair12.tryrapidgrader.edwiser.org+190610134701+55Vl9y</stamp>
+        <version>sarangnair12.tryrapidgrader.edwiser.org+190610134701+JqQGBn</version>
+        <hidden>0</hidden>
+        <timecreated>1560174421</timecreated>
+        <timemodified>1560174421</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <idnumber>$@NULL@$</idnumber>
+        <plugin_qtype_essay_question>
+          <essay id="5">
+            <responseformat>editor</responseformat>
+            <responserequired>1</responserequired>
+            <responsefieldlines>15</responsefieldlines>
+            <attachments>0</attachments>
+            <attachmentsrequired>0</attachmentsrequired>
+            <graderinfo></graderinfo>
+            <graderinfoformat>1</graderinfoformat>
+            <responsetemplate></responsetemplate>
+            <responsetemplateformat>1</responsetemplateformat>
+            <filetypeslist></filetypeslist>
+          </essay>
+        </plugin_qtype_essay_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="49">
+        <parent>0</parent>
+        <name>VIsion &amp; Mission</name>
+        <questiontext>&lt;p&gt;What is the Vision &amp;amp; Mission of Greenpeace?&lt;/p&gt;</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.0000000</penalty>
+        <qtype>essay</qtype>
+        <length>1</length>
+        <stamp>sarangnair12.tryrapidgrader.edwiser.org+190610134920+WAJBCs</stamp>
+        <version>sarangnair12.tryrapidgrader.edwiser.org+190610134920+5AkwSh</version>
+        <hidden>0</hidden>
+        <timecreated>1560174560</timecreated>
+        <timemodified>1560174560</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <idnumber>$@NULL@$</idnumber>
+        <plugin_qtype_essay_question>
+          <essay id="6">
+            <responseformat>editor</responseformat>
+            <responserequired>1</responserequired>
+            <responsefieldlines>15</responsefieldlines>
+            <attachments>0</attachments>
+            <attachmentsrequired>0</attachmentsrequired>
+            <graderinfo></graderinfo>
+            <graderinfoformat>1</graderinfoformat>
+            <responsetemplate></responsetemplate>
+            <responsetemplateformat>1</responsetemplateformat>
+            <filetypeslist></filetypeslist>
+          </essay>
+        </plugin_qtype_essay_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+    </questions>
+  </question_category>
+  <question_category id="12">
+    <name>Default for Unit 1: Grammar practice (reported speech)</name>
+    <contextid>122</contextid>
+    <contextlevel>70</contextlevel>
+    <contextinstanceid>52</contextinstanceid>
+    <info>The default category for questions shared in context 'Unit 1: Grammar practice (reported speech)'.</info>
+    <infoformat>0</infoformat>
+    <stamp>www.esleschool.com+171203113326+rcPH6n</stamp>
+    <parent>16</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="13">
+    <name>Default for Unit 1: Greenpeace (Reading and Use of English: Part 1)</name>
+    <contextid>127</contextid>
+    <contextlevel>70</contextlevel>
+    <contextinstanceid>57</contextinstanceid>
+    <info>The default category for questions shared in context 'Unit 1: Greenpeace (Reading and Use of English: Part 1)'.</info>
+    <infoformat>0</infoformat>
+    <stamp>www.esleschool.com+171203114404+VPOXpF</stamp>
+    <parent>17</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="14">
+    <name>Default for Unit 1: Polluting the Environment (Reading and Use of English: Part 3)Unit 1: Polluting the Environment (Reading and Use of English: Part 3)</name>
+    <contextid>128</contextid>
+    <contextlevel>70</contextlevel>
+    <contextinstanceid>58</contextinstanceid>
+    <info>The default category for questions shared in context 'Unit 1: Polluting the Environment (Reading and Use of English: Part 3)Unit 1: Polluting the Environment (Reading and Use of English: Part 3)'.</info>
+    <infoformat>0</infoformat>
+    <stamp>www.esleschool.com+171203114800+nRVvEV</stamp>
+    <parent>18</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="15">
+    <name>top</name>
+    <contextid>117</contextid>
+    <contextlevel>70</contextlevel>
+    <contextinstanceid>47</contextinstanceid>
+    <info></info>
+    <infoformat>0</infoformat>
+    <stamp>remui.edwiser.org+210810112356+qHwZci</stamp>
+    <parent>0</parent>
+    <sortorder>0</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="16">
+    <name>top</name>
+    <contextid>122</contextid>
+    <contextlevel>70</contextlevel>
+    <contextinstanceid>52</contextinstanceid>
+    <info></info>
+    <infoformat>0</infoformat>
+    <stamp>remui.edwiser.org+210810112356+HYZUpu</stamp>
+    <parent>0</parent>
+    <sortorder>0</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="17">
+    <name>top</name>
+    <contextid>127</contextid>
+    <contextlevel>70</contextlevel>
+    <contextinstanceid>57</contextinstanceid>
+    <info></info>
+    <infoformat>0</infoformat>
+    <stamp>remui.edwiser.org+210810112356+KLFCJS</stamp>
+    <parent>0</parent>
+    <sortorder>0</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="18">
+    <name>top</name>
+    <contextid>128</contextid>
+    <contextlevel>70</contextlevel>
+    <contextinstanceid>58</contextinstanceid>
+    <info></info>
+    <infoformat>0</infoformat>
+    <stamp>remui.edwiser.org+210810112356+tf2u5W</stamp>
+    <parent>0</parent>
+    <sortorder>0</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+</question_categories>

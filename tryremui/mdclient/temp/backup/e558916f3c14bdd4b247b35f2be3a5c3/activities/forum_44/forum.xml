@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<activity id="6" moduleid="44" modulename="forum" contextid="114">
+  <forum id="6">
+    <type>eachuser</type>
+    <name>Unit 1: Environmental issues</name>
+    <intro>&lt;p&gt;Select one of the working to begin a discussion.&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;What can we do to look after the world we live in?&lt;/li&gt;&lt;li&gt;Do you think we worry too much about the environment? Why? Why not?&lt;/li&gt;&lt;li&gt;Some schools organize trips to teach their students about the natural world.: Is this a good idea? Why? Why not?&lt;/li&gt;&lt;li&gt;What can students learn on a school trip yjat they can't learn in the classroom?&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;/p&gt;</intro>
+    <introformat>1</introformat>
+    <duedate>0</duedate>
+    <cutoffdate>0</cutoffdate>
+    <assessed>0</assessed>
+    <assesstimestart>0</assesstimestart>
+    <assesstimefinish>0</assesstimefinish>
+    <scale>100</scale>
+    <maxbytes>512000</maxbytes>
+    <maxattachments>9</maxattachments>
+    <forcesubscribe>0</forcesubscribe>
+    <trackingtype>1</trackingtype>
+    <rsstype>0</rsstype>
+    <rssarticles>0</rssarticles>
+    <timemodified>1512299806</timemodified>
+    <warnafter>0</warnafter>
+    <blockafter>0</blockafter>
+    <blockperiod>0</blockperiod>
+    <completiondiscussions>0</completiondiscussions>
+    <completionreplies>1</completionreplies>
+    <completionposts>1</completionposts>
+    <displaywordcount>0</displaywordcount>
+    <lockdiscussionafter>0</lockdiscussionafter>
+    <grade_forum>0</grade_forum>
+    <discussions>
+    </discussions>
+    <subscriptions>
+    </subscriptions>
+    <digests>
+    </digests>
+    <readposts>
+    </readposts>
+    <trackedprefs>
+    </trackedprefs>
+    <poststags>
+    </poststags>
+    <grades>
+    </grades>
+  </forum>
+</activity>

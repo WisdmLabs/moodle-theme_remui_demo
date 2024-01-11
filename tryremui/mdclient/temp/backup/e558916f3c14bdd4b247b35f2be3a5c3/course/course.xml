@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<course id="6" contextid="106">
+  <shortname>English B2 Course </shortname>
+  <fullname>English B2 Course </fullname>
+  <idnumber></idnumber>
+  <summary>&lt;p&gt;This course is a&lt;b&gt; &lt;a href="https://www.esleschool.com/moodle/course/view.php?id=4" target="_blank"&gt;B2 Upper Intermediate Level &lt;/a&gt;&lt;/b&gt;Course. It is recommended for students who have a very good level of English.&lt;/p&gt;&lt;p&gt;&lt;span style="font-size: 1rem;"&gt;The course is divided into &lt;b&gt;nine&lt;/b&gt; units:&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Unit 1: Environment Matters&lt;/li&gt;&lt;li&gt;Unit 2: Past and Present&lt;/li&gt;&lt;li&gt;Unit 3: Who's got talent?&lt;/li&gt;&lt;li&gt;Unit 4: Travel and Adventure&lt;/li&gt;&lt;li&gt;Unit 5: Bookworms&lt;/li&gt;&lt;li&gt;Unit 6: Multicultural Matters&lt;/li&gt;&lt;li&gt;Unit 7: School Life &amp;amp; Courses&lt;br&gt;&lt;/li&gt;&lt;li&gt;Unit 8: Connected&lt;/li&gt;&lt;li&gt;Unit 9: Shopping&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;&lt;span&gt;&lt;b&gt;This is a free view and only has ONE unit &lt;/b&gt;. The&amp;nbsp;&lt;a href="https://www.esleschool.com/moodle/course/view.php?id=4" target="_blank"&gt;full course&lt;/a&gt;&amp;nbsp;has 9 units with written assignments that are marked by your tutor..&lt;/span&gt;&amp;nbsp;At the end of the course, there is final B2 level assessment. All students receive a detailed language profile report with a recommendation for further courses.&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;By the end of the full&lt;span&gt;&amp;nbsp;&lt;/span&gt;course students:&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Can understand the main ideas of complex text on both concrete and abstract topics, including technical discussions in his/her school related subjects or work environment.&lt;/li&gt;
+&lt;li&gt;Can interact with a degree of fluency and spontaneity that makes regular interaction with native speakers quite possible without strain for either party.&amp;nbsp;&lt;/li&gt;
+&lt;li&gt;Can produce clear, detailed text on a wide range of subjects and explain a viewpoint on a topical issue giving the advantages and disadvantages of various options.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;ul&gt;
+&lt;/ul&gt;</summary>
+  <summaryformat>1</summaryformat>
+  <format>topics</format>
+  <showgrades>1</showgrades>
+  <newsitems>5</newsitems>
+  <startdate>1512363600</startdate>
+  <enddate>0</enddate>
+  <marker>0</marker>
+  <maxbytes>0</maxbytes>
+  <legacyfiles>0</legacyfiles>
+  <showreports>0</showreports>
+  <visible>1</visible>
+  <groupmode>0</groupmode>
+  <groupmodeforce>0</groupmodeforce>
+  <defaultgroupingid>0</defaultgroupingid>
+  <lang></lang>
+  <theme></theme>
+  <timecreated>1512304944</timecreated>
+  <timemodified>1658552712</timemodified>
+  <requested>0</requested>
+  <enablecompletion>1</enablecompletion>
+  <completionnotify>0</completionnotify>
+  <hiddensections>0</hiddensections>
+  <coursedisplay>0</coursedisplay>
+  <category id="3">
+    <name>Miscellaneous</name>
+    <description></description>
+  </category>
+  <tags>
+  </tags>
+  <customfields>
+    <customfield id="13">
+      <shortname>edwcoursedurationinhours</shortname>
+      <type>text</type>
+      <value></value>
+      <valueformat>0</valueformat>
+    </customfield>
+    <customfield id="14">
+      <shortname>edwcourseintrovideourlembedded</shortname>
+      <type>text</type>
+      <value></value>
+      <valueformat>0</valueformat>
+    </customfield>
+    <customfield id="15">
+      <shortname>edwskilllevel</shortname>
+      <type>select</type>
+      <value>1</value>
+      <valueformat>0</valueformat>
+    </customfield>
+  </customfields>
+</course>

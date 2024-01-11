@@ -1,0 +1,33 @@
+server {
+	listen 80;
+	listen [::]:80;
+
+	root  /var/www/instances/tryremui/html;
+	client_max_body_size 100M;
+	
+	# Add index.php to the list if you are using PHP
+	index index.php index.html index.htm index.nginx-debian.html;
+
+	server_name tryremui.edwiser.org;
+
+	location / {
+		# First attempt to serve request as file, then
+		# as directory, then fall back to displaying a 404.
+		try_files $uri $uri/ =404;
+	}
+
+	 location ~ [^/]\.php(/|$) {
+                fastcgi_split_path_info ^(.+\.php)(/.+)$;
+                fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
+                                include fastcgi_params;
+                fastcgi_param PATH_INFO $fastcgi_path_info;
+                fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        }
+
+	# deny access to .htaccess files, if Apache's document root
+	# concurs with nginx's one
+	#
+	location ~ /\.ht {
+		deny all;
+	}
+}

@@ -1,0 +1,310 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:p="urn:schemas-microsoft-com:office:powerpoint"
+xmlns:oa="urn:schemas-microsoft-com:office:activation"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=Windows-1254">
+<meta name=ProgId content=PowerPoint.Slide>
+<meta name=Generator content="Microsoft PowerPoint 12">
+<link id=Main-File rel=Main-File
+href="../Chapter_5_Synchronous_Sequential_Circuit.htm">
+<link rel=Preview href=preview.wmf>
+<!--[if !mso]>
+<style>
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+p\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+v\:textbox {display:none;}
+</style>
+<![endif]-->
+<title>Synchronous_Sequential_Circuit</title>
+<meta name=Description content="11/08/2010: Mealy and Moore Models">
+<link rel=Stylesheet href="master06_stylesheet.css">
+<![if !ppt]>
+<style media=print>
+<!--.sld
+	{left:0px !important;
+	width:6.0in !important;
+	height:4.5in !important;
+	font-size:107% !important;}
+-->
+</style>
+<script src=script.js></script><script><!--
+if( !IsNts() ) Redirect( "PPTSld" );
+//--></script><!--[if vml]><script>g_vml = 1;
+</script><![endif]--><![endif]><o:shapelayout v:ext="edit">
+ <o:idmap v:ext="edit" data="47"/>
+</o:shapelayout>
+</head>
+
+<body lang=EN-US style='margin:0px;background-color:black'
+onclick="DocumentOnClick()" onresize="_RSW()" onload="LoadSld()"
+onkeypress="_KPH()">
+
+<div id=SlideObj class=sld style='position:absolute;top:0px;left:0px;
+width:534px;height:400px;font-size:16px;background-color:white;clip:rect(0%, 101%, 101%, 0%);
+visibility:hidden'><p:slide coordsize="720,540"
+ colors="#ffffff,#000000,#919191,#081d58,#fc0128,#063de8,#00dfca,#eaec5e"
+ masterhref="master06.xml">
+ <p:shaperange href="master06.xml#_x0000_s31745"/><![if !ppt]><p:shaperange
+  href="master06.xml#_x0000_s31746"/><![if !vml]><img border=0
+ v:shapes="_x0000_s31746" src="master06_image005.gif" style='position:absolute;
+ top:0%;left:4.68%;width:95.5%;height:11.5%'><![endif]><p:shaperange
+  href="master06.xml#_x0000_s31747"/><![if !vml]><img border=0
+ v:shapes="_x0000_s31747" src="master06_image006.gif" style='position:absolute;
+ top:-.5%;left:-.37%;width:5.61%;height:69.75%'><![endif]><p:shaperange
+  href="master06.xml#_x0000_s31750"/><![if !vml]><img border=0
+ v:shapes="_x0000_s31750" src="master06_image007.gif" style='position:absolute;
+ top:11.25%;left:4.49%;width:96.25%;height:1.25%'><![endif]><p:shaperange
+  href="master06.xml#_x0000_s31753"/>
+ <div v:shape="_x0000_s31753" class=O style='mso-line-spacing:"100 0 0";
+ mso-char-wrap:1;mso-kinsoku-overflow:1;position:absolute;top:95.75%;
+ left:35.2%;width:34.45%;height:2.75%'><span lang=TR style='font-size:67%;
+ text-shadow:auto'>Eastern Mediterranean University</span><span
+ style='font-size:67%;text-shadow:auto;mso-special-format:lastCR;display:none'>&#13;</span></div>
+ <p:shaperange href="master06.xml#_x0000_s31754"/>
+ <div v:shape="_x0000_s31754" class=O>
+ <div style='text-align:right;mso-line-spacing:"100 0 0";mso-char-wrap:1;
+ mso-kinsoku-overflow:1;position:absolute;top:95.25%;left:87.82%;width:11.23%;
+ height:3.25%'><span style='font-size:78%;text-shadow:auto'>‹#›</span></div>
+ </div>
+ <p:shaperange href="master06.xml#Picture_x0020_14"/><![if !vml]><img border=0
+ v:shapes="Picture_x0020_14" src="master06_image008.gif" alt=logoyil30
+ style='position:absolute;top:0%;left:0%;width:7.86%;height:10.75%'><![endif]><p:shaperange
+  href="master06.xml#_x0000_s31756"/><![endif]><v:shape id="_x0000_s48130"
+  type="#_x0000_t202" style='position:absolute;left:246.625pt;top:511pt;
+  width:260.75pt;height:22.75pt;visibility:visible;mso-wrap-style:square;
+  v-text-anchor:bottom' o:gfxdata="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
+AAAAAAQABAD1AAAACwcAAAAA
+" filled="f" stroked="f">
+  <v:fill o:detectmouseclick="t"/>
+  <v:path arrowok="t"/>
+  <o:lock v:ext="edit" grouping="t"/>
+  <v:textbox style='mso-rotate-with-shape:t'/>
+ </v:shape><v:shape id="_x0000_s48131" type="#_x0000_t202" style='position:absolute;
+  left:625.625pt;top:511pt;width:94.375pt;height:22.75pt;visibility:visible;
+  mso-wrap-style:square;v-text-anchor:bottom' o:gfxdata="UEsDBBQABgAIAAAAIQBa4xFm/gAAAOIBAAATAAAAW0NvbnRlbnRfVHlwZXNdLnhtbJSRTU/EIBCG
+7yb+BzJX01I9GGNK92D1qEbXHzCBaUu2BcJg3f330v24GNfEI8y8z/sE6tV2GsVMka13Cq7LCgQ5
+7Y11vYKP9VNxB4ITOoOjd6RgRwyr5vKiXu8CschpxwqGlMK9lKwHmpBLH8jlSefjhCkfYy8D6g32
+JG+q6lZq7xK5VKSFAU3dUoefYxKP23x9MIk0MoiHw+LSpQBDGK3GlE3l7MyPluLYUObkfocHG/gq
+a4D8tWGZnC845l7y00RrSLxiTM84ZQ1pIkvjv1ykufwbslhOXPius5rKNnKbY280n6zO0XnAQBn9
+X/z7kjvB5f6Hmm8AAAD//wMAUEsDBBQABgAIAAAAIQAx3V9h0gAAAI8BAAALAAAAX3JlbHMvLnJl
+bHOkkMFqwzAMhu+DvYPRvXHaQxmjTm+FXksHuwpbSUxjy1gmbd++pjBYRm876hf6PvHv9rcwqZmy
+eI4G1k0LiqJl5+Ng4Ot8WH2AkoLR4cSRDNxJYN+9v+1ONGGpRzL6JKpSohgYS0mfWosdKaA0nCjW
+Tc85YKljHnRCe8GB9KZttzr/ZkC3YKqjM5CPbgPqfE/V/IcdvM0s3JfGctDc996+omrH13iiuVIw
+D1QMuCzPMNPc1OdAv/au/+mVERN9V/5C/Eyr9cesFzV2DwAAAP//AwBQSwMEFAAGAAgAAAAhAKwP
+E7SSAwAAWggAABAAAABkcnMvc2hhcGV4bWwueG1spFVdb+M2EHwv0P9A8LXI+SN2YhunHBKjuRZw
+AyPOoc8ribJVU6RKUo6dX3+zlGznDoeiOCcAvRSX5Ozs7vDjp32lxU45X1qTyMGHvhTKZDYvzTqR
+X14eryZS+EAmJ22NSuRBefnp7tdfPtYzXwtsNn5WJ3ITQj3r9Xy2URX5D7ZWBmuFdRUFTN26Vzvl
+lQkUcFGle8N+/6ZXUWnkHY4yu1W9dGxlT7ulE2WeyLEUhipcudJlrsRTU6XKiaWmTG2szmFfy163
+hXeLsH+we8SAEwngFjbb+g4h/R+EuaNXhP0NOGHsZ4f4BnxVL8I7IjUA2n48o/eMI339y+bATU2w
+Ecu+cNWlQDgmWxQCAd5OR+PRNfJySOTNaDK97fcZHc3UPoiMGRhMJ+OboRQZPIaTyXQ4jvBpxkjY
+s3Y+fFb2YlSCD0qkU1mIkdJu4QOTcr6CrzP2sdT6UgpijNpcegwDqsqA+tFllchJn/9aAjeK8t9N
+Hi8KVOrWRjDaxOxzerniuNLyAx+U4hcpb/vg56sMDQgaN9a9SfHqCAXn/23IKSn0n8YncjoYjdCZ
+IU5G49shJu79Svp+xTTV3GouWkEmw6mJTI/mPGCG3ZmtagoLs6qzY8twLl/2f5Oru7QGFNSTXW2o
+Vj/Kbusbk93SwIRoH1bhoNWllMQcHAXmp4llRNySFblFDBvGczT0DgSBh9LkUKVokl5DAp0UuSpe
+KF29dbwz16H1VrQwD24bqS2sCfdxS0qeMwVpM90ytmzIrKEmy8ZkOL4VJc10MyZfZ8ssiB1xlk4F
+GAvt7PGgiu99Y53CDfvPq/dF+A+/bjVt5tq97COtabN6O5mPCOM0eYLGd9Wftp1MM7Dx3Cpd5JKv
+QhNgAK/bpior+0/ZUoqIE6nM1ZcV3gywNxihsUTa8hzHJpEGV/CT4sotNNLYVbSk2CrHDxDeBRQn
+d0DnyPWJT4afEl2+qT/ilCnXJT9IcW3prC2i7asw14pwVD/WLHfuUYAQWdfLYNDiVWFVitTxs6VA
+UJuRsG/l/jsvVRTQOdDCW2wDBVlt8leR6sY9U57I6wlSieopWRJPE7TbEArNGiPaCgs6IvNunZ6u
+nPf5v1Pp09kR7zfXNgvTJath8J0dS0+EQ60KvI6JvHcladC4IedVLO6YVEXvfH6rzJWiVvcy/27h
+h5vBG/LNgYc7IZhGsMAf41hjPKsiTF/ffQUAAP//AwBQSwMEFAAGAAgAAAAhAKCuwGXYAAAA+QAA
+AA8AAABkcnMvZG93bnJldi54bWxEj8FOAjEURfcm/kPzTNwY6SBRJiOFqImBjQvABNg9p4/pSPs6
+thWGv7dxocube3NuzmTWOyuOFGLrWcFwUIAgrr1uuVHwvn69LUHEhKzReiYFZ4owm15eTLDS/sRL
+Oq5SIzKEY4UKTEpdJWWsDTmMA98R527vg8OUY2ikDnjKcGflXVE8SIct5weDHb0Yqg+rb6dg9LYZ
+7raLOGpSF28On+V4vv0aK3V91T89gkjUp/9x+WzX1vyVv6iFVnAPYj8/f4RWLzEmCgqyWzbNliCn
+PwAAAP//AwBQSwECLQAUAAYACAAAACEAWuMRZv4AAADiAQAAEwAAAAAAAAAAAAAAAAAAAAAAW0Nv
+bnRlbnRfVHlwZXNdLnhtbFBLAQItABQABgAIAAAAIQAx3V9h0gAAAI8BAAALAAAAAAAAAAAAAAAA
+AC8BAABfcmVscy8ucmVsc1BLAQItABQABgAIAAAAIQCsDxO0kgMAAFoIAAAQAAAAAAAAAAAAAAAA
+ACoCAABkcnMvc2hhcGV4bWwueG1sUEsBAi0AFAAGAAgAAAAhAKCuwGXYAAAA+QAAAA8AAAAAAAAA
+AAAAAAAA6gUAAGRycy9kb3ducmV2LnhtbFBLBQYAAAAABAAEAPUAAADvBgAAAAA=
+" filled="f" stroked="f">
+  <v:fill o:detectmouseclick="t"/>
+  <v:path arrowok="t"/>
+  <o:lock v:ext="edit" grouping="t"/>
+  <v:textbox style='mso-rotate-with-shape:t'/>
+ </v:shape><p:shaperange href="master06.xml#_x0000_m31748"/><v:shape id="_x0000_s48132"
+  type="#_x0000_m31748" style='position:absolute;left:76.5pt;top:14.875pt;
+  width:623.75pt;height:37.375pt;visibility:visible;mso-wrap-style:square;
+  v-text-anchor:middle' o:gfxdata="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
+">
+  <v:stroke o:forcedash="f"/>
+  <v:path arrowok="f"/>
+  <o:lock v:ext="edit" rotation="f" aspectratio="f" position="f" selection="f"
+   verticies="f" text="f" adjusthandles="f" grouping="t" shapetype="f"/>
+  <v:textbox style='layout-flow:horizontal;mso-rotate-with-shape:t;
+   mso-fit-shape-to-text:t' inset="0,0,0,0"/>
+  <p:placeholder type="title" position="-1"/></v:shape><p:shaperange
+  href="master06.xml#_x0000_m31749"/><v:shape id="_x0000_s48133" type="#_x0000_m31749"
+  style='position:absolute;left:48.125pt;top:85.75pt;width:652pt;height:427pt;
+  visibility:visible;mso-wrap-style:square;v-text-anchor:top'>
+  <v:stroke o:forcedash="f"/>
+  <v:path arrowok="f"/>
+  <o:lock v:ext="edit" rotation="f" aspectratio="f" position="f" selection="f"
+   verticies="f" text="f" adjusthandles="f" grouping="t" shapetype="f"/>
+  <v:textbox style='layout-flow:horizontal;mso-rotate-with-shape:t;
+   mso-fit-shape-to-text:t' inset="2.51356mm,3.5pt,2.51356mm,3.5pt"/>
+  <p:placeholder type="body" position="-1"/></v:shape>
+ <div v:shape="_x0000_s48130">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='mso-line-spacing:"100 0 0";mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:95.75%;left:35.2%;width:34.45%;height:2.75%'><span
+ lang=TR style='font-size:67%;text-shadow:auto'>Eastern Mediterranean
+ University</span><span style='font-size:67%;text-shadow:auto;mso-special-format:
+ lastCR;display:none'>&#13;</span></div>
+ </div>
+ <div v:shape="_x0000_s48131">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:right;mso-line-spacing:"100 0 0";mso-char-wrap:
+ 1;mso-kinsoku-overflow:1;position:absolute;top:95.25%;left:87.82%;width:11.23%;
+ height:3.25%'><span style='font-size:78%;text-shadow:auto'>42</span></div>
+ </div>
+ <div v:shape="_x0000_s48132" class=T style='position:absolute;top:2.75%;
+ left:10.67%;width:86.89%;height:6.75%'><span lang=EN-US style='mso-fareast-font-family:
+ \65B0\7D30\660E\9AD4;text-shadow:auto;mso-fareast-language:ZH-TW'>Mealy and
+ Moore Models</span></div>
+ <div v:shape="_x0000_s48133">
+ <div class=B3 style='mso-margin-left-alt:1008;mso-text-indent-alt:864'></div>
+ <div class=B4 style='mso-margin-left-alt:1296;mso-text-indent-alt:1152'></div>
+ <div class=B><span style='position:absolute;top:17.0%;left:11.61%;width:92.32%;
+ height:6.0%'><span style='color:#FF33CC;font-weight:normal'><span class=BB
+ style='position:absolute;left:-4.25%'>«</span></span><span lang=EN-US
+ style='mso-fareast-font-family:\65B0\7D30\660E\9AD4;color:#FF33CC;mso-fareast-language:
+ ZH-TW'>The Mealy model</span><span lang=EN-US style='mso-fareast-font-family:
+ \65B0\7D30\660E\9AD4;mso-fareast-language:ZH-TW'>: the outputs are functions
+ of </span></span><span style='position:absolute;top:23.25%;left:11.61%;
+ width:88.38%;height:6.0%'><span lang=EN-US style='mso-fareast-font-family:
+ \65B0\7D30\660E\9AD4;mso-fareast-language:ZH-TW'>both the present state and
+ inputs (Fig. 5-15).&#13;</span></span></div>
+ <div class=B1><span style='position:absolute;top:32.0%;left:16.47%;width:95.5%;
+ height:5.25%'><span style='font-weight:normal'><span class=B1B
+ style='position:absolute;left:-3.13%'>&#9679;</span></span><span lang=EN-US
+ style='mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-fareast-language:ZH-TW'>The
+ outputs may change if the inputs change during the </span></span><span
+ style='position:absolute;top:37.25%;left:16.47%;width:79.96%;height:5.25%'><span
+ lang=EN-US style='mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-fareast-language:
+ ZH-TW'>clock pulse period.&#13;</span></span></div>
+ <div class=B2><span style='position:absolute;top:44.75%;left:21.34%;
+ width:80.89%;height:4.25%'><span style='font-weight:normal'><span class=B2B
+ style='position:absolute;left:-3.47%'>&#9830;</span></span><span lang=EN-US
+ style='mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-fareast-language:ZH-TW'>The
+ outputs may have momentary false values unless the </span></span><span
+ style='position:absolute;top:49.25%;left:21.34%;width:75.09%;height:4.25%'><span
+ lang=EN-US style='mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-fareast-language:
+ ZH-TW'>inputs are synchronized with the clocks.&#13;</span></span></div>
+ <div class=B><span style='position:absolute;top:57.0%;left:11.61%;width:100.56%;
+ height:6.0%'><span style='color:#FF33CC;font-weight:normal'><span class=BB
+ style='position:absolute;left:-3.91%'>«</span></span><span lang=EN-US
+ style='mso-fareast-font-family:\65B0\7D30\660E\9AD4;color:#FF33CC;mso-fareast-language:
+ ZH-TW'>The Moore model</span><span lang=EN-US style='mso-fareast-font-family:
+ \65B0\7D30\660E\9AD4;mso-fareast-language:ZH-TW'>: the outputs are functions
+ of the </span></span><span style='position:absolute;top:63.25%;left:11.61%;
+ width:84.83%;height:6.0%'><span lang=EN-US style='mso-fareast-font-family:
+ \65B0\7D30\660E\9AD4;mso-fareast-language:ZH-TW'>present state only (Fig.
+ 5-20).&#13;</span></span></div>
+ <div class=B1 style='position:absolute;top:72.0%;left:13.48%;width:82.95%;
+ height:5.25%'><span style='position:absolute;top:0%;left:3.61%;width:96.38%;
+ height:100.0%'><span style='font-weight:normal'><span class=B1B
+ style='position:absolute;left:-3.74%'>&#9679;</span></span><span lang=EN-US
+ style='mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-fareast-language:ZH-TW'>The
+ outputs are </span><span lang=EN-US style='mso-fareast-font-family:\65B0\7D30\660E\9AD4;
+ mso-fareast-language:ZH-TW'><b><u>synchronous</u></b></span><span lang=EN-US
+ style='mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-fareast-language:ZH-TW'>
+ with the clocks.&#13;</span></span></div>
+ <div class=B style='position:absolute;top:80.0%;left:7.67%;width:88.76%;
+ height:5.25%'><span style='mso-special-format:nobullet;display:none;
+ color:#CC3300;font-family:Wingdings'>«</span><span lang=ZH-TW
+ style='mso-fareast-font-family:\65B0\7D30\660E\9AD4;font-size:86%;mso-ansi-language:
+ EN-US;display:none'>&#13;</span></div>
+ <div class=B style='position:absolute;top:88.5%;left:7.67%;width:88.76%;
+ height:6.0%'><span style='position:absolute;top:0%;left:4.43%;width:95.56%;
+ height:100.0%'><span style='font-weight:normal;visibility:hidden'><span
+ class=BB style='position:absolute;left:-4.63%'>«</span></span><span
+ lang=ZH-TW style='mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-ansi-language:
+ EN-US;mso-special-format:lastCR;display:none'>&#13;</span></span></div>
+ </div>
+</p:slide></div>
+
+</body>
+
+</html>

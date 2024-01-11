@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<activity id="4" moduleid="49" modulename="label" contextid="119">
+  <label id="4">
+    <name> Vocabulary Practice</name>
+    <intro>&lt;h4&gt;&lt;img src="https://www.bispschool.com/icon/vocab.jpg" alt="vocabulary" width="50" height="45" role="presentation" style="vertical-align: middle;" /&gt; Vocabulary Practice&lt;/h4&gt;</intro>
+    <introformat>1</introformat>
+    <timemodified>1510923577</timemodified>
+  </label>
+</activity>

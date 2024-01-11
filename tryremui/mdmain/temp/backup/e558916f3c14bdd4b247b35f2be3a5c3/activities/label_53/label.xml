@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<activity id="6" moduleid="53" modulename="label" contextid="123">
+  <label id="6">
+    <name> Reading Practice</name>
+    <intro>&lt;h4&gt;&lt;img src="https://www.bispschool.com/icon/reading.jpg" alt="reading" width="50" height="49" role="presentation" style="vertical-align: middle;" /&gt; Reading Practice&lt;/h4&gt;</intro>
+    <introformat>1</introformat>
+    <timemodified>1510923966</timemodified>
+  </label>
+</activity>

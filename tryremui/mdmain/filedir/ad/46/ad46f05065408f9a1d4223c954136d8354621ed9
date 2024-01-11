@@ -1,0 +1,340 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:p="urn:schemas-microsoft-com:office:powerpoint"
+xmlns:oa="urn:schemas-microsoft-com:office:activation"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=Windows-1254">
+<meta name=ProgId content=PowerPoint.Slide>
+<meta name=Generator content="Microsoft PowerPoint 12">
+<link id=Main-File rel=Main-File
+href="../Chapter_5_Synchronous_Sequential_Circuit.htm">
+<link rel=Preview href=preview.wmf>
+<!--[if !mso]>
+<style>
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+p\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+v\:textbox {display:none;}
+</style>
+<![endif]-->
+<title>Synchronous_Sequential_Circuit</title>
+<meta name=Description content="11/08/2010: Implication Table">
+<link rel=Stylesheet href="master06_stylesheet.css">
+<![if !ppt]>
+<style media=print>
+<!--.sld
+	{left:0px !important;
+	width:6.0in !important;
+	height:4.5in !important;
+	font-size:107% !important;}
+-->
+</style>
+<script src=script.js></script><script><!--
+if( !IsNts() ) Redirect( "PPTSld" );
+//--></script><!--[if vml]><script>g_vml = 1;
+</script><![endif]--><![endif]><o:shapelayout v:ext="edit">
+ <o:idmap v:ext="edit" data="60"/>
+</o:shapelayout>
+</head>
+
+<body lang=EN-US style='margin:0px;background-color:black'
+onclick="DocumentOnClick()" onresize="_RSW()" onload="LoadSld()"
+onkeypress="_KPH()">
+
+<div id=SlideObj class=sld style='position:absolute;top:0px;left:0px;
+width:534px;height:400px;font-size:16px;background-color:white;clip:rect(0%, 101%, 101%, 0%);
+visibility:hidden'><p:slide coordsize="720,540"
+ colors="#ffffff,#000000,#919191,#081d58,#fc0128,#063de8,#00dfca,#eaec5e"
+ masterhref="master06.xml">
+ <p:shaperange href="master06.xml#_x0000_s31745"/><![if !ppt]><p:shaperange
+  href="master06.xml#_x0000_s31746"/><![if !vml]><img border=0
+ v:shapes="_x0000_s31746" src="master06_image005.gif" style='position:absolute;
+ top:0%;left:4.68%;width:95.5%;height:11.5%'><![endif]><p:shaperange
+  href="master06.xml#_x0000_s31747"/><![if !vml]><img border=0
+ v:shapes="_x0000_s31747" src="master06_image006.gif" style='position:absolute;
+ top:-.5%;left:-.37%;width:5.61%;height:69.75%'><![endif]><p:shaperange
+  href="master06.xml#_x0000_s31750"/><![if !vml]><img border=0
+ v:shapes="_x0000_s31750" src="master06_image007.gif" style='position:absolute;
+ top:11.25%;left:4.49%;width:96.25%;height:1.25%'><![endif]><p:shaperange
+  href="master06.xml#_x0000_s31753"/>
+ <div v:shape="_x0000_s31753" class=O style='mso-line-spacing:"100 0 0";
+ mso-char-wrap:1;mso-kinsoku-overflow:1;position:absolute;top:95.75%;
+ left:35.2%;width:34.45%;height:2.75%'><span lang=TR style='font-size:67%;
+ text-shadow:auto'>Eastern Mediterranean University</span><span
+ style='font-size:67%;text-shadow:auto;mso-special-format:lastCR;display:none'>&#13;</span></div>
+ <p:shaperange href="master06.xml#_x0000_s31754"/>
+ <div v:shape="_x0000_s31754" class=O>
+ <div style='text-align:right;mso-line-spacing:"100 0 0";mso-char-wrap:1;
+ mso-kinsoku-overflow:1;position:absolute;top:95.25%;left:87.82%;width:11.23%;
+ height:3.25%'><span style='font-size:78%;text-shadow:auto'>‹#›</span></div>
+ </div>
+ <p:shaperange href="master06.xml#Picture_x0020_14"/><![if !vml]><img border=0
+ v:shapes="Picture_x0020_14" src="master06_image008.gif" alt=logoyil30
+ style='position:absolute;top:0%;left:0%;width:7.86%;height:10.75%'><![endif]><p:shaperange
+  href="master06.xml#_x0000_s31756"/><![endif]><v:shape id="_x0000_s61442"
+  type="#_x0000_t202" style='position:absolute;left:246.625pt;top:511pt;
+  width:260.75pt;height:22.75pt;visibility:visible;mso-wrap-style:square;
+  v-text-anchor:bottom' o:gfxdata="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
+AAAAAAQABAD1AAAACwcAAAAA
+" filled="f" stroked="f">
+  <v:fill o:detectmouseclick="t"/>
+  <v:path arrowok="t"/>
+  <o:lock v:ext="edit" grouping="t"/>
+  <v:textbox style='mso-rotate-with-shape:t'/>
+ </v:shape><v:shape id="_x0000_s61443" type="#_x0000_t202" style='position:absolute;
+  left:625.625pt;top:511pt;width:94.375pt;height:22.75pt;visibility:visible;
+  mso-wrap-style:square;v-text-anchor:bottom' o:gfxdata="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
+" filled="f" stroked="f">
+  <v:fill o:detectmouseclick="t"/>
+  <v:path arrowok="t"/>
+  <o:lock v:ext="edit" grouping="t"/>
+  <v:textbox style='mso-rotate-with-shape:t'/>
+ </v:shape><p:shaperange href="master06.xml#_x0000_m31748"/><v:shape id="_x0000_s61444"
+  type="#_x0000_m31748" style='position:absolute;left:76.5pt;top:14.875pt;
+  width:623.75pt;height:37.375pt;visibility:visible;mso-wrap-style:square;
+  v-text-anchor:top' o:gfxdata="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
+">
+  <v:stroke o:forcedash="f"/>
+  <v:path arrowok="f"/>
+  <o:lock v:ext="edit" rotation="f" aspectratio="f" position="f" selection="f"
+   verticies="f" text="f" adjusthandles="f" grouping="t" shapetype="f"/>
+  <v:textbox style='layout-flow:horizontal;mso-rotate-with-shape:t;
+   mso-fit-shape-to-text:t' inset="5pt,2pt,5pt,2pt"/>
+  <p:placeholder type="title" position="-1"/></v:shape><p:shaperange
+  href="master06.xml#_x0000_m31749"/><v:shape id="_x0000_s61445" type="#_x0000_m31749"
+  style='position:absolute;left:42.5pt;top:65.875pt;width:652pt;height:439.625pt;
+  visibility:visible;mso-wrap-style:square;v-text-anchor:top'>
+  <v:stroke o:forcedash="f"/>
+  <v:path arrowok="f"/>
+  <o:lock v:ext="edit" rotation="f" aspectratio="f" position="f" selection="f"
+   verticies="f" text="f" adjusthandles="f" grouping="t" shapetype="f"/>
+  <v:textbox style='layout-flow:horizontal;mso-rotate-with-shape:t;
+   mso-fit-shape-to-text:t' inset="5pt,2pt,5pt,2pt"/>
+  <p:placeholder type="body" position="-1"/></v:shape>
+ <div v:shape="_x0000_s61442">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='mso-line-spacing:"100 0 0";mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:95.75%;left:35.2%;width:34.45%;height:2.75%'><span
+ lang=TR style='font-size:67%;text-shadow:auto'>Eastern Mediterranean
+ University</span><span style='font-size:67%;text-shadow:auto;mso-special-format:
+ lastCR;display:none'>&#13;</span></div>
+ </div>
+ <div v:shape="_x0000_s61443">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:right;mso-line-spacing:"100 0 0";mso-char-wrap:
+ 1;mso-kinsoku-overflow:1;position:absolute;top:95.25%;left:87.82%;width:11.23%;
+ height:3.25%'><span style='font-size:78%;text-shadow:auto'>55</span></div>
+ </div>
+ <div v:shape="_x0000_s61444" class=T style='position:absolute;top:2.75%;
+ left:11.23%;width:85.39%;height:6.75%'><span lang=TR style='text-shadow:auto'>Implication
+ Table</span><span style='text-shadow:auto;mso-special-format:lastCR;
+ display:none'>&#13;</span></div>
+ <div v:shape="_x0000_s61445">
+ <div class=B2 style='mso-margin-left-alt:720;mso-text-indent-alt:576'></div>
+ <div class=B3 style='mso-margin-left-alt:1008;mso-text-indent-alt:864'></div>
+ <div class=B4 style='mso-margin-left-alt:1296;mso-text-indent-alt:1152'></div>
+ <div class=B style='mso-line-spacing:"80 50 0";mso-margin-left-alt:288'><span
+ style='position:absolute;top:12.0%;left:11.61%;width:89.7%;height:5.25%'><span
+ style='font-size:86%;font-weight:normal'><span style='mso-special-format:bullet;
+ color:#CC3300;position:absolute;left:-5.63%;font-family:Wingdings'>«</span></span><span
+ style='font-size:86%;font-weight:normal'>On the left side along the vertical
+ are listed all the</span><span lang=TR style='font-size:86%;font-weight:normal'>
+ </span><span style='font-size:86%;font-weight:normal'>states </span></span><span
+ style='position:absolute;top:16.25%;left:11.61%;width:100.0%;height:5.25%'><span
+ style='font-size:86%;font-weight:normal'>defined in the state table except the
+ last,</span><span lang=TR style='font-size:86%;font-weight:normal'> </span><span
+ style='font-size:86%;font-weight:normal'>and across the bottom </span></span><span
+ style='position:absolute;top:20.5%;left:11.61%;width:84.26%;height:5.25%'><span
+ style='font-size:86%;font-weight:normal'>horizontally are listed all the</span><span
+ lang=TR style='font-size:86%;font-weight:normal'> </span><span
+ style='font-size:86%;font-weight:normal'>states except the last.&#13;</span></span></div>
+ <div class=B style='mso-line-spacing:"80 50 0";mso-margin-left-alt:288'><span
+ style='position:absolute;top:27.5%;left:11.61%;width:98.31%;height:5.25%'><span
+ style='font-size:86%;font-weight:normal'><span style='mso-special-format:bullet;
+ color:#CC3300;position:absolute;left:-5.14%;font-family:Wingdings'>«</span></span><span
+ style='font-size:86%;font-weight:normal'>The states that are not equivalent
+ are marked with</span><span lang=TR style='font-size:86%;font-weight:normal'> </span><span
+ style='font-size:86%;font-weight:normal'>a ‘x’ in the </span></span><span
+ style='position:absolute;top:31.75%;left:11.61%;width:96.62%;height:5.25%'><span
+ style='font-size:86%;font-weight:normal'>corresponding square, whereas their</span><span
+ lang=TR style='font-size:86%;font-weight:normal'> </span><span
+ style='font-size:86%;font-weight:normal'>equivalence is recorded </span></span><span
+ style='position:absolute;top:36.0%;left:11.61%;width:84.26%;height:5.25%'><span
+ style='font-size:86%;font-weight:normal'>with a ‘&#8730;’.&#13;</span></span></div>
+ <div class=B style='mso-line-spacing:"80 50 0";mso-margin-left-alt:288'><span
+ style='position:absolute;top:43.0%;left:11.61%;width:100.56%;height:5.25%'><span
+ style='font-size:86%;font-weight:normal'><span style='mso-special-format:bullet;
+ color:#CC3300;position:absolute;left:-5.02%;font-family:Wingdings'>«</span></span><span
+ style='font-size:86%;font-weight:normal'>Some of the squares have entries of
+ implied states</span><span lang=TR style='font-size:86%;font-weight:normal'> </span><span
+ style='font-size:86%;font-weight:normal'>that must be </span></span><span
+ style='position:absolute;top:47.25%;left:11.61%;width:97.75%;height:5.25%'><span
+ style='font-size:86%;font-weight:normal'>further investigated to determine</span><span
+ lang=TR style='font-size:86%;font-weight:normal'> </span><span
+ style='font-size:86%;font-weight:normal'>whether they are equivalent </span></span><span
+ style='position:absolute;top:51.5%;left:11.61%;width:84.26%;height:5.25%'><span
+ style='font-size:86%;font-weight:normal'>or not.</span><span lang=TR
+ style='font-size:86%;font-weight:normal'> </span><span style='font-size:86%;
+ font-weight:normal;display:none'>&#13;</span></span></div>
+ <div class=B style='mso-line-spacing:"80 50 0";mso-margin-left-alt:288'><span
+ style='position:absolute;top:58.25%;left:11.61%;width:89.7%;height:5.25%'><span
+ style='font-size:86%;font-weight:normal'><span style='mso-special-format:bullet;
+ color:#CC3300;position:absolute;left:-5.63%;font-family:Wingdings'>«</span></span><span
+ style='font-size:86%;font-weight:normal'>The </span><span style='font-size:
+ 86%;font-weight:normal'><i>step-by-step </i></span><span style='font-size:
+ 86%;font-weight:normal'>procedure of filling in the squares</span><span
+ lang=TR style='font-size:86%;font-weight:normal'> </span><span
+ style='font-size:86%;font-weight:normal'>is as </span></span><span
+ style='position:absolute;top:62.5%;left:11.61%;width:84.26%;height:5.25%'><span
+ style='font-size:86%;font-weight:normal'>follows:&#13;</span></span></div>
+ <div class=B1 style='mso-line-spacing:"80 50 0";mso-margin-left-alt:575'><span
+ style='position:absolute;top:69.25%;left:16.66%;width:88.76%;height:4.25%'><span
+ style='font-size:83%;font-weight:normal'><span style='mso-special-format:"numbullet3\,1";
+ color:#063DE8;mso-color-index:5;position:absolute;left:-4.85%'>1.</span></span><span
+ style='font-size:83%;font-weight:normal'>Place a cross in any square
+ corresponding to a</span><span lang=TR style='font-size:83%;font-weight:normal'>
+ </span><span style='font-size:83%;font-weight:normal'>pair of states whose </span></span><span
+ style='position:absolute;top:72.75%;left:16.66%;width:79.4%;height:4.25%'><span
+ style='font-size:83%;font-weight:normal'>outputs are not equal for</span><span
+ lang=TR style='font-size:83%;font-weight:normal'> </span><span
+ style='font-size:83%;font-weight:normal'>every input.&#13;</span></span></div>
+ <div class=B1 style='mso-line-spacing:"80 50 0";mso-margin-left-alt:575'><span
+ style='position:absolute;top:78.5%;left:16.66%;width:90.63%;height:4.25%'><span
+ style='font-size:83%;font-weight:normal'><span style='mso-special-format:"numbullet3\,1";
+ color:#063DE8;mso-color-index:5;position:absolute;left:-4.75%'>2.</span></span><span
+ style='font-size:83%;font-weight:normal'>Enter in the remaining squares the
+ pairs of</span><span lang=TR style='font-size:83%;font-weight:normal'> </span><span
+ style='font-size:83%;font-weight:normal'>states that are implied by </span></span><span
+ style='position:absolute;top:82.0%;left:16.66%;width:93.63%;height:4.25%'><span
+ style='font-size:83%;font-weight:normal'>the pair of states</span><span
+ lang=TR style='font-size:83%;font-weight:normal'> </span><span
+ style='font-size:83%;font-weight:normal'>representing the squares. We do that
+ by</span><span lang=TR style='font-size:83%;font-weight:normal'> </span><span
+ style='font-size:83%;font-weight:normal'>starting from </span></span><span
+ style='position:absolute;top:85.75%;left:16.66%;width:93.44%;height:4.25%'><span
+ style='font-size:83%;font-weight:normal'>the top square in the left column</span><span
+ lang=TR style='font-size:83%;font-weight:normal'> </span><span
+ style='font-size:83%;font-weight:normal'>and going down and then proceeding </span></span><span
+ style='position:absolute;top:89.25%;left:16.66%;width:79.4%;height:4.25%'><span
+ style='font-size:83%;font-weight:normal'>with the</span><span lang=TR
+ style='font-size:83%;font-weight:normal'> </span><span style='font-size:83%;
+ font-weight:normal'>next column to the right.</span></span></div>
+ </div>
+</p:slide></div>
+
+</body>
+
+</html>

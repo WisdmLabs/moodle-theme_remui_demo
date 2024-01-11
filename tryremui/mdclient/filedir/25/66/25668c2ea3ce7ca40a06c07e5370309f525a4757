@@ -1,0 +1,95 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:p="urn:schemas-microsoft-com:office:powerpoint"
+xmlns:oa="urn:schemas-microsoft-com:office:activation"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=Windows-1254">
+<meta name=ProgId content=PowerPoint.Slide>
+<meta name=Generator content="Microsoft PowerPoint 12">
+<link id=Main-File rel=Main-File
+href="../Chapter_5_Synchronous_Sequential_Circuit.htm">
+<link rel=Preview href=preview.wmf>
+<meta name=Robots content=NoIndex>
+<link rel=Stylesheet href="master20_stylesheet.css">
+<![if !ppt]><script src=script.js></script><script>
+<!--
+	parent.location.href=document.all.item("Main-File").href
+//-->
+</script>
+<![endif]>
+</head>
+
+<body>
+
+<div v:shape="_x0000_s32771">
+
+<div class=O1 style='mso-margin-left-alt:468'></div>
+
+<div class=O2 style='mso-margin-left-alt:720'></div>
+
+<div class=O3 style='mso-margin-left-alt:1008'></div>
+
+<div class=O4 style='mso-margin-left-alt:1296'></div>
+
+<div class=O style='text-align:left;mso-line-spacing:"100 0 0"'><span
+style='color:#FC0128;mso-color-index:4;mso-special-format:lastCR'>&#13;</span></div>
+
+</div>
+
+<div v:shape="_x0000_s32776">
+
+<div class=O1 style='mso-margin-left-alt:468'></div>
+
+<div class=O2 style='mso-margin-left-alt:720'></div>
+
+<div class=O3 style='mso-margin-left-alt:1008'></div>
+
+<div class=O4 style='mso-margin-left-alt:1296'></div>
+
+<div class=O><span lang=TR style='font-size:267%'>Digital Logic Design I&#13;</span></div>
+
+<div class=O><span lang=TR style='font-size:200%'>Synchronous<span
+style='mso-spacerun:yes'>  </span>Sequential </span><span lang=TR
+style='font-size:200%'>Logic</span><span style='font-size:200%;mso-special-format:
+lastCR'>&#13;</span></div>
+
+</div>
+
+<div v:shape="_x0000_s32777">
+
+<div class=O1 style='mso-margin-left-alt:468'></div>
+
+<div class=O2 style='mso-margin-left-alt:720'></div>
+
+<div class=O3 style='mso-margin-left-alt:1008'></div>
+
+<div class=O4 style='mso-margin-left-alt:1296'></div>
+
+<div class=O><span lang=TR style='font-size:178%'>Mustafa Kemal Uyguroğlu</span><span
+style='font-size:178%;mso-special-format:lastCR'>&#13;</span></div>
+
+</div>
+
+<div v:shape="_x0000_s32778" class=T>Title</div>
+
+<div v:shape="_x0000_s32779">
+
+<div class=B>This is our 1st Level Bullet&#13;</div>
+
+<div class=B1>This is our 2nd level bullet&#13;</div>
+
+<div class=B2>This is our 3rd level bullet&#13;</div>
+
+<div class=B>This is our next 1st Level Bullet&#13;</div>
+
+<div class=B1>This is our 2nd level bullet&#13;</div>
+
+<div class=B2>This is our 3rd level bullet</div>
+
+</div>
+
+</body>
+
+</html>

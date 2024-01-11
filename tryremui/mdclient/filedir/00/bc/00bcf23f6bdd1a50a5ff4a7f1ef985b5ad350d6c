@@ -1,0 +1,774 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:p="urn:schemas-microsoft-com:office:powerpoint"
+xmlns:oa="urn:schemas-microsoft-com:office:activation"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=Windows-1254">
+<meta name=ProgId content=PowerPoint.Slide>
+<meta name=Generator content="Microsoft PowerPoint 12">
+<link id=Main-File rel=Main-File href="../Chapter_4_Combinational_Logic.htm">
+<link rel=Preview href=preview.wmf>
+<link rel=OLE-Object-Data href=oledata.mso>
+<!--[if !mso]>
+<style>
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+p\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+v\:textbox {display:none;}
+</style>
+<![endif]-->
+<title>Combinational Logic</title>
+<meta name=Description content="11/08/2010: Magnitude Comparator">
+<link rel=Stylesheet href="master06_stylesheet.css">
+<!--[if gte IE 5]>
+<object id=MSOANIM classid="CLSID:A4639D2F-774E-11D3-A490-00C04F6843FB"></object>
+<object id=MSOTIME classid="CLSID:A4639D29-774E-11D3-A490-00C04F6843FB"></object>
+<![endif]-->
+<![if !ppt]>
+<style media=print>
+<!--.sld
+	{left:0px !important;
+	width:6.0in !important;
+	height:4.5in !important;
+	font-size:107% !important;}
+-->
+</style>
+<style>
+<!--
+oa\:* { BEHAVIOR: url(#MSOANIM#ANIM) url(#MSOTIME#TIME) }
+oa\:par,oa\:seq,oa\:iterate { BEHAVIOR:url(#MSOTIME) }
+oa\:video,oa\:audio {BEHAVIOR:url(#MSOTIME) url(#MSOTIME#MEDIA) }
+-->
+</style>
+<script src=script.js></script><script><!--
+if( !IsNts() ) Redirect( "PPTSld" );
+//--></script><script><!--
+g_animItemsToHide=new Array("Object_x0020_30","Object_x0020_29","Object_x0020_28","Object_x0020_27","Object_x0020_26","Object_x0020_25","Object_x0020_24","_x0000_s19469_58_92","_x0000_s19469_37_58","_x0000_s19469_0_37");
+
+//--></script><!--[if vml]><script>g_vml = 1;
+</script><![endif]--><![endif]><o:shapelayout v:ext="edit">
+ <o:idmap v:ext="edit" data="19"/>
+</o:shapelayout>
+</head>
+
+<body lang=EN-US style='margin:0px;background-color:black'
+onclick="DocumentOnClick()" onresize="_RSW()" onload="LoadSld()"
+onkeypress="_KPH()" oa:clockstart="onstart">
+
+<div id=SlideObj class=sld style='position:absolute;top:0px;left:0px;
+width:534px;height:400px;font-size:16px;background-color:white;clip:rect(0%, 101%, 101%, 0%);
+visibility:hidden'><p:slide coordsize="720,540"
+ colors="#ffffff,#000000,#919191,#081d58,#fc0128,#063de8,#00dfca,#eaec5e"
+ masterhref="master06.xml">
+ <p:shaperange href="master06.xml#_x0000_s37889"/><![if !ppt]><p:shaperange
+  href="master06.xml#_x0000_s37890"/><![if !vml]><img border=0
+ v:shapes="_x0000_s37890" src="master06_image005.gif" style='position:absolute;
+ top:0%;left:4.68%;width:95.5%;height:11.5%'><![endif]><p:shaperange
+  href="master06.xml#_x0000_s37891"/><![if !vml]><img border=0
+ v:shapes="_x0000_s37891" src="master06_image006.gif" style='position:absolute;
+ top:-.5%;left:-.37%;width:5.61%;height:69.75%'><![endif]><p:shaperange
+  href="master06.xml#_x0000_s37894"/><![if !vml]><img border=0
+ v:shapes="_x0000_s37894" src="master06_image007.gif" style='position:absolute;
+ top:11.25%;left:4.49%;width:96.25%;height:1.25%'><![endif]><p:shaperange
+  href="master06.xml#_x0000_s37897"/>
+ <div v:shape="_x0000_s37897" class=O style='mso-line-spacing:"100 0 0";
+ mso-char-wrap:1;mso-kinsoku-overflow:1;position:absolute;top:95.75%;
+ left:35.2%;width:34.45%;height:2.75%'><span lang=TR style='font-size:67%;
+ text-shadow:auto'>Eastern Mediterranean University</span><span
+ style='font-size:67%;text-shadow:auto;mso-special-format:lastCR;display:none'>&#13;</span></div>
+ <p:shaperange href="master06.xml#_x0000_s37898"/>
+ <div v:shape="_x0000_s37898" class=O>
+ <div style='text-align:right;mso-line-spacing:"100 0 0";mso-char-wrap:1;
+ mso-kinsoku-overflow:1;position:absolute;top:95.25%;left:87.82%;width:11.23%;
+ height:3.25%'><span style='font-size:78%;text-shadow:auto'>‹#› / 65</span></div>
+ </div>
+ <p:shaperange href="master06.xml#Picture_x0020_14"/><![if !vml]><img border=0
+ v:shapes="Picture_x0020_14" src="master06_image008.gif" alt=logoyil30
+ style='position:absolute;top:0%;left:0%;width:7.86%;height:10.75%'><![endif]><p:shaperange
+  href="master06.xml#_x0000_s37900"/><![endif]><v:shape id="_x0000_s19466"
+  type="#_x0000_t202" style='position:absolute;left:246.625pt;top:511pt;
+  width:260.75pt;height:22.75pt;visibility:visible;mso-wrap-style:square;
+  v-text-anchor:bottom' o:gfxdata="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
+BQYAAAAABAAEAPUAAAANBwAAAAA=
+" filled="f" stroked="f">
+  <v:fill o:detectmouseclick="t"/>
+  <v:path arrowok="t"/>
+  <o:lock v:ext="edit" grouping="t"/>
+  <v:textbox style='mso-rotate-with-shape:t'/>
+ </v:shape><v:shape id="_x0000_s19467" type="#_x0000_t202" style='position:absolute;
+  left:625.625pt;top:511pt;width:94.375pt;height:22.75pt;visibility:visible;
+  mso-wrap-style:square;v-text-anchor:bottom' o:gfxdata="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
+" filled="f" stroked="f">
+  <v:fill o:detectmouseclick="t"/>
+  <v:path arrowok="t"/>
+  <o:lock v:ext="edit" grouping="t"/>
+  <v:textbox style='mso-rotate-with-shape:t'/>
+ </v:shape><p:shaperange href="master06.xml#_x0000_m37892"/><v:shape id="_x0000_s19468"
+  type="#_x0000_m37892" style='position:absolute;left:76.5pt;top:14.875pt;
+  width:623.75pt;height:37.375pt;visibility:visible;mso-wrap-style:square;
+  v-text-anchor:top' o:gfxdata="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
+AAAAAA==
+">
+  <v:stroke o:forcedash="f"/>
+  <v:path arrowok="f"/>
+  <o:lock v:ext="edit" rotation="f" aspectratio="f" position="f" selection="f"
+   verticies="f" text="f" adjusthandles="f" grouping="t" shapetype="f"/>
+  <v:textbox style='layout-flow:horizontal;mso-rotate-with-shape:t;
+   mso-fit-shape-to-text:t' inset="5pt,2pt,5pt,2pt"/>
+  <p:placeholder type="title" position="-1"/></v:shape>
+ <div v:shape="_x0000_s19466">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='mso-line-spacing:"100 0 0";mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:95.75%;left:35.2%;width:34.45%;height:2.75%'><span
+ lang=TR style='font-size:67%;text-shadow:auto'>Eastern Mediterranean
+ University</span><span style='font-size:67%;text-shadow:auto;mso-special-format:
+ lastCR;display:none'>&#13;</span></div>
+ </div>
+ <div v:shape="_x0000_s19467">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:right;mso-line-spacing:"100 0 0";mso-char-wrap:
+ 1;mso-kinsoku-overflow:1;position:absolute;top:95.25%;left:87.82%;width:11.23%;
+ height:3.25%'><span style='font-size:78%;text-shadow:auto'>33 / 65</span></div>
+ </div>
+ <div v:shape="_x0000_s19468" class=T style='position:absolute;top:2.75%;
+ left:11.23%;width:85.39%;height:6.75%'><span style='text-shadow:auto'>Magnitude
+ Comparator</span></div>
+ <p:shaperange href="master06.xml#_x0000_m37893"/><v:shape id="_x0000_s19469"
+  type="#_x0000_m37893" style='position:absolute;left:48.125pt;top:85.75pt;
+  width:652pt;height:123.875pt;visibility:visible;mso-wrap-style:square;
+  v-text-anchor:top' o:gfxdata="UEsDBBQABgAIAAAAIQDb4fbL7gAAAIUBAAATAAAAW0NvbnRlbnRfVHlwZXNdLnhtbHyQz07DMAyH
+70i8Q+QralM4IITa7kDhCAiNB7ASt43WOlEcyvb2pNu4IODoPz9/n1xv9vOkForiPDdwXVagiI23
+jocG3rdPxR0oScgWJ8/UwIEENu3lRb09BBKV0ywNjCmFe63FjDSjlD4Q50nv44wpl3HQAc0OB9I3
+VXWrjedEnIq03oC27qjHjympx31un0wiTQLq4bS4shrAECZnMGVTvbD9QSnOhDInjzsyuiBXWQP0
+r4R18jfgnHvJr4nOknrFmJ5xzhraRtHWf3Kkpfz/yGo5S+H73hkquyhdjr3R8m2lj09svwAAAP//
+AwBQSwMEFAAGAAgAAAAhAFr0LFu/AAAAFQEAAAsAAABfcmVscy8ucmVsc2zPwWrDMAwG4Ptg72B0
+X5TuUMaI01uh19I+gLGVxCy2jGSy9e1nemrHjpL4P0nD4SetZiPRyNnCruvBUPYcYp4tXC/Htw8w
+Wl0ObuVMFm6kcBhfX4Yzra62kC6xqGlKVgtLreUTUf1CyWnHhXKbTCzJ1VbKjMX5LzcTvvf9HuXR
+gPHJNKdgQU5hB+ZyK23zHztFL6w81c5zQp6m6P9TMfB3PtPWFCczVQtB9N4U2rp2HOA44NMz4y8A
+AAD//wMAUEsDBBQABgAIAAAAIQBV4qDN3AAAAP4AAAAPAAAAZHJzL2Rvd25yZXYueG1sRI9LT8JA
+FIX3Jv6HyTVxY2SKWsHKQIzGyA6oLHB36dw+wjyamWkp/nonLGR5ck6+k2+2GLRiPTnfWCNgPEqA
+kSmsbEwlYPv9eT8F5gMaicoaEnAiD4v59dUMM2mPZkN9HioWIcZnKKAOoc0490VNGv3ItmRiV1qn
+McToKi4dHiNcK/6QJM9cY2PiQ40tvddUHPJOC1D2J53kK9X53cu+X092bdVtUyFub4a3V2CBhnAZ
+/5Yf67vVf3lGLaWANHmaPqbAyq/T3jVygz6QExAFo25UBT7/AwAA//8DAFBLAQItABQABgAIAAAA
+IQDb4fbL7gAAAIUBAAATAAAAAAAAAAAAAAAAAAAAAABbQ29udGVudF9UeXBlc10ueG1sUEsBAi0A
+FAAGAAgAAAAhAFr0LFu/AAAAFQEAAAsAAAAAAAAAAAAAAAAAHwEAAF9yZWxzLy5yZWxzUEsBAi0A
+FAAGAAgAAAAhAFXioM3cAAAA/gAAAA8AAAAAAAAAAAAAAAAABwIAAGRycy9kb3ducmV2LnhtbFBL
+BQYAAAAAAwADALcAAAAQAwAAAAA=
+">
+  <v:stroke o:forcedash="f"/>
+  <v:path arrowok="f"/>
+  <o:lock v:ext="edit" rotation="f" aspectratio="f" position="f" selection="f"
+   verticies="f" text="f" adjusthandles="f" grouping="t" shapetype="f"/>
+  <v:textbox style='layout-flow:horizontal;mso-rotate-with-shape:t;
+   mso-fit-shape-to-text:t' inset="5pt,2pt,5pt,2pt"/>
+  <p:placeholder type="body" position="-1"/><p:animation number="2" delay="0"
+   type="object" effect="wipe" direction="right" flag="17412"/></v:shape>
+ <div v:shape="_x0000_s19469" style='position:absolute;top:16.75%;left:7.3%;
+ width:89.32%;height:22.0%'>
+ <div class=B2 style='mso-margin-left-alt:720;mso-text-indent-alt:576'></div>
+ <div class=B3 style='mso-margin-left-alt:1008;mso-text-indent-alt:864'></div>
+ <div class=B4 style='mso-margin-left-alt:1296;mso-text-indent-alt:1152'></div>
+ <div id="_x0000_s19469_0_37" class=B style='position:absolute;top:0%;
+ left:0%;width:100.0%;height:27.27%;white-space:nowrap'><span style='position:
+ absolute;top:0%;left:4.4%;width:95.59%;height:100.0%'><span style='font-weight:
+ normal'><span class=BB style='position:absolute;left:-4.6%'>«</span></span>Compare
+ 4-bit number to 4-bit number&#13;</span></div>
+ <div id="_x0000_s19469_37_58" class=B1 style='position:absolute;top:39.77%;
+ left:6.49%;width:93.5%;height:23.86%;white-space:nowrap'><span
+ style='position:absolute;top:0%;left:3.81%;width:96.41%;height:100.0%'><span
+ style='font-weight:normal'><span class=B1B style='position:absolute;
+ left:-3.95%'>&#9679;</span></span>3 Outputs: &lt; , = , &gt;&#13;</span></div>
+ <div id="_x0000_s19469_58_92" class=B1 style='position:absolute;top:76.13%;
+ left:6.49%;width:93.5%;height:23.86%;white-space:nowrap'><span
+ style='position:absolute;top:0%;left:3.81%;width:96.41%;height:100.0%'><span
+ style='font-weight:normal'><span class=B1B style='position:absolute;
+ left:-3.95%'>&#9679;</span></span>Expandable to more number of bits</span></div>
+ </div>
+ <v:roundrect id="_x0000_s19470" style='position:absolute;left:430.875pt;top:295.875pt;
+  width:241pt;height:56.75pt;visibility:visible;mso-wrap-style:square;
+  v-text-anchor:middle' arcsize="10923f" fillcolor="yellow" strokecolor="#090"
+  strokeweight="2.25pt">
+  <v:textbox style='mso-rotate-with-shape:t' inset="0,0,0,0"/>
+ </v:roundrect><![if !vml]><img border=0 v:shapes="_x0000_s19470"
+ src="slide0037_image220.gif" style='position:absolute;top:54.5%;left:59.73%;
+ width:34.08%;height:11.25%'><![endif]>
+ <div v:shape="_x0000_s19470">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O><span style='position:absolute;top:55.25%;left:60.29%;width:32.58%;
+ height:5.25%'><span style='font-family:"Times New Roman";mso-ascii-font-family:
+ "Times New Roman";mso-bidi-font-family:"Times New Roman";mso-hansi-font-family:
+ "Times New Roman";font-size:133%'><b>Magnitude </b></span></span><span
+ style='position:absolute;top:60.0%;left:60.29%;width:32.58%;height:5.25%'><span
+ style='font-family:"Times New Roman";mso-ascii-font-family:"Times New Roman";
+ mso-bidi-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman";
+ font-size:133%'><b>Comparator</b></span></span></div>
+ </div>
+ <v:line id="_x0000_s19471" style='position:absolute;visibility:visible;
+  mso-wrap-style:square;v-text-anchor:top' from="459.25pt,267.625pt" to="459.375pt,296pt"
+  strokecolor="#063de8 [5]" strokeweight="2.25pt">
+  <v:stroke endarrow="block" endarrowwidth="wide" endarrowlength="long"/>
+ </v:line><v:line id="_x0000_s19472" style='position:absolute;visibility:visible;
+  mso-wrap-style:square;v-text-anchor:top' from="482.375pt,267.625pt" to="482.5pt,296pt"
+  strokecolor="#063de8 [5]" strokeweight="2.25pt">
+  <v:stroke endarrow="block" endarrowwidth="wide" endarrowlength="long"/>
+ </v:line><v:line id="_x0000_s19473" style='position:absolute;visibility:visible;
+  mso-wrap-style:square;v-text-anchor:top' from="503.625pt,267.625pt" to="503.75pt,296pt"
+  strokecolor="#063de8 [5]" strokeweight="2.25pt">
+  <v:stroke endarrow="block" endarrowwidth="wide" endarrowlength="long"/>
+ </v:line><v:line id="_x0000_s19474" style='position:absolute;visibility:visible;
+  mso-wrap-style:square;v-text-anchor:top' from="527pt,267.625pt" to="527.125pt,296pt"
+  strokecolor="#063de8 [5]" strokeweight="2.25pt">
+  <v:stroke endarrow="block" endarrowwidth="wide" endarrowlength="long"/>
+ </v:line><v:line id="_x0000_s19475" style='position:absolute;visibility:visible;
+  mso-wrap-style:square;v-text-anchor:top' from="629.875pt,267.625pt" to="630pt,296pt"
+  strokecolor="#063de8 [5]" strokeweight="2.25pt">
+  <v:stroke endarrow="block" endarrowwidth="wide" endarrowlength="long"/>
+ </v:line><v:line id="_x0000_s19476" style='position:absolute;visibility:visible;
+  mso-wrap-style:square;v-text-anchor:top' from="558.125pt,267.625pt" to="558.25pt,296pt"
+  strokecolor="#063de8 [5]" strokeweight="2.25pt">
+  <v:stroke endarrow="block" endarrowwidth="wide" endarrowlength="long"/>
+ </v:line><v:line id="_x0000_s19477" style='position:absolute;visibility:visible;
+  mso-wrap-style:square;v-text-anchor:top' from="582.625pt,267.625pt" to="582.75pt,296pt"
+  strokecolor="#063de8 [5]" strokeweight="2.25pt">
+  <v:stroke endarrow="block" endarrowwidth="wide" endarrowlength="long"/>
+ </v:line><v:line id="_x0000_s19478" style='position:absolute;visibility:visible;
+  mso-wrap-style:square;v-text-anchor:top' from="606.375pt,267.625pt" to="606.5pt,296pt"
+  strokecolor="#063de8 [5]" strokeweight="2.25pt">
+  <v:stroke endarrow="block" endarrowwidth="wide" endarrowlength="long"/>
+ </v:line><![if !vml]><img border=0
+ v:shapes="_x0000_s19471,_x0000_s19472,_x0000_s19473,_x0000_s19474,_x0000_s19475,_x0000_s19476,_x0000_s19477,_x0000_s19478"
+ src="slide0037_image221.gif" style='position:absolute;top:49.25%;left:62.92%;
+ width:26.02%;height:6.25%'><![endif]><v:line id="_x0000_s19479" style='position:absolute;
+  visibility:visible;mso-wrap-style:square;v-text-anchor:top' from="487.5pt,352.625pt"
+  to="487.625pt,381pt" strokecolor="#fc0128 [4]" strokeweight="2.25pt">
+  <v:stroke endarrow="block" endarrowwidth="wide" endarrowlength="long"/>
+ </v:line><![if !vml]><img border=0 v:shapes="_x0000_s19479"
+ src="slide0037_image222.gif" style='position:absolute;top:65.0%;left:66.85%;
+ width:2.24%;height:6.25%'><![endif]><v:line id="_x0000_s19480" style='position:absolute;
+  visibility:visible;mso-wrap-style:square;v-text-anchor:top' from="550.375pt,352.625pt"
+  to="550.5pt,381pt" strokecolor="#fc0128 [4]" strokeweight="2.25pt">
+  <v:stroke endarrow="block" endarrowwidth="wide" endarrowlength="long"/>
+ </v:line><![if !vml]><img border=0 v:shapes="_x0000_s19480"
+ src="slide0037_image223.gif" style='position:absolute;top:65.0%;left:75.46%;
+ width:2.24%;height:6.25%'><![endif]><v:line id="_x0000_s19481" style='position:absolute;
+  visibility:visible;mso-wrap-style:square;v-text-anchor:top' from="615pt,352.625pt"
+  to="615.125pt,381pt" strokecolor="#fc0128 [4]" strokeweight="2.25pt">
+  <v:stroke endarrow="block" endarrowwidth="wide" endarrowlength="long"/>
+ </v:line><v:shape id="_x0000_s19482" type="#_x0000_t202" style='position:absolute;
+  left:445pt;top:227.5pt;width:205.75pt;height:25.875pt;visibility:visible;
+  mso-wrap-style:square;v-text-anchor:top' filled="f" stroked="f"
+  strokeweight="2.25pt">
+  <v:textbox style='mso-rotate-with-shape:t;mso-fit-shape-to-text:t' inset="0,0,0,0"/>
+ </v:shape><v:shape id="_x0000_s19483" type="#_x0000_t202" style='position:absolute;
+  left:445pt;top:381pt;width:212.625pt;height:25.875pt;visibility:visible;
+  mso-wrap-style:square;v-text-anchor:top' filled="f" stroked="f"
+  strokeweight="2.25pt">
+  <v:textbox style='mso-rotate-with-shape:t;mso-fit-shape-to-text:t' inset="0,0,0,0"/>
+ </v:shape><![if !vml]><img border=0 v:shapes="_x0000_s19481"
+ src="slide0037_image224.gif" style='position:absolute;top:65.0%;left:84.45%;
+ width:2.24%;height:6.25%'><![endif]>
+ <div v:shape="_x0000_s19482">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:left;position:absolute;top:42.0%;left:61.79%;
+ width:33.52%;height:5.25%'><span style='font-family:"Times New Roman";
+ mso-ascii-font-family:"Times New Roman";mso-bidi-font-family:"Times New Roman";
+ mso-hansi-font-family:"Times New Roman";font-size:133%'><b><i>A</i></b></span><span
+ style='font-family:"Times New Roman";mso-ascii-font-family:"Times New Roman";
+ mso-bidi-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman";
+ font-size:89%;position:relative;top:.37em;mso-text-raise:-25%'><b><i>3</i></b></span><span
+ style='font-family:"Times New Roman";mso-ascii-font-family:"Times New Roman";
+ mso-bidi-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman";
+ font-size:133%'><b><i>A</i></b></span><span style='font-family:"Times New Roman";
+ mso-ascii-font-family:"Times New Roman";mso-bidi-font-family:"Times New Roman";
+ mso-hansi-font-family:"Times New Roman";font-size:89%;position:relative;
+ top:.37em;mso-text-raise:-25%'><b><i>2</i></b></span><span style='font-family:
+ "Times New Roman";mso-ascii-font-family:"Times New Roman";mso-bidi-font-family:
+ "Times New Roman";mso-hansi-font-family:"Times New Roman";font-size:133%'><b><i>A</i></b></span><span
+ style='font-family:"Times New Roman";mso-ascii-font-family:"Times New Roman";
+ mso-bidi-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman";
+ font-size:89%;position:relative;top:.37em;mso-text-raise:-25%'><b><i>1</i></b></span><span
+ style='font-family:"Times New Roman";mso-ascii-font-family:"Times New Roman";
+ mso-bidi-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman";
+ font-size:133%'><b><i>A</i></b></span><span style='font-family:"Times New Roman";
+ mso-ascii-font-family:"Times New Roman";mso-bidi-font-family:"Times New Roman";
+ mso-hansi-font-family:"Times New Roman";font-size:89%;position:relative;
+ top:.37em;mso-text-raise:-25%'><b><i>0<span style='mso-spacerun:yes'>  </span></i></b></span><span
+ style='font-family:"Times New Roman";mso-ascii-font-family:"Times New Roman";
+ mso-bidi-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman";
+ font-size:133%'><b><i>B</i></b></span><span style='font-family:"Times New Roman";
+ mso-ascii-font-family:"Times New Roman";mso-bidi-font-family:"Times New Roman";
+ mso-hansi-font-family:"Times New Roman";font-size:89%;position:relative;
+ top:.37em;mso-text-raise:-25%'><b><i>3</i></b></span><span style='font-family:
+ "Times New Roman";mso-ascii-font-family:"Times New Roman";mso-bidi-font-family:
+ "Times New Roman";mso-hansi-font-family:"Times New Roman";font-size:133%'><b><i>B</i></b></span><span
+ style='font-family:"Times New Roman";mso-ascii-font-family:"Times New Roman";
+ mso-bidi-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman";
+ font-size:89%;position:relative;top:.37em;mso-text-raise:-25%'><b><i>2</i></b></span><span
+ style='font-family:"Times New Roman";mso-ascii-font-family:"Times New Roman";
+ mso-bidi-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman";
+ font-size:133%'><b><i>B</i></b></span><span style='font-family:"Times New Roman";
+ mso-ascii-font-family:"Times New Roman";mso-bidi-font-family:"Times New Roman";
+ mso-hansi-font-family:"Times New Roman";font-size:89%;position:relative;
+ top:.37em;mso-text-raise:-25%'><b><i>1</i></b></span><span style='font-family:
+ "Times New Roman";mso-ascii-font-family:"Times New Roman";mso-bidi-font-family:
+ "Times New Roman";mso-hansi-font-family:"Times New Roman";font-size:133%'><b><i>B</i></b></span><span
+ style='font-family:"Times New Roman";mso-ascii-font-family:"Times New Roman";
+ mso-bidi-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman";
+ font-size:89%;position:relative;top:.37em;mso-text-raise:-25%'><b><i>0</i></b></span></div>
+ </div>
+ <div v:shape="_x0000_s19483">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='position:absolute;top:70.5%;left:61.79%;width:29.77%;
+ height:5.25%'><span style='font-family:"Times New Roman";mso-ascii-font-family:
+ "Times New Roman";mso-bidi-font-family:"Times New Roman";mso-hansi-font-family:
+ "Times New Roman";font-size:133%'><b><i>A&lt;B<span
+ style='mso-spacerun:yes'>   </span>A=B<span style='mso-spacerun:yes'>  
+ </span>A&gt;B</i></b></span></div>
+ </div>
+ <v:shape id="Object_x0020_24" o:spid="_x0000_s19458" type="#_x0000_t75"
+  style='position:absolute;left:76.5pt;top:227.5pt;width:193.25pt;height:42.75pt'
+  o:gfxdata="UEsDBBQABgAIAAAAIQDb4fbL7gAAAIUBAAATAAAAW0NvbnRlbnRfVHlwZXNdLnhtbHyQz07DMAyH
+70i8Q+QralM4IITa7kDhCAiNB7ASt43WOlEcyvb2pNu4IODoPz9/n1xv9vOkForiPDdwXVagiI23
+jocG3rdPxR0oScgWJ8/UwIEENu3lRb09BBKV0ywNjCmFe63FjDSjlD4Q50nv44wpl3HQAc0OB9I3
+VXWrjedEnIq03oC27qjHjympx31un0wiTQLq4bS4shrAECZnMGVTvbD9QSnOhDInjzsyuiBXWQP0
+r4R18jfgnHvJr4nOknrFmJ5xzhraRtHWf3Kkpfz/yGo5S+H73hkquyhdjr3R8m2lj09svwAAAP//
+AwBQSwMEFAAGAAgAAAAhAFr0LFu/AAAAFQEAAAsAAABfcmVscy8ucmVsc2zPwWrDMAwG4Ptg72B0
+X5TuUMaI01uh19I+gLGVxCy2jGSy9e1nemrHjpL4P0nD4SetZiPRyNnCruvBUPYcYp4tXC/Htw8w
+Wl0ObuVMFm6kcBhfX4Yzra62kC6xqGlKVgtLreUTUf1CyWnHhXKbTCzJ1VbKjMX5LzcTvvf9HuXR
+gPHJNKdgQU5hB+ZyK23zHztFL6w81c5zQp6m6P9TMfB3PtPWFCczVQtB9N4U2rp2HOA44NMz4y8A
+AAD//wMAUEsDBBQABgAIAAAAIQDcF9eoyAAAAN8AAAAPAAAAZHJzL2Rvd25yZXYueG1sRI9RawIx
+EITfC/0PYQXfamLRQ65GKYWiiAh6pbZvy2V7OXrZnJeo139vCoU+DrPzzc582btGXKgLtWcN45EC
+QVx6U3Ol4a14fZiBCBHZYOOZNPxQgOXi/m6OufFX3tPlECuRIBxy1GBjbHMpQ2nJYRj5ljh5X75z
+GJPsKmk6vCa4a+SjUpl0WHNqsNjSi6Xy+3B26Y1MZe3H5rT93Hn7flwd96EorNbDQf/8BCJSH/+P
+/9Jro2GqJrNpBr97EgTk4gYAAP//AwBQSwECLQAUAAYACAAAACEA2+H2y+4AAACFAQAAEwAAAAAA
+AAAAAAAAAAAAAAAAW0NvbnRlbnRfVHlwZXNdLnhtbFBLAQItABQABgAIAAAAIQBa9CxbvwAAABUB
+AAALAAAAAAAAAAAAAAAAAB8BAABfcmVscy8ucmVsc1BLAQItABQABgAIAAAAIQDcF9eoyAAAAN8A
+AAAPAAAAAAAAAAAAAAAAAAcCAABkcnMvZG93bnJldi54bWxQSwUGAAAAAAMAAwC3AAAA/AIAAAAA
+">
+  <v:imagedata src="slide0037_image225.wmz" o:title=""/>
+  <p:animation number="5" delay="0" type="object" effect="wipe"
+   direction="right" flag="17408"/></v:shape><o:OLEObject Type="Embed"
+  ProgID="Equation.3" ShapeID="Object_x0020_24" DrawAspect="Content"
+  ObjectID="23">
+  <p:oleclientdata subtype="equation" menuname="Equation"
+   clipboardname="Microsoft Equation 3.0"/></o:OLEObject>
+ <![if !vml]><img border=0 v:shapes="Object_x0020_24"
+ src="slide0037_image226.gif" style='position:absolute;top:42.25%;left:10.67%;
+ width:26.77%;height:8.0%'><![endif]><v:shape id="Object_x0020_25" o:spid="_x0000_s19459"
+  type="#_x0000_t75" style='position:absolute;left:76.5pt;top:270pt;width:197.75pt;
+  height:40.5pt' o:gfxdata="UEsDBBQABgAIAAAAIQDb4fbL7gAAAIUBAAATAAAAW0NvbnRlbnRfVHlwZXNdLnhtbHyQz07DMAyH
+70i8Q+QralM4IITa7kDhCAiNB7ASt43WOlEcyvb2pNu4IODoPz9/n1xv9vOkForiPDdwXVagiI23
+jocG3rdPxR0oScgWJ8/UwIEENu3lRb09BBKV0ywNjCmFe63FjDSjlD4Q50nv44wpl3HQAc0OB9I3
+VXWrjedEnIq03oC27qjHjympx31un0wiTQLq4bS4shrAECZnMGVTvbD9QSnOhDInjzsyuiBXWQP0
+r4R18jfgnHvJr4nOknrFmJ5xzhraRtHWf3Kkpfz/yGo5S+H73hkquyhdjr3R8m2lj09svwAAAP//
+AwBQSwMEFAAGAAgAAAAhAFr0LFu/AAAAFQEAAAsAAABfcmVscy8ucmVsc2zPwWrDMAwG4Ptg72B0
+X5TuUMaI01uh19I+gLGVxCy2jGSy9e1nemrHjpL4P0nD4SetZiPRyNnCruvBUPYcYp4tXC/Htw8w
+Wl0ObuVMFm6kcBhfX4Yzra62kC6xqGlKVgtLreUTUf1CyWnHhXKbTCzJ1VbKjMX5LzcTvvf9HuXR
+gPHJNKdgQU5hB+ZyK23zHztFL6w81c5zQp6m6P9TMfB3PtPWFCczVQtB9N4U2rp2HOA44NMz4y8A
+AAD//wMAUEsDBBQABgAIAAAAIQBtNYOQygAAAN8AAAAPAAAAZHJzL2Rvd25yZXYueG1sRI9ba8JA
+FITfBf/Dcgp9KboxNFVTV7GlgpRW8AK+HrInF8yeTbNbjf++KxR8HGbmG2a26EwtztS6yrKC0TAC
+QZxZXXGh4LBfDSYgnEfWWFsmBVdysJj3ezNMtb3wls47X4gAYZeigtL7JpXSZSUZdEPbEAcvt61B
+H2RbSN3iJcBNLeMoepEGKw4LJTb0XlJ22v0aBdPV9itP4mt8/H4af3C++Wze7I9Sjw/d8hWEp87f
+w//ttVaQRM+TZAy3P+ELyPkfAAAA//8DAFBLAQItABQABgAIAAAAIQDb4fbL7gAAAIUBAAATAAAA
+AAAAAAAAAAAAAAAAAABbQ29udGVudF9UeXBlc10ueG1sUEsBAi0AFAAGAAgAAAAhAFr0LFu/AAAA
+FQEAAAsAAAAAAAAAAAAAAAAAHwEAAF9yZWxzLy5yZWxzUEsBAi0AFAAGAAgAAAAhAG01g5DKAAAA
+3wAAAA8AAAAAAAAAAAAAAAAABwIAAGRycy9kb3ducmV2LnhtbFBLBQYAAAAAAwADALcAAAD+AgAA
+AAA=
+">
+  <v:imagedata src="slide0037_image227.wmz" o:title=""/>
+  <p:animation number="6" delay="0" type="object" effect="wipe"
+   direction="right" flag="17412"/></v:shape><o:OLEObject Type="Embed"
+  ProgID="Equation.3" ShapeID="Object_x0020_25" DrawAspect="Content"
+  ObjectID="24">
+  <p:oleclientdata subtype="equation" menuname="Equation"
+   clipboardname="Microsoft Equation 3.0"/></o:OLEObject>
+ <![if !vml]><img border=0 v:shapes="Object_x0020_25"
+ src="slide0037_image228.gif" style='position:absolute;top:50.0%;left:10.67%;
+ width:27.52%;height:7.5%'><![endif]><v:shape id="Object_x0020_26" o:spid="_x0000_s19460"
+  type="#_x0000_t75" style='position:absolute;left:76.5pt;top:312.5pt;width:184.25pt;
+  height:40.5pt' o:gfxdata="UEsDBBQABgAIAAAAIQDb4fbL7gAAAIUBAAATAAAAW0NvbnRlbnRfVHlwZXNdLnhtbHyQz07DMAyH
+70i8Q+QralM4IITa7kDhCAiNB7ASt43WOlEcyvb2pNu4IODoPz9/n1xv9vOkForiPDdwXVagiI23
+jocG3rdPxR0oScgWJ8/UwIEENu3lRb09BBKV0ywNjCmFe63FjDSjlD4Q50nv44wpl3HQAc0OB9I3
+VXWrjedEnIq03oC27qjHjympx31un0wiTQLq4bS4shrAECZnMGVTvbD9QSnOhDInjzsyuiBXWQP0
+r4R18jfgnHvJr4nOknrFmJ5xzhraRtHWf3Kkpfz/yGo5S+H73hkquyhdjr3R8m2lj09svwAAAP//
+AwBQSwMEFAAGAAgAAAAhAFr0LFu/AAAAFQEAAAsAAABfcmVscy8ucmVsc2zPwWrDMAwG4Ptg72B0
+X5TuUMaI01uh19I+gLGVxCy2jGSy9e1nemrHjpL4P0nD4SetZiPRyNnCruvBUPYcYp4tXC/Htw8w
+Wl0ObuVMFm6kcBhfX4Yzra62kC6xqGlKVgtLreUTUf1CyWnHhXKbTCzJ1VbKjMX5LzcTvvf9HuXR
+gPHJNKdgQU5hB+ZyK23zHztFL6w81c5zQp6m6P9TMfB3PtPWFCczVQtB9N4U2rp2HOA44NMz4y8A
+AAD//wMAUEsDBBQABgAIAAAAIQBO/lFJxQAAAN8AAAAPAAAAZHJzL2Rvd25yZXYueG1sRE+7bsIw
+FN2R+g/WrdQN7KJSQcAgSoXEwlCe61V8SdLa1yF2SejX10OljkfnPVt0zoobNaHyrOF5oEAQ595U
+XGg47Nf9MYgQkQ1az6ThTgEW84feDDPjW/6g2y4WIoVwyFBDGWOdSRnykhyGga+JE3fxjcOYYFNI
+02Cbwp2VQ6VepcOKU0OJNa1Kyr92307D+aTazx9evq/sdX18426S2/tW66fHbjkFEamL/+I/98Zo
+GKmX8SgNTn/SF5DzXwAAAP//AwBQSwECLQAUAAYACAAAACEA2+H2y+4AAACFAQAAEwAAAAAAAAAA
+AAAAAAAAAAAAW0NvbnRlbnRfVHlwZXNdLnhtbFBLAQItABQABgAIAAAAIQBa9CxbvwAAABUBAAAL
+AAAAAAAAAAAAAAAAAB8BAABfcmVscy8ucmVsc1BLAQItABQABgAIAAAAIQBO/lFJxQAAAN8AAAAP
+AAAAAAAAAAAAAAAAAAcCAABkcnMvZG93bnJldi54bWxQSwUGAAAAAAMAAwC3AAAA+QIAAAAA
+">
+  <v:imagedata src="slide0037_image229.wmz" o:title=""/>
+  <p:animation number="7" delay="0" type="object" effect="wipe"
+   direction="right" flag="17412"/></v:shape><o:OLEObject Type="Embed"
+  ProgID="Equation.3" ShapeID="Object_x0020_26" DrawAspect="Content"
+  ObjectID="25">
+  <p:oleclientdata subtype="equation" menuname="Equation"
+   clipboardname="Microsoft Equation 3.0"/></o:OLEObject>
+ <![if !vml]><img border=0 v:shapes="Object_x0020_26"
+ src="slide0037_image230.gif" style='position:absolute;top:57.75%;left:10.67%;
+ width:25.65%;height:7.5%'><![endif]><v:shape id="Object_x0020_27" o:spid="_x0000_s19461"
+  type="#_x0000_t75" style='position:absolute;left:76.5pt;top:355pt;width:197.75pt;
+  height:42.75pt' o:gfxdata="UEsDBBQABgAIAAAAIQDb4fbL7gAAAIUBAAATAAAAW0NvbnRlbnRfVHlwZXNdLnhtbHyQz07DMAyH
+70i8Q+QralM4IITa7kDhCAiNB7ASt43WOlEcyvb2pNu4IODoPz9/n1xv9vOkForiPDdwXVagiI23
+jocG3rdPxR0oScgWJ8/UwIEENu3lRb09BBKV0ywNjCmFe63FjDSjlD4Q50nv44wpl3HQAc0OB9I3
+VXWrjedEnIq03oC27qjHjympx31un0wiTQLq4bS4shrAECZnMGVTvbD9QSnOhDInjzsyuiBXWQP0
+r4R18jfgnHvJr4nOknrFmJ5xzhraRtHWf3Kkpfz/yGo5S+H73hkquyhdjr3R8m2lj09svwAAAP//
+AwBQSwMEFAAGAAgAAAAhAFr0LFu/AAAAFQEAAAsAAABfcmVscy8ucmVsc2zPwWrDMAwG4Ptg72B0
+X5TuUMaI01uh19I+gLGVxCy2jGSy9e1nemrHjpL4P0nD4SetZiPRyNnCruvBUPYcYp4tXC/Htw8w
+Wl0ObuVMFm6kcBhfX4Yzra62kC6xqGlKVgtLreUTUf1CyWnHhXKbTCzJ1VbKjMX5LzcTvvf9HuXR
+gPHJNKdgQU5hB+ZyK23zHztFL6w81c5zQp6m6P9TMfB3PtPWFCczVQtB9N4U2rp2HOA44NMz4y8A
+AAD//wMAUEsDBBQABgAIAAAAIQDT39qvxwAAAN8AAAAPAAAAZHJzL2Rvd25yZXYueG1sRI9PawIx
+FMTvBb9DeEJvNavU4m6NIqJQ8GLXQuntsXn7BzcvyyZq6qc3guBxmJnfMPNlMK04U+8aywrGowQE
+cWF1w5WCn8P2bQbCeWSNrWVS8E8OlovByxwzbS/8TefcVyJC2GWooPa+y6R0RU0G3ch2xNErbW/Q
+R9lXUvd4iXDTykmSfEiDDceFGjta11Qc85NR0KS7343c5xvi8q88HfKQumtQ6nUYVp8gPAX/DD/a
+X1rBNHmfTVO4/4lfQC5uAAAA//8DAFBLAQItABQABgAIAAAAIQDb4fbL7gAAAIUBAAATAAAAAAAA
+AAAAAAAAAAAAAABbQ29udGVudF9UeXBlc10ueG1sUEsBAi0AFAAGAAgAAAAhAFr0LFu/AAAAFQEA
+AAsAAAAAAAAAAAAAAAAAHwEAAF9yZWxzLy5yZWxzUEsBAi0AFAAGAAgAAAAhANPf2q/HAAAA3wAA
+AA8AAAAAAAAAAAAAAAAABwIAAGRycy9kb3ducmV2LnhtbFBLBQYAAAAAAwADALcAAAD7AgAAAAA=
+">
+  <v:imagedata src="slide0037_image231.wmz" o:title=""/>
+  <p:animation number="8" delay="0" type="object" effect="wipe"
+   direction="right" flag="17412"/></v:shape><o:OLEObject Type="Embed"
+  ProgID="Equation.3" ShapeID="Object_x0020_27" DrawAspect="Content"
+  ObjectID="26">
+  <p:oleclientdata subtype="equation" menuname="Equation"
+   clipboardname="Microsoft Equation 3.0"/></o:OLEObject>
+ <![if !vml]><img border=0 v:shapes="Object_x0020_27"
+ src="slide0037_image232.gif" style='position:absolute;top:65.75%;left:10.67%;
+ width:27.52%;height:8.0%'><![endif]><v:shape id="Object_x0020_28" o:spid="_x0000_s19462"
+  type="#_x0000_t75" style='position:absolute;left:76.5pt;top:397.625pt;
+  width:217.75pt;height:40.5pt' o:gfxdata="UEsDBBQABgAIAAAAIQDb4fbL7gAAAIUBAAATAAAAW0NvbnRlbnRfVHlwZXNdLnhtbHyQz07DMAyH
+70i8Q+QralM4IITa7kDhCAiNB7ASt43WOlEcyvb2pNu4IODoPz9/n1xv9vOkForiPDdwXVagiI23
+jocG3rdPxR0oScgWJ8/UwIEENu3lRb09BBKV0ywNjCmFe63FjDSjlD4Q50nv44wpl3HQAc0OB9I3
+VXWrjedEnIq03oC27qjHjympx31un0wiTQLq4bS4shrAECZnMGVTvbD9QSnOhDInjzsyuiBXWQP0
+r4R18jfgnHvJr4nOknrFmJ5xzhraRtHWf3Kkpfz/yGo5S+H73hkquyhdjr3R8m2lj09svwAAAP//
+AwBQSwMEFAAGAAgAAAAhAFr0LFu/AAAAFQEAAAsAAABfcmVscy8ucmVsc2zPwWrDMAwG4Ptg72B0
+X5TuUMaI01uh19I+gLGVxCy2jGSy9e1nemrHjpL4P0nD4SetZiPRyNnCruvBUPYcYp4tXC/Htw8w
+Wl0ObuVMFm6kcBhfX4Yzra62kC6xqGlKVgtLreUTUf1CyWnHhXKbTCzJ1VbKjMX5LzcTvvf9HuXR
+gPHJNKdgQU5hB+ZyK23zHztFL6w81c5zQp6m6P9TMfB3PtPWFCczVQtB9N4U2rp2HOA44NMz4y8A
+AAD//wMAUEsDBBQABgAIAAAAIQD1jqDpxQAAAN8AAAAPAAAAZHJzL2Rvd25yZXYueG1sRI/LisIw
+FIb3A75DOMJsBk0VR6QaRTsKrga8PMCxObbF5qQ0qa0+vVkILn/+G99i1ZlS3Kl2hWUFo2EEgji1
+uuBMwfm0G8xAOI+ssbRMCh7kYLXsfS0w1rblA92PPhNhhF2MCnLvq1hKl+Zk0A1tRRy8q60N+iDr
+TOoa2zBuSjmOoqk0WHB4yLGiJKf0dmyMAjf2o3Kztu3/89ok+uey/UuarVLf/W49B+Gp85/wu73X
+Cn6jyWwaCAJPYAG5fAEAAP//AwBQSwECLQAUAAYACAAAACEA2+H2y+4AAACFAQAAEwAAAAAAAAAA
+AAAAAAAAAAAAW0NvbnRlbnRfVHlwZXNdLnhtbFBLAQItABQABgAIAAAAIQBa9CxbvwAAABUBAAAL
+AAAAAAAAAAAAAAAAAB8BAABfcmVscy8ucmVsc1BLAQItABQABgAIAAAAIQD1jqDpxQAAAN8AAAAP
+AAAAAAAAAAAAAAAAAAcCAABkcnMvZG93bnJldi54bWxQSwUGAAAAAAMAAwC3AAAA+QIAAAAA
+">
+  <v:imagedata src="slide0037_image233.wmz" o:title=""/>
+  <p:animation number="9" delay="0" type="object" effect="wipe"
+   direction="right" flag="17408"/></v:shape><o:OLEObject Type="Embed"
+  ProgID="Equation.3" ShapeID="Object_x0020_28" DrawAspect="Content"
+  ObjectID="27">
+  <p:oleclientdata subtype="equation" menuname="Equation"
+   clipboardname="Microsoft Equation 3.0"/></o:OLEObject>
+ <![if !vml]><img border=0 v:shapes="Object_x0020_28"
+ src="slide0037_image234.gif" style='position:absolute;top:73.75%;left:10.67%;
+ width:30.14%;height:7.5%'><![endif]><v:shape id="Object_x0020_29" o:spid="_x0000_s19463"
+  type="#_x0000_t75" style='position:absolute;left:73.75pt;top:431.875pt;
+  width:572.375pt;height:42.75pt' o:gfxdata="UEsDBBQABgAIAAAAIQDb4fbL7gAAAIUBAAATAAAAW0NvbnRlbnRfVHlwZXNdLnhtbHyQz07DMAyH
+70i8Q+QralM4IITa7kDhCAiNB7ASt43WOlEcyvb2pNu4IODoPz9/n1xv9vOkForiPDdwXVagiI23
+jocG3rdPxR0oScgWJ8/UwIEENu3lRb09BBKV0ywNjCmFe63FjDSjlD4Q50nv44wpl3HQAc0OB9I3
+VXWrjedEnIq03oC27qjHjympx31un0wiTQLq4bS4shrAECZnMGVTvbD9QSnOhDInjzsyuiBXWQP0
+r4R18jfgnHvJr4nOknrFmJ5xzhraRtHWf3Kkpfz/yGo5S+H73hkquyhdjr3R8m2lj09svwAAAP//
+AwBQSwMEFAAGAAgAAAAhAFr0LFu/AAAAFQEAAAsAAABfcmVscy8ucmVsc2zPwWrDMAwG4Ptg72B0
+X5TuUMaI01uh19I+gLGVxCy2jGSy9e1nemrHjpL4P0nD4SetZiPRyNnCruvBUPYcYp4tXC/Htw8w
+Wl0ObuVMFm6kcBhfX4Yzra62kC6xqGlKVgtLreUTUf1CyWnHhXKbTCzJ1VbKjMX5LzcTvvf9HuXR
+gPHJNKdgQU5hB+ZyK23zHztFL6w81c5zQp6m6P9TMfB3PtPWFCczVQtB9N4U2rp2HOA44NMz4y8A
+AAD//wMAUEsDBBQABgAIAAAAIQApmfG0yAAAAN8AAAAPAAAAZHJzL2Rvd25yZXYueG1sRI/NasMw
+EITvhbyD2EJvjZz+BMeJEkJpobQkELeHHBdrbZlaKyPJsfv2VaHQ4zAz3zCb3WQ7cSEfWscKFvMM
+BHHldMuNgs+Pl9scRIjIGjvHpOCbAuy2s6sNFtqNfKJLGRuRIBwKVGBi7AspQ2XIYpi7njh5tfMW
+Y5K+kdrjmOC2k3dZtpQWW04LBnt6MlR9lYNVsPJl/Xw4VrU5591qHN6Ht/aelLq5nvZrEJGm+B/+
+a79qBY/ZQ75cwO+f9AXk9gcAAP//AwBQSwECLQAUAAYACAAAACEA2+H2y+4AAACFAQAAEwAAAAAA
+AAAAAAAAAAAAAAAAW0NvbnRlbnRfVHlwZXNdLnhtbFBLAQItABQABgAIAAAAIQBa9CxbvwAAABUB
+AAALAAAAAAAAAAAAAAAAAB8BAABfcmVscy8ucmVsc1BLAQItABQABgAIAAAAIQApmfG0yAAAAN8A
+AAAPAAAAAAAAAAAAAAAAAAcCAABkcnMvZG93bnJldi54bWxQSwUGAAAAAAMAAwC3AAAA/AIAAAAA
+">
+  <v:imagedata src="slide0037_image235.wmz" o:title=""/>
+  <p:animation number="10" delay="0" type="object" effect="wipe"
+   direction="right" flag="17408"/></v:shape><o:OLEObject Type="Embed"
+  ProgID="Equation.3" ShapeID="Object_x0020_29" DrawAspect="Content"
+  ObjectID="28">
+  <p:oleclientdata subtype="equation" menuname="Equation"
+   clipboardname="Microsoft Equation 3.0"/></o:OLEObject>
+ <![if !vml]><img border=0 v:shapes="Object_x0020_29"
+ src="slide0037_image236.gif" style='position:absolute;top:80.0%;left:10.29%;
+ width:79.58%;height:8.0%'><![endif]><v:shape id="Object_x0020_30" o:spid="_x0000_s19464"
+  type="#_x0000_t75" style='position:absolute;left:73.75pt;top:468.5pt;width:572.375pt;
+  height:42.75pt' o:gfxdata="UEsDBBQABgAIAAAAIQDb4fbL7gAAAIUBAAATAAAAW0NvbnRlbnRfVHlwZXNdLnhtbHyQz07DMAyH
+70i8Q+QralM4IITa7kDhCAiNB7ASt43WOlEcyvb2pNu4IODoPz9/n1xv9vOkForiPDdwXVagiI23
+jocG3rdPxR0oScgWJ8/UwIEENu3lRb09BBKV0ywNjCmFe63FjDSjlD4Q50nv44wpl3HQAc0OB9I3
+VXWrjedEnIq03oC27qjHjympx31un0wiTQLq4bS4shrAECZnMGVTvbD9QSnOhDInjzsyuiBXWQP0
+r4R18jfgnHvJr4nOknrFmJ5xzhraRtHWf3Kkpfz/yGo5S+H73hkquyhdjr3R8m2lj09svwAAAP//
+AwBQSwMEFAAGAAgAAAAhAFr0LFu/AAAAFQEAAAsAAABfcmVscy8ucmVsc2zPwWrDMAwG4Ptg72B0
+X5TuUMaI01uh19I+gLGVxCy2jGSy9e1nemrHjpL4P0nD4SetZiPRyNnCruvBUPYcYp4tXC/Htw8w
+Wl0ObuVMFm6kcBhfX4Yzra62kC6xqGlKVgtLreUTUf1CyWnHhXKbTCzJ1VbKjMX5LzcTvvf9HuXR
+gPHJNKdgQU5hB+ZyK23zHztFL6w81c5zQp6m6P9TMfB3PtPWFCczVQtB9N4U2rp2HOA44NMz4y8A
+AAD//wMAUEsDBBQABgAIAAAAIQDQWS+yyAAAAN8AAAAPAAAAZHJzL2Rvd25yZXYueG1sRI9RS8Mw
+FIXfhf2HcAe+iEstOkddNoYgTOYUpz/g0ty1Yc1NSbK2269fBGGPh3POdzjz5WAb0ZEPxrGCh0kG
+grh02nCl4Pfn7X4GIkRkjY1jUnCiAMvF6GaOhXY9f1O3i5VIEA4FKqhjbAspQ1mTxTBxLXHy9s5b
+jEn6SmqPfYLbRuZZNpUWDaeFGlt6rak87I5WwR1Wn/2Qf5j3c2cOG/9lw/PWKnU7HlYvICIN8Rr+
+b6+1gqfscTbN4e9P+gJycQEAAP//AwBQSwECLQAUAAYACAAAACEA2+H2y+4AAACFAQAAEwAAAAAA
+AAAAAAAAAAAAAAAAW0NvbnRlbnRfVHlwZXNdLnhtbFBLAQItABQABgAIAAAAIQBa9CxbvwAAABUB
+AAALAAAAAAAAAAAAAAAAAB8BAABfcmVscy8ucmVsc1BLAQItABQABgAIAAAAIQDQWS+yyAAAAN8A
+AAAPAAAAAAAAAAAAAAAAAAcCAABkcnMvZG93bnJldi54bWxQSwUGAAAAAAMAAwC3AAAA/AIAAAAA
+">
+  <v:imagedata src="slide0037_image237.wmz" o:title=""/>
+  <p:animation number="11" delay="0" type="object" effect="wipe"
+   direction="right" flag="17408"/></v:shape><o:OLEObject Type="Embed"
+  ProgID="Equation.3" ShapeID="Object_x0020_30" DrawAspect="Content"
+  ObjectID="29">
+  <p:oleclientdata subtype="equation" menuname="Equation"
+   clipboardname="Microsoft Equation 3.0"/></o:OLEObject>
+ <![if !vml]><img border=0 v:shapes="Object_x0020_30"
+ src="slide0037_image238.gif" style='position:absolute;top:86.75%;left:10.29%;
+ width:79.58%;height:8.0%'><![endif]></p:slide></div>
+
+<p:animation number="2106817692"/><oa:par id="TimeNode0" dur="indefinite"
+ restart="never" p:nodeType="timingRoot">
+ <oa:seq id="TimeNode1" dur="indefinite" prev="document.onpptprev"
+  next="document.onpptnext" concurrent="enabled" nextAction="seek"
+  p:nodeType="mainSeq">
+  <oa:par id="TimeNode2" begin="indefinite;TimeNode1.onbegin" fill="hold">
+   <oa:par id="TimeNode3" begin="0.0" fill="hold">
+    <oa:par id="TimeNode4" o:presetID="ppt_22" o:presetClass="entrance"
+     o:presetSubType="0x8" begin="0.0" fill="hold" p:nodeType="afterEffect">
+     <oa:set id="TimeNode5" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s19469_0_37" attributeName="style.visibility"
+      to="visible"/>
+     <oa:animateFilter id="TimeNode6" dur="0.5"
+      targetElement="_x0000_s19469_0_37" transition="in" filter="wipe(left)"/>
+    </oa:par>
+   </oa:par>
+   <oa:par id="TimeNode7" begin="0.5" fill="hold">
+    <oa:par id="TimeNode8" o:presetID="ppt_22" o:presetClass="entrance"
+     o:presetSubType="0x8" begin="0.0" fill="hold" p:nodeType="afterEffect">
+     <oa:set id="TimeNode9" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s19469_37_58" attributeName="style.visibility"
+      to="visible"/>
+     <oa:animateFilter id="TimeNode10" dur="0.5"
+      targetElement="_x0000_s19469_37_58" transition="in" filter="wipe(left)"/>
+    </oa:par>
+   </oa:par>
+   <oa:par id="TimeNode11" begin="1.0" fill="hold">
+    <oa:par id="TimeNode12" o:presetID="ppt_22" o:presetClass="entrance"
+     o:presetSubType="0x8" begin="0.0" fill="hold" p:nodeType="afterEffect">
+     <oa:set id="TimeNode13" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s19469_58_92" attributeName="style.visibility"
+      to="visible"/>
+     <oa:animateFilter id="TimeNode14" dur="0.5"
+      targetElement="_x0000_s19469_58_92" transition="in" filter="wipe(left)"/>
+    </oa:par>
+   </oa:par>
+  </oa:par>
+  <oa:par id="TimeNode15" begin="indefinite" fill="hold">
+   <oa:par id="TimeNode16" begin="0.0" fill="hold">
+    <oa:par id="TimeNode17" o:presetID="ppt_22" o:presetClass="entrance"
+     o:presetSubType="0x8" begin="0.0" fill="hold" p:nodeType="clickEffect">
+     <oa:set id="TimeNode18" begin="0.0" dur="0.001" fill="hold"
+      targetElement="Object_x0020_24" attributeName="style.visibility"
+      to="visible"/>
+     <oa:animateFilter id="TimeNode19" dur="0.5" targetElement="Object_x0020_24"
+      transition="in" filter="wipe(left)"/>
+    </oa:par>
+   </oa:par>
+   <oa:par id="TimeNode20" begin="0.5" fill="hold">
+    <oa:par id="TimeNode21" o:presetID="ppt_22" o:presetClass="entrance"
+     o:presetSubType="0x8" begin="0.0" fill="hold" p:nodeType="afterEffect">
+     <oa:set id="TimeNode22" begin="0.0" dur="0.001" fill="hold"
+      targetElement="Object_x0020_25" attributeName="style.visibility"
+      to="visible"/>
+     <oa:animateFilter id="TimeNode23" dur="0.5" targetElement="Object_x0020_25"
+      transition="in" filter="wipe(left)"/>
+    </oa:par>
+   </oa:par>
+   <oa:par id="TimeNode24" begin="1.0" fill="hold">
+    <oa:par id="TimeNode25" o:presetID="ppt_22" o:presetClass="entrance"
+     o:presetSubType="0x8" begin="0.0" fill="hold" p:nodeType="afterEffect">
+     <oa:set id="TimeNode26" begin="0.0" dur="0.001" fill="hold"
+      targetElement="Object_x0020_26" attributeName="style.visibility"
+      to="visible"/>
+     <oa:animateFilter id="TimeNode27" dur="0.5" targetElement="Object_x0020_26"
+      transition="in" filter="wipe(left)"/>
+    </oa:par>
+   </oa:par>
+   <oa:par id="TimeNode28" begin="1.5" fill="hold">
+    <oa:par id="TimeNode29" o:presetID="ppt_22" o:presetClass="entrance"
+     o:presetSubType="0x8" begin="0.0" fill="hold" p:nodeType="afterEffect">
+     <oa:set id="TimeNode30" begin="0.0" dur="0.001" fill="hold"
+      targetElement="Object_x0020_27" attributeName="style.visibility"
+      to="visible"/>
+     <oa:animateFilter id="TimeNode31" dur="0.5" targetElement="Object_x0020_27"
+      transition="in" filter="wipe(left)"/>
+    </oa:par>
+   </oa:par>
+  </oa:par>
+  <oa:par id="TimeNode32" begin="indefinite" fill="hold">
+   <oa:par id="TimeNode33" begin="0.0" fill="hold">
+    <oa:par id="TimeNode34" o:presetID="ppt_22" o:presetClass="entrance"
+     o:presetSubType="0x8" begin="0.0" fill="hold" p:nodeType="clickEffect">
+     <oa:set id="TimeNode35" begin="0.0" dur="0.001" fill="hold"
+      targetElement="Object_x0020_28" attributeName="style.visibility"
+      to="visible"/>
+     <oa:animateFilter id="TimeNode36" dur="0.5" targetElement="Object_x0020_28"
+      transition="in" filter="wipe(left)"/>
+    </oa:par>
+   </oa:par>
+  </oa:par>
+  <oa:par id="TimeNode37" begin="indefinite" fill="hold">
+   <oa:par id="TimeNode38" begin="0.0" fill="hold">
+    <oa:par id="TimeNode39" o:presetID="ppt_22" o:presetClass="entrance"
+     o:presetSubType="0x8" begin="0.0" fill="hold" p:nodeType="clickEffect">
+     <oa:set id="TimeNode40" begin="0.0" dur="0.001" fill="hold"
+      targetElement="Object_x0020_29" attributeName="style.visibility"
+      to="visible"/>
+     <oa:animateFilter id="TimeNode41" dur="0.5" targetElement="Object_x0020_29"
+      transition="in" filter="wipe(left)"/>
+    </oa:par>
+   </oa:par>
+  </oa:par>
+  <oa:par id="TimeNode42" begin="indefinite" fill="hold">
+   <oa:par id="TimeNode43" begin="0.0" fill="hold">
+    <oa:par id="TimeNode44" o:presetID="ppt_22" o:presetClass="entrance"
+     o:presetSubType="0x8" begin="0.0" fill="hold" p:nodeType="clickEffect">
+     <oa:set id="TimeNode45" begin="0.0" dur="0.001" fill="hold"
+      targetElement="Object_x0020_30" attributeName="style.visibility"
+      to="visible"/>
+     <oa:animateFilter id="TimeNode46" dur="0.5" targetElement="Object_x0020_30"
+      transition="in" filter="wipe(left)"/>
+    </oa:par>
+   </oa:par>
+  </oa:par>
+ </oa:seq>
+</oa:par>
+</body>
+
+</html>

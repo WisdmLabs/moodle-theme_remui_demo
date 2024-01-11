@@ -1,0 +1,355 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:p="urn:schemas-microsoft-com:office:powerpoint"
+xmlns:oa="urn:schemas-microsoft-com:office:activation"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=Windows-1254">
+<meta name=ProgId content=PowerPoint.Slide>
+<meta name=Generator content="Microsoft PowerPoint 12">
+<link id=Main-File rel=Main-File
+href="../Chapter_1_Digital_Systems_and_Binary_Numbers.htm">
+<link rel=Preview href=preview.wmf>
+<!--[if !mso]>
+<style>
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+p\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+v\:textbox {display:none;}
+</style>
+<![endif]-->
+<title>Digital Systems and Binary Numbers</title>
+<meta name=Description content="11/08/2010: Binary Code">
+<link rel=Stylesheet href="master05_stylesheet.css">
+<!--[if gte IE 5]>
+<object id=MSOANIM classid="CLSID:A4639D2F-774E-11D3-A490-00C04F6843FB"></object>
+<object id=MSOTIME classid="CLSID:A4639D29-774E-11D3-A490-00C04F6843FB"></object>
+<![endif]-->
+<![if !ppt]>
+
+<bgsound id=pptSound>
+
+<style media=print>
+<!--.sld
+	{left:0px !important;
+	width:6.0in !important;
+	height:4.5in !important;
+	font-size:107% !important;}
+-->
+</style>
+<style>
+<!--
+oa\:* { BEHAVIOR: url(#MSOANIM#ANIM) url(#MSOTIME#TIME) }
+oa\:par,oa\:seq,oa\:iterate { BEHAVIOR:url(#MSOTIME) }
+oa\:video,oa\:audio {BEHAVIOR:url(#MSOTIME) url(#MSOTIME#MEDIA) }
+-->
+</style>
+<script src=script.js></script><script><!--
+if( !IsNts() ) Redirect( "PPTSld" );
+//--></script><script><!--
+g_animItemsToHide=new Array("_x0000_s40966_0_26","_x0000_s40966");
+
+//--></script><!--[if vml]><script>g_vml = 1;
+</script><![endif]--><![endif]><o:shapelayout v:ext="edit">
+ <o:idmap v:ext="edit" data="40"/>
+</o:shapelayout>
+</head>
+
+<body lang=EN-US style='margin:0px;background-color:black'
+onclick="DocumentOnClick()" onresize="_RSW()" onload="LoadSld()"
+onkeypress="_KPH()" oa:clockstart="onstart">
+
+<div id=SlideObj class=sld style='position:absolute;top:0px;left:0px;
+width:534px;height:400px;font-size:16px;background-color:white;clip:rect(0%, 101%, 101%, 0%);
+visibility:hidden'><p:slide coordsize="720,540"
+ colors="#ffffff,#000000,#c0c0c0,#000082,#d01608,#000082,#00c000,#800080"
+ masterhref="master05.xml">
+ <p:shaperange href="master05.xml#_x0000_s3073"/><![if !ppt]><p:shaperange
+  href="master05.xml#_x0000_s3076"/><![if !vml]><img border=0
+ v:shapes="_x0000_s3076,_x0000_s3079,_x0000_s3080,_x0000_s3081"
+ src="master05_image002.gif" style='position:absolute;top:14.75%;left:-.56%;
+ width:101.12%;height:2.25%'><![endif]>
+ <div v:shape="_x0000_s3077">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:right;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:96.25%;left:70.97%;width:27.9%;height:3.0%'><span
+ lang=TR style='text-decoration:none;color:#7F7F7F;mso-fareast-language:ZH-TW'>Digital
+ Logic Design</span><span lang=EN-US style='text-decoration:none;color:#7F7F7F;
+ mso-fareast-language:ZH-TW'> </span><span lang=EN-US style='font-style:normal;
+ text-decoration:none;color:#7F7F7F;mso-fareast-language:ZH-TW'>Ch1</span><span
+ lang=EN-US style='text-decoration:none;color:#7F7F7F;mso-fareast-language:
+ ZH-TW'>-</span><span lang=ZH-TW style='font-style:normal;text-decoration:none;
+ color:#7F7F7F;mso-ansi-language:EN-US'>‹#›</span></div>
+ </div>
+ <p:shaperange href="master05.xml#_x0000_s3078"/><![if !vml]><img border=0
+ v:shapes="_x0000_s3078" src="master05_image003.gif" alt=logoyil30
+ style='position:absolute;top:2.25%;left:3.18%;width:8.05%;height:10.75%'><![endif]><![endif]><p:shaperange
+  href="master05.xml#_x0000_m3075"/><v:shape id="_x0000_s40962" type="#_x0000_m3075"
+  style='position:absolute;left:23.5pt;top:18pt;width:675.25pt;height:48pt;
+  visibility:visible;mso-wrap-style:square;v-text-anchor:middle'>
+  <v:stroke o:forcedash="f"/>
+  <v:path arrowok="t"/>
+  <o:lock v:ext="edit" rotation="f" aspectratio="f" position="f" selection="f"
+   verticies="f" text="f" adjusthandles="f" grouping="t" shapetype="f"/>
+  <v:textbox style='layout-flow:horizontal;mso-rotate-with-shape:t' inset="0,0,0,0"/>
+  <p:placeholder type="title" position="-1"/></v:shape><p:shaperange
+  href="master05.xml#_x0000_m3074"/><v:shape id="_x0000_s40963" type="#_x0000_m3074"
+  style='position:absolute;left:24.25pt;top:102pt;width:674.875pt;height:409.625pt;
+  visibility:visible;mso-wrap-style:square;v-text-anchor:top'>
+  <v:fill o:detectmouseclick="t"/>
+  <v:stroke o:forcedash="f"/>
+  <v:path arrowok="t"/>
+  <o:lock v:ext="edit" rotation="f" aspectratio="f" position="f" selection="f"
+   verticies="f" text="f" adjusthandles="f" grouping="t" shapetype="f"/>
+  <v:textbox style='layout-flow:horizontal;mso-rotate-with-shape:t' inset="2.51356mm,3.5pt,2.51356mm,3.5pt"/>
+  <p:placeholder type="object" position="-1"/></v:shape>
+ <div v:shape="_x0000_s40962" class=T style='mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:3.5%;left:3.18%;width:94.0%;height:8.5%'><span
+ lang=EN-US style='mso-fareast-language:ZH-TW'>Binary Code</span></div>
+ <div v:shape="_x0000_s40963">
+ <div class=B style='mso-char-wrap:1;mso-kinsoku-overflow:1;position:absolute;
+ top:19.75%;left:4.3%;width:91.94%;height:5.25%'><span style='position:absolute;
+ top:0%;left:4.07%;width:95.92%;height:100.0%'><span style='mso-special-format:
+ bullet;color:blue;position:absolute;left:-4.24%;top:.1em;font-family:"Wingdings 2";
+ font-size:90%'>©</span><span lang=EN-US style='mso-fareast-language:ZH-TW'>Example:&#13;</span></span></div>
+ <div class=B1 style='mso-char-wrap:1;mso-kinsoku-overflow:1;position:absolute;
+ top:26.0%;left:9.36%;width:86.89%;height:4.25%'><span style='position:absolute;
+ top:0%;left:3.66%;width:96.55%;height:100.0%'><span style='mso-special-format:
+ bullet;color:#FF9900;position:absolute;left:-3.79%;top:.39em;font-family:Wingdings;
+ font-size:70%'>u</span><span lang=EN-US style='mso-fareast-language:ZH-TW'>Consider
+ the addition of 184 + 576 = 760 in BCD:&#13;</span></span></div>
+ <div class=B1 style='mso-char-wrap:1;mso-kinsoku-overflow:1;position:absolute;
+ top:31.25%;left:9.36%;width:86.89%;height:4.25%'><span style='position:absolute;
+ top:0%;left:3.66%;width:96.55%;height:100.0%'><span style='visibility:hidden'><span
+ style='mso-special-format:bullet;color:#FF9900;position:absolute;left:-3.79%;
+ font-family:Wingdings;font-size:70%'>u</span></span><span lang=EN-US
+ style='mso-fareast-language:ZH-TW;display:none'>&#13;</span></span></div>
+ <div class=B1 style='mso-char-wrap:1;mso-kinsoku-overflow:1;position:absolute;
+ top:36.75%;left:9.36%;width:86.89%;height:4.25%'><span style='position:absolute;
+ top:0%;left:3.66%;width:96.55%;height:100.0%'><span style='visibility:hidden'><span
+ style='mso-special-format:bullet;color:#FF9900;position:absolute;left:-3.79%;
+ font-family:Wingdings;font-size:70%'>u</span></span><span lang=EN-US
+ style='mso-fareast-language:ZH-TW;display:none'>&#13;</span></span></div>
+ <div class=B1 style='mso-char-wrap:1;mso-kinsoku-overflow:1;position:absolute;
+ top:42.0%;left:9.36%;width:86.89%;height:4.25%'><span style='position:absolute;
+ top:0%;left:3.66%;width:96.55%;height:100.0%'><span style='visibility:hidden'><span
+ style='mso-special-format:bullet;color:#FF9900;position:absolute;left:-3.79%;
+ font-family:Wingdings;font-size:70%'>u</span></span><span lang=EN-US
+ style='mso-fareast-language:ZH-TW;display:none'>&#13;</span></span></div>
+ <div class=B1 style='mso-char-wrap:1;mso-kinsoku-overflow:1;position:absolute;
+ top:47.25%;left:9.36%;width:86.89%;height:4.25%'><span style='position:absolute;
+ top:0%;left:3.66%;width:96.55%;height:100.0%'><span style='visibility:hidden'><span
+ style='mso-special-format:bullet;color:#FF9900;position:absolute;left:-3.79%;
+ font-family:Wingdings;font-size:70%'>u</span></span><span lang=EN-US
+ style='mso-fareast-language:ZH-TW;display:none'>&#13;</span></span></div>
+ <div class=B1 style='mso-char-wrap:1;mso-kinsoku-overflow:1;position:absolute;
+ top:52.5%;left:9.36%;width:86.89%;height:4.25%'><span style='position:absolute;
+ top:0%;left:3.66%;width:96.55%;height:100.0%'><span style='visibility:hidden'><span
+ style='mso-special-format:bullet;color:#FF9900;position:absolute;left:-3.79%;
+ font-family:Wingdings;font-size:70%'>u</span></span><span lang=EN-US
+ style='mso-fareast-language:ZH-TW;display:none'>&#13;</span></span></div>
+ <div class=B1 style='mso-char-wrap:1;mso-kinsoku-overflow:1;position:absolute;
+ top:58.0%;left:9.36%;width:86.89%;height:4.25%'><span style='position:absolute;
+ top:0%;left:3.66%;width:96.55%;height:100.0%'><span style='visibility:hidden'><span
+ style='mso-special-format:bullet;color:#FF9900;position:absolute;left:-3.79%;
+ font-family:Wingdings;font-size:70%'>u</span></span><span lang=EN-US
+ style='mso-fareast-language:ZH-TW;display:none'>&#13;</span></span></div>
+ <div class=B1 style='mso-char-wrap:1;mso-kinsoku-overflow:1;position:absolute;
+ top:63.25%;left:9.36%;width:86.89%;height:4.25%'><span style='position:absolute;
+ top:0%;left:3.66%;width:96.55%;height:100.0%'><span style='visibility:hidden'><span
+ style='mso-special-format:bullet;color:#FF9900;position:absolute;left:-3.79%;
+ font-family:Wingdings;font-size:70%'>u</span></span><span lang=EN-US
+ style='mso-fareast-language:ZH-TW;display:none'>&#13;</span></span></div>
+ <div class=B style='mso-char-wrap:1;mso-kinsoku-overflow:1;position:absolute;
+ top:68.75%;left:4.3%;width:91.94%;height:5.25%'><span style='position:absolute;
+ top:0%;left:4.07%;width:95.92%;height:100.0%'><span style='mso-special-format:
+ bullet;color:blue;position:absolute;left:-4.24%;top:.1em;font-family:"Wingdings 2";
+ font-size:90%'>©</span><span lang=EN-US style='mso-fareast-language:ZH-TW'>Decimal
+ Arithmetic: (+375) + (-240) = +135&#13;</span></span></div>
+ <div class=B1 style='mso-char-wrap:1;mso-kinsoku-overflow:1;position:absolute;
+ top:75.0%;left:9.36%;width:86.89%;height:4.25%'><span style='position:absolute;
+ top:0%;left:3.66%;width:96.55%;height:100.0%'><span style='visibility:hidden'><span
+ style='mso-special-format:bullet;color:#FF9900;position:absolute;left:-3.79%;
+ font-family:Wingdings;font-size:70%'>u</span></span><span lang=EN-US
+ style='mso-fareast-language:ZH-TW;display:none'>&#13;</span></span></div>
+ <div class=B style='mso-char-wrap:1;mso-kinsoku-overflow:1;position:absolute;
+ top:80.5%;left:4.3%;width:91.94%;height:5.25%'><span style='position:absolute;
+ top:0%;left:4.07%;width:95.92%;height:100.0%'><span style='color:red;
+ visibility:hidden'><span style='mso-special-format:bullet;color:blue;
+ position:absolute;left:-4.24%;font-family:"Wingdings 2";font-size:90%'>©</span></span><span
+ lang=EN-US style='color:red;mso-fareast-language:ZH-TW;mso-special-format:
+ lastCR;display:none'><i>&#13;</i></span></span></div>
+ </div>
+ <v:shape id="Picture_x0020_5" o:spid="_x0000_s40964" type="#_x0000_t75"
+  style='position:absolute;left:139.875pt;top:176.875pt;width:439.625pt;
+  height:182pt;visibility:visible;mso-wrap-style:square' o:gfxdata="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
+" stroked="t" strokecolor="#1b1bff" strokeweight="2.25pt">
+  <v:imagedata src="slide0386_image139.wmz" o:title="" gain="86232f"
+   blacklevel="-3932f"/>
+ </v:shape><![if !vml]><img border=0 v:shapes="Picture_x0020_5"
+ src="slide0386_image140.gif" style='position:absolute;top:32.25%;left:19.1%;
+ width:61.61%;height:34.5%'><![endif]><v:shape id="Picture_x0020_7" o:spid="_x0000_s40965"
+  type="#_x0000_t75" style='position:absolute;left:140.25pt;top:417.25pt;
+  width:89pt;height:91.875pt;visibility:visible;mso-wrap-style:square'
+  o:gfxdata="UEsDBBQABgAIAAAAIQAEqzleAAEAAOYBAAATAAAAW0NvbnRlbnRfVHlwZXNdLnhtbJSRQU7DMBBF
+90jcwfIWJU5ZIISSdEHKEipUDjCyJ4lFMrY8bmhvj9O0G0SRWNoz/78nu1wfxkFMGNg6quQqL6RA
+0s5Y6ir5sXvJHqXgCGRgcISVPCLLdX17U+6OHlmkNHEl+xj9k1KsexyBc+eR0qR1YYSYjqFTHvQn
+dKjui+JBaUcRKWZx7pB12WAL+yGKzSFdLyYBB5bieVmcWZUE7werISZTNZH5QcnOhDwlTzvcW893
+SUOqXwnz5DrgnHtLTxOsQbGFEF9hTBrKBFbe6rgPmLbyv3tm0ZEz17ZWY94E3i7Ji9g1gHFfFHD6
+b3uTYu84XdrV6ZfqbwAAAP//AwBQSwMEFAAGAAgAAAAhAAjDGKTUAAAAkwEAAAsAAABfcmVscy8u
+cmVsc6SQwWrDMAyG74O+g9F9cdrDGKNOb4NeSwu7GltJzGLLSG7avv1M2WAZve2oX+j7xL/dXeOk
+ZmQJlAysmxYUJkc+pMHA6fj+/ApKik3eTpTQwA0Fdt3qaXvAyZZ6JGPIoioliYGxlPymtbgRo5WG
+Mqa66YmjLXXkQWfrPu2AetO2L5p/M6BbMNXeG+C934A63nI1/2HH4JiE+tI4ipr6PrhHVO3pkg44
+V4rlAYsBz3IPGeemPgf6sXf9T28OrpwZP6phof7Oq/nHrhdVdl8AAAD//wMAUEsDBBQABgAIAAAA
+IQCXLgkR1wEAAJAEAAASAAAAZHJzL3BpY3R1cmV4bWwueG1srJNLbtswEIb3BXIHgvtGkl3LsmA5
+KIKkm7Q1gvQADEVZRPjCkJad23dIWUm6K6BoNRoO//nmwe3NWSsyCPDSmoYW1zklwnDbSnNo6J+n
++68VJT4w0zJljWjoq/D0Znf1ZetqJznB28bXrqF9CK7OMs97oZm/tk4YPOssaBbwFw6ZA+GFCSxg
+Jq2yRZ6XmWbS0B1qmWEv+R6iyX8NeyCybeiyrMoNJYZpTIzn4QiCrGk2RY03WAR5sPzFX2jY/9C0
+wE5Y4z8gxNjbnpmD+O6d4AHbgcknF4A99YK1ProRIRtJJ2osAEbvh1KelXT3UqndltUe+COKzmXE
+HKgVQATez9WKUh3iRa7I/iacqnuHd7V3OJLn00/b4iTYMVgcGqvPHejPYLBdR87Y1nVVFOsVJa8N
+XS02mxztVK44B8JjQLHMlzluKMeIoijLqlimUYwoEcmBDz+EnY1FolBDATuTSmXDg7/0aEoR0xkb
+xzu3B6lIZebKkFNDF9UKuxbRvFWyfVu++CzFrQIyMIUT5Bxf4iLFqaPGsY7+Msdv7Dm6f+NYUvi3
+yR03ZFIa9+VjEi2DAKKkbmgVb1yU4qO5M20qMjCpRhullEl7FncrGfiMd38BAAD//wMAUEsDBBQA
+BgAIAAAAIQB4kOQgwwAAAN4AAAAPAAAAZHJzL2Rvd25yZXYueG1sRI/BisJAEETvC/7D0IK3daKB
+rEZHEXHR66of0GTaJJjpCZk2Zv/eERb2WFTVK2q9HVyjeupC7dnAbJqAIi68rbk0cL18fy5ABUG2
+2HgmA78UYLsZfawxt/7JP9SfpVQRwiFHA5VIm2sdioochqlviaN3851DibIrte3wGeGu0fMkybTD
+muNChS3tKyru54czsFvOT/0xLeRQft32D7knIb1cjZmMh90KlNAg/+G/9skaSLNFtoT3nXgF9OYF
+AAD//wMAUEsBAi0AFAAGAAgAAAAhAASrOV4AAQAA5gEAABMAAAAAAAAAAAAAAAAAAAAAAFtDb250
+ZW50X1R5cGVzXS54bWxQSwECLQAUAAYACAAAACEACMMYpNQAAACTAQAACwAAAAAAAAAAAAAAAAAx
+AQAAX3JlbHMvLnJlbHNQSwECLQAUAAYACAAAACEAly4JEdcBAACQBAAAEgAAAAAAAAAAAAAAAAAu
+AgAAZHJzL3BpY3R1cmV4bWwueG1sUEsBAi0AFAAGAAgAAAAhAHiQ5CDDAAAA3gAAAA8AAAAAAAAA
+AAAAAAAANQQAAGRycy9kb3ducmV2LnhtbFBLBQYAAAAABAAEAPcAAAAlBQAAAAA=
+" stroked="t" strokecolor="#1b1bff" strokeweight="2.25pt">
+  <v:imagedata src="slide0386_image141.wmz" o:title="" gain="79922f"
+   blacklevel="-1966f"/>
+ </v:shape><![if !vml]><img border=0 v:shapes="Picture_x0020_7"
+ src="slide0386_image142.gif" style='position:absolute;top:76.75%;left:19.1%;
+ width:12.92%;height:17.75%'><![endif]><v:shape id="_x0000_s40966" type="#_x0000_t202"
+  style='position:absolute;left:293.875pt;top:448.625pt;width:223.25pt;
+  height:29.125pt;visibility:visible;mso-wrap-style:square;v-text-anchor:top'
+  o:gfxdata="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
+AAAAyQYAAAAA
+" fillcolor="#1b1bff" stroked="f" strokeweight="2pt">
+  <v:textbox style='mso-rotate-with-shape:t;mso-fit-shape-to-text:t'/>
+  <p:animation number="2" delay="0" type="object" effect="cut"
+   direction="noBlack" flag="16384"/></v:shape><![if !vml]><img border=0
+ v:shapes="_x0000_s40966" src="slide0386_image143.gif" style='position:absolute;
+ top:83.0%;left:40.82%;width:31.27%;height:5.75%'><![endif]>
+ <div v:shape="_x0000_s40966">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div id="_x0000_s40966_0_26" class=O style='mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:83.75%;left:41.76%;width:33.7%;height:4.5%;white-space:
+ nowrap'><span lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:
+ "Book Antiqua";mso-fareast-font-family:\6A19\6977\9AD4;mso-hansi-font-family:
+ "Book Antiqua";font-size:129%;font-style:normal;text-decoration:none;
+ color:white;mso-color-index:0;mso-fareast-language:ZH-TW'>Hint 6: using 10’s
+ of BCD</span></div>
+ </div>
+</p:slide></div>
+
+<p:animation number="-192249407"/><oa:par id="TimeNode0" dur="indefinite"
+ restart="never" p:nodeType="timingRoot">
+ <oa:seq id="TimeNode1" dur="indefinite" prev="document.onpptprev"
+  next="document.onpptnext" concurrent="enabled" nextAction="seek"
+  p:nodeType="mainSeq">
+  <oa:par id="TimeNode2" begin="indefinite" fill="hold">
+   <oa:par id="TimeNode3" begin="0.0" fill="hold">
+    <oa:par id="TimeNode4" o:presetID="ppt_10" o:presetClass="entrance"
+     o:presetSubType="0x0" begin="0.0" fill="hold" o:groupID="0"
+     p:nodeType="clickEffect">
+     <oa:set id="TimeNode5" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s40966" o:subItem="background"
+      attributeName="style.visibility" to="visible"/>
+     <oa:animateFilter id="TimeNode6" dur="2.0" targetElement="_x0000_s40966"
+      o:subItem="background" transition="in" filter="fade"/>
+    </oa:par>
+    <oa:par id="TimeNode7" o:presetID="ppt_10" o:presetClass="entrance"
+     o:presetSubType="0x0" begin="0.0" fill="hold" o:groupID="0"
+     p:nodeType="withEffect">
+     <oa:set id="TimeNode8" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s40966_0_26" attributeName="style.visibility"
+      to="visible"/>
+     <oa:animateFilter id="TimeNode9" dur="2.0"
+      targetElement="_x0000_s40966_0_26" transition="in" filter="fade"/>
+    </oa:par>
+   </oa:par>
+  </oa:par>
+ </oa:seq>
+</oa:par>
+<![if ppt]>
+<oa:buildParagraph targetElement="_x0000_s40966" groupID="0" build="allAtOnce"
+ buildLevel="1" alsoAnimate="background" reverse="false" buildAdvance="onclick"
+ userSetAnimBgd="false"/>
+<![endif]>
+</body>
+
+</html>

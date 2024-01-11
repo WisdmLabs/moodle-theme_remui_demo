@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inforef>
+  <userref>
+    <user>
+      <id>2</id>
+    </user>
+    <user>
+      <id>8</id>
+    </user>
+    <user>
+      <id>9</id>
+    </user>
+    <user>
+      <id>10</id>
+    </user>
+  </userref>
+  <grade_itemref>
+    <grade_item>
+      <id>6</id>
+    </grade_item>
+  </grade_itemref>
+  <question_categoryref>
+    <question_category>
+      <id>9</id>
+    </question_category>
+    <question_category>
+      <id>11</id>
+    </question_category>
+    <question_category>
+      <id>12</id>
+    </question_category>
+    <question_category>
+      <id>16</id>
+    </question_category>
+  </question_categoryref>
+</inforef>

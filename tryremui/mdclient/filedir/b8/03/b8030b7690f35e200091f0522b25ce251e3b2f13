@@ -1,0 +1,218 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:p="urn:schemas-microsoft-com:office:powerpoint"
+xmlns:oa="urn:schemas-microsoft-com:office:activation"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=Windows-1254">
+<meta name=ProgId content=PowerPoint.Slide>
+<meta name=Generator content="Microsoft PowerPoint 12">
+<link id=Main-File rel=Main-File
+href="../Chapter_2_Boolean_Algebra_and_Logic_Gates.htm">
+<link rel=Preview href=preview.wmf>
+<!--[if !mso]>
+<style>
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+p\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+v\:textbox {display:none;}
+</style>
+<![endif]-->
+<title>Boolean_Algebra_and_Logic_Gates</title>
+<meta name=Description content="11/08/2010:  Consensus Theorem">
+<link rel=Stylesheet href="master22_stylesheet.css">
+<![if !ppt]>
+<style media=print>
+<!--.sld
+	{left:0px !important;
+	width:6.0in !important;
+	height:4.5in !important;
+	font-size:107% !important;}
+-->
+</style>
+<script src=script.js></script><script><!--
+if( !IsNts() ) Redirect( "PPTSld" );
+//--></script><!--[if vml]><script>g_vml = 1;
+</script><![endif]--><![endif]><p:slidetransition advancetime="0"
+ effect="random" direction="transition" flag="1"/><o:shapelayout v:ext="edit">
+ <o:idmap v:ext="edit" data="22"/>
+</o:shapelayout>
+</head>
+
+<body lang=EN-US style='margin:0px;background-color:black'
+onclick="DocumentOnClick()" onresize="_RSW()" onload="LoadSld()"
+onkeypress="_KPH()">
+
+<div id=SlideObj class=sld style='position:absolute;top:0px;left:0px;
+width:534px;height:400px;font-size:16px;background-color:#FFFFE1;clip:rect(0%, 101%, 101%, 0%);
+visibility:hidden;filter:revealtrans(Duration=1, Transition=23)'><p:slide
+ coordsize="720,540"
+ colors="#ffffe1,#000000,#330033,#330033,#cccc99,#ff0000,#990033,#b2b2b2"
+ masterhref="master22.xml">
+ <p:shaperange href="master22.xml#_x0000_s1025"/><![if !ppt]><p:shaperange
+  href="master22.xml#_x0000_s1026"/><![if !vml]><img border=0
+ v:shapes="_x0000_s1026,_x0000_s1034,_x0000_s1036,_x0000_s1037"
+ src="master22_image005.gif" style='position:absolute;top:-7.75%;left:0%;
+ width:95.5%;height:71.5%'><![endif]><p:shaperange
+  href="master22.xml#_x0000_s1029"/>
+ <div v:shape="_x0000_s1029" class=O style='mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:95.25%;left:11.04%;width:19.85%;height:2.25%'><span
+ lang=EN-US style='font-size:56%'>November 8, 2010</span></div>
+ <p:shaperange href="master22.xml#_x0000_s1030"/><p:shaperange
+  href="master22.xml#_x0000_s1031"/>
+ <div v:shape="_x0000_s1031" class=O>
+ <div style='text-align:right;mso-char-wrap:1;mso-kinsoku-overflow:1;
+ position:absolute;top:96.25%;left:75.09%;width:18.91%;height:2.25%'><span
+ lang=EN-US style='font-size:56%'>‹#›</span></div>
+ </div>
+ <p:shaperange href="master22.xml#_x0000_s1032"/><![if !vml]><img border=0
+ v:shapes="_x0000_s1032" src="master22_image006.gif" style='position:absolute;
+ top:70.75%;left:-.18%;width:7.49%;height:1.0%'><![endif]><p:shaperange
+  href="master22.xml#Picture_x0020_13"/><![if !vml]><img border=0
+ v:shapes="Picture_x0020_13" src="master22_image007.gif"
+ alt="emu_300x300_72dpi_black" style='position:absolute;top:2.75%;left:1.87%;
+ width:7.11%;height:9.5%'><![endif]><![endif]><v:shapetype id="_x0000_t202"
+  coordsize="21600,21600" o:spt="202" path="m,l,21600r21600,l21600,xe">
+  <v:stroke joinstyle="miter"/>
+  <v:path gradientshapeok="t" o:connecttype="rect"/>
+ </v:shapetype><v:shape id="_x0000_s22530" type="#_x0000_t202" style='position:absolute;
+  left:1in;top:510pt;width:156pt;height:18.25pt;visibility:visible;
+  mso-wrap-style:square;v-text-anchor:top' filled="f" stroked="f">
+  <v:fill o:detectmouseclick="t"/>
+  <v:path arrowok="t"/>
+  <o:lock v:ext="edit" grouping="t"/>
+  <v:textbox style='mso-rotate-with-shape:t'/>
+ </v:shape><v:shape id="_x0000_s22531" type="#_x0000_t202" style='position:absolute;
+  left:534pt;top:516pt;width:150pt;height:12pt;visibility:visible;
+  mso-wrap-style:square;v-text-anchor:top' filled="f" stroked="f">
+  <v:fill o:detectmouseclick="t"/>
+  <v:path arrowok="t"/>
+  <o:lock v:ext="edit" grouping="t"/>
+  <v:textbox style='mso-rotate-with-shape:t'/>
+ </v:shape><p:shaperange href="master22.xml#_x0000_m1027"/><v:shape id="_x0000_s22532"
+  type="#_x0000_m1027" style='position:absolute;left:1in;top:12pt;width:612pt;
+  height:56.125pt;visibility:visible;mso-wrap-style:square;v-text-anchor:middle'>
+  <v:stroke o:forcedash="f"/>
+  <v:path arrowok="f"/>
+  <o:lock v:ext="edit" rotation="f" aspectratio="f" position="f" selection="f"
+   verticies="f" text="f" adjusthandles="f" grouping="t" shapetype="f"/>
+  <v:textbox style='layout-flow:horizontal;mso-rotate-with-shape:t' inset="7.2pt,3.6pt,7.2pt,3.6pt"/>
+  <p:placeholder type="title" position="-1"/></v:shape><p:shaperange
+  href="master22.xml#_x0000_m1028"/><v:shape id="_x0000_s22533" type="#_x0000_m1028"
+  style='position:absolute;left:54pt;top:84pt;width:636pt;height:408pt;
+  visibility:visible;mso-wrap-style:square;v-text-anchor:top'>
+  <v:stroke o:forcedash="f"/>
+  <v:path arrowok="f"/>
+  <o:lock v:ext="edit" rotation="f" aspectratio="f" position="f" selection="f"
+   verticies="f" text="f" adjusthandles="f" grouping="t" shapetype="f"/>
+  <v:textbox style='layout-flow:horizontal;mso-rotate-with-shape:t' inset="7.2pt,3.6pt,7.2pt,3.6pt"/>
+  <p:placeholder type="body" position="-1"/></v:shape>
+ <div v:shape="_x0000_s22530">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='mso-char-wrap:1;mso-kinsoku-overflow:1;position:absolute;
+ top:95.25%;left:11.04%;width:19.85%;height:2.25%'><span lang=EN-US
+ style='font-size:56%'>November 8, 2010</span></div>
+ </div>
+ <div v:shape="_x0000_s22531">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:right;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:96.25%;left:75.09%;width:18.91%;height:2.25%'><span
+ lang=EN-US style='font-size:56%'>20</span></div>
+ </div>
+ <div v:shape="_x0000_s22532" class=T style='mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:3.25%;left:11.04%;width:83.14%;height:8.75%'><span
+ lang=EN-US style='font-family:"Times New Roman";mso-ascii-font-family:"Times New Roman"'><span
+ style='mso-spacerun:yes'> </span>Consensus Theorem</span></div>
+ <div v:shape="_x0000_s22533" class=B>
+ <div style='mso-margin-left-alt:384;mso-char-wrap:1;mso-kinsoku-overflow:1;
+ position:absolute;top:15.5%;left:8.42%;width:86.51%;height:7.5%'><span
+ style='position:absolute;top:0%;left:7.79%;width:92.2%;height:100.0%'><span
+ style='font-size:117%'><span style='mso-special-format:"numbullet3\,1";
+ color:#B2B2B2;mso-color-index:7;position:absolute;left:-8.45%;top:.1em;
+ font-size:90%'>1.</span></span><span lang=EN-US style='font-size:117%'>xy + x</span><span
+ lang=EN-US style='font-family:"Comic Sans MS";mso-ascii-font-family:"Comic Sans MS";
+ mso-hansi-font-family:"Comic Sans MS";font-size:117%'>’</span><span
+ lang=EN-US style='font-size:117%'>z + </span><span lang=EN-US
+ style='font-size:117%;color:red'>yz</span><span lang=EN-US style='font-size:
+ 117%'> = xy + x</span><span lang=EN-US style='font-family:"Comic Sans MS";
+ mso-ascii-font-family:"Comic Sans MS";mso-hansi-font-family:"Comic Sans MS";
+ font-size:117%'>’</span><span lang=EN-US style='font-size:117%'>z&#13;</span></span></div>
+ <div style='mso-margin-left-alt:384;mso-char-wrap:1;mso-kinsoku-overflow:1;
+ position:absolute;top:23.0%;left:8.42%;width:90.82%;height:7.5%'><span
+ style='position:absolute;top:0%;left:7.42%;width:92.78%;height:100.0%'><span
+ style='font-size:117%'><span style='mso-special-format:"numbullet3\,1";
+ color:#B2B2B2;mso-color-index:7;position:absolute;left:-8.0%;top:.1em;
+ font-size:90%'>2.</span></span><span lang=EN-US style='font-size:117%'>(x+y)</span><span
+ lang=EN-US style='font-family:"Comic Sans MS";mso-ascii-font-family:"Comic Sans MS";
+ mso-hansi-font-family:"Comic Sans MS";font-size:117%'>•</span><span
+ lang=EN-US style='font-size:117%'>(x</span><span lang=EN-US style='font-family:
+ "Comic Sans MS";mso-ascii-font-family:"Comic Sans MS";mso-hansi-font-family:
+ "Comic Sans MS";font-size:117%'>’</span><span lang=EN-US style='font-size:
+ 117%'>+z)</span><span lang=EN-US style='font-family:"Comic Sans MS";
+ mso-ascii-font-family:"Comic Sans MS";mso-hansi-font-family:"Comic Sans MS";
+ font-size:117%'>•</span><span lang=EN-US style='font-size:117%;color:red'>(y+z)
+ </span><span lang=EN-US style='font-size:117%'>= (x+y)</span><span lang=EN-US
+ style='font-family:"Comic Sans MS";mso-ascii-font-family:"Comic Sans MS";
+ mso-hansi-font-family:"Comic Sans MS";font-size:117%'>•</span><span
+ lang=EN-US style='font-size:117%'>(x</span><span lang=EN-US style='font-family:
+ "Comic Sans MS";mso-ascii-font-family:"Comic Sans MS";mso-hansi-font-family:
+ "Comic Sans MS";font-size:117%'>’</span><span lang=EN-US style='font-size:
+ 117%'>+z)<span style='mso-spacerun:yes'>  </span>-- (dual)&#13;</span></span></div>
+ <div style='mso-margin-left-alt:384;mso-char-wrap:1;mso-kinsoku-overflow:1'><span
+ style='position:absolute;top:31.5%;left:15.16%;width:79.77%;height:6.0%'><span
+ style='font-size:117%'><span style='mso-special-format:bullet;color:#B2B2B2;
+ mso-color-index:7;position:absolute;left:-8.45%;top:.1em;font-family:Wingdings;
+ font-size:90%'>n</span></span><span lang=EN-US style='font-size:117%'><b>Proof:<br>
+  </b></span></span><span style='position:absolute;top:36.5%;left:15.16%;
+ width:79.77%;height:7.5%'><span lang=EN-US style='font-size:117%'>xy + x</span><span
+ lang=EN-US style='font-family:"Comic Sans MS";mso-ascii-font-family:"Comic Sans MS";
+ mso-hansi-font-family:"Comic Sans MS";font-size:117%'>’</span><span
+ lang=EN-US style='font-size:117%'>z + yz = xy + x</span><span lang=EN-US
+ style='font-family:"Comic Sans MS";mso-ascii-font-family:"Comic Sans MS";
+ mso-hansi-font-family:"Comic Sans MS";font-size:117%'>’</span><span
+ lang=EN-US style='font-size:117%'>z + (x+x</span><span lang=EN-US
+ style='font-family:"Comic Sans MS";mso-ascii-font-family:"Comic Sans MS";
+ mso-hansi-font-family:"Comic Sans MS";font-size:117%'>’</span><span
+ lang=EN-US style='font-size:117%'>)yz<br>
+  </span></span><span style='position:absolute;top:42.75%;left:15.16%;
+ width:79.77%;height:7.5%'><span lang=EN-US style='font-size:117%'><span
+ style='mso-tab-count:3;width:29.24%'> </span>= xy + x</span><span lang=EN-US
+ style='font-family:"Comic Sans MS";mso-ascii-font-family:"Comic Sans MS";
+ mso-hansi-font-family:"Comic Sans MS";font-size:117%'>’</span><span
+ lang=EN-US style='font-size:117%'>z + xyz + x</span><span lang=EN-US
+ style='font-family:"Comic Sans MS";mso-ascii-font-family:"Comic Sans MS";
+ mso-hansi-font-family:"Comic Sans MS";font-size:117%'>’</span><span
+ lang=EN-US style='font-size:117%'>yz<br>
+  </span></span><span style='position:absolute;top:49.0%;left:15.16%;
+ width:79.77%;height:7.5%'><span lang=EN-US style='font-size:117%'><span
+ style='mso-tab-count:3;width:29.24%'> </span>= (xy + xyz) + (x</span><span
+ lang=EN-US style='font-family:"Comic Sans MS";mso-ascii-font-family:"Comic Sans MS";
+ mso-hansi-font-family:"Comic Sans MS";font-size:117%'>’</span><span
+ lang=EN-US style='font-size:117%'>z + x</span><span lang=EN-US
+ style='font-family:"Comic Sans MS";mso-ascii-font-family:"Comic Sans MS";
+ mso-hansi-font-family:"Comic Sans MS";font-size:117%'>’</span><span
+ lang=EN-US style='font-size:117%'>zy)<br>
+  </span></span><span style='position:absolute;top:55.25%;left:15.16%;
+ width:79.77%;height:7.5%'><span lang=EN-US style='font-size:117%'><span
+ style='mso-tab-count:3;width:29.24%'> </span>= xy + x</span><span lang=EN-US
+ style='font-family:"Comic Sans MS";mso-ascii-font-family:"Comic Sans MS";
+ mso-hansi-font-family:"Comic Sans MS";font-size:117%'>’</span><span
+ lang=EN-US style='font-size:117%'>z<br>
+  </span></span><span style='position:absolute;top:62.75%;left:15.16%;
+ width:79.77%;height:6.0%'><span lang=EN-US style='font-size:117%'>QED (</span><span
+ lang=EN-US style='font-size:117%;color:#330033;mso-color-index:3'>2</span><span
+ lang=EN-US style='font-size:117%'> true by duality).</span></span></div>
+ </div>
+</p:slide></div>
+
+</body>
+
+</html>

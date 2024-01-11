@@ -1,0 +1,445 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:p="urn:schemas-microsoft-com:office:powerpoint"
+xmlns:oa="urn:schemas-microsoft-com:office:activation"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=Windows-1254">
+<meta name=ProgId content=PowerPoint.Slide>
+<meta name=Generator content="Microsoft PowerPoint 12">
+<link id=Main-File rel=Main-File
+href="../Chapter_5_Synchronous_Sequential_Circuit.htm">
+<link rel=Preview href=preview.wmf>
+<link rel=OLE-Object-Data href=oledata.mso>
+<!--[if !mso]>
+<style>
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+p\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+v\:textbox {display:none;}
+</style>
+<![endif]-->
+<title>Synchronous_Sequential_Circuit</title>
+<meta name=Description
+content="11/08/2010: Analysis of Clocked Sequential Circuits">
+<link rel=Stylesheet href="master06_stylesheet.css">
+<!--[if gte IE 5]>
+<object id=MSOANIM classid="CLSID:A4639D2F-774E-11D3-A490-00C04F6843FB"></object>
+<object id=MSOTIME classid="CLSID:A4639D29-774E-11D3-A490-00C04F6843FB"></object>
+<![endif]-->
+<![if !ppt]>
+<style media=print>
+<!--.sld
+	{left:0px !important;
+	width:6.0in !important;
+	height:4.5in !important;
+	font-size:107% !important;}
+-->
+</style>
+<style>
+<!--
+oa\:* { BEHAVIOR: url(#MSOANIM#ANIM) url(#MSOTIME#TIME) }
+oa\:par,oa\:seq,oa\:iterate { BEHAVIOR:url(#MSOTIME) }
+oa\:video,oa\:audio {BEHAVIOR:url(#MSOTIME) url(#MSOTIME#MEDIA) }
+-->
+</style>
+<script src=script.js></script><script><!--
+if( !IsNts() ) Redirect( "PPTSld" );
+//--></script><script><!--
+g_animItemsToHide=new Array("_x0000_s18440","_x0000_s18439_56_74","_x0000_s18439_44_56","Object_x0020_4","_x0000_s18439_10_43","_x0000_s18439_0_10");
+
+//--></script><!--[if vml]><script>g_vml = 1;
+</script><![endif]--><![endif]><o:shapelayout v:ext="edit">
+ <o:idmap v:ext="edit" data="18"/>
+</o:shapelayout>
+</head>
+
+<body lang=EN-US style='margin:0px;background-color:black'
+onclick="DocumentOnClick()" onresize="_RSW()" onload="LoadSld()"
+onkeypress="_KPH()" oa:clockstart="onstart">
+
+<div id=SlideObj class=sld style='position:absolute;top:0px;left:0px;
+width:534px;height:400px;font-size:16px;background-color:white;clip:rect(0%, 101%, 101%, 0%);
+visibility:hidden'><p:slide coordsize="720,540"
+ colors="#ffffff,#000000,#919191,#081d58,#fc0128,#063de8,#00dfca,#eaec5e"
+ masterhref="master06.xml">
+ <p:shaperange href="master06.xml#_x0000_s31745"/><![if !ppt]><p:shaperange
+  href="master06.xml#_x0000_s31746"/><![if !vml]><img border=0
+ v:shapes="_x0000_s31746" src="master06_image005.gif" style='position:absolute;
+ top:0%;left:4.68%;width:95.5%;height:11.5%'><![endif]><p:shaperange
+  href="master06.xml#_x0000_s31747"/><![if !vml]><img border=0
+ v:shapes="_x0000_s31747" src="master06_image006.gif" style='position:absolute;
+ top:-.5%;left:-.37%;width:5.61%;height:69.75%'><![endif]><p:shaperange
+  href="master06.xml#_x0000_s31750"/><![if !vml]><img border=0
+ v:shapes="_x0000_s31750" src="master06_image007.gif" style='position:absolute;
+ top:11.25%;left:4.49%;width:96.25%;height:1.25%'><![endif]><p:shaperange
+  href="master06.xml#_x0000_s31753"/>
+ <div v:shape="_x0000_s31753" class=O style='mso-line-spacing:"100 0 0";
+ mso-char-wrap:1;mso-kinsoku-overflow:1;position:absolute;top:95.75%;
+ left:35.2%;width:34.45%;height:2.75%'><span lang=TR style='font-size:67%;
+ text-shadow:auto'>Eastern Mediterranean University</span><span
+ style='font-size:67%;text-shadow:auto;mso-special-format:lastCR;display:none'>&#13;</span></div>
+ <p:shaperange href="master06.xml#_x0000_s31754"/>
+ <div v:shape="_x0000_s31754" class=O>
+ <div style='text-align:right;mso-line-spacing:"100 0 0";mso-char-wrap:1;
+ mso-kinsoku-overflow:1;position:absolute;top:95.25%;left:87.82%;width:11.23%;
+ height:3.25%'><span style='font-size:78%;text-shadow:auto'>‹#›</span></div>
+ </div>
+ <p:shaperange href="master06.xml#Picture_x0020_14"/><![if !vml]><img border=0
+ v:shapes="Picture_x0020_14" src="master06_image008.gif" alt=logoyil30
+ style='position:absolute;top:0%;left:0%;width:7.86%;height:10.75%'><![endif]><p:shaperange
+  href="master06.xml#_x0000_s31756"/><![endif]><v:shape id="_x0000_s18436"
+  type="#_x0000_t202" style='position:absolute;left:246.625pt;top:511pt;
+  width:260.75pt;height:22.75pt;visibility:visible;mso-wrap-style:square;
+  v-text-anchor:bottom' o:gfxdata="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
+AAAAAAQABAD1AAAACwcAAAAA
+" filled="f" stroked="f">
+  <v:fill o:detectmouseclick="t"/>
+  <v:path arrowok="t"/>
+  <o:lock v:ext="edit" grouping="t"/>
+  <v:textbox style='mso-rotate-with-shape:t'/>
+ </v:shape><v:shape id="_x0000_s18437" type="#_x0000_t202" style='position:absolute;
+  left:625.625pt;top:511pt;width:94.375pt;height:22.75pt;visibility:visible;
+  mso-wrap-style:square;v-text-anchor:bottom' o:gfxdata="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
+" filled="f" stroked="f">
+  <v:fill o:detectmouseclick="t"/>
+  <v:path arrowok="t"/>
+  <o:lock v:ext="edit" grouping="t"/>
+  <v:textbox style='mso-rotate-with-shape:t'/>
+ </v:shape><p:shaperange href="master06.xml#_x0000_m31748"/><v:shape id="_x0000_s18438"
+  type="#_x0000_m31748" style='position:absolute;left:76.5pt;top:14.875pt;
+  width:623.75pt;height:37.375pt;visibility:visible;mso-wrap-style:square;
+  v-text-anchor:top' o:gfxdata="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
+AI4GAAAAAA==
+">
+  <v:stroke o:forcedash="f"/>
+  <v:path arrowok="f"/>
+  <o:lock v:ext="edit" rotation="f" aspectratio="f" position="f" selection="f"
+   verticies="f" text="f" adjusthandles="f" grouping="t" shapetype="f"/>
+  <v:textbox style='layout-flow:horizontal;mso-rotate-with-shape:t;
+   mso-fit-shape-to-text:t' inset="5pt,2pt,5pt,2pt"/>
+  <p:placeholder type="title" position="-1"/></v:shape>
+ <div v:shape="_x0000_s18436">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='mso-line-spacing:"100 0 0";mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:95.75%;left:35.2%;width:34.45%;height:2.75%'><span
+ lang=TR style='font-size:67%;text-shadow:auto'>Eastern Mediterranean
+ University</span><span style='font-size:67%;text-shadow:auto;mso-special-format:
+ lastCR;display:none'>&#13;</span></div>
+ </div>
+ <div v:shape="_x0000_s18437">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:right;mso-line-spacing:"100 0 0";mso-char-wrap:
+ 1;mso-kinsoku-overflow:1;position:absolute;top:95.25%;left:87.82%;width:11.23%;
+ height:3.25%'><span style='font-size:78%;text-shadow:auto'>32</span></div>
+ </div>
+ <div v:shape="_x0000_s18438" class=T style='position:absolute;top:2.75%;
+ left:11.23%;width:90.26%;height:6.75%'><span style='text-shadow:auto'>Analysis
+ of Clocked Sequential Circuits</span></div>
+ <p:shaperange href="master06.xml#_x0000_m31749"/><v:shape id="_x0000_s18439"
+  type="#_x0000_m31749" style='position:absolute;left:48.125pt;top:85.75pt;
+  width:652pt;height:224.875pt;visibility:visible;mso-wrap-style:square;
+  v-text-anchor:top' o:gfxdata="UEsDBBQABgAIAAAAIQDb4fbL7gAAAIUBAAATAAAAW0NvbnRlbnRfVHlwZXNdLnhtbHyQz07DMAyH
+70i8Q+QralM4IITa7kDhCAiNB7ASt43WOlEcyvb2pNu4IODoPz9/n1xv9vOkForiPDdwXVagiI23
+jocG3rdPxR0oScgWJ8/UwIEENu3lRb09BBKV0ywNjCmFe63FjDSjlD4Q50nv44wpl3HQAc0OB9I3
+VXWrjedEnIq03oC27qjHjympx31un0wiTQLq4bS4shrAECZnMGVTvbD9QSnOhDInjzsyuiBXWQP0
+r4R18jfgnHvJr4nOknrFmJ5xzhraRtHWf3Kkpfz/yGo5S+H73hkquyhdjr3R8m2lj09svwAAAP//
+AwBQSwMEFAAGAAgAAAAhAFr0LFu/AAAAFQEAAAsAAABfcmVscy8ucmVsc2zPwWrDMAwG4Ptg72B0
+X5TuUMaI01uh19I+gLGVxCy2jGSy9e1nemrHjpL4P0nD4SetZiPRyNnCruvBUPYcYp4tXC/Htw8w
+Wl0ObuVMFm6kcBhfX4Yzra62kC6xqGlKVgtLreUTUf1CyWnHhXKbTCzJ1VbKjMX5LzcTvvf9HuXR
+gPHJNKdgQU5hB+ZyK23zHztFL6w81c5zQp6m6P9TMfB3PtPWFCczVQtB9N4U2rp2HOA44NMz4y8A
+AAD//wMAUEsDBBQABgAIAAAAIQDHC9442wAAAP4AAAAPAAAAZHJzL2Rvd25yZXYueG1sRI9NS8NA
+FEX3gv9heII7O6kSm6adFhFEd9pYod29Zl4nwfkIM5M09dc7dKHLy72cy1muR6PZQD60zgqYTjJg
+ZGsnW6sEbD9f7gpgIaKVqJ0lAWcKsF5dXy2xlO5kNzRUUbEEsaFEAU2MXcl5qBsyGCauI5u6o/MG
+Y4pecenxlOBG8/sse+QGW5seGuzouaH6u+qNAO32+ax6133YzQ/Dx2zXqX6bC3F7Mz4tgEUa4//4
+SxX1j/orL6g3KaCYPmT5HNjx9XzwrdxgiOQFJMGkm1SBr34BAAD//wMAUEsBAi0AFAAGAAgAAAAh
+ANvh9svuAAAAhQEAABMAAAAAAAAAAAAAAAAAAAAAAFtDb250ZW50X1R5cGVzXS54bWxQSwECLQAU
+AAYACAAAACEAWvQsW78AAAAVAQAACwAAAAAAAAAAAAAAAAAfAQAAX3JlbHMvLnJlbHNQSwECLQAU
+AAYACAAAACEAxwveONsAAAD+AAAADwAAAAAAAAAAAAAAAAAHAgAAZHJzL2Rvd25yZXYueG1sUEsF
+BgAAAAADAAMAtwAAAA8DAAAAAA==
+">
+  <v:stroke o:forcedash="f"/>
+  <v:path arrowok="f"/>
+  <o:lock v:ext="edit" rotation="f" aspectratio="f" position="f" selection="f"
+   verticies="f" text="f" adjusthandles="f" grouping="t" shapetype="f"/>
+  <v:textbox style='layout-flow:horizontal;mso-rotate-with-shape:t;
+   mso-fit-shape-to-text:t' inset="5pt,2pt,5pt,2pt"/>
+  <p:placeholder type="body" position="-1"/><p:animation number="2" delay="0"
+   type="object" effect="wipe" direction="right" flag="17412"/></v:shape>
+ <div v:shape="_x0000_s18439" style='position:absolute;top:16.75%;left:7.3%;
+ width:89.32%;height:40.75%'>
+ <div class=B2 style='mso-margin-left-alt:720;mso-text-indent-alt:576'></div>
+ <div class=B3 style='mso-margin-left-alt:1008;mso-text-indent-alt:864'></div>
+ <div class=B4 style='mso-margin-left-alt:1296;mso-text-indent-alt:1152'></div>
+ <div id="_x0000_s18439_0_10" class=B style='position:absolute;top:0%;
+ left:0%;width:100.0%;height:14.72%;white-space:nowrap'><span style='position:
+ absolute;top:0%;left:4.4%;width:95.59%;height:100.0%'><span style='font-weight:
+ normal'><span class=BB style='position:absolute;left:-4.6%'>«</span></span>The
+ State&#13;</span></div>
+ <div id="_x0000_s18439_10_43" class=B1 style='position:absolute;top:21.47%;
+ left:6.49%;width:93.5%;height:12.88%;white-space:nowrap'><span
+ style='position:absolute;top:0%;left:3.81%;width:96.41%;height:100.0%'><span
+ style='font-weight:normal'><span class=B1B style='position:absolute;
+ left:-3.95%'>&#9679;</span></span>State = Values of all Flip-Flops&#13;</span></div>
+ <div class=B1 style='position:absolute;top:41.1%;left:6.49%;width:93.5%;
+ height:12.88%'><span style='mso-special-format:nobullet;display:none;
+ color:#063DE8;mso-color-index:5'>&#9679;</span><span style='color:#996600;
+ display:none'><b><u>&#13;</u></b></span></div>
+ <div id="_x0000_s18439_44_56" class=B style='position:absolute;top:61.96%;
+ left:0%;width:100.0%;height:14.72%;white-space:nowrap'><span style='mso-special-format:
+ nobullet;display:none;color:#CC3300;font-family:Wingdings'>«</span><span
+ style='color:#996600'><span style='mso-spacerun:yes'>    </span></span><span
+ style='color:#996600'><b><u>Example&#13;</u></b></span></div>
+ <div id="_x0000_s18439_56_74" class=B style='position:absolute;top:84.66%;
+ left:0%;width:100.0%;height:14.72%;white-space:nowrap'><span style='mso-special-format:
+ nobullet;display:none;color:#CC3300;font-family:Wingdings'>«</span><b><i><span
+ style='mso-spacerun:yes'>        </span></i></b><span style='color:#FC0128;
+ mso-color-index:4'><b><i>A</i></b></span><span style='color:#FC0128;
+ mso-color-index:4'> </span><span style='color:#FC0128;mso-color-index:4'><b><i>B</i></b></span><b><i>
+ </i></b>= 0 0</div>
+ </div>
+ <v:shape id="Object_x0020_4" o:spid="_x0000_s18434" type="#_x0000_t75"
+  style='position:absolute;left:260.75pt;top:185pt;width:376pt;height:325.25pt;
+  v-text-anchor:middle' o:gfxdata="UEsDBBQABgAIAAAAIQDb4fbL7gAAAIUBAAATAAAAW0NvbnRlbnRfVHlwZXNdLnhtbHyQz07DMAyH
+70i8Q+QralM4IITa7kDhCAiNB7ASt43WOlEcyvb2pNu4IODoPz9/n1xv9vOkForiPDdwXVagiI23
+jocG3rdPxR0oScgWJ8/UwIEENu3lRb09BBKV0ywNjCmFe63FjDSjlD4Q50nv44wpl3HQAc0OB9I3
+VXWrjedEnIq03oC27qjHjympx31un0wiTQLq4bS4shrAECZnMGVTvbD9QSnOhDInjzsyuiBXWQP0
+r4R18jfgnHvJr4nOknrFmJ5xzhraRtHWf3Kkpfz/yGo5S+H73hkquyhdjr3R8m2lj09svwAAAP//
+AwBQSwMEFAAGAAgAAAAhAFr0LFu/AAAAFQEAAAsAAABfcmVscy8ucmVsc2zPwWrDMAwG4Ptg72B0
+X5TuUMaI01uh19I+gLGVxCy2jGSy9e1nemrHjpL4P0nD4SetZiPRyNnCruvBUPYcYp4tXC/Htw8w
+Wl0ObuVMFm6kcBhfX4Yzra62kC6xqGlKVgtLreUTUf1CyWnHhXKbTCzJ1VbKjMX5LzcTvvf9HuXR
+gPHJNKdgQU5hB+ZyK23zHztFL6w81c5zQp6m6P9TMfB3PtPWFCczVQtB9N4U2rp2HOA44NMz4y8A
+AAD//wMAUEsDBBQABgAIAAAAIQCCyXohxQAAAN8AAAAPAAAAZHJzL2Rvd25yZXYueG1sRI/NasJA
+FIX3gu8w3EJ3OtFKlOgoogh1V2OhuLtkbjKxmTshM8b07TuLQpeH88e32Q22ET11vnasYDZNQBAX
+TtdcKfi8niYrED4ga2wck4If8rDbjkcbzLR78oX6PFQijrDPUIEJoc2k9IUhi37qWuLola6zGKLs
+Kqk7fMZx28h5kqTSYs3xwWBLB0PFd/6wCo73cNMf53JR9IeLWXLJ6fX2pdTry7Bfgwg0hP/wX/td
+K1jN3pI0EkSeyAJy+wsAAP//AwBQSwECLQAUAAYACAAAACEA2+H2y+4AAACFAQAAEwAAAAAAAAAA
+AAAAAAAAAAAAW0NvbnRlbnRfVHlwZXNdLnhtbFBLAQItABQABgAIAAAAIQBa9CxbvwAAABUBAAAL
+AAAAAAAAAAAAAAAAAB8BAABfcmVscy8ucmVsc1BLAQItABQABgAIAAAAIQCCyXohxQAAAN8AAAAP
+AAAAAAAAAAAAAAAAAAcCAABkcnMvZG93bnJldi54bWxQSwUGAAAAAAMAAwC3AAAA+QIAAAAA
+" strokecolor="black [1]" strokeweight="3pt">
+  <v:imagedata src="slide0033_image223.emz" o:title=""/>
+  <v:shadow color="#919191 [2]"/>
+  <p:animation number="4" delay="0" type="object" effect="wipe"
+   direction="right" flag="17412"/></v:shape><o:OLEObject Type="Embed"
+  ProgID="Visio.Drawing.11" ShapeID="Object_x0020_4" DrawAspect="Content"
+  ObjectID="21">
+  <p:oleclientdata menuname="Visio" clipboardname="Microsoft Visio Drawing"/></o:OLEObject>
+ <![if !vml]><img border=0 v:shapes="Object_x0020_4"
+ src="slide0033_image224.gif" style='position:absolute;top:34.25%;left:36.14%;
+ width:52.24%;height:60.25%'><![endif]><v:oval id="_x0000_s18440" style='position:absolute;
+  left:615.125pt;top:213.25pt;width:28.25pt;height:170.125pt;visibility:visible;
+  mso-wrap-style:square;v-text-anchor:middle' o:gfxdata="UEsDBBQABgAIAAAAIQDb4fbL7gAAAIUBAAATAAAAW0NvbnRlbnRfVHlwZXNdLnhtbHyQz07DMAyH
+70i8Q+QralM4IITa7kDhCAiNB7ASt43WOlEcyvb2pNu4IODoPz9/n1xv9vOkForiPDdwXVagiI23
+jocG3rdPxR0oScgWJ8/UwIEENu3lRb09BBKV0ywNjCmFe63FjDSjlD4Q50nv44wpl3HQAc0OB9I3
+VXWrjedEnIq03oC27qjHjympx31un0wiTQLq4bS4shrAECZnMGVTvbD9QSnOhDInjzsyuiBXWQP0
+r4R18jfgnHvJr4nOknrFmJ5xzhraRtHWf3Kkpfz/yGo5S+H73hkquyhdjr3R8m2lj09svwAAAP//
+AwBQSwMEFAAGAAgAAAAhAFr0LFu/AAAAFQEAAAsAAABfcmVscy8ucmVsc2zPwWrDMAwG4Ptg72B0
+X5TuUMaI01uh19I+gLGVxCy2jGSy9e1nemrHjpL4P0nD4SetZiPRyNnCruvBUPYcYp4tXC/Htw8w
+Wl0ObuVMFm6kcBhfX4Yzra62kC6xqGlKVgtLreUTUf1CyWnHhXKbTCzJ1VbKjMX5LzcTvvf9HuXR
+gPHJNKdgQU5hB+ZyK23zHztFL6w81c5zQp6m6P9TMfB3PtPWFCczVQtB9N4U2rp2HOA44NMz4y8A
+AAD//wMAUEsDBBQABgAIAAAAIQDlDZJn2QAAAP4AAAAPAAAAZHJzL2Rvd25yZXYueG1sRI9RS8Mw
+FIXfBf9DuIJvLm03SqnLhghjvmk3YT5em7s22tyUJNu6f2/wQR8P5/AdvuV6soM4kw/GsYJ8loEg
+bp023Cl4328eKhAhImscHJOCKwVYr25vllhrd+GGzrvYiQThUKOCPsaxljK0PVkMMzcSp+7ovMWY
+ou+k9nhJcDvIIstKadFweuhxpOee2u/dySromvn2sIlhUbztS3NaDP7r9cMrdX83PT2CiDTF/3FR
+HSSHv/IX9aIVVPk8K3MQx+310xvdYIjkFSTBpJtUQa5+AAAA//8DAFBLAQItABQABgAIAAAAIQDb
+4fbL7gAAAIUBAAATAAAAAAAAAAAAAAAAAAAAAABbQ29udGVudF9UeXBlc10ueG1sUEsBAi0AFAAG
+AAgAAAAhAFr0LFu/AAAAFQEAAAsAAAAAAAAAAAAAAAAAHwEAAF9yZWxzLy5yZWxzUEsBAi0AFAAG
+AAgAAAAhAOUNkmfZAAAA/gAAAA8AAAAAAAAAAAAAAAAABwIAAGRycy9kb3ducmV2LnhtbFBLBQYA
+AAAAAwADALcAAAANAwAAAAA=
+" filled="f" strokecolor="#fc0128 [4]" strokeweight="2.25pt">
+  <v:textbox style='mso-rotate-with-shape:t;mso-fit-shape-to-text:t' inset="0,0,0,0"/>
+  <p:animation number="7" delay="0" type="object" effect="wipe" direction="down"
+   flag="17412"/></v:oval><![if !vml]><img border=0 v:shapes="_x0000_s18440"
+ src="slide0033_image225.gif" style='position:absolute;top:39.25%;left:85.2%;
+ width:4.49%;height:32.25%'><![endif]></p:slide></div>
+
+<p:animation number="1547384022"/><oa:par id="TimeNode0" dur="indefinite"
+ restart="never" p:nodeType="timingRoot">
+ <oa:seq id="TimeNode1" dur="indefinite" prev="document.onpptprev"
+  next="document.onpptnext" concurrent="enabled" nextAction="seek"
+  p:nodeType="mainSeq">
+  <oa:par id="TimeNode2" begin="indefinite;TimeNode1.onbegin" fill="hold">
+   <oa:par id="TimeNode3" begin="0.0" fill="hold">
+    <oa:par id="TimeNode4" o:presetID="ppt_22" o:presetClass="entrance"
+     o:presetSubType="0x8" begin="0.0" fill="hold" p:nodeType="afterEffect">
+     <oa:set id="TimeNode5" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s18439_0_10" attributeName="style.visibility"
+      to="visible"/>
+     <oa:animateFilter id="TimeNode6" dur="0.5"
+      targetElement="_x0000_s18439_0_10" transition="in" filter="wipe(left)"/>
+    </oa:par>
+   </oa:par>
+   <oa:par id="TimeNode7" begin="0.5" fill="hold">
+    <oa:par id="TimeNode8" o:presetID="ppt_22" o:presetClass="entrance"
+     o:presetSubType="0x8" begin="0.0" fill="hold" p:nodeType="afterEffect">
+     <oa:set id="TimeNode9" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s18439_10_43" attributeName="style.visibility"
+      to="visible"/>
+     <oa:animateFilter id="TimeNode10" dur="0.5"
+      targetElement="_x0000_s18439_10_43" transition="in" filter="wipe(left)"/>
+    </oa:par>
+   </oa:par>
+   <oa:par id="TimeNode11" begin="1.0" fill="hold">
+    <oa:par id="TimeNode12" o:presetID="ppt_22" o:presetClass="entrance"
+     o:presetSubType="0x8" begin="0.0" fill="hold" p:nodeType="afterEffect">
+     <oa:set id="TimeNode13" begin="0.0" dur="0.001" fill="hold"
+      targetElement="Object_x0020_4" attributeName="style.visibility"
+      to="visible"/>
+     <oa:animateFilter id="TimeNode14" dur="0.5" targetElement="Object_x0020_4"
+      transition="in" filter="wipe(left)"/>
+    </oa:par>
+   </oa:par>
+   <oa:par id="TimeNode15" begin="1.5" fill="hold">
+    <oa:par id="TimeNode16" o:presetID="ppt_22" o:presetClass="entrance"
+     o:presetSubType="0x8" begin="0.0" fill="hold" p:nodeType="afterEffect">
+     <oa:set id="TimeNode17" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s18439_44_56" attributeName="style.visibility"
+      to="visible"/>
+     <oa:animateFilter id="TimeNode18" dur="0.5"
+      targetElement="_x0000_s18439_44_56" transition="in" filter="wipe(left)"/>
+    </oa:par>
+   </oa:par>
+   <oa:par id="TimeNode19" begin="2.0" fill="hold">
+    <oa:par id="TimeNode20" o:presetID="ppt_22" o:presetClass="entrance"
+     o:presetSubType="0x8" begin="0.0" fill="hold" p:nodeType="afterEffect">
+     <oa:set id="TimeNode21" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s18439_56_74" attributeName="style.visibility"
+      to="visible"/>
+     <oa:animateFilter id="TimeNode22" dur="0.5"
+      targetElement="_x0000_s18439_56_74" transition="in" filter="wipe(left)"/>
+    </oa:par>
+   </oa:par>
+   <oa:par id="TimeNode23" begin="2.5" fill="hold">
+    <oa:par id="TimeNode24" o:presetID="ppt_22" o:presetClass="entrance"
+     o:presetSubType="0x1" begin="0.0" fill="hold" o:groupID="0"
+     p:nodeType="afterEffect">
+     <oa:set id="TimeNode25" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s18440" attributeName="style.visibility"
+      to="visible"/>
+     <oa:animateFilter id="TimeNode26" dur="0.5" targetElement="_x0000_s18440"
+      transition="in" filter="wipe(up)"/>
+    </oa:par>
+   </oa:par>
+  </oa:par>
+ </oa:seq>
+</oa:par>
+<![if ppt]>
+<oa:buildParagraph targetElement="_x0000_s18440" groupID="0" build="asAWhole"
+ buildLevel="1" alsoAnimate="background" reverse="false" buildAdvance="onclick"
+ userSetAnimBgd="false"/>
+<![endif]>
+</body>
+
+</html>

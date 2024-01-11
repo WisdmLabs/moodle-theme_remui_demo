@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<course_completion_defaults>
+  <course_completion_default id="1">
+    <modulename>assign</modulename>
+    <completion>2</completion>
+    <completionview>0</completionview>
+    <completionusegrade>1</completionusegrade>
+    <completionexpected>0</completionexpected>
+    <customrules>$@NULL@$</customrules>
+  </course_completion_default>
+  <course_completion_default id="2">
+    <modulename>quiz</modulename>
+    <completion>2</completion>
+    <completionview>0</completionview>
+    <completionusegrade>1</completionusegrade>
+    <completionexpected>0</completionexpected>
+    <customrules>$@NULL@$</customrules>
+  </course_completion_default>
+</course_completion_defaults>

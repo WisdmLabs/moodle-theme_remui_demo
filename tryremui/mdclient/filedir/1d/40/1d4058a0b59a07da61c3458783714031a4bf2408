@@ -1,0 +1,495 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:p="urn:schemas-microsoft-com:office:powerpoint"
+xmlns:oa="urn:schemas-microsoft-com:office:activation"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=Windows-1254">
+<meta name=ProgId content=PowerPoint.Slide>
+<meta name=Generator content="Microsoft PowerPoint 12">
+<link id=Main-File rel=Main-File
+href="../Chapter_1_Digital_Systems_and_Binary_Numbers.htm">
+<link rel=Preview href=preview.wmf>
+<!--[if !mso]>
+<style>
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+p\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+v\:textbox {display:none;}
+</style>
+<![endif]-->
+<title>Digital Systems and Binary Numbers</title>
+<meta name=Description content="11/08/2010: 1.5 Complements">
+<link rel=Stylesheet href="master05_stylesheet.css">
+<!--[if gte IE 5]>
+<object id=MSOANIM classid="CLSID:A4639D2F-774E-11D3-A490-00C04F6843FB"></object>
+<object id=MSOTIME classid="CLSID:A4639D29-774E-11D3-A490-00C04F6843FB"></object>
+<![endif]-->
+<![if !ppt]>
+
+<bgsound id=pptSound>
+
+<style media=print>
+<!--.sld
+	{left:0px !important;
+	width:6.0in !important;
+	height:4.5in !important;
+	font-size:107% !important;}
+-->
+</style>
+<style>
+<!--
+oa\:* { BEHAVIOR: url(#MSOANIM#ANIM) url(#MSOTIME#TIME) }
+oa\:par,oa\:seq,oa\:iterate { BEHAVIOR:url(#MSOTIME) }
+oa\:video,oa\:audio {BEHAVIOR:url(#MSOTIME) url(#MSOTIME#MEDIA) }
+-->
+</style>
+<script src=script.js></script><script><!--
+if( !IsNts() ) Redirect( "PPTSld" );
+//--></script><script><!--
+g_animItemsToHide=new Array("_x0000_s27651_677_714","_x0000_s27651_618_677","_x0000_s27651_564_618","_x0000_s27651_551_564","_x0000_s27651_496_551","_x0000_s27651_441_496","_x0000_s27651_405_441","_x0000_s27651_354_405","_x0000_s27651_302_354","_x0000_s27651_265_302","_x0000_s27651_250_265","_x0000_s27651_163_250","_x0000_s27651_114_163","_x0000_s27651_0_114");
+
+//--></script><!--[if vml]><script>g_vml = 1;
+</script><![endif]--><![endif]><o:shapelayout v:ext="edit">
+ <o:idmap v:ext="edit" data="27"/>
+</o:shapelayout>
+</head>
+
+<body lang=EN-US style='margin:0px;background-color:black'
+onclick="DocumentOnClick()" onresize="_RSW()" onload="LoadSld()"
+onkeypress="_KPH()" oa:clockstart="onstart">
+
+<div id=SlideObj class=sld style='position:absolute;top:0px;left:0px;
+width:534px;height:400px;font-size:16px;background-color:white;clip:rect(0%, 101%, 101%, 0%);
+visibility:hidden'><p:slide coordsize="720,540"
+ colors="#ffffff,#000000,#c0c0c0,#000082,#d01608,#000082,#00c000,#800080"
+ masterhref="master05.xml">
+ <p:shaperange href="master05.xml#_x0000_s3073"/><![if !ppt]><p:shaperange
+  href="master05.xml#_x0000_s3076"/><![if !vml]><img border=0
+ v:shapes="_x0000_s3076,_x0000_s3079,_x0000_s3080,_x0000_s3081"
+ src="master05_image002.gif" style='position:absolute;top:14.75%;left:-.56%;
+ width:101.12%;height:2.25%'><![endif]>
+ <div v:shape="_x0000_s3077">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:right;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:96.25%;left:70.97%;width:27.9%;height:3.0%'><span
+ lang=TR style='text-decoration:none;color:#7F7F7F;mso-fareast-language:ZH-TW'>Digital
+ Logic Design</span><span lang=EN-US style='text-decoration:none;color:#7F7F7F;
+ mso-fareast-language:ZH-TW'> </span><span lang=EN-US style='font-style:normal;
+ text-decoration:none;color:#7F7F7F;mso-fareast-language:ZH-TW'>Ch1</span><span
+ lang=EN-US style='text-decoration:none;color:#7F7F7F;mso-fareast-language:
+ ZH-TW'>-</span><span lang=ZH-TW style='font-style:normal;text-decoration:none;
+ color:#7F7F7F;mso-ansi-language:EN-US'>‹#›</span></div>
+ </div>
+ <p:shaperange href="master05.xml#Picture_x0020_9"/><![if !vml]><img border=0
+ v:shapes="Picture_x0020_9" src="master05_image003.gif" alt=logoyil30
+ style='position:absolute;top:2.25%;left:3.18%;width:8.05%;height:10.75%'><![endif]><![endif]><p:shaperange
+  href="master05.xml#_x0000_m3075"/><v:shape id="_x0000_s27650" type="#_x0000_m3075"
+  style='position:absolute;left:23.5pt;top:18pt;width:675.25pt;height:48pt;
+  visibility:visible;mso-wrap-style:square;v-text-anchor:middle'>
+  <v:stroke o:forcedash="f"/>
+  <v:path arrowok="t"/>
+  <o:lock v:ext="edit" rotation="f" aspectratio="f" position="f" selection="f"
+   verticies="f" text="f" adjusthandles="f" grouping="t" shapetype="f"/>
+  <v:textbox style='layout-flow:horizontal;mso-rotate-with-shape:t' inset="0,0,0,0"/>
+  <p:placeholder type="title" position="-1"/></v:shape>
+ <div v:shape="_x0000_s27650" class=T style='mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:3.5%;left:3.18%;width:94.0%;height:8.5%'><span
+ lang=EN-US style='mso-fareast-language:ZH-TW'>1.5<span style='mso-tab-count:
+ 1;width:3.98%'> </span>Complements</span><span lang=ZH-TW style='font-size:
+ 56%;mso-ansi-language:EN-US;mso-special-format:lastCR;display:none'>&#13;</span></div>
+ <p:shaperange href="master05.xml#_x0000_m3074"/><v:shape id="_x0000_s27651"
+  type="#_x0000_m3074" style='position:absolute;left:24.25pt;top:94.5pt;
+  width:674.875pt;height:409.625pt;visibility:visible;mso-wrap-style:square;
+  v-text-anchor:top' o:gfxdata="UEsDBBQABgAIAAAAIQDb4fbL7gAAAIUBAAATAAAAW0NvbnRlbnRfVHlwZXNdLnhtbHyQz07DMAyH
+70i8Q+QralM4IITa7kDhCAiNB7ASt43WOlEcyvb2pNu4IODoPz9/n1xv9vOkForiPDdwXVagiI23
+jocG3rdPxR0oScgWJ8/UwIEENu3lRb09BBKV0ywNjCmFe63FjDSjlD4Q50nv44wpl3HQAc0OB9I3
+VXWrjedEnIq03oC27qjHjympx31un0wiTQLq4bS4shrAECZnMGVTvbD9QSnOhDInjzsyuiBXWQP0
+r4R18jfgnHvJr4nOknrFmJ5xzhraRtHWf3Kkpfz/yGo5S+H73hkquyhdjr3R8m2lj09svwAAAP//
+AwBQSwMEFAAGAAgAAAAhAFr0LFu/AAAAFQEAAAsAAABfcmVscy8ucmVsc2zPwWrDMAwG4Ptg72B0
+X5TuUMaI01uh19I+gLGVxCy2jGSy9e1nemrHjpL4P0nD4SetZiPRyNnCruvBUPYcYp4tXC/Htw8w
+Wl0ObuVMFm6kcBhfX4Yzra62kC6xqGlKVgtLreUTUf1CyWnHhXKbTCzJ1VbKjMX5LzcTvvf9HuXR
+gPHJNKdgQU5hB+ZyK23zHztFL6w81c5zQp6m6P9TMfB3PtPWFCczVQtB9N4U2rp2HOA44NMz4y8A
+AAD//wMAUEsDBBQABgAIAAAAIQBcBSuB2wAAAP0AAAAPAAAAZHJzL2Rvd25yZXYueG1sRI9RS8Mw
+FIXfBf9DuIJvLu1gOrplQ8QxdauwTdnrtblri81Nl8Su89cbfNDHwzl8h286700jOnK+tqwgHSQg
+iAuray4VvO0WN2MQPiBrbCyTgjN5mM8uL6aYaXviDXXbUIoIYZ+hgiqENpPSFxUZ9APbEsfuYJ3B
+EKMrpXZ4inDTyGGS3EqDNceHClt6qKj43H4ZBXv+zpfFcZS+rJ4fV/o9P+rXDpW6vurvJyAC9eF/
+nI95sV//lb+oJ61gmI6SOxCH5fnD1XqDPpBTEP2ibTQFOfsBAAD//wMAUEsBAi0AFAAGAAgAAAAh
+ANvh9svuAAAAhQEAABMAAAAAAAAAAAAAAAAAAAAAAFtDb250ZW50X1R5cGVzXS54bWxQSwECLQAU
+AAYACAAAACEAWvQsW78AAAAVAQAACwAAAAAAAAAAAAAAAAAfAQAAX3JlbHMvLnJlbHNQSwECLQAU
+AAYACAAAACEAXAUrgdsAAAD9AAAADwAAAAAAAAAAAAAAAAAHAgAAZHJzL2Rvd25yZXYueG1sUEsF
+BgAAAAADAAMAtwAAAA8DAAAAAA==
+">
+  <v:fill o:detectmouseclick="t"/>
+  <v:stroke o:forcedash="f"/>
+  <v:path arrowok="t"/>
+  <o:lock v:ext="edit" rotation="f" aspectratio="f" position="f" selection="f"
+   verticies="f" text="f" adjusthandles="f" grouping="t" shapetype="f"/>
+  <v:textbox style='layout-flow:horizontal;mso-rotate-with-shape:t' inset="2.51356mm,3.5pt,2.51356mm,3.5pt"/>
+  <p:placeholder type="object" position="-1"/><p:animation number="2" delay="0"
+   type="object" effect="zoom" direction="out" flag="17408"/></v:shape>
+ <div v:shape="_x0000_s27651" style='position:absolute;top:18.5%;left:4.3%;
+ width:108.42%;height:103.0%'>
+ <div id="_x0000_s27651_0_114" class=B style='mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:0%;left:0%;width:100.0%;height:7.76%;white-space:nowrap'><span
+ style='position:absolute;top:0%;left:3.45%;width:96.54%;height:50.0%'><span
+ style='font-size:75%'><span style='mso-special-format:bullet;color:blue;
+ position:absolute;left:-3.57%;top:.1em;font-family:"Wingdings 2";font-size:
+ 90%'>©</span></span><span lang=EN-US style='font-size:75%;mso-fareast-language:
+ ZH-TW'>There are two types of complements for each base-</span><span
+ lang=EN-US style='font-size:75%;mso-fareast-language:ZH-TW'><i>r</i></span><span
+ lang=EN-US style='font-size:75%;mso-fareast-language:ZH-TW'> system: the radix
+ complement and </span></span><span style='position:absolute;top:50.0%;
+ left:3.45%;width:81.34%;height:50.0%'><span lang=EN-US style='font-size:75%;
+ mso-fareast-language:ZH-TW'>diminished radix complement. </span><span lang=TR
+ style='font-size:75%;mso-fareast-language:ZH-TW;display:none'>&#13;</span></span></div>
+ <div id="_x0000_s27651_114_163" class=B style='mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:8.49%;left:0%;width:84.8%;height:3.88%;white-space:
+ nowrap'><span style='position:absolute;top:0%;left:4.07%;width:95.92%;
+ height:100.0%'><span style='font-size:75%'><span style='mso-special-format:
+ bullet;color:blue;position:absolute;left:-4.24%;top:.1em;font-family:"Wingdings 2";
+ font-size:90%'>©</span></span><span lang=EN-US style='font-size:75%;
+ mso-fareast-language:ZH-TW'><b>Diminished Radix Complement</b></span><span
+ lang=TR style='font-size:75%;mso-fareast-language:ZH-TW'><b> - (r-1)’s
+ Complement</b></span><span lang=EN-US style='font-size:75%;mso-fareast-language:
+ ZH-TW;display:none'><b>&#13;</b></span></span></div>
+ <div id="_x0000_s27651_163_250" class=B1 style='position:absolute;top:13.1%;
+ left:4.66%;width:95.33%;height:8.49%;white-space:nowrap'><span
+ style='position:absolute;top:0%;left:3.07%;width:96.92%;height:48.57%'><span
+ class=B1B style='position:absolute;left:-3.17%;top:.39em'>u</span>Given a
+ number <i>N</i> in base <i>r</i> having <i>n</i> digits, the (<i>r–1</i>)’s
+ complement <i>of N</i> is </span><span style='position:absolute;top:51.42%;
+ left:3.07%;width:81.15%;height:48.57%'>defined as:&#13;</span></div>
+ <div id="_x0000_s27651_250_265" class=B1 style='position:absolute;top:23.05%;
+ left:4.66%;width:80.13%;height:5.09%;white-space:nowrap'><span
+ style='mso-special-format:nobullet;display:none;color:#FF9900;font-family:
+ Wingdings;font-size:70%'>u</span><span style='mso-tab-count:3;width:17.26%'> </span><span
+ style='font-size:120%'><i>(r</i></span><span style='font-size:80%;position:
+ relative;top:-.45em;mso-text-raise:30%'><i>n </i></span><span
+ style='font-size:120%'><i>–1) – N</i></span><span lang=TR style='font-size:
+ 120%;display:none'><i>&#13;</i></span></div>
+ <div id="_x0000_s27651_265_302" class=B style='position:absolute;top:28.88%;
+ left:0%;width:84.8%;height:3.88%;white-space:nowrap'><span style='position:
+ absolute;top:0%;left:4.07%;width:95.92%;height:100.0%'><span style='font-size:
+ 75%'><span class=BB style='position:absolute;left:-4.24%;top:.1em'>©</span></span><span
+ style='font-size:75%'><b>Example for 6-digit </b></span><span
+ style='font-size:75%'><b><u>decimal</u></b></span><span style='font-size:75%'><b>
+ numbers</b></span><span style='font-size:75%'>:&#13;</span></span></div>
+ <div id="_x0000_s27651_302_354" class=B1 style='position:absolute;top:33.49%;
+ left:4.66%;width:80.13%;height:4.12%;white-space:nowrap'><span
+ style='position:absolute;top:0%;left:3.66%;width:96.55%;height:100.0%'><span
+ class=B1B style='position:absolute;left:-3.79%;top:.39em'>u</span>9’s
+ complement is <i>(r</i><span style='font-size:66%;position:relative;
+ top:-.45em;mso-text-raise:30%'><i>n</i></span><span lang=TR style='font-size:
+ 66%;position:relative;top:-.45em;mso-text-raise:30%'><i><span
+ style='mso-spacerun:yes'> </span></i></span><i>–</i><span lang=TR><i> </i></span><i>1)–N</i>
+ = (10<span style='font-size:66%;position:relative;top:-.45em;mso-text-raise:
+ 30%'>6</span>–1)–<i>N</i> = 999999–<i>N&#13;</i></span></div>
+ <div id="_x0000_s27651_354_405" class=B1 style='position:absolute;top:38.83%;
+ left:4.66%;width:80.13%;height:4.12%;white-space:nowrap'><span
+ style='position:absolute;top:0%;left:3.66%;width:96.55%;height:100.0%'><span
+ class=B1B style='position:absolute;left:-3.79%;top:.39em'>u</span>9’s
+ complement of 546700 is 999999–546700 = 453299&#13;</span></div>
+ <div id="_x0000_s27651_405_441" class=B style='position:absolute;top:43.93%;
+ left:0%;width:84.8%;height:3.88%;white-space:nowrap'><span style='position:
+ absolute;top:0%;left:4.07%;width:95.92%;height:100.0%'><span style='font-size:
+ 75%'><span class=BB style='position:absolute;left:-4.24%;top:.1em'>©</span></span><span
+ style='font-size:75%'><b>Example for 7-digit </b></span><span
+ style='font-size:75%'><b><u>binary</u></b></span><span style='font-size:75%'><b>
+ numbers:&#13;</b></span></span></div>
+ <div id="_x0000_s27651_441_496" class=B1 style='position:absolute;top:48.54%;
+ left:4.66%;width:80.13%;height:4.12%;white-space:nowrap'><span
+ style='position:absolute;top:0%;left:3.66%;width:96.55%;height:100.0%'><span
+ class=B1B style='position:absolute;left:-3.79%;top:.39em'>u</span>1’s
+ complement is <i>(r</i><span style='font-size:66%;position:relative;
+ top:-.45em;mso-text-raise:30%'><i>n</i></span><span lang=TR style='font-size:
+ 66%;position:relative;top:-.45em;mso-text-raise:30%'><i><span
+ style='mso-spacerun:yes'> </span></i></span><span style='font-size:66%;
+ position:relative;top:-.45em;mso-text-raise:30%'><i><span
+ style='mso-spacerun:yes'> </span></i></span><i>–</i><span lang=TR><i> </i></span><i>1)
+ – N</i> = (2<span style='font-size:66%;position:relative;top:-.45em;
+ mso-text-raise:30%'>7</span>–1)–<i>N</i> = 1111111–<i>N&#13;</i></span></div>
+ <div id="_x0000_s27651_496_551" class=B1 style='position:absolute;top:53.64%;
+ left:4.66%;width:80.13%;height:4.12%;white-space:nowrap'><span
+ style='position:absolute;top:0%;left:3.66%;width:96.55%;height:100.0%'><span
+ class=B1B style='position:absolute;left:-3.79%;top:.39em'>u</span>1’s
+ complement of 1011000 is 1111111–1011000 = 0100111&#13;</span></div>
+ <div id="_x0000_s27651_551_564" class=B style='position:absolute;top:58.73%;
+ left:0%;width:84.8%;height:3.88%;white-space:nowrap'><span style='position:
+ absolute;top:0%;left:4.07%;width:95.92%;height:100.0%'><span style='font-size:
+ 75%'><span class=BB style='position:absolute;left:-4.24%;top:.1em'>©</span></span><span
+ style='font-size:75%'><b>Observation:&#13;</b></span></span></div>
+ <div id="_x0000_s27651_564_618" class=B1 style='position:absolute;top:63.59%;
+ left:4.66%;width:80.13%;height:4.12%;white-space:nowrap'><span
+ style='position:absolute;top:0%;left:3.66%;width:96.55%;height:100.0%'><span
+ class=B1B style='position:absolute;left:-3.79%;top:.39em'>u</span>Subtraction
+ from (<i>r</i><span style='font-size:66%;position:relative;top:-.45em;
+ mso-text-raise:30%'><i>n</i></span><span lang=TR style='font-size:66%;
+ position:relative;top:-.45em;mso-text-raise:30%'><i><span
+ style='mso-spacerun:yes'> </span></i></span>–<span lang=TR> </span>1) will
+ never require a borrow&#13;</span></div>
+ <div id="_x0000_s27651_618_677" class=B1 style='position:absolute;top:68.68%;
+ left:4.66%;width:80.13%;height:4.12%;white-space:nowrap'><span
+ style='position:absolute;top:0%;left:3.66%;width:96.55%;height:100.0%'><span
+ class=B1B style='position:absolute;left:-3.79%;top:.39em'>u</span>Diminished
+ radix complement can be computed digit-by-digit&#13;</span></div>
+ <div id="_x0000_s27651_677_714" class=B1 style='position:absolute;top:74.02%;
+ left:4.66%;width:80.13%;height:4.12%;white-space:nowrap'><span
+ style='position:absolute;top:0%;left:3.66%;width:96.55%;height:100.0%'><span
+ class=B1B style='position:absolute;left:-3.79%;top:.39em'>u</span>For binary:
+ 1 – 0 = 1 and 1 – 1 = 0 <span lang=EN-US style='font-size:90%;color:red;
+ mso-fareast-language:ZH-TW;display:none'>&#13;</span></span></div>
+ <div class=B style='mso-char-wrap:1;mso-kinsoku-overflow:1;position:absolute;
+ top:79.12%;left:0%;width:84.8%;height:4.12%'><span style='position:absolute;
+ top:0%;left:4.07%;width:95.92%;height:100.0%'><span style='font-size:83%;
+ color:red;visibility:hidden'><span style='mso-special-format:bullet;
+ color:blue;position:absolute;left:-4.24%;font-family:"Wingdings 2";font-size:
+ 90%'>©</span></span><span lang=EN-US style='font-size:83%;color:red;
+ mso-fareast-language:ZH-TW;display:none'>&#13;</span></span></div>
+ <div class=B style='mso-char-wrap:1;mso-kinsoku-overflow:1;position:absolute;
+ top:84.22%;left:0%;width:84.8%;height:4.12%'><span style='position:absolute;
+ top:0%;left:4.07%;width:95.92%;height:100.0%'><span style='font-size:83%;
+ color:red;visibility:hidden'><span style='mso-special-format:bullet;
+ color:blue;position:absolute;left:-4.24%;font-family:"Wingdings 2";font-size:
+ 90%'>©</span></span><span lang=EN-US style='font-size:83%;color:red;
+ mso-fareast-language:ZH-TW;display:none'>&#13;</span></span></div>
+ <div class=B style='mso-char-wrap:1;mso-kinsoku-overflow:1;position:absolute;
+ top:89.56%;left:0%;width:84.8%;height:4.12%'><span style='position:absolute;
+ top:0%;left:4.07%;width:95.92%;height:100.0%'><span style='font-size:83%;
+ visibility:hidden'><span style='mso-special-format:bullet;color:blue;
+ position:absolute;left:-4.24%;font-family:"Wingdings 2";font-size:90%'>©</span></span><span
+ lang=EN-US style='font-size:83%;mso-fareast-language:ZH-TW;display:none'>&#13;</span></span></div>
+ <div class=B style='mso-char-wrap:1;mso-kinsoku-overflow:1;position:absolute;
+ top:94.9%;left:0%;width:84.8%;height:5.09%'><span style='position:absolute;
+ top:0%;left:4.07%;width:95.92%;height:100.0%'><span style='visibility:hidden'><span
+ style='mso-special-format:bullet;color:blue;position:absolute;left:-4.24%;
+ font-family:"Wingdings 2";font-size:90%'>©</span></span><span lang=ZH-TW
+ style='mso-ansi-language:EN-US;mso-special-format:lastCR;display:none'>&#13;</span></span></div>
+ </div>
+</p:slide></div>
+
+<p:animation number="1491581727"/><oa:par id="TimeNode0" dur="indefinite"
+ restart="never" p:nodeType="timingRoot">
+ <oa:seq id="TimeNode1" dur="indefinite" prev="document.onpptprev"
+  next="document.onpptnext" concurrent="enabled" nextAction="seek"
+  p:nodeType="mainSeq">
+  <oa:par id="TimeNode2" begin="indefinite" fill="hold">
+   <oa:par id="TimeNode3" begin="0.0" fill="hold">
+    <oa:par id="TimeNode4" o:presetID="ppt_4" o:presetClass="entrance"
+     o:presetSubType="0x10" begin="0.0" fill="hold" p:nodeType="clickEffect">
+     <oa:set id="TimeNode5" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s27651_0_114" attributeName="style.visibility"
+      to="visible"/>
+     <oa:animateFilter id="TimeNode6" dur="0.5"
+      targetElement="_x0000_s27651_0_114" transition="in" filter="box(in)"/>
+    </oa:par>
+   </oa:par>
+  </oa:par>
+  <oa:par id="TimeNode7" begin="indefinite" fill="hold">
+   <oa:par id="TimeNode8" begin="0.0" fill="hold">
+    <oa:par id="TimeNode9" o:presetID="ppt_2" o:presetClass="entrance"
+     o:presetSubType="0x4" begin="0.0" fill="hold" p:nodeType="clickEffect">
+     <oa:set id="TimeNode10" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s27651_114_163" attributeName="style.visibility"
+      to="visible"/>
+     <oa:animate id="TimeNode11" dur="0.5" fill="hold"
+      targetElement="_x0000_s27651_114_163" additive="base"
+      attributeName="ppt_x" calcmode="linear" valueType="number"
+      keyTimes="0.0;1.0" values="#ppt_x;#ppt_x"/>
+     <oa:animate id="TimeNode12" dur="0.5" fill="hold"
+      targetElement="_x0000_s27651_114_163" additive="base"
+      attributeName="ppt_y" calcmode="linear" valueType="number"
+      keyTimes="0.0;1.0" values="1+#ppt_h/2;#ppt_y"/>
+    </oa:par>
+    <oa:par id="TimeNode13" o:presetID="ppt_2" o:presetClass="entrance"
+     o:presetSubType="0x4" begin="0.0" fill="hold" p:nodeType="withEffect">
+     <oa:set id="TimeNode14" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s27651_163_250" attributeName="style.visibility"
+      to="visible"/>
+     <oa:animate id="TimeNode15" dur="0.5" fill="hold"
+      targetElement="_x0000_s27651_163_250" additive="base"
+      attributeName="ppt_x" calcmode="linear" valueType="number"
+      keyTimes="0.0;1.0" values="#ppt_x;#ppt_x"/>
+     <oa:animate id="TimeNode16" dur="0.5" fill="hold"
+      targetElement="_x0000_s27651_163_250" additive="base"
+      attributeName="ppt_y" calcmode="linear" valueType="number"
+      keyTimes="0.0;1.0" values="1+#ppt_h/2;#ppt_y"/>
+    </oa:par>
+    <oa:par id="TimeNode17" o:presetID="ppt_2" o:presetClass="entrance"
+     o:presetSubType="0x4" begin="0.0" fill="hold" p:nodeType="withEffect">
+     <oa:set id="TimeNode18" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s27651_250_265" attributeName="style.visibility"
+      to="visible"/>
+     <oa:animate id="TimeNode19" dur="0.5" fill="hold"
+      targetElement="_x0000_s27651_250_265" additive="base"
+      attributeName="ppt_x" calcmode="linear" valueType="number"
+      keyTimes="0.0;1.0" values="#ppt_x;#ppt_x"/>
+     <oa:animate id="TimeNode20" dur="0.5" fill="hold"
+      targetElement="_x0000_s27651_250_265" additive="base"
+      attributeName="ppt_y" calcmode="linear" valueType="number"
+      keyTimes="0.0;1.0" values="1+#ppt_h/2;#ppt_y"/>
+    </oa:par>
+   </oa:par>
+  </oa:par>
+  <oa:par id="TimeNode21" begin="indefinite" fill="hold">
+   <oa:par id="TimeNode22" begin="0.0" fill="hold">
+    <oa:par id="TimeNode23" o:presetID="ppt_2" o:presetClass="entrance"
+     o:presetSubType="0x4" begin="0.0" fill="hold" p:nodeType="clickEffect">
+     <oa:set id="TimeNode24" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s27651_265_302" attributeName="style.visibility"
+      to="visible"/>
+     <oa:animate id="TimeNode25" dur="0.5" fill="hold"
+      targetElement="_x0000_s27651_265_302" additive="base"
+      attributeName="ppt_x" calcmode="linear" valueType="number"
+      keyTimes="0.0;1.0" values="#ppt_x;#ppt_x"/>
+     <oa:animate id="TimeNode26" dur="0.5" fill="hold"
+      targetElement="_x0000_s27651_265_302" additive="base"
+      attributeName="ppt_y" calcmode="linear" valueType="number"
+      keyTimes="0.0;1.0" values="1+#ppt_h/2;#ppt_y"/>
+    </oa:par>
+    <oa:par id="TimeNode27" o:presetID="ppt_2" o:presetClass="entrance"
+     o:presetSubType="0x4" begin="0.0" fill="hold" p:nodeType="withEffect">
+     <oa:set id="TimeNode28" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s27651_302_354" attributeName="style.visibility"
+      to="visible"/>
+     <oa:animate id="TimeNode29" dur="0.5" fill="hold"
+      targetElement="_x0000_s27651_302_354" additive="base"
+      attributeName="ppt_x" calcmode="linear" valueType="number"
+      keyTimes="0.0;1.0" values="#ppt_x;#ppt_x"/>
+     <oa:animate id="TimeNode30" dur="0.5" fill="hold"
+      targetElement="_x0000_s27651_302_354" additive="base"
+      attributeName="ppt_y" calcmode="linear" valueType="number"
+      keyTimes="0.0;1.0" values="1+#ppt_h/2;#ppt_y"/>
+    </oa:par>
+    <oa:par id="TimeNode31" o:presetID="ppt_2" o:presetClass="entrance"
+     o:presetSubType="0x4" begin="0.0" fill="hold" p:nodeType="withEffect">
+     <oa:set id="TimeNode32" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s27651_354_405" attributeName="style.visibility"
+      to="visible"/>
+     <oa:animate id="TimeNode33" dur="0.5" fill="hold"
+      targetElement="_x0000_s27651_354_405" additive="base"
+      attributeName="ppt_x" calcmode="linear" valueType="number"
+      keyTimes="0.0;1.0" values="#ppt_x;#ppt_x"/>
+     <oa:animate id="TimeNode34" dur="0.5" fill="hold"
+      targetElement="_x0000_s27651_354_405" additive="base"
+      attributeName="ppt_y" calcmode="linear" valueType="number"
+      keyTimes="0.0;1.0" values="1+#ppt_h/2;#ppt_y"/>
+    </oa:par>
+   </oa:par>
+  </oa:par>
+  <oa:par id="TimeNode35" begin="indefinite" fill="hold">
+   <oa:par id="TimeNode36" begin="0.0" fill="hold">
+    <oa:par id="TimeNode37" o:presetID="ppt_2" o:presetClass="entrance"
+     o:presetSubType="0x4" begin="0.0" fill="hold" p:nodeType="clickEffect">
+     <oa:set id="TimeNode38" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s27651_405_441" attributeName="style.visibility"
+      to="visible"/>
+     <oa:animate id="TimeNode39" dur="0.5" fill="hold"
+      targetElement="_x0000_s27651_405_441" additive="base"
+      attributeName="ppt_x" calcmode="linear" valueType="number"
+      keyTimes="0.0;1.0" values="#ppt_x;#ppt_x"/>
+     <oa:animate id="TimeNode40" dur="0.5" fill="hold"
+      targetElement="_x0000_s27651_405_441" additive="base"
+      attributeName="ppt_y" calcmode="linear" valueType="number"
+      keyTimes="0.0;1.0" values="1+#ppt_h/2;#ppt_y"/>
+    </oa:par>
+    <oa:par id="TimeNode41" o:presetID="ppt_2" o:presetClass="entrance"
+     o:presetSubType="0x4" begin="0.0" fill="hold" p:nodeType="withEffect">
+     <oa:set id="TimeNode42" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s27651_441_496" attributeName="style.visibility"
+      to="visible"/>
+     <oa:animate id="TimeNode43" dur="0.5" fill="hold"
+      targetElement="_x0000_s27651_441_496" additive="base"
+      attributeName="ppt_x" calcmode="linear" valueType="number"
+      keyTimes="0.0;1.0" values="#ppt_x;#ppt_x"/>
+     <oa:animate id="TimeNode44" dur="0.5" fill="hold"
+      targetElement="_x0000_s27651_441_496" additive="base"
+      attributeName="ppt_y" calcmode="linear" valueType="number"
+      keyTimes="0.0;1.0" values="1+#ppt_h/2;#ppt_y"/>
+    </oa:par>
+    <oa:par id="TimeNode45" o:presetID="ppt_2" o:presetClass="entrance"
+     o:presetSubType="0x4" begin="0.0" fill="hold" p:nodeType="withEffect">
+     <oa:set id="TimeNode46" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s27651_496_551" attributeName="style.visibility"
+      to="visible"/>
+     <oa:animate id="TimeNode47" dur="0.5" fill="hold"
+      targetElement="_x0000_s27651_496_551" additive="base"
+      attributeName="ppt_x" calcmode="linear" valueType="number"
+      keyTimes="0.0;1.0" values="#ppt_x;#ppt_x"/>
+     <oa:animate id="TimeNode48" dur="0.5" fill="hold"
+      targetElement="_x0000_s27651_496_551" additive="base"
+      attributeName="ppt_y" calcmode="linear" valueType="number"
+      keyTimes="0.0;1.0" values="1+#ppt_h/2;#ppt_y"/>
+    </oa:par>
+   </oa:par>
+  </oa:par>
+  <oa:par id="TimeNode49" begin="indefinite" fill="hold">
+   <oa:par id="TimeNode50" begin="0.0" fill="hold">
+    <oa:par id="TimeNode51" o:presetID="ppt_2" o:presetClass="entrance"
+     o:presetSubType="0x4" begin="0.0" fill="hold" p:nodeType="clickEffect">
+     <oa:set id="TimeNode52" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s27651_551_564" attributeName="style.visibility"
+      to="visible"/>
+     <oa:animate id="TimeNode53" dur="0.5" fill="hold"
+      targetElement="_x0000_s27651_551_564" additive="base"
+      attributeName="ppt_x" calcmode="linear" valueType="number"
+      keyTimes="0.0;1.0" values="#ppt_x;#ppt_x"/>
+     <oa:animate id="TimeNode54" dur="0.5" fill="hold"
+      targetElement="_x0000_s27651_551_564" additive="base"
+      attributeName="ppt_y" calcmode="linear" valueType="number"
+      keyTimes="0.0;1.0" values="1+#ppt_h/2;#ppt_y"/>
+    </oa:par>
+    <oa:par id="TimeNode55" o:presetID="ppt_2" o:presetClass="entrance"
+     o:presetSubType="0x4" begin="0.0" fill="hold" p:nodeType="withEffect">
+     <oa:set id="TimeNode56" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s27651_564_618" attributeName="style.visibility"
+      to="visible"/>
+     <oa:animate id="TimeNode57" dur="0.5" fill="hold"
+      targetElement="_x0000_s27651_564_618" additive="base"
+      attributeName="ppt_x" calcmode="linear" valueType="number"
+      keyTimes="0.0;1.0" values="#ppt_x;#ppt_x"/>
+     <oa:animate id="TimeNode58" dur="0.5" fill="hold"
+      targetElement="_x0000_s27651_564_618" additive="base"
+      attributeName="ppt_y" calcmode="linear" valueType="number"
+      keyTimes="0.0;1.0" values="1+#ppt_h/2;#ppt_y"/>
+    </oa:par>
+    <oa:par id="TimeNode59" o:presetID="ppt_2" o:presetClass="entrance"
+     o:presetSubType="0x4" begin="0.0" fill="hold" p:nodeType="withEffect">
+     <oa:set id="TimeNode60" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s27651_618_677" attributeName="style.visibility"
+      to="visible"/>
+     <oa:animate id="TimeNode61" dur="0.5" fill="hold"
+      targetElement="_x0000_s27651_618_677" additive="base"
+      attributeName="ppt_x" calcmode="linear" valueType="number"
+      keyTimes="0.0;1.0" values="#ppt_x;#ppt_x"/>
+     <oa:animate id="TimeNode62" dur="0.5" fill="hold"
+      targetElement="_x0000_s27651_618_677" additive="base"
+      attributeName="ppt_y" calcmode="linear" valueType="number"
+      keyTimes="0.0;1.0" values="1+#ppt_h/2;#ppt_y"/>
+    </oa:par>
+    <oa:par id="TimeNode63" o:presetID="ppt_2" o:presetClass="entrance"
+     o:presetSubType="0x4" begin="0.0" fill="hold" p:nodeType="withEffect">
+     <oa:set id="TimeNode64" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s27651_677_714" attributeName="style.visibility"
+      to="visible"/>
+     <oa:animate id="TimeNode65" dur="0.5" fill="hold"
+      targetElement="_x0000_s27651_677_714" additive="base"
+      attributeName="ppt_x" calcmode="linear" valueType="number"
+      keyTimes="0.0;1.0" values="#ppt_x;#ppt_x"/>
+     <oa:animate id="TimeNode66" dur="0.5" fill="hold"
+      targetElement="_x0000_s27651_677_714" additive="base"
+      attributeName="ppt_y" calcmode="linear" valueType="number"
+      keyTimes="0.0;1.0" values="1+#ppt_h/2;#ppt_y"/>
+    </oa:par>
+   </oa:par>
+  </oa:par>
+ </oa:seq>
+</oa:par>
+</body>
+
+</html>

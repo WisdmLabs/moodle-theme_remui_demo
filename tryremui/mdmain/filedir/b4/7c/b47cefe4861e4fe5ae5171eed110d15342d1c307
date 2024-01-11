@@ -1,0 +1,977 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:p="urn:schemas-microsoft-com:office:powerpoint"
+xmlns:oa="urn:schemas-microsoft-com:office:activation"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=Windows-1254">
+<meta name=ProgId content=PowerPoint.Slide>
+<meta name=Generator content="Microsoft PowerPoint 12">
+<link id=Main-File rel=Main-File
+href="../Chapter_2_Boolean_Algebra_and_Logic_Gates.htm">
+<link rel=Preview href=preview.wmf>
+<!--[if !mso]>
+<style>
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+p\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+v\:textbox {display:none;}
+</style>
+<![endif]-->
+<title>Boolean_Algebra_and_Logic_Gates</title>
+<meta name=Description content="11/08/2010: Boolean Functions">
+<link rel=Stylesheet href="master22_stylesheet.css">
+<![if !ppt]>
+<style media=print>
+<!--.sld
+	{left:0px !important;
+	width:6.0in !important;
+	height:4.5in !important;
+	font-size:107% !important;}
+-->
+</style>
+<script src=script.js></script><script><!--
+if( !IsNts() ) Redirect( "PPTSld" );
+//--></script><!--[if vml]><script>g_vml = 1;
+</script><![endif]--><![endif]>
+</head>
+
+<body lang=EN-US style='margin:0px;background-color:black'
+onclick="DocumentOnClick()" onresize="_RSW()" onload="LoadSld()"
+onkeypress="_KPH()">
+
+<div id=SlideObj class=sld style='position:absolute;top:0px;left:0px;
+width:534px;height:400px;font-size:16px;background-color:#FFFFE1;clip:rect(0%, 101%, 101%, 0%);
+visibility:hidden;filter:revealtrans(Duration=1, Transition=23)'><p:slide
+ coordsize="720,540"
+ colors="#ffffe1,#000000,#330033,#330033,#cccc99,#ff0000,#990033,#b2b2b2"
+ masterhref="master22.xml" href="slide0095.xml">
+ <p:shaperange href="master22.xml#_x0000_s1025"/><![if !ppt]><p:shaperange
+  href="master22.xml#_x0000_s1026"/><![if !vml]><img border=0
+ v:shapes="_x0000_s1026,_x0000_s1034,_x0000_s1036,_x0000_s1037"
+ src="master22_image005.gif" style='position:absolute;top:-7.75%;left:0%;
+ width:95.5%;height:71.5%'><![endif]><p:shaperange
+  href="master22.xml#_x0000_s1029"/>
+ <div v:shape="_x0000_s1029" class=O style='mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:95.25%;left:11.04%;width:19.85%;height:2.25%'><span
+ lang=EN-US style='font-size:56%'>November 8, 2010</span></div>
+ <p:shaperange href="master22.xml#_x0000_s1030"/><p:shaperange
+  href="master22.xml#_x0000_s1031"/>
+ <div v:shape="_x0000_s1031" class=O>
+ <div style='text-align:right;mso-char-wrap:1;mso-kinsoku-overflow:1;
+ position:absolute;top:96.25%;left:75.09%;width:18.91%;height:2.25%'><span
+ lang=EN-US style='font-size:56%'>‹#›</span></div>
+ </div>
+ <p:shaperange href="master22.xml#_x0000_s1032"/><![if !vml]><img border=0
+ v:shapes="_x0000_s1032" src="master22_image006.gif" style='position:absolute;
+ top:70.75%;left:-.18%;width:7.49%;height:1.0%'><![endif]><p:shaperange
+  href="master22.xml#Picture_x0020_13"/><![if !vml]><img border=0
+ v:shapes="Picture_x0020_13" src="master22_image007.gif"
+ alt="emu_300x300_72dpi_black" style='position:absolute;top:2.75%;left:1.87%;
+ width:7.11%;height:9.5%'><![endif]><![endif]><p:shaperange
+  href="master22.xml#_x0000_m1027"/><p:shaperange
+  href="master22.xml#_x0000_m1028"/><p:shaperange
+  href="slide0095.xml#_x0000_s25602"/>
+ <div v:shape="_x0000_s25602">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='mso-char-wrap:1;mso-kinsoku-overflow:1;position:absolute;
+ top:95.25%;left:11.04%;width:19.85%;height:2.25%'><span lang=EN-US
+ style='font-size:56%'>November 8, 2010</span></div>
+ </div>
+ <div v:shape="_x0000_s25603">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:right;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:96.25%;left:75.09%;width:18.91%;height:2.25%'><span
+ lang=EN-US style='font-size:56%'>23</span></div>
+ </div>
+ <div v:shape="_x0000_s25604" class=T style='mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:3.25%;left:9.92%;width:85.2%;height:8.75%'><span
+ lang=EN-US style='font-family:"Times New Roman";mso-ascii-font-family:"Times New Roman";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-fareast-language:ZH-TW'>Boolean
+ Functions</span><span lang=ZH-TW style='font-family:"Times New Roman";
+ mso-ascii-font-family:"Times New Roman";mso-fareast-font-family:\65B0\7D30\660E\9AD4;
+ font-size:60%;mso-ansi-language:EN-US;mso-special-format:lastCR;display:none'>&#13;</span></div>
+ <div v:shape="_x0000_s25605">
+ <div class=B1 style='mso-margin-left-alt:216;mso-text-indent-alt:0;mso-char-wrap:
+ 1;mso-kinsoku-overflow:1;position:absolute;top:16.5%;left:8.42%;width:86.51%;
+ height:5.25%'><span style='position:absolute;top:0%;left:4.32%;width:95.67%;
+ height:100.0%'><span style='font-size:120%'><span style='mso-special-format:
+ bullet;color:blue;position:absolute;left:-4.52%;top:.1em;font-family:"Wingdings 2";
+ font-size:90%'>©</span></span><span lang=EN-US style='mso-fareast-font-family:
+ \65B0\7D30\660E\9AD4;font-size:120%;mso-fareast-language:ZH-TW'>The truth
+ table of 2</span><span lang=EN-US style='mso-fareast-font-family:\65B0\7D30\660E\9AD4;
+ font-size:80%;position:relative;top:-.45em;mso-text-raise:30%;mso-fareast-language:
+ ZH-TW'><i>n </i></span><span lang=EN-US style='mso-fareast-font-family:\65B0\7D30\660E\9AD4;
+ font-size:120%;mso-fareast-language:ZH-TW'>entries&#13;</span></span></div>
+ <div class=B1 style='mso-margin-left-alt:216;mso-text-indent-alt:0;mso-char-wrap:
+ 1;mso-kinsoku-overflow:1;position:absolute;top:22.5%;left:8.42%;width:86.51%;
+ height:3.5%'><span style='position:absolute;top:0%;left:4.32%;width:95.67%;
+ height:100.0%'><span style='font-size:120%;visibility:hidden'><span
+ style='mso-special-format:bullet;color:red;position:absolute;left:-4.52%;
+ font-family:Wingdings;font-size:90%'>r</span></span><span lang=EN-US
+ style='mso-fareast-font-family:\65B0\7D30\660E\9AD4;font-size:80%;position:
+ relative;top:-.45em;mso-text-raise:30%;mso-fareast-language:ZH-TW;display:
+ none'><i>&#13;</i></span></span></div>
+ <div class=B1 style='mso-margin-left-alt:216;mso-text-indent-alt:0;mso-char-wrap:
+ 1;mso-kinsoku-overflow:1;position:absolute;top:26.75%;left:8.42%;width:86.51%;
+ height:3.5%'><span style='position:absolute;top:0%;left:4.32%;width:95.67%;
+ height:100.0%'><span style='font-size:120%;visibility:hidden'><span
+ style='mso-special-format:bullet;color:red;position:absolute;left:-4.52%;
+ font-family:Wingdings;font-size:90%'>r</span></span><span lang=EN-US
+ style='mso-fareast-font-family:\65B0\7D30\660E\9AD4;font-size:80%;position:
+ relative;top:-.45em;mso-text-raise:30%;mso-fareast-language:ZH-TW;display:
+ none'><i>&#13;</i></span></span></div>
+ <div class=B1 style='mso-margin-left-alt:216;mso-text-indent-alt:0;mso-char-wrap:
+ 1;mso-kinsoku-overflow:1;position:absolute;top:31.0%;left:8.42%;width:86.51%;
+ height:3.5%'><span style='position:absolute;top:0%;left:4.32%;width:95.67%;
+ height:100.0%'><span style='font-size:120%;visibility:hidden'><span
+ style='mso-special-format:bullet;color:red;position:absolute;left:-4.52%;
+ font-family:Wingdings;font-size:90%'>r</span></span><span lang=EN-US
+ style='mso-fareast-font-family:\65B0\7D30\660E\9AD4;font-size:80%;position:
+ relative;top:-.45em;mso-text-raise:30%;mso-fareast-language:ZH-TW;display:
+ none'><i>&#13;</i></span></span></div>
+ <div class=B1 style='mso-margin-left-alt:216;mso-text-indent-alt:0;mso-char-wrap:
+ 1;mso-kinsoku-overflow:1;position:absolute;top:35.25%;left:8.42%;width:86.51%;
+ height:3.5%'><span style='position:absolute;top:0%;left:4.32%;width:95.67%;
+ height:100.0%'><span style='font-size:120%;visibility:hidden'><span
+ style='mso-special-format:bullet;color:red;position:absolute;left:-4.52%;
+ font-family:Wingdings;font-size:90%'>r</span></span><span lang=EN-US
+ style='mso-fareast-font-family:\65B0\7D30\660E\9AD4;font-size:80%;position:
+ relative;top:-.45em;mso-text-raise:30%;mso-fareast-language:ZH-TW;display:
+ none'><i>&#13;</i></span></span></div>
+ <div class=B1 style='mso-margin-left-alt:216;mso-text-indent-alt:0;mso-char-wrap:
+ 1;mso-kinsoku-overflow:1;position:absolute;top:39.5%;left:8.42%;width:86.51%;
+ height:3.5%'><span style='position:absolute;top:0%;left:4.32%;width:95.67%;
+ height:100.0%'><span style='font-size:120%;visibility:hidden'><span
+ style='mso-special-format:bullet;color:red;position:absolute;left:-4.52%;
+ font-family:Wingdings;font-size:90%'>r</span></span><span lang=EN-US
+ style='mso-fareast-font-family:\65B0\7D30\660E\9AD4;font-size:80%;position:
+ relative;top:-.45em;mso-text-raise:30%;mso-fareast-language:ZH-TW;display:
+ none'><i>&#13;</i></span></span></div>
+ <div class=B1 style='mso-margin-left-alt:216;mso-text-indent-alt:0;mso-char-wrap:
+ 1;mso-kinsoku-overflow:1;position:absolute;top:43.75%;left:8.42%;width:86.51%;
+ height:3.5%'><span style='position:absolute;top:0%;left:4.32%;width:95.67%;
+ height:100.0%'><span style='font-size:120%;visibility:hidden'><span
+ style='mso-special-format:bullet;color:red;position:absolute;left:-4.52%;
+ font-family:Wingdings;font-size:90%'>r</span></span><span lang=EN-US
+ style='mso-fareast-font-family:\65B0\7D30\660E\9AD4;font-size:80%;position:
+ relative;top:-.45em;mso-text-raise:30%;mso-fareast-language:ZH-TW;display:
+ none'><i>&#13;</i></span></span></div>
+ <div class=B1 style='mso-margin-left-alt:216;mso-text-indent-alt:0;mso-char-wrap:
+ 1;mso-kinsoku-overflow:1;position:absolute;top:48.25%;left:8.42%;width:86.51%;
+ height:3.5%'><span style='position:absolute;top:0%;left:4.32%;width:95.67%;
+ height:100.0%'><span style='font-size:120%;visibility:hidden'><span
+ style='mso-special-format:bullet;color:red;position:absolute;left:-4.52%;
+ font-family:Wingdings;font-size:90%'>r</span></span><span lang=EN-US
+ style='mso-fareast-font-family:\65B0\7D30\660E\9AD4;font-size:80%;position:
+ relative;top:-.45em;mso-text-raise:30%;mso-fareast-language:ZH-TW;display:
+ none'><i>&#13;</i></span></span></div>
+ <div class=B1 style='mso-margin-left-alt:216;mso-text-indent-alt:0;mso-char-wrap:
+ 1;mso-kinsoku-overflow:1;position:absolute;top:52.5%;left:8.42%;width:86.51%;
+ height:3.5%'><span style='position:absolute;top:0%;left:4.32%;width:95.67%;
+ height:100.0%'><span style='font-size:120%;visibility:hidden'><span
+ style='mso-special-format:bullet;color:red;position:absolute;left:-4.52%;
+ font-family:Wingdings;font-size:90%'>r</span></span><span lang=EN-US
+ style='mso-fareast-font-family:\65B0\7D30\660E\9AD4;font-size:80%;position:
+ relative;top:-.45em;mso-text-raise:30%;mso-fareast-language:ZH-TW;display:
+ none'><i>&#13;</i></span></span></div>
+ <div class=B1 style='mso-margin-left-alt:216;mso-text-indent-alt:0;mso-char-wrap:
+ 1;mso-kinsoku-overflow:1;position:absolute;top:56.75%;left:8.42%;width:86.51%;
+ height:3.5%'><span style='position:absolute;top:0%;left:4.32%;width:95.67%;
+ height:100.0%'><span style='font-size:120%;visibility:hidden'><span
+ style='mso-special-format:bullet;color:red;position:absolute;left:-4.52%;
+ font-family:Wingdings;font-size:90%'>r</span></span><span lang=EN-US
+ style='mso-fareast-font-family:\65B0\7D30\660E\9AD4;font-size:80%;position:
+ relative;top:-.45em;mso-text-raise:30%;mso-fareast-language:ZH-TW;display:
+ none'><i>&#13;</i></span></span></div>
+ <div class=B1 style='mso-margin-left-alt:216;mso-text-indent-alt:0;mso-char-wrap:
+ 1;mso-kinsoku-overflow:1;position:absolute;top:61.0%;left:8.42%;width:86.51%;
+ height:3.5%'><span style='position:absolute;top:0%;left:4.32%;width:95.67%;
+ height:100.0%'><span style='font-size:120%;visibility:hidden'><span
+ style='mso-special-format:bullet;color:red;position:absolute;left:-4.52%;
+ font-family:Wingdings;font-size:90%'>r</span></span><span lang=EN-US
+ style='mso-fareast-font-family:\65B0\7D30\660E\9AD4;font-size:80%;position:
+ relative;top:-.45em;mso-text-raise:30%;mso-fareast-language:ZH-TW;display:
+ none'><i>&#13;</i></span></span></div>
+ <div class=B1 style='mso-margin-left-alt:216;mso-text-indent-alt:0;mso-char-wrap:
+ 1;mso-kinsoku-overflow:1;position:absolute;top:65.25%;left:8.42%;width:86.51%;
+ height:3.5%'><span style='position:absolute;top:0%;left:4.32%;width:95.67%;
+ height:100.0%'><span style='font-size:120%;visibility:hidden'><span
+ style='mso-special-format:bullet;color:red;position:absolute;left:-4.52%;
+ font-family:Wingdings;font-size:90%'>r</span></span><span lang=EN-US
+ style='mso-fareast-font-family:\65B0\7D30\660E\9AD4;font-size:80%;position:
+ relative;top:-.45em;mso-text-raise:30%;mso-fareast-language:ZH-TW;display:
+ none'><i>&#13;</i></span></span></div>
+ <div class=B1 style='mso-margin-left-alt:216;mso-text-indent-alt:0;mso-char-wrap:
+ 1;mso-kinsoku-overflow:1;position:absolute;top:69.5%;left:8.42%;width:86.51%;
+ height:3.5%'><span style='position:absolute;top:0%;left:4.32%;width:95.67%;
+ height:100.0%'><span style='font-size:120%;visibility:hidden'><span
+ style='mso-special-format:bullet;color:red;position:absolute;left:-4.52%;
+ font-family:Wingdings;font-size:90%'>r</span></span><span lang=EN-US
+ style='mso-fareast-font-family:\65B0\7D30\660E\9AD4;font-size:80%;position:
+ relative;top:-.45em;mso-text-raise:30%;mso-fareast-language:ZH-TW;display:
+ none'><i>&#13;</i></span></span></div>
+ <div class=B1 style='mso-margin-left-alt:216;mso-text-indent-alt:0;mso-char-wrap:
+ 1;mso-kinsoku-overflow:1;position:absolute;top:74.25%;left:8.42%;width:86.51%;
+ height:5.25%'><span style='position:absolute;top:0%;left:4.54%;width:95.45%;
+ height:100.0%'><span style='font-size:180%;visibility:hidden'><span
+ style='mso-special-format:bullet;color:red;position:absolute;left:-4.76%;
+ font-family:Wingdings;font-size:90%'>r</span></span><span lang=EN-US
+ style='mso-fareast-font-family:\65B0\7D30\660E\9AD4;font-size:120%;position:
+ relative;top:-.45em;mso-text-raise:30%;mso-fareast-language:ZH-TW;display:
+ none'><i>&#13;</i></span></span></div>
+ <div class=B style='mso-line-spacing:"90 20 0";mso-char-wrap:1;mso-kinsoku-overflow:
+ 1'><span style='position:absolute;top:80.25%;left:12.17%;width:86.51%;
+ height:5.25%'><span style='mso-special-format:bullet;color:#B2B2B2;mso-color-index:
+ 7;position:absolute;left:-4.32%;top:.1em;font-family:Wingdings;font-size:90%'>n</span><span
+ lang=EN-US style='mso-fareast-font-family:\65B0\7D30\660E\9AD4;font-size:67%;
+ position:relative;top:-.45em;mso-text-raise:30%;mso-fareast-language:ZH-TW'><i><span
+ style='mso-spacerun:yes'> </span></i></span><span lang=EN-US style='mso-fareast-font-family:
+ \65B0\7D30\660E\9AD4;mso-fareast-language:ZH-TW'>Two Boolean expressions may
+ specify the same </span></span><span style='position:absolute;top:85.0%;
+ left:12.17%;width:82.77%;height:5.25%'><span lang=EN-US style='mso-fareast-font-family:
+ \65B0\7D30\660E\9AD4;mso-fareast-language:ZH-TW'>function&#13;</span></span></div>
+ <div class=B1 style='mso-line-spacing:"90 20 0";mso-margin-left-alt:216;
+ mso-text-indent-alt:0;mso-char-wrap:1;mso-kinsoku-overflow:1;position:absolute;
+ top:90.75%;left:8.42%;width:86.51%;height:4.5%'><span style='position:absolute;
+ top:0%;left:4.32%;width:95.67%;height:100.0%'><span style='mso-special-format:
+ bullet;color:#CCCC99;mso-color-index:4;position:absolute;left:-4.52%;
+ top:.3em;font-family:Wingdings;font-size:75%'>q</span><span lang=EN-US
+ style='mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-fareast-language:ZH-TW'><i>F</i></span><span
+ lang=EN-US style='mso-fareast-font-family:\65B0\7D30\660E\9AD4;font-size:66%;
+ position:relative;top:.37em;mso-text-raise:-25%;mso-fareast-language:ZH-TW'><i>3
+ </i></span><span lang=EN-US style='mso-fareast-font-family:\65B0\7D30\660E\9AD4;
+ mso-fareast-language:ZH-TW'>= </span><span lang=EN-US style='mso-fareast-font-family:
+ \65B0\7D30\660E\9AD4;mso-fareast-language:ZH-TW'><i>F</i></span><span
+ lang=EN-US style='mso-fareast-font-family:\65B0\7D30\660E\9AD4;font-size:66%;
+ position:relative;top:.37em;mso-text-raise:-25%;mso-fareast-language:ZH-TW'><i>4</i></span><span
+ lang=ZH-TW style='mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-ansi-language:
+ EN-US;mso-special-format:lastCR;display:none'>&#13;</span></span></div>
+ </div>
+ <p:shaperange href="slide0095.xml#Group_x0020_80"/><![if !vml]><img border=0
+ v:shapes="Group_x0020_80,_x0000_s25607,_x0000_s25608,_x0000_s25609,_x0000_s25610,_x0000_s25611,_x0000_s25612,_x0000_s25613,_x0000_s25614,_x0000_s25615,_x0000_s25616,_x0000_s25617,_x0000_s25618,_x0000_s25619,_x0000_s25620,_x0000_s25621,_x0000_s25622,_x0000_s25623,_x0000_s25624,_x0000_s25625,_x0000_s25626,_x0000_s25627,_x0000_s25628,_x0000_s25629,_x0000_s25630,_x0000_s25631,_x0000_s25632,_x0000_s25633,_x0000_s25634,_x0000_s25635,_x0000_s25636,_x0000_s25637,_x0000_s25638,_x0000_s25639,_x0000_s25640,_x0000_s25641,_x0000_s25642,_x0000_s25643,_x0000_s25644,_x0000_s25645,_x0000_s25646,_x0000_s25647,_x0000_s25648,_x0000_s25649,_x0000_s25650,_x0000_s25651,_x0000_s25652,_x0000_s25653,_x0000_s25654,_x0000_s25655,_x0000_s25656,_x0000_s25657,_x0000_s25658,_x0000_s25659,_x0000_s25660,_x0000_s25661,_x0000_s25662,_x0000_s25663,_x0000_s25664,_x0000_s25665,_x0000_s25666,_x0000_s25667,_x0000_s25668,_x0000_s25669,_x0000_s25670,_x0000_s25671,_x0000_s25672"
+ src="slide0095_image023.gif" style='position:absolute;top:27.0%;left:17.41%;
+ width:63.1%;height:52.75%'><![endif]>
+ <div v:shape="_x0000_s25607">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:27.75%;left:18.53%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;mso-fareast-language:ZH-TW'><i>x</i></span></div>
+ </div>
+ <div v:shape="_x0000_s25608">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:27.75%;left:27.52%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;mso-fareast-language:ZH-TW'><i>y</i></span></div>
+ </div>
+ <div v:shape="_x0000_s25609">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:27.75%;left:36.51%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;mso-fareast-language:ZH-TW'><i>z</i></span></div>
+ </div>
+ <div v:shape="_x0000_s25610">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:27.75%;left:45.31%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;mso-fareast-language:ZH-TW'><i>F</i></span><span lang=EN-US
+ style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:74%;position:relative;top:.37em;mso-text-raise:-25%;mso-fareast-language:
+ ZH-TW'><i>1</i></span></div>
+ </div>
+ <div v:shape="_x0000_s25611">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:27.75%;left:54.3%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;mso-fareast-language:ZH-TW'><i>F</i></span><span lang=EN-US
+ style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:74%;position:relative;top:.37em;mso-text-raise:-25%;mso-fareast-language:
+ ZH-TW'><i>2</i></span></div>
+ </div>
+ <div v:shape="_x0000_s25612">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:27.75%;left:63.29%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;mso-fareast-language:ZH-TW'><i>F</i></span><span lang=EN-US
+ style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:74%;position:relative;top:.37em;mso-text-raise:-25%;mso-fareast-language:
+ ZH-TW'><i>3</i></span></div>
+ </div>
+ <div v:shape="_x0000_s25613">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:27.75%;left:72.09%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;mso-fareast-language:ZH-TW'><i>F</i></span><span lang=EN-US
+ style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:74%;position:relative;top:.37em;mso-text-raise:-25%;mso-fareast-language:
+ ZH-TW'><i>4</i></span></div>
+ </div>
+ <div v:shape="_x0000_s25614">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:33.5%;left:18.53%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>0</span></div>
+ </div>
+ <div v:shape="_x0000_s25615">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:33.5%;left:27.52%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>0</span></div>
+ </div>
+ <div v:shape="_x0000_s25616">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:33.5%;left:36.51%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>0</span></div>
+ </div>
+ <div v:shape="_x0000_s25617">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:33.5%;left:45.31%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>0</span></div>
+ </div>
+ <div v:shape="_x0000_s25618">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:33.5%;left:54.3%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>0</span></div>
+ </div>
+ <div v:shape="_x0000_s25619">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:33.5%;left:63.29%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>0</span></div>
+ </div>
+ <div v:shape="_x0000_s25620">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:33.5%;left:72.09%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>0</span></div>
+ </div>
+ <div v:shape="_x0000_s25621">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:39.25%;left:18.53%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>0</span></div>
+ </div>
+ <div v:shape="_x0000_s25622">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:39.25%;left:27.52%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>0</span></div>
+ </div>
+ <div v:shape="_x0000_s25623">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:39.25%;left:36.51%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>1</span></div>
+ </div>
+ <div v:shape="_x0000_s25624">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:39.25%;left:45.31%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>0</span></div>
+ </div>
+ <div v:shape="_x0000_s25625">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:39.25%;left:54.3%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>1</span></div>
+ </div>
+ <div v:shape="_x0000_s25626">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:39.25%;left:63.29%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>1</span></div>
+ </div>
+ <div v:shape="_x0000_s25627">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:39.25%;left:72.09%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>1</span></div>
+ </div>
+ <div v:shape="_x0000_s25628">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:45.0%;left:18.53%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>0</span></div>
+ </div>
+ <div v:shape="_x0000_s25629">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:45.0%;left:27.52%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>1</span></div>
+ </div>
+ <div v:shape="_x0000_s25630">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:45.0%;left:36.51%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>0</span></div>
+ </div>
+ <div v:shape="_x0000_s25631">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:45.0%;left:45.31%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>0</span></div>
+ </div>
+ <div v:shape="_x0000_s25632">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:45.0%;left:54.3%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>0</span></div>
+ </div>
+ <div v:shape="_x0000_s25633">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:45.0%;left:63.29%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>0</span></div>
+ </div>
+ <div v:shape="_x0000_s25634">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:45.0%;left:72.09%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>0</span></div>
+ </div>
+ <div v:shape="_x0000_s25635">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:50.75%;left:18.53%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>0</span></div>
+ </div>
+ <div v:shape="_x0000_s25636">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:50.75%;left:27.52%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>1</span></div>
+ </div>
+ <div v:shape="_x0000_s25637">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:50.75%;left:36.51%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>1</span></div>
+ </div>
+ <div v:shape="_x0000_s25638">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:50.75%;left:45.31%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>0</span></div>
+ </div>
+ <div v:shape="_x0000_s25639">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:50.75%;left:54.3%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>0</span></div>
+ </div>
+ <div v:shape="_x0000_s25640">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:50.75%;left:63.29%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>1</span></div>
+ </div>
+ <div v:shape="_x0000_s25641">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:50.75%;left:72.09%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>1</span></div>
+ </div>
+ <div v:shape="_x0000_s25642">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:56.5%;left:18.53%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>1</span></div>
+ </div>
+ <div v:shape="_x0000_s25643">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:56.5%;left:27.52%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>0</span></div>
+ </div>
+ <div v:shape="_x0000_s25644">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:56.5%;left:36.51%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>0</span></div>
+ </div>
+ <div v:shape="_x0000_s25645">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:56.5%;left:45.31%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>0</span></div>
+ </div>
+ <div v:shape="_x0000_s25646">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:56.5%;left:54.3%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>1</span></div>
+ </div>
+ <div v:shape="_x0000_s25647">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:56.5%;left:63.29%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>1</span></div>
+ </div>
+ <div v:shape="_x0000_s25648">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:56.5%;left:72.09%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>1</span></div>
+ </div>
+ <div v:shape="_x0000_s25649">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:62.25%;left:18.53%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>1</span></div>
+ </div>
+ <div v:shape="_x0000_s25650">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:62.25%;left:27.52%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>0</span></div>
+ </div>
+ <div v:shape="_x0000_s25651">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:62.25%;left:36.51%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>1</span></div>
+ </div>
+ <div v:shape="_x0000_s25652">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:62.25%;left:45.31%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>0</span></div>
+ </div>
+ <div v:shape="_x0000_s25653">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:62.25%;left:54.3%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>1</span></div>
+ </div>
+ <div v:shape="_x0000_s25654">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:62.25%;left:63.29%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>1</span></div>
+ </div>
+ <div v:shape="_x0000_s25655">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:62.25%;left:72.09%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>1</span></div>
+ </div>
+ <div v:shape="_x0000_s25656">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:68.0%;left:18.53%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>1</span></div>
+ </div>
+ <div v:shape="_x0000_s25657">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:68.0%;left:27.52%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>1</span></div>
+ </div>
+ <div v:shape="_x0000_s25658">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:68.0%;left:36.51%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>0</span></div>
+ </div>
+ <div v:shape="_x0000_s25659">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:68.0%;left:45.31%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>1</span></div>
+ </div>
+ <div v:shape="_x0000_s25660">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:68.0%;left:54.3%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>1</span></div>
+ </div>
+ <div v:shape="_x0000_s25661">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:68.0%;left:63.29%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>0</span></div>
+ </div>
+ <div v:shape="_x0000_s25662">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:68.0%;left:72.09%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>0</span></div>
+ </div>
+ <div v:shape="_x0000_s25663">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:74.0%;left:18.53%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>1</span></div>
+ </div>
+ <div v:shape="_x0000_s25664">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:74.0%;left:27.52%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>1</span></div>
+ </div>
+ <div v:shape="_x0000_s25665">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:74.0%;left:36.51%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>1</span></div>
+ </div>
+ <div v:shape="_x0000_s25666">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:74.0%;left:45.31%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>0</span></div>
+ </div>
+ <div v:shape="_x0000_s25667">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:74.0%;left:54.3%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>1</span></div>
+ </div>
+ <div v:shape="_x0000_s25668">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:74.0%;left:63.29%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>0</span></div>
+ </div>
+ <div v:shape="_x0000_s25669">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:center;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:74.0%;left:72.09%;width:7.11%;height:4.75%'><span
+ lang=EN-US style='font-family:"Book Antiqua";mso-ascii-font-family:"Book Antiqua";
+ mso-fareast-font-family:\65B0\7D30\660E\9AD4;mso-hansi-font-family:"Book Antiqua";
+ font-size:111%;color:black;mso-fareast-language:ZH-TW'>0</span></div>
+ </div>
+</p:slide>
+</div>
+
+</body>
+
+</html>

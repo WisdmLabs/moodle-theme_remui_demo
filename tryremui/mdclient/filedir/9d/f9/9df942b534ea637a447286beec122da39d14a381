@@ -1,0 +1,1185 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:p="urn:schemas-microsoft-com:office:powerpoint"
+xmlns:oa="urn:schemas-microsoft-com:office:activation"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=Windows-1254">
+<meta name=ProgId content=PowerPoint.Slide>
+<meta name=Generator content="Microsoft PowerPoint 12">
+<link id=Main-File rel=Main-File
+href="../Chapter_1_Digital_Systems_and_Binary_Numbers.htm">
+<link rel=Preview href=preview.wmf>
+<!--[if !mso]>
+<style>
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+p\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+v\:textbox {display:none;}
+</style>
+<![endif]-->
+<title>Digital Systems and Binary Numbers</title>
+<meta name=Description
+content="11/08/2010: Decimal (Fraction) to Binary Conversion">
+<link rel=Stylesheet href="master05_stylesheet.css">
+<!--[if gte IE 5]>
+<object id=MSOANIM classid="CLSID:A4639D2F-774E-11D3-A490-00C04F6843FB"></object>
+<object id=MSOTIME classid="CLSID:A4639D29-774E-11D3-A490-00C04F6843FB"></object>
+<![endif]-->
+<![if !ppt]>
+
+<bgsound id=pptSound>
+
+<style media=print>
+<!--.sld
+	{left:0px !important;
+	width:6.0in !important;
+	height:4.5in !important;
+	font-size:107% !important;}
+-->
+</style>
+<style>
+<!--
+oa\:* { BEHAVIOR: url(#MSOANIM#ANIM) url(#MSOTIME#TIME) }
+oa\:par,oa\:seq,oa\:iterate { BEHAVIOR:url(#MSOTIME) }
+oa\:video,oa\:audio {BEHAVIOR:url(#MSOTIME) url(#MSOTIME#MEDIA) }
+-->
+</style>
+<script src=script.js></script><script><!--
+if( !IsNts() ) Redirect( "PPTSld" );
+//--></script><script><!--
+g_animItemsToHide=new Array("_x0000_s21522","_x0000_s21515_AllText","_x0000_s21515","_x0000_s21514","_x0000_s21513","_x0000_s21512_AllText","_x0000_s21512","_x0000_s21521_AllText","_x0000_s21521","_x0000_s21520_AllText","_x0000_s21520","_x0000_s21519_AllText","_x0000_s21519","_x0000_s21518_AllText","_x0000_s21518","_x0000_s21507_89_141","_x0000_s21523_AllText","_x0000_s21523","_x0000_s21507_39_89","_x0000_s21511_AllText","_x0000_s21511","_x0000_s21510_AllText","_x0000_s21510","_x0000_s21509_AllText","_x0000_s21509","_x0000_s21517_AllText","_x0000_s21517","_x0000_s21516_AllText","_x0000_s21516","_x0000_s21507_0_39");
+
+//--></script><!--[if vml]><script>g_vml = 1;
+</script><![endif]--><![endif]><o:shapelayout v:ext="edit">
+ <o:idmap v:ext="edit" data="21"/>
+</o:shapelayout>
+</head>
+
+<body lang=EN-US style='margin:0px;background-color:black'
+onclick="DocumentOnClick()" onresize="_RSW()" onload="LoadSld()"
+onkeypress="_KPH()" oa:clockstart="onstart">
+
+<div id=SlideObj class=sld style='position:absolute;top:0px;left:0px;
+width:534px;height:400px;font-size:16px;background-color:white;clip:rect(0%, 101%, 101%, 0%);
+visibility:hidden'><p:slide coordsize="720,540"
+ colors="#ffffff,#000000,#c0c0c0,#000082,#d01608,#000082,#00c000,#800080"
+ masterhref="master05.xml">
+ <p:shaperange href="master05.xml#_x0000_s3073"/><![if !ppt]><p:shaperange
+  href="master05.xml#_x0000_s3076"/><![if !vml]><img border=0
+ v:shapes="_x0000_s3076,_x0000_s3079,_x0000_s3080,_x0000_s3081"
+ src="master05_image002.gif" style='position:absolute;top:14.75%;left:-.56%;
+ width:101.12%;height:2.25%'><![endif]>
+ <div v:shape="_x0000_s3077">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:right;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:96.25%;left:70.97%;width:27.9%;height:3.0%'><span
+ lang=TR style='text-decoration:none;color:#7F7F7F;mso-fareast-language:ZH-TW'>Digital
+ Logic Design</span><span lang=EN-US style='text-decoration:none;color:#7F7F7F;
+ mso-fareast-language:ZH-TW'> </span><span lang=EN-US style='font-style:normal;
+ text-decoration:none;color:#7F7F7F;mso-fareast-language:ZH-TW'>Ch1</span><span
+ lang=EN-US style='text-decoration:none;color:#7F7F7F;mso-fareast-language:
+ ZH-TW'>-</span><span lang=ZH-TW style='font-style:normal;text-decoration:none;
+ color:#7F7F7F;mso-ansi-language:EN-US'>‹#›</span></div>
+ </div>
+ <p:shaperange href="master05.xml#Picture_x0020_9"/><![if !vml]><img border=0
+ v:shapes="Picture_x0020_9" src="master05_image003.gif" alt=logoyil30
+ style='position:absolute;top:2.25%;left:3.18%;width:8.05%;height:10.75%'><![endif]><![endif]><p:shaperange
+  href="master05.xml#_x0000_m3075"/><v:shape id="_x0000_s21506" type="#_x0000_m3075"
+  style='position:absolute;left:23.5pt;top:18pt;width:675.25pt;height:48pt;
+  visibility:visible;mso-wrap-style:square;v-text-anchor:middle'>
+  <v:stroke o:forcedash="f"/>
+  <v:path arrowok="f"/>
+  <o:lock v:ext="edit" rotation="f" aspectratio="f" position="f" selection="f"
+   verticies="f" text="f" adjusthandles="f" grouping="t" shapetype="f"/>
+  <v:textbox style='layout-flow:horizontal;mso-rotate-with-shape:t' inset="0,0,0,0"/>
+  <p:placeholder type="title" position="-1"/></v:shape>
+ <div v:shape="_x0000_s21506" class=T style='position:absolute;top:3.5%;
+ left:-2.8%;width:106.17%;height:8.5%'>Decimal (<i>Fraction</i>) to Binary
+ Conversion</div>
+ <p:shaperange href="master05.xml#_x0000_m3074"/><v:shape id="_x0000_s21507"
+  type="#_x0000_m3074" style='position:absolute;left:24.25pt;top:102pt;width:674.875pt;
+  height:230.5pt;visibility:visible;mso-wrap-style:square;v-text-anchor:top'
+  o:gfxdata="UEsDBBQABgAIAAAAIQDb4fbL7gAAAIUBAAATAAAAW0NvbnRlbnRfVHlwZXNdLnhtbHyQz07DMAyH
+70i8Q+QralM4IITa7kDhCAiNB7ASt43WOlEcyvb2pNu4IODoPz9/n1xv9vOkForiPDdwXVagiI23
+jocG3rdPxR0oScgWJ8/UwIEENu3lRb09BBKV0ywNjCmFe63FjDSjlD4Q50nv44wpl3HQAc0OB9I3
+VXWrjedEnIq03oC27qjHjympx31un0wiTQLq4bS4shrAECZnMGVTvbD9QSnOhDInjzsyuiBXWQP0
+r4R18jfgnHvJr4nOknrFmJ5xzhraRtHWf3Kkpfz/yGo5S+H73hkquyhdjr3R8m2lj09svwAAAP//
+AwBQSwMEFAAGAAgAAAAhAFr0LFu/AAAAFQEAAAsAAABfcmVscy8ucmVsc2zPwWrDMAwG4Ptg72B0
+X5TuUMaI01uh19I+gLGVxCy2jGSy9e1nemrHjpL4P0nD4SetZiPRyNnCruvBUPYcYp4tXC/Htw8w
+Wl0ObuVMFm6kcBhfX4Yzra62kC6xqGlKVgtLreUTUf1CyWnHhXKbTCzJ1VbKjMX5LzcTvvf9HuXR
+gPHJNKdgQU5hB+ZyK23zHztFL6w81c5zQp6m6P9TMfB3PtPWFCczVQtB9N4U2rp2HOA44NMz4y8A
+AAD//wMAUEsDBBQABgAIAAAAIQA+7VaD2AAAAP4AAAAPAAAAZHJzL2Rvd25yZXYueG1sRI9BS8NA
+EEbvgv9hGcGb3ayHamK3pQilIlRIlHgds9MkmN0Nu9s2+fcOHvQ4vOF9vNVmsoM4U4i9dxrUIgNB
+rvGmd62Gj/fd3SOImNAZHLwjDTNF2Kyvr1ZYGH9xJZ2r1AqWuFighi6lsZAyNh1ZjAs/kmN29MFi
+4jO00gS8sNwO8j7LltJi73ihw5GeO2q+q5PlkXpWDh+msXyrq9d8V6dTJg9a395M2ycQiab0/7w9
+7D9t/gd/VS+GW5RaqhzEcT9/hd6UGBMFDRzIuYxBrn8AAAD//wMAUEsBAi0AFAAGAAgAAAAhANvh
+9svuAAAAhQEAABMAAAAAAAAAAAAAAAAAAAAAAFtDb250ZW50X1R5cGVzXS54bWxQSwECLQAUAAYA
+CAAAACEAWvQsW78AAAAVAQAACwAAAAAAAAAAAAAAAAAfAQAAX3JlbHMvLnJlbHNQSwECLQAUAAYA
+CAAAACEAPu1Wg9gAAAD+AAAADwAAAAAAAAAAAAAAAAAHAgAAZHJzL2Rvd25yZXYueG1sUEsFBgAA
+AAADAAMAtwAAAAwDAAAAAA==
+">
+  <v:stroke o:forcedash="f"/>
+  <v:path arrowok="f"/>
+  <o:lock v:ext="edit" rotation="f" aspectratio="f" position="f" selection="f"
+   verticies="f" text="f" adjusthandles="f" grouping="t" shapetype="f"/>
+  <v:textbox style='layout-flow:horizontal;mso-rotate-with-shape:t' inset="2.51356mm,3.5pt,2.51356mm,3.5pt"/>
+  <p:placeholder type="body" position="-1"/><p:animation number="2" delay="0"
+   type="object" effect="cut" direction="noBlack" buildby="char" flag="17428">
+   <p:sound id="6" builtinid="101" name="type.wav" href="sound006.wav"/></p:animation>
+ </v:shape>
+ <div v:shape="_x0000_s21507" class=B style='position:absolute;top:19.75%;
+ left:4.3%;width:91.94%;height:18.0%'>
+ <div id="_x0000_s21507_0_39" style='position:absolute;top:0%;left:0%;
+ width:100.0%;height:29.16%;white-space:nowrap'><span style='position:absolute;
+ top:0%;left:4.07%;width:95.92%;height:100.0%'><span class=BB style='position:
+ absolute;left:-4.24%;top:.1em'>©</span>Multiply the number by the ‘Base’
+ (=2)&#13;</span></div>
+ <div id="_x0000_s21507_39_89" style='position:absolute;top:36.11%;left:0%;
+ width:100.0%;height:29.16%;white-space:nowrap'><span style='position:absolute;
+ top:0%;left:4.07%;width:95.92%;height:100.0%'><span class=BB style='position:
+ absolute;left:-4.24%;top:.1em'>©</span>Take the integer (either 0 or 1) as a
+ coefficient&#13;</span></div>
+ <div id="_x0000_s21507_89_141" style='position:absolute;top:72.22%;left:0%;
+ width:100.0%;height:29.16%;white-space:nowrap'><span style='position:absolute;
+ top:0%;left:4.07%;width:95.92%;height:100.0%'><span class=BB style='position:
+ absolute;left:-4.24%;top:.1em'>©</span>Take the resultant fraction and repeat
+ the division</span></div>
+ </div>
+ <v:shape id="_x0000_s21508" type="#_x0000_t202" style='position:absolute;
+  left:62.375pt;top:241.75pt;width:211.25pt;height:36pt;visibility:visible;
+  mso-wrap-style:none;v-text-anchor:top' filled="f" stroked="f" strokeweight="1pt">
+  <v:textbox style='mso-rotate-with-shape:t;mso-fit-shape-to-text:t'/>
+ </v:shape>
+ <div v:shape="_x0000_s21508">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='position:absolute;top:45.75%;left:9.73%;width:32.95%;
+ height:5.25%'><span style='mso-bidi-font-family:"Times New Roman";font-size:
+ 171%;font-style:normal;text-decoration:none;color:black;mso-color-index:1'><b>Example:
+ (</b></span><span style='font-family:Arial;mso-ascii-font-family:Arial;
+ mso-bidi-font-family:Arial;mso-hansi-font-family:Arial;font-size:171%;
+ font-style:normal;text-decoration:none;color:#000082;mso-color-index:5'><b>0.625</b></span><span
+ style='mso-bidi-font-family:"Times New Roman";font-size:171%;font-style:normal;
+ text-decoration:none;color:black;mso-color-index:1'><b>)</b></span><span
+ style='mso-bidi-font-family:"Times New Roman";font-size:114%;font-style:normal;
+ text-decoration:none;color:#FF6600;position:relative;top:.37em;mso-text-raise:
+ -25%'><b>10</b></span></div>
+ </div>
+ <v:shape id="_x0000_s21509" type="#_x0000_t202" style='position:absolute;
+  left:303.25pt;top:284.125pt;width:64.375pt;height:26.5pt;visibility:visible;
+  mso-wrap-style:none;v-text-anchor:top' o:gfxdata="UEsDBBQABgAIAAAAIQDb4fbL7gAAAIUBAAATAAAAW0NvbnRlbnRfVHlwZXNdLnhtbHyQz07DMAyH
+70i8Q+QralM4IITa7kDhCAiNB7ASt43WOlEcyvb2pNu4IODoPz9/n1xv9vOkForiPDdwXVagiI23
+jocG3rdPxR0oScgWJ8/UwIEENu3lRb09BBKV0ywNjCmFe63FjDSjlD4Q50nv44wpl3HQAc0OB9I3
+VXWrjedEnIq03oC27qjHjympx31un0wiTQLq4bS4shrAECZnMGVTvbD9QSnOhDInjzsyuiBXWQP0
+r4R18jfgnHvJr4nOknrFmJ5xzhraRtHWf3Kkpfz/yGo5S+H73hkquyhdjr3R8m2lj09svwAAAP//
+AwBQSwMEFAAGAAgAAAAhAFr0LFu/AAAAFQEAAAsAAABfcmVscy8ucmVsc2zPwWrDMAwG4Ptg72B0
+X5TuUMaI01uh19I+gLGVxCy2jGSy9e1nemrHjpL4P0nD4SetZiPRyNnCruvBUPYcYp4tXC/Htw8w
+Wl0ObuVMFm6kcBhfX4Yzra62kC6xqGlKVgtLreUTUf1CyWnHhXKbTCzJ1VbKjMX5LzcTvvf9HuXR
+gPHJNKdgQU5hB+ZyK23zHztFL6w81c5zQp6m6P9TMfB3PtPWFCczVQtB9N4U2rp2HOA44NMz4y8A
+AAD//wMAUEsDBBQABgAIAAAAIQCDBdA82AAAAP4AAAAPAAAAZHJzL2Rvd25yZXYueG1sRI9BSwMx
+EEbvQv9DGMGbzaaUVdamxQqlXgS7Vc/jZroJbpI1yW63/97gQY/DG97HW20m27GRQjTeSRDzAhi5
+xivjWglvx93tPbCY0CnsvCMJF4qwWc+uVlgpf3YHGuvUsixxsUIJOqW+4jw2mizGue/JZXbywWLK
+Z2i5CnjOctvxRVGU3KJxeUFjT0+amq96sBJasezft98vpfjQ0d4dX8dGpFHKm+vp8QFYoin9Pw/D
+3tT0B39Vzyq3CFEuBLDT/vIZjDpgTBQk5MCcmzHw9Q8AAAD//wMAUEsBAi0AFAAGAAgAAAAhANvh
+9svuAAAAhQEAABMAAAAAAAAAAAAAAAAAAAAAAFtDb250ZW50X1R5cGVzXS54bWxQSwECLQAUAAYA
+CAAAACEAWvQsW78AAAAVAQAACwAAAAAAAAAAAAAAAAAfAQAAX3JlbHMvLnJlbHNQSwECLQAUAAYA
+CAAAACEAgwXQPNgAAAD+AAAADwAAAAAAAAAAAAAAAAAHAgAAZHJzL2Rvd25yZXYueG1sUEsFBgAA
+AAADAAMAtwAAAAwDAAAAAA==
+" filled="f" stroked="f" strokeweight="1pt">
+  <v:textbox style='mso-rotate-with-shape:t;mso-fit-shape-to-text:t'/>
+  <p:animation number="6" delay="0" type="object" effect="cut"
+   direction="noBlack" flag="4"/></v:shape>
+ <div id="_x0000_s21509_AllText" v:shape="_x0000_s21509" style='position:absolute;
+ top:53.5%;left:43.07%;width:8.42%;height:3.5%;white-space:nowrap'>
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='position:absolute;top:0%;left:0%;width:100.0%;height:100.0%'><span
+ style='mso-bidi-font-family:"Times New Roman";font-size:114%;font-style:normal;
+ text-decoration:none;color:black;mso-color-index:1'><b>Integer</b></span></div>
+ </div>
+ <v:shape id="_x0000_s21510" type="#_x0000_t202" style='position:absolute;
+  left:374.125pt;top:284.125pt;width:73.25pt;height:26.5pt;visibility:visible;
+  mso-wrap-style:none;v-text-anchor:top' o:gfxdata="UEsDBBQABgAIAAAAIQDb4fbL7gAAAIUBAAATAAAAW0NvbnRlbnRfVHlwZXNdLnhtbHyQz07DMAyH
+70i8Q+QralM4IITa7kDhCAiNB7ASt43WOlEcyvb2pNu4IODoPz9/n1xv9vOkForiPDdwXVagiI23
+jocG3rdPxR0oScgWJ8/UwIEENu3lRb09BBKV0ywNjCmFe63FjDSjlD4Q50nv44wpl3HQAc0OB9I3
+VXWrjedEnIq03oC27qjHjympx31un0wiTQLq4bS4shrAECZnMGVTvbD9QSnOhDInjzsyuiBXWQP0
+r4R18jfgnHvJr4nOknrFmJ5xzhraRtHWf3Kkpfz/yGo5S+H73hkquyhdjr3R8m2lj09svwAAAP//
+AwBQSwMEFAAGAAgAAAAhAFr0LFu/AAAAFQEAAAsAAABfcmVscy8ucmVsc2zPwWrDMAwG4Ptg72B0
+X5TuUMaI01uh19I+gLGVxCy2jGSy9e1nemrHjpL4P0nD4SetZiPRyNnCruvBUPYcYp4tXC/Htw8w
+Wl0ObuVMFm6kcBhfX4Yzra62kC6xqGlKVgtLreUTUf1CyWnHhXKbTCzJ1VbKjMX5LzcTvvf9HuXR
+gPHJNKdgQU5hB+ZyK23zHztFL6w81c5zQp6m6P9TMfB3PtPWFCczVQtB9N4U2rp2HOA44NMz4y8A
+AAD//wMAUEsDBBQABgAIAAAAIQCf4pa22QAAAP4AAAAPAAAAZHJzL2Rvd25yZXYueG1sRI9PSwMx
+EEfvgt8hjODNZhNkLWvTooLoRegfKx6nm+lm6SZZk7jdfnuDh/Y4vOH9eLPFaDs2UIitdwrEpABG
+rva6dY2Cz83r3RRYTOg0dt6RghNFWMyvr2ZYaX90KxrWqWFZ4mKFCkxKfcV5rA1ZjBPfk8ts74PF
+lM/QcB3wmOW247IoSm6xdXnBYE8vhurD+tcqaMR9v33++SjFl4n2YbMcapEGpW5vxqdHYInGdHle
+yvC9lWf4r3rXuUWIUkpg+7fTLrR6hTFRUJADc27GwOd/AAAA//8DAFBLAQItABQABgAIAAAAIQDb
+4fbL7gAAAIUBAAATAAAAAAAAAAAAAAAAAAAAAABbQ29udGVudF9UeXBlc10ueG1sUEsBAi0AFAAG
+AAgAAAAhAFr0LFu/AAAAFQEAAAsAAAAAAAAAAAAAAAAAHwEAAF9yZWxzLy5yZWxzUEsBAi0AFAAG
+AAgAAAAhAJ/ilrbZAAAA/gAAAA8AAAAAAAAAAAAAAAAABwIAAGRycy9kb3ducmV2LnhtbFBLBQYA
+AAAAAwADALcAAAANAwAAAAA=
+" filled="f" stroked="f" strokeweight="1pt">
+  <v:textbox style='mso-rotate-with-shape:t;mso-fit-shape-to-text:t'/>
+  <p:animation number="7" delay="0" type="object" effect="cut"
+   direction="noBlack" flag="4"/></v:shape>
+ <div id="_x0000_s21510_AllText" v:shape="_x0000_s21510" style='position:absolute;
+ top:53.5%;left:52.99%;width:9.92%;height:3.5%;white-space:nowrap'>
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='position:absolute;top:0%;left:0%;width:100.0%;height:100.0%'><span
+ style='mso-bidi-font-family:"Times New Roman";font-size:114%;font-style:normal;
+ text-decoration:none;color:black;mso-color-index:1'><b>Fraction</b></span></div>
+ </div>
+ <v:shape id="_x0000_s21511" type="#_x0000_t202" style='position:absolute;
+  left:458.375pt;top:283.75pt;width:89.375pt;height:26.5pt;visibility:visible;
+  mso-wrap-style:none;v-text-anchor:top' o:gfxdata="UEsDBBQABgAIAAAAIQDb4fbL7gAAAIUBAAATAAAAW0NvbnRlbnRfVHlwZXNdLnhtbHyQz07DMAyH
+70i8Q+QralM4IITa7kDhCAiNB7ASt43WOlEcyvb2pNu4IODoPz9/n1xv9vOkForiPDdwXVagiI23
+jocG3rdPxR0oScgWJ8/UwIEENu3lRb09BBKV0ywNjCmFe63FjDSjlD4Q50nv44wpl3HQAc0OB9I3
+VXWrjedEnIq03oC27qjHjympx31un0wiTQLq4bS4shrAECZnMGVTvbD9QSnOhDInjzsyuiBXWQP0
+r4R18jfgnHvJr4nOknrFmJ5xzhraRtHWf3Kkpfz/yGo5S+H73hkquyhdjr3R8m2lj09svwAAAP//
+AwBQSwMEFAAGAAgAAAAhAFr0LFu/AAAAFQEAAAsAAABfcmVscy8ucmVsc2zPwWrDMAwG4Ptg72B0
+X5TuUMaI01uh19I+gLGVxCy2jGSy9e1nemrHjpL4P0nD4SetZiPRyNnCruvBUPYcYp4tXC/Htw8w
+Wl0ObuVMFm6kcBhfX4Yzra62kC6xqGlKVgtLreUTUf1CyWnHhXKbTCzJ1VbKjMX5LzcTvvf9HuXR
+gPHJNKdgQU5hB+ZyK23zHztFL6w81c5zQp6m6P9TMfB3PtPWFCczVQtB9N4U2rp2HOA44NMz4y8A
+AAD//wMAUEsDBBQABgAIAAAAIQBTGMjq2QAAAP4AAAAPAAAAZHJzL2Rvd25yZXYueG1sRI9PSwMx
+EEfvgt8hjODNZlPLKtumRQWpF6F/VDxON7ObxU2yJjHdfnuDh3oc3vB+vMVqND1L5EPnrAQxKYCR
+rZ3qbCvhbf98cw8sRLQKe2dJwokCrJaXFwuslDvaLaVdbFmW2FChBB3jUHEeak0Gw8QNZDNrnDcY
+8+lbrjwes9z0fFoUJTfY2bygcaAnTfXX7sdIaMVseH/8fi3Fhw7mbr9JtYhJyuur8WEOLNIY/5/X
+s9Tg5xn+qV5UbhGinN4Ca9ang+/UFkMkLyEH5tyMgS9/AQAA//8DAFBLAQItABQABgAIAAAAIQDb
+4fbL7gAAAIUBAAATAAAAAAAAAAAAAAAAAAAAAABbQ29udGVudF9UeXBlc10ueG1sUEsBAi0AFAAG
+AAgAAAAhAFr0LFu/AAAAFQEAAAsAAAAAAAAAAAAAAAAAHwEAAF9yZWxzLy5yZWxzUEsBAi0AFAAG
+AAgAAAAhAFMYyOrZAAAA/gAAAA8AAAAAAAAAAAAAAAAABwIAAGRycy9kb3ducmV2LnhtbFBLBQYA
+AAAAAwADALcAAAANAwAAAAA=
+" filled="f" stroked="f" strokeweight="1pt">
+  <v:textbox style='mso-rotate-with-shape:t;mso-fit-shape-to-text:t'/>
+  <p:animation number="8" delay="0" type="object" effect="cut"
+   direction="noBlack" flag="1028"/></v:shape>
+ <div id="_x0000_s21511_AllText" v:shape="_x0000_s21511" style='position:absolute;
+ top:53.5%;left:64.6%;width:12.73%;height:3.5%;white-space:nowrap'>
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='position:absolute;top:0%;left:0%;width:100.0%;height:100.0%'><span
+ style='mso-bidi-font-family:"Times New Roman";font-size:114%;font-style:normal;
+ text-decoration:none;color:black;mso-color-index:1'><b>Coefficient</b></span></div>
+ </div>
+ <v:shape id="_x0000_s21512" type="#_x0000_t202" style='position:absolute;
+  left:172.25pt;top:411.75pt;width:428.75pt;height:31.25pt;visibility:visible;
+  mso-wrap-style:none;v-text-anchor:top' o:gfxdata="UEsDBBQABgAIAAAAIQDb4fbL7gAAAIUBAAATAAAAW0NvbnRlbnRfVHlwZXNdLnhtbHyQz07DMAyH
+70i8Q+QralM4IITa7kDhCAiNB7ASt43WOlEcyvb2pNu4IODoPz9/n1xv9vOkForiPDdwXVagiI23
+jocG3rdPxR0oScgWJ8/UwIEENu3lRb09BBKV0ywNjCmFe63FjDSjlD4Q50nv44wpl3HQAc0OB9I3
+VXWrjedEnIq03oC27qjHjympx31un0wiTQLq4bS4shrAECZnMGVTvbD9QSnOhDInjzsyuiBXWQP0
+r4R18jfgnHvJr4nOknrFmJ5xzhraRtHWf3Kkpfz/yGo5S+H73hkquyhdjr3R8m2lj09svwAAAP//
+AwBQSwMEFAAGAAgAAAAhAFr0LFu/AAAAFQEAAAsAAABfcmVscy8ucmVsc2zPwWrDMAwG4Ptg72B0
+X5TuUMaI01uh19I+gLGVxCy2jGSy9e1nemrHjpL4P0nD4SetZiPRyNnCruvBUPYcYp4tXC/Htw8w
+Wl0ObuVMFm6kcBhfX4Yzra62kC6xqGlKVgtLreUTUf1CyWnHhXKbTCzJ1VbKjMX5LzcTvvf9HuXR
+gPHJNKdgQU5hB+ZyK23zHztFL6w81c5zQp6m6P9TMfB3PtPWFCczVQtB9N4U2rp2HOA44NMz4y8A
+AAD//wMAUEsDBBQABgAIAAAAIQDZ0nva2AAAAP4AAAAPAAAAZHJzL2Rvd25yZXYueG1sRI9PS8Qw
+EEfvgt8hjOBF3DTLUqVudlFB9CLuH/U8JrNNsElqErvttzd40OPwhvfjLdej69hAMdngJYhZBYy8
+Ctr6VsLr/uHyGljK6DV2wZOEiRKsV6cnS2x0OPotDbvcsiLxqUEJJue+4TwpQw7TLPTkCzuE6DCX
+M7ZcRzwWuev4vKpq7tD6smCwp3tD6nP37SS0YtG/3X091+LdJHe13wxK5EHK87Px9gZYpjH/P19M
+Vr1Mf/BX9aRLixD1fAHs8Dh9RKu3mDJFCSWw5BYMfPUDAAD//wMAUEsBAi0AFAAGAAgAAAAhANvh
+9svuAAAAhQEAABMAAAAAAAAAAAAAAAAAAAAAAFtDb250ZW50X1R5cGVzXS54bWxQSwECLQAUAAYA
+CAAAACEAWvQsW78AAAAVAQAACwAAAAAAAAAAAAAAAAAfAQAAX3JlbHMvLnJlbHNQSwECLQAUAAYA
+CAAAACEA2dJ72tgAAAD+AAAADwAAAAAAAAAAAAAAAAAHAgAAZHJzL2Rvd25yZXYueG1sUEsFBgAA
+AAADAAMAtwAAAAwDAAAAAA==
+" filled="f" stroked="f" strokeweight="1pt">
+  <v:textbox style='mso-rotate-with-shape:t;mso-fit-shape-to-text:t'/>
+  <p:animation number="18" delay="0" type="object" effect="cut"
+   direction="noBlack"/></v:shape>
+ <div id="_x0000_s21512_AllText" v:shape="_x0000_s21512" style='position:absolute;
+ top:77.25%;left:24.9%;width:69.28%;height:4.5%;white-space:nowrap'>
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='position:absolute;top:0%;left:0%;width:100.0%;height:100.0%'><span
+ style='font-family:Arial;mso-ascii-font-family:Arial;mso-bidi-font-family:
+ Arial;mso-hansi-font-family:Arial;font-size:143%;font-style:normal;text-decoration:
+ none;color:black;mso-color-index:1'><b>Answer:<span
+ style='mso-spacerun:yes'>      </span>(</b></span><span style='font-family:
+ Arial;mso-ascii-font-family:Arial;mso-bidi-font-family:Arial;mso-hansi-font-family:
+ Arial;font-size:143%;font-style:normal;text-decoration:none;color:#000082;
+ mso-color-index:5'><b>0.625</b></span><span style='font-family:Arial;
+ mso-ascii-font-family:Arial;mso-bidi-font-family:Arial;mso-hansi-font-family:
+ Arial;font-size:143%;font-style:normal;text-decoration:none;color:black;
+ mso-color-index:1'><b>)</b></span><span style='font-family:Arial;mso-ascii-font-family:
+ Arial;mso-bidi-font-family:Arial;mso-hansi-font-family:Arial;font-size:95%;
+ font-style:normal;text-decoration:none;color:#FF6600;position:relative;
+ top:.37em;mso-text-raise:-25%'><b>10</b></span><span style='font-family:Arial;
+ mso-ascii-font-family:Arial;mso-bidi-font-family:Arial;mso-hansi-font-family:
+ Arial;font-size:95%;font-style:normal;text-decoration:none;color:#000082;
+ mso-color-index:5;position:relative;top:.37em;mso-text-raise:-25%'><b><span
+ style='mso-spacerun:yes'> </span></b></span><span style='font-family:Arial;
+ mso-ascii-font-family:Arial;mso-bidi-font-family:Arial;mso-hansi-font-family:
+ Arial;font-size:143%;font-style:normal;text-decoration:none;color:black;
+ mso-color-index:1'><b>= (0.</b></span><span style='font-family:Arial;
+ mso-ascii-font-family:Arial;mso-bidi-font-family:Arial;mso-hansi-font-family:
+ Arial;font-size:143%;font-style:normal;text-decoration:none;color:#000082;
+ mso-color-index:5'><b>a</b></span><span style='font-family:Arial;mso-ascii-font-family:
+ Arial;mso-bidi-font-family:Arial;mso-hansi-font-family:Arial;font-size:95%;
+ font-style:normal;text-decoration:none;color:#000082;mso-color-index:5;
+ position:relative;top:.37em;mso-text-raise:-25%'><b>-1 </b></span><span
+ style='font-family:Arial;mso-ascii-font-family:Arial;mso-bidi-font-family:
+ Arial;mso-hansi-font-family:Arial;font-size:143%;font-style:normal;text-decoration:
+ none;color:#000082;mso-color-index:5'><b>a</b></span><span style='font-family:
+ Arial;mso-ascii-font-family:Arial;mso-bidi-font-family:Arial;mso-hansi-font-family:
+ Arial;font-size:95%;font-style:normal;text-decoration:none;color:#000082;
+ mso-color-index:5;position:relative;top:.37em;mso-text-raise:-25%'><b>-2 </b></span><span
+ style='font-family:Arial;mso-ascii-font-family:Arial;mso-bidi-font-family:
+ Arial;mso-hansi-font-family:Arial;font-size:143%;font-style:normal;text-decoration:
+ none;color:#000082;mso-color-index:5'><b>a</b></span><span style='font-family:
+ Arial;mso-ascii-font-family:Arial;mso-bidi-font-family:Arial;mso-hansi-font-family:
+ Arial;font-size:95%;font-style:normal;text-decoration:none;color:#000082;
+ mso-color-index:5;position:relative;top:.37em;mso-text-raise:-25%'><b>-3</b></span><span
+ style='font-family:Arial;mso-ascii-font-family:Arial;mso-bidi-font-family:
+ Arial;mso-hansi-font-family:Arial;font-size:143%;font-style:normal;text-decoration:
+ none;color:black;mso-color-index:1'><b>)</b></span><span style='font-family:
+ Arial;mso-ascii-font-family:Arial;mso-bidi-font-family:Arial;mso-hansi-font-family:
+ Arial;font-size:95%;font-style:normal;text-decoration:none;color:#FF6600;
+ position:relative;top:.37em;mso-text-raise:-25%'><b>2</b></span><span
+ style='font-family:Arial;mso-ascii-font-family:Arial;mso-bidi-font-family:
+ Arial;mso-hansi-font-family:Arial;font-size:95%;font-style:normal;text-decoration:
+ none;color:#000082;mso-color-index:5;position:relative;top:.37em;mso-text-raise:
+ -25%'><b><span style='mso-spacerun:yes'> </span></b></span><span
+ style='font-family:Arial;mso-ascii-font-family:Arial;mso-bidi-font-family:
+ Arial;mso-hansi-font-family:Arial;font-size:143%;font-style:normal;text-decoration:
+ none;color:black;mso-color-index:1'><b>= (</b></span><span style='font-family:
+ Arial;mso-ascii-font-family:Arial;mso-bidi-font-family:Arial;mso-hansi-font-family:
+ Arial;font-size:143%;font-style:normal;text-decoration:none;color:#D01608;
+ mso-color-index:4'><b>0.101</b></span><span style='font-family:Arial;
+ mso-ascii-font-family:Arial;mso-bidi-font-family:Arial;mso-hansi-font-family:
+ Arial;font-size:143%;font-style:normal;text-decoration:none;color:black;
+ mso-color-index:1'><b>)</b></span><span style='font-family:Arial;mso-ascii-font-family:
+ Arial;mso-bidi-font-family:Arial;mso-hansi-font-family:Arial;font-size:95%;
+ font-style:normal;text-decoration:none;color:#FF6600;position:relative;
+ top:.37em;mso-text-raise:-25%'><b>2</b></span></div>
+ </div>
+ <v:line id="_x0000_s21513" style='position:absolute;flip:x y;visibility:visible;
+  mso-wrap-style:square;v-text-anchor:top-center' from="478.375pt,445.75pt"
+  to="489.75pt,468.5pt" o:gfxdata="UEsDBBQABgAIAAAAIQDb4fbL7gAAAIUBAAATAAAAW0NvbnRlbnRfVHlwZXNdLnhtbHyQz07DMAyH
+70i8Q+QralM4IITa7kDhCAiNB7ASt43WOlEcyvb2pNu4IODoPz9/n1xv9vOkForiPDdwXVagiI23
+jocG3rdPxR0oScgWJ8/UwIEENu3lRb09BBKV0ywNjCmFe63FjDSjlD4Q50nv44wpl3HQAc0OB9I3
+VXWrjedEnIq03oC27qjHjympx31un0wiTQLq4bS4shrAECZnMGVTvbD9QSnOhDInjzsyuiBXWQP0
+r4R18jfgnHvJr4nOknrFmJ5xzhraRtHWf3Kkpfz/yGo5S+H73hkquyhdjr3R8m2lj09svwAAAP//
+AwBQSwMEFAAGAAgAAAAhAFr0LFu/AAAAFQEAAAsAAABfcmVscy8ucmVsc2zPwWrDMAwG4Ptg72B0
+X5TuUMaI01uh19I+gLGVxCy2jGSy9e1nemrHjpL4P0nD4SetZiPRyNnCruvBUPYcYp4tXC/Htw8w
+Wl0ObuVMFm6kcBhfX4Yzra62kC6xqGlKVgtLreUTUf1CyWnHhXKbTCzJ1VbKjMX5LzcTvvf9HuXR
+gPHJNKdgQU5hB+ZyK23zHztFL6w81c5zQp6m6P9TMfB3PtPWFCczVQtB9N4U2rp2HOA44NMz4y8A
+AAD//wMAUEsDBBQABgAIAAAAIQByBs8n0gAAAPEAAAAPAAAAZHJzL2Rvd25yZXYueG1sRE/PT8Iw
+FL6b+D80j8SLkW4kog4KUdDhzQwN58f62Jatr0tb2fCvtwcTj1++38v1aDpxJucbywrSaQKCuLS6
+4UrB1+fb3SMIH5A1dpZJwYU8rFfXV0vMtB24oPM+VCKGsM9QQR1Cn0npy5oM+qntiSN3ss5giNBV
+UjscYrjp5CxJ5tJgw7Ghxp42NZXt/tsouB3yw0Oxaf3Hk0t/8u1rsc3bF6VuJuPzAkSgMfyL/9zv
+Os5P0/nsHsRpdzm6RhfoAzkF8VN8GGmQq18AAAD//wMAUEsBAi0AFAAGAAgAAAAhANvh9svuAAAA
+hQEAABMAAAAAAAAAAAAAAAAAAAAAAFtDb250ZW50X1R5cGVzXS54bWxQSwECLQAUAAYACAAAACEA
+WvQsW78AAAAVAQAACwAAAAAAAAAAAAAAAAAfAQAAX3JlbHMvLnJlbHNQSwECLQAUAAYACAAAACEA
+cgbPJ9IAAADxAAAADwAAAAAAAAAAAAAAAAAHAgAAZHJzL2Rvd25yZXYueG1sUEsFBgAAAAADAAMA
+twAAAAYDAAAAAA==
+" strokecolor="#d01608 [4]" strokeweight="2.25pt">
+  <v:stroke endarrow="block" endarrowwidth="wide" endarrowlength="long"/>
+  <p:animation number="19" delay="0" type="object" effect="cut"
+   direction="noBlack" flag="16384"/></v:line><![if !vml]><img border=0
+ v:shapes="_x0000_s21513" src="slide0465_image070.gif" style='position:absolute;
+ top:81.75%;left:65.54%;width:2.99%;height:5.5%'><![endif]><v:line id="_x0000_s21514"
+  style='position:absolute;flip:y;visibility:visible;mso-wrap-style:square;
+  v-text-anchor:top-center' from="410pt,444.75pt" to="415.75pt,467.5pt"
+  o:gfxdata="UEsDBBQABgAIAAAAIQDb4fbL7gAAAIUBAAATAAAAW0NvbnRlbnRfVHlwZXNdLnhtbHyQz07DMAyH
+70i8Q+QralM4IITa7kDhCAiNB7ASt43WOlEcyvb2pNu4IODoPz9/n1xv9vOkForiPDdwXVagiI23
+jocG3rdPxR0oScgWJ8/UwIEENu3lRb09BBKV0ywNjCmFe63FjDSjlD4Q50nv44wpl3HQAc0OB9I3
+VXWrjedEnIq03oC27qjHjympx31un0wiTQLq4bS4shrAECZnMGVTvbD9QSnOhDInjzsyuiBXWQP0
+r4R18jfgnHvJr4nOknrFmJ5xzhraRtHWf3Kkpfz/yGo5S+H73hkquyhdjr3R8m2lj09svwAAAP//
+AwBQSwMEFAAGAAgAAAAhAFr0LFu/AAAAFQEAAAsAAABfcmVscy8ucmVsc2zPwWrDMAwG4Ptg72B0
+X5TuUMaI01uh19I+gLGVxCy2jGSy9e1nemrHjpL4P0nD4SetZiPRyNnCruvBUPYcYp4tXC/Htw8w
+Wl0ObuVMFm6kcBhfX4Yzra62kC6xqGlKVgtLreUTUf1CyWnHhXKbTCzJ1VbKjMX5LzcTvvf9HuXR
+gPHJNKdgQU5hB+ZyK23zHztFL6w81c5zQp6m6P9TMfB3PtPWFCczVQtB9N4U2rp2HOA44NMz4y8A
+AAD//wMAUEsDBBQABgAIAAAAIQBf+YEj0AAAAPEAAAAPAAAAZHJzL2Rvd25yZXYueG1sRE/Pa8Iw
+FL4L/g/hDXbTtB461xmlFEQPMtDJzm/Ns83WvJQkav3vl8Ngx4/v92oz2l7cyAfjWEE+z0AQN04b
+bhWcP7azJYgQkTX2jknBgwJs1tPJCkvt7nyk2ym2IoVwKFFBF+NQShmajiyGuRuIE3dx3mJM0LdS
+e7yncNvLRZYV0qLh1NDhQHVHzc/pahV8Bmf31cv7YXfmutrW5vD63S6Ven4aqzcQkcb4L/5z73Wa
+n+fFogBx2T2+vNFHDJG8gvQpPUw0yPUvAAAA//8DAFBLAQItABQABgAIAAAAIQDb4fbL7gAAAIUB
+AAATAAAAAAAAAAAAAAAAAAAAAABbQ29udGVudF9UeXBlc10ueG1sUEsBAi0AFAAGAAgAAAAhAFr0
+LFu/AAAAFQEAAAsAAAAAAAAAAAAAAAAAHwEAAF9yZWxzLy5yZWxzUEsBAi0AFAAGAAgAAAAhAF/5
+gSPQAAAA8QAAAA8AAAAAAAAAAAAAAAAABwIAAGRycy9kb3ducmV2LnhtbFBLBQYAAAAAAwADALcA
+AAAEAwAAAAA=
+" strokecolor="#d01608 [4]" strokeweight="2.25pt">
+  <v:stroke endarrow="block" endarrowwidth="wide" endarrowlength="long"/>
+  <p:animation number="20" delay="0" type="object" effect="cut"
+   direction="noBlack" flag="16388"/></v:line><![if !vml]><img border=0
+ v:shapes="_x0000_s21514" src="slide0465_image071.gif" style='position:absolute;
+ top:81.75%;left:56.74%;width:2.24%;height:5.25%'><![endif]><v:shape id="_x0000_s21515"
+  type="#_x0000_t202" style='position:absolute;left:370.625pt;top:468.5pt;
+  width:153.125pt;height:26.125pt;visibility:visible;mso-wrap-style:square;
+  v-text-anchor:middle' o:gfxdata="UEsDBBQABgAIAAAAIQBa4xFm/gAAAOIBAAATAAAAW0NvbnRlbnRfVHlwZXNdLnhtbJSRTU/EIBCG
+7yb+BzJX01I9GGNK92D1qEbXHzCBaUu2BcJg3f330v24GNfEI8y8z/sE6tV2GsVMka13Cq7LCgQ5
+7Y11vYKP9VNxB4ITOoOjd6RgRwyr5vKiXu8CschpxwqGlMK9lKwHmpBLH8jlSefjhCkfYy8D6g32
+JG+q6lZq7xK5VKSFAU3dUoefYxKP23x9MIk0MoiHw+LSpQBDGK3GlE3l7MyPluLYUObkfocHG/gq
+a4D8tWGZnC845l7y00RrSLxiTM84ZQ1pIkvjv1ykufwbslhOXPius5rKNnKbY280n6zO0XnAQBn9
+X/z7kjvB5f6Hmm8AAAD//wMAUEsDBBQABgAIAAAAIQAx3V9h0gAAAI8BAAALAAAAX3JlbHMvLnJl
+bHOkkMFqwzAMhu+DvYPRvXHaQxmjTm+FXksHuwpbSUxjy1gmbd++pjBYRm876hf6PvHv9rcwqZmy
+eI4G1k0LiqJl5+Ng4Ot8WH2AkoLR4cSRDNxJYN+9v+1ONGGpRzL6JKpSohgYS0mfWosdKaA0nCjW
+Tc85YKljHnRCe8GB9KZttzr/ZkC3YKqjM5CPbgPqfE/V/IcdvM0s3JfGctDc996+omrH13iiuVIw
+D1QMuCzPMNPc1OdAv/au/+mVERN9V/5C/Eyr9cesFzV2DwAAAP//AwBQSwMEFAAGAAgAAAAhABFD
+0AOKAwAAYQgAABAAAABkcnMvc2hhcGV4bWwueG1spFXNbuM2EL4X6DsQvGdtJXZiG6ssnKBuD+7C
+iLMPQFGUzZoiBZLyTx6ip6LoO/Syhz7TFn2LzgxlOxv0UKwdIB5Zw5mP38x88/7DvjZsq3zQzuY8
+e9fnTFnpSm1XOf/0PLsacRaisKUwzqqcH1TgH+6//+59MwkNg8M2TJqcr2NsJr1ekGtVi/DONcrC
+u8r5WkR49Kte41VQNooIiWrTu+73b3u10JbfQyi7XTYLj5b8uF14pkvAkmW313ecWVFD3me1j+zB
+7VmW8V7niGdY3MOv4A1xBECaO7kJHS7xf3CVXuzgsl9BYtY9roVdqan3brdWogyYAfL2COERrAWs
+6cfzBQKCKnY/uxJQizY6AravfH0pKrygqyoGtx3c9W/HN1CaQ86H48F4POwjOjFBliTSMR4MbkfA
+ngSPm5vsbjQi+GKCSNCz8SH+qNzFqBgGyrlXMtJNxXYeIpJyToHprJtpYy6lgO5o7KVh2C7n4+H1
+kDNhVtD2MnrCnkBSklpH5ZnRdc5HffwkfrEXfrAluUShTbLhrsYS/VUFPAABlyJEAnHC0lBgj5cH
+TFDAN/RXmrtv729h5dr588VDM4VOnemucCkL5jMhLuPBqEszEmFHvfhm3IgIx6sWfp5zkCownsgw
+W0Pf2pYgMmSm0hrOSlU9i2L5AjXPBgOoJPMxeSsxtw9+Q+6Vs3FK3VCIoDgzoFT2/BrlAGRi0VpJ
+4Ykcu2wkGqGRCxnZVkDY0V3XLNQUZ4cHVb11HR77ClwhxNljWsW3vtR/ya97W7SPxj/vidmiXb6c
+zBnc5PTwEVS769YiDaaYACFPSbiITkzl6R9Qu2lrXbtfdGIVLp1zZa8+LWELAIEZzAJnBYohSy5t
+zi2kwCXh9QYkz7olWZxtlMeVAkoPMiRgSXSOjaTgFpeD0S/qJ3pE1o3GFQPu1i28cxXZoY6PRgkI
+1achTZN2GtXT7AVndIkiQ9ThIlJAUCpK3Cf1Bp5fe6njuOIR18LEL9fljhWm9U8CVtDNKEPwpUaF
+Oz3A3FxjkfFVarJoCFnwq+KU8rGPf53onmKTLn6Vtp3brlgtgu9s6j4WD42qhAROpl4LaGW5Fj4o
+akAqqhKvfL78/vnvvz5/+ePXf/78jbNGR7meiVob2AAZrIrT2SsoSVIzGV4d/88UwK5HDRKTeM/e
+flDjoVHRJ+k9idZRrEi/7v8FAAD//wMAUEsDBBQABgAIAAAAIQDdiOu/2gAAAP4AAAAPAAAAZHJz
+L2Rvd25yZXYueG1sRI9BS8NAEEbvgv9hGcGL2E16SCR2W6pStGAtraLXMTvNBrO7YXdt0n/v4EGP
+wxvex5stRtuJI4XYeqcgn2QgyNVet65R8Pa6ur4BERM6jZ13pOBEERbz87MZVtoPbkfHfWoES1ys
+UIFJqa+kjLUhi3Hie3LMDj5YTHyGRuqAA8ttJ6dZVkiLreMFgz3dG6q/9t9WwWDKPLujh4/1tnjf
+rvBlU/bPSanLi3F5CyLRmP6fr5Z67Yc/+Kt60tyS58W0BHF4PH2GVu8wJgoKOJBzGYOc/wAAAP//
+AwBQSwECLQAUAAYACAAAACEAWuMRZv4AAADiAQAAEwAAAAAAAAAAAAAAAAAAAAAAW0NvbnRlbnRf
+VHlwZXNdLnhtbFBLAQItABQABgAIAAAAIQAx3V9h0gAAAI8BAAALAAAAAAAAAAAAAAAAAC8BAABf
+cmVscy8ucmVsc1BLAQItABQABgAIAAAAIQARQ9ADigMAAGEIAAAQAAAAAAAAAAAAAAAAACoCAABk
+cnMvc2hhcGV4bWwueG1sUEsBAi0AFAAGAAgAAAAhAN2I67/aAAAA/gAAAA8AAAAAAAAAAAAAAAAA
+4gUAAGRycy9kb3ducmV2LnhtbFBLBQYAAAAABAAEAPUAAADpBgAAAAA=
+" filled="f" stroked="f">
+  <v:textbox style='mso-rotate-with-shape:t;mso-fit-shape-to-text:t'/>
+  <p:animation number="21" delay="0" type="object" effect="cut"
+   direction="noBlack" flag="4"/></v:shape>
+ <div id="_x0000_s21515_AllText" v:shape="_x0000_s21515" style='position:absolute;
+ top:87.25%;left:52.43%;width:22.09%;height:4.0%;white-space:nowrap'>
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='mso-line-spacing:"87 50 0";position:absolute;top:0%;
+ left:0%;width:100.0%;height:100.0%'><span style='font-family:Arial;mso-ascii-font-family:
+ Arial;mso-bidi-font-family:Arial;mso-hansi-font-family:Arial;font-size:129%;
+ font-style:normal;text-decoration:none;text-shadow:auto;color:black;
+ mso-color-index:1'><b>MSB<span style='mso-spacerun:yes'>           </span>LSB</b></span></div>
+ </div>
+ <v:shape id="_x0000_s21516" type="#_x0000_t202" style='position:absolute;
+  left:175.75pt;top:306.625pt;width:74.625pt;height:36pt;visibility:visible;
+  mso-wrap-style:none;v-text-anchor:top' o:gfxdata="UEsDBBQABgAIAAAAIQDb4fbL7gAAAIUBAAATAAAAW0NvbnRlbnRfVHlwZXNdLnhtbHyQz07DMAyH
+70i8Q+QralM4IITa7kDhCAiNB7ASt43WOlEcyvb2pNu4IODoPz9/n1xv9vOkForiPDdwXVagiI23
+jocG3rdPxR0oScgWJ8/UwIEENu3lRb09BBKV0ywNjCmFe63FjDSjlD4Q50nv44wpl3HQAc0OB9I3
+VXWrjedEnIq03oC27qjHjympx31un0wiTQLq4bS4shrAECZnMGVTvbD9QSnOhDInjzsyuiBXWQP0
+r4R18jfgnHvJr4nOknrFmJ5xzhraRtHWf3Kkpfz/yGo5S+H73hkquyhdjr3R8m2lj09svwAAAP//
+AwBQSwMEFAAGAAgAAAAhAFr0LFu/AAAAFQEAAAsAAABfcmVscy8ucmVsc2zPwWrDMAwG4Ptg72B0
+X5TuUMaI01uh19I+gLGVxCy2jGSy9e1nemrHjpL4P0nD4SetZiPRyNnCruvBUPYcYp4tXC/Htw8w
+Wl0ObuVMFm6kcBhfX4Yzra62kC6xqGlKVgtLreUTUf1CyWnHhXKbTCzJ1VbKjMX5LzcTvvf9HuXR
+gPHJNKdgQU5hB+ZyK23zHztFL6w81c5zQp6m6P9TMfB3PtPWFCczVQtB9N4U2rp2HOA44NMz4y8A
+AAD//wMAUEsDBBQABgAIAAAAIQDGTh8n2QAAAP4AAAAPAAAAZHJzL2Rvd25yZXYueG1sRI9NSwMx
+EEDvgv8hjODNZlNklbVpUcEPBItt1fO4mW4WN8mapNutv97Bgx6HN7yZN1uMrhMDxdQGr0FNChDk
+62Ba32h43dydXYJIGb3BLnjScKAEi/nx0QwrE/Z+RcM6N4IlPlWowebcV1Km2pLDNAk9eWbbEB1m
+HmMjTcQ9y10np0VRSoet5wsWe7q1VH+ud05Do877t5uv51K92+QuNi9DrfKg9enJeH0FItOY/5ef
+dvffcfkHf1WPhluUKqf8/fbh8BFbs8KUKWrgQM5lDHL+AwAA//8DAFBLAQItABQABgAIAAAAIQDb
+4fbL7gAAAIUBAAATAAAAAAAAAAAAAAAAAAAAAABbQ29udGVudF9UeXBlc10ueG1sUEsBAi0AFAAG
+AAgAAAAhAFr0LFu/AAAAFQEAAAsAAAAAAAAAAAAAAAAAHwEAAF9yZWxzLy5yZWxzUEsBAi0AFAAG
+AAgAAAAhAMZOHyfZAAAA/gAAAA8AAAAAAAAAAAAAAAAABwIAAGRycy9kb3ducmV2LnhtbFBLBQYA
+AAAAAwADALcAAAANAwAAAAA=
+" filled="f" stroked="f" strokeweight="1pt">
+  <v:textbox style='mso-rotate-with-shape:t;mso-fit-shape-to-text:t'/>
+  <p:animation number="3" delay="0" type="object" effect="cut"
+   direction="noBlack" flag="0"/></v:shape>
+ <div id="_x0000_s21516_AllText" v:shape="_x0000_s21516" style='position:absolute;
+ top:57.75%;left:25.46%;width:10.29%;height:5.25%;white-space:nowrap'>
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='position:absolute;top:0%;left:0%;width:100.0%;height:100.0%'><span
+ style='font-family:Arial;mso-ascii-font-family:Arial;mso-bidi-font-family:
+ Arial;mso-hansi-font-family:Arial;font-size:171%;font-style:normal;text-decoration:
+ none;color:#000082;mso-color-index:5'><b>0.625</b></span></div>
+ </div>
+ <v:shape id="_x0000_s21517" type="#_x0000_t202" style='position:absolute;
+  left:246.625pt;top:306.875pt;width:187.875pt;height:36pt;visibility:visible;
+  mso-wrap-style:none;v-text-anchor:top' o:gfxdata="UEsDBBQABgAIAAAAIQDb4fbL7gAAAIUBAAATAAAAW0NvbnRlbnRfVHlwZXNdLnhtbHyQz07DMAyH
+70i8Q+QralM4IITa7kDhCAiNB7ASt43WOlEcyvb2pNu4IODoPz9/n1xv9vOkForiPDdwXVagiI23
+jocG3rdPxR0oScgWJ8/UwIEENu3lRb09BBKV0ywNjCmFe63FjDSjlD4Q50nv44wpl3HQAc0OB9I3
+VXWrjedEnIq03oC27qjHjympx31un0wiTQLq4bS4shrAECZnMGVTvbD9QSnOhDInjzsyuiBXWQP0
+r4R18jfgnHvJr4nOknrFmJ5xzhraRtHWf3Kkpfz/yGo5S+H73hkquyhdjr3R8m2lj09svwAAAP//
+AwBQSwMEFAAGAAgAAAAhAFr0LFu/AAAAFQEAAAsAAABfcmVscy8ucmVsc2zPwWrDMAwG4Ptg72B0
+X5TuUMaI01uh19I+gLGVxCy2jGSy9e1nemrHjpL4P0nD4SetZiPRyNnCruvBUPYcYp4tXC/Htw8w
+Wl0ObuVMFm6kcBhfX4Yzra62kC6xqGlKVgtLreUTUf1CyWnHhXKbTCzJ1VbKjMX5LzcTvvf9HuXR
+gPHJNKdgQU5hB+ZyK23zHztFL6w81c5zQp6m6P9TMfB3PtPWFCczVQtB9N4U2rp2HOA44NMz4y8A
+AAD//wMAUEsDBBQABgAIAAAAIQDC0AyC2QAAAP4AAAAPAAAAZHJzL2Rvd25yZXYueG1sRI9fS8Mw
+FEffhX2HcAe+uTRDqtZlQ0WZCIPu7/O1uWuKTVKTrOu+vcEHfbycy/lxZovBtKwnHxpnJYhJBoxs
+5VRjawm77dvNPbAQ0SpsnSUJFwqwmI+uZlgod7Zr6jexZkliQ4ESdIxdwXmoNBkME9eRTezovMGY
+Tl9z5fGc5Kbl0yzLucHGpgWNHb1oqr42JyOhFrfd/vl7lYuDDuZuW/aViL2U1+Ph6RFYpCH+P7+W
+h4+h/IO/qneVWoTIpw/AjsvLp2/UGkMkLyEFptyEgc9/AAAA//8DAFBLAQItABQABgAIAAAAIQDb
+4fbL7gAAAIUBAAATAAAAAAAAAAAAAAAAAAAAAABbQ29udGVudF9UeXBlc10ueG1sUEsBAi0AFAAG
+AAgAAAAhAFr0LFu/AAAAFQEAAAsAAAAAAAAAAAAAAAAAHwEAAF9yZWxzLy5yZWxzUEsBAi0AFAAG
+AAgAAAAhAMLQDILZAAAA/gAAAA8AAAAAAAAAAAAAAAAABwIAAGRycy9kb3ducmV2LnhtbFBLBQYA
+AAAAAwADALcAAAANAwAAAAA=
+" filled="f" stroked="f" strokeweight="1pt">
+  <v:textbox style='mso-rotate-with-shape:t;mso-fit-shape-to-text:t'/>
+  <p:animation number="5" delay="0" type="object" effect="cut"
+   direction="noBlack" flag="4"/></v:shape>
+ <div id="_x0000_s21517_AllText" v:shape="_x0000_s21517" style='position:absolute;
+ top:57.75%;left:35.2%;width:29.02%;height:5.25%;white-space:nowrap'>
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='position:absolute;top:0%;left:0%;width:100.0%;height:100.0%'><span
+ style='mso-bidi-font-family:"Times New Roman";font-size:171%;font-style:normal;
+ text-decoration:none;color:black;mso-color-index:1'><b>* 2 =</b></span><span
+ style='mso-bidi-font-family:"Times New Roman";font-size:171%;font-style:normal;
+ text-decoration:none;color:#D01608;mso-color-index:4'><b><span
+ style='mso-spacerun:yes'>    </span></b></span><span style='font-family:Arial;
+ mso-ascii-font-family:Arial;mso-bidi-font-family:Arial;mso-hansi-font-family:
+ Arial;font-size:171%;font-style:normal;text-decoration:none;color:#D01608;
+ mso-color-index:4'><b>1<span style='mso-spacerun:yes'>    </span></b></span><span
+ style='font-family:Arial;mso-ascii-font-family:Arial;mso-bidi-font-family:
+ Arial;mso-hansi-font-family:Arial;font-size:171%;font-style:normal;text-decoration:
+ none;color:black;mso-color-index:1'><b>. </b></span><span style='font-family:
+ Arial;mso-ascii-font-family:Arial;mso-bidi-font-family:Arial;mso-hansi-font-family:
+ Arial;font-size:171%;font-style:normal;text-decoration:none;color:#D01608;
+ mso-color-index:4'><b><span style='mso-spacerun:yes'>   </span></b></span><span
+ style='font-family:Arial;mso-ascii-font-family:Arial;mso-bidi-font-family:
+ Arial;mso-hansi-font-family:Arial;font-size:171%;font-style:normal;text-decoration:
+ none;color:#000082;mso-color-index:5'><b>25</b></span></div>
+ </div>
+ <v:shape id="_x0000_s21518" type="#_x0000_t202" style='position:absolute;
+  left:175.75pt;top:335pt;width:61.25pt;height:36pt;visibility:visible;
+  mso-wrap-style:none;v-text-anchor:top' o:gfxdata="UEsDBBQABgAIAAAAIQDb4fbL7gAAAIUBAAATAAAAW0NvbnRlbnRfVHlwZXNdLnhtbHyQz07DMAyH
+70i8Q+QralM4IITa7kDhCAiNB7ASt43WOlEcyvb2pNu4IODoPz9/n1xv9vOkForiPDdwXVagiI23
+jocG3rdPxR0oScgWJ8/UwIEENu3lRb09BBKV0ywNjCmFe63FjDSjlD4Q50nv44wpl3HQAc0OB9I3
+VXWrjedEnIq03oC27qjHjympx31un0wiTQLq4bS4shrAECZnMGVTvbD9QSnOhDInjzsyuiBXWQP0
+r4R18jfgnHvJr4nOknrFmJ5xzhraRtHWf3Kkpfz/yGo5S+H73hkquyhdjr3R8m2lj09svwAAAP//
+AwBQSwMEFAAGAAgAAAAhAFr0LFu/AAAAFQEAAAsAAABfcmVscy8ucmVsc2zPwWrDMAwG4Ptg72B0
+X5TuUMaI01uh19I+gLGVxCy2jGSy9e1nemrHjpL4P0nD4SetZiPRyNnCruvBUPYcYp4tXC/Htw8w
+Wl0ObuVMFm6kcBhfX4Yzra62kC6xqGlKVgtLreUTUf1CyWnHhXKbTCzJ1VbKjMX5LzcTvvf9HuXR
+gPHJNKdgQU5hB+ZyK23zHztFL6w81c5zQp6m6P9TMfB3PtPWFCczVQtB9N4U2rp2HOA44NMz4y8A
+AAD//wMAUEsDBBQABgAIAAAAIQBJG6bv1gAAAP4AAAAPAAAAZHJzL2Rvd25yZXYueG1sRI/BTsMw
+DEDvSPxDZSRuLA2ggsqyCZAmuCCxDTibxmsqGqckoev4eiwOcLSf9aw3X06+L0aKqQtsQM9KKIib
+YDtuDbxsV2fXUKSMbLEPTAYOlGC5OD6aY23Dntc0bnJbiIRTjQZczkOtVGoceUyzMBAL24XoMcsY
+W2Uj7kXue3VelpXy2LF8cDjQvaPmY/PlDbT6cni9+3yq9JtL/mr7PDY6j8acnky3N1BkmvL/seMV
+f/Mf/FU9WmnRurqQnN3D4T12do0pUzQgG8kVDGrxAwAA//8DAFBLAQItABQABgAIAAAAIQDb4fbL
+7gAAAIUBAAATAAAAAAAAAAAAAAAAAAAAAABbQ29udGVudF9UeXBlc10ueG1sUEsBAi0AFAAGAAgA
+AAAhAFr0LFu/AAAAFQEAAAsAAAAAAAAAAAAAAAAAHwEAAF9yZWxzLy5yZWxzUEsBAi0AFAAGAAgA
+AAAhAEkbpu/WAAAA/gAAAA8AAAAAAAAAAAAAAAAABwIAAGRycy9kb3ducmV2LnhtbFBLBQYAAAAA
+AwADALcAAAAKAwAAAAA=
+" filled="f" stroked="f" strokeweight="1pt">
+  <v:textbox style='mso-rotate-with-shape:t;mso-fit-shape-to-text:t'/>
+  <p:animation number="12" delay="0" type="object" effect="cut"
+   direction="noBlack" flag="4"/></v:shape>
+ <div id="_x0000_s21518_AllText" v:shape="_x0000_s21518" style='position:absolute;
+ top:63.0%;left:25.46%;width:8.05%;height:5.25%;white-space:nowrap'>
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='position:absolute;top:0%;left:0%;width:100.0%;height:100.0%'><span
+ style='font-family:Arial;mso-ascii-font-family:Arial;mso-bidi-font-family:
+ Arial;mso-hansi-font-family:Arial;font-size:171%;font-style:normal;text-decoration:
+ none;color:#000082;mso-color-index:5'><b>0.25</b></span></div>
+ </div>
+ <v:shape id="_x0000_s21519" type="#_x0000_t202" style='position:absolute;
+  left:246.625pt;top:335.25pt;width:296.875pt;height:36pt;visibility:visible;
+  mso-wrap-style:none;v-text-anchor:top' o:gfxdata="UEsDBBQABgAIAAAAIQDb4fbL7gAAAIUBAAATAAAAW0NvbnRlbnRfVHlwZXNdLnhtbHyQz07DMAyH
+70i8Q+QralM4IITa7kDhCAiNB7ASt43WOlEcyvb2pNu4IODoPz9/n1xv9vOkForiPDdwXVagiI23
+jocG3rdPxR0oScgWJ8/UwIEENu3lRb09BBKV0ywNjCmFe63FjDSjlD4Q50nv44wpl3HQAc0OB9I3
+VXWrjedEnIq03oC27qjHjympx31un0wiTQLq4bS4shrAECZnMGVTvbD9QSnOhDInjzsyuiBXWQP0
+r4R18jfgnHvJr4nOknrFmJ5xzhraRtHWf3Kkpfz/yGo5S+H73hkquyhdjr3R8m2lj09svwAAAP//
+AwBQSwMEFAAGAAgAAAAhAFr0LFu/AAAAFQEAAAsAAABfcmVscy8ucmVsc2zPwWrDMAwG4Ptg72B0
+X5TuUMaI01uh19I+gLGVxCy2jGSy9e1nemrHjpL4P0nD4SetZiPRyNnCruvBUPYcYp4tXC/Htw8w
+Wl0ObuVMFm6kcBhfX4Yzra62kC6xqGlKVgtLreUTUf1CyWnHhXKbTCzJ1VbKjMX5LzcTvvf9HuXR
+gPHJNKdgQU5hB+ZyK23zHztFL6w81c5zQp6m6P9TMfB3PtPWFCczVQtB9N4U2rp2HOA44NMz4y8A
+AAD//wMAUEsDBBQABgAIAAAAIQB3h7HH2AAAAP4AAAAPAAAAZHJzL2Rvd25yZXYueG1sRI9PSwMx
+EEfvQr9DmII3m43KVtemxQqiF6F/PY+babK4SdYkbrd+eoOHehze8H682WKwLespxMY7CWJSACNX
+e9U4LWG3fb66AxYTOoWtdyThRBEW89HFDCvlj25N/SZpliUuVijBpNRVnMfakMU48R25zA4+WEz5
+DJqrgMcsty2/LoqSW2xcXjDY0ZOh+nPzbSVocdvtl19vpXg30U63q74WqZfycjw8PgBLNKT/5x99
+v/T6DP9Uryq3CFHeCGCHl9NHaNQaY6IgIQfm3IyBz38BAAD//wMAUEsBAi0AFAAGAAgAAAAhANvh
+9svuAAAAhQEAABMAAAAAAAAAAAAAAAAAAAAAAFtDb250ZW50X1R5cGVzXS54bWxQSwECLQAUAAYA
+CAAAACEAWvQsW78AAAAVAQAACwAAAAAAAAAAAAAAAAAfAQAAX3JlbHMvLnJlbHNQSwECLQAUAAYA
+CAAAACEAd4exx9gAAAD+AAAADwAAAAAAAAAAAAAAAAAHAgAAZHJzL2Rvd25yZXYueG1sUEsFBgAA
+AAADAAMAtwAAAAwDAAAAAA==
+" filled="f" stroked="f" strokeweight="1pt">
+  <v:textbox style='mso-rotate-with-shape:t;mso-fit-shape-to-text:t'/>
+  <p:animation number="14" delay="0" type="object" effect="cut"
+   direction="noBlack" flag="1028"/></v:shape>
+ <div id="_x0000_s21519_AllText" v:shape="_x0000_s21519" style='position:absolute;
+ top:63.0%;left:35.2%;width:47.19%;height:5.25%;white-space:nowrap'>
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='position:absolute;top:0%;left:0%;width:100.0%;height:100.0%'><span
+ style='mso-bidi-font-family:"Times New Roman";font-size:171%;font-style:normal;
+ text-decoration:none;color:black;mso-color-index:1'><b>* 2 =</b></span><span
+ style='mso-bidi-font-family:"Times New Roman";font-size:171%;font-style:normal;
+ text-decoration:none;color:#D01608;mso-color-index:4'><b><span
+ style='mso-spacerun:yes'>    </span></b></span><span style='font-family:Arial;
+ mso-ascii-font-family:Arial;mso-bidi-font-family:Arial;mso-hansi-font-family:
+ Arial;font-size:171%;font-style:normal;text-decoration:none;color:#D01608;
+ mso-color-index:4'><b>0<span style='mso-spacerun:yes'>    </span></b></span><span
+ style='font-family:Arial;mso-ascii-font-family:Arial;mso-bidi-font-family:
+ Arial;mso-hansi-font-family:Arial;font-size:171%;font-style:normal;text-decoration:
+ none;color:black;mso-color-index:1'><b>.<span style='mso-spacerun:yes'>   
+ </span></b></span><span style='font-family:Arial;mso-ascii-font-family:Arial;
+ mso-bidi-font-family:Arial;mso-hansi-font-family:Arial;font-size:171%;
+ font-style:normal;text-decoration:none;color:#000082;mso-color-index:5'><b>5</b></span><span
+ style='mso-bidi-font-family:"Times New Roman";font-size:171%;font-style:normal;
+ text-decoration:none;color:#D01608;mso-color-index:4'><b><span
+ style='mso-spacerun:yes'>          </span></b></span><span style='mso-bidi-font-family:
+ "Times New Roman";font-size:171%;font-style:normal;text-decoration:none;
+ color:black;mso-color-index:1'><b>a</b></span><span style='mso-bidi-font-family:
+ "Times New Roman";font-size:114%;font-style:normal;text-decoration:none;
+ color:black;mso-color-index:1;position:relative;top:.37em;mso-text-raise:-25%'><b>-2
+ </b></span><span style='mso-bidi-font-family:"Times New Roman";font-size:171%;
+ font-style:normal;text-decoration:none;color:black;mso-color-index:1'><b>=</b></span><span
+ style='mso-bidi-font-family:"Times New Roman";font-size:171%;font-style:normal;
+ text-decoration:none;color:#D01608;mso-color-index:4'><b> </b></span><span
+ style='font-family:Arial;mso-ascii-font-family:Arial;mso-bidi-font-family:
+ Arial;mso-hansi-font-family:Arial;font-size:171%;font-style:normal;text-decoration:
+ none;color:#D01608;mso-color-index:4'><b>0</b></span></div>
+ </div>
+ <v:shape id="_x0000_s21520" type="#_x0000_t202" style='position:absolute;
+  left:175.75pt;top:363.375pt;width:47.875pt;height:36pt;visibility:visible;
+  mso-wrap-style:none;v-text-anchor:top' o:gfxdata="UEsDBBQABgAIAAAAIQDb4fbL7gAAAIUBAAATAAAAW0NvbnRlbnRfVHlwZXNdLnhtbHyQz07DMAyH
+70i8Q+QralM4IITa7kDhCAiNB7ASt43WOlEcyvb2pNu4IODoPz9/n1xv9vOkForiPDdwXVagiI23
+jocG3rdPxR0oScgWJ8/UwIEENu3lRb09BBKV0ywNjCmFe63FjDSjlD4Q50nv44wpl3HQAc0OB9I3
+VXWrjedEnIq03oC27qjHjympx31un0wiTQLq4bS4shrAECZnMGVTvbD9QSnOhDInjzsyuiBXWQP0
+r4R18jfgnHvJr4nOknrFmJ5xzhraRtHWf3Kkpfz/yGo5S+H73hkquyhdjr3R8m2lj09svwAAAP//
+AwBQSwMEFAAGAAgAAAAhAFr0LFu/AAAAFQEAAAsAAABfcmVscy8ucmVsc2zPwWrDMAwG4Ptg72B0
+X5TuUMaI01uh19I+gLGVxCy2jGSy9e1nemrHjpL4P0nD4SetZiPRyNnCruvBUPYcYp4tXC/Htw8w
+Wl0ObuVMFm6kcBhfX4Yzra62kC6xqGlKVgtLreUTUf1CyWnHhXKbTCzJ1VbKjMX5LzcTvvf9HuXR
+gPHJNKdgQU5hB+ZyK23zHztFL6w81c5zQp6m6P9TMfB3PtPWFCczVQtB9N4U2rp2HOA44NMz4y8A
+AAD//wMAUEsDBBQABgAIAAAAIQBJVLHD2AAAAP4AAAAPAAAAZHJzL2Rvd25yZXYueG1sRI9PSwMx
+EEfvgt8hjODNZlNllbVp8Q+iF6HtqucxmSaLm2RN4nbrpzd40OPwhvfjLVaT69lIMXXBSxCzChh5
+FXTnjYSX9uHsCljK6DX2wZOEAyVYLY+PFtjosPcbGrfZsCLxqUEJNueh4TwpSw7TLAzkC9uF6DCX
+MxquI+6L3PV8XlU1d9j5smBxoDtL6mP75SQYcTG83n4+1+LNJnfZrkcl8ijl6cl0cw0s05T/n79b
+I9T9H/xVPenSIkR9Pge2ezy8x05vMGWKEkpgyS0Y+PIHAAD//wMAUEsBAi0AFAAGAAgAAAAhANvh
+9svuAAAAhQEAABMAAAAAAAAAAAAAAAAAAAAAAFtDb250ZW50X1R5cGVzXS54bWxQSwECLQAUAAYA
+CAAAACEAWvQsW78AAAAVAQAACwAAAAAAAAAAAAAAAAAfAQAAX3JlbHMvLnJlbHNQSwECLQAUAAYA
+CAAAACEASVSxw9gAAAD+AAAADwAAAAAAAAAAAAAAAAAHAgAAZHJzL2Rvd25yZXYueG1sUEsFBgAA
+AAADAAMAtwAAAAwDAAAAAA==
+" filled="f" stroked="f" strokeweight="1pt">
+  <v:textbox style='mso-rotate-with-shape:t;mso-fit-shape-to-text:t'/>
+  <p:animation number="15" delay="0" type="object" effect="cut"
+   direction="noBlack" flag="0"/></v:shape>
+ <div id="_x0000_s21520_AllText" v:shape="_x0000_s21520" style='position:absolute;
+ top:68.25%;left:25.46%;width:5.8%;height:5.25%;white-space:nowrap'>
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='position:absolute;top:0%;left:0%;width:100.0%;height:100.0%'><span
+ style='font-family:Arial;mso-ascii-font-family:Arial;mso-bidi-font-family:
+ Arial;mso-hansi-font-family:Arial;font-size:171%;font-style:normal;text-decoration:
+ none;color:#000082;mso-color-index:5'><b>0.5</b></span></div>
+ </div>
+ <v:shape id="_x0000_s21521" type="#_x0000_t202" style='position:absolute;
+  left:246.625pt;top:363.625pt;width:296.875pt;height:36pt;visibility:visible;
+  mso-wrap-style:none;v-text-anchor:top' o:gfxdata="UEsDBBQABgAIAAAAIQDb4fbL7gAAAIUBAAATAAAAW0NvbnRlbnRfVHlwZXNdLnhtbHyQz07DMAyH
+70i8Q+QralM4IITa7kDhCAiNB7ASt43WOlEcyvb2pNu4IODoPz9/n1xv9vOkForiPDdwXVagiI23
+jocG3rdPxR0oScgWJ8/UwIEENu3lRb09BBKV0ywNjCmFe63FjDSjlD4Q50nv44wpl3HQAc0OB9I3
+VXWrjedEnIq03oC27qjHjympx31un0wiTQLq4bS4shrAECZnMGVTvbD9QSnOhDInjzsyuiBXWQP0
+r4R18jfgnHvJr4nOknrFmJ5xzhraRtHWf3Kkpfz/yGo5S+H73hkquyhdjr3R8m2lj09svwAAAP//
+AwBQSwMEFAAGAAgAAAAhAFr0LFu/AAAAFQEAAAsAAABfcmVscy8ucmVsc2zPwWrDMAwG4Ptg72B0
+X5TuUMaI01uh19I+gLGVxCy2jGSy9e1nemrHjpL4P0nD4SetZiPRyNnCruvBUPYcYp4tXC/Htw8w
+Wl0ObuVMFm6kcBhfX4Yzra62kC6xqGlKVgtLreUTUf1CyWnHhXKbTCzJ1VbKjMX5LzcTvvf9HuXR
+gPHJNKdgQU5hB+ZyK23zHztFL6w81c5zQp6m6P9TMfB3PtPWFCczVQtB9N4U2rp2HOA44NMz4y8A
+AAD//wMAUEsDBBQABgAIAAAAIQDVTIEa2AAAAP4AAAAPAAAAZHJzL2Rvd25yZXYueG1sRI9RS8Mw
+FEbfBf9DuIJvLo2TKnXZUEH0RXCt2/Ndc9sUm6RNYtf9e4MP8/FyLufjrDaz6dlEPnTOShCLDBjZ
+2qnOthK+qtebB2AholXYO0sSThRgs768WGGh3NFuaSpjy5LEhgIl6BiHgvNQazIYFm4gm1jjvMGY
+Tt9y5fGY5Kbnt1mWc4OdTQsaB3rRVH+XP0ZCK+6G3fP4kYu9Dua++pxqEScpr6/mp0dgkeb4/3wY
+q7IZz/BP9a5SixD5cgmseTsdfKe2GCJ5CSkw5SYMfP0LAAD//wMAUEsBAi0AFAAGAAgAAAAhANvh
+9svuAAAAhQEAABMAAAAAAAAAAAAAAAAAAAAAAFtDb250ZW50X1R5cGVzXS54bWxQSwECLQAUAAYA
+CAAAACEAWvQsW78AAAAVAQAACwAAAAAAAAAAAAAAAAAfAQAAX3JlbHMvLnJlbHNQSwECLQAUAAYA
+CAAAACEA1UyBGtgAAAD+AAAADwAAAAAAAAAAAAAAAAAHAgAAZHJzL2Rvd25yZXYueG1sUEsFBgAA
+AAADAAMAtwAAAAwDAAAAAA==
+" filled="f" stroked="f" strokeweight="1pt">
+  <v:textbox style='mso-rotate-with-shape:t;mso-fit-shape-to-text:t'/>
+  <p:animation number="17" delay="0" type="object" effect="cut"
+   direction="noBlack" flag="1028"/></v:shape>
+ <div id="_x0000_s21521_AllText" v:shape="_x0000_s21521" style='position:absolute;
+ top:68.25%;left:35.2%;width:47.19%;height:5.25%;white-space:nowrap'>
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='position:absolute;top:0%;left:0%;width:100.0%;height:100.0%'><span
+ style='mso-bidi-font-family:"Times New Roman";font-size:171%;font-style:normal;
+ text-decoration:none;color:black;mso-color-index:1'><b>* 2 =</b></span><span
+ style='mso-bidi-font-family:"Times New Roman";font-size:171%;font-style:normal;
+ text-decoration:none;color:#D01608;mso-color-index:4'><b><span
+ style='mso-spacerun:yes'>    </span></b></span><span style='font-family:Arial;
+ mso-ascii-font-family:Arial;mso-bidi-font-family:Arial;mso-hansi-font-family:
+ Arial;font-size:171%;font-style:normal;text-decoration:none;color:#D01608;
+ mso-color-index:4'><b>1<span style='mso-spacerun:yes'>    </span></b></span><span
+ style='font-family:Arial;mso-ascii-font-family:Arial;mso-bidi-font-family:
+ Arial;mso-hansi-font-family:Arial;font-size:171%;font-style:normal;text-decoration:
+ none;color:black;mso-color-index:1'><b>. </b></span><span style='font-family:
+ Arial;mso-ascii-font-family:Arial;mso-bidi-font-family:Arial;mso-hansi-font-family:
+ Arial;font-size:171%;font-style:normal;text-decoration:none;color:#D01608;
+ mso-color-index:4'><b><span style='mso-spacerun:yes'>   </span></b></span><span
+ style='font-family:Arial;mso-ascii-font-family:Arial;mso-bidi-font-family:
+ Arial;mso-hansi-font-family:Arial;font-size:171%;font-style:normal;text-decoration:
+ none;color:#000082;mso-color-index:5'><b>0</b></span><span style='mso-bidi-font-family:
+ "Times New Roman";font-size:171%;font-style:normal;text-decoration:none;
+ color:#000082;mso-color-index:5'><b> </b></span><span style='mso-bidi-font-family:
+ "Times New Roman";font-size:171%;font-style:normal;text-decoration:none;
+ color:#D01608;mso-color-index:4'><b><span
+ style='mso-spacerun:yes'>         </span></b></span><span style='mso-bidi-font-family:
+ "Times New Roman";font-size:171%;font-style:normal;text-decoration:none;
+ color:black;mso-color-index:1'><b>a</b></span><span style='mso-bidi-font-family:
+ "Times New Roman";font-size:114%;font-style:normal;text-decoration:none;
+ color:black;mso-color-index:1;position:relative;top:.37em;mso-text-raise:-25%'><b>-3
+ </b></span><span style='mso-bidi-font-family:"Times New Roman";font-size:171%;
+ font-style:normal;text-decoration:none;color:black;mso-color-index:1'><b>=</b></span><span
+ style='mso-bidi-font-family:"Times New Roman";font-size:171%;font-style:normal;
+ text-decoration:none;color:#D01608;mso-color-index:4'><b> </b></span><span
+ style='font-family:Arial;mso-ascii-font-family:Arial;mso-bidi-font-family:
+ Arial;mso-hansi-font-family:Arial;font-size:171%;font-style:normal;text-decoration:
+ none;color:#D01608;mso-color-index:4'><b>1</b></span></div>
+ </div>
+ <v:line id="_x0000_s21522" style='position:absolute;visibility:visible;
+  mso-wrap-style:square;v-text-anchor:top' from="671.875pt,530.875pt" to="714.375pt,530.875pt"
+  o:gfxdata="UEsDBBQABgAIAAAAIQDb4fbL7gAAAIUBAAATAAAAW0NvbnRlbnRfVHlwZXNdLnhtbHyQz07DMAyH
+70i8Q+QralM4IITa7kDhCAiNB7ASt43WOlEcyvb2pNu4IODoPz9/n1xv9vOkForiPDdwXVagiI23
+jocG3rdPxR0oScgWJ8/UwIEENu3lRb09BBKV0ywNjCmFe63FjDSjlD4Q50nv44wpl3HQAc0OB9I3
+VXWrjedEnIq03oC27qjHjympx31un0wiTQLq4bS4shrAECZnMGVTvbD9QSnOhDInjzsyuiBXWQP0
+r4R18jfgnHvJr4nOknrFmJ5xzhraRtHWf3Kkpfz/yGo5S+H73hkquyhdjr3R8m2lj09svwAAAP//
+AwBQSwMEFAAGAAgAAAAhAFr0LFu/AAAAFQEAAAsAAABfcmVscy8ucmVsc2zPwWrDMAwG4Ptg72B0
+X5TuUMaI01uh19I+gLGVxCy2jGSy9e1nemrHjpL4P0nD4SetZiPRyNnCruvBUPYcYp4tXC/Htw8w
+Wl0ObuVMFm6kcBhfX4Yzra62kC6xqGlKVgtLreUTUf1CyWnHhXKbTCzJ1VbKjMX5LzcTvvf9HuXR
+gPHJNKdgQU5hB+ZyK23zHztFL6w81c5zQp6m6P9TMfB3PtPWFCczVQtB9N4U2rp2HOA44NMz4y8A
+AAD//wMAUEsDBBQABgAIAAAAIQDieEFL0AAAAPEAAAAPAAAAZHJzL2Rvd25yZXYueG1sRE/LSsNA
+FN0L/sNwBXd2kijFxk5LEUQRXDR10901c5sMmUeYGdPUr/cuBJeH815vZ2fFRDGZ4BWUiwIE+TZo
+4zsFn4eXu0cQKaPXaIMnBRdKsN1cX62x1uHs9zQ1uRMc4lONCvqcx1rK1PbkMC3CSJ65U4gOM8PY
+SR3xzOHOyqooltKh8dzQ40jPPbVD8+0UdLvpoyp/hnGw1epoj2jem5VR6vZm3j2ByDTnf/Gf+03z
+/LJc3j+AOL1evqLRe0yZogL+xA+ZBrn5BQAA//8DAFBLAQItABQABgAIAAAAIQDb4fbL7gAAAIUB
+AAATAAAAAAAAAAAAAAAAAAAAAABbQ29udGVudF9UeXBlc10ueG1sUEsBAi0AFAAGAAgAAAAhAFr0
+LFu/AAAAFQEAAAsAAAAAAAAAAAAAAAAAHwEAAF9yZWxzLy5yZWxzUEsBAi0AFAAGAAgAAAAhAOJ4
+QUvQAAAA8QAAAA8AAAAAAAAAAAAAAAAABwIAAGRycy9kb3ducmV2LnhtbFBLBQYAAAAAAwADALcA
+AAAEAwAAAAA=
+" strokecolor="black [1]">
+  <v:stroke endarrow="block"/>
+  <p:animation number="22" delay="0" type="object" effect="cut"
+   direction="noBlack" flag="17412"/></v:line><![if !vml]><img border=0
+ v:shapes="_x0000_s21522" src="slide0465_image072.gif" style='position:absolute;
+ top:97.75%;left:93.25%;width:6.36%;height:1.75%'><![endif]><v:shape id="_x0000_s21523"
+  type="#_x0000_t202" style='position:absolute;left:465.75pt;top:305.375pt;
+  width:76.875pt;height:36pt;visibility:visible;mso-wrap-style:none;
+  v-text-anchor:top' o:gfxdata="UEsDBBQABgAIAAAAIQDb4fbL7gAAAIUBAAATAAAAW0NvbnRlbnRfVHlwZXNdLnhtbHyQz07DMAyH
+70i8Q+QralM4IITa7kDhCAiNB7ASt43WOlEcyvb2pNu4IODoPz9/n1xv9vOkForiPDdwXVagiI23
+jocG3rdPxR0oScgWJ8/UwIEENu3lRb09BBKV0ywNjCmFe63FjDSjlD4Q50nv44wpl3HQAc0OB9I3
+VXWrjedEnIq03oC27qjHjympx31un0wiTQLq4bS4shrAECZnMGVTvbD9QSnOhDInjzsyuiBXWQP0
+r4R18jfgnHvJr4nOknrFmJ5xzhraRtHWf3Kkpfz/yGo5S+H73hkquyhdjr3R8m2lj09svwAAAP//
+AwBQSwMEFAAGAAgAAAAhAFr0LFu/AAAAFQEAAAsAAABfcmVscy8ucmVsc2zPwWrDMAwG4Ptg72B0
+X5TuUMaI01uh19I+gLGVxCy2jGSy9e1nemrHjpL4P0nD4SetZiPRyNnCruvBUPYcYp4tXC/Htw8w
+Wl0ObuVMFm6kcBhfX4Yzra62kC6xqGlKVgtLreUTUf1CyWnHhXKbTCzJ1VbKjMX5LzcTvvf9HuXR
+gPHJNKdgQU5hB+ZyK23zHztFL6w81c5zQp6m6P9TMfB3PtPWFCczVQtB9N4U2rp2HOA44NMz4y8A
+AAD//wMAUEsDBBQABgAIAAAAIQAFsLcf2AAAAP4AAAAPAAAAZHJzL2Rvd25yZXYueG1sRI/LTsMw
+EEX3SPyDNUjsqGMeoQp1K0Ag2FSiD7oe4mkcEY+DbdL077FYwHJ0RufqzBaj68RAIbaeNahJAYK4
+9qblRsN283wxBRETssHOM2k4UoTF/PRkhpXxB17RsE6NyBKOFWqwKfWVlLG25DBOfE+c2d4Hhymf
+oZEm4CHLXScvi6KUDlvOCxZ7erRUf66/nYZGXffvD1/LUu1sdLebt6FWadD6/Gy8vwORaEz/zzvP
+T53/g7+qV5NblCqvbkDsX44foTUrjImChhyYczMGOf8BAAD//wMAUEsBAi0AFAAGAAgAAAAhANvh
+9svuAAAAhQEAABMAAAAAAAAAAAAAAAAAAAAAAFtDb250ZW50X1R5cGVzXS54bWxQSwECLQAUAAYA
+CAAAACEAWvQsW78AAAAVAQAACwAAAAAAAAAAAAAAAAAfAQAAX3JlbHMvLnJlbHNQSwECLQAUAAYA
+CAAAACEABbC3H9gAAAD+AAAADwAAAAAAAAAAAAAAAAAHAgAAZHJzL2Rvd25yZXYueG1sUEsFBgAA
+AAADAAMAtwAAAAwDAAAAAA==
+" filled="f" stroked="f" strokeweight="1pt">
+  <v:textbox style='mso-rotate-with-shape:t;mso-fit-shape-to-text:t'/>
+  <p:animation number="10" delay="0" type="object" effect="cut"
+   direction="noBlack" flag="1028"/></v:shape>
+ <div id="_x0000_s21523_AllText" v:shape="_x0000_s21523" style='position:absolute;
+ top:57.5%;left:65.73%;width:10.67%;height:5.25%;white-space:nowrap'>
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='position:absolute;top:0%;left:0%;width:100.0%;height:100.0%'><span
+ style='mso-bidi-font-family:"Times New Roman";font-size:171%;font-style:normal;
+ text-decoration:none;color:black;mso-color-index:1'><b>a</b></span><span
+ style='mso-bidi-font-family:"Times New Roman";font-size:114%;font-style:normal;
+ text-decoration:none;color:black;mso-color-index:1;position:relative;
+ top:.37em;mso-text-raise:-25%'><b>-1 </b></span><span style='mso-bidi-font-family:
+ "Times New Roman";font-size:171%;font-style:normal;text-decoration:none;
+ color:black;mso-color-index:1'><b>=</b></span><span style='mso-bidi-font-family:
+ "Times New Roman";font-size:171%;font-style:normal;text-decoration:none;
+ color:#D01608;mso-color-index:4'><b> </b></span><span style='font-family:Arial;
+ mso-ascii-font-family:Arial;mso-bidi-font-family:Arial;mso-hansi-font-family:
+ Arial;font-size:171%;font-style:normal;text-decoration:none;color:#D01608;
+ mso-color-index:4'><b>1</b></span><span style='font-family:Arial;mso-ascii-font-family:
+ Arial;mso-bidi-font-family:Arial;mso-hansi-font-family:Arial;font-size:171%;
+ font-style:normal;text-decoration:none;color:#000082;mso-color-index:5;
+ mso-special-format:lastCR;display:none'><b>&#13;</b></span></div>
+ </div>
+</p:slide></div>
+
+<p:animation number="-663602557"/><oa:par id="TimeNode0" dur="indefinite"
+ restart="never" p:nodeType="timingRoot">
+ <oa:seq id="TimeNode1" dur="indefinite" prev="document.onpptprev"
+  next="document.onpptnext" concurrent="enabled" nextAction="seek"
+  p:nodeType="mainSeq">
+  <oa:par id="TimeNode2" begin="indefinite;TimeNode1.onbegin" fill="hold">
+   <oa:par id="TimeNode3" begin="0.0" fill="hold">
+    <oa:iterate targetElement="_x0000_s21507_0_39" id="TimeNode4"
+     o:presetID="ppt_1" o:presetClass="entrance" o:presetSubType="0x0"
+     begin="0.0" fill="hold" p:nodeType="withEffect" iterateType="byLetter"
+     iterateInterval="0.02">
+     <oa:set id="TimeNode5" begin="0.0" dur="0.001" fill="hold"
+      attributeName="style.visibility" to="visible"/>
+     <![if !ppt]><oa:command id="TimeNode6" begin="0.0" dur="0.001"
+      targetElement="TimeNode7" type="call" cmd="playFrom(0.0)"/>
+     <![endif]></oa:iterate>
+    <oa:audio src="sound006.wav" o:srcRefType="sound" o:srcRef="type.wav"
+     volume="50.0" mute="off" id="TimeNode7" begin="indefinite"
+     end="document.onstopaudio" o:display="hidden" o:master="TimeNode4"
+     o:masterRel="sameClick" p:nodeType="withEffect"/>
+   </oa:par>
+  </oa:par>
+  <oa:par id="TimeNode8" begin="indefinite" fill="hold">
+   <oa:par id="TimeNode9" begin="0.0" fill="hold">
+    <oa:par id="TimeNode10" o:presetID="ppt_1" o:presetClass="entrance"
+     o:presetSubType="0x0" begin="0.0" fill="hold" o:groupID="1"
+     p:nodeType="clickEffect">
+     <oa:set id="TimeNode11" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s21516" attributeName="style.visibility"
+      to="visible"/>
+    </oa:par>
+    <![if !ppt]><oa:par id="TimeNode12" o:presetID="ppt_1"
+     o:presetClass="entrance" o:presetSubType="0x0" begin="0.0" fill="hold"
+     p:nodeType="withEffect">
+     <oa:set id="TimeNode13" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s21516_AllText" attributeName="style.visibility"
+      to="visible"/>
+    </oa:par>
+    <![endif]><oa:par id="TimeNode14" o:presetID="ppt_0" o:presetClass="path"
+     o:presetSubType="0x0" begin="0.0" accelerate="0.5" decelerate="0.5"
+     autoReverse="false" fill="hold" o:groupID="0" p:nodeType="withEffect">
+     <oa:animateMotion id="TimeNode15" dur="0.5" fill="hold"
+      targetElement="_x0000_s21516" attributeName="ppt_x,ppt_y" origin="layout"
+      path="M 8.05556E-6 -0.10509 L 8.05556E-6 -3.7037E-6 "
+      pptPathEditMode="relative" o:pointsTypes="AA"/>
+    </oa:par>
+    <![if !ppt]><oa:par id="TimeNode16" o:presetID="ppt_0" o:presetClass="path"
+     o:presetSubType="0x0" begin="0.0" accelerate="0.5" decelerate="0.5"
+     autoReverse="false" fill="hold" p:nodeType="withEffect">
+     <oa:animateMotion id="TimeNode17" dur="0.5" fill="hold"
+      targetElement="_x0000_s21516_AllText" attributeName="ppt_x,ppt_y"
+      origin="layout" path="M 8.05556E-6 -0.10509 L 8.05556E-6 -3.7037E-6 "
+      pptPathEditMode="relative" o:pointsTypes="AA"/>
+    </oa:par>
+    <![endif]></oa:par>
+   <oa:par id="TimeNode18" begin="0.5" fill="hold">
+    <oa:par id="TimeNode19" o:presetID="ppt_1" o:presetClass="entrance"
+     o:presetSubType="0x0" begin="0.0" fill="hold" o:groupID="0"
+     p:nodeType="afterEffect">
+     <oa:set id="TimeNode20" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s21517" attributeName="style.visibility"
+      to="visible"/>
+    </oa:par>
+    <![if !ppt]><oa:par id="TimeNode21" o:presetID="ppt_1"
+     o:presetClass="entrance" o:presetSubType="0x0" begin="0.0" fill="hold"
+     p:nodeType="withEffect">
+     <oa:set id="TimeNode22" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s21517_AllText" attributeName="style.visibility"
+      to="visible"/>
+    </oa:par>
+    <![endif]><oa:par id="TimeNode23" o:presetID="ppt_1" o:presetClass="entrance"
+     o:presetSubType="0x0" begin="0.0" fill="hold" o:groupID="0"
+     p:nodeType="withEffect">
+     <oa:set id="TimeNode24" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s21509" attributeName="style.visibility"
+      to="visible"/>
+    </oa:par>
+    <![if !ppt]><oa:par id="TimeNode25" o:presetID="ppt_1"
+     o:presetClass="entrance" o:presetSubType="0x0" begin="0.0" fill="hold"
+     p:nodeType="withEffect">
+     <oa:set id="TimeNode26" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s21509_AllText" attributeName="style.visibility"
+      to="visible"/>
+    </oa:par>
+    <![endif]><oa:par id="TimeNode27" o:presetID="ppt_1" o:presetClass="entrance"
+     o:presetSubType="0x0" begin="0.0" fill="hold" o:groupID="0"
+     p:nodeType="withEffect">
+     <oa:set id="TimeNode28" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s21510" attributeName="style.visibility"
+      to="visible"/>
+    </oa:par>
+    <![if !ppt]><oa:par id="TimeNode29" o:presetID="ppt_1"
+     o:presetClass="entrance" o:presetSubType="0x0" begin="0.0" fill="hold"
+     p:nodeType="withEffect">
+     <oa:set id="TimeNode30" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s21510_AllText" attributeName="style.visibility"
+      to="visible"/>
+    </oa:par>
+    <![endif]><oa:par id="TimeNode31" o:presetID="ppt_1" o:presetClass="entrance"
+     o:presetSubType="0x0" begin="0.0" fill="hold" o:groupID="0"
+     p:nodeType="withEffect">
+     <oa:set id="TimeNode32" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s21511" attributeName="style.visibility"
+      to="visible"/>
+    </oa:par>
+    <![if !ppt]><oa:par id="TimeNode33" o:presetID="ppt_1"
+     o:presetClass="entrance" o:presetSubType="0x0" begin="0.0" fill="hold"
+     p:nodeType="withEffect">
+     <oa:set id="TimeNode34" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s21511_AllText" attributeName="style.visibility"
+      to="visible"/>
+    </oa:par>
+    <![endif]></oa:par>
+  </oa:par>
+  <oa:par id="TimeNode35" begin="indefinite" fill="hold">
+   <oa:par id="TimeNode36" begin="0.0" fill="hold">
+    <oa:iterate targetElement="_x0000_s21507_39_89" id="TimeNode37"
+     o:presetID="ppt_1" o:presetClass="entrance" o:presetSubType="0x0"
+     begin="0.0" fill="hold" p:nodeType="clickEffect" iterateType="byLetter"
+     iterateInterval="0.02">
+     <oa:set id="TimeNode38" begin="0.0" dur="0.001" fill="hold"
+      attributeName="style.visibility" to="visible"/>
+     <![if !ppt]><oa:command id="TimeNode39" begin="0.0" dur="0.001"
+      targetElement="TimeNode40" type="call" cmd="playFrom(0.0)"/>
+     <![endif]></oa:iterate>
+    <oa:audio src="sound006.wav" o:srcRefType="sound" o:srcRef="type.wav"
+     volume="50.0" mute="off" id="TimeNode40" begin="indefinite"
+     end="document.onstopaudio" o:display="hidden" o:master="TimeNode37"
+     o:masterRel="sameClick" p:nodeType="withEffect"/>
+   </oa:par>
+   <oa:par id="TimeNode41" begin="0.781" fill="hold">
+    <oa:par id="TimeNode42" o:presetID="ppt_1" o:presetClass="entrance"
+     o:presetSubType="0x0" begin="0.0" fill="hold" o:groupID="0"
+     p:nodeType="afterEffect">
+     <oa:set id="TimeNode43" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s21523" attributeName="style.visibility"
+      to="visible"/>
+    </oa:par>
+    <![if !ppt]><oa:par id="TimeNode44" o:presetID="ppt_1"
+     o:presetClass="entrance" o:presetSubType="0x0" begin="0.0" fill="hold"
+     p:nodeType="withEffect">
+     <oa:set id="TimeNode45" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s21523_AllText" attributeName="style.visibility"
+      to="visible"/>
+    </oa:par>
+    <![endif]></oa:par>
+  </oa:par>
+  <oa:par id="TimeNode46" begin="indefinite" fill="hold">
+   <oa:par id="TimeNode47" begin="0.0" fill="hold">
+    <oa:iterate targetElement="_x0000_s21507_89_141" id="TimeNode48"
+     o:presetID="ppt_1" o:presetClass="entrance" o:presetSubType="0x0"
+     begin="0.0" fill="hold" p:nodeType="clickEffect" iterateType="byLetter"
+     iterateInterval="0.02">
+     <oa:set id="TimeNode49" begin="0.0" dur="0.001" fill="hold"
+      attributeName="style.visibility" to="visible"/>
+     <![if !ppt]><oa:command id="TimeNode50" begin="0.0" dur="0.001"
+      targetElement="TimeNode51" type="call" cmd="playFrom(0.0)"/>
+     <![endif]></oa:iterate>
+    <oa:audio src="sound006.wav" o:srcRefType="sound" o:srcRef="type.wav"
+     volume="50.0" mute="off" id="TimeNode51" begin="indefinite"
+     end="document.onstopaudio" o:display="hidden" o:master="TimeNode48"
+     o:masterRel="sameClick" p:nodeType="withEffect"/>
+   </oa:par>
+   <oa:par id="TimeNode52" begin="0.861" fill="hold">
+    <oa:par id="TimeNode53" o:presetID="ppt_1" o:presetClass="entrance"
+     o:presetSubType="0x0" begin="0.0" fill="hold" o:groupID="0"
+     p:nodeType="afterEffect">
+     <oa:set id="TimeNode54" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s21518" attributeName="style.visibility"
+      to="visible"/>
+    </oa:par>
+    <![if !ppt]><oa:par id="TimeNode55" o:presetID="ppt_1"
+     o:presetClass="entrance" o:presetSubType="0x0" begin="0.0" fill="hold"
+     p:nodeType="withEffect">
+     <oa:set id="TimeNode56" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s21518_AllText" attributeName="style.visibility"
+      to="visible"/>
+    </oa:par>
+    <![endif]><oa:par id="TimeNode57" o:presetID="ppt_0" o:presetClass="path"
+     o:presetSubType="0x0" begin="0.0" accelerate="0.5" decelerate="0.5"
+     fill="hold" o:groupID="1" p:nodeType="withEffect">
+     <oa:animateMotion id="TimeNode58" dur="0.5" fill="hold"
+      targetElement="_x0000_s21518" attributeName="ppt_x,ppt_y" origin="layout"
+      path="M 0.25278 -0.04861 L -1.94444E-6 -3.7037E-6 "
+      pptPathEditMode="relative" o:rAngle="0.0" o:rCenter="-0.126,0.024"
+      o:pointsTypes="AA"/>
+    </oa:par>
+    <![if !ppt]><oa:par id="TimeNode59" o:presetID="ppt_0" o:presetClass="path"
+     o:presetSubType="0x0" begin="0.0" accelerate="0.5" decelerate="0.5"
+     fill="hold" p:nodeType="withEffect">
+     <oa:animateMotion id="TimeNode60" dur="0.5" fill="hold"
+      targetElement="_x0000_s21518_AllText" attributeName="ppt_x,ppt_y"
+      origin="layout" path="M 0.25278 -0.04861 L -1.94444E-6 -3.7037E-6 "
+      pptPathEditMode="relative" o:rAngle="0.0" o:rCenter="-0.126,0.024"
+      o:pointsTypes="AA"/>
+    </oa:par>
+    <![endif]></oa:par>
+   <oa:par id="TimeNode61" begin="1.361" fill="hold">
+    <oa:par id="TimeNode62" o:presetID="ppt_1" o:presetClass="entrance"
+     o:presetSubType="0x0" begin="0.0" fill="hold" o:groupID="0"
+     p:nodeType="afterEffect">
+     <oa:set id="TimeNode63" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s21519" attributeName="style.visibility"
+      to="visible"/>
+    </oa:par>
+    <![if !ppt]><oa:par id="TimeNode64" o:presetID="ppt_1"
+     o:presetClass="entrance" o:presetSubType="0x0" begin="0.0" fill="hold"
+     p:nodeType="withEffect">
+     <oa:set id="TimeNode65" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s21519_AllText" attributeName="style.visibility"
+      to="visible"/>
+    </oa:par>
+    <![endif]></oa:par>
+  </oa:par>
+  <oa:par id="TimeNode66" begin="indefinite" fill="hold">
+   <oa:par id="TimeNode67" begin="0.0" fill="hold">
+    <oa:par id="TimeNode68" o:presetID="ppt_1" o:presetClass="entrance"
+     o:presetSubType="0x0" begin="0.0" fill="hold" o:groupID="0"
+     p:nodeType="clickEffect">
+     <oa:set id="TimeNode69" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s21520" attributeName="style.visibility"
+      to="visible"/>
+    </oa:par>
+    <![if !ppt]><oa:par id="TimeNode70" o:presetID="ppt_1"
+     o:presetClass="entrance" o:presetSubType="0x0" begin="0.0" fill="hold"
+     p:nodeType="withEffect">
+     <oa:set id="TimeNode71" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s21520_AllText" attributeName="style.visibility"
+      to="visible"/>
+    </oa:par>
+    <![endif]><oa:par id="TimeNode72" o:presetID="ppt_0" o:presetClass="path"
+     o:presetSubType="0x0" begin="0.0" accelerate="0.5" decelerate="0.5"
+     fill="hold" o:groupID="1" p:nodeType="withEffect">
+     <oa:animateMotion id="TimeNode73" dur="0.5" fill="hold"
+      targetElement="_x0000_s21520" attributeName="ppt_x,ppt_y" origin="layout"
+      path="M 0.26215 -0.04884 L 3.05556E-6 0 " pptPathEditMode="relative"
+      o:rAngle="0.0" o:rCenter="-0.131,0.024" o:pointsTypes="AA"/>
+    </oa:par>
+    <![if !ppt]><oa:par id="TimeNode74" o:presetID="ppt_0" o:presetClass="path"
+     o:presetSubType="0x0" begin="0.0" accelerate="0.5" decelerate="0.5"
+     fill="hold" p:nodeType="withEffect">
+     <oa:animateMotion id="TimeNode75" dur="0.5" fill="hold"
+      targetElement="_x0000_s21520_AllText" attributeName="ppt_x,ppt_y"
+      origin="layout" path="M 0.26215 -0.04884 L 3.05556E-6 0 "
+      pptPathEditMode="relative" o:rAngle="0.0" o:rCenter="-0.131,0.024"
+      o:pointsTypes="AA"/>
+    </oa:par>
+    <![endif]></oa:par>
+   <oa:par id="TimeNode76" begin="0.5" fill="hold">
+    <oa:par id="TimeNode77" o:presetID="ppt_1" o:presetClass="entrance"
+     o:presetSubType="0x0" begin="0.0" fill="hold" o:groupID="0"
+     p:nodeType="afterEffect">
+     <oa:set id="TimeNode78" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s21521" attributeName="style.visibility"
+      to="visible"/>
+    </oa:par>
+    <![if !ppt]><oa:par id="TimeNode79" o:presetID="ppt_1"
+     o:presetClass="entrance" o:presetSubType="0x0" begin="0.0" fill="hold"
+     p:nodeType="withEffect">
+     <oa:set id="TimeNode80" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s21521_AllText" attributeName="style.visibility"
+      to="visible"/>
+    </oa:par>
+    <![endif]></oa:par>
+  </oa:par>
+  <oa:par id="TimeNode81" begin="indefinite" fill="hold">
+   <oa:par id="TimeNode82" begin="0.0" fill="hold">
+    <oa:par id="TimeNode83" o:presetID="ppt_1" o:presetClass="entrance"
+     o:presetSubType="0x0" begin="0.0" fill="hold" o:groupID="0"
+     p:nodeType="clickEffect">
+     <oa:set id="TimeNode84" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s21512" attributeName="style.visibility"
+      to="visible"/>
+    </oa:par>
+    <![if !ppt]><oa:par id="TimeNode85" o:presetID="ppt_1"
+     o:presetClass="entrance" o:presetSubType="0x0" begin="0.0" fill="hold"
+     p:nodeType="withEffect">
+     <oa:set id="TimeNode86" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s21512_AllText" attributeName="style.visibility"
+      to="visible"/>
+    </oa:par>
+    <![endif]></oa:par>
+  </oa:par>
+  <oa:par id="TimeNode87" begin="indefinite" fill="hold">
+   <oa:par id="TimeNode88" begin="0.0" fill="hold">
+    <oa:par id="TimeNode89" o:presetID="ppt_1" o:presetClass="entrance"
+     o:presetSubType="0x0" begin="0.0" fill="hold" p:nodeType="clickEffect">
+     <oa:set id="TimeNode90" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s21513" attributeName="style.visibility"
+      to="visible"/>
+    </oa:par>
+    <oa:par id="TimeNode91" o:presetID="ppt_1" o:presetClass="entrance"
+     o:presetSubType="0x0" begin="0.0" fill="hold" p:nodeType="withEffect">
+     <oa:set id="TimeNode92" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s21514" attributeName="style.visibility"
+      to="visible"/>
+    </oa:par>
+    <oa:par id="TimeNode93" o:presetID="ppt_1" o:presetClass="entrance"
+     o:presetSubType="0x0" begin="0.0" fill="hold" o:groupID="0"
+     p:nodeType="withEffect">
+     <oa:set id="TimeNode94" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s21515" attributeName="style.visibility"
+      to="visible"/>
+    </oa:par>
+    <![if !ppt]><oa:par id="TimeNode95" o:presetID="ppt_1"
+     o:presetClass="entrance" o:presetSubType="0x0" begin="0.0" fill="hold"
+     p:nodeType="withEffect">
+     <oa:set id="TimeNode96" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s21515_AllText" attributeName="style.visibility"
+      to="visible"/>
+    </oa:par>
+    <![endif]><oa:par id="TimeNode97" o:presetID="ppt_1" o:presetClass="entrance"
+     o:presetSubType="0x0" begin="0.0" fill="hold" p:nodeType="withEffect">
+     <oa:set id="TimeNode98" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s21522" attributeName="style.visibility"
+      to="visible"/>
+    </oa:par>
+   </oa:par>
+  </oa:par>
+ </oa:seq>
+</oa:par>
+<![if ppt]>
+<oa:buildParagraph targetElement="_x0000_s21509" groupID="0" build="asAWhole"
+ buildLevel="1" reverse="false" buildAdvance="onclick" userSetAnimBgd="false"/><oa:buildParagraph
+ targetElement="_x0000_s21510" groupID="0" build="asAWhole" buildLevel="1"
+ reverse="false" buildAdvance="onclick" userSetAnimBgd="false"/><oa:buildParagraph
+ targetElement="_x0000_s21511" groupID="0" build="asAWhole" buildLevel="1"
+ reverse="false" buildAdvance="onclick" userSetAnimBgd="false"/><oa:buildParagraph
+ targetElement="_x0000_s21512" groupID="0" build="asAWhole" buildLevel="1"
+ reverse="false" buildAdvance="onclick" userSetAnimBgd="false"/><oa:buildParagraph
+ targetElement="_x0000_s21515" groupID="0" build="asAWhole" buildLevel="1"
+ reverse="false" buildAdvance="onclick" userSetAnimBgd="false"/><oa:buildParagraph
+ targetElement="_x0000_s21516" groupID="0" build="asAWhole" buildLevel="1"
+ reverse="false" buildAdvance="onclick" userSetAnimBgd="false"/><oa:buildParagraph
+ targetElement="_x0000_s21516" groupID="1" build="asAWhole" buildLevel="1"
+ reverse="false" buildAdvance="onclick" userSetAnimBgd="false"/><oa:buildParagraph
+ targetElement="_x0000_s21517" groupID="0" build="asAWhole" buildLevel="1"
+ reverse="false" buildAdvance="onclick" userSetAnimBgd="false"/><oa:buildParagraph
+ targetElement="_x0000_s21518" groupID="0" build="asAWhole" buildLevel="1"
+ reverse="false" buildAdvance="onclick" userSetAnimBgd="false"/><oa:buildParagraph
+ targetElement="_x0000_s21518" groupID="1" build="asAWhole" buildLevel="1"
+ reverse="false" buildAdvance="onclick" userSetAnimBgd="false"/><oa:buildParagraph
+ targetElement="_x0000_s21519" groupID="0" build="asAWhole" buildLevel="1"
+ reverse="false" buildAdvance="onclick" userSetAnimBgd="false"/><oa:buildParagraph
+ targetElement="_x0000_s21520" groupID="0" build="asAWhole" buildLevel="1"
+ reverse="false" buildAdvance="onclick" userSetAnimBgd="false"/><oa:buildParagraph
+ targetElement="_x0000_s21520" groupID="1" build="asAWhole" buildLevel="1"
+ reverse="false" buildAdvance="onclick" userSetAnimBgd="false"/><oa:buildParagraph
+ targetElement="_x0000_s21521" groupID="0" build="asAWhole" buildLevel="1"
+ reverse="false" buildAdvance="onclick" userSetAnimBgd="false"/><oa:buildParagraph
+ targetElement="_x0000_s21523" groupID="0" build="asAWhole" buildLevel="1"
+ reverse="false" buildAdvance="onclick" userSetAnimBgd="false"/>
+<![endif]>
+</body>
+
+</html>

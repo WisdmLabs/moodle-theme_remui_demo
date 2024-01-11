@@ -1,0 +1,356 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:p="urn:schemas-microsoft-com:office:powerpoint"
+xmlns:oa="urn:schemas-microsoft-com:office:activation"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=Windows-1254">
+<meta name=ProgId content=PowerPoint.Slide>
+<meta name=Generator content="Microsoft PowerPoint 12">
+<link id=Main-File rel=Main-File href="../Chapter_4_Combinational_Logic.htm">
+<link rel=Preview href=preview.wmf>
+<link rel=OLE-Object-Data href=oledata.mso>
+<!--[if !mso]>
+<style>
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+p\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+v\:textbox {display:none;}
+</style>
+<![endif]-->
+<title>Combinational Logic</title>
+<meta name=Description content="11/08/2010: Binary Adder/Subtractor">
+<link rel=Stylesheet href="master06_stylesheet.css">
+<!--[if gte IE 5]>
+<object id=MSOANIM classid="CLSID:A4639D2F-774E-11D3-A490-00C04F6843FB"></object>
+<object id=MSOTIME classid="CLSID:A4639D29-774E-11D3-A490-00C04F6843FB"></object>
+<![endif]-->
+<![if !ppt]>
+<style media=print>
+<!--.sld
+	{left:0px !important;
+	width:6.0in !important;
+	height:4.5in !important;
+	font-size:107% !important;}
+-->
+</style>
+<style>
+<!--
+oa\:* { BEHAVIOR: url(#MSOANIM#ANIM) url(#MSOTIME#TIME) }
+oa\:par,oa\:seq,oa\:iterate { BEHAVIOR:url(#MSOTIME) }
+oa\:video,oa\:audio {BEHAVIOR:url(#MSOTIME) url(#MSOTIME#MEDIA) }
+-->
+</style>
+<script src=script.js></script><script><!--
+if( !IsNts() ) Redirect( "PPTSld" );
+//--></script><script><!--
+g_animItemsToHide=new Array("_x0000_s17415_41_57","_x0000_s17415_25_41","_x0000_s17415_0_25");
+
+//--></script><!--[if vml]><script>g_vml = 1;
+</script><![endif]--><![endif]><o:shapelayout v:ext="edit">
+ <o:idmap v:ext="edit" data="17"/>
+</o:shapelayout>
+</head>
+
+<body lang=EN-US style='margin:0px;background-color:black'
+onclick="DocumentOnClick()" onresize="_RSW()" onload="LoadSld()"
+onkeypress="_KPH()" oa:clockstart="onstart">
+
+<div id=SlideObj class=sld style='position:absolute;top:0px;left:0px;
+width:534px;height:400px;font-size:16px;background-color:white;clip:rect(0%, 101%, 101%, 0%);
+visibility:hidden'><p:slide coordsize="720,540"
+ colors="#ffffff,#000000,#919191,#081d58,#fc0128,#063de8,#00dfca,#eaec5e"
+ masterhref="master06.xml">
+ <p:shaperange href="master06.xml#_x0000_s37889"/><![if !ppt]><p:shaperange
+  href="master06.xml#_x0000_s37890"/><![if !vml]><img border=0
+ v:shapes="_x0000_s37890" src="master06_image005.gif" style='position:absolute;
+ top:0%;left:4.68%;width:95.5%;height:11.5%'><![endif]><p:shaperange
+  href="master06.xml#_x0000_s37891"/><![if !vml]><img border=0
+ v:shapes="_x0000_s37891" src="master06_image006.gif" style='position:absolute;
+ top:-.5%;left:-.37%;width:5.61%;height:69.75%'><![endif]><p:shaperange
+  href="master06.xml#_x0000_s37894"/><![if !vml]><img border=0
+ v:shapes="_x0000_s37894" src="master06_image007.gif" style='position:absolute;
+ top:11.25%;left:4.49%;width:96.25%;height:1.25%'><![endif]><p:shaperange
+  href="master06.xml#_x0000_s37897"/>
+ <div v:shape="_x0000_s37897" class=O style='mso-line-spacing:"100 0 0";
+ mso-char-wrap:1;mso-kinsoku-overflow:1;position:absolute;top:95.75%;
+ left:35.2%;width:34.45%;height:2.75%'><span lang=TR style='font-size:67%;
+ text-shadow:auto'>Eastern Mediterranean University</span><span
+ style='font-size:67%;text-shadow:auto;mso-special-format:lastCR;display:none'>&#13;</span></div>
+ <p:shaperange href="master06.xml#_x0000_s37898"/>
+ <div v:shape="_x0000_s37898" class=O>
+ <div style='text-align:right;mso-line-spacing:"100 0 0";mso-char-wrap:1;
+ mso-kinsoku-overflow:1;position:absolute;top:95.25%;left:87.82%;width:11.23%;
+ height:3.25%'><span style='font-size:78%;text-shadow:auto'>‹#› / 65</span></div>
+ </div>
+ <p:shaperange href="master06.xml#Picture_x0020_14"/><![if !vml]><img border=0
+ v:shapes="Picture_x0020_14" src="master06_image008.gif" alt=logoyil30
+ style='position:absolute;top:0%;left:0%;width:7.86%;height:10.75%'><![endif]><p:shaperange
+  href="master06.xml#_x0000_s37900"/><![endif]><v:shape id="_x0000_s17412"
+  type="#_x0000_t202" style='position:absolute;left:246.625pt;top:511pt;
+  width:260.75pt;height:22.75pt;visibility:visible;mso-wrap-style:square;
+  v-text-anchor:bottom' o:gfxdata="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
+AAAAAAQABAD1AAAACwcAAAAA
+" filled="f" stroked="f">
+  <v:fill o:detectmouseclick="t"/>
+  <v:path arrowok="t"/>
+  <o:lock v:ext="edit" grouping="t"/>
+  <v:textbox style='mso-rotate-with-shape:t'/>
+ </v:shape><v:shape id="_x0000_s17413" type="#_x0000_t202" style='position:absolute;
+  left:625.625pt;top:511pt;width:94.375pt;height:22.75pt;visibility:visible;
+  mso-wrap-style:square;v-text-anchor:bottom' o:gfxdata="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
+" filled="f" stroked="f">
+  <v:fill o:detectmouseclick="t"/>
+  <v:path arrowok="t"/>
+  <o:lock v:ext="edit" grouping="t"/>
+  <v:textbox style='mso-rotate-with-shape:t'/>
+ </v:shape><p:shaperange href="master06.xml#_x0000_m37892"/><v:shape id="_x0000_s17414"
+  type="#_x0000_m37892" style='position:absolute;left:76.5pt;top:14.875pt;
+  width:623.75pt;height:37.375pt;visibility:visible;mso-wrap-style:square;
+  v-text-anchor:top' o:gfxdata="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
+BgAAAAA=
+">
+  <v:stroke o:forcedash="f"/>
+  <v:path arrowok="f"/>
+  <o:lock v:ext="edit" rotation="f" aspectratio="f" position="f" selection="f"
+   verticies="f" text="f" adjusthandles="f" grouping="t" shapetype="f"/>
+  <v:textbox style='layout-flow:horizontal;mso-rotate-with-shape:t;
+   mso-fit-shape-to-text:t' inset="5pt,2pt,5pt,2pt"/>
+  <p:placeholder type="title" position="-1"/></v:shape>
+ <div v:shape="_x0000_s17412">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='mso-line-spacing:"100 0 0";mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:95.75%;left:35.2%;width:34.45%;height:2.75%'><span
+ lang=TR style='font-size:67%;text-shadow:auto'>Eastern Mediterranean
+ University</span><span style='font-size:67%;text-shadow:auto;mso-special-format:
+ lastCR;display:none'>&#13;</span></div>
+ </div>
+ <div v:shape="_x0000_s17413">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:right;mso-line-spacing:"100 0 0";mso-char-wrap:
+ 1;mso-kinsoku-overflow:1;position:absolute;top:95.25%;left:87.82%;width:11.23%;
+ height:3.25%'><span style='font-size:78%;text-shadow:auto'>31 / 65</span></div>
+ </div>
+ <div v:shape="_x0000_s17414" class=T style='position:absolute;top:2.75%;
+ left:11.23%;width:85.39%;height:6.75%'><span style='text-shadow:auto'>Binary
+ Adder/Subtractor</span></div>
+ <v:shape id="Object_x0020_4" o:spid="_x0000_s17410" type="#_x0000_t75"
+  style='position:absolute;left:246.625pt;top:128.25pt;width:459.625pt;
+  height:339.25pt' strokecolor="black [1]" strokeweight="2.25pt">
+  <v:imagedata src="slide0036_image211.emz" o:title=""/>
+  <v:shadow color="#919191 [2]"/>
+ </v:shape><o:OLEObject Type="Embed" ProgID="Visio.Drawing.11"
+  ShapeID="Object_x0020_4" DrawAspect="Content" ObjectID="21">
+  <p:oleclientdata menuname="Visio" clipboardname="Microsoft Visio Drawing"/></o:OLEObject>
+ <![if !vml]><img border=0 v:shapes="Object_x0020_4"
+ src="slide0036_image212.gif" style='position:absolute;top:23.75%;left:34.26%;
+ width:63.85%;height:62.75%'><![endif]><p:shaperange
+  href="master06.xml#_x0000_m37893"/><v:shape id="_x0000_s17415" type="#_x0000_m37893"
+  style='position:absolute;left:48.125pt;top:85.75pt;width:652pt;height:123.875pt;
+  visibility:visible;mso-wrap-style:square;v-text-anchor:top' o:gfxdata="UEsDBBQABgAIAAAAIQDb4fbL7gAAAIUBAAATAAAAW0NvbnRlbnRfVHlwZXNdLnhtbHyQz07DMAyH
+70i8Q+QralM4IITa7kDhCAiNB7ASt43WOlEcyvb2pNu4IODoPz9/n1xv9vOkForiPDdwXVagiI23
+jocG3rdPxR0oScgWJ8/UwIEENu3lRb09BBKV0ywNjCmFe63FjDSjlD4Q50nv44wpl3HQAc0OB9I3
+VXWrjedEnIq03oC27qjHjympx31un0wiTQLq4bS4shrAECZnMGVTvbD9QSnOhDInjzsyuiBXWQP0
+r4R18jfgnHvJr4nOknrFmJ5xzhraRtHWf3Kkpfz/yGo5S+H73hkquyhdjr3R8m2lj09svwAAAP//
+AwBQSwMEFAAGAAgAAAAhAFr0LFu/AAAAFQEAAAsAAABfcmVscy8ucmVsc2zPwWrDMAwG4Ptg72B0
+X5TuUMaI01uh19I+gLGVxCy2jGSy9e1nemrHjpL4P0nD4SetZiPRyNnCruvBUPYcYp4tXC/Htw8w
+Wl0ObuVMFm6kcBhfX4Yzra62kC6xqGlKVgtLreUTUf1CyWnHhXKbTCzJ1VbKjMX5LzcTvvf9HuXR
+gPHJNKdgQU5hB+ZyK23zHztFL6w81c5zQp6m6P9TMfB3PtPWFCczVQtB9N4U2rp2HOA44NMz4y8A
+AAD//wMAUEsDBBQABgAIAAAAIQDR93a92QAAAP4AAAAPAAAAZHJzL2Rvd25yZXYueG1sRI/BTsMw
+EETvSPyDtUjcqFMqUAl1q4KooNzacuC4iTexIbYjr9smf4/FAY6jGb3RW6wG14kTRbbBK5hOChDk
+66CtbxV8HDY3cxCc0GvsgicFIzGslpcXCyx1OPsdnfapFRniuUQFJqW+lJJrQw55EnryuWtCdJhy
+jK3UEc8Z7jp5WxT30qH1+cFgT8+G6u/90SnotmPxcDhueW3e26+NfeLqpWGlrq+G9SOIREP6H1fm
+M8Thr/xFvWkFd8VsPp2BaF7HKlq9Q04UFWTBrJtVQS5/AAAA//8DAFBLAQItABQABgAIAAAAIQDb
+4fbL7gAAAIUBAAATAAAAAAAAAAAAAAAAAAAAAABbQ29udGVudF9UeXBlc10ueG1sUEsBAi0AFAAG
+AAgAAAAhAFr0LFu/AAAAFQEAAAsAAAAAAAAAAAAAAAAAHwEAAF9yZWxzLy5yZWxzUEsBAi0AFAAG
+AAgAAAAhANH3dr3ZAAAA/gAAAA8AAAAAAAAAAAAAAAAABwIAAGRycy9kb3ducmV2LnhtbFBLBQYA
+AAAAAwADALcAAAANAwAAAAA=
+" filled="f">
+  <v:fill o:detectmouseclick="f"/>
+  <v:stroke o:forcedash="f"/>
+  <v:path arrowok="f"/>
+  <o:lock v:ext="edit" rotation="f" aspectratio="f" position="f" selection="f"
+   verticies="f" text="f" adjusthandles="f" grouping="t" shapetype="f"/>
+  <v:textbox style='layout-flow:horizontal;mso-rotate-with-shape:t;
+   mso-fit-shape-to-text:t' inset="5pt,2pt,5pt,2pt"/>
+  <p:placeholder type="body" position="-1"/><p:animation number="2" delay="0"
+   type="object" effect="wipe" direction="right" flag="17412"/></v:shape>
+ <div v:shape="_x0000_s17415" style='position:absolute;top:16.75%;left:7.3%;
+ width:89.32%;height:22.0%'>
+ <div class=B2 style='mso-margin-left-alt:720;mso-text-indent-alt:576'></div>
+ <div class=B3 style='mso-margin-left-alt:1008;mso-text-indent-alt:864'></div>
+ <div class=B4 style='mso-margin-left-alt:1296;mso-text-indent-alt:1152'></div>
+ <div id="_x0000_s17415_0_25" class=B style='position:absolute;top:0%;
+ left:0%;width:100.0%;height:27.27%;white-space:nowrap'><span style='position:
+ absolute;top:0%;left:4.4%;width:95.59%;height:100.0%'><span style='font-weight:
+ normal'><span class=BB style='position:absolute;left:-4.6%'>«</span></span><b><i>M</i></b>:
+ Control Signal (Mode)&#13;</span></div>
+ <div id="_x0000_s17415_25_41" class=B1 style='position:absolute;top:39.77%;
+ left:6.49%;width:93.5%;height:23.86%;white-space:nowrap'><span
+ style='position:absolute;top:0%;left:3.81%;width:96.41%;height:100.0%'><span
+ style='font-weight:normal'><span class=B1B style='position:absolute;
+ left:-3.95%'>&#9679;</span></span><b><i>M=</i></b>0 <span style='font-family:
+ Wingdings;mso-char-type:symbol'>è</span> <b><i>F = x + y&#13;</i></b></span></div>
+ <div id="_x0000_s17415_41_57" class=B1 style='position:absolute;top:76.13%;
+ left:6.49%;width:93.5%;height:23.86%;white-space:nowrap'><span
+ style='position:absolute;top:0%;left:3.81%;width:96.41%;height:100.0%'><span
+ style='font-weight:normal'><span class=B1B style='position:absolute;
+ left:-3.95%'>&#9679;</span></span><b><i>M=</i></b>1 <span style='font-family:
+ Wingdings;mso-char-type:symbol'>è</span> <b><i>F = x – y</i></b><span
+ style='mso-special-format:lastCR;display:none'>&#13;</span></span></div>
+ </div>
+</p:slide></div>
+
+<p:animation number="1362095452"/><oa:par id="TimeNode0" dur="indefinite"
+ restart="never" p:nodeType="timingRoot">
+ <oa:seq id="TimeNode1" dur="indefinite" prev="document.onpptprev"
+  next="document.onpptnext" concurrent="enabled" nextAction="seek"
+  p:nodeType="mainSeq">
+  <oa:par id="TimeNode2" begin="indefinite;TimeNode1.onbegin" fill="hold">
+   <oa:par id="TimeNode3" begin="0.0" fill="hold">
+    <oa:par id="TimeNode4" o:presetID="ppt_22" o:presetClass="entrance"
+     o:presetSubType="0x8" begin="0.0" fill="hold" p:nodeType="afterEffect">
+     <oa:set id="TimeNode5" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s17415_0_25" attributeName="style.visibility"
+      to="visible"/>
+     <oa:animateFilter id="TimeNode6" dur="0.5"
+      targetElement="_x0000_s17415_0_25" transition="in" filter="wipe(left)"/>
+    </oa:par>
+   </oa:par>
+   <oa:par id="TimeNode7" begin="0.5" fill="hold">
+    <oa:par id="TimeNode8" o:presetID="ppt_22" o:presetClass="entrance"
+     o:presetSubType="0x8" begin="0.0" fill="hold" p:nodeType="afterEffect">
+     <oa:set id="TimeNode9" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s17415_25_41" attributeName="style.visibility"
+      to="visible"/>
+     <oa:animateFilter id="TimeNode10" dur="0.5"
+      targetElement="_x0000_s17415_25_41" transition="in" filter="wipe(left)"/>
+    </oa:par>
+   </oa:par>
+   <oa:par id="TimeNode11" begin="1.0" fill="hold">
+    <oa:par id="TimeNode12" o:presetID="ppt_22" o:presetClass="entrance"
+     o:presetSubType="0x8" begin="0.0" fill="hold" p:nodeType="afterEffect">
+     <oa:set id="TimeNode13" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s17415_41_57" attributeName="style.visibility"
+      to="visible"/>
+     <oa:animateFilter id="TimeNode14" dur="0.5"
+      targetElement="_x0000_s17415_41_57" transition="in" filter="wipe(left)"/>
+    </oa:par>
+   </oa:par>
+  </oa:par>
+ </oa:seq>
+</oa:par>
+</body>
+
+</html>

@@ -1,0 +1,395 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:p="urn:schemas-microsoft-com:office:powerpoint"
+xmlns:oa="urn:schemas-microsoft-com:office:activation"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=Windows-1254">
+<meta name=ProgId content=PowerPoint.Slide>
+<meta name=Generator content="Microsoft PowerPoint 12">
+<link id=Main-File rel=Main-File
+href="../Chapter_2_Boolean_Algebra_and_Logic_Gates.htm">
+<link rel=Preview href=preview.wmf>
+<!--[if !mso]>
+<style>
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+p\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+v\:textbox {display:none;}
+</style>
+<![endif]-->
+<title>Boolean_Algebra_and_Logic_Gates</title>
+<meta name=Description content="11/08/2010: Chip Design">
+<link rel=Stylesheet href="master22_stylesheet.css">
+<!--[if gte IE 5]>
+<object id=MSOANIM classid="CLSID:A4639D2F-774E-11D3-A490-00C04F6843FB"></object>
+<object id=MSOTIME classid="CLSID:A4639D29-774E-11D3-A490-00C04F6843FB"></object>
+<![endif]-->
+<![if !ppt]>
+<style media=print>
+<!--.sld
+	{left:0px !important;
+	width:6.0in !important;
+	height:4.5in !important;
+	font-size:107% !important;}
+-->
+</style>
+<style>
+<!--
+oa\:* { BEHAVIOR: url(#MSOANIM#ANIM) url(#MSOTIME#TIME) }
+oa\:par,oa\:seq,oa\:iterate { BEHAVIOR:url(#MSOTIME) }
+oa\:video,oa\:audio {BEHAVIOR:url(#MSOTIME) url(#MSOTIME#MEDIA) }
+-->
+</style>
+<script src=script.js></script><script><!--
+if( !IsNts() ) Redirect( "PPTSld" );
+//--></script><script><!--
+g_animItemsToHide=new Array("_x0000_s57349_408_446","_x0000_s57349_354_408","_x0000_s57349_313_354","_x0000_s57349_279_313","_x0000_s57349_232_279","_x0000_s57349_218_231","_x0000_s57349_188_218","_x0000_s57349_170_188","_x0000_s57349_128_170","_x0000_s57349_102_127","_x0000_s57349_78_102","_x0000_s57349_54_78","_x0000_s57349_0_54");
+
+//--></script><!--[if vml]><script>g_vml = 1;
+</script><![endif]--><![endif]><p:slidetransition advancetime="0"
+ effect="random" direction="transition" flag="1"/><o:shapelayout v:ext="edit">
+ <o:idmap v:ext="edit" data="56"/>
+</o:shapelayout>
+</head>
+
+<body lang=EN-US style='margin:0px;background-color:black'
+onclick="DocumentOnClick()" onresize="_RSW()" onload="LoadSld()"
+onkeypress="_KPH()" oa:clockstart="onstart">
+
+<div id=SlideObj class=sld style='position:absolute;top:0px;left:0px;
+width:534px;height:400px;font-size:16px;background-color:#FFFFE1;clip:rect(0%, 101%, 101%, 0%);
+visibility:hidden;filter:revealtrans(Duration=1, Transition=23)'><p:slide
+ coordsize="720,540"
+ colors="#ffffe1,#000000,#330033,#330033,#cccc99,#ff0000,#990033,#b2b2b2"
+ masterhref="master22.xml">
+ <p:shaperange href="master22.xml#_x0000_s1025"/><![if !ppt]><p:shaperange
+  href="master22.xml#_x0000_s1026"/><![if !vml]><img border=0
+ v:shapes="_x0000_s1026,_x0000_s1034,_x0000_s1036,_x0000_s1037"
+ src="master22_image005.gif" style='position:absolute;top:-7.75%;left:0%;
+ width:95.5%;height:71.5%'><![endif]><p:shaperange
+  href="master22.xml#_x0000_s1029"/>
+ <div v:shape="_x0000_s1029" class=O style='mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:95.25%;left:11.04%;width:19.85%;height:2.25%'><span
+ lang=EN-US style='font-size:56%'>November 8, 2010</span></div>
+ <p:shaperange href="master22.xml#_x0000_s1030"/><p:shaperange
+  href="master22.xml#_x0000_s1031"/>
+ <div v:shape="_x0000_s1031" class=O>
+ <div style='text-align:right;mso-char-wrap:1;mso-kinsoku-overflow:1;
+ position:absolute;top:96.25%;left:75.09%;width:18.91%;height:2.25%'><span
+ lang=EN-US style='font-size:56%'>‹#›</span></div>
+ </div>
+ <p:shaperange href="master22.xml#_x0000_s1032"/><![if !vml]><img border=0
+ v:shapes="_x0000_s1032" src="master22_image006.gif" style='position:absolute;
+ top:70.75%;left:-.18%;width:7.49%;height:1.0%'><![endif]><p:shaperange
+  href="master22.xml#Picture_x0020_13"/><![if !vml]><img border=0
+ v:shapes="Picture_x0020_13" src="master22_image007.gif"
+ alt="emu_300x300_72dpi_black" style='position:absolute;top:2.75%;left:1.87%;
+ width:7.11%;height:9.5%'><![endif]><![endif]><v:shapetype id="_x0000_t202"
+  coordsize="21600,21600" o:spt="202" path="m,l,21600r21600,l21600,xe">
+  <v:stroke joinstyle="miter"/>
+  <v:path gradientshapeok="t" o:connecttype="rect"/>
+ </v:shapetype><v:shape id="_x0000_s57346" type="#_x0000_t202" style='position:absolute;
+  left:1in;top:510pt;width:156pt;height:18.25pt;visibility:visible;
+  mso-wrap-style:square;v-text-anchor:top' filled="f" stroked="f">
+  <v:fill o:detectmouseclick="t"/>
+  <v:path arrowok="t"/>
+  <o:lock v:ext="edit" grouping="t"/>
+  <v:textbox style='mso-rotate-with-shape:t'/>
+ </v:shape><v:shape id="_x0000_s57347" type="#_x0000_t202" style='position:absolute;
+  left:534pt;top:516pt;width:150pt;height:12pt;visibility:visible;
+  mso-wrap-style:square;v-text-anchor:top' filled="f" stroked="f">
+  <v:fill o:detectmouseclick="t"/>
+  <v:path arrowok="t"/>
+  <o:lock v:ext="edit" grouping="t"/>
+  <v:textbox style='mso-rotate-with-shape:t'/>
+ </v:shape><p:shaperange href="master22.xml#_x0000_m1027"/><v:shape id="_x0000_s57348"
+  type="#_x0000_m1027" style='position:absolute;left:1in;top:12pt;width:612pt;
+  height:56.125pt;visibility:visible;mso-wrap-style:square;v-text-anchor:middle'>
+  <v:stroke o:forcedash="f"/>
+  <v:path arrowok="f"/>
+  <o:lock v:ext="edit" rotation="f" aspectratio="f" position="f" selection="f"
+   verticies="f" text="f" adjusthandles="f" grouping="t" shapetype="f"/>
+  <v:textbox style='layout-flow:horizontal;mso-rotate-with-shape:t' inset="7.2pt,3.6pt,7.2pt,3.6pt"/>
+  <p:placeholder type="title" position="-1"/><p:tag
+   name="_INSTRUCTOR VIEW19C14C36-AC8E-43BC-9DB6-C2AAF774C7DC|PANE__TAG"
+   type="string" value="_"/></v:shape>
+ <div v:shape="_x0000_s57346">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='mso-char-wrap:1;mso-kinsoku-overflow:1;position:absolute;
+ top:95.25%;left:11.04%;width:19.85%;height:2.25%'><span lang=EN-US
+ style='font-size:56%'>November 8, 2010</span></div>
+ </div>
+ <div v:shape="_x0000_s57347">
+ <div class=O1 style='mso-margin-left-alt:468'></div>
+ <div class=O2 style='mso-margin-left-alt:720'></div>
+ <div class=O3 style='mso-margin-left-alt:1008'></div>
+ <div class=O4 style='mso-margin-left-alt:1296'></div>
+ <div class=O style='text-align:right;mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:96.25%;left:75.09%;width:18.91%;height:2.25%'><span
+ lang=EN-US style='font-size:56%'>54</span></div>
+ </div>
+ <div v:shape="_x0000_s57348" class=T style='mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:3.75%;left:11.04%;width:83.14%;height:8.0%'><span
+ lang=EN-US style='font-family:"Times New Roman";mso-ascii-font-family:"Times New Roman";
+ font-size:90%'>Chip Design</span></div>
+ <p:shaperange href="master22.xml#_x0000_m1028"/><v:shape id="_x0000_s57349"
+  type="#_x0000_m1028" style='position:absolute;left:54pt;top:84pt;width:636pt;
+  height:408pt;visibility:visible;mso-wrap-style:square;v-text-anchor:top'
+  o:gfxdata="UEsDBBQABgAIAAAAIQDb4fbL7gAAAIUBAAATAAAAW0NvbnRlbnRfVHlwZXNdLnhtbHyQz07DMAyH
+70i8Q+QralM4IITa7kDhCAiNB7ASt43WOlEcyvb2pNu4IODoPz9/n1xv9vOkForiPDdwXVagiI23
+jocG3rdPxR0oScgWJ8/UwIEENu3lRb09BBKV0ywNjCmFe63FjDSjlD4Q50nv44wpl3HQAc0OB9I3
+VXWrjedEnIq03oC27qjHjympx31un0wiTQLq4bS4shrAECZnMGVTvbD9QSnOhDInjzsyuiBXWQP0
+r4R18jfgnHvJr4nOknrFmJ5xzhraRtHWf3Kkpfz/yGo5S+H73hkquyhdjr3R8m2lj09svwAAAP//
+AwBQSwMEFAAGAAgAAAAhAFr0LFu/AAAAFQEAAAsAAABfcmVscy8ucmVsc2zPwWrDMAwG4Ptg72B0
+X5TuUMaI01uh19I+gLGVxCy2jGSy9e1nemrHjpL4P0nD4SetZiPRyNnCruvBUPYcYp4tXC/Htw8w
+Wl0ObuVMFm6kcBhfX4Yzra62kC6xqGlKVgtLreUTUf1CyWnHhXKbTCzJ1VbKjMX5LzcTvvf9HuXR
+gPHJNKdgQU5hB+ZyK23zHztFL6w81c5zQp6m6P9TMfB3PtPWFCczVQtB9N4U2rp2HOA44NMz4y8A
+AAD//wMAUEsDBBQABgAIAAAAIQC4zmpP3QAAAP4AAAAPAAAAZHJzL2Rvd25yZXYueG1sRI9dT8Iw
+GIXvTfwPzWvinXTKx+akEIIaEYIJjB/wsr770LVd2srGv7fxAi5Pzslz8kznvWrYiayrjRbwOIiA
+kc6NrHUp4JC9PyTAnEctsTGaBJzJwXx2ezPFVJpO7+i09yULEO1SFFB536acu7wihW5gWtKhK4xV
+6EO0JZcWuwBXDX+KoglXWOvwUGFLy4ryn/2vEtDG67fP18U4yZaZGa7L77h3Xxsh7u/6xQswT72/
+jierbdGNLuU/aiUFjJLxMH4GVnycj7aWO3SerIAgGHSDKvDZHwAAAP//AwBQSwECLQAUAAYACAAA
+ACEA2+H2y+4AAACFAQAAEwAAAAAAAAAAAAAAAAAAAAAAW0NvbnRlbnRfVHlwZXNdLnhtbFBLAQIt
+ABQABgAIAAAAIQBa9CxbvwAAABUBAAALAAAAAAAAAAAAAAAAAB8BAABfcmVscy8ucmVsc1BLAQIt
+ABQABgAIAAAAIQC4zmpP3QAAAP4AAAAPAAAAAAAAAAAAAAAAAAcCAABkcnMvZG93bnJldi54bWxQ
+SwUGAAAAAAMAAwC3AAAAEQMAAAAA
+">
+  <v:stroke o:forcedash="f"/>
+  <v:path arrowok="f"/>
+  <o:lock v:ext="edit" rotation="f" aspectratio="f" position="f" selection="f"
+   verticies="f" text="f" adjusthandles="f" grouping="t" shapetype="f"/>
+  <v:textbox style='layout-flow:horizontal;mso-rotate-with-shape:t' inset="7.2pt,3.6pt,7.2pt,3.6pt"/>
+  <p:placeholder type="body" position="-1"/><p:animation number="2" delay="0"
+   type="text" level="1" effect="cut" direction="noBlack" flag="0"/><p:tag
+   name="_INSTRUCTOR VIEW19C14C36-AC8E-43BC-9DB6-C2AAF774C7DC|PANE__TAG"
+   type="string" value="_"/></v:shape>
+ <div v:shape="_x0000_s57349">
+ <div id="_x0000_s57349_0_54" class=B style='mso-line-spacing:"90 20 0";
+ mso-char-wrap:1;mso-kinsoku-overflow:1;position:absolute;top:16.0%;left:8.42%;
+ width:96.81%;height:5.25%;white-space:nowrap'><span style='position:absolute;
+ top:0%;left:3.86%;width:96.13%;height:100.0%'><span style='mso-special-format:
+ bullet;color:#B2B2B2;mso-color-index:7;position:absolute;left:-4.02%;
+ top:.1em;font-family:Wingdings;font-size:90%'>n</span><span lang=EN-US>Why is
+ it better to have more gates on a single chip?&#13;</span></span></div>
+ <div id="_x0000_s57349_54_78" class=B1 style='mso-line-spacing:"90 20 0";
+ mso-char-wrap:1;mso-kinsoku-overflow:1;position:absolute;top:21.75%;
+ left:13.48%;width:81.46%;height:4.5%;white-space:nowrap'><span
+ style='position:absolute;top:0%;left:3.9%;width:96.09%;height:100.0%'><span
+ style='mso-special-format:bullet;color:#CCCC99;mso-color-index:4;position:
+ absolute;left:-4.06%;top:.3em;font-family:Wingdings;font-size:75%'>q</span><span
+ lang=EN-US>Easier to build systems&#13;</span></span></div>
+ <div id="_x0000_s57349_78_102" class=B1 style='mso-line-spacing:"90 20 0";
+ mso-char-wrap:1;mso-kinsoku-overflow:1;position:absolute;top:26.75%;
+ left:13.48%;width:81.46%;height:4.5%;white-space:nowrap'><span
+ style='position:absolute;top:0%;left:3.9%;width:96.09%;height:100.0%'><span
+ style='mso-special-format:bullet;color:#CCCC99;mso-color-index:4;position:
+ absolute;left:-4.06%;top:.3em;font-family:Wingdings;font-size:75%'>q</span><span
+ lang=EN-US>Lower power consumption&#13;</span></span></div>
+ <div id="_x0000_s57349_102_127" class=B1 style='mso-line-spacing:"90 20 0";
+ mso-char-wrap:1;mso-kinsoku-overflow:1;position:absolute;top:31.5%;left:13.48%;
+ width:81.46%;height:4.5%;white-space:nowrap'><span style='position:absolute;
+ top:0%;left:3.9%;width:96.09%;height:100.0%'><span style='mso-special-format:
+ bullet;color:#CCCC99;mso-color-index:4;position:absolute;left:-4.06%;
+ top:.3em;font-family:Wingdings;font-size:75%'>q</span><span lang=EN-US>Higher
+ clock frequencies&#13;</span></span></div>
+ <div class=B style='mso-line-spacing:"90 20 0";mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:36.5%;left:8.42%;width:86.51%;height:5.25%'><span
+ style='position:absolute;top:0%;left:4.32%;width:95.67%;height:100.0%'><span
+ style='visibility:hidden'><span style='mso-special-format:bullet;color:#B2B2B2;
+ mso-color-index:7;position:absolute;left:-4.52%;font-family:Wingdings;
+ font-size:90%'>n</span></span><span lang=EN-US style='display:none'>&#13;</span></span></div>
+ <div id="_x0000_s57349_128_170" class=B style='mso-line-spacing:"90 20 0";
+ mso-char-wrap:1;mso-kinsoku-overflow:1;position:absolute;top:42.5%;left:8.42%;
+ width:86.51%;height:5.25%;white-space:nowrap'><span style='position:absolute;
+ top:0%;left:4.32%;width:95.67%;height:100.0%'><span style='mso-special-format:
+ bullet;color:#B2B2B2;mso-color-index:7;position:absolute;left:-4.52%;
+ top:.1em;font-family:Wingdings;font-size:90%'>n</span><span lang=EN-US>What
+ are the drawbacks of large circuits?&#13;</span></span></div>
+ <div id="_x0000_s57349_170_188" class=B1 style='mso-line-spacing:"90 20 0";
+ mso-char-wrap:1;mso-kinsoku-overflow:1;position:absolute;top:48.25%;
+ left:13.48%;width:81.46%;height:4.5%;white-space:nowrap'><span
+ style='position:absolute;top:0%;left:3.9%;width:96.09%;height:100.0%'><span
+ style='mso-special-format:bullet;color:#CCCC99;mso-color-index:4;position:
+ absolute;left:-4.06%;top:.3em;font-family:Wingdings;font-size:75%'>q</span><span
+ lang=EN-US>Complex to design&#13;</span></span></div>
+ <div id="_x0000_s57349_188_218" class=B1 style='mso-line-spacing:"90 20 0";
+ mso-char-wrap:1;mso-kinsoku-overflow:1;position:absolute;top:53.0%;left:13.48%;
+ width:81.46%;height:4.5%;white-space:nowrap'><span style='position:absolute;
+ top:0%;left:3.9%;width:96.09%;height:100.0%'><span style='mso-special-format:
+ bullet;color:#CCCC99;mso-color-index:4;position:absolute;left:-4.06%;
+ top:.3em;font-family:Wingdings;font-size:75%'>q</span><span lang=EN-US>Chips
+ have design constraints&#13;</span></span></div>
+ <div id="_x0000_s57349_218_231" class=B1 style='mso-line-spacing:"90 20 0";
+ mso-char-wrap:1;mso-kinsoku-overflow:1;position:absolute;top:58.0%;left:13.48%;
+ width:81.46%;height:4.5%;white-space:nowrap'><span style='position:absolute;
+ top:0%;left:3.9%;width:96.09%;height:100.0%'><span style='mso-special-format:
+ bullet;color:#CCCC99;mso-color-index:4;position:absolute;left:-4.06%;
+ top:.3em;font-family:Wingdings;font-size:75%'>q</span><span lang=EN-US>Hard to
+ test&#13;</span></span></div>
+ <div class=B style='mso-line-spacing:"90 20 0";mso-char-wrap:1;mso-kinsoku-overflow:
+ 1;position:absolute;top:63.0%;left:8.42%;width:86.51%;height:5.25%'><span
+ style='position:absolute;top:0%;left:4.32%;width:95.67%;height:100.0%'><span
+ style='visibility:hidden'><span style='mso-special-format:bullet;color:#B2B2B2;
+ mso-color-index:7;position:absolute;left:-4.52%;font-family:Wingdings;
+ font-size:90%'>n</span></span><span lang=EN-US style='display:none'>&#13;</span></span></div>
+ <div id="_x0000_s57349_232_279" class=B style='mso-line-spacing:"90 20 0";
+ mso-char-wrap:1;mso-kinsoku-overflow:1;position:absolute;top:68.75%;
+ left:8.42%;width:86.51%;height:5.25%;white-space:nowrap'><span
+ style='position:absolute;top:0%;left:4.32%;width:95.67%;height:100.0%'><span
+ style='mso-special-format:bullet;color:#B2B2B2;mso-color-index:7;position:
+ absolute;left:-4.52%;top:.1em;font-family:Wingdings;font-size:90%'>n</span><span
+ lang=EN-US>Need tools to help develop integrated circuits&#13;</span></span></div>
+ <div id="_x0000_s57349_279_313" class=B1 style='mso-line-spacing:"90 20 0";
+ mso-char-wrap:1;mso-kinsoku-overflow:1;position:absolute;top:74.5%;left:13.48%;
+ width:81.46%;height:4.5%;white-space:nowrap'><span style='position:absolute;
+ top:0%;left:3.9%;width:96.09%;height:100.0%'><span style='mso-special-format:
+ bullet;color:#CCCC99;mso-color-index:4;position:absolute;left:-4.06%;
+ top:.3em;font-family:Wingdings;font-size:75%'>q</span><span lang=EN-US>Computer
+ Aided Design (CAD) tools&#13;</span></span></div>
+ <div id="_x0000_s57349_313_354" class=B1 style='mso-line-spacing:"90 20 0";
+ mso-char-wrap:1;mso-kinsoku-overflow:1;position:absolute;top:79.5%;left:13.48%;
+ width:81.46%;height:4.5%;white-space:nowrap'><span style='position:absolute;
+ top:0%;left:3.9%;width:96.09%;height:100.0%'><span style='mso-special-format:
+ bullet;color:#CCCC99;mso-color-index:4;position:absolute;left:-4.06%;
+ top:.3em;font-family:Wingdings;font-size:75%'>q</span><span lang=EN-US>Automate
+ tedious steps of design process&#13;</span></span></div>
+ <div id="_x0000_s57349_354_408" class=B1 style='mso-line-spacing:"90 20 0";
+ mso-char-wrap:1;mso-kinsoku-overflow:1;position:absolute;top:84.25%;
+ left:13.48%;width:84.08%;height:4.5%;white-space:nowrap'><span
+ style='position:absolute;top:0%;left:3.78%;width:96.21%;height:100.0%'><span
+ style='mso-special-format:bullet;color:#CCCC99;mso-color-index:4;position:
+ absolute;left:-3.93%;top:.3em;font-family:Wingdings;font-size:75%'>q</span><span
+ lang=EN-US>Hardware description language (HDL) describe circuits&#13;</span></span></div>
+ <div id="_x0000_s57349_408_446" class=B1 style='mso-line-spacing:"90 20 0";
+ mso-char-wrap:1;mso-kinsoku-overflow:1;position:absolute;top:89.25%;
+ left:13.48%;width:81.46%;height:4.5%;white-space:nowrap'><span
+ style='position:absolute;top:0%;left:3.9%;width:96.09%;height:100.0%'><span
+ style='mso-special-format:bullet;color:#CCCC99;mso-color-index:4;position:
+ absolute;left:-4.06%;top:.3em;font-family:Wingdings;font-size:75%'>q</span><span
+ lang=EN-US>VHDL (see the lab) is one such system</span></span></div>
+ </div>
+</p:slide></div>
+
+<p:animation number="688680669"/><oa:par id="TimeNode0" dur="indefinite"
+ restart="never" p:nodeType="timingRoot">
+ <oa:seq id="TimeNode1" dur="indefinite" prev="document.onpptprev"
+  next="document.onpptnext" concurrent="enabled" nextAction="seek"
+  p:nodeType="mainSeq">
+  <oa:par id="TimeNode2" begin="indefinite" fill="hold">
+   <oa:par id="TimeNode3" begin="0.0" fill="hold">
+    <oa:par id="TimeNode4" o:presetID="ppt_1" o:presetClass="entrance"
+     o:presetSubType="0x0" begin="0.0" fill="hold" o:groupID="0"
+     p:nodeType="clickEffect">
+     <oa:set id="TimeNode5" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s57349_0_54" attributeName="style.visibility"
+      to="visible"/>
+    </oa:par>
+    <oa:par id="TimeNode6" o:presetID="ppt_1" o:presetClass="entrance"
+     o:presetSubType="0x0" begin="0.0" fill="hold" o:groupID="0"
+     p:nodeType="withEffect">
+     <oa:set id="TimeNode7" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s57349_54_78" attributeName="style.visibility"
+      to="visible"/>
+    </oa:par>
+    <oa:par id="TimeNode8" o:presetID="ppt_1" o:presetClass="entrance"
+     o:presetSubType="0x0" begin="0.0" fill="hold" o:groupID="0"
+     p:nodeType="withEffect">
+     <oa:set id="TimeNode9" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s57349_78_102" attributeName="style.visibility"
+      to="visible"/>
+    </oa:par>
+    <oa:par id="TimeNode10" o:presetID="ppt_1" o:presetClass="entrance"
+     o:presetSubType="0x0" begin="0.0" fill="hold" o:groupID="0"
+     p:nodeType="withEffect">
+     <oa:set id="TimeNode11" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s57349_102_127" attributeName="style.visibility"
+      to="visible"/>
+    </oa:par>
+   </oa:par>
+  </oa:par>
+  <oa:par id="TimeNode12" begin="indefinite" fill="hold">
+   <oa:par id="TimeNode13" begin="0.0" fill="hold">
+    <oa:par id="TimeNode14" o:presetID="ppt_1" o:presetClass="entrance"
+     o:presetSubType="0x0" begin="0.0" fill="hold" o:groupID="0"
+     p:nodeType="clickEffect">
+     <oa:set id="TimeNode15" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s57349_128_170" attributeName="style.visibility"
+      to="visible"/>
+    </oa:par>
+    <oa:par id="TimeNode16" o:presetID="ppt_1" o:presetClass="entrance"
+     o:presetSubType="0x0" begin="0.0" fill="hold" o:groupID="0"
+     p:nodeType="withEffect">
+     <oa:set id="TimeNode17" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s57349_170_188" attributeName="style.visibility"
+      to="visible"/>
+    </oa:par>
+    <oa:par id="TimeNode18" o:presetID="ppt_1" o:presetClass="entrance"
+     o:presetSubType="0x0" begin="0.0" fill="hold" o:groupID="0"
+     p:nodeType="withEffect">
+     <oa:set id="TimeNode19" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s57349_188_218" attributeName="style.visibility"
+      to="visible"/>
+    </oa:par>
+    <oa:par id="TimeNode20" o:presetID="ppt_1" o:presetClass="entrance"
+     o:presetSubType="0x0" begin="0.0" fill="hold" o:groupID="0"
+     p:nodeType="withEffect">
+     <oa:set id="TimeNode21" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s57349_218_231" attributeName="style.visibility"
+      to="visible"/>
+    </oa:par>
+   </oa:par>
+  </oa:par>
+  <oa:par id="TimeNode22" begin="indefinite" fill="hold">
+   <oa:par id="TimeNode23" begin="0.0" fill="hold">
+    <oa:par id="TimeNode24" o:presetID="ppt_1" o:presetClass="entrance"
+     o:presetSubType="0x0" begin="0.0" fill="hold" o:groupID="0"
+     p:nodeType="clickEffect">
+     <oa:set id="TimeNode25" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s57349_232_279" attributeName="style.visibility"
+      to="visible"/>
+    </oa:par>
+    <oa:par id="TimeNode26" o:presetID="ppt_1" o:presetClass="entrance"
+     o:presetSubType="0x0" begin="0.0" fill="hold" o:groupID="0"
+     p:nodeType="withEffect">
+     <oa:set id="TimeNode27" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s57349_279_313" attributeName="style.visibility"
+      to="visible"/>
+    </oa:par>
+    <oa:par id="TimeNode28" o:presetID="ppt_1" o:presetClass="entrance"
+     o:presetSubType="0x0" begin="0.0" fill="hold" o:groupID="0"
+     p:nodeType="withEffect">
+     <oa:set id="TimeNode29" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s57349_313_354" attributeName="style.visibility"
+      to="visible"/>
+    </oa:par>
+    <oa:par id="TimeNode30" o:presetID="ppt_1" o:presetClass="entrance"
+     o:presetSubType="0x0" begin="0.0" fill="hold" o:groupID="0"
+     p:nodeType="withEffect">
+     <oa:set id="TimeNode31" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s57349_354_408" attributeName="style.visibility"
+      to="visible"/>
+    </oa:par>
+    <oa:par id="TimeNode32" o:presetID="ppt_1" o:presetClass="entrance"
+     o:presetSubType="0x0" begin="0.0" fill="hold" o:groupID="0"
+     p:nodeType="withEffect">
+     <oa:set id="TimeNode33" begin="0.0" dur="0.001" fill="hold"
+      targetElement="_x0000_s57349_408_446" attributeName="style.visibility"
+      to="visible"/>
+    </oa:par>
+   </oa:par>
+  </oa:par>
+ </oa:seq>
+</oa:par>
+<![if ppt]>
+<oa:buildParagraph targetElement="_x0000_s57349" groupID="0" build="byParagraph"
+ buildLevel="1" reverse="false" buildAdvance="onclick" userSetAnimBgd="false"/>
+<![endif]>
+</body>
+
+</html>
