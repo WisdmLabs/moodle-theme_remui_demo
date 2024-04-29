@@ -1,0 +1,22 @@
+[
+    {
+        "id": "corporate",
+        "name": "Corporate",
+        "image": "image2.png"
+    },
+    {
+        "id": "university",
+        "name": "University",
+        "image": "image3.png"
+    },
+    {
+        "id": "school",
+        "name": "School",
+        "image": "image1.png"
+    },
+    {
+        "id": "classic",
+        "name": "Classic",
+        "image": "image2.png"
+    }
+]

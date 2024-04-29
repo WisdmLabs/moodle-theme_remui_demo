@@ -3,6 +3,7 @@
         if  ($maintenance) {
 		header("Location: https://demo.tryremui.edwiser.org/maintenance.html");
 	}
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -33,46 +34,33 @@
           <p class="desc m-0 p-0">Select the demo that best suits your needs</p>
 
           <div class="layout-main-content">
+            <?php
+            // Include the JSONFileManager class  
+            require("JsonFileManager.php");
+            
+            // Create a JSONFileManager object
+            $json_file_manager = new JSONFileManager("./data/demo_categories.json");
 
-            <div class="layout-card" >
-              <div class="layout-card-body" data-layoutid="corporate">
-                  <img src="./images/image2.png" alt="layout-corporate" />
-              </div>
-              <div class="layout-footer d-flex">
-                  <input type="radio" class="custom-radio-btn" name="layoutsradiobtn" value="corporate"/>
-                  <p class="layout-name">Corporate</p>
-              </div>
-            </div>
+            // Get the JSON data
+            $json_data = $json_file_manager->read();
+            // Loop through each category and create a layout card
+            foreach ($json_data as $category) {
+                $category_id = $category->id;
+                $category_name = $category->name;
+                $category_image = $category->image;
+                
+                echo '<div class="layout-card">';
+                echo '  <div class="layout-card-body" data-layoutid="' . $category_id . '">';
+                echo '      <img src="./images/' . $category_image . '" alt="layout-' . $category_id . '" />';
+                echo '  </div>';
+                echo '  <div class="layout-footer d-flex">';
+                echo '      <input type="radio" class="custom-radio-btn" name="layoutsradiobtn" value="' . $category_id . '"/>';
+                echo '      <p class="layout-name">' . $category_name . '</p>';
+                echo '  </div>';
+                echo '</div>';
+            }
+            ?>
 
-            <div class="layout-card" >
-              <div class="layout-card-body" data-layoutid="university" >
-                  <img src="./images/image3.png" alt="layout-university" />
-              </div>
-              <div class="layout-footer d-flex">
-                  <input type="radio" class="custom-radio-btn" name="layoutsradiobtn" value="university"/>
-                  <p class="layout-name">University</p>
-              </div>
-            </div>
-
-            <div class="layout-card" >
-              <div class="layout-card-body" data-layoutid="school" >
-                  <img src="./images/image1.png" alt="layout-school" />
-              </div>
-              <div class="layout-footer d-flex">
-                  <input type="radio" class="custom-radio-btn" name="layoutsradiobtn" value="school"/>
-                  <p class="layout-name">School</p>
-              </div>
-            </div>
-
-            <div class="layout-card" >
-              <div class="layout-card-body" data-layoutid="classic" >
-                  <img src="./images/image2.png" alt="layout-classic" />
-              </div>
-              <div class="layout-footer d-flex">
-                  <input type="radio" class="custom-radio-btn" name="layoutsradiobtn" value="classic"/>
-                  <p class="layout-name">Classic</p>
-              </div>
-            </div>
 
           </div>
         </div>
