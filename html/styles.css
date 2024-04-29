@@ -243,6 +243,7 @@ body {
 
 .btn-back {
   cursor: pointer;
+  align-items: center;
 }
 
 .wrapper {
@@ -281,6 +282,11 @@ body {
   flex-direction: column;
   gap: 16px;
   transition: box-shadow 0.3s ease-in;
+}
+
+.main .layout-card,
+.layout-card.active {
+  box-shadow: 0px 13px 37px 0px rgba(92, 107, 121, 0.10);
 }
 
 .layout-card .layout-footer {
@@ -344,35 +350,43 @@ body {
   top: 0;
   left: 0;
 }
-.visible-to-hide {
-    animation: visibleToHide 0.4s linear forwards;
+
+.layout-form-close {
+  display: none;
 }
 
-.hidden-to-visible {
-    animation: hiddenToVisible 0.4s linear 0.3s;
-    animation-fill-mode: backwards;
-}
+@media screen and (min-width: 700px) {
+  .visible-to-hide {
+      animation: visibleToHide 0.4s linear forwards;
+  }
 
-@keyframes visibleToHide {
-    0% {
-        opacity: 1;
-    }
+  .hidden-to-visible {
+      animation: hiddenToVisible 0.4s linear 0.3s;
+      animation-fill-mode: backwards;
+  }
 
-    100% {
-        opacity: 0.0;
-    }
-}
+  @keyframes visibleToHide {
+      0% {
+          opacity: 1;
+      }
 
-@keyframes hiddenToVisible {
-    0% {
-        opacity: 0.0;
-        /* display: none;/ */
-    }
+      100% {
+          opacity: 0.0;
+      }
+  }
 
-    100% {
-        opacity: 1;
-        /* display: flex;/ */
-    }
+  @keyframes hiddenToVisible {
+      0% {
+          opacity: 0.0;
+          /* display: none;/ */
+      }
+
+      100% {
+          opacity: 1;
+          /* display: flex;/ */
+      }
+  }
+
 }
 
 /* On screens that are 600px or less, set the background color to olive */
@@ -410,13 +424,75 @@ body {
 }
 
 @media screen and (max-width: 400px) {
-  .image-stack-container {
-    justify-content: center;
-    transform: scale(0.7);
-  }
+  
 }
 
 @media screen and (min-width: 700px) {
+  
+}
+
+@media screen and (max-width: 700px) {
+  .layout-main {
+    margin: 0 auto;
+    max-width: 500px;
+  }
+
+  .main {
+    display: flex;
+    position: fixed;
+    bottom: -100%;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    transition: bottom 0.7s ease-in;
+
+    background-color: var(--Other-Colors-Dark-Black, #343A40);
+    padding: 30px 24px;
+  }
+
+  .layout-form-close {
+    display: block;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: fit-content;
+    height: fit-content;
+    background-color: unset;
+    border: unset;
+    cursor: pointer;
+    padding: 3px;
+  }
+
+  .main .left .heading,
+  .main .left .sub-text {
+    color: var(--white);
+  }
+
+  .inline-form .form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .main .right {
+    display: none;
+  }
+
+  .main .left {
+    width: 100%;
+  }
+
+  .main.hidden-to-visible {
+    bottom: 0;
+  }
+
+  .wrapper:has(.main.hidden-to-visible) .layout-main {
+    margin-bottom: 375px;
+  }
+
+  /* .wrapper:has(.main.hidden-to-visible) .layout-card:not(.active) {
+    display: none;
+  } */
 }
 
 @media screen and (min-width: 1024px) {

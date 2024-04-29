@@ -75,7 +75,7 @@
                     <p class="layout-name">Corporate</p>
                 </div>
               </div>
-              <button class="btn btn-secondary btn-back"> 
+              <button class="btn btn-secondary d-flex btn-back"> 
                 <img src='./images/left-icon.svg' alt="" /> Back
               </button>
           </div>
@@ -94,6 +94,8 @@
               </form>
             </div>
           </div>
+
+          <button class="layout-form-close"><img src="./images/close-icon.svg" /></button>
           
         </div>
       </div>
@@ -107,6 +109,7 @@
     const btnBack = layoutWrapper.querySelector('.btn-back');
     const emailInput = layoutWrapper.querySelector('.inline-form input[name="email"]');
     const submitBtn = layoutWrapper.querySelector('.inline-form input[type="submit"]');
+    const closeBtn = layoutWrapper.querySelector('.layout-form-close');
 
     function setFormLayout(targetInput = "") {
       let targetLayout = layoutWrapper.querySelector(`.layout-card:has(.layout-card-body[data-layoutid="${targetInput.value}"])`);
@@ -118,10 +121,24 @@
       selectedLayout.querySelector('.layout-name').textContent = targetLayout.querySelector(".layout-name").textContent;
     }
 
+    function addActiveToTargetLayout(targetInput = "") {
+      cards.forEach(card => {
+        console.log(card.querySelector(`.layout-card-body`).dataset.layoutid);
+        if(card.querySelector(`.layout-card-body`).dataset.layoutid == targetInput.value) {
+          card.classList.add('active');
+        } else {
+          card.classList.remove('active');
+        }
+      })
+    }
+
     // This event trigger when we click on layout Image and It will select the layout
     function changeHandler(targetInput = "") {
+      let targetLayout = layoutWrapper.querySelector(`.layout-card:has(.layout-card-body[data-layoutid="${targetInput.value}"])`);
       let layoutMain = layoutWrapper.querySelector('.layout-main');
       let main = layoutWrapper.querySelector('.main');
+
+      addActiveToTargetLayout(targetInput);
 
       if(targetInput.value) {
         setFormLayout(targetInput);
@@ -135,26 +152,47 @@
         main.classList.add("visible-to-hide");
         layoutMain.classList.add("hidden-to-visible");
 
-        setTimeout(() => {
-          main.style.display = "none";
-          layoutMain.style.display = "flex";
-        }, 400);
+
+        if(window.innerWidth > 700) {
+          setTimeout(() => {
+            main.style.display = "none";
+            layoutMain.style.display = "flex";
+          }, 400);
+        } 
 
       } else {
+          main.classList.remove("visible-to-hide");
+          layoutMain.classList.remove("hidden-to-visible");
 
-        main.classList.remove("visible-to-hide");
-        layoutMain.classList.remove("hidden-to-visible");
+          layoutMain.classList.add("visible-to-hide");
+          main.classList.add("hidden-to-visible");
 
-        layoutMain.classList.add("visible-to-hide");
-        main.classList.add("hidden-to-visible");
 
-        setTimeout(() => {
-          main.style.display = "flex";
-          layoutMain.style.display = "none";
-        },400);
 
+        if(window.innerWidth > 700) {
+          setTimeout(() => {
+            main.style.display = "flex";
+            layoutMain.style.display = "none";
+          },400);
+        } else {
+          layoutWrapper.scrollTop = 0;
+        }
       }
     }
+
+    window.addEventListener('resize', function() {
+      let layoutMain = layoutWrapper.querySelector('.layout-main');
+      let main = layoutWrapper.querySelector('.main');
+
+      if(window.innerWidth <= 700) {
+        layoutMain.style.display = "flex";
+        main.style.display = "flex";
+      } else if(main.classList.contains("hidden-to-visible")) {
+        layoutMain.style.display = "none";
+      } else {
+        main.style.display = "none";
+      }
+    })
     
     // add event listener to trigger an event when radio button is checked or unchecked for any cards by clicking img
     cards.forEach(card => {
@@ -182,6 +220,11 @@
 
     //add event listener to onclick on btn-back
     btnBack.addEventListener('click', function() {
+      changeHandler();
+    });
+    
+    //add event listener to onclick on btn-back
+    closeBtn.addEventListener('click', function() {
       changeHandler();
     });
 
