@@ -20,7 +20,7 @@
   <body>
       <div class="bg-top-left d-none"></div>
       <div class="bg-bottom-right d-none"></div>
-      <div class="container vertical-center wrapper">
+      <div id="layout-wrapper" class="container vertical-center wrapper">
       
         <div class="logo-container">
           <img class="logo"src="./images/Logo.png" alt="Edwiser RemUI Brand Logo"/>
@@ -60,26 +60,10 @@
                 echo '</div>';
             }
             ?>
-
-
           </div>
         </div>
 
-
         <div class="main">
-          <!-- <div class="right">
-            <div class="image-stack-container">
-              <div class="stack2">
-                <img src="./images/image2.png" />
-              </div>
-              <div class="stack1 main">
-                <img src="./images/image1.png">
-              </div>
-              <div class="stack3">
-                <img src="./images/image3.png">
-              </div>
-            </div>
-          </div> -->
 
           <div class="right">
               <div class="layout-card" >
@@ -87,7 +71,7 @@
                     <img src="./images/image2.png" alt="layout-1" />
                 </div>
                 <div class="layout-footer d-flex">
-                    <input type="radio" class="custom-radio-btn" checked name="layoutselected" value="1"/>
+                    <input type="radio" class="custom-radio-btn" checked name="layoutselected"/>
                     <p class="layout-name">Corporate</p>
                 </div>
               </div>
@@ -106,7 +90,7 @@
                 <label for="inputEmail" class="hidden">Email</label>
                 <input type="hidden" class="form-control" name="layoutName">
                 <input type="email" class="form-control" name="email" placeholder="Enter your Email Id" required>
-                <input type="submit" class="btn btn-primary" value="Create sandbox">
+                <input type="submit" class="btn btn-primary disabled" value="Create sandbox">
               </form>
             </div>
           </div>
@@ -117,12 +101,34 @@
   </body>
 
   <script>
+
+    const layoutWrapper = document.querySelector('#layout-wrapper');
+    const cards = layoutWrapper.querySelectorAll('.layout-main .layout-card');
+    const btnBack = layoutWrapper.querySelector('.btn-back');
+    const emailInput = layoutWrapper.querySelector('.inline-form input[name="email"]');
+    const submitBtn = layoutWrapper.querySelector('.inline-form input[type="submit"]');
+
+    function setFormLayout(targetInput = "") {
+      let targetLayout = layoutWrapper.querySelector(`.layout-card:has(.layout-card-body[data-layoutid="${targetInput.value}"])`);
+      let layoutForm = layoutWrapper.querySelector('.inline-form form');
+      let selectedLayout = layoutWrapper.querySelector(`.main .layout-card`);
+
+      layoutForm.querySelector(`.form-control[name="layoutName"]`).value = targetInput.value;
+      selectedLayout.querySelector('img').src = targetLayout.querySelector('.layout-card-body img').src;
+      selectedLayout.querySelector('.layout-name').textContent = targetLayout.querySelector(".layout-name").textContent;
+    }
+
     // This event trigger when we click on layout Image and It will select the layout
     function changeHandler(targetInput = "") {
-      let layoutMain = document.querySelector('.layout-main');
-      let main = document.querySelector('.main');
+      let layoutMain = layoutWrapper.querySelector('.layout-main');
+      let main = layoutWrapper.querySelector('.main');
+
+      if(targetInput.value) {
+        setFormLayout(targetInput);
+      }
 
       if(layoutMain.classList.contains("visible-to-hide")) {
+
         layoutMain.classList.remove("visible-to-hide");
         main.classList.remove("hidden-to-visible");
 
@@ -135,6 +141,7 @@
         }, 400);
 
       } else {
+
         main.classList.remove("visible-to-hide");
         layoutMain.classList.remove("hidden-to-visible");
 
@@ -150,28 +157,30 @@
     }
     
     // add event listener to trigger an event when radio button is checked or unchecked for any cards by clicking img
-    const cards = document.querySelectorAll('.layout-main .layout-card .layout-card-body');
     cards.forEach(card => {
-        card.addEventListener('click', function() {
-            let layoutid = this.dataset.layoutid;
-            let targetInput = document.querySelector(`.custom-radio-btn[value="${layoutid}"]`);
-            // if(!targetInput.checked) {
-              targetInput.checked = true;
-              changeHandler(targetInput);
-            // } 
-        });
-    });
+      card.querySelector(".layout-card-body").addEventListener('click', function() {
+          let layoutid = this.dataset.layoutid;
+          let targetInput = layoutWrapper.querySelector(`.custom-radio-btn[value="${layoutid}"]`);
+          targetInput.checked = true;
+          changeHandler(targetInput);
+      });
 
-    // add event listener to trigger an event when radio button is checked or unchecked for any cards
-    const radioBtns = document.querySelectorAll('.layout-main .layout-card .custom-radio-btn');
-    radioBtns.forEach(radioBtn => {
-      radioBtn.addEventListener('change', function() {
+      card.querySelector(".custom-radio-btn").addEventListener('change', function() {
         changeHandler(this);
       });
     });
 
+    emailInput.addEventListener('input', function() {
+      console.log(this.value);
+      console.log(submitBtn);
+      if(this.value.length > 0) {
+        submitBtn.classList.remove('disabled');
+      } else {
+        submitBtn.classList.add('disabled');
+      }
+    });
+
     //add event listener to onclick on btn-back
-    const btnBack = document.querySelector('.btn-back');  
     btnBack.addEventListener('click', function() {
       changeHandler();
     });
