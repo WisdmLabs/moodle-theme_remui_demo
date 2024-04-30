@@ -1,0 +1,28 @@
+.nav-darkmode {
+    .dm-toggle {
+        cursor: pointer;
+        background: $header-menu-element-bg-color;
+        cursor: pointer;
+        background: #edf1f6;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 3px;
+    }
+    .lightmodeicon {
+        display: none;
+    }
+    .darkmodeicon {
+        display: block;
+    }
+    &.enabled {
+        .darkmodeicon {
+            display: none;
+        }
+        .lightmodeicon {
+            display: block;
+        }
+    }
+}

@@ -1,0 +1,93 @@
+<div id="homepagedepricationmodal" class="modal fade " data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-body d-flex flex-column p-m-5 p-0">
+                <p class="m-0 h-bold-5">{{#str}}migratemodalheading, theme_remui {{/str}}</p><br>
+                <p class="m-0 para-regular-4" style="font-size: 14px;">
+                    {{{migratewarningmsg}}}
+                </p>
+                <div class="action-wrapper justify-content-between d-flex flex-wrap flex-gap-4">
+                    {{^nocheckbox}}
+                        <div class="m-0 para-regular-4" style="font-size: 14px;">
+                            <input type="checkbox" name="migrate-checkbox" id="migrate-checkbox" >
+                            <label for="migrate-checkbox">{{#str}}migragetcheckboxlabel, theme_remui{{/str}}</label>
+                        </div>
+                    {{/nocheckbox}}
+                    <div class="action-cta-wrapper {{^nocheckbox}}disabled{{/nocheckbox}}">
+                        <button type="button" class="btn btn-secondary btn-sm btn-okay">{{#str}}okay, theme_remui{{/str}}</button>
+                        {{#showmigratecta}}
+                        <button
+                            class="btn btn-secondary btn-sm btn-forcefull-migrate" 
+                        >
+                            {{#str}}forcefulmigrate, theme_remui{{/str}}
+                        </button>
+                        {{/showmigratecta}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{#js}}
+require(['jquery', 'core/ajax', 'core/notification', 'core/toast'], function($, Ajax, Notification, Toast){
+	$(document).ready(function(){
+        $("#homepagedepricationmodal").modal('show');
+
+        var PROMISES = {
+            CHANGE_FRONTPAGE_CHOOSER: function() {
+                return Ajax.call([{
+                    methodname: 'theme_remui_change_frontpagechooser',
+                    args: []
+                }])[0];
+            }
+        };
+
+        function showToastMessage(classes, message) {
+            Toast.add(message, {
+                delay: 5000,
+                closeButton: true,
+                type: ' migrate-toast-message ' + classes
+            });
+        }
+
+        function change_user_preference_modal_seen() {
+            M.util.set_user_preference('forcefulmigratemodalseen', true);
+        }
+
+        {{! trigger when okay button clicked }}
+        $(".btn-okay").click(function(){
+            PROMISES.CHANGE_FRONTPAGE_CHOOSER().done(function(response) {
+                change_user_preference_modal_seen();
+                $("#homepagedepricationmodal").modal('hide');
+                
+                {{#migragettoastmsg}}
+                showToastMessage(
+                    ' ', 
+                    `{{{migragettoastmsg}}} {{#showmigratecta}} <a href="${M.cfg.wwwroot}/local/edwiserpagebuilder/homepageimporter/homepage.php?data=migrate">Click here</a> {{/showmigratecta}}`
+                );
+                {{/migragettoastmsg}}
+            }).fail(Notification.exception);
+        });
+
+        {{! trigger when forcefull migrate button clicked }}
+        $(".btn-forcefull-migrate").click(function(){
+            PROMISES.CHANGE_FRONTPAGE_CHOOSER().done(async function(response) {
+                await change_user_preference_modal_seen();
+
+                window.location.href = `{{#showmigratecta}}${M.cfg.wwwroot}/local/edwiserpagebuilder/homepageimporter/homepage.php?data=migrate{{/showmigratecta}}{{^showmigratecta}}#{{/showmigratecta}}`;
+
+            }).fail(Notification.exception);
+        });
+
+        $('#migrate-checkbox').change(function() {
+            var isChecked = $(this).prop('checked');
+            if(isChecked) {
+                $("#homepagedepricationmodal .action-cta-wrapper").removeClass("disabled");
+            } else {
+                $("#homepagedepricationmodal .action-cta-wrapper").addClass("disabled");
+            }
+        });
+	});
+});
+{{/js}}

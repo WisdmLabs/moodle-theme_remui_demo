@@ -1,0 +1,39 @@
+$edw-icon--wrapper-size : 30px;
+$edw-icon--wrapper-size-mob : 24px;
+$dark-icon-color-bg : #F0F6FC;
+$dark-icon-hover-color-bg : #343A401A;
+.navbar{
+    .nav-dark-light-mode-icon-wrapper{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        a{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: $dark-icon-color-bg;
+            border-radius: 4px;
+            padding: map-get($spacerspx,"1d5");
+            width: $edw-icon--wrapper-size;
+            height: $edw-icon--wrapper-size;
+            &:hover{
+                background-color: $dark-icon-hover-color-bg;
+            }
+            .edw-icon{
+                font-size: 19px;
+                height: unset;
+                width: unset;
+            }
+            @include media-breakpoint-down(sm){
+                width: $edw-icon--wrapper-size-mob;
+                height: $edw-icon--wrapper-size-mob;
+                .edw-icon{
+                    font-size: 15px;
+                }
+            }
+        }
+        a.lightmode-icon-link{
+            display: none;
+        }
+    }
+}
