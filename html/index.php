@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="./styles.css">
   </head>
   <body>
+    <div class="main-container">
       <div class="bg-top-left d-none"></div>
       <div class="bg-bottom-right d-none"></div>
       <div id="layout-wrapper" class="container vertical-center wrapper">
@@ -98,7 +99,9 @@
           <button class="layout-form-close"><img src="./images/close-icon.svg" /></button>
           
         </div>
+        <div class="overlay"></div>
       </div>
+    </div>
 
   </body>
 
@@ -110,6 +113,7 @@
     const emailInput = layoutWrapper.querySelector('.inline-form input[name="email"]');
     const submitBtn = layoutWrapper.querySelector('.inline-form input[type="submit"]');
     const closeBtn = layoutWrapper.querySelector('.layout-form-close');
+    let scrollInterval;
 
     function setFormLayout(targetInput = "") {
       let targetLayout = layoutWrapper.querySelector(`.layout-card:has(.layout-card-body[data-layoutid="${targetInput.value}"])`);
@@ -123,7 +127,6 @@
 
     function addActiveToTargetLayout(targetInput = "") {
       cards.forEach(card => {
-        console.log(card.querySelector(`.layout-card-body`).dataset.layoutid);
         if(card.querySelector(`.layout-card-body`).dataset.layoutid == targetInput.value) {
           card.classList.add('active');
         } else {
@@ -167,15 +170,18 @@
           layoutMain.classList.add("visible-to-hide");
           main.classList.add("hidden-to-visible");
 
-
-
         if(window.innerWidth > 700) {
           setTimeout(() => {
             main.style.display = "flex";
             layoutMain.style.display = "none";
           },400);
         } else {
-          layoutWrapper.scrollTop = 0;
+          setTimeout(() => {
+              targetLayout.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }, 100);
         }
       }
     }
@@ -183,10 +189,20 @@
     window.addEventListener('resize', function() {
       let layoutMain = layoutWrapper.querySelector('.layout-main');
       let main = layoutWrapper.querySelector('.main');
+      let activeLayout = layoutWrapper.querySelector('.layout-card.active');
 
       if(window.innerWidth <= 700) {
         layoutMain.style.display = "flex";
         main.style.display = "flex";
+
+        if(main.classList.contains("hidden-to-visible")) {
+            activeLayout.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+            duration: 5000
+          });
+        }
+
       } else if(main.classList.contains("hidden-to-visible")) {
         layoutMain.style.display = "none";
       } else {
@@ -206,11 +222,15 @@
       card.querySelector(".custom-radio-btn").addEventListener('change', function() {
         changeHandler(this);
       });
+
+      // for scrolling the layout image on hover On mouse enter of block layout image
+      card.querySelector(".layout-card-body").addEventListener('mouseenter', scrollImage);
+
+      //stop scrolling when hover will end
+      card.querySelector(".layout-card-body").addEventListener('mouseleave', stopScrollImage);
     });
 
     emailInput.addEventListener('input', function() {
-      console.log(this.value);
-      console.log(submitBtn);
       if(this.value.length > 0) {
         submitBtn.classList.remove('disabled');
       } else {
@@ -228,7 +248,45 @@
       changeHandler();
     });
 
-    // for scrolling the layout image on hover
+    // for scrolling the layout image on hover On mouse enter of block layout image
+    function scrollImage(e) {
+
+      const cardHeight = this.offsetHeight;
+      const img = this.querySelector("img");
+      const imgHeight = img.offsetHeight;
+
+      let scrollHeight = imgHeight - cardHeight;
+
+      if (scrollHeight > 0) {
+
+          let scrolltime = scrollHeight / 100;
+
+          img.style.transition = `top ${scrolltime}s ease-in-out`;
+          img.style.top = `${-scrollHeight}px`;
+          img.addEventListener('transitionend', function() {
+              img.style.top = `0px`;
+          }, { once: true });
+
+          // Set interval to repeat scroll animation
+          scrollInterval = setInterval(function() {
+              img.style.top = `${-scrollHeight}px`;
+
+              img.addEventListener('transitionend', function() {
+                  img.style.top = `0px`;
+              }, { once: true });
+          }, scrolltime * 2000);
+
+      }
+    }
+
+    //for stoping the scrolling of image
+    function stopScrollImage(e) {
+      const img = this.querySelector("img");
+      img.style.transition = `unset`;
+      img.style.top = `0px`;
+
+      clearInterval(scrollInterval);
+    }
 
   </script>
 </html>
