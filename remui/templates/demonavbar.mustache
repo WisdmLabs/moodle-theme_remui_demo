@@ -29,9 +29,12 @@
         <h3 style="color: #ABBEBE;">This is for testing</h2>
     </div>
 </div> }}
+
+{{#democontext}}
+            
 <nav class="navbar demo-navbar fixed-top navbar-expand">
-    <a href="{{{ config.homeurl }}}" class="navbar-brand align-items-center m-0" aria-label="{{ sitename }} - {{#str}}brandname, theme_remui{{/str}}" title="{{ sitename }}">
-        <img src="{{ logourl }}" class="navbar-brand-logo logo">
+    <a href="{{{ config.homeurl }}}" class="demo-logo d-flex align-items-center m-0" aria-label="{{ sitename }} - {{#str}}brandname, theme_remui{{/str}}" title="{{ sitename }}">
+        <img src="{{ demologourl }}" class="">
     </a>
 
     <div class="sub-nav">
@@ -41,6 +44,21 @@
                 <span class="sr-only">{{#str}}sidepanel, core{{/str}}</span>
             </button>
         </div>
+
+        <div class="langmenu">
+            <div class="dropdown show">
+                <a href="#" role="button" id="lang-menu-toggle" data-toggle="dropdown" aria-haspopup="true" aria-controls="lang-action-menu" class="btn dropdown-toggle">
+                    <span class="langbutton">
+                        English
+                    </span>
+                </a>
+                <div role="menu" aria-labelledby="lang-menu-toggle" id="lang-action-menu" class="dropdown-menu dropdown-menu-right">
+                    Only for testing
+                </div>
+            </div>
+        </div>
+
     </div>
 
 </nav>
+{{/democontext}}

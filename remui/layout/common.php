@@ -182,6 +182,10 @@ if ( isloggedin() ) {
     }
 }
 
+$democontext = [];
+$democontext["demologourl"] = $OUTPUT->image_url('demo-logo', 'theme_remui');
+
+
 $templatecontext = [
     'sitename' => format_string($SITE->shortname, true, ['context' => context_course::instance(SITEID), "escape" => false]),
     'fonts' => $fonts,
@@ -210,7 +214,8 @@ $templatecontext = [
     'feedback_loading_image' => $OUTPUT->image_url('a/loading', 'core'),
     'licensestatus_forfeedback' => ($lcontroller->get_data_from_db() == 'available') ? 1 : 0,
     'homepagedepricationmodal' => $homepagedepricationmodal,
-    'loaderimage' => $loaderimage
+    'loaderimage' => $loaderimage,
+    'democontext' => $democontext,
 ];
 
 if (isloggedin() && isset($primarymenu['edwisermenu'])) {
