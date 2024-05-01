@@ -4,6 +4,9 @@
 		header("Location: https://demo.tryremui.edwiser.org/maintenance.html");
 	}
 
+  // Include the JSONFileManager class  
+  require("JsonFileManager.php");
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -36,8 +39,6 @@
 
           <div class="layout-main-content">
             <?php
-            // Include the JSONFileManager class  
-            require("JsonFileManager.php");
             
             // Create a JSONFileManager object
             $json_file_manager = new JSONFileManager("./data/demo_categories.json");
@@ -90,7 +91,7 @@
               <form class="form" action="./createinstance.php" method="post">
                 <label for="inputEmail" class="hidden">Email</label>
                 <input type="hidden" class="form-control" name="layoutName">
-                <input type="email" class="form-control" name="email" placeholder="Enter your Email Id" required>
+                <input type="email" class="form-control" name="email" placeholder="Enter your Email Id" data-nb required>
                 <input type="submit" class="btn btn-primary disabled" value="Create sandbox">
               </form>
             </div>
@@ -104,7 +105,35 @@
     </div>
 
   </body>
+  <script type="text/javascript">
+    _NBSettings = {
+        apiKey: 'public_4c53c3c5a0d1e538b96ddc29a9a09413',
+        displayPoweredBy: false
+    };
 
+    document.querySelector('body').addEventListener('nb:registered', function (event) {
+      // Get field using id from registered event
+      let field = document.querySelector('[data-nb-id="' + event.detail.id + '"]');
+
+      // Handle clear events; i.e. hide feedback
+      field.addEventListener('nb:clear', function(e) {
+        submitBtn.classList.add('disabled');
+      });
+
+      // Handle results (API call has succeeded)
+      field.addEventListener('nb:result', function(e) {
+        // Check the result
+        if (e.detail.result.is(_nb.settings.getAcceptedStatusCodes())) {
+          submitBtn.classList.remove('disabled');
+        }
+        else {
+          submitBtn.classList.add('disabled');
+        }
+      });
+    });
+  </script>
+  
+  <script type="text/javascript" src="https://cdn.neverbounce.com/widget/dist/NeverBounce.js"></script>
   <script>
 
     const layoutWrapper = document.querySelector('#layout-wrapper');
@@ -230,13 +259,13 @@
       card.querySelector(".layout-card-body").addEventListener('mouseleave', stopScrollImage);
     });
 
-    emailInput.addEventListener('input', function() {
-      if(this.value.length > 0) {
-        submitBtn.classList.remove('disabled');
-      } else {
-        submitBtn.classList.add('disabled');
-      }
-    });
+    // emailInput.addEventListener('input', function() {
+    //   if(this.value.length > 0) {
+    //     submitBtn.classList.remove('disabled');
+    //   } else {
+    //     submitBtn.classList.add('disabled');
+    //   }
+    // });
 
     //add event listener to onclick on btn-back
     btnBack.addEventListener('click', function() {
