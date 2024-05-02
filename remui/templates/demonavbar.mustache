@@ -24,41 +24,81 @@
     @template theme_remui/demonavbar
 
 }}
-{{! <div style="position: fixed; top: 0; left: 0; width: 100%; height: 48px; z-index: 1031;">
-    <div style="height: 48px; background-color: #001C1D;">
-        <h3 style="color: #ABBEBE;">This is for testing</h2>
-    </div>
-</div> }}
 
 {{#democontext}}
-            
-<nav class="navbar demo-navbar fixed-top navbar-expand">
+
+<div class="fixed-top demo-navbar d-flex flex-gap-10 p-py-1d5 p-px-4"> 
     <a href="{{{ config.homeurl }}}" class="demo-logo d-flex align-items-center m-0" aria-label="{{ sitename }} - {{#str}}brandname, theme_remui{{/str}}" title="{{ sitename }}">
         <img src="{{ demologourl }}" class="">
-    </a>
+    </a>      
 
-    <div class="sub-nav">
-        <div class="navbar-toggler-wrapper">
-            <button class="navbar-toggler aabtn d-block d-lg-none border-0 h-100 p-0" data-toggler="drawers" data-action="toggle" data-target="theme_remui-drawers-primary">
-                <span class="edw-icon edw-icon-Mobile-menu"></span>
-                <span class="sr-only">{{#str}}sidepanel, core{{/str}}</span>
-            </button>
+    <nav class="navbar navbar-expand-lg">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="edw-icon edw-icon-Mobile-menu"></span>
+            <span class="sr-only">{{#str}}sidepanel, core{{/str}}</span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li data-key="templates" class="dropdown nav-item" role="none"  >
+                    <a class="dropdown-toggle nav-link  " id="drop-down-1" role="menuitem" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#" tabindex="-1" aria-label="Templates Courses Menu" title="Templates">
+                        Templates
+                    </a>
+                    <div class="dropdown-menu" role="menu" aria-labelledby="drop-down-1">
+                        <div style="width: 100%; height: 80vh;">
+                            This is for testing
+                        </div>
+                    </div>
+                </li>
+
+                <li data-key="themepages" class="dropdown nav-item" role="none"  >
+                    <a class="dropdown-toggle nav-link  " id="drop-down-2" role="menuitem" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#" tabindex="-1" aria-label="Theme pages Courses Menu" title="Theme pages">Theme pages</a>
+                    <div class="dropdown-menu" role="menu" aria-labelledby="drop-down-2">
+                        <div style="width: 100%; height: 80vh;">
+                            This is for testing
+                        </div>
+                    </div>
+                </li>
+
+                <li data-key="features" class="dropdown nav-item" role="none"  >
+                    <a class="dropdown-toggle nav-link  " id="drop-down-3" role="menuitem" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#" tabindex="-1" aria-label="Features Menu" title="Features">Features</a>
+                    <div class="dropdown-menu" role="menu" aria-labelledby="drop-down-3">
+                        <div style="width: 100%; height: 50vh;">
+                            This is for testing
+                        </div>
+                    </div>
+                </li>
+
+                <li data-key="Whatsnew" class="dropdown nav-item" role="none"  >
+                    <a class="dropdown-toggle nav-link  " id="drop-down-4" role="menuitem" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#" tabindex="-1" aria-label="What’s new Menu" title="What’s new">What’s new</a>
+                    <div class="dropdown-menu" role="menu" aria-labelledby="drop-down-4">
+                        <div style="width: 100%; height: 60vh;">
+                            This is for testing
+                        </div>
+                    </div>
+                </li>
+            </ul>
         </div>
+    </nav>
 
-        <div class="langmenu">
-            <div class="dropdown show">
-                <a href="#" role="button" id="lang-menu-toggle" data-toggle="dropdown" aria-haspopup="true" aria-controls="lang-action-menu" class="btn dropdown-toggle">
-                    <span class="langbutton">
-                        English
-                    </span>
-                </a>
-                <div role="menu" aria-labelledby="lang-menu-toggle" id="lang-action-menu" class="dropdown-menu dropdown-menu-right">
-                    Only for testing
+    <ul class="ml-auto d-flex flex-gap-4 navbar-right">
+        <li data-key="admin" class="dropdown nav-item" role="none"  >
+            <a class="dropdown-toggle nav-link p-px-2d5 p-py-1d5" id="drop-down-5" role="menuitem" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#" tabindex="-1" aria-label="Admin Menu" title="Admin">Admin</a>
+            <div class="dropdown-menu" role="menu" aria-labelledby="drop-down-5">
+                <div style="width: 100%; height: 80vh;">
+                    This is for testing
                 </div>
             </div>
-        </div>
+        </li>
 
-    </div>
-
-</nav>
+        <li data-key="en" class="dropdown nav-item" role="none"  >
+            <a class="dropdown-toggle nav-link  p-px-2d5 p-py-1d5" id="drop-down-6" role="menuitem" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#" tabindex="-1" aria-label="EN Menu" title="EN">EN</a>
+            <div class="dropdown-menu" role="menu" aria-labelledby="drop-down-6">
+                <div style="width: 100%; height: 80vh;">
+                    This is for testing
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
 {{/democontext}}
