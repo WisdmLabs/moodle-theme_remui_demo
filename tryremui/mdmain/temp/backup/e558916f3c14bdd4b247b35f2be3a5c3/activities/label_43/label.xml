@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<activity id="1" moduleid="43" modulename="label" contextid="113">
-  <label id="1">
-    <name> Speaking Practice</name>
-    <intro>&lt;h4&gt;&lt;img src="https://www.bispschool.com/icon/speaking.jpg" alt="speaking" width="50" height="46" role="presentation" style="vertical-align: middle;" /&gt; Speaking Practice&lt;/h4&gt;</intro>
-    <introformat>1</introformat>
-    <timemodified>1510923321</timemodified>
-  </label>
-</activity>
