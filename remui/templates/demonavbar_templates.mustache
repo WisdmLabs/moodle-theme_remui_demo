@@ -1,5 +1,140 @@
-<div class="demo-navbar-templates">
-    <div style="width: 100%; height: 80vh;">
-        This is for testing
-    </div>
+<div class="demo-navbar-templates demo-navbar-menu-container">
+
+            
+        <div class="nav buttons-wrapper" id="v-pills-tab" role="tablist">
+
+            <button class="btn-tab underline active" id="corporate-tab" data-toggle="pill" data-target="#corporate" type="button" role="tab" aria-controls="corporate" aria-selected="true">
+                <img src="{{wwwroot}}/theme/remui/pix/demosite/corporate-icon.svg" alt="Corporate icon" />
+                <span class="edw-nav-tab-text">Corporate</span>
+            </button>
+
+            <button class="btn-tab underline" id="university-tab" data-toggle="pill" data-target="#university" type="button" role="tab"
+                aria-controls="university" aria-selected="false">
+                <img src="{{wwwroot}}/theme/remui/pix/demosite/corporate-icon.svg" alt="Corporate icon" />
+                <span class="edw-nav-tab-text">University</span>
+            </button>
+
+            <button class="btn-tab underline" id="school-tab" data-toggle="pill" data-target="#school" type="button" role="tab"
+                aria-controls="school" aria-selected="false">
+                <img src="{{wwwroot}}/theme/remui/pix/demosite/corporate-icon.svg" alt="Corporate icon" />
+                <span class="edw-nav-tab-text">School</span>
+            </button>
+
+            <button class="btn-tab underline" id="classic-tab" data-toggle="pill" data-target="#classic" type="button" role="tab"
+                aria-controls="classic" aria-selected="false">
+                <img src="{{wwwroot}}/theme/remui/pix/demosite/corporate-icon.svg" alt="Corporate icon" />
+                <span class="edw-nav-tab-text">Classic</span>
+            </button>
+
+        </div>
+        
+        <div class="tab-content tab-template-content" id="v-pills-tabContent">
+          <div class="tab-pane fade show active" id="corporate" role="tabpanel" aria-labelledby="corporate-tab">
+            <div class="template-section">
+                <h3 class="template-section-title">Tech website</h3>
+                <div class="templates-container">
+                    <div class="template">
+                        <div class="template-body">
+                            <img src="https://staticcdn.edwiser.org/demoimporter/homepage/university.jpeg" alt="template1" />
+                        </div>
+                        <p class="template-title p-mt-4 mb-0">Home page</p>
+                    </div>
+                    <div class="template">
+                        <div class="template-body">
+                            <img src="https://staticcdn.edwiser.org/demoimporter/homepage/university.jpeg" alt="template1" />
+                        </div>
+                        <p class="template-title p-mt-4 mb-0">About us</p>
+                    </div>
+                    <div class="template">
+                        <div class="template-body">
+                            <img src="https://staticcdn.edwiser.org/demoimporter/homepage/university.jpeg" alt="template1" />
+                        </div>
+                        <p class="template-title p-mt-4 mb-0">Contact</p>
+                    </div>
+                    <div class="template">
+                        <div class="template-body">
+                            <img src="https://staticcdn.edwiser.org/demoimporter/homepage/university.jpeg" alt="template1" />
+                        </div>
+                        <p class="template-title p-mt-4 mb-0">Gallery</p>
+                    </div>
+                    <div class="template">
+                        <div class="template-body">
+                            <img src="https://staticcdn.edwiser.org/demoimporter/homepage/university.jpeg" alt="template1" />
+                        </div>
+                        <p class="template-title p-mt-4 mb-0">Blog</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="template-section">
+                <h3 class="template-section-title">Finance website</h3>
+                <div class="templates-container">
+                    <div class="template">
+                        <div class="template-body">
+                            <img src="https://staticcdn.edwiser.org/demoimporter/homepage/university.jpeg" alt="template1" />
+                        </div>
+                        <p class="template-title p-mt-4 mb-0">Blog</p>
+                    </div>
+                    <div class="template">
+                        <div class="template-body">
+                            <img src="https://staticcdn.edwiser.org/demoimporter/homepage/university.jpeg" alt="template1" />
+                        </div>
+                        <p class="template-title p-mt-4 mb-0">Blog</p>
+                    </div>
+                    <div class="template">
+                        <div class="template-body">
+                            <img src="https://staticcdn.edwiser.org/demoimporter/homepage/university.jpeg" alt="template1" />
+                        </div>
+                        <p class="template-title p-mt-4 mb-0">Blog</p>
+                    </div>
+                    <div class="template">
+                        <div class="template-body">
+                            <img src="https://staticcdn.edwiser.org/demoimporter/homepage/university.jpeg" alt="template1" />
+                        </div>
+                        <p class="template-title p-mt-4 mb-0">Blog</p>
+                    </div>
+                    <div class="template">
+                        <div class="template-body">
+                            <img src="https://staticcdn.edwiser.org/demoimporter/homepage/university.jpeg" alt="template1" />
+                        </div>
+                        <p class="template-title p-mt-4 mb-0">Blog</p>
+                    </div>
+                </div>
+            </div>
+          </div>
+
+          <div class="tab-pane fade" id="university" role="tabpanel" aria-labelledby="university-tab">
+            <p class="pane-heading">university</p>
+          </div>
+
+          <div class="tab-pane fade" id="school" role="tabpanel" aria-labelledby="school-tab">
+            <p class="pane-heading">school</p>
+          </div>
+
+          <div class="tab-pane fade" id="classic" role="tabpanel" aria-labelledby="classic-tab">
+            <p class="pane-heading">classic</p>
+          </div>
+        </div>
 </div>
+
+{{#js}}
+require(['jquery'], function($) {
+    $(document).ready(function() {
+        function openTab(tabId) {
+            $('.tab-pane').removeClass('show active');
+            $('.btn-tab').removeClass('active');
+            $('.btn-tab').attr('aria-selected', false);
+
+            $('#' + tabId).addClass('show active');
+            $('button[data-target="#' + tabId + '"]').addClass('active');
+            $('button').attr('aria-selected', true);
+        }
+
+        $(".buttons-wrapper .btn-tab").on("click", function() {
+            let currentId = $(this).data('target').replace('#', '');
+            openTab(currentId);
+        });
+
+    })
+});
+{{/js}}
