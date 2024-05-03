@@ -368,7 +368,7 @@ body.transparent-header:not(body.latest-frontpage.transparent-header){
 // Demo Navbar
 .demo-navbar {
     z-index: 1031;
-    height: 48px;
+    height: $subnav-height;
     background-color: #001C1D;
     border-bottom: 1px solid #3C4848;
 
@@ -420,7 +420,7 @@ body.transparent-header:not(body.latest-frontpage.transparent-header){
     
         .dropdown-menu {
             position: fixed;
-            top: 48px;
+            top: $subnav-height;
             left: 0;
             width: 100%;
             height: fit-content;
@@ -447,7 +447,7 @@ body.transparent-header:not(body.latest-frontpage.transparent-header){
 
         @include media-breakpoint-down(md) {
             position: fixed;
-            top: 48px;
+            top: $subnav-height;
             left: 0px;
             right: 0;
             width: 100%;
