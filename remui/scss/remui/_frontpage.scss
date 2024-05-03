@@ -118,13 +118,13 @@ body.pagelayout-frontpage {
     }
 
     #frontpage-available-course-list {
-        .slick-track{
-            display: flex;
-            min-height: 380px;
-        }
-        .slick-slide{
-            height: inherit;
-        }
+        // .slick-track{
+        //     display: flex;
+        //     min-height: 380px;
+        // }
+        // .slick-slide{
+        //     height: inherit;
+        // }
         @include date-styling();
         & h2{
             // @extend .h-semibold-3;

@@ -342,8 +342,8 @@ class utility {
             );
             $footerarr['hassocial'] = $customizer->get_config('socialmediaiconcol' . $i) && $footerarr['customhtml'];
             $footerarr['socialiconvisibility'] = $footerarr['hassocial'];
-            if (!$customizer->get_config('footercolumn'.$i.'social') || !$selectedsocial = json_decode($customizer->get_config('footercolumn'.$i.'social'), true)) {
-                    $selectedsocial = [];
+            if (!$selectedsocial = json_decode($customizer->get_config('footercolumn'.$i.'social'), true)) {
+                $selectedsocial = [];
             }
 
             $tempsocial = $sociallist;
@@ -672,7 +672,7 @@ class utility {
     public static function get_course_cards_content($wdmdata, $date = 'all') {
         global $CFG, $OUTPUT;
         $courseperpage = \theme_remui\toolbox::get_setting('courseperpage');
-        $categorysort = isset($wdmdata->sort) ? $wdmdata->sort : '';
+        $categorysort = $wdmdata->sort;
         $search       = $wdmdata->search;
         $category     = $wdmdata->category;
         $courses      = isset($wdmdata->courses) ? $wdmdata->courses : [];

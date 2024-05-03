@@ -26,7 +26,7 @@ defined('MOODLE_INTERNAL') || die();
 
 global $CFG , $PAGE;
 
-require_once("{$CFG->dirroot}/theme/remui/layout/common.php");
+require_once("{$CFG->dirroot}/theme/{$PAGE->theme->name}/layout/common.php");
 
 $templatecontext['pagelayout_frontpage'] = true;
 

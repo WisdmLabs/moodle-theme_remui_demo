@@ -100,7 +100,7 @@ $subnav-height: 48px;
 
     .drawer-toggler {
         position: fixed;
-        top: calc(#{$navbar-height} + 0.7rem);
+        top: calc(#{$navbar-height + $subnav-height} + 0.7rem );
         z-index: 2;
         .btn {
             border-radius: 200px;
@@ -204,14 +204,14 @@ $subnav-height: 48px;
 @include media-breakpoint-up(lg) {
     .drawer-left,
     .drawer-right {
-        top: $navbar-height;
-        height: calc(100vh - #{$navbar-height});
+        top: $navbar-height + $subnav-height;
+        height: calc(100vh - #{$navbar-height + $subnav-height});
     }
     .hasstickyfooter {
         .drawer-left,
         .drawer-right {
-            top: $navbar-height;
-            height: calc(100vh - #{$navbar-height} - #{$stickyfooter-height});
+            top: $navbar-height + $subnav-height;
+            height: calc(100vh - #{$navbar-height + $subnav-height} - #{$stickyfooter-height});
         }
     }
 

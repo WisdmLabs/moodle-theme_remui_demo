@@ -67,9 +67,9 @@ trait heading {
         // Font size.
         $fontsize = $this->get_config("typography-heading-{$heading}-fontsize", true);
         [$fontsize] = $this->validate_responsive_sizes([$fontsize]);
-        $variables["heading-{$heading}-fontsize"] = $fontsize['default'];
+        $variables["heading-${heading}-fontsize"] = $fontsize['default'];
         // Font size tablet.
-        $variables["heading-{$heading}-fontsize-tablet"] = $fontsize['tablet'];
+        $variables["heading-${heading}-fontsize-tablet"] = $fontsize['tablet'];
 
         // Font weight.
         // $fontweight = $this->get_config("typography-heading-{$heading}-fontweight");
@@ -83,18 +83,18 @@ trait heading {
         if ($lineheight == '') {
             $lineheight = 'null';
         }
-        $variables["heading-{$heading}-lineheight"] = $lineheight;
+        $variables["heading-${heading}-lineheight"] = $lineheight;
 
         // Text transform.
         $texttransform = $this->get_config("typography-heading-{$heading}-text-transform");
         if (strtolower($texttransform) == 'inherit') {
             $texttransform = $this->get_config("typography-heading-all-text-transform");
         }
-        $variables["heading-{$heading}-texttransform"] = $texttransform;
+        $variables["heading-${heading}-texttransform"] = $texttransform;
 
         // Color.
         $color = $this->get_config("typography-heading-{$heading}-custom-color") ? $heading : 'all';
-        $variables["heading-{$heading}-color"] = $this->get_config("typography-heading-{$color}-textcolor");
+        $variables["heading-${heading}-color"] = $this->get_config("typography-heading-{$color}-textcolor");
 
         $variables['heading-regular-fontweight'] = 400;
         $variables['heading-semibold-fontweight'] = 600;

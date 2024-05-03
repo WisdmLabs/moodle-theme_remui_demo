@@ -153,37 +153,8 @@ if ( isloggedin()
     $homepagedepricationmodal = \theme_remui\utility::get_homepage_depriation_modal();
 }
 
-if ( isloggedin() ) {
-    $mainarr = [];
-    foreach ($primarymenu['user']['items'] as $key => $item) {
-        if (isset($item->titleidentifier) && $item->titleidentifier == 'language') {
-            // unset($primarymenu['user']['items'][$key]);
-            $primarymenu['user']['items'] = array_values($primarymenu['user']['items']);
-
-            $mainarr['text'] = $item->title;
-            $mainarr['key'] = $item->titleidentifier;
-
-            $mainarr['url'] = "#";
-            $mainarr['children'] = [];
-            $mainarr['haschildren'] = true;
-            $mainarr['sort'] = "langselector-menu";
-
-            foreach ($primarymenu['user']['submenus'] as $key => $submenu) {
-                if (isset($submenu->id) && $submenu->id == $item->submenuid) {
-                    $mainarr['children'] = $submenu->items;
-                }
-            }
-
-            if (isset($mainarr['haschildren']) && $mainarr['haschildren']) {
-                array_unshift($primarymenu['edwisermenu']['nodearray'], $mainarr);
-                $primarymenu['mobileprimarynav'][] = $mainarr;
-            }
-        }
-    }
-}
-
 $democontext = [];
-$democontext["demologourl"] = $OUTPUT->image_url('demo-logo', 'theme_remui');
+$democontext["wwwroot"] = $CFG->wwwroot;
 
 
 $templatecontext = [
