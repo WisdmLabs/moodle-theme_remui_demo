@@ -1,0 +1,38 @@
+# Changes in Existing Files
+    layout/common.php: $democontext (wwwroot for images) added
+                        "$democontext = [];
+                        $democontext[""wwwroot""] = $CFG->wwwroot;"
+                        
+                        # This code sets up a $democontext array and assigns the value of $CFG->wwwroot to the "wwwroot" key. This allows for easy access to the wwwroot path for images and other assets used in the demonavbar.
+
+    scss/moodle/variables.scss: $subnav-height declared to be used everywhere, where $navbar-height has been used, to modify existing Navbar position to adjust according to demonavbar
+
+    $subnav-height used in two existing files
+    1. scss/moodle/layout.scss
+    2. scss/remui/focusmode.scss
+
+                        # The $subnav-height variable is used in these two files to adjust the layout (existing navbar, sidebar) accordingly.
+
+    common_start.mustacke: demonavbar.mustache included
+
+                        # The demonavbar.mustache file is included in the common_start.mustache file, which is responsible for rendering the demo navigation bar on the site.
+
+# New Files Created
+    In pix directory, separate folder 'demosite' created for demonavbar images
+
+    demonavbar.scss: created for styling and included into scss/remui.scss
+
+                        # demonavbar.scss has been created to hold the styling rules for the demo navigation bar. This file is included in the scss/remui.scss file, which is the main SCSS file for the Remui theme.
+
+    5 mustache files created for demonavbar:
+        demonavbar.mustache (included into common_start.mustache)
+
+                        # The main demonavbar.mustache file is responsible for rendering the demo navigation bar. It is included in the common_start.mustache file.
+
+        and other mustache files include into demonavbar.mustache
+        demonavbar_templates.mustache
+        demonavbar_features.mustache
+        demonavbar_theme_pages.mustache
+        demonavbar_whatsnew.mustache
+
+                        # These four additional mustache files are included in the demonavbar.mustache file and provide content for different sections of the demo navigation bar, such as templates, features, theme pages, and what's new.
