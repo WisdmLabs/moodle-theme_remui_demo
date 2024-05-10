@@ -642,3 +642,34 @@ function edw_reposition_block($bi, $newregion, $newweight, $contexid, $pagetype,
         $DB->insert_record('block_positions', $bp);
     }
 }
+
+function theme_remui_set_dynamic_settings() {
+    global $CFG;
+
+    require_once($CFG->libdir . "/filelib.php");
+
+    $url = "https://tryremui.edwiser.org/remuisettings.json";
+
+    try {
+        $c = new \curl;
+        $html = $c->get($url);
+
+    } catch (\Exception $e) {
+        return;
+    }
+    
+    $demodynamicver = get_config('theme_remui', 'demodynamicver');
+    
+    $html = json_decode($html);
+
+    if (!$demodynamicver || $demodynamicver < $html->version) {
+        foreach ($html as $key => $value) {
+            if($key == 'version') {
+                set_config('demodynamicver', $value, "theme_remui");
+            } else {
+                set_config($key,  $value, "theme_remui");
+            }
+        }
+    }
+
+}

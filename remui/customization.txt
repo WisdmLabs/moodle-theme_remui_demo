@@ -30,4 +30,15 @@
         demonavbar_theme_pages.mustache
         demonavbar_whatsnew.mustache
 
-                        # These four additional mustache files are included in the demonavbar.mustache file and provide content for different sections of the demo navigation bar, such as templates, features, theme pages, and what's new.
+# These four additional mustache files are included in the demonavbar.mustache file and provide content for different sections of the demo navigation bar, such as templates, features, theme pages, and what's new.
+
+
+# Login page profiles
+    Have few customizations on core/loginform.mustache
+    Added comments for customizations, didn't add it separatly
+    Also have four profile pictures in pix folder - admin.png, manager.png, student.png, teacher.png
+
+# Save settings as per our requirement 
+    lib.php 
+        Function => theme_remui_set_dynamic_settings()
+        Call for the function is in common.php layout file

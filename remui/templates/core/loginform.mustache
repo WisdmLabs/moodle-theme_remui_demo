@@ -100,7 +100,7 @@
 
 <div class="loginform d-flex flex-column flex-gap-8">
     <div class="login-welcome-wrapper d-flex flex-column flex-gap-1 text-center">
-        <h2 class="h-bold-3 m-0">
+        <h2 class="h-bold-3 m-0" style="font-size: 1.8rem;">
             {{#str}}welcometobrand, theme_remui, {{sitename}}{{/str}}
         </h2>
         <p class="para-regular-3 m-0">{{#str}}entertologin, theme_remui{{/str}}</p>
@@ -117,6 +117,40 @@
     {{#cansignup}}
         <a href="{{signupurl}}" class="sr-only">{{#str}} tocreatenewaccount {{/str}}</a>
     {{/cansignup}}
+    <!-- DEMO CUSTOMIZATION -->
+    <div class="col-12 m-0 p-0 text-center ">
+        <div class="col-12 text-center p-0" style="margin: 10px 0 28px;">
+            <h5 class="mx-0 mt-3 mb-4" style="color: #647390; font-size: 20px; font-weight: 400;">Click to log in with any role
+            </h5>
+        </div>
+        <div class="row login-profiles w-100 my-20">
+            <div class="col-6 profile-content">
+                <a href="{{config.wwwroot}}/login/index.php?username=student&amp;password=moodle">
+                    <img src="{{config.wwwroot}}/theme/remui/pix/student.png" width="60" height="60" style="border-radius: 50%; outline: 1px solid #264485; outline-offset: 4px;">
+                </a>
+                <h5 class="h-bold-6 my-3" style="color: #0051F9; font-size: 1rem;">Student</h5>
+            </div>
+            <div class="col-6 profile-content">
+                <a href="{{config.wwwroot}}/login/index.php?username=teacher&amp;password=moodle">
+                    <img src="{{config.wwwroot}}/theme/remui/pix/teacher.png" width="60" height="60" style="border-radius: 50%; outline: 1px solid #264485; outline-offset: 4px;">
+                </a>
+                <h5 class="h-bold-6 my-3" style="color: #0051F9; font-size: 1rem;">Teacher</h5>
+            </div>
+            <div class="col-6 profile-content">
+                <a href="{{config.wwwroot}}/login/index.php?username=manager&amp;password=moodle">
+                    <img src="{{config.wwwroot}}/theme/remui/pix/manager.png" width="60" height="60" style="border-radius: 50%; outline: 1px solid #264485; outline-offset: 4px;">
+                </a>
+                <h5 class="h-bold-6 my-3" style="color: #0051F9; font-size: 1rem;">Manager</h5>
+            </div>
+            <div class="col-6 profile-content">
+                <a href="{{config.wwwroot}}/login/index.php?username=admin&amp;password=Edwiser0-">
+                    <img src="{{config.wwwroot}}/theme/remui/pix/admin.png" width="60" height="60" style="border-radius: 50%; outline: 1px solid #264485; outline-offset: 4px;">
+                </a>
+                <h5 class="h-bold-6 my-3" style="color: #0051F9; font-size: 1rem;">Admin</h5>
+            </div>
+        </div>
+    </div>
+    <!-- DEMO CUSTOMIZATION END-->
     <form class="login-form" action="{{loginurl}}" method="post" id="login">
         <input type="hidden" name="logintoken" value="{{logintoken}}">
         <div class="login-form-username form-group">
@@ -186,7 +220,8 @@
         {{#hasinstructions}}
         <div class="login-instructions">
             <h2 class="login-heading text-link-semibold form-label-color">{{#str}}firsttime, theme_remui{{/str}}</h2>
-            {{{instructions}}}
+	    <!-- DEMO CUSTOMIZATION -->
+            <!--{{{instructions}}}-->
         </div>
         {{/hasinstructions}}
         {{#cansignup}}
@@ -196,7 +231,7 @@
         {{/cansignup}}
     </div>
     {{#canloginasguest}}
-    <div>
+    <div class="guestlogin-wrapper">
         <h2 class="login-heading text-link-semibold form-label-color">{{#str}}someallowguest{{/str}}</h2>
         <form action="{{loginurl}}" method="post" id="guestlogin">
             <input type="hidden" name="logintoken" value="{{logintoken}}">

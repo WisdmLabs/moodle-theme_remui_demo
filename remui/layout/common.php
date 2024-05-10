@@ -30,6 +30,7 @@ require_once($CFG->libdir . '/behat/lib.php');
 require_once($CFG->dirroot . '/course/lib.php');
 
 global $PAGE;
+theme_remui_set_dynamic_settings();
 
 // Adding loader image before everything else.
 $loaderimage = \theme_remui\toolbox::setting_file_url('loaderimage', 'loaderimage');
