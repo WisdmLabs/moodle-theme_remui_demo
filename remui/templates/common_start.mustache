@@ -29,7 +29,19 @@
     <img src='{{{loaderimage}}}' alt='loader image' style='width: 100px;height: 100px;'>
 </div>
 <script>
-    window.addEventListener('load', function (){document.querySelector('#page-loader-wrapper').style.display = 'none';}, false);
+    window.addEventListener('load', function (){
+
+        // getitem from sessionStorage
+        var demolayout = sessionStorage.getItem("edwdemolayoutName");
+
+        if (demolayout) {
+            sessionStorage.removeItem('edwdemolayoutName');
+            // redirect to url
+            window.location.href = 'http://localhost/v42/course/view.php?id=2';
+        }
+
+        document.querySelector('#page-loader-wrapper').style.display = 'none';
+    }, false);
     if (localStorage.getItem("nighteyewState") == "1") {
         document.querySelector("#page-loader-wrapper").style.background = "#090909";
     }
