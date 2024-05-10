@@ -1,0 +1,47 @@
+#page.drawers {
+    margin-top: $navbar-height + $subnav-height;
+}
+
+.drawer-toggles {
+
+    .drawer-toggler {
+        top: calc(#{$navbar-height + $subnav-height} + 0.7rem );
+    }
+}
+
+@include media-breakpoint-up(lg) {
+    .drawer-left,
+    .drawer-right {
+        top: $navbar-height + $subnav-height;
+        height: calc(100vh - #{$navbar-height + $subnav-height});
+    }
+    .hasstickyfooter {
+        .drawer-left,
+        .drawer-right {
+            top: $navbar-height + $subnav-height;
+            height: calc(100vh - #{$navbar-height + $subnav-height} - #{$stickyfooter-height});
+        }
+    }
+}
+
+body {
+    @include media-breakpoint-up(sm) {
+        &:not(.focusmode) {
+            .navbar {
+                &:not(.fm-navbar) {
+                    top: $subnav-height !important;
+                }
+            }
+        }
+    }
+
+    @include media-breakpoint-down(sm) {
+        &:not(.focusmode) {
+            .navbar {
+                &:not(.fm-navbar) {
+                    top: $subnav-height !important;
+                }
+            }
+        }
+    }
+}

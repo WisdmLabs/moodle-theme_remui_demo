@@ -5,14 +5,6 @@
                         
                         # This code sets up a $democontext array and assigns the value of $CFG->wwwroot to the "wwwroot" key. This allows for easy access to the wwwroot path for images and other assets used in the demonavbar.
 
-    scss/moodle/variables.scss: $subnav-height declared to be used everywhere, where $navbar-height has been used, to modify existing Navbar position to adjust according to demonavbar
-
-    $subnav-height used in two existing files
-    1. scss/moodle/layout.scss
-    2. scss/remui/focusmode.scss
-
-                        # The $subnav-height variable is used in these two files to adjust the layout (existing navbar, sidebar) accordingly.
-
     common_start.mustacke: demonavbar.mustache included
 
                         # The demonavbar.mustache file is included in the common_start.mustache file, which is responsible for rendering the demo navigation bar on the site.
@@ -23,6 +15,9 @@
     demonavbar.scss: created for styling and included into scss/remui.scss
 
                         # demonavbar.scss has been created to hold the styling rules for the demo navigation bar. This file is included in the scss/remui.scss file, which is the main SCSS file for the Remui theme.
+
+    customizationvariables.scss
+    customizationfordemo.scss created for customizing layout (existing navbar, sidebar) accordingly. and it's included into scss/remui.scss
 
     5 mustache files created for demonavbar:
         demonavbar.mustache (included into common_start.mustache)

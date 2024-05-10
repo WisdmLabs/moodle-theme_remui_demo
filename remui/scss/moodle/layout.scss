@@ -34,7 +34,7 @@
 }
 
 #page.drawers {
-    margin-top: $navbar-height + $subnav-height;
+    margin-top: $navbar-height;
     @include thin-scrolls($gray-100);
     .main-inner {
         max-width: 100%;
@@ -98,7 +98,7 @@
 
     .drawer-toggler {
         position: fixed;
-        top: calc(#{$navbar-height + $subnav-height} + 0.7rem );
+        top: calc(#{$navbar-height} + 0.7rem);
         z-index: 2;
         .btn {
             border-radius: 200px;
@@ -202,14 +202,14 @@
 @include media-breakpoint-up(lg) {
     .drawer-left,
     .drawer-right {
-        top: $navbar-height + $subnav-height;
-        height: calc(100vh - #{$navbar-height + $subnav-height});
+        top: $navbar-height;
+        height: calc(100vh - #{$navbar-height});
     }
     .hasstickyfooter {
         .drawer-left,
         .drawer-right {
-            top: $navbar-height + $subnav-height;
-            height: calc(100vh - #{$navbar-height + $subnav-height} - #{$stickyfooter-height});
+            top: $navbar-height;
+            height: calc(100vh - #{$navbar-height} - #{$stickyfooter-height});
         }
     }
 

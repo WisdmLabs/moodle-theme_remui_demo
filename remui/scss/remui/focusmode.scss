@@ -219,7 +219,7 @@ body {
         &:not(.focusmode) {
             .navbar {
                 &:not(.fm-navbar) {
-                    top: $subnav-height !important;
+                    top: 0 !important;
                     transition: all $animate-time ease;
                 }
                 &.fm-navbar {
