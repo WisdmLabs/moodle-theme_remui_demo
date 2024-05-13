@@ -8,8 +8,14 @@ $email = "xyz@gmail.com";
 if (isset($_POST) && isset($_POST['email'])) {
     $email = $_POST['email'];
 }
+
+$demotype = "classic";
+if (isset($_POST) && isset($_POST['layoutName'])) {
+  $demotype = $_POST['layoutName'];
+}
+
 if (3 <= round(disk_free_space("/") / 1024 / 1024 / 1024)) {
-  $demoinstance = $im->retrieve_fresh_instance($email);
+  $demoinstance = $im->retrieve_fresh_instance($email, $demotype);
 } else {
   $demoinstance = [
     'invalid' => true,

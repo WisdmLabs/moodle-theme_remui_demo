@@ -41,12 +41,6 @@ class InstanceManager {
      * along with creating new instance.
      */
     function retrieve_fresh_instance($email) {
-        // echo "<pre>";
-        // print_r();
-        // echo "</pre>";
-        // exit;
-
-
         // Get current time for new instance creation.
         $timecreation = time();
 

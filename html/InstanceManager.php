@@ -1,4 +1,8 @@
 <?php
+// NOTE :::::::::::::::
+// If new category is added on demo landing page, make sure to add new tag on edwiser.org FluentCRM.
+// Also add the ID of newly created instance into the $demos array.
+
 
 class InstanceManager {
     private $_allInstances;
@@ -64,9 +68,9 @@ class InstanceManager {
         }
         foreach ($this->_allInstances['inuse'] as $instance) {
 		
-	    if ($ip == "223.233.82.100") {
-	    	return false;
-	    }
+            if ($ip == "223.233.82.100") {
+                return false;
+            }
             if (isset($instance['ip']) && $instance['ip'] == $ip) {
                 return $instance;
             }
@@ -78,7 +82,7 @@ class InstanceManager {
      * This will return existing unused demo details to user.
      * along with creating new instance.
      */
-    function retrieve_fresh_instance($email) {
+    function retrieve_fresh_instance($email, $demotype="classic") {
         if (!$this->is_authentic()) {
             return [
                 'invalid' => true,
@@ -90,9 +94,22 @@ class InstanceManager {
         // Get current time for new instance creation.
         $timecreation = time();
 
+	// Demo Tag id on fluentcrm.
+        $demos = [
+            "classic"=> 21,
+            "school"=> 22,
+            "university"=> 24,
+            "corporate" => 23
+        ];
+
+        // https://edwiser.org/?fluentcrm=1&route=contact&hash=363ef54c-ed6c-4b6e-8290-49eb1729c7e6
         // Generate data for requesting user.
         // Here we are fetching 0th index existing demo and move it to in use array.
         if ($existingdata = $this->existing($ip)) {
+            if ($existingdata['demo_type'] !== $demotype) {
+                $existingdata['tags'] = $demotype;
+                $this->erd_record_users($existingdata);
+            }
             return $existingdata;
         } else {
             $existingdata = $this->_allInstances['instances'][0];
@@ -100,8 +117,12 @@ class InstanceManager {
             $existingdata['timecreation'] = $timecreation;
             $existingdata['timedeletion'] = $timecreation + $this->destroyPeriod;
             $existingdata['ip'] = $ip;
+            $existingdata['lists'] = array(10); // On FluentCRM "Edwiser RemUI Leads" list id is 10.
+            $existingdata['tags'] = array($demos[$demotype]);
             $this->_allInstances['inuse'][] = $existingdata;
-	    $this->erd_record_users($existingdata);
+	        
+            $this->erd_record_users($existingdata);
+
             // Delete 0th Index from existing instances.
             unset($this->_allInstances['instances'][0]);
 
@@ -131,66 +152,59 @@ class InstanceManager {
 
         return $existingdata;
     }
-function erd_record_users($existingdata) {
+    function erd_record_users($existingdata) {
 
-    $payload = json_encode($existingdata);
-   // $requesturl = "https://wordpress-1154182-4019807.cloudwaysapps.com/wp-json/demo/v1/remui_demo_details";
-   // $requesturl = "https://webhook.site/8453f709-24c7-444f-8f72-30d16113d2ad";
-    //$requesturl = "https://edwiser.org/wp-json/demo/v1/remui_demo_details";
-    // $requesturl = "https://hooks.zapier.com/hooks/catch/804349/38wc6t1/";
-	//    $requesturl = "https://webhook.site/42f25f2b-aade-4580-a6b8-5087ab697315";
-    $requesturl = "https://edwiser.org/wp-json/demo/v1/remui_demo_details";
-    // Create a new cURL resource
-    $curl = curl_init();
+        $payload = json_encode($existingdata);
+        $requesturl = "https://edwiser.org/?fluentcrm=1&route=contact&hash=363ef54c-ed6c-4b6e-8290-49eb1729c7e6";
+        // Create a new cURL resource
+        $curl = curl_init();
 
-    if (!$curl) {
-        die("Couldn't initialize a cURL handle");
+        if (!$curl) {
+            die("Couldn't initialize a cURL handle");
+        }
+
+        $ch = curl_init($requesturl);
+        $config['useragent'] = 'Chrome/5.0 (Windows NT 6.2; WOW64; rv:17.0) Gecko/20100101 Firefox/17.0';
+
+        curl_setopt($ch, CURLOPT_USERAGENT, $config['useragent']);
+        curl_setopt($ch, CURLOPT_REFERER, 'https://demo.tryremui.edwiser.org');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLINFO_HEADER_OUT, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+        // Set HTTP Header for POST request
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            'Content-Type: application/json',
+            'Content-Length: ' . strlen($payload))
+        );
+
+        // Submit the POST request
+        $result = curl_exec($ch);
+
+        // Close cURL session handle
+        curl_close($ch);
+
+        // Sending it to edwiser
+        $requesturl = "https://edwiser.org/wp-json/demo/v1/remui_demo_details";
+        $ch = curl_init($requesturl);
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLINFO_HEADER_OUT, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+        
+        // Set HTTP Header for POST request
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            'Content-Type: application/json',
+            'Content-Length: ' . strlen($payload))
+        );
+        
+        // Submit the POST request
+        $result = curl_exec($ch);
+
+        // Close cURL session handle
+        curl_close($ch);
     }
-
-    $ch = curl_init($requesturl);
-    $config['useragent'] = 'Chrome/5.0 (Windows NT 6.2; WOW64; rv:17.0) Gecko/20100101 Firefox/17.0';
-
-    curl_setopt($ch, CURLOPT_USERAGENT, $config['useragent']);
-    curl_setopt($ch, CURLOPT_REFERER, 'https://demo.tryremui.edwiser.org');
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLINFO_HEADER_OUT, true);
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
-    // Set HTTP Header for POST request
-    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-        'Content-Type: application/json',
-        'Content-Length: ' . strlen($payload))
-    );
-    // Submit the POST request
-    $result = curl_exec($ch);
-    // error_log($result);
-    // error_log("\n".'Error ['. date("Y-m-d H:i:s"). '] : '.print_r($result, 1), 3, '/var/www/demo/html/wdm_error.log');
-    // Close cURL session handle
-    curl_close($ch);
-
-    //check the result
-    //print_r($result);
-    //Sending it to edwiser
-    // $requesturl = "https://edwiser.org/wp-json/demo/v1/remui_demo_details";
-    $requesturl = "https://webhook.site/42f25f2b-aade-4580-a6b8-5087ab697315";
-    $ch = curl_init($requesturl);
-
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLINFO_HEADER_OUT, true);
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
-    // Set HTTP Header for POST request
-    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-        'Content-Type: application/json',
-        'Content-Length: ' . strlen($payload))
-    );
-    // Submit the POST request
-    $result = curl_exec($ch);
-
-    // Close cURL session handle
-    curl_close($ch);
-
-}
     /**
      * Generate New Name for demo.
      * Used sha256 to generate unique hashcode each time for new demo name.

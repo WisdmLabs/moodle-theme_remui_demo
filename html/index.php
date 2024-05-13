@@ -45,6 +45,10 @@
             // Create a JSONFileManager object
             $json_file_manager = new JSONFileManager("./data/demo_categories.json");
 
+            // NOTE :::::::::::::::
+            // If new category is added on demo landing page, make sure to add new tag on edwiser.org FluentCRM.
+            // Also add the ID of newly created instance into the $demos array.
+            
             // Get the JSON data
             $json_data = $json_file_manager->read();
             // Loop through each category and create a layout card
@@ -107,6 +111,8 @@
     </div>
 
   </body>
+
+  <!--EMAIL VALIDATOR -->
   <script type="text/javascript">
     _NBSettings = {
         apiKey: 'public_4c53c3c5a0d1e538b96ddc29a9a09413',
@@ -136,8 +142,9 @@
   </script>
   
   <script type="text/javascript" src="https://cdn.neverbounce.com/widget/dist/NeverBounce.js"></script>
-  <script>
+  <!--EMAIL VALIDATOR -->
 
+  <script>
     const layoutWrapper = document.querySelector('#layout-wrapper');
     const cards = layoutWrapper.querySelectorAll('.layout-main .layout-card');
     const btnBack = layoutWrapper.querySelector('.btn-back');
@@ -145,6 +152,23 @@
     const submitBtn = layoutWrapper.querySelector('.inline-form input[type="submit"]');
     const closeBtn = layoutWrapper.querySelector('.layout-form-close');
     let scrollInterval;
+
+    submitBtn.addEventListener('click', function(event) {
+      event.preventDefault(); // Prevent the form from submitting
+
+      // Get the value of the layoutName input field
+      const layoutName = layoutWrapper.querySelector('.inline-form form input[name="layoutName"]').value;
+
+      // Get the value of the email input field
+      const email = layoutWrapper.querySelector('.inline-form form input[name="email"]').value;
+
+      // Perform any necessary validation or processing here.
+      if (layoutName && email) {
+        sessionStorage.setItem('edwdemolayoutName', layoutName);
+        // If both layoutName and email are provided, you can submit the form
+        this.closest('form').submit();
+      }
+    });
 
     function setFormLayout(targetInput = "") {
       let targetLayout = layoutWrapper.querySelector(`.layout-card:has(.layout-card-body[data-layoutid="${targetInput.value}"])`);
@@ -260,14 +284,6 @@
       //stop scrolling when hover will end
       card.querySelector(".layout-card-body").addEventListener('mouseleave', stopScrollImage);
     });
-
-    // emailInput.addEventListener('input', function() {
-    //   if(this.value.length > 0) {
-    //     submitBtn.classList.remove('disabled');
-    //   } else {
-    //     submitBtn.classList.add('disabled');
-    //   }
-    // });
 
     //add event listener to onclick on btn-back
     btnBack.addEventListener('click', function() {
