@@ -1455,6 +1455,9 @@ class utility {
             $democontext["hasswitchablerolebtns"] = true;
         } 
 
+        $whatsnew = $CFG->wwwroot. '/theme/remui/whatsnew.json';
+        $democontext["whatsnew"] = json_decode(file_get_contents($whatsnew), true);
+
         return $democontext;
     }
 }

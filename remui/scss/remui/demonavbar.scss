@@ -8,7 +8,6 @@ $demo-bg-dark-color: #001C1D;
     background-color: $demo-bg-dark-color;
     border-bottom: 1px solid #3C4848;
     gap: map-get($gapspace, 10 );
-    box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.25);
 
     @include media-breakpoint-down(md) {
         gap: map-get($gapspace, 4);
@@ -134,6 +133,7 @@ $demo-bg-dark-color: #001C1D;
             margin-top: 0;
             border: 0;
             border-radius: 0;
+            box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.25);
         }
     }
 
@@ -153,7 +153,7 @@ $demo-bg-dark-color: #001C1D;
             border: 1px solid #008B91;
             width: max-content;
             left: auto;
-            padding: 2px 0;
+            // padding: 2px 0;
     
             .dropdown-item {
                 color: #F1FFFF;
