@@ -34,11 +34,23 @@ if (3 <= round(disk_free_space("/") / 1024 / 1024 / 1024)) {
   <body>
   <div class="bg-top-left"></div>
   <div class="bg-bottom-right"></div>
-  <div class="container vertical-center">
+  <div class="container wrapper stack-top">
       <div class="logo-container">
         <img class="logo"src="./images/Logo.png" alt="Edwiser RemUI Brand Logo"/>
       </div>
       <div class="main d-flex">
+        <div class="right">
+          <div class="layout-card" >
+              <div class="layout-card-body" data-layoutid="1">
+                  <img src="./images/image2.png" alt="layout-1" />
+              </div>
+              <div class="layout-footer d-flex">
+                  <input type="radio" class="custom-radio-btn" checked name="layoutselected"/>
+                  <p class="layout-name">Corporate</p>
+              </div>
+          </div>
+        </div>
+
         <div class="left">
           <h1 class="heading m-0 py-1 p-0">
           <span class="text-3">
@@ -58,19 +70,7 @@ if (3 <= round(disk_free_space("/") / 1024 / 1024 / 1024)) {
             </p>
           <?php }?>
         </div>
-        <div class="right">
-          <div class="image-stack-container">
-            <div class="stack2">
-              <img src="./images/image2.png" />
-            </div>
-            <div class="stack1 main">
-              <img src="./images/image1.png">
-            </div>
-            <div class="stack3">
-              <img src="./images/image3.png">
-            </div>
-          </div>
-        </div>
+
       </div>
     </div>
   </body>

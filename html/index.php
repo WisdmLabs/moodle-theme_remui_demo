@@ -21,10 +21,12 @@
     <link rel="stylesheet" href="./styles.css">
   </head>
   <body>
-    <div class="main-container">
+    <div class="bg-top-left"></div>
+    <div class="bg-bottom-right"></div>
+    <div class="main-container stack-top">
       <div class="bg-top-left d-none"></div>
       <div class="bg-bottom-right d-none"></div>
-      <div id="layout-wrapper" class="container vertical-center wrapper">
+      <div id="layout-wrapper" class="container wrapper">
       
         <div class="logo-container">
           <img class="logo"src="./images/Logo.png" alt="Edwiser RemUI Brand Logo"/>
@@ -65,7 +67,7 @@
           </div>
         </div>
 
-        <div class="main">
+        <div class="main-section">
 
           <div class="right">
               <div class="layout-card" >
@@ -147,7 +149,7 @@
     function setFormLayout(targetInput = "") {
       let targetLayout = layoutWrapper.querySelector(`.layout-card:has(.layout-card-body[data-layoutid="${targetInput.value}"])`);
       let layoutForm = layoutWrapper.querySelector('.inline-form form');
-      let selectedLayout = layoutWrapper.querySelector(`.main .layout-card`);
+      let selectedLayout = layoutWrapper.querySelector(`.main-section .layout-card`);
 
       layoutForm.querySelector(`.form-control[name="layoutName"]`).value = targetInput.value;
       selectedLayout.querySelector('img').src = targetLayout.querySelector('.layout-card-body img').src;
@@ -168,7 +170,7 @@
     function changeHandler(targetInput = "") {
       let targetLayout = layoutWrapper.querySelector(`.layout-card:has(.layout-card-body[data-layoutid="${targetInput.value}"])`);
       let layoutMain = layoutWrapper.querySelector('.layout-main');
-      let main = layoutWrapper.querySelector('.main');
+      let main = layoutWrapper.querySelector('.main-section');
 
       addActiveToTargetLayout(targetInput);
 
@@ -217,7 +219,7 @@
 
     window.addEventListener('resize', function() {
       let layoutMain = layoutWrapper.querySelector('.layout-main');
-      let main = layoutWrapper.querySelector('.main');
+      let main = layoutWrapper.querySelector('.main-section');
       let activeLayout = layoutWrapper.querySelector('.layout-card.active');
 
       if(window.innerWidth <= 700) {
