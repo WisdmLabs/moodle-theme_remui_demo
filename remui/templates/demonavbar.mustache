@@ -100,19 +100,47 @@
     <ul class="ml-auto d-flex flex-gap-4 navbar-right">
         <li class="dropdown nav-item" role="none"  >
             <a class="dropdown-toggle nav-link flex-gap-d5 p-px-2d5 p-py-1d5" id="drop-down-5" role="menuitem" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#" tabindex="-1" aria-label="Admin Menu" title="Admin">Admin</a>
-            <div class="dropdown-menu" role="menu" aria-labelledby="drop-down-5">
-                <a class="dropdown-item" href="#">Admin</a>
-                <a class="dropdown-item" href="#">Student</a>
-                <a class="dropdown-item" href="#">Guest</a>
+            <div class="dropdown-menu users-menu-dropdown" role="menu" aria-labelledby="drop-down-5">
+
+                <div>
+                    <form method="post" action="http://localhost/m42/course/switchrole.php">
+                        <input type="hidden" name="id" value="1">
+                        <input type="hidden" name="switchrole" value="1">
+                        <input type="hidden" name="returnurl" value="http://localhost/m42/user/profile.php?id=2">
+                        <input type="hidden" name="sesskey" value="wAipkg5s6g">
+                        <button type="submit" class="dropdown-item" id="single_button6641a19f936027">Manager</button>
+                    </form>
+                </div>
+
+                <div>
+                    <form  method="post" action="http://localhost/m42/course/switchrole.php">
+                        <input type="hidden" name="id" value="1">
+                        <input type="hidden" name="switchrole" value="2">
+                        <input type="hidden" name="returnurl" value="http://localhost/m42/user/profile.php?id=2">
+                        <input type="hidden" name="sesskey" value="wAipkg5s6g">
+                        <button type="submit" class="dropdown-item" id="single_button6641a108412988">Course creator</button>
+                    </form>
+                </div>
+
+                <div>
+                    <form method="post" action="http://localhost/m42/course/switchrole.php">
+                        <input type="hidden" name="id" value="1">
+                        <input type="hidden" name="switchrole" value="3">
+                        <input type="hidden" name="returnurl" value="http://localhost/m42/user/profile.php?id=2">
+                        <input type="hidden" name="sesskey" value="wAipkg5s6g">
+                        <button type="submit" class="dropdown-item" id="single_button6641a19f936029">Teacher</button>
+                    </form>
+                </div>
+
             </div>
         </li>
 
         <li class="dropdown nav-item" role="none"  >
             <a class="dropdown-toggle nav-link flex-gap-d5 p-px-2d5 p-py-1d5" id="drop-down-6" role="menuitem" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#" tabindex="-1" aria-label="EN Menu" title="EN">EN</a>
-            <div class="dropdown-menu" role="menu" aria-labelledby="drop-down-6">
-                <a class="dropdown-item" href="#">English(en)</a>
-                <a class="dropdown-item" href="#">Deutsch(de)</a>
-                <a class="dropdown-item" href="#">Francais(fr)</a>
+            <div class="dropdown-menu users-menu-dropdown" role="menu" aria-labelledby="drop-down-6">
+                <a href="http://localhost/m42/?lang=de" class="dropdown-item" role="menuitem" lang="de">Deutsch (de)</a>
+                <a href="#" class="dropdown-item" role="menuitem" aria-current="true">English (en)</a>
+                <a href="http://localhost/m42/?lang=es" class="dropdown-item" role="menuitem" lang="es">Español - Internacional (es)</a>
             </div>
         </li>
     </ul>

@@ -1,10 +1,11 @@
 // Demo Navbar
 $demonavbar-menu-max-height: 80vh;
+$demo-bg-dark-color: #001C1D;
 
 .demo-navbar {
     z-index: 1031;
     height: $subnav-height;
-    background-color: #001C1D;
+    background-color: $demo-bg-dark-color;
     border-bottom: 1px solid #3C4848;
     gap: map-get($gapspace, 10 );
 
@@ -44,7 +45,7 @@ $demonavbar-menu-max-height: 80vh;
     .navbar {
         position: static;
         top: 0 !important;
-        background-color: #001C1D;
+        background-color: $demo-bg-dark-color;
     }
 
     .navbar-toggler {
@@ -81,7 +82,7 @@ $demonavbar-menu-max-height: 80vh;
     .navbar-nav,
     .navbar-right {
         
-        background-color: #001C1D;
+        background-color: $demo-bg-dark-color;
 
         .nav-item {
             color: #ABBEBE;
@@ -144,8 +145,24 @@ $demonavbar-menu-max-height: 80vh;
             border: 1px solid #008B91;
         }
 
-        .dropdown-menu {
+        .users-menu-dropdown {
             margin-top: 10px;
+            background-color: $demo-bg-dark-color;
+            border-radius: 4px;
+            border: 1px solid #008B91;
+            width: max-content;
+    
+            .dropdown-item {
+                color: #F1FFFF;
+                @include get_typography(6, semibold, desktop);
+                font-weight: 500;
+
+                &:hover,
+                &.active,
+                &[aria-current="true"] {
+                    background-color: lighten($demo-bg-dark-color, 5%);
+                }
+            }
         }
     }
     
@@ -189,7 +206,7 @@ $demonavbar-menu-max-height: 80vh;
     }
 
     &-menu-container {
-        background-color: #001C1D;
+        background-color: $demo-bg-dark-color;
         padding: map-get($spacerspx, 10) 70px;
 
         @include media-breakpoint-down(lg) {
