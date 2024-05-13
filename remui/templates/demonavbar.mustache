@@ -98,21 +98,32 @@
     </nav>
 
     <ul class="ml-auto d-flex flex-gap-4 navbar-right">
-        <li class="dropdown nav-item" role="none"  >
-            <a class="dropdown-toggle nav-link flex-gap-d5 p-px-2d5 p-py-1d5" id="drop-down-5" role="menuitem" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#" tabindex="-1" aria-label="Admin Menu" title="Admin">Admin</a>
-            <div class="dropdown-menu users-menu-dropdown" role="menu" aria-labelledby="drop-down-5">
+        {{#hasswitchablerolebtns}}
+            <li class="dropdown nav-item" role="none"  >
+                <a class="dropdown-toggle nav-link flex-gap-d5 p-px-2d5 p-py-1d5" id="drop-down-5" role="menuitem" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#" tabindex="-1" aria-label="Admin Menu" title="Admin">
 
-                {{#switchablerolebtns}} 
-                    <div class="switcher-role">
-                        {{{.}}}
-                    </div>
-                {{/switchablerolebtns}}
+                {{#userrolename}}
+                    {{{userrolename}}}
+                {{/userrolename}}
+                {{^userrolename}}
+                    {{#str}}switchroleto{{/str}}
+                {{/userrolename}}
+                
+                </a>
+                <div class="dropdown-menu users-menu-dropdown" role="menu" aria-labelledby="drop-down-5">
 
-            </div>
-        </li>
+                    {{#switchablerolebtns}} 
+                        <div class="switcher-role">
+                            {{{.}}}
+                        </div>
+                    {{/switchablerolebtns}}
+
+                </div>
+            </li>
+        {{/hasswitchablerolebtns}}
 
         {{#langmenulist}}
-        <li class="dropdown nav-item" role="none">
+        <li class="dropdown nav-item d-none" role="none">
 
             {{#activelang}}
                 <a class="dropdown-toggle nav-link flex-gap-d5 p-px-2d5 p-py-1d5" id="lang-menu-toggle" role="menuitem" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#" tabindex="-1" aria-controls="lang-action-menu" aria-label="{{#str}}language{{/str}}" title="{{{title}}}">{{{text}}}</a>

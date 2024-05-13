@@ -1400,7 +1400,8 @@ class utility {
 
     public static function get_demonavbar_context(){
         global $CFG, $PAGE, $OUTPUT, $COURSE, $USER;
-        
+        require_once($CFG->dirroot . '/user/lib.php');
+
         $democontext = [];
         $democontext["wwwroot"] = $CFG->wwwroot;
 
@@ -1429,6 +1430,7 @@ class utility {
         $currentUrl = new moodle_url($PAGE->url);
         $currentUrlString = $currentUrl->out(false);
         $democontext["switchablerolebtns"] = [];
+
         if (is_array($availableroles)) {
             foreach ($availableroles as $key => $role) {
                 if ($assumedrole == (int)$key) {
@@ -1442,6 +1444,16 @@ class utility {
                 $democontext["switchablerolebtns"][] = $OUTPUT->container($OUTPUT->single_button($url, htmlspecialchars_decode($role, ENT_COMPAT)), 'mx-3 mb-1');
             }
         }
+
+        // set current user role to mega menu tab
+        $info = user_get_user_navigation_info($USER, $PAGE);
+        if(isset($info->metadata["rolename"]))
+        $democontext["userrolename"] = $info->metadata["rolename"];
+
+        // check if user has switchable role
+        if(count($availableroles) > 0 || is_role_switched($COURSE->id)) {
+            $democontext["hasswitchablerolebtns"] = true;
+        } 
 
         return $democontext;
     }
