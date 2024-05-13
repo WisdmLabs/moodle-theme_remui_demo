@@ -8,6 +8,7 @@ $demo-bg-dark-color: #001C1D;
     background-color: $demo-bg-dark-color;
     border-bottom: 1px solid #3C4848;
     gap: map-get($gapspace, 10 );
+    box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.25);
 
     @include media-breakpoint-down(md) {
         gap: map-get($gapspace, 4);
@@ -151,6 +152,7 @@ $demo-bg-dark-color: #001C1D;
             border-radius: 4px;
             border: 1px solid #008B91;
             width: max-content;
+            left: auto;
     
             .dropdown-item {
                 color: #F1FFFF;
@@ -158,9 +160,41 @@ $demo-bg-dark-color: #001C1D;
                 font-weight: 500;
 
                 &:hover,
+                &:focus,
                 &.active,
                 &[aria-current="true"] {
                     background-color: lighten($demo-bg-dark-color, 5%);
+                }
+            }
+        }
+
+        .switcher-role {
+            & > * {
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            .singlebutton {
+                width: 100%;
+            }
+            .btn {
+                display: flex;
+                justify-content: start;
+
+                background-color: $demo-bg-dark-color;
+                border: 0;
+                padding: 16px 24px;
+                width: 100%;
+
+                color: #F1FFFF;
+                @include get_typography(6, semibold, desktop);
+                font-weight: 500;
+
+                &:hover,
+                &:focus {
+                    background-color: lighten($demo-bg-dark-color, 5%);
+                    border: 0;
+                    outline: 0;
+                    border-color: unset;
                 }
             }
         }

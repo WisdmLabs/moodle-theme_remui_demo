@@ -154,9 +154,7 @@ if ( isloggedin()
     $homepagedepricationmodal = \theme_remui\utility::get_homepage_depriation_modal();
 }
 
-$democontext = [];
-$democontext["wwwroot"] = $CFG->wwwroot;
-
+$democontext = \theme_remui\utility::get_demonavbar_context();
 
 $templatecontext = [
     'sitename' => format_string($SITE->shortname, true, ['context' => context_course::instance(SITEID), "escape" => false]),

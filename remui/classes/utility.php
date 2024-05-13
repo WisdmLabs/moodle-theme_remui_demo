@@ -1397,4 +1397,52 @@ class utility {
         $rnrshortdesingnarray['rnrshortratingvalue'] = $data->averagerating;
         return $rnrshortdesingnarray;
     }
+
+    public static function get_demonavbar_context(){
+        global $CFG, $PAGE, $OUTPUT, $COURSE, $USER;
+        
+        $democontext = [];
+        $democontext["wwwroot"] = $CFG->wwwroot;
+
+        // fetch all installed languages
+        $languagemenu = new \core\output\language_menu($PAGE);
+        $langmenu = $languagemenu->export_for_template($OUTPUT);
+
+        $democontext['langmenulist'] = $langmenu;
+
+        foreach ($langmenu['items'] as $language) {
+            if ($language['isactive']) {
+                $democontext['langmenulist']['activelang'] = $language;
+            }
+        }
+
+        // fetch all switchable roles
+        $context = context_course::instance($COURSE->id);
+        $roles = array();
+        $assumedrole = -1;
+        if (is_role_switched($COURSE->id)) {
+            $roles[0] = get_string('switchrolereturn');
+            $assumedrole = $USER->access['rsw'][$context->path];
+        }
+
+        $availableroles = get_switchable_roles($context, ROLENAME_BOTH);
+        $currentUrl = new moodle_url($PAGE->url);
+        $currentUrlString = $currentUrl->out(false);
+        $democontext["switchablerolebtns"] = [];
+        if (is_array($availableroles)) {
+            foreach ($availableroles as $key => $role) {
+                if ($assumedrole == (int)$key) {
+                    continue;
+                }
+                $roles[$key] = $role;
+            }
+            foreach ($roles as $key => $role) {
+                $url = new moodle_url('/course/switchrole.php', array('id' => $COURSE->id, 'switchrole' => $key, 'returnurl' => $currentUrlString));
+                // Button encodes special characters, apply htmlspecialchars_decode() to avoid double escaping.
+                $democontext["switchablerolebtns"][] = $OUTPUT->container($OUTPUT->single_button($url, htmlspecialchars_decode($role, ENT_COMPAT)), 'mx-3 mb-1');
+            }
+        }
+
+        return $democontext;
+    }
 }
