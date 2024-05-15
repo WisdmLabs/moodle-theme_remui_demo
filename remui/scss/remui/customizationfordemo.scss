@@ -1,30 +1,32 @@
-#page.drawers {
-    margin-top: $navbar-height + $subnav-height;
-}
+body:not(.notloggedin) {
 
-.drawer-toggles {
 
-    .drawer-toggler {
-        top: calc(#{$navbar-height + $subnav-height} + 0.7rem );
+    #page.drawers {
+        margin-top: $navbar-height + $subnav-height;
     }
-}
 
-@include media-breakpoint-up(lg) {
-    .drawer-left,
-    .drawer-right {
-        top: $navbar-height + $subnav-height;
-        height: calc(100vh - #{$navbar-height + $subnav-height});
+    .drawer-toggles {
+
+        .drawer-toggler {
+            top: calc(#{$navbar-height + $subnav-height} + 0.7rem );
+        }
     }
-    .hasstickyfooter {
+
+    @include media-breakpoint-up(lg) {
         .drawer-left,
         .drawer-right {
             top: $navbar-height + $subnav-height;
-            height: calc(100vh - #{$navbar-height + $subnav-height} - #{$stickyfooter-height});
+            height: calc(100vh - #{$navbar-height + $subnav-height});
+        }
+        .hasstickyfooter {
+            .drawer-left,
+            .drawer-right {
+                top: $navbar-height + $subnav-height;
+                height: calc(100vh - #{$navbar-height + $subnav-height} - #{$stickyfooter-height});
+            }
         }
     }
-}
 
-body {
     @include media-breakpoint-up(sm) {
         &:not(.focusmode) {
             .navbar {

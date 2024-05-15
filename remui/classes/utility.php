@@ -1403,6 +1403,11 @@ class utility {
         require_once($CFG->dirroot . '/user/lib.php');
 
         $democontext = [];
+
+        if(!isloggedin()) {
+            return $democontext;
+        }
+
         $democontext["wwwroot"] = $CFG->wwwroot;
 
         // fetch all installed languages
