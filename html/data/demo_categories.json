@@ -1,22 +1,18 @@
 [
     {
-        "id": "corporate",
-        "name": "Corporate",
-        "image": "image4.jpeg"
+        "id": "corporate-training",
+        "name": "Corporate Training"
     },
     {
-        "id": "university",
-        "name": "University",
-        "image": "image3.png"
+        "id": "online-school",
+        "name": "Online School"
     },
     {
-        "id": "school",
-        "name": "School",
-        "image": "image1.png"
+        "id": "online-university",
+        "name": "Online University"
     },
     {
-        "id": "classic",
-        "name": "Classic",
-        "image": "image2.png"
+        "id": "other",
+        "name": "Other"
     }
 ]

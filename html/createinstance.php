@@ -40,25 +40,15 @@ if (3 <= round(disk_free_space("/") / 1024 / 1024 / 1024)) {
   <body>
   <div class="bg-top-left"></div>
   <div class="bg-bottom-right"></div>
-  <div class="container wrapper stack-top">
+  <div class="main-container stack-top">
+    <div class="container wrapper">
       <div class="logo-container">
         <img class="logo"src="./images/Logo.png" alt="Edwiser RemUI Brand Logo"/>
       </div>
       <div class="main d-flex">
-        <div class="right">
-          <div class="layout-card" >
-              <div class="layout-card-body" data-layoutid="1">
-                  <img src="./images/image2.png" alt="layout-1" />
-              </div>
-              <div class="layout-footer d-flex">
-                  <input type="radio" class="custom-radio-btn" checked name="layoutselected"/>
-                  <p class="layout-name">Corporate</p>
-              </div>
-          </div>
-        </div>
 
         <div class="left">
-          <h1 class="heading m-0 py-1 p-0">
+          <h1 class="heading m-0 p-0">
           <span class="text-3">
             <?php
               if (!isset($demoinstance['invalid'])) {
@@ -71,14 +61,14 @@ if (3 <= round(disk_free_space("/") / 1024 / 1024 / 1024)) {
           </h1>
           <?php if (!isset($demoinstance['invalid'])) { ?>
             <p class="sub-text italic d-flex align-items-center">
-              If not redirected in <img class="hourglass" src="./images/hourglass.gif" alt="Timer Image" width="30"><span id="redirecttimer">10 seconds</span>,
-              &nbsp;<a href="https://<?php echo $demoinstance['instanceurl']?>" title="Demo Instance link">Click here</a>
+              <span>If not redirected in</span> <img class="hourglass" src="./images/hourglass.gif" alt="Timer Image" width="30"><span id="redirecttimer">10 seconds</span>,&nbsp;<a href="https://<?php echo $demoinstance['instanceurl']?>" title="Demo Instance link">Click here</a>
             </p>
           <?php }?>
         </div>
 
       </div>
     </div>
+  </div>
   </body>
   <?php
       if (!isset($demoinstance['invalid'])) {
