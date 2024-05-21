@@ -1,9 +1,9 @@
 # Changes in Existing Files
-    layout/common.php: $democontext (wwwroot for images) added
-                        "$democontext = [];
-                        $democontext[""wwwroot""] = $CFG->wwwroot;"
-                        
-                        # This code sets up a $democontext array and assigns the value of $CFG->wwwroot to the "wwwroot" key. This allows for easy access to the wwwroot path for images and other assets used in the demonavbar.
+    layout/common.php: 
+        $democontext = \theme_remui\utility::get_demonavbar_context(); added
+        get_demonavbar_context() added in Utility file class and  in this function we handled all the requirment for demonavbar
+
+        on top of common.php file Redirection code added when demolayout is added during instance creation
 
     common_start.mustacke: demonavbar.mustache included
 
@@ -42,3 +42,20 @@
     lib.php 
         Function => theme_remui_set_dynamic_settings()
         Call for the function is in common.php layout file
+
+# theme_remui_set_demo_layouttype service created in theme remui for storing layout type
+    It involves the following files:
+        db/service.php
+        classes/external/api.php
+        classes/external/set_demo_layouttype.php
+
+# loginbgurl added
+    This feature adds the ability to set a background image for the login page according to selected layout type.
+    layout/login.php - Added a new variable $loginbgurl to store the URL of the background image.
+    templates/login.mustache - Utilizes the $loginbgurl variable to display the background image on the login page.
+
+# Js code changes in edwiserpagebuilder 
+    pageslistsettings.js 
+    existing code will add the subheader on both navbar big-nav and moodle nav 
+    removed the existing line $("#page-wrapper nav.navbar").after(pagesubheader);
+    added $($("#page-wrapper nav.navbar")[1]).after(pagesubheader); this line in the function setHeaderOnTop 
