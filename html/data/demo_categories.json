@@ -1,18 +1,18 @@
 [
     {
-        "id": "corporate-training",
+        "id": "corporate",
         "name": "Corporate Training"
     },
     {
-        "id": "online-school",
+        "id": "school",
         "name": "Online School"
     },
     {
-        "id": "online-university",
+        "id": "university",
         "name": "Online University"
     },
     {
-        "id": "other",
+        "id": "classic",
         "name": "Other"
     }
 ]

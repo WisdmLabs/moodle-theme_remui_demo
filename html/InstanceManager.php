@@ -94,7 +94,7 @@ class InstanceManager {
         // Get current time for new instance creation.
         $timecreation = time();
 
-	// Demo Tag id on fluentcrm.
+	    // Demo Tag id on fluentcrm.
         $demos = [
             "classic"=> 21,
             "school"=> 22,
@@ -106,10 +106,10 @@ class InstanceManager {
         // Generate data for requesting user.
         // Here we are fetching 0th index existing demo and move it to in use array.
         if ($existingdata = $this->existing($ip)) {
-            if ($existingdata['demo_type'] !== $demotype) {
-                $existingdata['tags'] = $demotype;
-                $this->erd_record_users($existingdata);
-            }
+            // if ($existingdata['demo_type'] !== $demotype) {
+                // $existingdata['tags'] = $demotype;
+                // $this->erd_record_users($existingdata);
+            // }
             return $existingdata;
         } else {
             $existingdata = $this->_allInstances['instances'][0];
@@ -128,41 +128,9 @@ class InstanceManager {
 
             $demoname = $this->generate_demo_name('tryremui'.$timecreation);
             $demourl = "instances.tryremui.edwiser.org/".$demoname;
-
-            // making a curl request to sent demotype to theme
-            $token = '4d769a7eb16d959d3ee70a486335cda3';
-            // $demourl = 'http://localhost/m42';
-            $functionName = 'theme_remui_set_demo_layouttype';
-            // Data to be sent in the POST request
-            $postData = [
-                'blocklayout' => $demotype,
-            ];
-
-           // URL of the web service
-            $url ='https://'.$demourl.'/webservice/rest/server.php?wstoken='.$token.'&wsfunction='.$functionName;
-
-            // Initialize cURL session
-            $ch = curl_init();
-
-            // Set the URL and other necessary options
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postData));
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, [
-                'Content-Type: application/x-www-form-urlencoded',
-            ]);
-
-            // Execute the POST request
-            $response = curl_exec($ch);
-
-            // Check for cURL errors
-            if ($response === false) {
-                echo 'cURL Error: ' . curl_error($ch);
-            }
-
-            // Close cURL session
-            curl_close($ch);
+	
+            // Record Demo type $demotype to newly received $demourl
+            $this->erd_record_layout($demourl, $demotype);
 
             $newdata = [
                 "email" => 'test@xyz.com',
@@ -182,64 +150,129 @@ class InstanceManager {
 
             $this->create_new_instance($newdata['instancename']);
 
-            // exec("php7.4 createnew.php ".$newdata['instancename']);
         }
 
         return $existingdata;
     }
-    function erd_record_users($existingdata) {
 
-        $payload = json_encode($existingdata);
-        $requesturl = "https://edwiser.org/?fluentcrm=1&route=contact&hash=363ef54c-ed6c-4b6e-8290-49eb1729c7e6";
-        // Create a new cURL resource
-        $curl = curl_init();
+    function erd_record_layout($demourl, $demotype) {
+	
+	    // Web service token.
+	    $token = 'a277139e7f0926487f693e8171a348ee';
 
-        if (!$curl) {
-            die("Couldn't initialize a cURL handle");
-        }
+        // Function Name to be called.
+	    $functionname = 'theme_remui_set_demo_layouttype';
 
-        $ch = curl_init($requesturl);
-        $config['useragent'] = 'Chrome/5.0 (Windows NT 6.2; WOW64; rv:17.0) Gecko/20100101 Firefox/17.0';
+	    // Data to be sent in the POST request
+	    $data = [
+		    'blocklayout' => $demotype,
+	    ];
 
-        curl_setopt($ch, CURLOPT_USERAGENT, $config['useragent']);
+	    // URL of the web service
+        $demourl = "tryremui.edwiser.org/main"; // TODO: Remove this line after making it live.
+	    $url ='https://'.$demourl.'/webservice/rest/server.php?wstoken='.$token.'&wsfunction='.$functionname;
+
+        $result = $this->sendCurlRequest($url, json_encode($data));
+
+    }
+    
+    // Send Curl requests function.
+    function sendCurlRequest($url, $payload)
+    {
+        $ch = curl_init($url);
+
+        $useragent = 'Chrome/5.0 (Windows NT 6.2; WOW64; rv:17.0) Gecko/20100101 Firefox/17.0';
+
+        curl_setopt($ch, CURLOPT_USERAGENT, $useragent);
         curl_setopt($ch, CURLOPT_REFERER, 'https://demo.tryremui.edwiser.org');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLINFO_HEADER_OUT, true);
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
-        // Set HTTP Header for POST request
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
             'Content-Type: application/json',
-            'Content-Length: ' . strlen($payload))
-        );
+            'Content-Length: ' . strlen($payload)
+        ));
 
-        // Submit the POST request
         $result = curl_exec($ch);
 
-        // Close cURL session handle
+        if ($result === false) {
+            $error = curl_error($ch);
+            // Log the error or handle it appropriately
+            error_log("cURL error: $error");
+        }
+
         curl_close($ch);
 
-        // Sending it to edwiser
-        $requesturl = "https://edwiser.org/wp-json/demo/v1/remui_demo_details";
-        $ch = curl_init($requesturl);
-
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLINFO_HEADER_OUT, true);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
-        
-        // Set HTTP Header for POST request
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-            'Content-Type: application/json',
-            'Content-Length: ' . strlen($payload))
-        );
-        
-        // Submit the POST request
-        $result = curl_exec($ch);
-
-        // Close cURL session handle
-        curl_close($ch);
+        return $result;
     }
+
+    function erd_record_users($existingData)
+    {
+        
+        $payload = json_encode($existingData);
+
+        $fluentCrmUrl = "https://edwiser.org/?fluentcrm=1&route=contact&hash=c099cc8b-0e8f-401a-b86f-0003379138b0";
+
+        $result = $this->sendCurlRequest($fluentCrmUrl, $payload);
+
+        $remUiDemoDetailsUrl = "https://edwiser.org/wp-json/demo/v1/remui_demo_details";
+        $result = $this->sendCurlRequest($remUiDemoDetailsUrl, $payload);
+    }
+    // function erd_record_users($existingdata) {
+
+    //     $payload = json_encode($existingdata);
+    //     $requesturl = "https://edwiser.org/?fluentcrm=1&route=contact&hash=363ef54c-ed6c-4b6e-8290-49eb1729c7e6";
+    //     // Create a new cURL resource
+    //     $curl = curl_init();
+
+    //     if (!$curl) {
+    //         die("Couldn't initialize a cURL handle");
+    //     }
+
+    //     $ch = curl_init($requesturl);
+    //     $config['useragent'] = 'Chrome/5.0 (Windows NT 6.2; WOW64; rv:17.0) Gecko/20100101 Firefox/17.0';
+
+    //     curl_setopt($ch, CURLOPT_USERAGENT, $config['useragent']);
+    //     curl_setopt($ch, CURLOPT_REFERER, 'https://demo.tryremui.edwiser.org');
+    //     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    //     curl_setopt($ch, CURLINFO_HEADER_OUT, true);
+    //     curl_setopt($ch, CURLOPT_POST, true);
+    //     curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+    //     // Set HTTP Header for POST request
+    //     curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+    //         'Content-Type: application/json',
+    //         'Content-Length: ' . strlen($payload))
+    //     );
+
+    //     // Submit the POST request
+    //     $result = curl_exec($ch);
+
+    //     // Close cURL session handle
+    //     curl_close($ch);
+
+    //     // Sending it to edwiser
+    //     $requesturl = "https://edwiser.org/wp-json/demo/v1/remui_demo_details";
+    //     $ch = curl_init($requesturl);
+
+    //     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	//     curl_setopt($ch, CURLOPT_USERAGENT, $config['useragent']);
+    //     curl_setopt($ch, CURLINFO_HEADER_OUT, true);
+    //     curl_setopt($ch, CURLOPT_POST, true);
+    //     curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+        
+    //     // Set HTTP Header for POST request
+    //     curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+    //         'Content-Type: application/json',
+    //         'Content-Length: ' . strlen($payload))
+    //     );
+        
+    //     // Submit the POST request
+    //     $result = curl_exec($ch);
+
+    //     // Close cURL session handle
+    //     curl_close($ch);
+    // }
     /**
      * Generate New Name for demo.
      * Used sha256 to generate unique hashcode each time for new demo name.
