@@ -129,6 +129,41 @@ class InstanceManager {
             $demoname = $this->generate_demo_name('tryremui'.$timecreation);
             $demourl = "instances.tryremui.edwiser.org/".$demoname;
 
+            // making a curl request to sent demotype to theme
+            $token = '4d769a7eb16d959d3ee70a486335cda3';
+            // $demourl = 'http://localhost/m42';
+            $functionName = 'theme_remui_set_demo_layouttype';
+            // Data to be sent in the POST request
+            $postData = [
+                'blocklayout' => $demotype,
+            ];
+
+           // URL of the web service
+            $url ='https://'.$demourl.'/webservice/rest/server.php?wstoken='.$token.'&wsfunction='.$functionName;
+
+            // Initialize cURL session
+            $ch = curl_init();
+
+            // Set the URL and other necessary options
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postData));
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                'Content-Type: application/x-www-form-urlencoded',
+            ]);
+
+            // Execute the POST request
+            $response = curl_exec($ch);
+
+            // Check for cURL errors
+            if ($response === false) {
+                echo 'cURL Error: ' . curl_error($ch);
+            }
+
+            // Close cURL session
+            curl_close($ch);
+
             $newdata = [
                 "email" => 'test@xyz.com',
                 "instancename" => $demoname,
