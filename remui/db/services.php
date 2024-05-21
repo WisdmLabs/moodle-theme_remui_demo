@@ -151,4 +151,12 @@ $functions = array(
         'ajax'          => true,
         'loginrequired' => true
     ),
+    'theme_remui_set_demo_layouttype' => array(
+        'classname'     => 'theme_remui\external\api',
+        'methodname'    => 'set_demo_layouttype',
+        'description'   => 'set layout type for specific demo',
+        'type'          => 'write',
+        'ajax'          => true,
+        'loginrequired' => false
+    ),
 );

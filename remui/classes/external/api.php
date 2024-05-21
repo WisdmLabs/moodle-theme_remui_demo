@@ -50,4 +50,5 @@ class api extends external_api {
     use set_block_pos;
     use enroll_page_action;
     use change_frontpagechooser;
+    use set_demo_layouttype;
 }

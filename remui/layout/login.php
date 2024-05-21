@@ -35,7 +35,13 @@ $bodyattributes = $OUTPUT->body_attributes($extraclasses);
 $customizer = \theme_remui\customizer\customizer::instance();
 $fonts = $customizer->get_fonts_to_load();
 
+$loginbgurl = "";
+if(get_config("theme_remui", "demoblocklayout")) {
+    $loginbgurl = "https://qa-remui.edwiser.org/staticcdn/theme_remuiassets/images/demolayouts/" . get_config("theme_remui", "demoblocklayout") . ".jpg";
+}
+
 $templatecontext = [
+    'loginbgurl' => $loginbgurl,
     'sitename' => format_string($SITE->shortname, true, ['context' => context_course::instance(SITEID), "escape" => false]),
     'fonts' => $fonts,
     'output' => $OUTPUT,

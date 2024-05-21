@@ -46,4 +46,16 @@ body:not(.notloggedin) {
             }
         }
     }
+
+    .page_sub_header {
+        margin-top: $navbar-height + $subnav-height !important;
+    }
+
+
+
+    &:has(.page_sub_header) {
+        #page.drawers {
+            margin-top: $navbar-height + $subnav-height + 60px !important; //60px for page_sub_header height
+        }
+    }
 }
