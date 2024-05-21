@@ -102,7 +102,6 @@ class InstanceManager {
             "corporate" => 23
         ];
 
-        // https://edwiser.org/?fluentcrm=1&route=contact&hash=363ef54c-ed6c-4b6e-8290-49eb1729c7e6
         // Generate data for requesting user.
         // Here we are fetching 0th index existing demo and move it to in use array.
         if ($existingdata = $this->existing($ip)) {
@@ -151,7 +150,7 @@ class InstanceManager {
             $this->create_new_instance($newdata['instancename']);
 
         }
-
+        
         return $existingdata;
     }
 
@@ -169,15 +168,14 @@ class InstanceManager {
 	    ];
 
 	    // URL of the web service
-        $demourl = "tryremui.edwiser.org/main"; // TODO: Remove this line after making it live.
 	    $url ='https://'.$demourl.'/webservice/rest/server.php?wstoken='.$token.'&wsfunction='.$functionname;
 
-        $result = $this->sendCurlRequest($url, json_encode($data));
+        $result = $this->sendCurlRequest($url, http_build_query($data), 'application/x-www-form-urlencoded');
 
     }
     
     // Send Curl requests function.
-    function sendCurlRequest($url, $payload)
+    function sendCurlRequest($url, $payload, $contenttype = 'application/json')
     {
         $ch = curl_init($url);
 
@@ -190,7 +188,7 @@ class InstanceManager {
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-            'Content-Type: application/json',
+            'Content-Type: '. $contenttype,
             'Content-Length: ' . strlen($payload)
         ));
 
