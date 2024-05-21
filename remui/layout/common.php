@@ -53,18 +53,21 @@ user_preference_allow_ajax_update('darkmodecustomizerwarnnotvisible', PARAM_BOOL
 user_preference_allow_ajax_update('forcefulmigratemodalseen', PARAM_BOOL);
 user_preference_allow_ajax_update('homepageavailablemodalseen', PARAM_BOOL);
 
+// CUSTOMIZATION - START
 $demoblocklayouts = [
-    "corporate-training" => 1,
-    "online-school" => 2,
-    "online-university" => 3,
-    "other" => 4,
+    "corporate" => 1,
+    "school" => 2,
+    "university" => 3,
+    "classic" => 4,
 ];
 
 if (get_config("theme_remui", "redirecttodemoblocklayout")) {
     $redirectUrl = $CFG->wwwroot. '/local/edwiserpagebuilder/page.php?id='.$demoblocklayouts[get_config("theme_remui", "redirecttodemoblocklayout")];
     unset_config('redirecttodemoblocklayout', 'theme_remui');
     redirect($redirectUrl);
+    die();
 }
+// CUSTOMIZATION - END
 
 if (isloggedin()) {
     $courseindexopen = (get_user_preferences('drawer-open-index', true) == true);
