@@ -1,29 +1,18 @@
 {
     "hasfixes": true,
     "fixes": [
-        "Fix 1: RemUI Home Page Builder Deprecated",
-        "Fix 2: RemUI Home Page Builder Deprecated",
-        "Fix 3: RemUI Home Page Builder Deprecated",
-        "Fix 4: RemUI Home Page Builder Deprecated",
-        "Fix 5: RemUI Home Page Builder Deprecated",
-        "Fix 6: RemUI Home Page Builder Deprecated",
-        "Fix 7: RemUI Home Page Builder Deprecated",
-        "Fix 8: RemUI Home Page Builder Deprecated",
-        "Fix 9: RemUI Home Page Builder Deprecated",
-        "Fix 10: RemUI Home Page Builder Deprecated",
-        "Fix 11: RemUI Home Page Builder Deprecated",
-        "Fix 12: RemUI Home Page Builder Deprecated" 
+        "Fix 1: Limited the number of loaded courses as specified in the settings."
     ],
     "hastweaks": true,
     "tweaks" : [
-        "Tweak 1: RemUI Home Page Builder Deprecated",
-        "Tweak 2: RemUI Home Page Builder Deprecated",
-        "Tweak 3: RemUI Home Page Builder Deprecated"
+        "Tweak 1: RemUI Homepage builder plugin final update. Plugin deprecated.",
+        "Tweak 2: Minor UI/UX improvements",
+        "Tweak 3: Improved the Category dropdown functionality",
+        "         1) Hidden categories are now properly hidden from students",
+        "         2) Rearranging course categories in site admin settings now reflects in the dropdown"
     ],
-    "hasfeatures": true,
+    "hasfeatures": false,
     "features": [
-        "Feature 1: RemUI Home Page Builder Deprecated",
-        "Feature 1: RemUI Home Page Builder Deprecated",
         "Feature 1: RemUI Home Page Builder Deprecated"
     ]
 }
