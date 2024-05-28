@@ -14,8 +14,13 @@ if (isset($_POST) && isset($_POST['layoutName'])) {
   $demotype = $_POST['layoutName'];
 }
 
+$tagid = -1;
+if (isset($_POST) && isset($_POST['tagid'])) {
+  $tagid = $_POST['tagid'];
+}
+
 if (3 <= round(disk_free_space("/") / 1024 / 1024 / 1024)) {
-  $demoinstance = $im->retrieve_fresh_instance($email, $demotype);
+  $demoinstance = $im->retrieve_fresh_instance($email, $demotype, $tagid);
 } else {
   $demoinstance = [
     'invalid' => true,

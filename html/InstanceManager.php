@@ -82,7 +82,7 @@ class InstanceManager {
      * This will return existing unused demo details to user.
      * along with creating new instance.
      */
-    function retrieve_fresh_instance($email, $demotype="classic") {
+    function retrieve_fresh_instance($email, $demotype="classic", $tagid = -1) {
         if (!$this->is_authentic()) {
             return [
                 'invalid' => true,
@@ -105,10 +105,6 @@ class InstanceManager {
         // Generate data for requesting user.
         // Here we are fetching 0th index existing demo and move it to in use array.
         if ($existingdata = $this->existing($ip)) {
-            // if ($existingdata['demo_type'] !== $demotype) {
-                // $existingdata['tags'] = $demotype;
-                // $this->erd_record_users($existingdata);
-            // }
             return $existingdata;
         } else {
             $existingdata = $this->_allInstances['instances'][0];
@@ -117,7 +113,7 @@ class InstanceManager {
             $existingdata['timedeletion'] = $timecreation + $this->destroyPeriod;
             $existingdata['ip'] = $ip;
             $existingdata['lists'] = array(10); // On FluentCRM "Edwiser RemUI Leads" list id is 10.
-            $existingdata['tags'] = array($demos[$demotype]);
+            $existingdata['tags'] = array(($tagid == -1)? $demos[$demotype] : $tagid);
             $this->_allInstances['inuse'][] = $existingdata;
 	        
             $this->erd_record_users($existingdata);

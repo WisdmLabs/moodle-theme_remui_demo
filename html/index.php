@@ -67,7 +67,6 @@
                 ?>
               </div>
             </div>
-
             
             <div class="email-form-wrapper disabled">
 
@@ -80,7 +79,10 @@
                 <label for="inputEmail" class="hidden">Email</label>
                 <!-- <input type="hidden" class="form-control" name="layoutName"> -->
                 <input type="email" class="form-control" name="email" placeholder="Enter your Email Id" data-nb required>
-                <input type="submit" class="btn btn-primary disabled" value="Create sandbox">
+                <input type="hidden" class="form-control" name="tagid" value="-1">
+                <button type="submit" class="form-control btn btn-primary disabled" title="Create Sandbox">
+                  Create sandbox
+                </input>
               </div>
 
             </div>
@@ -96,7 +98,10 @@
   <script type="text/javascript">
     _NBSettings = {
         apiKey: 'public_4c53c3c5a0d1e538b96ddc29a9a09413',
-        displayPoweredBy: false
+        displayPoweredBy: false,
+        acceptedMessage: "Great! Everything looks good",
+        rejectedMessage: "Whoops! Email looks off!",
+        timeout: 1,
     };
 
     document.querySelector('body').addEventListener('nb:registered', function (event) {
@@ -124,39 +129,7 @@
   <script type="text/javascript" src="https://cdn.neverbounce.com/widget/dist/NeverBounce.js"></script>
   <!--EMAIL VALIDATOR -->
 
-  <script>
-    const layoutWrapper = document.querySelector('#layout-wrapper');
-    const submitBtn = layoutWrapper.querySelector('.inline-form input[type="submit"]');
-    const layoutRadioBtns = layoutWrapper.querySelectorAll('.layout-options .layout-radio-btn');
-    const emailFormWrapper = layoutWrapper.querySelector('.email-form-wrapper');
+  <!-- Form Handler -->
+  <script type="text/javascript" src="./formhandler.js"></script>
 
-    submitBtn.addEventListener('click', function(event) {
-      event.preventDefault(); // Prevent the form from submitting
-
-      // Get the value of the layoutName input field
-      const layoutName = layoutWrapper.querySelector('.inline-form form input[name="layoutName"]:checked').value;
-
-      // Get the value of the email input field
-      const email = layoutWrapper.querySelector('.inline-form form input[name="email"]').value;
-
-      // Perform any necessary validation or processing here.
-      if (layoutName && email) {
-        sessionStorage.setItem('edwdemolayoutName', layoutName);
-        // If both layoutName and email are provided, you can submit the form
-        this.closest('form').submit();
-      }
-    });
-
-    layoutRadioBtns.forEach(radioBtn => {
-      radioBtn.addEventListener('change', () => {
-        emailFormWrapper.classList.remove('disabled');
-
-        emailFormWrapper.scrollIntoView({
-          behavior: 'smooth',
-          block: 'nearest'
-        });
-      });
-    });
-
-  </script>
 </html>
