@@ -55,10 +55,10 @@ user_preference_allow_ajax_update('homepageavailablemodalseen', PARAM_BOOL);
 
 // CUSTOMIZATION - START
 $demoblocklayouts = [
-    "corporate" => 1,
-    "school" => 2,
-    "university" => 3,
-    "classic" => 4,
+    "corporate" => 292,
+    "school" => 288,
+    "university" => 290,
+    "classic" => 287,
 ];
 
 if (get_config("theme_remui", "redirecttodemoblocklayout")) {
