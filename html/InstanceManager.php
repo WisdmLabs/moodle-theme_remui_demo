@@ -124,8 +124,42 @@ class InstanceManager {
             $demoname = $this->generate_demo_name('tryremui'.$timecreation);
             $demourl = "instances.tryremui.edwiser.org/".$demoname;
 	
-            // Record Demo type $demotype to newly received $demourl
-            $this->erd_record_layout($demourl, $demotype);
+            // Record Demo type $demotype to newly received $existingdata['instanceurl']
+            // making a curl request to sent demotype to theme
+            $token = 'a277139e7f0926487f693e8171a348ee';
+            $functionName = 'theme_remui_set_demo_layouttype';
+            // Data to be sent in the POST request
+            $postData = [
+                'blocklayout' => $demotype,
+            ];
+
+            // URL of the web service
+            $url ='https://'.$existingdata['instanceurl'].'/webservice/rest/server.php?wstoken='.$token.'&wsfunction='.$functionName;
+
+            // Initialize cURL session
+            $ch = curl_init();
+
+            // Set the URL and other necessary options
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postData));
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                'Content-Type: application/x-www-form-urlencoded',
+            ]);
+
+            // Execute the POST request
+            $response = curl_exec($ch);
+
+            // Check for cURL errors
+            if ($response === false) {
+                echo 'cURL Error: ' . curl_error($ch);
+            }
+
+            // Close cURL session
+            curl_close($ch);
+
+            // $this->erd_record_layout($demourl, $demotype);
 
             $newdata = [
                 "email" => 'test@xyz.com',
@@ -178,14 +212,13 @@ class InstanceManager {
         $useragent = 'Chrome/5.0 (Windows NT 6.2; WOW64; rv:17.0) Gecko/20100101 Firefox/17.0';
 
         curl_setopt($ch, CURLOPT_USERAGENT, $useragent);
-        curl_setopt($ch, CURLOPT_REFERER, 'https://demo.tryremui.edwiser.org');
+        // curl_setopt($ch, CURLOPT_REFERER, 'https://demo.tryremui.edwiser.org');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLINFO_HEADER_OUT, true);
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-            'Content-Type: '. $contenttype,
-            'Content-Length: ' . strlen($payload)
+            'Content-Type: '. $contenttype
         ));
 
         $result = curl_exec($ch);

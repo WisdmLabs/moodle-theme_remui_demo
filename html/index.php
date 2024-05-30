@@ -100,7 +100,7 @@
         apiKey: 'public_4c53c3c5a0d1e538b96ddc29a9a09413',
         displayPoweredBy: false,
         acceptedMessage: "Great! Everything looks good",
-        rejectedMessage: "Whoops! Email looks off!",
+        rejectedMessage: "Oops! Email didn\’t go through. Check it?",
         timeout: 1,
     };
 
