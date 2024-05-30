@@ -55,14 +55,14 @@ user_preference_allow_ajax_update('homepageavailablemodalseen', PARAM_BOOL);
 
 // CUSTOMIZATION - START
 $demoblocklayouts = [
-    "corporate" => 292,
-    "school" => 288,
-    "university" => 290,
-    "classic" => 287,
+    "corporate" => $CFG->wwwroot. '/mod/page/view.php?id=292',
+    "school" => $CFG->wwwroot. '/mod/page/view.php?id=288',
+    "university" => $CFG->wwwroot. '/mod/page/view.php?id=290',
+    "classic" => $CFG->wwwroot. '/mod/page/view.php?id=287',
 ];
 
 if (get_config("theme_remui", "redirecttodemoblocklayout")) {
-    $redirectUrl = $CFG->wwwroot. '/local/edwiserpagebuilder/page.php?id='.$demoblocklayouts[get_config("theme_remui", "redirecttodemoblocklayout")];
+    $redirectUrl = $demoblocklayouts[get_config("theme_remui", "redirecttodemoblocklayout")];
     unset_config('redirecttodemoblocklayout', 'theme_remui');
     redirect($redirectUrl);
     die();

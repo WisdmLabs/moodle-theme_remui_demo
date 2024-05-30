@@ -7,7 +7,7 @@
 
     common_start.mustacke: demonavbar.mustache included
 
-                        # The demonavbar.mustache file is included in the common_start.mustache file, which is responsible for rendering the demo navigation bar on the site.
+        # The demonavbar.mustache file is included in the common_start.mustache file, which is responsible for rendering the demo navigation bar on the site.
 
 # New Files Created
     In pix directory, separate folder 'demosite' created for demonavbar images
