@@ -8,7 +8,7 @@ body:not(.notloggedin) {
     .drawer-toggles {
 
         .drawer-toggler {
-            top: calc(#{$navbar-height + $subnav-height + $subnav-height} + 0.7rem );
+            top: calc(#{$navbar-height + $subnav-height} + 0.7rem );
         }
     }
 
