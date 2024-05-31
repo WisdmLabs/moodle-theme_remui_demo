@@ -527,7 +527,6 @@ $demo-bg-dark-color: #001C1D;
             .feature {
                 color: #FFF;
                 @include get_typography(6, regular, desktop);
-                font-weight: 500;
             }
 
             @include media-breakpoint-down(lg) {
