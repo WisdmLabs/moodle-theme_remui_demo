@@ -152,21 +152,6 @@ require(['jquery'], function($) {
         $(".demo-navbar .navbar .dropdown-menu").on('click.bs.dropdown', function(e) {
             e.stopPropagation();
         });
-
-        {{! Prevent scrolling of page when mouse is over at dropdown }}
-        $('.demo-navbar .navbar .dropdown-menu').on('wheel', function(event) {
-            let $this = $(this);
-            let scrollHeight = $this[0].scrollHeight;
-            let clientHeight = $this[0].clientHeight;
-            let scrollTop = $this.scrollTop();
-
-            let atTop = scrollTop === 0;
-            let atBottom = scrollHeight - scrollTop === clientHeight;
-
-            if ((atTop && event.originalEvent.deltaY < 0) || (atBottom && event.originalEvent.deltaY > 0)) {
-                event.preventDefault();
-            }
-        });
     });
 
     {{! For mobile view }}
