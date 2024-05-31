@@ -80,7 +80,7 @@
                 <!-- <input type="hidden" class="form-control" name="layoutName"> -->
                 <input type="email" class="form-control" name="email" placeholder="Enter your Email Id" data-nb required>
                 <input type="hidden" class="form-control" name="tagid" value="-1">
-                <button type="submit" class="form-control btn btn-primary disabled" title="Create Sandbox">
+                <button type="submit" class="form-control btn btn-primary disabled" title="Create Sandbox" disabled>
                   Create sandbox
                 </input>
               </div>
@@ -111,6 +111,7 @@
       // Handle clear events; i.e. hide feedback
       field.addEventListener('nb:clear', function(e) {
         submitBtn.classList.add('disabled');
+        submitBtn.disabled = true;
       });
 
       // Handle results (API call has succeeded)
@@ -118,9 +119,11 @@
         // Check the result
         if (e.detail.result.is(_nb.settings.getAcceptedStatusCodes())) {
           submitBtn.classList.remove('disabled');
+          submitBtn.disabled = false;
         }
         else {
           submitBtn.classList.add('disabled');
+          submitBtn.disabled = true;
         }
       });
     });

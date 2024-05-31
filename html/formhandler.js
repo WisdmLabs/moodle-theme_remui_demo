@@ -22,6 +22,7 @@ submitBtn.addEventListener('click', function(event) {
     // Add the loader design to the submit button
     submitBtn.innerHTML = '<div class="btnloader"></div>';
     submitBtn.classList.add('disabled');
+    submitBtn.disabled = true;
 
     // Set up the request headers
     const username = 'ggovande';
