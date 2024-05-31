@@ -8,7 +8,7 @@ body:not(.notloggedin) {
     .drawer-toggles {
 
         .drawer-toggler {
-            top: calc(#{$navbar-height + $subnav-height} + 0.7rem );
+            top: calc(#{$navbar-height + $subnav-height + $subnav-height} + 0.7rem );
         }
     }
 
@@ -65,4 +65,10 @@ body:not(.notloggedin) {
             margin-top: $navbar-height + $subnav-height + 60px !important; //60px for page_sub_header height
         }
     }
+
+    .site-announcement.alert{
+        @include media-breakpoint-down(md) {
+           top: $navbar-height + $subnav-height;
+        }
+     }
 }
