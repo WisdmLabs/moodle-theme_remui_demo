@@ -28,6 +28,13 @@ body:not(.notloggedin) {
     }
 
     @include media-breakpoint-up(sm) {
+        &.focusmode {
+            .navbar {
+                &.fm-navbar {
+                    top: $subnav-height !important; 
+                }
+            }
+        }
         &:not(.focusmode) {
             .navbar {
                 &:not(.fm-navbar) {
