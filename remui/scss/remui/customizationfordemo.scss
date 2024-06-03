@@ -58,8 +58,6 @@ body:not(.notloggedin) {
         margin-top: $navbar-height + $subnav-height !important;
     }
 
-
-
     &:has(.page_sub_header) {
         #page.drawers {
             margin-top: $navbar-height + $subnav-height + 60px !important; //60px for page_sub_header height
@@ -70,5 +68,15 @@ body:not(.notloggedin) {
         @include media-breakpoint-down(md) {
            top: $navbar-height + $subnav-height;
         }
+     }
+
+     #page.drawers:has(.site-announcement) {
+        @include media-breakpoint-down(sm) {
+            margin-top: $navbar-height + $subnav-height + 26px;
+         }
+
+         @media screen and (max-width: 390px) {
+            margin-top: $navbar-height + $subnav-height + 74px;
+         }
      }
 }

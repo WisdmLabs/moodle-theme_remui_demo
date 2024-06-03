@@ -471,6 +471,24 @@
                         align-items: center;
                     }
                 }
+
+                .static-block.html{
+                    .card{
+                        .card-footer{
+                            .footer-add-link {
+                                display: flex;
+                                gap: 12px;
+                                align-items: center;
+
+                                .edw-icon {
+                                    margin-bottom: 0;
+                                    width: $edw-icon-size-small;
+                                    height: $edw-icon-size-small;
+                                }
+                            }
+                        }
+                    }
+                }
             }
 
             .static-block.html{
