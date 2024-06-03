@@ -110,7 +110,7 @@ body:not(.pagelayout-frontpage) {
 body:not(.notloggedin) {
    .site-announcement.alert{
       @include media-breakpoint-down(md) {
-         top: $navbar-height + $subnav-height;
+         top: $navbar-height;
       }
    }
 }
