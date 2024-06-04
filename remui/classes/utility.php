@@ -1459,10 +1459,9 @@ class utility {
         if(count($availableroles) > 0 || is_role_switched($COURSE->id)) {
             $democontext["hasswitchablerolebtns"] = true;
         } 
-
-        $whatsnew = $CFG->wwwroot. '/theme/remui/whatsnew.json';
+        
+        $whatsnew = "https://demo.tryremui.edwiser.org/whatsnew.json";
         $democontext["whatsnew"] = json_decode(file_get_contents($whatsnew), true);
-
         return $democontext;
     }
 }
