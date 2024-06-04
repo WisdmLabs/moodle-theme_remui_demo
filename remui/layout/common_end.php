@@ -116,20 +116,22 @@ $PAGE->requires->data_for_js('edwremuithemeinfo', 'available');
 $PAGE->requires->data_for_js('currentpagesubtype', $PAGE->subpage);
 
 //Strings used in block move up and down controls
-$blockregions = [];
-$regionnamearray = [];
-foreach ($PAGE->blocks->get_regions() as $region) {
-    $regionnamearray[$region] = get_string($region, 'theme_remui');
-    if (empty($OUTPUT->addblockbutton($region)) || $region == 'side-pre') {
-        continue;
+if ($PAGE->user_is_editing()) {
+    $blockregions = [];
+    $regionnamearray = [];
+    foreach ($PAGE->blocks->get_regions() as $region) {
+        $regionnamearray[$region] = get_string($region, 'theme_remui');
+        if (empty($OUTPUT->addblockbutton($region)) || $region == 'side-pre') {
+            continue;
+        }
+        $blockregions[] = $region;
     }
-    $blockregions[] = $region;
+    // Important  code used at multiple places.
+    $PAGE->requires->data_for_js('availableblockregions', $blockregions);
+    // Used in add a block modal pagelayout modals.
+    $PAGE->requires->data_for_js('regionsnamearray', $regionnamearray);
+    $PAGE->requires->js_call_amd('theme_remui/blockmovehandler', 'init');
 }
-// Important  code used at multiple places.
-$PAGE->requires->data_for_js('availableblockregions', $blockregions);
-// Used in add a block modal pagelayout modals.
-$PAGE->requires->data_for_js('regionsnamearray', $regionnamearray);
-$PAGE->requires->js_call_amd('theme_remui/blockmovehandler', 'init');
 
 // Edwiser navbar layout.
 $templatecontext['navlayout'] = \theme_remui\toolbox::get_setting('header-primary-layout-desktop');
