@@ -1,5 +1,12 @@
 <?php
 define('WEB_SCRIPT', true);
+
+if (!isset($_POST)) {
+  // Redirect to demo.tryremui.edwiser.org if $_POST is not set
+  header("Location: https://demo.tryremui.edwiser.org");
+  exit;
+}
+
 require_once("./InstanceManager.php");
 
 $im = new InstanceManager();

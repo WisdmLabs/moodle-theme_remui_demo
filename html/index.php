@@ -1,12 +1,11 @@
 <?php
-	$maintenance = false;
-        if  ($maintenance) {
-		header("Location: https://demo.tryremui.edwiser.org/maintenance.html");
-	}
+    $maintenance = false;
+    if ($maintenance) {
+        header("Location: https://demo.tryremui.edwiser.org/maintenance.html");
+    }
 
-  // Include the JSONFileManager class  
-  require("JsonFileManager.php");
-
+    // Include the JSONFileManager class  
+    require("JsonFileManager.php");
 ?>
 <!doctype html>
 <html lang="en">
@@ -37,7 +36,7 @@
         </h1>
 
         <div class="inline-form">
-          <form class="form" action="./createinstance.php" method="post">
+          <form class="form" action="./createinstance.php" method="post" onsubmit="return validateForm()">
 
             <div class="layout-options-wrapper">
               <h1 class="form-heading m-0 p-0">Please select what best describes the e-learning site you are trying to build</h1>
@@ -77,12 +76,11 @@
 
               <div class="email-form">
                 <label for="inputEmail" class="hidden">Email</label>
-                <!-- <input type="hidden" class="form-control" name="layoutName"> -->
-                <input type="email" class="form-control" name="email" placeholder="Enter your Email Id" data-nb required>
+                <input type="email" class="form-control" name="email" placeholder="Enter your Email Id" required>
                 <input type="hidden" class="form-control" name="tagid" value="-1">
                 <button type="submit" class="form-control btn btn-primary disabled" title="Create Sandbox" disabled>
                   Create sandbox
-                </input>
+                </button>
               </div>
 
             </div>
@@ -94,43 +92,41 @@
 
   </body>
 
-  <!--EMAIL VALIDATOR -->
-  <script type="text/javascript">
-    _NBSettings = {
-        apiKey: 'public_4c53c3c5a0d1e538b96ddc29a9a09413',
-        displayPoweredBy: false,
-        acceptedMessage: "Great! Everything looks good",
-        rejectedMessage: "Oops! Email didn\’t go through. Check it?",
-        timeout: 1,
-    };
+  <!-- Email Validation -->
+  <script>
+    const emailInput = document.querySelector('input[name="email"]');
+    const submitButton = document.querySelector('button[type="submit"]');
 
-    document.querySelector('body').addEventListener('nb:registered', function (event) {
-      // Get field using id from registered event
-      let field = document.querySelector('[data-nb-id="' + event.detail.id + '"]');
+    emailInput.addEventListener('input', validateEmail);
 
-      // Handle clear events; i.e. hide feedback
-      field.addEventListener('nb:clear', function(e) {
+    function validateEmail() {
+      const email = emailInput.value.trim();
+
+      if (isValidEmail(email)) {
+        submitBtn.classList.remove('disabled');
+        submitButton.disabled = false;
+      } else {
         submitBtn.classList.add('disabled');
-        submitBtn.disabled = true;
-      });
+        submitButton.disabled = true;
+      }
+    }
 
-      // Handle results (API call has succeeded)
-      field.addEventListener('nb:result', function(e) {
-        // Check the result
-        if (e.detail.result.is(_nb.settings.getAcceptedStatusCodes())) {
-          submitBtn.classList.remove('disabled');
-          submitBtn.disabled = false;
-        }
-        else {
-          submitBtn.classList.add('disabled');
-          submitBtn.disabled = true;
-        }
-      });
-    });
+    function isValidEmail(email) {
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailPattern.test(email);
+    }
+
+    function validateForm() {
+      const email = emailInput.value.trim();
+
+      if (!isValidEmail(email)) {
+        alert("Please enter a valid email address.");
+        return false;
+      }
+
+      return true;
+    }
   </script>
-  
-  <script type="text/javascript" src="https://cdn.neverbounce.com/widget/dist/NeverBounce.js"></script>
-  <!--EMAIL VALIDATOR -->
 
   <!-- Form Handler -->
   <script type="text/javascript" src="./formhandler.js"></script>
