@@ -30,33 +30,6 @@
 </div>
 <script>
     window.addEventListener('load', function (){
-
-        // Check if document body tag has class notloggedin
-        if (!document.body.classList.contains('notloggedin')) {
-            // getitem from sessionStorage
-            var demolayout = sessionStorage.getItem("edwdemolayoutName");
-
-            if (demolayout) {
-                console.log("We have demo : " + demolayout);
-                sessionStorage.removeItem('edwdemolayoutName');
-                
-                var landingpages = []; 
-                landingpages["classic"] = "2";
-                landingpages["school"] = "2";
-                landingpages["university"] = "2";
-                landingpages["corporate"] = "2";
-
-                // var pageurl = "/mod/page/view.php?id=";
-                var pageurl = "/course/view.php?id=";
-                pageurl = M.cfg.wwwroot + pageurl + landingpages[demolayout];
-                
-                console.log("We have demo : " + demolayout + " and url : " + pageurl);
-
-                window.location.href = pageurl;
-
-                return;
-            }
-        }
         document.querySelector('#page-loader-wrapper').style.display = 'none';
     }, false);
     if (localStorage.getItem("nighteyewState") == "1") {
