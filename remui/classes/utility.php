@@ -1416,9 +1416,11 @@ class utility {
 
         $democontext['langmenulist'] = $langmenu;
 
-        foreach ($langmenu['items'] as $language) {
-            if ($language['isactive']) {
-                $democontext['langmenulist']['activelang'] = $language;
+        if(isset($langmenu['items'])) {
+            foreach ($langmenu['items'] as $language) {
+                if ($language['isactive']) {
+                    $democontext['langmenulist']['activelang'] = $language;
+                }
             }
         }
 

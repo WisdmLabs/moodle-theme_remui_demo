@@ -59,3 +59,6 @@
     existing code will add the subheader on both navbar big-nav and moodle nav 
     removed the existing line $("#page-wrapper nav.navbar").after(pagesubheader);
     added $($("#page-wrapper nav.navbar")[1]).after(pagesubheader); this line in the function setHeaderOnTop 
+
+# Js code added on remuiloader.js file to handling Site Announcement position in all pages and different screensizes
+	The js code is added inside handleSiteAnnouncementPosition() function

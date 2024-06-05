@@ -252,9 +252,54 @@ define(['jquery'], function ($) {
         );
     };
 
+    function handleSiteAnnouncementPosition() {
+        if ($('.page_sub_header').length) {
+            let navbarheight = $('#page-wrapper nav.navbar[aria-label="Site navigation"]').outerHeight();
+            let demonavbarheight = $('.demo-navbar').outerHeight();
+            let subpageheaderheight = $('.page_sub_header').outerHeight();
+            let siteannouncementheight = $('.site-announcement').outerHeight();
+
+            $('.page_sub_header').css('margin-top', navbarheight + demonavbarheight);
+            $('#page.drawers').css('margin-top', navbarheight + demonavbarheight + subpageheaderheight);
+            $('.drawer-toggler').css('margin-top', subpageheaderheight + siteannouncementheight);
+
+            if ($('.site-announcement').length) {
+                $('#region-fullwidthtop-blocks').css('margin-top', siteannouncementheight);
+                if (window.innerWidth < 1024) {
+                    $('.site-announcement').css('top', navbarheight + demonavbarheight + subpageheaderheight);
+                } else {
+                    $('.site-announcement').css('top', 0);
+                }
+            }
+        } else if ($('.site-announcement').length) {
+            let navbarheight = $('#page-wrapper nav.navbar[aria-label="Site navigation"]').outerHeight();
+            let demonavbarheight = $('.demo-navbar').outerHeight();
+            let siteannouncementheight = $('.site-announcement').outerHeight();
+
+            $('.drawer-toggler').css('margin-top', siteannouncementheight);
+            $('#page.drawers').css('margin-top', navbarheight + demonavbarheight);
+            $('#region-fullwidthtop-blocks').css('margin-top', siteannouncementheight);
+
+            if (window.innerWidth < 1024) {
+                $('.site-announcement').css('top', navbarheight + demonavbarheight);
+            } else {
+                $('.site-announcement').css('top', 0);
+            }
+        }
+    }
+
     return {
-        init: function () {
+        init: function() {
             registerCommonEvents();
+
+            handleSiteAnnouncementPosition();
+            $(window).on('load', function() {
+                handleSiteAnnouncementPosition();
+            });
+            $(window).resize(function() {
+                console.log("resize");
+                handleSiteAnnouncementPosition();
+            });
 
             // Enable Category Search filter in header.
             if ($(".catselector-menu").length) {
