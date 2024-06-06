@@ -281,60 +281,7 @@ class InstanceManager {
         $remUiDemoDetailsUrl = "https://edwiser.org/wp-json/demo/v1/remui_demo_details";
         $result = $this->sendCurlRequest($remUiDemoDetailsUrl, $payload);
     }
-    // function erd_record_users($existingdata) {
-
-    //     $payload = json_encode($existingdata);
-    //     $requesturl = "https://edwiser.org/?fluentcrm=1&route=contact&hash=363ef54c-ed6c-4b6e-8290-49eb1729c7e6";
-    //     // Create a new cURL resource
-    //     $curl = curl_init();
-
-    //     if (!$curl) {
-    //         die("Couldn't initialize a cURL handle");
-    //     }
-
-    //     $ch = curl_init($requesturl);
-    //     $config['useragent'] = 'Chrome/5.0 (Windows NT 6.2; WOW64; rv:17.0) Gecko/20100101 Firefox/17.0';
-
-    //     curl_setopt($ch, CURLOPT_USERAGENT, $config['useragent']);
-    //     curl_setopt($ch, CURLOPT_REFERER, 'https://demo.tryremui.edwiser.org');
-    //     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    //     curl_setopt($ch, CURLINFO_HEADER_OUT, true);
-    //     curl_setopt($ch, CURLOPT_POST, true);
-    //     curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
-    //     // Set HTTP Header for POST request
-    //     curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-    //         'Content-Type: application/json',
-    //         'Content-Length: ' . strlen($payload))
-    //     );
-
-    //     // Submit the POST request
-    //     $result = curl_exec($ch);
-
-    //     // Close cURL session handle
-    //     curl_close($ch);
-
-    //     // Sending it to edwiser
-    //     $requesturl = "https://edwiser.org/wp-json/demo/v1/remui_demo_details";
-    //     $ch = curl_init($requesturl);
-
-    //     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	//     curl_setopt($ch, CURLOPT_USERAGENT, $config['useragent']);
-    //     curl_setopt($ch, CURLINFO_HEADER_OUT, true);
-    //     curl_setopt($ch, CURLOPT_POST, true);
-    //     curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
-        
-    //     // Set HTTP Header for POST request
-    //     curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-    //         'Content-Type: application/json',
-    //         'Content-Length: ' . strlen($payload))
-    //     );
-        
-    //     // Submit the POST request
-    //     $result = curl_exec($ch);
-
-    //     // Close cURL session handle
-    //     curl_close($ch);
-    // }
+    
     /**
      * Generate New Name for demo.
      * Used sha256 to generate unique hashcode each time for new demo name.
@@ -381,7 +328,7 @@ class InstanceManager {
      */
     function destroy_instances_by_time() {
         $currTime = time();
-	echo $currTime;
+
         foreach ($this->_allInstances['inuse'] as $key => $instance) {
             if ($currTime >= $instance['timedeletion']) {
                 $this->delete_instance($instance['instancename']);
@@ -397,10 +344,10 @@ class InstanceManager {
      * Delete instance by instance name with shell script.
      */
     function delete_instance($name) {
-        $cmd = "sudo bash /var/www/manage_remui_hosts.sh delete " . $name . "  > /dev/null";
+        $cmd = "bash /var/www/manage_remui_hosts.sh delete " . $name . "  > /dev/null";
         exec($cmd);
 
-        $cmd = "sudo service nginx restart > /dev/null";
+        $cmd = "service nginx restart > /dev/null";
         exec($cmd);
     }
 
