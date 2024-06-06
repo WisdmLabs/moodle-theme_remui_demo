@@ -36,7 +36,7 @@
         </h1>
 
         <div class="inline-form">
-          <form class="form" action="./createinstance.php" method="post" onsubmit="return validateForm()">
+          <form class="form" action="./createinstance.php" method="post">
 
             <div class="layout-options-wrapper">
               <h1 class="form-heading m-0 p-0">Please select what best describes the e-learning site you are trying to build</h1>
@@ -76,7 +76,8 @@
 
               <div class="email-form">
                 <label for="inputEmail" class="hidden">Email</label>
-                <input type="email" class="form-control" name="email" placeholder="Enter your Email Id" required>
+                <!-- <input type="hidden" class="form-control" name="layoutName"> -->
+                <input type="email" class="form-control" name="email" placeholder="Enter your Email Id" data-nb required>
                 <input type="hidden" class="form-control" name="tagid" value="-1">
                 <button type="submit" class="form-control btn btn-primary disabled" title="Create Sandbox" disabled>
                   Create sandbox
@@ -92,41 +93,43 @@
 
   </body>
 
-  <!-- Email Validation -->
-  <script>
-    const emailInput = document.querySelector('input[name="email"]');
-    const submitButton = document.querySelector('button[type="submit"]');
+  <!--EMAIL VALIDATOR -->
+  <script type="text/javascript">
+    _NBSettings = {
+        apiKey: 'public_4c53c3c5a0d1e538b96ddc29a9a09413',
+        displayPoweredBy: false,
+        acceptedMessage: "Great! Everything looks good",
+        rejectedMessage: "Oops! Email didn\’t go through. Check it?",
+        timeout: 1,
+    };
 
-    emailInput.addEventListener('input', validateEmail);
+    document.querySelector('body').addEventListener('nb:registered', function (event) {
+      // Get field using id from registered event
+      let field = document.querySelector('[data-nb-id="' + event.detail.id + '"]');
 
-    function validateEmail() {
-      const email = emailInput.value.trim();
-
-      if (isValidEmail(email)) {
-        submitBtn.classList.remove('disabled');
-        submitButton.disabled = false;
-      } else {
+      // Handle clear events; i.e. hide feedback
+      field.addEventListener('nb:clear', function(e) {
         submitBtn.classList.add('disabled');
-        submitButton.disabled = true;
-      }
-    }
+        submitBtn.disabled = true;
+      });
 
-    function isValidEmail(email) {
-      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      return emailPattern.test(email);
-    }
-
-    function validateForm() {
-      const email = emailInput.value.trim();
-
-      if (!isValidEmail(email)) {
-        alert("Please enter a valid email address.");
-        return false;
-      }
-
-      return true;
-    }
+      // Handle results (API call has succeeded)
+      field.addEventListener('nb:result', function(e) {
+        // Check the result
+        if (e.detail.result.is(_nb.settings.getAcceptedStatusCodes())) {
+          submitBtn.classList.remove('disabled');
+          submitBtn.disabled = false;
+        }
+        else {
+          submitBtn.classList.add('disabled');
+          submitBtn.disabled = true;
+        }
+      });
+    });
   </script>
+  
+  <script type="text/javascript" src="https://cdn.neverbounce.com/widget/dist/NeverBounce.js"></script>
+  <!--EMAIL VALIDATOR -->
 
   <!-- Form Handler -->
   <script type="text/javascript" src="./formhandler.js"></script>

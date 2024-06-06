@@ -105,6 +105,41 @@ class InstanceManager {
         // Generate data for requesting user.
         // Here we are fetching 0th index existing demo and move it to in use array.
         if ($existingdata = $this->existing($ip)) {
+            // Record Demo type $demotype to newly received $existingdata['instanceurl']
+            // making a curl request to sent demotype to theme
+            $token = 'a277139e7f0926487f693e8171a348ee';
+            $functionName = 'theme_remui_set_demo_layouttype';
+            // Data to be sent in the POST request
+            $postData = [
+                'blocklayout' => $demotype,
+            ];
+
+            // URL of the web service
+            $url ='https://'.$existingdata['instanceurl'].'/webservice/rest/server.php?wstoken='.$token.'&wsfunction='.$functionName;
+
+            // Initialize cURL session
+            $ch = curl_init();
+
+            // Set the URL and other necessary options
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postData));
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                'Content-Type: application/x-www-form-urlencoded',
+            ]);
+
+            // Execute the POST request
+            $response = curl_exec($ch);
+
+            // Check for cURL errors
+            if ($response === false) {
+                echo 'cURL Error: ' . curl_error($ch);
+            }
+
+            // Close cURL session
+            curl_close($ch);
+
             return $existingdata;
         } else {
             $existingdata = $this->_allInstances['instances'][0];
