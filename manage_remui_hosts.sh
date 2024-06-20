@@ -2,7 +2,6 @@
 
 # To enable login-path use following command
 #     - mysql_config_editor set --login-path=mylogin --host=localhost --user=root --password
-
 # script parameters
 action=$1
 domain=$2
@@ -178,7 +177,6 @@ elif [ "$action" == "delete" ]; then
 	# 	### Delete virtual host rules files
 	# 	rm $sitesAvailable$newdomain
 	# fi
-
 	### check if directory exists or not
 	if [ -d $rootDir ]; then
 		rm -rf $rootDir
