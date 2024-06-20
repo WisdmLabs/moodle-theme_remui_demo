@@ -15,8 +15,12 @@ then
 	rm ./tr_db.sql
 fi
 
-wget --no-check-certificate https://demo.tryremui.edwiser.org/backupcdn/tr_data.zip
+wget --no-check-certificate https://demo.tryremui.edwiser.org/backupcdn/gr_data.zip
 
-wget --no-check-certificate https://demo.tryremui.edwiser.org/backupcdn/tr_files.zip 
+wget --no-check-certificate https://demo.tryremui.edwiser.org/backupcdn/gr_files.zip 
 
-wget --no-check-certificate https://demo.tryremui.edwiser.org/backupcdn/tr_db.sql
+wget --no-check-certificate https://demo.tryremui.edwiser.org/backupcdn/gr_db.sql
+
+mv gr_data.zip tr_data.zip
+mv gr_files.zip tr_files.zip
+mv gr_db.sql tr_db.sql

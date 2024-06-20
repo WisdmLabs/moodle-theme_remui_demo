@@ -77,7 +77,7 @@
               <div class="email-form">
                 <label for="inputEmail" class="hidden">Email</label>
                 <!-- <input type="hidden" class="form-control" name="layoutName"> -->
-                <input type="email" class="form-control" name="email" placeholder="Enter your Email Id" data-nb required>
+                <input type="email" class="form-control" name="email" placeholder="Enter your Email Id" required>
                 <input type="hidden" class="form-control" name="tagid" value="-1">
                 <button type="submit" class="form-control btn btn-primary disabled" title="Create Sandbox" disabled>
                   Create sandbox
@@ -95,40 +95,76 @@
 
   <!--EMAIL VALIDATOR -->
   <script type="text/javascript">
-    _NBSettings = {
-        apiKey: 'public_4c53c3c5a0d1e538b96ddc29a9a09413',
-        displayPoweredBy: false,
-        acceptedMessage: "Great! Everything looks good",
-        rejectedMessage: "Oops! Email didn\’t go through. Check it?",
-        timeout: 1,
-    };
+    // _NBSettings = {
+    //    apiKey: 'public_4c53c3c5a0d1e538b96ddc29a9a09413',
+    //    displayPoweredBy: false,
+    //    acceptedMessage: "Great! Everything looks good",
+    //    rejectedMessage: "Oops! Email didn\’t go through. Check it?",
+    //    timeout: 1,
+    // };
 
-    document.querySelector('body').addEventListener('nb:registered', function (event) {
+    //document.querySelector('body').addEventListener('nb:registered', function (event) {
       // Get field using id from registered event
-      let field = document.querySelector('[data-nb-id="' + event.detail.id + '"]');
+    //  let field = document.querySelector('[data-nb-id="' + event.detail.id + '"]');
 
       // Handle clear events; i.e. hide feedback
-      field.addEventListener('nb:clear', function(e) {
-        submitBtn.classList.add('disabled');
-        submitBtn.disabled = true;
-      });
+    //  field.addEventListener('nb:clear', function(e) {
+    //    submitBtn.classList.add('disabled');
+    //    submitBtn.disabled = true;
+    //  });
 
       // Handle results (API call has succeeded)
-      field.addEventListener('nb:result', function(e) {
+    //  field.addEventListener('nb:result', function(e) {
         // Check the result
-        if (e.detail.result.is(_nb.settings.getAcceptedStatusCodes())) {
-          submitBtn.classList.remove('disabled');
-          submitBtn.disabled = false;
-        }
-        else {
-          submitBtn.classList.add('disabled');
-          submitBtn.disabled = true;
-        }
-      });
-    });
+    //    if (e.detail.result.is(_nb.settings.getAcceptedStatusCodes())) {
+   //       submitBtn.classList.remove('disabled');
+    //      submitBtn.disabled = false;
+    //    }
+    //    else {
+    //      submitBtn.classList.add('disabled');
+    //      submitBtn.disabled = true;
+    //    }
+    //  });
+    //});
   </script>
   
-  <script type="text/javascript" src="https://cdn.neverbounce.com/widget/dist/NeverBounce.js"></script>
+  <script>
+    const emailInput = document.querySelector('input[name="email"]');
+    const submitButton = document.querySelector('button[type="submit"]');
+
+    emailInput.addEventListener('input', validateEmail);
+
+    function validateEmail() {
+      const email = emailInput.value.trim();
+
+      if (isValidEmail(email)) {
+        submitBtn.classList.remove('disabled');
+        submitButton.disabled = false;
+      } else {
+        submitBtn.classList.add('disabled');
+        submitButton.disabled = true;
+      }
+    }
+
+    function isValidEmail(email) {
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailPattern.test(email);
+    }
+
+    function validateForm() {
+      const email = emailInput.value.trim();
+
+      if (!isValidEmail(email)) {
+        // alert("Please enter a valid email address.");
+        return false;
+      }
+
+      return true;
+    }
+  </script>
+
+
+  <!--<script type="text/javascript" src="https://cdn.neverbounce.com/widget/dist/NeverBounce.js"></script>-->
   <!--EMAIL VALIDATOR -->
 
   <!-- Form Handler -->

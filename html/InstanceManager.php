@@ -68,7 +68,7 @@ class InstanceManager {
         }
         foreach ($this->_allInstances['inuse'] as $instance) {
 		
-            if ($ip == "223.233.82.100") {
+            if ($ip == "223.233.85.136") {
                 return false;
             }
             if (isset($instance['ip']) && $instance['ip'] == $ip) {
@@ -278,8 +278,8 @@ class InstanceManager {
 
         $result = $this->sendCurlRequest($fluentCrmUrl, $payload);
 
-        $remUiDemoDetailsUrl = "https://edwiser.org/wp-json/demo/v1/remui_demo_details";
-        $result = $this->sendCurlRequest($remUiDemoDetailsUrl, $payload);
+        // $remUiDemoDetailsUrl = "https://edwiser.org/wp-json/demo/v1/remui_demo_details";
+        // $result = $this->sendCurlRequest($remUiDemoDetailsUrl, $payload);
     }
     
     /**
@@ -328,14 +328,18 @@ class InstanceManager {
      */
     function destroy_instances_by_time() {
         $currTime = time();
-
+        
         foreach ($this->_allInstances['inuse'] as $key => $instance) {
             if ($currTime >= $instance['timedeletion']) {
-                $this->delete_instance($instance['instancename']);
+                // $this->delete_instance($instance['instancename']);
+                // sleep(15);
+                // if (!is_dir("/var/www/instances/".$instance['instancename'])) {
                 $this->_delInstances['deleted'][] = $instance;
                 unset($this->_allInstances['inuse'][$key]);
+                // }
             }
         }
+        // error_log("\n".'New Error ['. date("Y-m-d H:i:s"). '] : '.print_r($this->_allInstances, 1), 3, dirname(__FILE__).'/wdm_error.log');
         $this->write_instance_to_json($this->jsonfile, $this->_allInstances);
         $this->write_instance_to_json($this->jsonfiledel, $this->_delInstances);
     }
@@ -344,10 +348,8 @@ class InstanceManager {
      * Delete instance by instance name with shell script.
      */
     function delete_instance($name) {
+        // error_log("\n".'Error ['. date("Y-m-d H:i:s"). '] : '.print_r($name, 1), 3, dirname(__FILE__).'/wdm_error.log');
         $cmd = "bash /var/www/manage_remui_hosts.sh delete " . $name . "  > /dev/null";
-        exec($cmd);
-
-        $cmd = "service nginx restart > /dev/null";
         exec($cmd);
     }
 

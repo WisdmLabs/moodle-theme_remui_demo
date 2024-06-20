@@ -267,13 +267,26 @@ datazip='tr_data.zip'
 # Update moodle configuration.
 # ****************************
 
-	olddomain="https\://tryremui.edwiser.org"
-	olddbname="tryremuidb"
+	#olddomain="https\://tryremui.edwiser.org"
+	#olddbname="tryremuidb"
+	#olddbuser="root"
+	#olddbpass="qazqwe321"
+	#olddbtype="mysqli"
+	#oldmdpath="/var/www/tryremui/moodledata"
+
+	# olddomain="https\://tryremui.edwiser.org"
+	olddomain="https\://tryremui.edwiser.org/client"
+
+	# olddbname="tryremuidb"
+	olddbname="tryremuiclient"
+
 	olddbuser="root"
 	olddbpass="qazqwe321"
 	olddbtype="mysqli"
-	oldmdpath="/var/www/tryremui/moodledata"
 
+	# oldmdpath="/var/www/tryremui/moodledata"
+	oldmdpath="/var/www/tryremui/mdclient"
+	
 	# Update config file
 
 
