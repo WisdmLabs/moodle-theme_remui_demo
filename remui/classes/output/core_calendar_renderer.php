@@ -58,7 +58,7 @@ class core_calendar_renderer extends \core_calendar_renderer {
                 return $c->id;
             }, $courses);
             list($insql, $params) = $DB->get_in_or_equal($courseids);
-            $contextsql = "SELECT ctx.instanceid, " . context_helper::get_preload_record_columns_sql('ctx') .
+            $contextsql = "SELECT ctx.instanceid, " . \context_helper::get_preload_record_columns_sql('ctx') .
                           " FROM {context} ctx WHERE ctx.contextlevel = ? AND ctx.instanceid $insql";
             array_unshift($params, CONTEXT_COURSE);
             $contextrecords = $DB->get_records_sql($contextsql, $params);
@@ -70,7 +70,7 @@ class core_calendar_renderer extends \core_calendar_renderer {
         $courseoptions[SITEID] = get_string('fulllistofcourses');
         foreach ($courses as $course) {
             if (isset($contextrecords[$course->id])) {
-                context_helper::preload_from_record($contextrecords[$course->id]);
+                \context_helper::preload_from_record($contextrecords[$course->id]);
             }
             $coursecontext = \context_course::instance($course->id);
             $courseoptions[$course->id] = format_string($course->shortname, true, array('context' => $coursecontext));

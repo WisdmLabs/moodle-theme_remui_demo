@@ -1534,3 +1534,5 @@ $string['settingpage-dep-top-st4'] = '1. Download and install the Edwiser RemUI 
 $string['viewcoursetitle'] = 'View Course';
 $string['okay'] = 'Okay!';
 $string['forcefulmigrate'] = 'Forceful Migrate';
+
+$string['moodleblocks'] = 'Moodle Blocks';

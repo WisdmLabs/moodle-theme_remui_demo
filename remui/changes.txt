@@ -1,6 +1,20 @@
 Release
 =======
 
+Version 4.2.10
+==============
+Tweak - UI/UX Improvements on
+        - Grade pages
+        - Report pages
+        - Participants page
+        - Enroll methods page
+
+Version 4.2.9
+==============
+Tweak - UI/UX Improvement in add a block modal UI.
+Tweak - Minor UI/UX improvements.
+Fix   - Error on customizer reset issue resolved.
+
 Version 4.2.8
 ==============
 Tweak - RemUI Homepage builder plugin final update. Plugin deprecated.

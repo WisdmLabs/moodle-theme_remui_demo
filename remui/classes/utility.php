@@ -342,7 +342,7 @@ class utility {
             );
             $footerarr['hassocial'] = $customizer->get_config('socialmediaiconcol' . $i) && $footerarr['customhtml'];
             $footerarr['socialiconvisibility'] = $footerarr['hassocial'];
-            if (!$selectedsocial = json_decode($customizer->get_config('footercolumn'.$i.'social'), true)) {
+            if (!($customizer->get_config('footercolumn'.$i.'social')) || !$selectedsocial = json_decode($customizer->get_config('footercolumn'.$i.'social'), true)) {
                 $selectedsocial = [];
             }
 

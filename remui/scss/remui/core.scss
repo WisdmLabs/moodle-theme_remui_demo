@@ -389,6 +389,15 @@ hr {
          flex-wrap: nowrap;
       }
    }
+   height: unset;
+   min-height: 60px;
+   padding-top: 5px !important;
+   padding-bottom: 5px !important;
+   .col,.col-auto{
+      label{
+         margin-bottom: 0px;
+      }
+   }
 }
 
 
@@ -699,6 +708,9 @@ body.hasstickyfooter{
          }
       }
    }
+   .floating-widget {
+      bottom: calc(max(96px, calc(1rem * 3)));
+  }
 }
 // Beacon CSS.
 .Beacon .BeaconFabButtonFrame {

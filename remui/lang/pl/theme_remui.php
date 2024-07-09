@@ -1545,3 +1545,5 @@ $string["settingpagedepbottomsecondaryst2b"] = '<a href="https://edwiser.org/my-
 $string['viewcoursetitle'] = 'Zobacz kurs';
 $string['okay'] = 'OK';
 $string['forcefulmigrate'] = 'Wymuszona migracja';
+
+$string['moodleblocks'] = 'Bloki Moodle';

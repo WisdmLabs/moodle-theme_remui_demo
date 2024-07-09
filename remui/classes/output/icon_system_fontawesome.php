@@ -73,6 +73,9 @@ class icon_system_fontawesome extends \core\output\icon_system_fontawesome {
             'core:t/collapsedchevron' => 'edw-icon edw-icon-Right-Arrow',
             'core:t/collapsedchevron_rtl' => 'edw-icon edw-icon-Left-Arrow',
             'core:t/email' => 'edw-icon edw-icon-Email',
+            'core:i/enrolusers' => 'edw-icon edw-icon-Adduser',
+            'core:t/enrolusers' => 'edw-icon edw-icon-Adduser',
+            'core:t/addcontact' => 'edw-icon edw-icon-User-Event',
         );
 
         $merged = array_merge($iconmap, $overrides);

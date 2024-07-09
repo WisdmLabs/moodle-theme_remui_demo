@@ -1531,3 +1531,5 @@ $string['settingpage-dep-top-st4'] = '1. Laden Sie den Edwiser RemUI Page Builde
 $string['viewcoursetitle'] = 'Kurs anzeigen';
 $string['okay'] = 'Okay!';
 $string['forcefulmigrate'] = 'Erzwungene Migration';
+
+$string['moodleblocks'] = 'Moodle-Blöcke';

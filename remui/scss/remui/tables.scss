@@ -4,7 +4,7 @@
 $table_head_bg_color: $bg-small-ui;
 $table-border-rad:8px;
 $table-th-height:50px;
-$table-bd-hd-height:60px; // height of table body th
+$table-bd-hd-height:50px; // height of table body th
 
 
 table {
@@ -25,6 +25,8 @@ table {
                     height: $table-th-height;
                     vertical-align: middle;
                     border-right: 1px solid $medium-border;
+                    padding-left: map-get($spacerspx, '4') !important;
+                    padding-right: map-get($spacerspx, '4') !important;
                     // @extend .h-semibold-6;
                     @include get_typography(6, semibold, all);
 
@@ -48,12 +50,20 @@ table {
                 border-top: 1px solid $light-border;
                 border-right: 1px solid $light-border;
 
-                &:last-child {
-                    border-right: unset;
+                padding-left: map-get($spacerspx, '4') !important;
+                padding-right: map-get($spacerspx, '4') !important;
+                // &:last-child {
+                //     border-right: unset;
+                // }
+                &:first-child {
+                    border-left: 1px solid $light-border;
                 }
 
                 // @extend .h-regular-6;
                 @include get_typography(6, regular, all);
+            }
+            tr:last-child{
+                border-bottom: 1px solid $light-border;
             }
         }
     }
@@ -96,34 +106,6 @@ table {
     }
 }
 
-#page-course-view-participants {
-    .userlist {
-        #participantsform {
-            .buttons {
-                .form-inline {
-                    .btn-group + div {
-                        display: grid;
-                        text-align: start;
-                        gap: 8px;
-                        label[for="formactionid"] {
-                            padding: 0 8px;
-                        }
-                    }
-                }
-            }
-        }
-    }
-    .table-dynamic {
-        overflow: visible;
-        // filter: drop-shadow(map-get($box-shadows-values, xs));
-        // .no-overflow {
-            // overflow-x: auto;
-            // table.generaltable {
-                // overflow: hidden;
-            // }
-        // }
-    }
-}
 
 #page-admin-plugins {
     .table-responsive {

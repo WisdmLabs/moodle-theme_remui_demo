@@ -415,6 +415,12 @@ function handleMediumBorderColor() {
         .rolecap thead th,.rolecap thead td{
             border-right-color: ${color} !important;
         }
+
+        .epb_custom_modal .advancedblocktab .left-sidebar .left-sidebar-mid-region .block-category-list-desktop .category-list-item:hover .category-link,
+        .epb_custom_modal .advancedblocktab .left-sidebar .left-sidebar-mid-region .block-category-list-desktop .category-list-item.active .category-link
+        {
+            background-color: ${color} !important;
+        }
     `;
     Utils.putStyle('body-medium-border-color', content);
 }
@@ -539,7 +545,11 @@ function handleSmallementColor() {
         table thead tr,
         .node_category .lead,
         .badges-container .badges-container-heading,
-        .fullwidth-modal .modal-header,.edw-card-design-hd .categoryname,.paymentmethodcount {
+        .fullwidth-modal .modal-header,.edw-card-design-hd .categoryname,.paymentmethodcount,
+        .epb_custom_modal .advancedblocktab .left-sidebar .edw-tabs-navigation.edwiser-custom-blocks-nav .nav .nav-item .nav-link.active,
+        .epb_custom_modal .advancedblocktab .left-sidebar,
+        .epb_custom_modal .advancedblocktab .left-sidebar .static-block.html .card-item .card,
+        .epb_custom_modal .advancedblocktab .left-sidebar .left-sidebar-mid-region  {
             background-color: ${color} !important;
         }
     `;

@@ -1522,3 +1522,5 @@ $string['settingpage-dep-top-st4'] = '1. Téléchargez et installez le Edwiser R
 $string['viewcoursetitle'] = 'Voir le cours';
 $string['okay'] = 'Okay!';
 $string['forcefulmigrate'] = 'Migration forcée';
+
+$string['moodleblocks'] = 'Blocs Moodle';

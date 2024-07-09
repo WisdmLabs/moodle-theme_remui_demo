@@ -1560,3 +1560,5 @@ $string['settingpage-dep-top-st4'] = '1. Baixe e instale o Construtor de Página
 $string['viewcoursetitle'] = 'Ver Curso';
 $string['okay'] = 'Okay!';
 $string['forcefulmigrate'] = 'Migração Forçada';
+
+$string['moodleblocks'] = 'Blocos do Moodle';
