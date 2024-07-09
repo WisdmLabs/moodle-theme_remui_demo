@@ -104,6 +104,27 @@ $demo-bg-dark-color: #001C1D;
                     margin-left: 0;
                     width: unset;
                 }
+
+                .heighlighted-circle {
+                    position: absolute;
+                    right: 9px;
+                    top: 10px;
+                    width: 8px;
+                    height: 8px;
+                    border-radius: 100%;
+                    background-color: $demo-bg-dark-color;
+                    
+
+                    span {
+                        position: absolute;
+                        top: 1px;
+                        left: 1px;
+                        width: 6px;
+                        height: 6px;
+                        border-radius: 100%;
+                        background-color: #F75D25;
+                    }
+                }
             }
 
             &.show {
@@ -350,17 +371,24 @@ $demo-bg-dark-color: #001C1D;
             }
 
             .template {
+                position: relative;
                 .template-body {
                     height: 280px;
                     width: 100%;
                     overflow: hidden;
                     position: relative;
+                    background-color: $white;
 
                     img {
                         position: absolute;
                         top: 0;
                         left: 0;
                         width: 100%;
+                    }
+
+                    .new-tag {
+                        width: unset;
+                        max-width: 60px;
                     }
 
                     @include media-breakpoint-down(sm) {

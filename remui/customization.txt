@@ -62,3 +62,13 @@
 
 # Js code added on remuiloader.js file to handling Site Announcement position in all pages and different screensizes
 	The js code is added inside handleSiteAnnouncementPosition() function
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+CHNAGES AFTER release remui 4.2.10
+
+# Highlighted simbole added on "what's new" tab
+
+# "Pricing page" added on corporate and clasic tab
+
+# New tab "Single instructor" added on Templates section with two layout "Moodle Expert" and "Language Instructor"
