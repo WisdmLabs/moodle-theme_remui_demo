@@ -79,6 +79,26 @@ $demo-bg-dark-color: #001C1D;
         background: #F75D25;        
     }
 
+    .heighlighted-circle {
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        width: 8px;
+        height: 8px;
+        border-radius: 100%;
+        background-color: $demo-bg-dark-color;
+        
+        span {
+            position: absolute;
+            top: 1px;
+            left: 1px;
+            width: 6px;
+            height: 6px;
+            border-radius: 100%;
+            background-color: #F75D25;
+        }
+    }
+
     .navbar-nav,
     .navbar-right {
         
@@ -106,24 +126,8 @@ $demo-bg-dark-color: #001C1D;
                 }
 
                 .heighlighted-circle {
-                    position: absolute;
                     right: 9px;
                     top: 10px;
-                    width: 8px;
-                    height: 8px;
-                    border-radius: 100%;
-                    background-color: $demo-bg-dark-color;
-                    
-
-                    span {
-                        position: absolute;
-                        top: 1px;
-                        left: 1px;
-                        width: 6px;
-                        height: 6px;
-                        border-radius: 100%;
-                        background-color: #F75D25;
-                    }
                 }
             }
 
@@ -322,6 +326,12 @@ $demo-bg-dark-color: #001C1D;
                 width: 24px;
                 filter: brightness(0) saturate(100%) invert(26%) sepia(57%) saturate(3125%) hue-rotate(164deg) brightness(101%) contrast(101%);
             }
+
+            .heighlighted-circle {
+                right: -6px;
+                top: 2px;
+            }
+
         }
       
         .btn-tab.menu-heading:focus {
