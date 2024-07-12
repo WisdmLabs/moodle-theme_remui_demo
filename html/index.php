@@ -78,6 +78,8 @@
                 <label for="inputEmail" class="hidden">Email</label>
                 <!-- <input type="hidden" class="form-control" name="layoutName"> -->
                 <input type="email" class="form-control" name="email" placeholder="Enter your Email Id" required>
+                <!-- Add this near the email input -->
+                <div class="tooltip" style="display: none;" id="emailTooltip">Please enter valid email</div>
                 <input type="hidden" class="form-control" name="tagid" value="-1">
                 <button type="submit" class="form-control btn btn-primary disabled" title="Create Sandbox" disabled>
                   Create sandbox
@@ -92,75 +94,125 @@
     </div>
 
   </body>
+  <!-- DeBounce registration not allowed -->
 
-  <!--EMAIL VALIDATOR -->
-  <script type="text/javascript">
-    // _NBSettings = {
-    //    apiKey: 'public_4c53c3c5a0d1e538b96ddc29a9a09413',
-    //    displayPoweredBy: false,
-    //    acceptedMessage: "Great! Everything looks good",
-    //    rejectedMessage: "Oops! Email didn\’t go through. Check it?",
-    //    timeout: 1,
-    // };
+  <!--EMAIL VALIDATOR Zero bounce - Not working -->
+  <!-- <script>
+    const email = "<EMAIL_ADDRESS>"; // The email address you want to validate
+    const ip_address = "127.0.0.1"; // The IP Address the email signed up from (Optional)
 
-    //document.querySelector('body').addEventListener('nb:registered', function (event) {
-      // Get field using id from registered event
-    //  let field = document.querySelector('[data-nb-id="' + event.detail.id + '"]');
+    try {
+      const response = await zeroBounce.validateEmail(email, ip_address);
+    } catch (error) {
+      console.error(error);
+    }  
+  </script> -->
 
-      // Handle clear events; i.e. hide feedback
-    //  field.addEventListener('nb:clear', function(e) {
-    //    submitBtn.classList.add('disabled');
-    //    submitBtn.disabled = true;
-    //  });
+  <!-- EMAIL List Verify emaillistverify.com - WORKING--> 
+  <!-- <script>
+  const requestOptions = {
+  method: "GET",
+  redirect: "follow"
+  };
 
-      // Handle results (API call has succeeded)
-    //  field.addEventListener('nb:result', function(e) {
-        // Check the result
-    //    if (e.detail.result.is(_nb.settings.getAcceptedStatusCodes())) {
-   //       submitBtn.classList.remove('disabled');
-    //      submitBtn.disabled = false;
-    //    }
-    //    else {
-    //      submitBtn.classList.add('disabled');
-    //      submitBtn.disabled = true;
-    //    }
-    //  });
-    //});
-  </script>
+  fetch("https://apps.emaillistverify.com/api/verifyEmail?secret=5ftp2RZYWfpQejYwN9vWA&email=rahul@gmail.com&timeout=15", requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.error(error));
+  </script> -->
+  <!-- EMAIL List Verify emaillistverify.com --> 
   
+    <!-- BOUNCIFY - WORKING-->
+     <!-- <script>
+      const requestOptions = {
+        method: "GET",
+        redirect: "follow"
+      };
+
+      fetch("https://api.bouncify.io/v1/verify?apikey=kaoak7pq648xwnehewh8s2lnzdg1j6fi&email=some@gmail.com", requestOptions)
+      .then((response) => {
+        console.log(response.status);
+        return response.text();
+      })
+      .then((result) => console.log(result))
+      .catch((error) => console.error(error));
+     </script> -->
+    <!-- BOUNCIFY -->
+
   <script>
     const emailInput = document.querySelector('input[name="email"]');
     const submitButton = document.querySelector('button[type="submit"]');
 
     emailInput.addEventListener('input', validateEmail);
-
-    function validateEmail() {
-      const email = emailInput.value.trim();
-
-      if (isValidEmail(email)) {
-        submitBtn.classList.remove('disabled');
-        submitButton.disabled = false;
-      } else {
-        submitBtn.classList.add('disabled');
-        submitButton.disabled = true;
-      }
+    // Debounce code is to prevent multiple requests to the server.
+    function debounce(func, delay) {
+      let timeoutId;
+      return function (...args) {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => func.apply(this, args), delay);
+      };
     }
 
+    // debouncedVerifyEmail is to validate and verify emails.
+    const debouncedVerifyEmail = debounce((email) => {
+      submitBtn.classList.add('disabled');
+      submitButton.disabled = true;
+      
+      if (isValidEmail(email)) {
+        verifyEmail(email);
+      }
+    }, 500);
+
+    
+    function validateEmail() {
+      const email = emailInput.value.trim();
+      debouncedVerifyEmail(email);
+    }
+    
+    // Validating the syntax.
     function isValidEmail(email) {
       const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       return emailPattern.test(email);
     }
 
-    function validateForm() {
-      const email = emailInput.value.trim();
+    // Verifying the email.
+    function verifyEmail(email) {
+      const requestOptions = {
+        method: "GET",
+        redirect: "follow"
+      };
+      
+      var url = "https://api.bouncify.io/v1/verify";
+      const apikey = "kaoak7pq648xwnehewh8s2lnzdg1j6fi";
 
-      if (!isValidEmail(email)) {
-        // alert("Please enter a valid email address.");
-        return false;
-      }
+      url = url + "?apikey=" + apikey + "&email=" + email;
 
-      return true;
+      fetch(url, requestOptions)
+      .then((response) => {
+        if ([401, 402, 403, 429].includes(response.status)) {
+          submitBtn.classList.remove('disabled');
+          submitButton.disabled = false;
+          return;
+        }
+        
+        return response.text();
+      })
+      .then((result) => {
+        result = JSON.parse(result);
+        if (result.result === 'deliverable') {
+          submitBtn.classList.remove('disabled');
+          submitButton.disabled = false;
+          document.getElementById('emailTooltip').style.display = 'none';
+        } else {
+          submitBtn.classList.add('disabled');
+          submitButton.disabled = true;
+          document.getElementById('emailTooltip').style.display = 'block';
+        }
+      })
+      .catch((error) => console.error(error));
     }
+
+
   </script>
 
 

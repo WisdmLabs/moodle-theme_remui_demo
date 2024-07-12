@@ -212,7 +212,7 @@ class InstanceManager {
 
             $this->write_instance_to_json($this->jsonfile, $this->_allInstances);
 
-            $this->create_new_instance($newdata['instancename']);
+            // $this->create_new_instance($newdata['instancename']);
 
         }
         
