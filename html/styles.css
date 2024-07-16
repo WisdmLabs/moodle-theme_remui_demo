@@ -283,7 +283,7 @@ body {
 .inline-form .email-form {
   display: grid;
   grid-template-columns: 350px 1fr;
-  gap: 16px;
+  column-gap: 16px;
   margin-top: 20px;
 }
 
@@ -442,8 +442,30 @@ body {
   position: relative;
 }
 
-.tooltip {
-  position: absolute;
-  top: 43px;
+.email-form.invalid input[name="email"]{
+  border: 1px solid red;
+  box-shadow: 0px 0px 5px 0px red;
+  outline: none;
+}
+
+.email-form.invalid #emailTooltip {
   color: red;
+  margin-top: 10px;
+  display: flex;
+}
+
+#emailTooltip::before {
+  content: "\2139";
+  height: 5px;
+  padding: 5px 7pxx;
+  margin-right: 5px;
+  padding: 1px 5px;
+  border: 1px solid;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 200;
+  display: inline-table;
+}
+.email-form:not(.invalid) #emailTooltip{
+  display: none;
 }

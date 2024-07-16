@@ -79,11 +79,11 @@
                 <!-- <input type="hidden" class="form-control" name="layoutName"> -->
                 <input type="email" class="form-control" name="email" placeholder="Enter your Email Id" required>
                 <!-- Add this near the email input -->
-                <div class="tooltip" style="display: none;" id="emailTooltip">Please enter valid email</div>
                 <input type="hidden" class="form-control" name="tagid" value="-1">
                 <button type="submit" class="form-control btn btn-primary disabled" title="Create Sandbox" disabled>
                   Create sandbox
                 </button>
+                <div class="tooltip" id="emailTooltip">Please enter valid email</div>
               </div>
 
             </div>
@@ -94,50 +94,6 @@
     </div>
 
   </body>
-  <!-- DeBounce registration not allowed -->
-
-  <!--EMAIL VALIDATOR Zero bounce - Not working -->
-  <!-- <script>
-    const email = "<EMAIL_ADDRESS>"; // The email address you want to validate
-    const ip_address = "127.0.0.1"; // The IP Address the email signed up from (Optional)
-
-    try {
-      const response = await zeroBounce.validateEmail(email, ip_address);
-    } catch (error) {
-      console.error(error);
-    }  
-  </script> -->
-
-  <!-- EMAIL List Verify emaillistverify.com - WORKING--> 
-  <!-- <script>
-  const requestOptions = {
-  method: "GET",
-  redirect: "follow"
-  };
-
-  fetch("https://apps.emaillistverify.com/api/verifyEmail?secret=5ftp2RZYWfpQejYwN9vWA&email=rahul@gmail.com&timeout=15", requestOptions)
-  .then((response) => response.text())
-  .then((result) => console.log(result))
-  .catch((error) => console.error(error));
-  </script> -->
-  <!-- EMAIL List Verify emaillistverify.com --> 
-  
-    <!-- BOUNCIFY - WORKING-->
-     <!-- <script>
-      const requestOptions = {
-        method: "GET",
-        redirect: "follow"
-      };
-
-      fetch("https://api.bouncify.io/v1/verify?apikey=kaoak7pq648xwnehewh8s2lnzdg1j6fi&email=some@gmail.com", requestOptions)
-      .then((response) => {
-        console.log(response.status);
-        return response.text();
-      })
-      .then((result) => console.log(result))
-      .catch((error) => console.error(error));
-     </script> -->
-    <!-- BOUNCIFY -->
 
   <script>
     const emailInput = document.querySelector('input[name="email"]');
@@ -166,7 +122,12 @@
     
     function validateEmail() {
       const email = emailInput.value.trim();
+      document.querySelector('.email-form').classList.remove('invalid');
       debouncedVerifyEmail(email);
+    }
+
+    function add_email_warning() {
+      document.querySelector('.email-form').classList.add('invalid');
     }
     
     // Validating the syntax.
@@ -202,11 +163,11 @@
         if (result.result === 'deliverable') {
           submitBtn.classList.remove('disabled');
           submitButton.disabled = false;
-          document.getElementById('emailTooltip').style.display = 'none';
+          document.querySelector('.email-form').classList.remove('invalid');
         } else {
           submitBtn.classList.add('disabled');
           submitButton.disabled = true;
-          document.getElementById('emailTooltip').style.display = 'block';
+          document.querySelector('.email-form').classList.add('invalid');
         }
       })
       .catch((error) => console.error(error));
