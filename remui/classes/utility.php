@@ -1463,7 +1463,11 @@ class utility {
         } 
 
         $whatsnew = 'https://demo.tryremui.edwiser.org/whatsnew.json';
-        $democontext["whatsnew"] = json_decode(file_get_contents($whatsnew), true);
+
+        $whatsnewContent = file_get_contents($whatsnew);
+        $siteUrl = $CFG->wwwroot; // Assuming $CFG->wwwroot contains the site URL
+        $whatsnewContent = str_replace('{{>siteurl}}', $siteUrl, $whatsnewContent);
+        $democontext["whatsnew"] = json_decode($whatsnewContent, true);
 
         return $democontext;
     }
