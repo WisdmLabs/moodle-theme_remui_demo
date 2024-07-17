@@ -187,9 +187,9 @@ function local_edwiserpagebuilder_output_fragment_upload_media_filepicker($args)
 }
 
 function define_cdn_constants() {
-    // $serverhost = "https://staticcdn.edwiser.org/v40";
-    // $serverhost = "https://qa-remui.edwiser.org/v42";
-    $serverhost = "https://qa-remui.edwiser.org/staticcdn";
+
+    $serverhost = "https://staticcdn.edwiser.org";
+    // $serverhost = "https://qastaticcdn.edwiser.org";
     defined('BLOCKS_CDN_URL') || define("BLOCKS_CDN_URL", $serverhost);
     defined('BLOCKS_CONTENT_URL') || define("BLOCKS_CONTENT_URL", $serverhost . "/json/");
     defined('BLOCKS_LIST_URL') || define("BLOCKS_LIST_URL", $serverhost . "/json/list_of_blocks.json");
@@ -575,7 +575,6 @@ function block_info_in_addblockmodel($blockname) {
 }
 function html_block_rearrange($blocks) {
     $htmlblock = '';
-
     for ($i = 0; $i < count($blocks); $i++) {
         if (isset(($blocks[$i]->title)) && ($blocks[$i]->title == 'html' )) {
             $htmlblock = $blocks[$i];

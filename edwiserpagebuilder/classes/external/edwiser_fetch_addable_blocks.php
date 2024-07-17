@@ -35,6 +35,7 @@ use external_function_parameters;
 use external_multiple_structure;
 use external_single_structure;
 use external_value;
+use stdClass;
 
 trait edwiser_fetch_addable_blocks {
 
@@ -64,7 +65,7 @@ trait edwiser_fetch_addable_blocks {
      * @return array The blocks list
      */
     public static function edwiser_fetch_addable_blocks(int $pagecontextid, string $pagetype, string $pagelayout, string $subpage = '') {
-        global $PAGE, $CFG;
+        global $PAGE, $CFG, $OUTPUT;
 
         require_once($CFG->dirroot . "/local/edwiserpagebuilder/lib.php");
         define_cdn_constants();
@@ -91,78 +92,75 @@ trait edwiser_fetch_addable_blocks {
         $PAGE->blocks->load_blocks(false);
         $PAGE->blocks->create_all_block_instances();
 
+        $blockscontext = new \stdClass;
+
         $addableblocks = $PAGE->blocks->get_addable_blocks();
+
+        $bm = new \local_edwiserpagebuilder\block_handler();
+
         if (check_plugin_available("block_edwiseradvancedblock") && array_key_exists("edwiseradvancedblock", $addableblocks)) {
 
-            $bm = new \local_edwiserpagebuilder\block_handler();
 
-            $blocks = $bm->fetch_blocks_list(array("type" => "block"));
+            // Get the context of edwblocks categories with blocks
+            $context = $bm->get_edwblocks_categories_with_blocks();
 
-            $blocks = html_block_rearrange($blocks);
+            // Loop through each type (block, dynamic, layout) in the context
+            foreach ($context["blockscontext"] as $categorykey => $categoryvalue) {
 
-            $blocks = array_map(function($block) {
-                return [
-                    'id' => $block->id,
-                    'name' => 'edwiseradvancedblock',
-                    'title' => $block->label,
-                    'section' => $block->title,
-                    'thumbnail' => str_replace("{{>cdnurl}}", CDNIMAGES, $block->thumbnail),
-                    'updateavailable' => $block->updateavailable,
-                    'visible' => $block->visible,
-                    'blockgroup' => 'advanceblockblocks',
-                    'blocktype'  => check_advblock_type($block->title,$block->type),
-                    'blockinfo'  =>  $block->visible ? block_info_in_addblockmodel($block->title) : false,
-                    'addableblock' => true
-                ];
-            }, $blocks);
+                // Loop through each category
 
-            $dynamicblocks = $bm->fetch_blocks_list(array("type" => "dynamic"));
+                // Initialize an empty array for the category data
+                $data = [];
+                $data["categorytitle"] = $categoryvalue["categorytitle"];
+                $data["categoryvalue"] = $categoryvalue["categoryvalue"];
+                $data["type"] = $categoryvalue["type"];
 
-            $dynamicblocks = array_map(function($block) {
-                return [
-                    'id' => $block->id,
-                    'name' => 'edwiseradvancedblock',
-                    'title' => $block->label,
-                    'section' => $block->title,
-                    'thumbnail' => str_replace("{{>cdnurl}}", CDNIMAGES, $block->thumbnail),
-                    'updateavailable' => $block->updateavailable,
-                    'visible' => $block->visible,
-                    'blockgroup' => 'advanceblockblocks',
-                    'blocktype'  => check_advblock_type($block->title,$block->type),
-                    'blockinfo'  =>  $block->visible ? block_info_in_addblockmodel($block->title) : false,
-                    'addableblock' => true
-                ];
-            }, $dynamicblocks);
+                // Map each block of category to an array with block details
+                $data["blocks"] = array_values(array_map(function ($block) {
+                    return [
+                        'id' => $block->id,
+                        'name' => 'edwiseradvancedblock',
+                        'title' => $block->label,
+                        'section' => $block->title,
+                        'thumbnail' => str_replace("{{>cdnurl}}", CDNIMAGES, $block->thumbnail),
+                        'updateavailable' => (int)$block->updateavailable,
+                        'visible' => (int)$block->visible,
+                        'blockgroup' => 'advanceblockblocks',
+                        'blocktype'  => check_advblock_type($block->title, $block->type),
+                        'blockinfo'  =>  $block->visible ? block_info_in_addblockmodel($block->title) : false,
+                        'addableblock' => (check_advblock_type($block->title, $block->type) == "block-page-layout") ? false : true,
+                    ];
+                }, $categoryvalue["blocks"]));
 
-            $blocks = array_merge($blocks, $dynamicblocks);
+                // Update the category data in the context
+                if ($data["categorytitle"] == 'htmlblock') {
+                    $data["blocks"][0]['title'] = "Create custom blocks";
+                    $blockscontext->htmlblock = $data;
 
-            $pagelayoutblock = $bm->fetch_blocks_list(array("type" => "blocklayout"));
+                    unset($context["blockscontext"][$categorykey]);
+                } else {
+                    $context["blockscontext"][$categorykey] = $data;
+                }
+            }
 
-            $pagelayoutblock = array_map(function($block) {
-                return [
-                    'id' => $block->id,
-                    'name' => 'edwiseradvancedblock',
-                    'title' => $block->label,
-                    'section' => $block->title,
-                    'thumbnail' => str_replace("{{>cdnurl}}", CDNIMAGES, $block->thumbnail),
-                    'updateavailable' => $block->updateavailable,
-                    'visible' => $block->visible,
-                    'blockgroup' => 'advanceblockblocks',
-                    'blocktype'  => check_advblock_type($block->title, $block->type),
-                    'blockinfo'  => $block->visible ? block_info_in_addblockmodel($block->title) : false,
-                    'addableblock' => false
-                ];
-            }, $pagelayoutblock);
-            $blocks = array_merge($blocks, $pagelayoutblock);
+
+            // Update the blockscontext and htmlblock properties
+            $blockscontext->blockscontext = array_values($context["blockscontext"]);
+            $blockscontext->categories = $context["categoriescontext"];
+
         }
 
-        $addableblocks = array_map(function($block) {
+        // $pluginmanager = core_plugin_manager::instance();
+        // $blockplugins = $pluginmanager->get_installed_plugins('block');
+
+        $addableblocks = array_map(function($block)  use ($bm) {
+            $thumbnail = str_replace("{{>cdnurl}}", CDNIMAGES, "{{>cdnurl}}/moodle_block_plugins/" . $block->name . ".png");
             return [
                 'id' => $block->id,
                 'name' => $block->name,
                 'title' => get_string('pluginname', "block_{$block->name}"),
                 'section' => false,
-                'thumbnail' => str_replace("{{>cdnurl}}", CDNIMAGES, "{{>cdnurl}}/default.png"),
+                'thumbnail' => $thumbnail,
                 'updateavailable' => 0,
                 'visible' => 1,
                 'blockgroup' => 'moodleblock',
@@ -172,31 +170,18 @@ trait edwiser_fetch_addable_blocks {
             ];
         }, $addableblocks);
 
-        return array_merge($blocks, $addableblocks);
+
+        $blockscontext->moodleblock["blocks"] = array_values($addableblocks);
+
+        return json_encode($blockscontext);
     }
 
     /**
      * Describes the execute return value.
      *
-     * @return external_multiple_structure
+     * @return external_value
      */
     public static function edwiser_fetch_addable_blocks_returns() {
-        return new external_multiple_structure(
-            new external_single_structure(
-                [   'id' => new external_value(PARAM_RAW, 'block id'),
-                    'name' => new external_value(PARAM_PLUGIN, 'The name of the block.'),
-                    'title' => new external_value(PARAM_RAW, 'The title of the block.'),
-                    'section' => new external_value(PARAM_RAW, 'The section name for edwiseradvancedblock.'),
-                    'thumbnail' => new external_value(PARAM_RAW, 'Thumbnail url.'),
-                    'updateavailable' => new external_value(PARAM_INT, 'Check if update available.'),
-                    'visible' => new external_value(PARAM_INT, 'Block is visible'),
-                    'blockgroup' => new external_value(PARAM_RAW, 'additional class for the block'),
-                    'blocktype' => new external_value(PARAM_RAW, 'type of the block static or dynamic'),
-                    'blockinfo' => new external_value(PARAM_RAW, 'type of the block static or dynamic'),
-                    'addableblock' => new external_value(PARAM_RAW, 'block is adable or it is a layout'),
-                ]
-            ),
-            'List of addable blocks in a given page.'
-        );
+        return new external_value(PARAM_RAW, 'Add able blocks');
     }
 }

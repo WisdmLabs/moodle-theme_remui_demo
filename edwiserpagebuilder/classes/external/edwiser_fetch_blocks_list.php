@@ -61,7 +61,9 @@ trait edwiser_fetch_blocks_list {
         return new \external_single_structure(
             array(
                 'status' => new external_value( PARAM_BOOL, 'Success status - True or False.' ),
-                'html' => new external_value( PARAM_RAW, 'Generated HTML for blocks list' )
+                'html' => new external_value( PARAM_RAW, 'Generated HTML for blocks list' ),
+                'categoriesDesktophtml' => new external_value( PARAM_RAW, 'Generated HTML for Categories list for desktop' ),
+                'categoriesMobHtml' => new external_value( PARAM_RAW, 'Generated HTML for Categories list for Mob' ),
             )
         );
     }
@@ -85,76 +87,91 @@ trait edwiser_fetch_blocks_list {
         $blockslist = [];
         $bm = new \local_edwiserpagebuilder\block_handler();
 
-        $blocks = $bm->fetch_blocks_list(array("type" => "block")); // Fetching Edwiser Blocks
+        // $blocks = $bm->fetch_blocks_list(array("type" => "block")); // Fetching Edwiser Blocks
 
-        $dynamicblocks = $bm->fetch_blocks_list(array("type" => "dynamic"));
+        // $dynamicblocks = $bm->fetch_blocks_list(array("type" => "dynamic"));
 
-        $blocks = array_merge($blocks, $dynamicblocks);
+        // $blocks = array_merge($blocks, $dynamicblocks);
 
-        $pagelayoutblock = $bm->fetch_blocks_list(array("type" => "blocklayout"));
+        // $pagelayoutblock = $bm->fetch_blocks_list(array("type" => "blocklayout"));
 
-        $blocks = html_block_rearrange($blocks);
+        // $blocks = html_block_rearrange($blocks);
 
-        $blocks = array_merge($blocks, $pagelayoutblock);
+        // $blocks = array_merge($blocks, $pagelayoutblock);
 
-        foreach ($blocks as $key => $block) {
+        $context = $bm->get_edwblocks_categories_with_blocks();
 
-            $obj = new stdClass();
-            $obj->id = $block->id;
-            $obj->url = $edwpageurl;
-            $obj->name = "edwiseradvancedblock";
-            $obj->section = $block->title;
-            $obj->title = $block->label;
-            $obj->additionalclass = "isblock advanceblockblocks";
-            $obj->thumbnail = str_replace("{{>cdnurl}}", CDNIMAGES, $block->thumbnail);
-            $obj->updateavailable = $block->updateavailable;
-            $obj->visible = $block->visible;
-            if ($block->updateavailable || !$block->visible) {
-                $obj->hasextrabutton = true;
+        $blockscontext = new \stdClass;
+
+        if ($context["blockscontext"]) {
+            foreach ($context["blockscontext"] as $categorykey => $categoryvalue) {
+                $data = [
+                    "categorytitle" => $categoryvalue["categorytitle"],
+                    "categoryvalue" => $categoryvalue["categoryvalue"],
+                    "type" => $categoryvalue["type"],
+                    "blocks" => isset($categoryvalue["blocks"]) ? array_map(function ($block) use ($edwpageurl, $buiblockregion, $blockpage, $OUTPUT) {
+                        $obj = [
+                            'id' => $block->id,
+                            'url' => $edwpageurl,
+                            'name' => 'edwiseradvancedblock',
+                            'section' => $block->title,
+                            'title' => $block->label,
+                            'additionalclass' => "isblock advanceblockblocks",
+                            'thumbnail' => str_replace("{{>cdnurl}}", CDNIMAGES, $block->thumbnail),
+                            'updateavailable' => (int)$block->updateavailable,
+                            'visible' => (int)$block->visible,
+                            'blocktype' => check_advblock_type($block->title, $block->type),
+                            'addableblock' => true,
+                            'blockregion' => $buiblockregion,
+                            'blockpagetype' => $blockpage,
+                            'blockgroup' => 'advanceblockblocks',
+                            'blockinfo' => $block->visible ? block_info_in_addblockmodel($block->title) : false,
+                        ];
+                        if ($block->updateavailable || !$block->visible) {
+                            $obj['hasextrabutton'] = true;
+                        }
+                        if ($obj['blocktype'] == 'block-page-layout') {
+                            $obj['addableblock'] = false;
+                        }
+                        if (!isset($block->thumbnail)) {
+                            $obj['thumbnail'] = $OUTPUT->image_url('default', 'local_edwiserpagebuilder');
+                        }
+                        if (!isset($block->section) && isset($block->name) && $block->name == "remuiblck") {
+                            $obj['section'] = " ";
+                            $obj['thumbnail'] = $OUTPUT->image_url('edwiser', 'local_edwiserpagebuilder');
+                        }
+                        return $obj;
+                    }, $categoryvalue["blocks"]) : []
+                ];
+
+                // Update the category data in the context
+                if ($data["categorytitle"] == 'htmlblock') {
+                    $data["blocks"][0]['title'] = "Create custom blocks";
+                    $blockscontext->htmlblock = $data;
+                    unset($context["blockscontext"][$categorykey]);
+                } else {
+                    $context["blockscontext"][$categorykey] = $data;
+                }
             }
-            $obj->blocktype = check_advblock_type($block->title, $block->type);
-            $obj->blockinfo =  $block->visible ? block_info_in_addblockmodel($block->title) : false;
-            $obj->addableblock = true;
-            if ($obj->blocktype == 'block-page-layout') {
-                $obj->addableblock = false;
-            }
-            $obj->blockregion = $buiblockregion;
-            $obj->blockpagetype = $blockpage;
-            $blockslist[] = $obj;
+
+            $blockscontext->blockscontext = array_values($context["blockscontext"]);
         }
 
-        // $bm = new \block_manager($PAGE);
-        // $bm->load_blocks(); // Loading all block plugins
-        // $coreblocks = $bm->get_addable_blocks();
-        // $blockslist = array_merge($blockslist, $coreblocks); // Fetching other block plugins
+        $templatecontext = new \stdClass;
+        $templatecontext->blockscontext = $blockscontext->blockscontext;
+        $templatecontext->htmlblock = $blockscontext->htmlblock;
+        $templatecontext->categories = $context["categoriescontext"];
 
-        foreach ($blockslist as $key => $block) {
-            // $actionurl = $PAGE->url->out(false, array('bui_addblock' => '', 'sesskey' => sesskey()));
-            // $block->url = strstr($actionurl, "?");// removes string upto substring i.e. "?"
-
-            if (!isset($block->thumbnail)) {
-                $block->thumbnail = $OUTPUT->image_url('default', 'local_edwiserpagebuilder');
-            }
-
-            // Remove edwiseradvancedblock from list
-            if (!isset($block->section) && $block->name == "edwiseradvancedblock") {
-                unset($blockslist[$key]);
-            }
-
-            if (!isset($block->section) && $block->name == "remuiblck") {
-                $block->section = " ";
-                $block->thumbnail = $OUTPUT->image_url('edwiser', 'local_edwiserpagebuilder');
-            }
-        }
-
-        $templatecontext['blocks'] = array_values($blockslist);
-
-        $html = $OUTPUT->render_from_template('local_edwiserpagebuilder/block_card', $templatecontext);
+        $html = $OUTPUT->render_from_template('local_edwiserpagebuilder/edwblock_content', $templatecontext);
+        $categoriesDesktophtml = $OUTPUT->render_from_template('local_edwiserpagebuilder/block_category_list_desktop', $templatecontext);
+        $categoriesMobHtml = $OUTPUT->render_from_template('local_edwiserpagebuilder/block_category_select_mob', $templatecontext);
 
         // return $files_list;
         return array(
             'status' => true,
-            'html' => $html
+            'html' => $html,
+            'categoriesDesktophtml' => $categoriesDesktophtml,
+            'categoriesMobHtml' => $categoriesMobHtml,
         );
     }
 }

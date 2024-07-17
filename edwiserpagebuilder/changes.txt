@@ -1,5 +1,18 @@
 CHANGES LOG
 
+Version 4.2.9
+=============
+Feature - New layouts added:
+            -   Pricing Page 1
+            -   Pricing Page 2
+Tweak   - Extra spaces removed from the bottom of Custom Pages.
+Fix     - New categories not being added after 'Check for updates' in the 'Add a block' modal.
+
+Version 4.2.8
+=============
+Feature - Category filter added for RemUI blocks in add a block modal
+Tweak - UI/UX Improvement in add a block modal UI.
+
 Version 4.2.7
 =============
 Feature - Components added to page builder library:

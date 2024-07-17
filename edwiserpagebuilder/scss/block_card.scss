@@ -11,57 +11,59 @@
   animation: rotation 2s infinite linear;
 }
 
-.action-icon-wrapper {
-  .info-wrapper {
-    position: relative;
 
-    .info-about-box-wrapper {
-      display: none;
-      position: absolute;
-      min-width: 164px;
+// ****** these css moved to remui now **********
+// .action-icon-wrapper {
+//   .info-wrapper {
+//     position: relative;
 
-      right: 0px;
-      bottom: 100%;
-    }
+//     .info-about-box-wrapper {
+//       display: none;
+//       position: absolute;
+//       min-width: 164px;
 
-    .info-about-box {
-      position: relative;
+//       right: 0px;
+//       bottom: 100%;
+//     }
 
-      margin-bottom: 12px;
+//     .info-about-box {
+//       position: relative;
 
-      border-radius: 4px;
-      background-color: #1C376F;
-      padding: 16px;
+//       margin-bottom: 12px;
 
-      p {
-        color: #F8F9FA;
+//       border-radius: 4px;
+//       background-color: #1C376F;
+//       padding: 16px;
 
-        font-size: 12px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: normal;
-      }
+//       p {
+//         color: #F8F9FA;
 
-      &::after {
-        content: "";
-        position: absolute;
-        top: 100%;
-        right: 5px;
-        background-color: #1C376F;
-        width: 16px;
-        height: 10px;
-        clip-path: polygon(47% 100%, 0 0, 100% 0, 57% 100%);
-      }
-    }
+//         font-size: 12px;
+//         font-style: normal;
+//         font-weight: 400;
+//         line-height: normal;
+//       }
 
-    &:hover {
-      .info-about-box-wrapper {
-        display: block;
-      }
-    }
-  }
+//       &::after {
+//         content: "";
+//         position: absolute;
+//         top: 100%;
+//         right: 5px;
+//         background-color: #1C376F;
+//         width: 16px;
+//         height: 10px;
+//         clip-path: polygon(47% 100%, 0 0, 100% 0, 57% 100%);
+//       }
+//     }
 
-}
+//     &:hover {
+//       .info-about-box-wrapper {
+//         display: block;
+//       }
+//     }
+//   }
+
+// }
 
 
 // .block-cards {

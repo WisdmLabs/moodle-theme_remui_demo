@@ -57,7 +57,7 @@ class block_handler {
             if (!$record) {
                 // Make an entry for new data.
                 if (isset($data->categories)) {
-                    $data->categories = json_encode($data->categories);
+                    $data->categories = $data->categories;
                 }
                 $recordid = $DB->insert_record($reftable, $data, true, false);
                 // $this->cache->set();
@@ -65,6 +65,9 @@ class block_handler {
                 // Update the db only when latest version is available.
                 if ($data->version > $record->version) {
                     // Update - updateavailable parameter only
+                    if (isset($data->categories)) {
+                        $record->categories = $data->categories;
+                    }
                     $record->updateavailable = 1;
                     $record->visible = 1;
                     $record->thumbnail = $data->thumbnail;
@@ -262,5 +265,93 @@ class block_handler {
         }
 
         return $block;
+    }
+
+    /**
+     * Retrieves the categories and blocks from the edwiser page builder.
+     *
+     * This function fetches the blocks from the database, groups them by category, and returns the categories and blocks in a structured format.
+     *
+     * @return array An array containing the following keys:
+     *   - blockscontext: An associative array where the keys are the block types and the values are arrays of category information.
+     *   - categoriescontext: An associative array where the keys are the block types and the values are arrays of category information.
+     */
+    function get_edwblocks_categories_with_blocks()
+    {
+        $reftable = $this->get_block_table_name();
+        // Retrieve all records from the block table
+        $blocks = $this->get_record_from_table($reftable);
+
+        $uncategorizedblocks = [];
+        $categorieswithblocks = [];
+        foreach ($blocks as $block) {
+
+            // Check if the current block is an HTML block
+            if ($block->title == "html") {
+                $key = "htmlblock";
+                $block->categories = "htmlblock";
+            }
+
+            // Check if the block title is "courses", "categories", or "coursesncategories"
+            if ($block->title == "courses" || $block->title == "categories" || $block->title == "coursesncategories") {
+                // If the block type is "block", change it to "dynamic"
+                if ($block->type == "block") {
+                    $block->type = 'dynamic';
+                }
+            }
+
+            // Construct the key for the category
+            $key = $block->type . ($block->categories ?: 'Others');
+            $category = [
+                'categorytitle' => $block->categories ?: 'Others', // Category title or 'Others' if no category is set
+                'categoryvalue' => $block->categories ? preg_replace('/[^A-Za-z0-9_]/', '', strtolower(str_replace(' ', '_', $block->categories))) : 'others', // Category value or 'others' if no category is set
+                'type' => $block->type, // Block type
+                'blocks' => [], // Array to store blocks in this category
+            ];
+
+            // Check if the category already exists in $categorieswithblocks or $uncategorizedblocks
+            if (isset($categorieswithblocks[$key])) {
+                $categorieswithblocks[$key]['blocks'][] = $block; // Add block to existing category
+            } elseif (isset($uncategorizedblocks[$key])) {
+                $uncategorizedblocks[$key]['blocks'][] = $block; // Add block to existing uncategorized category
+            } else {
+                $category['blocks'][] = $block; // Add block to new category
+                if ($category['categorytitle'] == 'Others') {
+                    $uncategorizedblocks[$key] = $category; // Add new uncategorized category
+                } else {
+                    $categorieswithblocks[$key] = $category; // Add new categorized category
+                }
+            }
+        }
+
+        // Sort categorized blocks alphabetically by category title
+        usort($categorieswithblocks, function ($a, $b) {
+            return strcasecmp($a['categorytitle'], $b['categorytitle']);
+        });
+        // Merge categorized and uncategorized blocks, we used array_merge so that uncategorized blocks are at the end
+        $categories = array_merge(array_values($categorieswithblocks), array_values($uncategorizedblocks));
+
+        $blockscontext = [];
+        $categoriescontext = [];
+
+        // Prepare data for output
+        foreach ($categories as $category) {
+            $blockscontext[] = $category; // Add category to blocks context
+            if($category['categorytitle'] != 'htmlblock') {
+                $categoriescontext[] = [
+                    'categorytitle' => $category['categorytitle'], // Category title
+                    'categoryvalue' => $category['categoryvalue'], // Category value
+                    'type' => $category['type'], // Block type
+                ];
+            }
+        }
+
+        // return $categories;
+
+        // Return the prepared data
+        return [
+            "blockscontext" => $blockscontext,
+            "categoriescontext" => $categoriescontext
+        ];
     }
 }

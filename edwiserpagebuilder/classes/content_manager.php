@@ -91,7 +91,7 @@ class content_manager {
             $makeentrycall = "make_entry_layout";
         }
 
-        $existingblocks = $bm->get_record_from_table($reftable, array(), "title,id,version");
+        $existingblocks = $bm->get_record_from_table($reftable, array(), "title,id,version,updateavailable");
         $depricatedblocks = $existingblocks;
         foreach ($blocks as $key => $block) {
 
@@ -106,6 +106,9 @@ class content_manager {
                 $contenturl = BLOCKS_CONTENT_URL . "pages/";
             }
             if (isset($existingblocks[$block->title])) {
+                if($existingblocks[$block->title]->updateavailable){
+                    continue;
+                }
                 if (($block->version > $existingblocks[$block->title]->version)) {
                     $content = $this->get_json_file_data( $contenturl. $block->title . ".json");
                     if ($content) {

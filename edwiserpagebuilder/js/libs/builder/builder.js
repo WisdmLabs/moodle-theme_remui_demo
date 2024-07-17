@@ -83,8 +83,8 @@ Vvveb.dragHtml = '<div style="background:limegreen;;width:100%;height:3px;border
 
 Vvveb.baseUrl =  document.currentScript?document.currentScript.src.replace(/[^\/]*?\.js$/,''):'';
 Vvveb.imgBaseUrl =  Vvveb.baseUrl;
-// Vvveb.serverurl =  "https://qa-remui.edwiser.org/v42";
-Vvveb.serverurl =  "https://qa-remui.edwiser.org/staticcdn";
+Vvveb.serverurl =  "https://staticcdn.edwiser.org";
+// Vvveb.serverurl =  "https://qastaticcdn.edwiser.org";
 Vvveb.ComponentsGroup = {};
 Vvveb.SectionsGroup = {};
 Vvveb.BlocksGroup = {};
@@ -2567,16 +2567,19 @@ Vvveb.StyleManager = {
 				css += `}`
 			}
 		}
+
 		// It will extract the keyframes from css
 		var keyframeRegex = /@keyframes\s+[^{]+\{(?:(?!(?:@media\s+|@keyframes\s+))[^{}]*\{[^{}]*\})*[^{}]*\}/g;
 		var keyFrameBlock = this.cssContainer.text().match(keyframeRegex);
+
 		// Old regex
 		// var mediaQueryRegex = /@media\s+(?!screen\s+and\s+\(max-width:\s*(?:599px|770px)\))[^{]*\{(?:[^{}]*\{[^{}]*\})*[^{}]*\}/g;
 		// New regex it will also add the keyframes inside the media queries
 
 		var mediaQueryRegex = /@media\s+(?!screen\s+and\s+\(max-width:\s*(?:599px|770px)\))[^{]*\{(?:[^{}]*\{(?:[^{}]*\{[^{}]*\})*[^{}]*\})*[^{}]*\}/g;
-
 		var mediaQueryBlocks = this.cssContainer.text().match(mediaQueryRegex);
+
+
 		let keyFramesInsideMediaQuery = mediaQueryBlocks.join('\n\n').match(keyframeRegex);
 
 		if(keyFramesInsideMediaQuery != null || keyFramesInsideMediaQuery != undefined){
@@ -2584,14 +2587,17 @@ Vvveb.StyleManager = {
 				return keyFramesInsideMediaQuery.indexOf(item) == -1;
 			});
 		}
+
 		if(mediaQueryBlocks == null || mediaQueryBlocks == undefined){
 			mediaQueryBlocks = [];
 		}
+
 		if(keyFrameBlock == null || keyFrameBlock == undefined){
 			keyFrameBlock = [];
 		}
 
 		this.cssContainer.html(keyFrameBlock.join('\n\n')+css+mediaQueryBlocks.join('\n\n'));
+
 	},
 
 

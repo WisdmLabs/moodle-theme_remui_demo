@@ -128,22 +128,23 @@ const buildAddBlockModal = () => {
 const renderBlocks = async (addBlockUrl, pageType, pageLayout, subPage, issiteadmin, edwepbf, pbfnotenable) => {
 
     // Fetch all addable blocks in the given page.
-    const blocks = await getAddableBlocks(pageType, pageLayout, subPage);
+    let blockscontext = await getAddableBlocks(pageType, pageLayout, subPage);
+    blockscontext = JSON.parse(blockscontext);
+
 
     var filterplugindata = false;
 
     var showfilterreleaseinfo = false;
 
-    if(edwepbf && !pbfnotenable){
+    if (edwepbf && !pbfnotenable) {
 
         var filterplugindata = await getfilterpluginstatus();
 
         filterplugindata = JSON.parse(filterplugindata);
 
-        if(filterplugindata.release <= '4.2.2' ){
+        if (filterplugindata.release <= '4.2.2' ) {
             pbfnotenable = false;
             showfilterreleaseinfo = true;
-
         }
     }
     var showmodalsecondnav = false;
@@ -154,7 +155,10 @@ const renderBlocks = async (addBlockUrl, pageType, pageLayout, subPage, issitead
     var match = addBlockUrl.match(/[?&]bui_blockregion=([^&]+)/);
     var region = match ? match[1] : "";
     return Templates.render('local_edwiserpagebuilder/add_block_body', {
-        blocks: blocks,
+        blockscontext: blockscontext?.blockscontext,
+        htmlblock: blockscontext?.htmlblock,
+        categories: blockscontext?.categories,
+        moodleblock: blockscontext.moodleblock,
         url: addBlockUrl,
         isadmin: issiteadmin,
         pbfpluginexist: edwepbf,

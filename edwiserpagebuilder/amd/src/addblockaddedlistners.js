@@ -34,7 +34,12 @@ const SELECTORS = {
     ADDBLOCKLISTVIEW: '.add-block-list-view',
     DYNAMICBLOCKSWRAPPER: 'dynamic-blocks-wrapper',
     STATICBLOCKSWRAPPER: 'static-blocks-wrapper',
-    BLOCKLAYOUTWRAPPER: 'block-layout-wrapper'
+    BLOCKLAYOUTWRAPPER: 'block-layout-wrapper',
+    DYNAMICBLOCKSFILTERS: 'dynamic-blocks-filters',
+    STATICBLOCKSFILTERS: 'static-blocks-filters',
+    BLOCKLAYOUTFILTERS: 'block-layout-filters',
+    LEFTSIDEBARMIDREGIN:'left-sidebar-mid-region',
+    COMMONBLOCKWRAPPER:'common-block-wrapper',
 
 };
 
@@ -54,6 +59,19 @@ let activeadvancedtab = true;
  */
 function init() {
     let scrollInterval;
+
+    function scrollBlockCategoryListDesktop(ele) {
+        ele.animate({
+            scrollTop: 0
+        }, {
+            duration: 'smooth',
+            complete: function() {
+                // This function will be called when the animation is complete
+                $(this).stop(true, true); // Stop the animation immediately
+            }
+        });
+    }
+
     document.addEventListener('click', e => {
         const selecteditem = e.target.closest('.add-block-grid-view');
         templatefile = 'theme_remui/add_block_body_cards';
@@ -116,6 +134,11 @@ function init() {
         const selecteditem = e.target.closest('#static-blocks-btn');
         if (selecteditem) {
             $(SELECTORS.DEFAULTBLOCKWRAPPER).removeClass(`${SELECTORS.DYNAMICBLOCKSWRAPPER} ${SELECTORS.BLOCKLAYOUTWRAPPER}`).addClass(SELECTORS.STATICBLOCKSWRAPPER);
+            $(`.${SELECTORS.LEFTSIDEBARMIDREGIN}`).removeClass().addClass(`${SELECTORS.LEFTSIDEBARMIDREGIN} ${SELECTORS.STATICBLOCKSFILTERS}`);
+            var filtercategory = $(selecteditem).data('filter');
+            var filteritem = $(`.${SELECTORS.LEFTSIDEBARMIDREGIN} .${filtercategory}.active`);
+            applySelectedCategory(filteritem);
+            applyFilterOnBlocks($(filteritem));
         }
     })
 
@@ -123,6 +146,11 @@ function init() {
         const selecteditem = e.target.closest('#dynamic-blocks-btn');
         if (selecteditem) {
             $(SELECTORS.DEFAULTBLOCKWRAPPER).removeClass(`${SELECTORS.STATICBLOCKSWRAPPER} ${SELECTORS.BLOCKLAYOUTWRAPPER}`).addClass(SELECTORS.DYNAMICBLOCKSWRAPPER);
+            $(`.${SELECTORS.LEFTSIDEBARMIDREGIN}`).removeClass().addClass(`${SELECTORS.LEFTSIDEBARMIDREGIN} ${SELECTORS.DYNAMICBLOCKSFILTERS}`);
+            var filtercategory = $(selecteditem).data('filter');
+            var filteritem = $(`.${SELECTORS.LEFTSIDEBARMIDREGIN} .${filtercategory}.active`);
+            applySelectedCategory(filteritem);
+            applyFilterOnBlocks($(filteritem));
         }
     })
 
@@ -130,16 +158,22 @@ function init() {
         const selecteditem = e.target.closest('#layout-blocks-btn');
         if (selecteditem) {
             $(SELECTORS.DEFAULTBLOCKWRAPPER).removeClass(`${SELECTORS.DYNAMICBLOCKSWRAPPER} ${SELECTORS.STATICBLOCKSWRAPPER}`).addClass(SELECTORS.BLOCKLAYOUTWRAPPER);
+            $(`.${SELECTORS.LEFTSIDEBARMIDREGIN}`).removeClass().addClass(`${SELECTORS.LEFTSIDEBARMIDREGIN} ${SELECTORS.BLOCKLAYOUTFILTERS}`);
+            var filtercategory = $(selecteditem).data('filter');
+            var filteritem = $(`.${SELECTORS.LEFTSIDEBARMIDREGIN} .${filtercategory}.active`);
+            applySelectedCategory(filteritem);
+            applyFilterOnBlocks($(filteritem));
+
         }
     })
 
     // On mouse enter of block layout image
     $(document).on('mouseenter', ".addblock-modal-body .block-page-layout", function () {
 
-        // Get card height 
+        // Get card height
         const cardHeight = $(this).find(".card").height();
 
-        // Get card image 
+        // Get card image
         const img = $(this).find(".card img");
 
         // Get image height
@@ -156,6 +190,9 @@ function init() {
 
             // Calculate scroll time
             let scrolltime = scrollHeight / 100;
+            if (scrolltime < 1) {
+                scrolltime = 1;
+            }
 
             // Set transition
             img.css("transition", `top ${scrolltime}s ease-in-out`);
@@ -188,6 +225,74 @@ function init() {
 
         clearInterval(scrollInterval);
     });
+
+    $(document).on('click', ".advancedblocktab .left-sidebar .category-list-item .edw-icon", function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        var $activeClass = "active";
+        var categorylistitem = $(this).closest(".category-list-item");
+        var categoryFilter = categorylistitem.data('filter');
+        var selectedElement = $(`.${SELECTORS.LEFTSIDEBARMIDREGIN} .category-list-item[data-filter="${categoryFilter}"][data-target="all"]`);
+        selectedElement.addClass($activeClass).siblings('[data-filter="' + categoryFilter + '"]').removeClass($activeClass);
+        // selectedElements.addClass('active');
+        applyFilterOnBlocks(selectedElement);
+        scrollBlockCategoryListDesktop($('.block-category-list-desktop'));
+    });
+
+    $(document).on('click', ".advancedblocktab .left-sidebar .category-selector", function() {
+        applySelectedCategory(this);
+        applyFilterOnBlocks($(this));
+    });
+
+    // $(window).on('resize', blockViewHandler);
+}
+
+/**
+ * Applies the selected category filter to the block category list.
+ *
+ * @param {HTMLElement} category - The category element that was selected.
+ */
+function applySelectedCategory(category) {
+
+    // for desktop filter
+    var $activeClass = "active";
+    var categoryFilter = $(category).data('filter');
+    var categorytarget = $(category).data('target');
+    var categoryListItem = $('.block-category-list-desktop .category-list-item[data-target="' + categorytarget + '"][data-filter="' + categoryFilter + '"]');
+    var categoryDropdownItem = $('.block-category-select-mob .dropdown-item[data-target="' + categorytarget + '"][data-filter="' + categoryFilter + '"]');
+
+    $(categoryListItem).addClass($activeClass).siblings('[data-filter="' + categoryFilter + '"]').removeClass($activeClass);
+
+    //for mobilefilter
+    if (categoryDropdownItem.length > 1) {
+        // Remove all items except the first one
+        categoryDropdownItem.slice(1).remove();
+
+        // Keep the first item as a selector
+        categoryDropdownItem = categoryDropdownItem.first();
+
+    }
+    var text = $(categoryDropdownItem).text();
+    $('.block-category-select-mob .dropdown-toggle').text(text);
+    $(categoryDropdownItem).addClass($activeClass).siblings('[data-filter="' + categoryFilter + '"]').removeClass($activeClass);
+};
+
+/**
+ * Applies a filter to the blocks based on the provided selector.
+ *
+ * @param {jQuery} selector - The jQuery selector object that contains the target information.
+ * @returns {void}
+ */
+function applyFilterOnBlocks(selector) {
+    var target = selector.data('target');
+    var categoryselector = target + '-blocks';
+    if (target == 'all') {
+        $(`.${SELECTORS.COMMONBLOCKWRAPPER}`).addClass('show').removeClass('hide');
+        $(".addblock-modal-body .tab-content").scrollTop('0px');
+    } else {
+        $(`.${categoryselector}`).addClass('show').removeClass('hide').siblings().addClass('hide').removeClass('show');
+        $(".addblock-modal-body .tab-content").scrollTop('0px');
+    }
 }
 
 export {

@@ -27,12 +27,16 @@ define([
             let epbclosebutton = epbcustommodal + " .modal-content .close";
             let epbcancelbutton = epbcustommodal + " .modal-content .cancel";
             let epbblockupdatebutton = epbcustommodal + " .modal-content .blocks-list .card-footer .update-content";
+            let epbhtmlblockupdatebutton = epbcustommodal + " .modal-content .left-sidebar .card-footer .update-content";
             let epblayoutupdatebutton = epbcustommodal + " .modal-content .layout-list .card-footer .update-content";
 
             let showLayoutsbutton = epbcustommodal + " .modal-content .show-layouts";
             let showBlocksbutton = epbcustommodal + " .modal-content .show-blocks";
             let layoutContainer = epbcustommodal + " .modal-body .addblock-modal-body.layout-list";
             let blockContainer = epbcustommodal + " .modal-body .addblock-modal-body.blocks-list";
+
+            let categoriesListDesktop = epbcustommodal + " .modal-content .left-sidebar .block-category-list-desktop"
+            let categoriesListMob = epbcustommodal + " .modal-content .left-sidebar .block-category-select-mob .dropdown-menu"
 
             let epbupdateblocklistbtn = epbcustommodal + " .modal-content .action-buttons-modal .updateblocklist";
             let epbupdatelayoutlistbtn = epbcustommodal + " .modal-content .action-buttons-modal .updatelayoutlist";
@@ -72,6 +76,9 @@ define([
             $(document).on("click", epbblockupdatebutton, function() {
                 updateBlockContent(this, false);
             });
+            $(document).on("click",  epbhtmlblockupdatebutton, function() {
+                updateBlockContent(this, false);
+            });
             $(document).on("click", epblayoutupdatebutton, function() {
                 updateBlockContent(this, true);
             });
@@ -108,11 +115,11 @@ define([
                 return $(edwiseradvancedblocktab).hasClass('active');
             }
 
-            $(document).on("click", epbupdateblocklistbtn, function() {
+            $(document).one("click", epbupdateblocklistbtn, function() {
                 let _this = this;
 
                 $(_this).attr('disabled', true);
-                $(_this).find('.fa').removeClass('fa-download').addClass("fa-refresh rotate");
+                $(_this).find('.fa').removeClass('fa-download').addClass("rotate");
 
                 var edwpageurl = $(_this).next().val();
 
@@ -126,11 +133,22 @@ define([
                     done: function(data) {
                         $(_this).find('.fa').removeClass("rotate");
                         if (data.status == true) {
-                            $(blockContainer + ' [data-parentblock="edwiseradvancedblock"]').remove();
-                            $(blockContainer + ' .block-cards').prepend(data.html);
+
+                            // $(blockContainer + ' [data-parentblock="edwiseradvancedblock"]').remove();
+                            $(blockContainer + ' .edwblock-content').empty();
+                            $(categoriesListDesktop).empty();
+                            $(categoriesListMob).empty();
+
+                            $(blockContainer + ' .edwblock-content').html(data.html);
+                            $(categoriesListDesktop).html(data.categoriesDesktophtml);
+                            $(categoriesListMob).html(data.categoriesMobHtml);
                             // updateButton(_this);
+
+                            applyaddBlockModalFilters();
+
                             $(_this).removeClass('btn-primary').addClass('btn-success d-none');
                             $(updateinfoalert).removeClass('d-none');
+
                             setTimeout(function(){
                                 $(updateinfoalert).addClass('d-none');
                             },1500);
@@ -286,6 +304,26 @@ define([
                         console.log(data);
                     }
                 }]);
+            }
+
+            /**
+             * Applies filters to the add block modal based on the selected tab.
+             *
+             * This function is responsible for showing or hiding the block items in the
+             * add block modal based on the selected tab. It determines the active filter
+             * category and shows or hides the corresponding block items accordingly.
+             */
+            function applyaddBlockModalFilters() {
+                var selectedtab = $(".edwiser-custom-blocks-nav .nav-link.active");
+                var categoryfilter = selectedtab.data('filter');
+                var activeFilteredItem = $('.left-sidebar-mid-region .category-list-item.active[data-filter="' + categoryfilter + '"]');
+                var target = activeFilteredItem.data('target');
+                var categoryselector = target + '-blocks';
+                if (target == 'all') {
+                    $(`.common-block-wrapper`).addClass('show').removeClass('hide');
+                } else {
+                    $(`.${categoryselector}`).addClass('show').removeClass('hide').siblings().addClass('hide').removeClass('show');
+                }
             }
         });
     };

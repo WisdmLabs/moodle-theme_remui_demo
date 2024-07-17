@@ -56,6 +56,39 @@ body.latest-frontpage{
     }
 }
 
+#page-epb-page-publish:not(.editing) ,
+#page-epb-page-draft:not(.editing) {
+	
+	&:not(:has(#region-bottom-blocks section)) {
+		
+		&:not(:has(#region-top-blocks section)) {
+			
+			&:not(:has(#block-region-content section)) {
+				#topofscroll {
+			        margin-top: 0;
+			        margin-bottom: 0;
+				}
+			}
+
+		}
+	}
+
+    &:not(:has(#block-region-content section)) {
+    	#topofscroll {
+	        #page-content {
+				padding: 0 !important;
+			}
+    	}
+    }
+    
+    &:not(:has(#region-top-blocks section)) {
+        #region-top-blocks {
+            margin: 0 !important;
+        }
+    }
+}
+
+
 @media (max-width: 576px) {
     .edw-sm-none {
         display: none;

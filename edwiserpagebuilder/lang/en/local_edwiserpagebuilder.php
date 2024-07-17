@@ -351,3 +351,11 @@ $string['homepagemigrationfailtitlemsg'] = 'Migration failed';
 $string['tryagain'] = 'Try again';
 $string['viewhomepage'] = 'View Home page';
 
+$string['staticblocks'] = "Static";
+$string['dynamicblocks'] = "Dynamic";
+$string['layoutblocks'] = "Layouts";
+
+$string['staticallcategory'] = "All categories";
+$string['dynamicallcategory'] = "All dynamic blocks";
+$string['layoutallcategory'] = "All layouts";
+
