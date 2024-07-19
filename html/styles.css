@@ -450,22 +450,25 @@ body {
 
 .email-form.invalid #emailTooltip {
   color: red;
-  margin-top: 10px;
+  margin-top: 8px;
   display: flex;
+  font-family: 'Open Sans';
+  font-weight: 400;
+  font-size: 14px;
 }
 
-#emailTooltip::before {
-  content: "\2139";
-  height: 5px;
-  padding: 5px 7pxx;
-  margin-right: 5px;
-  padding: 1px 5px;
-  border: 1px solid;
-  border-radius: 50%;
-  font-size: 12px;
-  font-weight: 200;
-  display: inline-table;
-}
 .email-form:not(.invalid) #emailTooltip{
   display: none;
+}
+
+@media screen and (max-width: 600px){
+  .email-form.invalid input[name="email"] {order: 1;}
+  .email-form.invalid #emailTooltip {order: 2;}
+  .email-form.invalid button[type="submit"] {order: 3;}
+  .inline-form .email-form.invalid {
+    row-gap: 0px;
+  }
+  .email-form.invalid #emailTooltip {
+    margin: 8px 0;
+  }
 }
