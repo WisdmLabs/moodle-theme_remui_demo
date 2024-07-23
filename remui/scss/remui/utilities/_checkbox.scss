@@ -17,15 +17,21 @@ $checkbox-font-size: 24px;
 // To style checkboxes as per given icons.
 input[type="checkbox"] {
     &:not(.custom-control-input) {
-        visibility: hidden;
-        // width: $checkbox-font-size;
-        // height: $checkbox-font-size;
+        // visibility: hidden;
+        width: $checkbox-font-size !important;
+        height: $checkbox-font-size;
         // align-items: center;
         line-height: 1;
-        margin-right: 15px !important;
+        // margin-right: 15px !important;
         display: inline-flex !important;
         align-items: center;
-        -moz-appearance: initial;
+        // -moz-appearance: initial;
+
+        margin: 0 5px !important;
+        -webkit-appearance: none;
+       -moz-appearance: none;
+       appearance: none;
+
         &:after {
             font-family: $remui-icon-font-family;
             visibility: visible;
@@ -49,3 +55,9 @@ input[type="checkbox"] {
 //         }
 //     }
 // }
+
+#page-local-edwiserpagebuilder-editor {
+    input[type="checkbox"]:not(.custom-control-input) {
+        visibility: hidden;
+    }
+}

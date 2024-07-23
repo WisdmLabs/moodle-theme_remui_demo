@@ -98,11 +98,6 @@
       right: unset;
       left: 50%;
    }
-//    .available-courses.button-container{
-//       display: flex;
-//       justify-content: center;
-//       flex-direction: row-reverse;
-//   }
 
    .block_remuiblck{
       #courseprogress{
@@ -112,5 +107,58 @@
 
          }
       }
+   }
+
+   &.pagelayout-login{
+      &.loginleft {
+         .login-container {
+             left: 0;
+             right: unset;
+         }
+
+         .login-description-container {
+             left: $login-container-width;
+             right: unset;
+         }
+
+     }
+     &.loginright {
+         .login-container {
+             right: 0;
+             left: unset;
+         }
+         .login-description-container{
+             right: $login-container-width;
+             left: unset;
+         }
+     }
+   }
+
+   #add-block-float-menu {
+      transform: translate(50%, 0);
+
+      .dropdown-menu {
+         transform: translate(50%,-103%)!important;
+      }
+   }
+
+   &.notloggedin {
+      #page-footer {
+         .popover {
+            transform: translate3d(213px,-214px,0)!important;
+         }
+      }
+   }
+
+   // toast message which is shown after checkforupdate
+   .fullwidth-modal {
+
+      .modal-body {
+
+         .updateinfoalert {
+            transform: translate(50%, -50%);
+         }
+      }
+
    }
 }

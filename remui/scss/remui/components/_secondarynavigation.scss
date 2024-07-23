@@ -16,7 +16,8 @@ $secondarynav-icon-size: 24px;
     .navigation {
         background-color: transparent;
         // padding-bottom: $secondarynavbar-mar-b;
-        height: 100%;
+        // height: 100%;
+        height: fit-content;
     }
     .nav-tabs {
         border: none;

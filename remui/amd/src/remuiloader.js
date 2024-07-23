@@ -252,6 +252,7 @@ define(['jquery'], function ($) {
         );
     };
 
+    // This funcion only runs on custom pages not any other places
     function handleSiteAnnouncementPosition() {
         if ($('.page_sub_header').length) {
             let navbarheight = $('#page-wrapper nav.navbar[aria-label="Site navigation"]').outerHeight();
@@ -289,7 +290,7 @@ define(['jquery'], function ($) {
     }
 
     return {
-        init: function() {
+        init: function () {
             registerCommonEvents();
 
             handleSiteAnnouncementPosition();

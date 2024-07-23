@@ -459,6 +459,7 @@ $course-metadata-gap: 70px;
         .lesson-date-wrapper {
             gap: 2px;
             row-gap: map-get($gapspace, 1);
+            flex-wrap: wrap;
 
             .lesson-count,
             .updated-date {

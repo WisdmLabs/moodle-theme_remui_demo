@@ -213,3 +213,19 @@ fieldset.collapsible {
 //         @include get_drop_shadow(xs);
 //     }
 // }
+
+// Fullscreen TinyMCE editor fix
+#page-course-edit:has(.tox-tinymce) div[role="main"],
+#page-course-editcategory:has(.tox-tinymce) [role="main"],
+.main-area-bg:not(.pagelayout-login):has(.tox-tinymce) div[role="main"] {
+   filter: unset !important;
+}
+
+.tox-fullscreen .modal-content {
+    position: fixed !important;
+    top: -100px;
+    left: 0;
+    right: 0;
+    bottom: -100px;
+    max-height: unset;
+}

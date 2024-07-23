@@ -765,3 +765,13 @@ body:has(.tutorial-video-modal.show #customfieldinfovideo) {
    }
 } 
 //end
+
+// Many client faced scrolling Issue in mobile and this is the solution for it
+body {
+   touch-action: auto !important;
+}
+
+// this css resolve the Issue with tiny_cloze 
+.tiny_cloze .tiny_cloze_qtype {
+   display: block !important;
+}

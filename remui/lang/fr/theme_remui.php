@@ -133,7 +133,7 @@ $string['favicon'] = 'Favicon';
 $string['favicosize'] = 'La taille attendue est de 16x16 pixels';
 $string['favicondesc'] = 'L’"icône favorite" de votre site. C’est un rappel visuel de l’identité du site Web et est affiché dans la barre d’adresse ou dans les onglets du navigateur.';
 $string['fontselect'] = 'Sélecteur de type de police';
-$string['fontselectdesc'] = 'Choisissez entre les polices standards ou les types de polices Web Google. Veuillez enregistrer pour afficher les options de votre choix. Remarque : si la police personnalisée est définie sur standard, la police Web Google sera appliquée.';
+$string['fontselectdesc'] = 'Choisissez parmi les polices standard ou les <a href="https://fonts.google.com/" target="_new">polices Web Google</a>. Veuillez enregistrer pour afficher les options de votre choix. Remarque : Si la police du personnaliseur visuel est définie sur Standard, alors la police Web Google sera appliquée.';
 $string['fontname'] = 'Police du site';
 $string['fontnamedesc'] = 'Entrez le nom exact de la police à utiliser pour Moodle.';
 $string['fonttypestandard'] = 'Police standard';
@@ -261,7 +261,7 @@ $string['three'] = 'Trois';
 $string['four'] = 'Quatre';
 $string['showsocialmediaicon'] = "Afficher les icônes des réseaux sociaux";
 $string['footercolumntype'] = 'Type';
-$string['footercolumncustommenudesc'] = 'Ajoutez vos éléments de menu dans ce format, par exemple.<br><pre>[
+$string['footercolumncustommenudesc'] = 'Ajoutez vos éléments de menu dans ce format par exemple.<br><pre>[
     {
         "text": "Ajoutez votre texte ici",
         "address": "http://XYZ.abc"
@@ -271,7 +271,7 @@ $string['footercolumncustommenudesc'] = 'Ajoutez vos éléments de menu dans ce 
         "address": "http://XYZ.abc"
     }, ...
 ]</pre>
-<b style="color:red;">Note:</b> Pour ajouter facilement du contenu au pied de page, personnalisez la zone du pied de page avec notre <a href="'.$CFG->wwwroot.'/admin/settings.php?section=themesettingremui#theme_remui_edwiserpersonalizer" onclick= location.href="'.$CFG->wwwroot.'/admin/settings.php?section=themesettingremui#theme_remui_edwiserpersonalizer";location.reload();>Personnaliseur visuel </a>';
+<b style="color:red;">Remarque :</b> Pour ajouter facilement du contenu au pied de page, personnalisez la zone de pied de page avec notre <a href="'.$CFG->wwwroot.'/admin/settings.php?section=themesettingremui#theme_remui_edwiserpersonalizer" onclick= location.href="'.$CFG->wwwroot.'/admin/settings.php?section=themesettingremui#theme_remui_edwiserpersonalizer";location.reload();>Personnalisateur visuel</a>';
 $string['gotop'] = 'Haut de page';
 
 $string['menu'] = 'Menu';
@@ -675,20 +675,20 @@ $string['activitiescompleted'] = "Activités terminées";
 $string['activitiesdue'] = "Activités à faire";
 
 // Customizer Strings
-$string['customizer-migrate-notice'] = 'Les paramètres de couleur ont été migrés vers le Customizer. Veuillez cliquer sur le bouton ci-dessous pour ouvrir le customizer.';
-$string['customizer-close-heading'] = 'Fermer le customizer';
+$string['customizer-migrate-notice'] = 'Les paramètres de couleur sont migrés vers le personnalisateur visuel. Veuillez cliquer sur le bouton ci-dessous pour ouvrir le personnalisateur visuel.';
+$string['customizer-close-heading'] = 'Fermer le personnalisateur visuel';
 $string['customizer-close-description'] = 'Les modifications non sauvegardées seront supprimées. Voulez-vous continuer?';
 $string['reset'] = 'Réinitialiser';
 $string['resetall'] = 'Tout Réinitialiser';
-$string['reset-settings'] = 'Réinitialiser tous les paramètres personnalisés';
+$string['reset-settings'] = 'Réinitialiser tous les paramètres du personnalisateur visuel';
 $string['reset-settings-description'] = '
-
-<div>Les paramètres du customizer seront restaurés à leurs valeurs par défaut. Voulez-vous continuer?</div>
-<div class="mt-3"><strong>Tout Réinitialiser:</strong> Réinitialise tous les paramètres.</div>
-<div class="mt-3"><strong>Réinitialiser:</strong> Les paramètres suivants seront réinitialisés à leurs valeurs par défaut.</div>';
+<div>Les paramètres du personnalisateur visuel seront restaurés par défaut. Voulez-vous continuer ?</div>
+<div class="mt-3"><strong>Réinitialiser tout :</strong> Réinitialiser tous les paramètres.</div>
+<div class="mt-3"><strong>Réinitialiser :</strong> Les paramètres sauf les paramètres suivants seront réinitialisés par défaut.</div>
+';
 
 $string['link'] = 'Lien';
-$string['customizer'] = 'Customizer';
+$string['customizer'] = 'Personnalisateur visuel';
 $string['error'] = 'Erreur';
 $string['resetdesc'] = 'Réinitialiser les paramètres à la dernière sauvegarde ou aux valeurs par défaut si aucune sauvegarde n a été effectuée';
 $string['noaccessright'] = 'Désolé! Vous n avez pas les droits pour utiliser cette page';
@@ -1019,7 +1019,7 @@ $string['loginpanellinkcolor_help'] = 'Appliquer une couleur de lien au panneau 
 $string['loginpanellinkhovercolor_help'] = 'Appliquer une couleur de survol de lien au panneau de connexion.';
 $string['login-panel-position'] = 'Position du panneau de connexion';
 $string['login-panel-position_help'] = 'Définir la position du panneau de connexion et d inscription.';
-$string['login-page-info'] = '<p><b>Remarque : </b>La page de connexion ne peut pas être prévisualisée dans le personnalisateur car seuls les utilisateurs déconnectés peuvent la voir. Vous pouvez tester les paramètres en enregistrant et en ouvrant la page de connexion en mode navigation privée.</p>';
+$string['login-page-info'] = '<p><b>Remarque :</b> La page de connexion ne peut pas être prévisualisée dans le personnalisateur visuel car seuls les utilisateurs déconnectés peuvent la voir. Vous pouvez tester le paramètre en enregistrant et en ouvrant la page de connexion en mode incognito.</p>';
 $string['login-page-setting'] = 'Style de fond de la page';
 $string['login-page-backgroundgradient1'] = 'Sélectionner la couleur 1';
 $string['login-page-backgroundgradient2'] = 'Sélectionner la couleur 2';
@@ -1036,7 +1036,7 @@ $string['dashboardpage'] = 'Page de tableau de bord';
 $string['enabledashboardcoursestats'] = 'Activer les statistiques de cours du tableau de bord';
 $string['enabledashboardcoursestatsdesc'] = "Si activé, affichera les statistiques de cours sur la page du tableau de bord.";
 
-$string['customizecontrolsclose'] = "Bouton de fermeture de personnalisation";
+$string['customizecontrolsclose'] = 'Fermer';
 
 // Personnalisation rapide du personnalisateur.
 $string['quicksetup'] = 'Configuration rapide';
@@ -1076,7 +1076,7 @@ $string['enablequickmenu'] = 'Activer le menu rapide';
 $string['enablequickmenudesc'] = 'Menu flottant de liens rapides pour un accès plus facile aux pages.';
 
 // Left Navigation Drawer.
-$string['createarchivepage'] = 'Page d archive de cours';
+$string['coursearchivepage'] = 'Page d archive de cours';
 $string['createanewcourse'] = 'Créer un nouveau cours';
 $string['remuisettings'] = 'Paramètres RemUI';
 
@@ -1186,10 +1186,10 @@ $string['badgefrom'] = 'Badges de {$a}';
 $string['timelinenoevenettext'] = "Aucune activité à venir";
 $string['description'] = 'Description';
 $string['instructorcounttitle'] = "Enseignants supplémentaires disponibles dans le cours";
-$string['personalizer'] = "Personnalisateur visuel";
-$string['edwpersonalizer'] = "Personnalisateur visuel";
-$string['editinpersonalizer'] = "Modifier avec le personnalisateur";
-$string['activepersonalizer'] = "Visualisation dans Edwiser Personaliser.";
+$string['personalizer'] = 'Personnalisateur visuel';
+$string['edwpersonalizer'] = 'Personnalisateur visuel';
+$string['editinpersonalizer'] = 'Modifier avec le personnaliseur';
+$string['activepersonalizer'] = 'Affichage dans le Personnalisateur Edwiser.';
 $string['searchtotalcount'] = 'Affichage de {$a} résultats';
 $string['noresutssearchmsg'] = "<h4 class ='p-p-6 text-center m-0 '>Rien à afficher</h4>";
 $string['globarsearchresult'] = "Résultats de la recherche globale";
@@ -1524,3 +1524,6 @@ $string['okay'] = 'Okay!';
 $string['forcefulmigrate'] = 'Migration forcée';
 
 $string['moodleblocks'] = 'Blocs Moodle';
+
+$string['citytown'] = 'Ville';
+$string['searchtext'] = 'Texte de recherche';

@@ -133,7 +133,7 @@ $string['favicon'] = 'Ikona strony';
 $string['favicosize'] = 'Oczekiwany rozmiar to 16x16 pikseli';
 $string['favicondesc'] = 'Twoja "ulubiona ikona" strony. Jest to wizualne przypomnienie tożsamości strony internetowej i jest wyświetlane w pasku adresu lub w kartach przeglądarki.';
 $string['fontselect'] = 'Wybór czcionki';
-$string['fontselectdesc'] = 'Wybierz spośród standardowych czcionek lub czcionek internetowych <a href="https://fonts.google.com/" target="_new">Google</a>. Prosimy zapisać, aby wyświetlić opcje wyboru. Uwaga: Jeśli niestandardowa czcionka jest ustawiona na standardową, zostanie zastosowana czcionka internetowa Google.';
+$string['fontselectdesc'] = 'Wybierz spośród Standardowych czcionek lub <a href="https://fonts.google.com/" target="_new">czcionek Google web</a>. Zapisz, aby wyświetlić opcje dla swojego wyboru. Uwaga: Jeśli czcionka wizualnego personalizatora jest ustawiona na Standardową, zostanie zastosowana czcionka Google web.';
 $string['fontname'] = 'Czcionka strony';
 $string['fontnamedesc'] = 'Wprowadź dokładną nazwę czcionki do użycia w Moodle.';
 $string['fonttypestandard'] = 'Standardowa czcionka';
@@ -263,7 +263,7 @@ $string['three'] = 'Trzy';
 $string['four'] = 'Cztery';
 $string['showsocialmediaicon'] = "Pokaż ikony mediów społecznościowych";
 $string['footercolumntype'] = 'Typ';
-$string['footercolumncustommenudesc'] = 'Dodaj swoje elementy menu w tym formacie, na przykład:<br><pre>[
+$string['footercolumncustommenudesc'] = 'Dodaj swoje pozycje menu w tym formacie, np.<br><pre>[
     {
         "text": "Dodaj swój tekst tutaj",
         "address": "http://XYZ.abc"
@@ -273,7 +273,7 @@ $string['footercolumncustommenudesc'] = 'Dodaj swoje elementy menu w tym formaci
         "address": "http://XYZ.abc"
     }, ...
 ]</pre>
-<b style="color:red;">Uwaga:</b> Aby łatwo dodać treść do stopki, spersonalizuj obszar stopki za pomocą naszego <a href="'.$CFG->wwwroot.'/admin/settings.php?section=themesettingremui#theme_remui_edwiserpersonalizer" onclick= location.href="'.$CFG->wwwroot.'/admin/settings.php?section=themesettingremui#theme_remui_edwiserpersonalizer";location.reload();>Wizualnego Personalizatora</a>';
+<b style="color:red;">Uwaga:</b> Aby łatwo dodać treści do stopki, dostosuj obszar stopki za pomocą naszego <a href="'.$CFG->wwwroot.'/admin/settings.php?section=themesettingremui#theme_remui_edwiserpersonalizer" onclick= location.href="'.$CFG->wwwroot.'/admin/settings.php?section=themesettingremui#theme_remui_edwiserpersonalizer";location.reload();>Wizualnego Personalizatora</a>';
 $string['gotop'] = 'Przejdź do góry';
 
 $string['menu'] = 'Menu';
@@ -677,20 +677,20 @@ $string['activitiescompleted'] = "Ukończone aktywności";
 $string['activitiesdue'] = "Aktywności do wykonania";
 
 // Customizer Strings
-$string['customizer-migrate-notice'] = 'Ustawienia kolorów zostały przeniesione do Customizera. Kliknij poniższy przycisk, aby otworzyć Customizera.';
-$string['customizer-close-heading'] = 'Zamknij Customizera';
+$string['customizer-migrate-notice'] = 'Ustawienia kolorów zostały przeniesione do wizualnego personalizatora. Kliknij poniższy przycisk, aby otworzyć wizualny personalizator.';
+$string['customizer-close-heading'] = 'Zamknij wizualny personalizator';
 $string['customizer-close-description'] = 'Nie zapisane zmiany zostaną odrzucone. Czy chcesz kontynuować?';
 $string['reset'] = 'Resetuj';
 $string['resetall'] = 'Resetuj wszystko';
-$string['reset-settings'] = 'Resetuj wszystkie ustawienia Customizera';
+$string['reset-settings'] = 'Zresetuj wszystkie ustawienia wizualnego personalizatora';
 $string['reset-settings-description'] = '
 
-<div>Ustawienia Customizera zostaną przywrócone do domyślnych. Czy chcesz kontynuować?</div>
-<div class="mt-3"><strong>Resetuj wszystko:</strong> Resetuj wszystkie ustawienia.</div>
-<div class="mt-3"><strong>Resetuj:</strong> Ustawienia oprócz następujących zostaną przywrócone do domyślnych.</div>
+<div>Ustawienia wizualnego personalizatora zostaną przywrócone do domyślnych. Czy chcesz kontynuować?</div>
+<div class="mt-3"><strong>Resetuj wszystko:</strong> Zresetuj wszystkie ustawienia.</div>
+<div class="mt-3"><strong>Resetuj:</strong> Ustawienia, poza poniższymi, zostaną zresetowane do domyślnych.</div>
 ';
 $string['link'] = 'Link';
-$string['customizer'] = 'Customizer';
+$string['customizer'] = 'Wizualny personalizator';
 $string['error'] = 'Błąd';
 $string['resetdesc'] = 'Zresetuj ustawienia do ostatniego zapisu lub domyślnych, gdy nic nie zostało zapisane';
 $string['noaccessright'] = 'Przepraszamy! Nie masz uprawnień do korzystania z tej strony';
@@ -1037,7 +1037,7 @@ $string['loginpanellinkcolor_help'] = 'Zastosuj kolor linku do panelu logowania.
 $string['loginpanellinkhovercolor_help'] = 'Zastosuj kolor linku po najechaniu na panel logowania.';
 $string['login-panel-position'] = 'Pozycja panelu logowania';
 $string['login-panel-position_help'] = 'Ustaw pozycję panelu logowania i rejestracji.';
-$string['login-page-info'] = '<p><b>Uwaga:</b> Strona logowania nie może być podglądana w trybie dostosowywania, ponieważ tylko niezalogowani użytkownicy mogą ją wyświetlać. Możesz przetestować ustawienia, zapisując i otwierając stronę logowania w trybie prywatnego przeglądania.</p>';
+$string['login-page-info'] = '<p><b>Uwaga: </b>Strona logowania nie może być podglądana w wizualnym personalizatorze, ponieważ mogą ją zobaczyć tylko wylogowani użytkownicy. Możesz przetestować ustawienie, zapisując i otwierając stronę logowania w trybie incognito.</p>';
 $string['login-page-setting'] = 'Styl tła strony';
 $string['login-page-backgroundgradient1'] = 'Wybierz kolor 1';
 $string['login-page-backgroundgradient2'] = 'Wybierz kolor 2';
@@ -1055,7 +1055,7 @@ $string['dashboardpage'] = 'Strona pulpitu nawigacyjnego';
 $string['enabledashboardcoursestats'] = 'Włącz statystyki kursów na pulpicie nawigacyjnym';
 $string['enabledashboardcoursestatsdesc'] = 'Jeśli włączone, będą wyświetlane statystyki kursów na stronie pulpitu nawigacyjnego.';
 
-$string['customizecontrolsclose'] = "Przycisk zamknięcia dostosowywania";
+$string['customizecontrolsclose'] = "Zamknij";
 
 // Quick setup customizer.
 $string['quicksetup'] = 'Szybka konfiguracja';
@@ -1094,7 +1094,7 @@ $string['enablequickmenu'] = 'Włącz menu szybkich linków';
 $string['enablequickmenudesc'] = 'Pływające menu szybkich linków ułatwiające dostęp do stron.';
 
 // Left Navigation Drawer.
-$string['createarchivepage'] = 'Strona archiwum kursu';
+$string['coursearchivepage'] = 'Strona archiwum kursu';
 $string['createanewcourse'] = 'Utwórz nowy kurs';
 $string['remuisettings'] = 'Ustawienia RemUI';
 
@@ -1207,10 +1207,10 @@ $string['timelinenoevenettext'] = 'Brak nadchodzących aktywności';
 $string['description'] = 'Opis';
 $string['instructorcounttitle'] = "Dodatkowi nauczyciele dostępni w kursie";
 
-$string['personalizer'] = "Personalizacja wizualna";
-$string['edwpersonalizer'] = "Personalizacja wizualna";
-$string['editinpersonalizer'] = "Edytuj z Personalizer";
-$string['activepersonalizer'] = "Przeglądanie w Edwiser Personalizer.";
+$string['personalizer'] = "Wizualny Personalizator";
+$string['edwpersonalizer'] = "Wizualny Personalizator";
+$string['editinpersonalizer'] = "Edytuj za pomocą Personalizatora";
+$string['activepersonalizer'] = "Wyświetlanie w Edwiser Personalizer.";
 $string['searchtotalcount'] = 'Wyświetlane wyniki: {$a}';
 $string['noresutssearchmsg'] = "<h4 class ='p-p-6 text-center m-0 '>Nic do wyświetlenia</h4>";
 $string['globarsearchresult'] = "Globalne wyniki wyszukiwania";
@@ -1547,3 +1547,6 @@ $string['okay'] = 'OK';
 $string['forcefulmigrate'] = 'Wymuszona migracja';
 
 $string['moodleblocks'] = 'Bloki Moodle';
+
+$string['citytown'] = 'Miasto';
+$string['searchtext'] = 'Tekst wyszukiwania';

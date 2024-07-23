@@ -135,7 +135,7 @@ $string['favicon'] = 'Favicon';
 $string['favicosize'] = 'Erwartete Größe beträgt 16x16 Pixel';
 $string['favicondesc'] = 'Das "Favoriten"-Symbol Ihrer Website. Es erinnert visuell an die Identität der Website und wird in der Adressleiste oder in den Registerkarten des Browsers angezeigt.';
 $string['fontselect'] = 'Schriftarten-Auswahl';
-$string['fontselectdesc'] = 'Wählen Sie zwischen Standard-Schriftarten oder <a href="https://fonts.google.com/" target="_new">Google-Web-Schriftarten</a>. Bitte speichern Sie, um die Optionen für Ihre Auswahl anzuzeigen. Hinweis: Wenn die Benutzerdefinierte Schriftart auf Standard eingestellt ist, wird die Google Web-Schriftart angewendet.';
+$string['fontselectdesc'] = 'Wählen Sie entweder Standard-Schriften oder <a href="https://fonts.google.com/" target="_new">Google-Web-Schriften</a>. Bitte speichern Sie, um die Optionen Ihrer Wahl anzuzeigen. Hinweis: Wenn die Schriftart des visuellen Personalizers auf Standard eingestellt ist, wird die Google-Web-Schriftart angewendet.';
 $string['fontname'] = 'Website-Schriftart';
 $string['fontnamedesc'] = 'Geben Sie den genauen Namen der Schriftart ein, die für Moodle verwendet werden soll.';
 $string['fonttypestandard'] = 'Standard-Schriftart';
@@ -199,7 +199,7 @@ $string['defaultpermoodle'] = 'Schmale Breite (Moodle-Standard)';
 $string['fullwidthlayout'] = 'Volle Breite';
 
 // Footer Page Settings.
-$string['footersettings'] = 'Footer';
+$string['footersettings'] = 'Fusszeile';
 $string['socialmedia'] = 'Soziale Medien';
 $string['socialmediadesc'] = 'Geben Sie die Links zu den sozialen Medien für Ihre Website ein.';
 $string['facebooksetting'] = 'Facebook';
@@ -265,17 +265,17 @@ $string['three'] = 'Drei';
 $string['four'] = 'Vier';
 $string['showsocialmediaicon'] = 'Social-Media-Icons anzeigen';
 $string['footercolumntype'] = 'Typ';
-$string['footercolumncustommenudesc'] = 'Fügen Sie Ihre Menüpunkte in diesem Format hinzu, zum Beispiel:<br><pre>[
-{
-"text": "Fügen Sie hier Ihren Text ein",
-"address": "http://XYZ.abc"
-},
-{
-"text": "Fügen Sie hier Ihren Text ein",
-"address": "http://XYZ.abc"
-}, ...
+$string['footercolumncustommenudesc'] = 'Fügen Sie Ihre Menüpunkte in diesem Format hinzu, z.B.<br><pre>[
+    {
+        "text": "Fügen Sie hier Ihren Text ein",
+        "address": "http://XYZ.abc"
+    },
+    {
+        "text": "Fügen Sie hier Ihren Text ein",
+        "address": "http://XYZ.abc"
+    }, ...
 ]</pre>
-<b style="color:red;">Hinweis:</b> Um Inhalte einfach zum Footer hinzuzufügen, passen Sie den Footer-Bereich mit unserem <a href="'.$CFG->wwwroot.'/admin/settings.php?section=themesettingremui#theme_remui_edwiserpersonalizer" onclick= location.href="'.$CFG->wwwroot.'/admin/settings.php?section=themesettingremui#theme_remui_edwiserpersonalizer";location.reload();>Visual Personaliser</a>';
+<b style="color:red;">Hinweis:</b> Um Inhalte leicht zur Fußzeile hinzuzufügen, passen Sie den Fußzeilenbereich mit unserem <a href="'.$CFG->wwwroot.'/admin/settings.php?section=themesettingremui#theme_remui_edwiserpersonalizer" onclick= location.href="'.$CFG->wwwroot.'/admin/settings.php?section=themesettingremui#theme_remui_edwiserpersonalizer";location.reload();>Visuellen Personalizer</a> an.';
 $string['gotop'] = 'Zum Seitenanfang';
 
 $string['menu'] = 'Menü';
@@ -679,20 +679,20 @@ $string['activitiescompleted'] = "Abgeschlossene Aktivitäten";
 $string['activitiesdue'] = "Fällige Aktivitäten";
 
 // Customizer Strings
-$string['customizer-migrate-notice'] = 'Farbeinstellungen wurden in den Customizer migriert. Klicken Sie bitte auf den untenstehenden Button, um den Customizer zu öffnen.';
-$string['customizer-close-heading'] = 'Customizer schließen';
+$string['customizer-migrate-notice'] = 'Farbeinstellungen wurden zum visuellen Personalizer migriert. Bitte klicken Sie auf die untenstehende Schaltfläche, um den visuellen Personalizer zu öffnen.';
+$string['customizer-close-heading'] = 'Visuellen Personalizer schließen';
 $string['customizer-close-description'] = 'Ungespeicherte Änderungen werden verworfen. Möchten Sie fortfahren?';
 $string['reset'] = 'Zurücksetzen';
 $string['resetall'] = 'Alle zurücksetzen';
-$string['reset-settings'] = 'Alle Customizer-Einstellungen zurücksetzen';
+$string['reset-settings'] = 'Alle Einstellungen des visuellen Personalizers zurücksetzen';
 $string['reset-settings-description'] = '
 
-<div>Die Einstellungen des Customizers werden auf die Standardeinstellungen zurückgesetzt. Möchten Sie fortfahren?</div>
-<div class="mt-3"><strong>Alle zurücksetzen:</strong> Alle Einstellungen werden zurückgesetzt.</div>
-<div class="mt-3"><strong>Zurücksetzen:</strong> Alle Einstellungen außer den folgenden Einstellungen werden auf die Standardeinstellungen zurückgesetzt.</div>
+<div>Die Einstellungen des visuellen Personalizers werden auf die Standardeinstellungen zurückgesetzt. Möchten Sie fortfahren?</div>
+<div class="mt-3"><strong>Alle zurücksetzen:</strong> Alle Einstellungen zurücksetzen.</div>
+<div class="mt-3"><strong>Zurücksetzen:</strong> Alle Einstellungen außer den folgenden werden auf die Standardeinstellungen zurückgesetzt.</div>
 ';
 $string['link'] = 'Link';
-$string['customizer'] = 'Customizer';
+$string['customizer'] = 'Visueller Personalizer';
 $string['error'] = 'Fehler';
 $string['resetdesc'] = 'Einstellungen auf den letzten gespeicherten Zustand oder die Standardeinstellungen zurücksetzen, wenn nichts gespeichert wurde';
 $string['noaccessright'] = 'Entschuldigung! Sie haben keine Berechtigung, diese Seite zu verwenden.';
@@ -861,7 +861,7 @@ $string['box-shadow-blur'] = 'Schatten-Box-Unschärfe';
 $string['box-shadow-blur_help'] = 'Setze die Unschärfe der Schatten-Box für den Seitenheader';
 $string['box-shadow-color'] = 'Schatten-Box-Farbe';
 $string['box-shadow-color_help'] = 'Setze die Farbe der Schatten-Box für den Seitenheader';
-$string['layout-desktop'] = 'Layout Desktop';
+$string['layout-desktop'] = 'Layout-Desktop';
 $string['layout-desktop_help'] = 'Setze das Layout des Headers für Desktop';
 $string['layout-mobile'] = 'Layout Mobil';
 $string['layout-mobile_help'] = 'Setze das Layout des Headers für Mobilgeräte';
@@ -1022,7 +1022,7 @@ $string['loginpanellinkcolor_help'] = 'Wenden Sie eine Linkfarbe auf das Anmelde
 $string['loginpanellinkhovercolor_help'] = 'Wenden Sie eine Link-Hoverfarbe auf das Anmelde-Panel an.';
 $string['login-panel-position'] = 'Position des Anmelde-Panel';
 $string['login-panel-position_help'] = 'Legen Sie die Position für das Anmelde- und Registrierungs-Panel fest.';
-$string['login-page-info'] = '<p><b>Hinweis:</b> Die Anmeldeseite kann im Customizer nicht angezeigt werden, da nur ausgeloggte Benutzer sie sehen können. Sie können die Einstellung testen, indem Sie die Anmeldeseite im Inkognito-Modus speichern und öffnen.</p>';
+$string['login-page-info'] = '<p><b>Hinweis: </b>Die Anmeldeseite kann im visuellen Personalizer nicht angezeigt werden, da nur abgemeldete Benutzer sie sehen können. Sie können die Einstellung testen, indem Sie speichern und die Anmeldeseite im Inkognito-Modus öffnen.</p>';
 $string['login-page-setting'] = 'Hintergrundstil der Seite';
 $string['login-page-backgroundgradient1'] = 'Farbe 1 auswählen';
 $string['login-page-backgroundgradient2'] = 'Farbe 2 auswählen';
@@ -1035,12 +1035,12 @@ $string['login-page-background_help'] = 'Wenden Sie eine Hintergrundfarbe auf da
 $string['primary'] = 'Primär';
 
 $string['dashboardsettingdesc'] = 'Einstellungen für das Dashboard';
-$string['dashboardsetting'] = 'Dashboard';
+$string['dashboardsetting'] = 'Armaturenbrett';
 $string['dashboardpage'] = 'Dashboard-Seite';
 $string['enabledashboardcoursestats'] = 'Dashboard-Kursstatistiken aktivieren';
 $string['enabledashboardcoursestatsdesc'] = 'Wenn aktiviert, werden Kursstatistiken auf der Dashboard-Seite angezeigt.';
 
-$string['customizecontrolsclose'] = "Schließen-Schaltfläche für den Anpassungsmodus";
+$string['customizecontrolsclose'] = "Schließen";
 
 // Quick setup customizer.
 $string['quicksetup'] = 'Schnelle Einrichtung';
@@ -1079,7 +1079,7 @@ $string['enablequickmenu'] = 'Schnellmenü aktivieren';
 $string['enablequickmenudesc'] = 'Schwebendes Menü für schnelleren Zugriff auf Seiten.';
 
 // Linke Navigationsleiste.
-$string['createarchivepage'] = 'Kursarchivseite erstellen';
+$string['coursearchivepage'] = 'Kursarchivseite erstellen';
 $string['createanewcourse'] = 'Neuen Kurs erstellen';
 $string['remuisettings'] = 'RemUI-Einstellungen';
 
@@ -1127,8 +1127,8 @@ $string['hide-site-admin'] = 'Site-Administration ausblenden';
 $string['hide-site-admin_help'] = 'Wenn diese Option aktiviert ist, wird das Site-Administration-Element im Header ausgeblendet.';
 $string['hide-recent-courses'] = 'Zuletzt besuchte Kurse ausblenden';
 $string['hide-recent-courses_help'] = 'Wenn diese Option aktiviert ist, wird die Dropdown-Liste "Zuletzt besuchte Kurse" im Header ausgeblendet.';
-$string['header-menu-element-bg-color'] = 'Hintergrundfarbe des Menüelements';
-$string['header-menu-element-bg-color_help'] = 'Hintergrundfarbe des Menüelements';
+$string['header-menu-element-bg-color'] = 'Menü-Hintergrundfarbe';
+$string['header-menu-element-bg-color_help'] = 'Menü-Hintergrundfarbe';
 $string['header-menu-divider-bg-color'] = 'Farbe des Elementtrenners';
 $string['header-menu-divider-bg-color_help'] = 'Farbe des Elementtrenners';
 $string['hds-iconcolor'] = 'Header-Symbolfarbe';
@@ -1192,10 +1192,10 @@ $string['timelinenoevenettext'] = 'Keine anstehenden Aktivitäten';
 $string['description'] = 'Beschreibung';
 $string['instructorcounttitle'] = "Zusätzliche Lehrer im Kurs verfügbar";
 
-$string['personalizer'] = "Visueller Personalisierer";
-$string['edwpersonalizer'] = "Visueller Personalisierer";
-$string['editinpersonalizer'] = "Bearbeiten mit Personalisierer";
-$string['activepersonalizer'] = "Anzeigen im Edwiser Personalisierer.";
+$string['personalizer'] = "Visueller Personalizer";
+$string['edwpersonalizer'] = "Visueller Personalizer";
+$string['editinpersonalizer'] = "Mit Personalizer bearbeiten";
+$string['activepersonalizer'] = "Ansicht im Edwiser Personalizer.";
 $string['searchtotalcount'] = 'Es werden {$a} Ergebnisse angezeigt';
 $string['noresutssearchmsg'] = "<h4 class ='p-p-6 text-center m-0 '>Nichts zu zeigen</h4>";
 $string['globarsearchresult'] = "Globale Suchergebnisse";
@@ -1533,3 +1533,6 @@ $string['okay'] = 'Okay!';
 $string['forcefulmigrate'] = 'Erzwungene Migration';
 
 $string['moodleblocks'] = 'Moodle-Blöcke';
+
+$string['citytown'] = 'Stadt';
+$string['searchtext'] = 'Suchtext';

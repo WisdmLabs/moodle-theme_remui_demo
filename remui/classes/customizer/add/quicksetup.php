@@ -364,7 +364,7 @@ trait quicksetup {
                         <label class="col-form-label v2" for="id_current-pallet">
                         ' . get_string('selectpallete', 'theme_remui') . '
                         </label>
-                        <button type="button" name="pallet-apply" id="id_pallet-apply" class="btn btn-secondary btn-sm" disabled>Apply</button>
+                        <button type="button" name="pallet-apply" id="id_pallet-apply" class="btn btn-secondary btn-sm" disabled> '. get_string('apply', 'theme_remui') . '</button>
                     </div>
                 '
             ]
@@ -464,7 +464,7 @@ trait quicksetup {
                         ' . get_string('selectfont', 'theme_remui') . '
                         </label>
                         <button type="button" name="font-apply" id="id_font-apply" class="btn btn-secondary btn-sm" disabled>
-                            Apply
+                            ' . get_string('apply', 'theme_remui') . '
                         </button>
                     </div>
                 '

@@ -94,7 +94,7 @@ if (user_can_view_profile($userobject, null, $context)) {
     $templatecontext['user']->forumpostcount = usercontroller::get_user_forum_post_count($userobject);
     $templatecontext['user']->blogpostcount  = usercontroller::get_user_blog_post_count($userobject);
     $templatecontext['user']->contactscount  = usercontroller::get_user_contacts_count($userobject);
-    $templatecontext['user']->description  = strip_tags($userobject->description);
+    $templatecontext['user']->description  = format_text($userobject->description,FORMAT_HTML);
 
     // About me tab data.
     $interests = \core_tag_tag::get_item_tags('core', 'user', $userobject->id);
@@ -141,9 +141,9 @@ if (user_can_view_profile($userobject, null, $context)) {
     $templatecontext['user']->blogsettingstatus = $CFG->enableblogs;
 
     $templatecontext['countryname'] = isset($countries[$templatecontext['user']->country]) ? $countries[$templatecontext['user']->country] : '-';
-    // if (isset( $templatecontext['user']->city)) {
-    //     $templatecontext['user']->city  = '-';
-    // }
+    if (isset( $templatecontext['user']->city)) {
+        $templatecontext['user']->city  = format_text($templatecontext['user']->city, FORMAT_HTML);
+    }
     $templatecontext['user']->usercourses = true;
     if (!empty($userobject->country)) {
         $country = get_string($userobject->country, 'countries');
@@ -182,8 +182,12 @@ if (user_can_view_profile($userobject, null, $context)) {
     $templatecontext['user']->editmodeemail = $templatecontext['user']->email;
     $templatecontext['user']->editmodedescription = $templatecontext['user']->description;
     if (isset($identityfields['address']) && $user->address) {
-        $templatecontext['user']->location .= $user->address;
+        $templatecontext['user']->location .= format_text($user->address, FORMAT_HTML);
     }
+    if($user->address) {
+        $templatecontext['user']->address = format_text($user->address, FORMAT_HTML);
+    }
+
     $templatecontext['user']->instidept = "";
     if (isset($identityfields['department']) && $user->department) {
         $templatecontext['user']->instidept .= $user->department;

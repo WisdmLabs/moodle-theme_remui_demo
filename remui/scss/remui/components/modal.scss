@@ -832,7 +832,7 @@
                             justify-content: center !important;
                             flex-direction: column;
                             border: unset;
-                            .h-semibold-6{
+                            div.h-semibold-6 {
                                 @extend .small-info-semibold;
                             }
                             .action-icon-wrapper{

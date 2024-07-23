@@ -136,7 +136,7 @@ $string['favicon'] = 'Favicon';
 $string['favicosize'] = 'O tamanho esperado é de 16x16 pixels';
 $string['favicondesc'] = 'O "ícone favorito" do seu site. É um lembrete visual da identidade do site e é exibido na barra de endereço ou nas abas do navegador.';
 $string['fontselect'] = 'Seletor de Tipo de Fonte';
-$string['fontselectdesc'] = 'Escolha entre fontes padrão ou fontes da Web do Google. Por favor, salve para mostrar as opções para sua escolha. Observação: Se o tipo de fonte do Customizador estiver definido como padrão, a fonte da Web do Google será aplicada.';
+$string['fontselectdesc'] = 'Escolha entre fontes Padrão ou tipos de <a href="https://fonts.google.com/" target="_new">fontes da web do Google</a>. Por favor, salve para mostrar as opções da sua escolha. Nota: Se a fonte do personalizador visual estiver definida como Padrão, então a fonte da web do Google será aplicada.';
 $string['fontname'] = 'Fonte do Site';
 $string['fontnamedesc'] = 'Digite o nome exato da fonte a ser usada para o Moodle.';
 $string['fonttypestandard'] = 'Fonte padrão';
@@ -271,15 +271,15 @@ $string['showsocialmediaicon'] = "Mostrar ícones de mídia social";
 $string['footercolumntype'] = 'Tipo';
 $string['footercolumncustommenudesc'] = 'Adicione seus itens de menu neste formato, por exemplo.<br><pre>[
     {
-        "text": "Adicione seu texto aqui",
+        "text": "Adicione seu Texto aqui",
         "address": "http://XYZ.abc"
     },
     {
-        "text": "Adicione seu texto aqui",
+        "text": "Adicione seu Texto aqui",
         "address": "http://XYZ.abc"
     }, ...
 ]</pre>
-<b style="color:red;">Nota:</b> Para adicionar facilmente conteúdo ao rodapé, personalize a área de rodapé com o nosso <a href="'.$CFG->wwwroot.'/admin/settings.php?section=themesettingremui#theme_remui_edwiserpersonalizer" onclick= location.href="'.$CFG->wwwroot.'/admin/settings.php?section=themesettingremui#theme_remui_edwiserpersonalizer";location.reload();>Personalizador Visual </a>';
+<b style="color:red;">Nota:</b> Para adicionar conteúdo facilmente ao rodapé, personalize a área do rodapé com nosso <a href="'.$CFG->wwwroot.'/admin/settings.php?section=themesettingremui#theme_remui_edwiserpersonalizer" onclick= location.href="'.$CFG->wwwroot.'/admin/settings.php?section=themesettingremui#theme_remui_edwiserpersonalizer";location.reload();>Personalizador Visual</a>';
 $string['gotop'] = 'Ir para o topo';
 
 $string['menu'] = 'Menu';
@@ -678,14 +678,17 @@ $string['coursescompleted'] = "Cursos concluídos";
 $string['activitiescompleted'] = "Atividades concluídas";
 $string['activitiesdue'] = "Atividades devidas";
 
-$string['customizer-migrate-notice'] = 'As configurações de cor foram migradas para o Customizer. Clique no botão abaixo para abrir o Customizer.';
-$string['customizer-close-heading'] = 'Fechar customizer';
+$string['customizer-migrate-notice'] = 'As configurações de cores foram migradas para o personalizador visual. Por favor, clique no botão abaixo para abrir o personalizador visual.';
+$string['customizer-close-heading'] = 'Fechar personalizador visual';
 $string['customizer-close-description'] = 'As alterações não salvas serão descartadas. Deseja continuar?';
 $string['reset'] = 'Redefinir';
-$string['reset-settings'] = 'Redefinir todas as configurações do Customizer';
-$string['reset-settings-description'] = '<div>As configurações do Customizer serão restauradas para o padrão. Você deseja continuar?</div><div class="mt-3 font-italic"><strong>Observação:</strong> Isso não removerá o CSS personalizado adicionado à configuração.<br>
-Você precisa remover manualmente o CSS da configuração CSS personalizada, se necessário.</div>';
-$string['customizer'] = 'Customizador';
+$string['reset-settings'] = 'Redefinir todas as configurações do personalizador visual';
+$string['reset-settings-description'] = '
+<div>As configurações do personalizador visual serão restauradas para o padrão. Você quer continuar?</div>
+<div class="mt-3"><strong>Redefinir Tudo:</strong> Redefinir todas as configurações.</div>
+<div class="mt-3"><strong>Redefinir:</strong> As configurações, exceto as seguintes, serão redefinidas para o padrão.</div>
+';
+$string['customizer'] = 'Personalizador Visual';
 $string['error'] = 'Erro';
 $string['resetdesc'] = 'Redefinir as configurações para a última salvamento ou padrão quando nada foi salvo';
 $string['noaccessright'] = 'Desculpe! Você não tem direitos para usar';
@@ -1014,7 +1017,7 @@ $string['loginpanellinkcolor_help'] = 'Aplicar cor do link ao painel de login.';
 $string['loginpanellinkhovercolor_help'] = 'Aplicar cor do link quando o mouse passa sobre ele ao painel de login.';
 $string['login-panel-position'] = 'Posição do painel de login';
 $string['login-panel-position_help'] = 'Definir a posição do painel de login e registro';
-$string['login-page-info'] = '<p><b>Observação:</b> A página de login não pode ser visualizada no personalizador, porque somente usuários desconectados podem visualizá-la. Você pode testar as configurações salvando e abrindo a página de login no modo anônimo.</p>';
+$string['login-page-info'] = '<p><b>Nota: </b>A página de login não pode ser visualizada no personalizador visual porque apenas usuários deslogados podem vê-la. Você pode testar a configuração salvando e abrindo a página de login no modo anônimo.</p>';
 $string['login-page-setting'] = 'Estilo de fundo da página';
 $string['login-page-backgroundgradient1'] = 'Selecionar cor 1';
 $string['login-page-backgroundgradient2'] = 'Selecionar cor 2';
@@ -1031,7 +1034,7 @@ $string['dashboardpage'] = 'Página do painel';
 $string['enabledashboardcoursestats'] = 'Ativar estatísticas do curso no painel';
 $string['enabledashboardcoursestatsdesc'] = 'Se ativado, as estatísticas do curso serão exibidas na página do painel';
 
-$string['customizecontrolsclose'] = "Botão fechar Personalizador";
+$string['customizecontrolsclose'] = "Fechar";
 
 // Personalizador de configuração rápida.
 $string['quicksetup'] = 'Configuração rápida';
@@ -1071,7 +1074,7 @@ $string['enablequickmenu'] = 'Ativar menu rápido';
 $string['enablequickmenudesc'] = 'Menu suspenso com links rápidos para acesso mais fácil às páginas.';
 
 // Gaveta de navegação esquerda.
-$string['createarchivepage'] = 'Página de Arquivo do Curso';
+$string['coursearchivepage'] = 'Página de Arquivo do Curso';
 $string['createanewcourse'] = 'Criar um Novo Curso';
 $string['remuisettings'] = 'Configurações RemUI';
 
@@ -1206,8 +1209,8 @@ $string['instructorcounttitle'] = "Professores adicionais disponíveis no curso"
 
 $string['personalizer'] = "Personalizador Visual";
 $string['edwpersonalizer'] = "Personalizador Visual";
-$string['editinpersonalizer'] = "Editar com Personalizador";
-$string['activepersonalizer'] = "Visualizando no Edwiser Personalizador.";
+$string['editinpersonalizer'] = "Editar com o Personalizador";
+$string['activepersonalizer'] = "Visualizando no Personalizador Edwiser.";
 $string['searchtotalcount'] = 'Mostrando {$a} resultados';
 $string['noresutssearchmsg'] = "<h4 class ='p-p-6 text-center m-0 '>Nada para exibir</h4>";
 $string['globarsearchresult'] = "Resultados da Busca Global";
@@ -1562,3 +1565,6 @@ $string['okay'] = 'Okay!';
 $string['forcefulmigrate'] = 'Migração Forçada';
 
 $string['moodleblocks'] = 'Blocos do Moodle';
+
+$string['citytown'] = 'Cidade';
+$string['searchtext'] = 'Texto de busca';

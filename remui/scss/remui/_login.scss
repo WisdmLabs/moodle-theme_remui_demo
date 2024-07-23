@@ -109,7 +109,9 @@ $login-link-hover-color:$loginpanellinkhovercolor;
         padding: $container-main-area-pad;
         width: calc(100% - #{$login-container-width});
         @include media-breakpoint-down(sm) {
-            display: none;
+            display: block;
+            width: 100%;
+            position: unset;
         }
     }
     .cookies-section {
@@ -300,6 +302,7 @@ $login-link-hover-color:$loginpanellinkhovercolor;
             }
         }
     }
+
 }
 .password-field-eye {
     input {
@@ -324,3 +327,30 @@ $login-link-hover-color:$loginpanellinkhovercolor;
         }
     }
 }
+.login-wrapper{
+    @include media-breakpoint-down(sm){
+        align-items: flex-start;
+        flex-direction: column;
+        height: unset;
+        .login-description-container{
+            order: 1;
+            .summary-collapsed{
+                max-height: 295px;
+                position: relative;
+                overflow: hidden;
+            }
+            .readbtn{
+                text-decoration: underline;
+                &:hover{
+                    cursor: pointer;
+                }
+            }
+        }
+        .login-container{
+            order: 2;
+            max-width: unset;
+            width: unset;
+        }
+    }
+}
+

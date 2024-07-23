@@ -823,8 +823,12 @@ class theme_remui_coursehandler {
         $dbman = $DB->get_manager();
 
         $table = new xmldb_table($tablename);
-        $table->add_field('id', XMLDB_TYPE_INTEGER, 10);
+        // $table->add_field('id', XMLDB_TYPE_INTEGER, 10);
+        // $table->add_field('tempid', XMLDB_TYPE_INTEGER, 10);
+
+        $table->add_field('id', XMLDB_TYPE_INTEGER, 10,XMLDB_UNSIGNED, XMLDB_NOTNULL, XMLDB_SEQUENCE);
         $table->add_field('tempid', XMLDB_TYPE_INTEGER, 10);
+        $table->add_key('primary', XMLDB_KEY_PRIMARY, ['id']);
 
         if ($dbman->table_exists($tablename)) {
             $dbman->drop_table($table);
@@ -874,10 +878,20 @@ class theme_remui_coursehandler {
      * @param boolean $frontlineteacher
      * @return Array
      */
-    public function get_enrolled_teachers_context($courseid = null, $frontlineteacher = false) {
-        global $OUTPUT, $CFG;
+    public function get_enrolled_teachers_context($course, $frontlineteacher = false) {
+        global $OUTPUT, $CFG, $USER;
+
+        $courseid = $course->id;
+
+        $usergroups = groups_get_user_groups($courseid, $USER->id);
+
+        $groupids = 0;
+
+        if($course->groupmode == 1){
+            $groupids = $usergroups[0];
+        }
         $coursecontext = \context_course::instance($courseid);
-        $teachers = get_enrolled_users($coursecontext, 'mod/folder:managefiles', 0, '*', 'firstname');
+        $teachers = get_enrolled_users($coursecontext, 'mod/folder:managefiles', $groupids, '*', 'firstname', $limitfrom = 0, $limitnum = 0, $onlyactive = true);
         $roles =   new stdClass();
 
         $allroles = get_all_roles();

@@ -123,7 +123,8 @@ define([
                 address
             }
         }])[0];
-        promise.done(function () {
+        promise.done(function (response) {
+            let profileData = JSON.parse(response);
             $(SELECTORS.ERROR).show();
             $(SELECTORS.ERROR).removeClass(SELECTORS.DANGER).addClass(SELECTORS.SUCCESS);
             $(SELECTORS.ERROR).find('p').css('margin', '0').html(M.util.get_string('detailssavedsuccessfully', 'theme_remui'));
@@ -134,15 +135,15 @@ define([
                 $(SELECTORS.CANCELICON).toggleClass('d-none');
                 $('.profile-user').text(fname + " " + lname);
                 $('.usermenu a span.usertext').text(fname + " " + lname);
-                $('#user-description').text(description);
+                $('#user-description').text(profileData.description);
                 $('.prof-user-firstname').text(fname);
                 $('.prof-user-lastname').text(lname);
                 $('.prof-user-phone').text(phonenumber);
-                $('.prof-user-department').text(department);
-                $('.prof-user-desc').text(description);
+                $('.prof-user-department').text(profileData.department);
+                $('.prof-user-desc').text(profileData.description);
                 $('.prof-user-country').text(countryname);
-                $('.prof-user-city').text(city);
-                $('.prof-user-address').text(address);
+                $('.prof-user-city').text(profileData.city);
+                $('.prof-user-address').text(profileData.address);
             }, 1000)
 
         })

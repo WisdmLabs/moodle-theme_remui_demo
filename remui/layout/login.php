@@ -52,7 +52,7 @@ $templatecontext['logocontext'] = $this->get_branding_context();
 $templatecontext['signuptextcolor'] = get_config('theme_remui', 'signuptextcolor');
 if (get_config('theme_remui', 'loginpagelayout') != 'logincenter') {
     $templatecontext['canshowdesc'] = true;
-    $templatecontext['brandlogotext'] = get_config('theme_remui', 'brandlogotext');
+    $templatecontext['brandlogotext'] = format_text(get_config('theme_remui', 'brandlogotext'),FORMAT_HTML,array("noclean" => true));
 }
 
 echo $OUTPUT->render_from_template('theme_remui/login', $templatecontext);

@@ -102,8 +102,12 @@
                             {{/incontainer}}
                         {{/logocontext}}
                         {{#brandlogotext}}
-                        <div class="login-description" style="color: {{signuptextcolor}};">
-                            {{{brandlogotext}}}
+                        <div class="login-description">
+                            <div class="login-description-content" style="color: {{signuptextcolor}};">
+                                {{{brandlogotext}}}
+                            </div>
+                        <a id="readmorebtn" class="d-none  readbtn text-link-semibold" style="color: {{signuptextcolor}}">{{#str}} showmore, theme_remui{{/str}}</a>
+                        <a id="readlessbtn" class="d-none  readbtn text-link-semibold" style="color: {{signuptextcolor}}">{{#str}} showless, theme_remui{{/str}}</a>
                         </div>
                         {{/brandlogotext}}
                     </div>
@@ -122,5 +126,21 @@
 M.util.js_pending('theme_remui/loader');
 require(['theme_remui/loader'], function() {
   M.util.js_complete('theme_remui/loader');
+    var summaryheight = $('.login-description-content').height();
+
+    if (summaryheight > 295 && $(window).width() < 576) {
+        $('.login-description').find('#readmorebtn').removeClass('d-none');
+        $('.login-description-content').addClass('summary-collapsed').removeClass('summary-expanded');
+    }
+    $('.login-description #readmorebtn').on('click', function() {
+        $('.login-description-content').addClass('summary-expanded').removeClass('summary-collapsed');
+        $('.login-description').find('#readmorebtn').addClass('d-none');
+        $('.login-description').find('#readlessbtn').removeClass('d-none');
+    });
+    $('.login-description #readlessbtn').on('click', function () {
+        $('.login-description-content').addClass('summary-collapsed').removeClass('summary-expanded');
+        $('.login-description').find('#readmorebtn').removeClass('d-none');
+        $('.login-description').find('#readlessbtn').addClass('d-none');
+    });
 });
 {{/js}}

@@ -49,8 +49,7 @@
     >
     </div>
 {{/showemojipicker}}
-<div class="d-flex flex-gap-2 justify-content-between">
-    <div class="position-relative d-flex align-items-center flex-gap-4">
+<div class="d-flex flex-gap-1d5 justify-content-between">
         {{#showemojipicker}}
             <div
                 data-region="emoji-picker-container"
@@ -67,6 +66,7 @@
                 <span class="edw-icon edw-icon-Smile_2"></span>
             </button>
         {{/showemojipicker}}
+    <div class="position-relative w-100 d-flex align-items-center flex-gap-4 footer-input-btn-wrapper">
         <textarea
             dir="auto"
             data-region="send-message-txt"
@@ -74,19 +74,19 @@
             rows="1"
             data-auto-rows
             data-min-rows="1"
-            data-max-rows="2"
+            data-max-rows="4"
             aria-label="{{#str}} typeamessage, theme_remui {{/str}}"
             placeholder="{{#str}} typeamessage, theme_remui {{/str}}"
             style="resize: none;"
             maxlength="{{messagemaxlength}}"
         ></textarea>
-    </div>
-    <button
+            <button
         class="btn p-0 "
         aria-label="{{#str}} sendmessage, core_message {{/str}}"
         data-action="send-message"
     >
-        <span class="edw-icon edw-icon-Send" data-region="send-icon-container"></span>
+        <span class="edw-icon edw-icon-send-2" data-region="send-icon-container"></span>
         <span class="hidden" data-region="loading-icon-container">{{> core/loading }}</span>
     </button>
+    </div>
 </div>

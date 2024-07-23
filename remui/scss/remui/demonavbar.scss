@@ -171,6 +171,20 @@ $demo-bg-dark-color: #001C1D;
             border: 1px solid #008B91;
         }
 
+        .active-lang-big {
+            display: none;
+        }
+
+        @include media-breakpoint-up(sm) {
+            .active-lang-big {
+                display: inline;
+            }
+
+            .active-lang-short {
+                display: none;
+            }
+        }
+
         .users-menu-dropdown {
             margin-top: 10px;
             background-color: $demo-bg-dark-color;

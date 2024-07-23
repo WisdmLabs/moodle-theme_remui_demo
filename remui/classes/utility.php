@@ -30,22 +30,53 @@ use stdClass;
 use user_picture;
 use html_writer;
 use context_course;
+use context_coursecat;
+use context_system;
 use theme_remui\customizer\customizer;
 /**
  * Utility class
  */
 class utility {
+    /**
+     * Returns a list of course categories that the current user has permission to view.
+     *
+     * The function first retrieves all course categories from the database, and then filters the list to only include
+     * categories that the current user has the 'moodle/category:viewcourselist' capability for.
+     *
+     * If the current user is an administrator or has the 'moodle/category:viewhiddencategories' capability, the function
+     * will return all course categories, including hidden ones.
+     *
+     * @return array An associative array of course categories, where the keys are the category IDs and the values are the
+     *               category objects.
+     */
+    public static function get_categories_list() {
+        global $DB, $USER;
+
+        $systemcontext = context_system::instance();
+        $categories = $DB->get_records('course_categories',array('visible'=>1));
+
+        if(utility::check_user_admin_cap() || has_capability('moodle/category:viewhiddencategories', $systemcontext, $USER->id)){
+            $categories = $DB->get_records('course_categories');
+        }
+
+        $filteredcategories = array();
+        foreach ($categories as $category) {
+            $categorycontext = context_coursecat::instance($category->id);
+            if (has_capability('moodle/category:viewcourselist', $categorycontext)) {
+                $filteredcategories[$category->id] = $category;
+            }
+        }
+
+        return $filteredcategories;
+    }
+
     /*
      * Returns course categories menu array context.
      * @param $contextmenu -> $primarymenu['moremenu']
      */
     public static function get_coursecategory_menu($contextmenu) {
-        global $DB;
+        $categories = utility::get_categories_list();
 
-        $categories = $DB->get_records('course_categories',array('visible'=>1));
-        if(utility::check_user_admin_cap()){
-            $categories = $DB->get_records('course_categories');
-        }
         $mainarr = [];
         $coursecategorytext = get_config('theme_remui', 'coursecategoriestext');
         $mainarr['text'] = $coursecategorytext == "" ? get_string('coursecategories', 'theme_remui') : $coursecategorytext;
@@ -78,7 +109,7 @@ class utility {
         usort($categories, function ($a, $b) {
             return $a->sortorder - $b->sortorder;
         });
-        
+
         $categoryTree = utility::buildCategoryTree($categories, 0);
         $html = '<div class="category-wrapper container d-flex flex-column">';
         $html .= '<div class="menu-wrapper">
@@ -333,12 +364,12 @@ class utility {
             $footerarr['coulumnid'] = $colid;
             $footerarr['customhtml'] = $customizer->get_config( 'footercolumn'.$i.'type') == 'customhtml';
             $footerarr['menu'] = $customizer->get_config( 'footercolumn'.$i.'type') == 'menu';
-            $footerarr['title'] = format_text($customizer->get_config('footercolumn'.$i.'title'), FORMAT_HTML);
+            $footerarr['title'] = format_text($customizer->get_config('footercolumn'.$i.'title'), FORMAT_HTML,array("noclean"=> true));
             $footerarr['classes'] = ($i) == 0 ? "empty" : '';
 
             $footerarr['hascontenthtml'] = array(
-                'title' => format_text($customizer->get_config('footercolumn'.$i.'title'), FORMAT_HTML),
-                "content" => format_text($customizer->get_config('footercolumn'.$i.'customhtml'), FORMAT_HTML),
+                'title' => format_text($customizer->get_config('footercolumn'.$i.'title'), FORMAT_HTML,array("noclean"=> true)),
+                "content" => format_text($customizer->get_config('footercolumn'.$i.'customhtml'), FORMAT_HTML,array("noclean"=> true)),
             );
             $footerarr['hassocial'] = $customizer->get_config('socialmediaiconcol' . $i) && $footerarr['customhtml'];
             $footerarr['socialiconvisibility'] = $footerarr['hassocial'];
@@ -359,11 +390,11 @@ class utility {
 
             $footerarr['menu'] = $customizer->get_config('footercolumn'.$i.'menu');
             if (!empty($footerarr['menu'])) {
-                $footerarr['menu'][0]['text'] = format_text($footerarr['menu'][0]['text'], FORMAT_HTML);
+                $footerarr['menu'][0]['text'] = format_text($footerarr['menu'][0]['text'], FORMAT_HTML,array("noclean"=> true));
             }
             $footer['sections'][] = $footerarr;
         }
-        $footer['bottomtext'] = format_text(\theme_remui\toolbox::get_setting('footerbottomtext'));
+        $footer['bottomtext'] = format_text(\theme_remui\toolbox::get_setting('footerbottomtext'),FORMAT_HTML,array("noclean"=> true));
         $footer['bottomlink'] = strip_tags(format_text(\theme_remui\toolbox::get_setting('footerbottomlink')));
 
         if (\theme_remui\toolbox::get_setting('poweredbyedwiser')) {
@@ -940,7 +971,7 @@ class utility {
         $html = '';
 
         $type = \theme_remui\toolbox::get_setting('announcementtype');
-        $message = \theme_remui\toolbox::get_setting('announcementtext');
+        $message = format_text(\theme_remui\toolbox::get_setting('announcementtext'),FORMAT_HTML,array("noclean" => true));
 
         if (\theme_remui\toolbox::get_setting('enabledismissannouncement')) {
             $html .= '<button id="dismiss_announcement" type="button" class="close" data-dismiss="alert" aria-label="Close">';
@@ -1170,7 +1201,7 @@ class utility {
             $cancreatepages = true;
             $menudata['addnewpage'] = [
                 'url' => '#',
-                'iconclass' => 'edw-icon edw-icon-Add-block epb-addnewpage',
+                'iconclass' => 'edw-icon edw-icon-Add-Page epb-addnewpage',
                 'title' => get_string('addnewpage', 'theme_remui')
             ];
         }
@@ -1230,64 +1261,64 @@ class utility {
 
                 $pagebuilderreleasedata = get_theme_req_plugin_release_info("local_edwiserpagebuilder");
                 $pagebuilderlatest = (version_compare($pagebuilderreleasedata->release, "4.1.2")) > 0;
-                
+
                 //If Pagebuilder and homepage both plugin updated and homepage is selected
                 if ($pagebuilderlatest && $homepagelatest) {
-    
+
                     $depricationtemplatecontext['migratewarningmsg'] = get_string(
-                        "migratewarningmsg", 
-                        "theme_remui", 
+                        "migratewarningmsg",
+                        "theme_remui",
                         [
-                            'warningmsg' => get_string("migratewarningmsg1", "theme_remui"), 
+                            'warningmsg' => get_string("migratewarningmsg1", "theme_remui"),
                             'clickok' => get_string("clickokmigratewarningmsg2", "theme_remui")
                         ]
                     );
                     $depricationtemplatecontext['migragettoastmsg'] = get_string("migragettoastmsg1", "theme_remui");
                     $depricationtemplatecontext['showmigratecta'] = true;
-    
-                } 
+
+                }
                 //If pagebuilder is not updated and homepage is selected
                 else if(!$pagebuilderlatest && $homepagelatest) {
-    
+
                     $depricationtemplatecontext['migratewarningmsg'] = get_string(
-                        "migratewarningmsg", 
-                        "theme_remui", 
+                        "migratewarningmsg",
+                        "theme_remui",
                         [
-                            'warningmsg' => get_string("migratewarningmsg2", "theme_remui"), 
+                            'warningmsg' => get_string("migratewarningmsg2", "theme_remui"),
                             'clickok' => get_string("clickokmigratewarningmsg2", "theme_remui")
                         ]
                     );
                     $depricationtemplatecontext['migragettoastmsg'] = get_string("migragettoastmsg2", "theme_remui");
-    
-                } 
-                // Scenario when pagebuilder and homepage both are older versions 
+
+                }
+                // Scenario when pagebuilder and homepage both are older versions
                 else {
-                    
+
                     $depricationtemplatecontext['migratewarningmsg'] = get_string(
-                        "migratewarningmsg", 
-                        "theme_remui", 
+                        "migratewarningmsg",
+                        "theme_remui",
                         [
-                            'warningmsg' => get_string("migratewarningmsg5", "theme_remui"), 
+                            'warningmsg' => get_string("migratewarningmsg5", "theme_remui"),
                             'clickok' => get_string("clickokmigratewarningmsg2", "theme_remui")
                         ]
                     );
                     $depricationtemplatecontext['migragettoastmsg'] = get_string("migragettoastmsg5", "theme_remui");
-    
+
                 }
             // When pagebuilder is not available and homepage selected
             } else {
-    
+
                 $depricationtemplatecontext['migratewarningmsg'] = get_string(
-                    "migratewarningmsg", 
-                    "theme_remui", 
+                    "migratewarningmsg",
+                    "theme_remui",
                     [
-                        'warningmsg' => get_string("migratewarningmsg3", "theme_remui"), 
+                        'warningmsg' => get_string("migratewarningmsg3", "theme_remui"),
                         'clickok' => get_string("clickokmigratewarningmsg", "theme_remui")
                     ]
-                    
+
                 );
                 $depricationtemplatecontext['migragettoastmsg'] = get_string("migragettoastmsg3", "theme_remui");
-            
+
             }
         } else {
             return "";
@@ -1415,14 +1446,7 @@ class utility {
         $langmenu = $languagemenu->export_for_template($OUTPUT);
 
         $democontext['langmenulist'] = $langmenu;
-
-        if(isset($langmenu['items'])) {
-            foreach ($langmenu['items'] as $language) {
-                if ($language['isactive']) {
-                    $democontext['langmenulist']['activelang'] = $language;
-                }
-            }
-        }
+        $democontext['langmenulist']['activelangcode'] = current_language();
 
         // fetch all switchable roles
         $context = context_course::instance($COURSE->id);

@@ -24,7 +24,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once("{$CFG->dirroot}/theme/{$PAGE->theme->name}/layout/common.php");
+require_once("{$CFG->dirroot}/theme/remui/layout/common.php");
 
 use theme_remui\utility;
 
@@ -53,7 +53,7 @@ if ($categoryid != "all") {
     $coursecat = core_course_category::get($categoryid);
     $chelper = new coursecat_helper();
     if ($description = $chelper->get_category_formatted_description($coursecat)) {
-        $templatecontext['categorydesciption'] = $description;
+        $templatecontext['categorydesciption'] = format_text($description, FORMAT_HTML, array("noclean" => true));
     }
 }
 $templatecontext['coursearchivefiltermenumorebutton'] = $courserenderer->get_morebutton_pagetitle($categoryid);
@@ -76,11 +76,7 @@ if(count($templatecontext['viewoptions']) == 1){
     $templatecontext['hideavailableview'] = true;
 }
 
-
-$categories = $DB->get_records('course_categories',array('visible'=>1));
-if(utility::check_user_admin_cap()){
-    $categories = $DB->get_records('course_categories');
-}
+$categories = utility::get_categories_list();
 $caegoryfilterhtml = utility::generateCategoryStructure($categories);
 $templatecontext['caegoryfilterhtml'] = $caegoryfilterhtml;
 echo $OUTPUT->render_from_template('theme_remui/coursearchive', $templatecontext);

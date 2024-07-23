@@ -554,11 +554,19 @@ $image-border-color:$gray-400;
                 color: $ic-default;
             }
         }
+        .footer-input-btn-wrapper{
+            padding: map-get($spacerspx, '3') map-get($spacerspx, '2d5');
+            border: 1px solid $light-border;
+            border-radius: 4px;
+        }
         [data-action="send-message"] {
-            display: contents;
-            .edw-icon.edw-icon-Send {
-                font-size: 48px;
-                color: $brand-primary;
+            display: flex;
+            background-color: transparent !important;
+            .edw-icon {
+                font-size: 16px;
+                height: 16px;
+                width: 16px;
+                color: $ic-default;
             }
         }
         [data-region="send-message-txt"] {

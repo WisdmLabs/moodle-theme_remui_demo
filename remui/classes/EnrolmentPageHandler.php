@@ -137,7 +137,7 @@ class EnrolmentPageHandler {
 
         $temp = array();
 
-        $temp['coursesummary'] = format_text(file_rewrite_pluginfile_urls($COURSE->summary, 'pluginfile.php', $coursecontext->id, 'course', 'summary', NULL),FORMAT_HTML);
+        $temp['coursesummary'] = format_text(file_rewrite_pluginfile_urls($COURSE->summary, 'pluginfile.php', $coursecontext->id, 'course', 'summary', NULL),FORMAT_HTML,array("noclean"=> true));
 
         if (isset($rnrreviewfull)) {
             $temp['rnrreviewfull'] = $rnrreviewfull;
@@ -152,7 +152,7 @@ class EnrolmentPageHandler {
         $temp['enrolledusertitletext'] = $coursedata['enrolledusertitletext'];
 
         if (isset($customfielddata['edwcourseduration'])) {
-            $temp['courselength'] = $customfielddata['edwcourseduration'];
+            $temp['courselength'] = format_text($customfielddata['edwcourseduration'], FORMAT_HTML);
         }
         if (isset($customfielddata['edwskilllevel'])) {
             $temp['skilllevel'] = get_string('skill' . $customfielddata['edwskilllevel'], 'theme_remui');
@@ -188,7 +188,7 @@ class EnrolmentPageHandler {
         $context['haslatestcourses'] = get_config("theme_remui", 'showlatestcourse');
         $context['showrelatedcoursesblock'] = true;
         $context['showlatestcoursesblock'] = true;
-       
+
         if(!$context['relatedcourses']){
             $context['showrelatedcoursesblock'] = false;
         }
@@ -257,7 +257,7 @@ class EnrolmentPageHandler {
         $variable2 = "enrollnowbtnlink".$courseid;
 
         if(get_config('theme_remui', $variable1)){
-            $buttontext = get_config('theme_remui',$variable1);
+            $buttontext = format_text(get_config('theme_remui',$variable1),FORMAT_HTML);
         }
         if(get_config('theme_remui',$variable2) && ((get_config('theme_remui',$variable2)!='#'))){
             $buttonurl = get_config('theme_remui',$variable2);
@@ -506,6 +506,7 @@ class EnrolmentPageHandler {
         }
         $remuicustomfieldarray = array_values($remuicustomfieldarray);
         foreach($remuicustomfieldarray as $singlecustomfield){
+            $singlecustomfield["name"] = format_text($singlecustomfield["name"], FORMAT_HTML);
             $templatecontext['customfield'] = $singlecustomfield;
             $content .= $OUTPUT->render_from_template("theme_remui/enrol_singlecustomfield", $templatecontext);
         }

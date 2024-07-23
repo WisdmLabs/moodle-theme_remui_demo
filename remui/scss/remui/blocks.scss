@@ -481,6 +481,9 @@ $border-16:16px;
             }
         }
     }
+    .searchbar .input-group-prepend {
+        overflow: hidden !important;
+    }
     .edw-course-card-grid {
         .categoryname {
             margin-top: -32px;
@@ -489,8 +492,8 @@ $border-16:16px;
 
         .dashboard-card:hover {
             .view-course-btn {
-                background-color: $blue;
-                color: $white;
+                color: $button-secondary-color-texthover;
+                background-color: $button-secondary-color-backgroundhover;
             }
         }
     }

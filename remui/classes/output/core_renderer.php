@@ -551,7 +551,7 @@ class core_renderer extends \core_renderer {
             $header->courseimage = $coursehandler->get_course_image($COURSE);
             $header->classes = 'hasbackground' . ' design-' . $design;
             $header->categoryname = format_text($DB->get_record('course_categories', array('id' => $COURSE->category))->name);
-            $header->teachers = $coursehandler->get_enrolled_teachers_context($COURSE->id, true);
+            $header->teachers = $coursehandler->get_enrolled_teachers_context($COURSE, true);
             if (is_plugin_available('block_edwiserratingreview')) {
                 $rnr = new \block_edwiserratingreview\ReviewManager();
                 $header->rnrdesign = $rnr->get_short_design_enrolmentpage($COURSE->id);
@@ -573,7 +573,7 @@ class core_renderer extends \core_renderer {
         $coursecontext = $this->page->context;
         $ismanager = \theme_remui\utility::check_user_admin_cap($USER);
         
-        if($this->page->pagelayout == 'course' && $ismanager){
+        if(($this->page->pagelayout == 'course'  || $this->page->pagetype == 'course-edit'|| $this->page->pagetype == 'course-view-participants' ) && $ismanager){
             $header->enrollpageurl = $CFG->wwwroot.'/enrol/index.php?id='.$COURSE->id;
             $header->participantspageurl = $CFG->wwwroot.'/user/index.php?id='.$COURSE->id;
             $header->isenrolled = is_enrolled($coursecontext, $USER->id);

@@ -133,7 +133,7 @@ $string['favicon'] = 'Favicon';
 $string['favicosize'] = 'Expected size is 16x16 pixels';
 $string['favicondesc'] = 'Your site’s “favourite icon”. It is a visual reminder of the Web site identity and is displayed in the address bar or in the browser\'s tabs';
 $string['fontselect'] = 'Font type selector';
-$string['fontselectdesc'] = 'Choose from either Standard fonts or <a href="https://fonts.google.com/" target="_new">Google web fonts</a> types. Please save to show the options for your choice. Note: If Customizer font is set to Standard then Google web font will be applied.';
+$string['fontselectdesc'] = 'Choose from either Standard fonts or <a href="https://fonts.google.com/" target="_new">Google web fonts</a> types. Please save to show the options for your choice. Note: If visual personalizer font is set to Standard then Google web font will be applied.';
 $string['fontname'] = 'Site Font';
 $string['fontnamedesc'] = 'Enter the exact name of the font to use for Moodle.';
 $string['fonttypestandard'] = 'Standard font';
@@ -272,7 +272,7 @@ $string['footercolumncustommenudesc'] = 'Add Your menu items in this formate for
         "address": "http://XYZ.abc"
     }, ...
 ]</pre>
-<b style="color:red;">Note:</b> To easily add content to the footer customize the footer area with our <a href="'.$CFG->wwwroot.'/admin/settings.php?section=themesettingremui#theme_remui_edwiserpersonalizer" onclick= location.href="'.$CFG->wwwroot.'/admin/settings.php?section=themesettingremui#theme_remui_edwiserpersonalizer";location.reload();>Visual Personaliser </a>';
+<b style="color:red;">Note:</b> To easily add content to the footer customize the footer area with our <a href="'.$CFG->wwwroot.'/admin/settings.php?section=themesettingremui#theme_remui_edwiserpersonalizer" onclick= location.href="'.$CFG->wwwroot.'/admin/settings.php?section=themesettingremui#theme_remui_edwiserpersonalizer";location.reload();>Visual Personalizer </a>';
 $string['gotop'] = 'Go top';
 
 $string['menu'] = 'Menu';
@@ -677,19 +677,19 @@ $string['activitiescompleted'] = "Activities Completed";
 $string['activitiesdue'] = "Activities Due";
 
 // Customizer Strings
-$string['customizer-migrate-notice'] = 'Color settings are migrated to Customizer. Please click below button to open customizer.';
-$string['customizer-close-heading'] = 'Close customizer';
+$string['customizer-migrate-notice'] = 'Color settings are migrated to visual personalizer. Please click below button to open visual personalizer.';
+$string['customizer-close-heading'] = 'Close visual personalizer';
 $string['customizer-close-description'] = 'Unsaved changes will be discarded. Would you like to continue?';
 $string['reset'] = 'Reset';
 $string['resetall'] = 'Reset All';
-$string['reset-settings'] = 'Reset all customizer settings';
+$string['reset-settings'] = 'Reset all visual personalizer settings';
 $string['reset-settings-description'] = '
-<div>Customizer settings will be restored to default. Do you want to continue?</div>
+<div>Visual personalizer settings will be restored to default. Do you want to continue?</div>
 <div class="mt-3"><strong>Reset All:</strong> Reset all settings.</div>
 <div class="mt-3"><strong>Reset:</strong> Settings except the follwing settings will be reset to default.</div>
 ';
 $string['link'] = 'Link';
-$string['customizer'] = 'Customizer';
+$string['customizer'] = 'Visual personalizer';
 $string['error'] = 'Error';
 $string['resetdesc'] = 'Reset setting to last save or default when nothing saved';
 $string['noaccessright'] = 'Sorry! You don\'t have rights to use this page';
@@ -749,11 +749,11 @@ $string['background-color_help'] = 'Set background color of {$a}';
 $string['background-hover-color'] = 'Background hover color';
 $string['background-hover-color_help'] = 'Set background hover color of {$a}';
 $string['color'] = 'Color';
-$string['customizing'] = 'Customizing';
+$string['customizing'] = 'Personalizing';
 $string['savesuccess'] = 'Saved successfully.';
 $string['mobile'] = 'Mobile';
 $string['tablet'] = 'Tablet';
-$string['hide-customizer'] = 'Hide customizer';
+$string['hide-customizer'] = 'Hide visual personalizer';
 $string['customcss_help'] = 'You can add custom CSS. This will be applied on all the pages of your site.';
 
 // Customizer Global body.
@@ -1021,7 +1021,7 @@ $string['loginpanellinkcolor_help'] = 'Apply link color to login panel.';
 $string['loginpanellinkhovercolor_help'] = 'Apply link hover color to login panel.';
 $string['login-panel-position'] = 'Login panel position';
 $string['login-panel-position_help'] = 'Set position for login and registration panel';
-$string['login-page-info'] = '<p><b>Note: </b>The login page cannot be previewed in customizer because logged-out users can only view it. You can test the setting by saving and opening the login page in incognito mode.</p>';
+$string['login-page-info'] = '<p><b>Note: </b>The login page cannot be previewed in visual personalizer because logged-out users can only view it. You can test the setting by saving and opening the login page in incognito mode.</p>';
 $string['login-page-setting'] = 'Page background style';
 $string['login-page-backgroundgradient1'] = 'Select Color 1';
 $string['login-page-backgroundgradient2'] = 'Select Color 2';
@@ -1039,7 +1039,7 @@ $string['dashboardpage'] = 'Dashboard page';
 $string['enabledashboardcoursestats'] = 'Enable Dashboard Course Stats';
 $string['enabledashboardcoursestatsdesc'] = 'If enabled, will show course stats on dashboard page';
 
-$string['customizecontrolsclose'] = "Customizer close button";
+$string['customizecontrolsclose'] = "Close";
 
 // Quick setup customizer.
 $string['quicksetup'] = 'Quick setup';
@@ -1191,10 +1191,10 @@ $string['timelinenoevenettext'] = 'No upcoming activities due';
 $string['description']  = 'Description';
 $string['instructorcounttitle'] = "Additional teachers available in the course";
 
-$string['personalizer'] = "Visual Personaliser";
-$string['edwpersonalizer'] = "Visual Personaliser";
-$string['editinpersonalizer'] = "Edit with Personaliser";
-$string['activepersonalizer'] = "Viewing in Edwiser Personaliser.";
+$string['personalizer'] = "Visual Personalizer";
+$string['edwpersonalizer'] = "Visual Personalizer";
+$string['editinpersonalizer'] = "Edit with Personalizer";
+$string['activepersonalizer'] = "Viewing in Edwiser Personalizer.";
 $string['searchtotalcount'] = 'Showing {$a} results';
 $string['noresutssearchmsg'] = "<h4 class ='p-p-6 text-center m-0 '>Nothing to Display</h4>";
 $string['globarsearchresult'] = "Global Search  Results";
@@ -1536,3 +1536,6 @@ $string['okay'] = 'Okay!';
 $string['forcefulmigrate'] = 'Forceful Migrate';
 
 $string['moodleblocks'] = 'Moodle Blocks';
+
+$string['citytown'] = 'City/Town';
+$string['searchtext'] = 'Search text';

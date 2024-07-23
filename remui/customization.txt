@@ -72,3 +72,7 @@ CHNAGES AFTER release remui 4.2.10
 # "Pricing page" added on corporate and clasic tab
 
 # New tab "Single instructor" added on Templates section with two layout "Moodle Expert" and "Language Instructor"
+
+# store whatsnew data to cache
+    - added whatsnew cache Defination in db/caches.php
+    - created separate function called 'get_whatsnew_data()' in utility.php file

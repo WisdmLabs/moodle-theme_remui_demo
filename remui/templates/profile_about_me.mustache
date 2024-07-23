@@ -63,8 +63,7 @@
         <div class="profile-item-col">
           <div class="profile-info-item-wrapper">
             <p class="m-0 info-label text-link-semibold">{{# str }} department, moodle {{/ str }}</p>
-            <p class=" m-0 profile-user-info text-link-regular prof-user-department">{{#department}}{{ department }}, {{ institution
-              }}{{/department}}{{^department}}-{{/department}}</p>
+            <p class=" m-0 profile-user-info text-link-regular prof-user-department">{{#department}}{{{department}}}, {{institution}}{{/department}}{{^department}}-{{/department}}</p>
           </div>
         </div>
         <div class="profile-item-col">
@@ -90,8 +89,8 @@
         {{#city}}
           <div class="profile-item-col">
             <div class="profile-info-item-wrapper">
-              <p class="m-0 info-label text-link-semibold">City/Town</p>
-              <p class="m-0 profile-user-info text-link-regular prof-user-city">{{city}}</p>
+              <p class="m-0 info-label text-link-semibold">{{# str }} city, moodle {{/ str }}</p>
+              <p class="m-0 profile-user-info text-link-regular prof-user-city">{{{city}}}</p>
             </div>
           </div>
         {{/city}}
@@ -99,7 +98,7 @@
         <div class="profile-item-col">
           <div class="profile-info-item-wrapper">
             <p class="m-0 info-label text-link-semibold">{{# str }} description, theme_remui {{/ str }}</p>
-            <p  class="m-0 profile-user-info text-link-regular ellipsis ellipsis-2 prof-user-desc">{{description}}</p>
+            <div  class="m-0 profile-user-info text-link-regular ellipsis ellipsis-2 prof-user-desc">{{{description}}}</div>
           </div>
         </div>
         {{/description}}
