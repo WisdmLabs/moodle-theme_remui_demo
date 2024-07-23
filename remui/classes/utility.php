@@ -1486,13 +1486,45 @@ class utility {
             $democontext["hasswitchablerolebtns"] = true;
         } 
 
-        $whatsnew = 'https://demo.tryremui.edwiser.org/whatsnew.json';
-
-        $whatsnewContent = file_get_contents($whatsnew);
-        $siteUrl = $CFG->wwwroot; // Assuming $CFG->wwwroot contains the site URL
-        $whatsnewContent = str_replace('{{>siteurl}}', $siteUrl, $whatsnewContent);
-        $democontext["whatsnew"] = json_decode($whatsnewContent, true);
+        $democontext["whatsnew"] = utility::get_whatsnew_data();
 
         return $democontext;
+    }
+
+    public static function get_whatsnew_data() {
+        global $CFG;
+    
+        // Get cache instance
+        $cache = \cache::make('theme_remui', 'whatsnew');
+    
+        // Check if data is already in cache
+        $whatsnewContent = $cache->get('whatsnewContent');
+        if ($whatsnewContent !== false) {
+            return $whatsnewContent;
+        }
+    
+        $whatsnew = 'https://demo.tryremui.edwiser.org/whatsnew.json';
+    
+        // Use a timeout to prevent hanging on slow connections
+        $context = stream_context_create(['http' => ['timeout' => 5]]);
+        $whatsnewContent = @file_get_contents($whatsnew, false, $context);
+    
+        if ($whatsnewContent === false) {
+            debugging('Unable to fetch whatsnew data', DEBUG_DEVELOPER);
+            return null;
+        }
+    
+        $siteUrl = $CFG->wwwroot;
+        $whatsnewContent = str_replace('{{>siteurl}}', $siteUrl, $whatsnewContent);
+        
+        $whatsnewContent = json_decode($whatsnewContent, true);
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            debugging('Invalid JSON in whatsnew data', DEBUG_DEVELOPER);
+            return null;
+        }
+    
+        $cache->set('whatsnewContent', $whatsnewContent);
+    
+        return $whatsnewContent;
     }
 }

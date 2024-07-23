@@ -37,5 +37,9 @@ $definitions = array(
     'updates' => array(
         'mode' => cache_store::MODE_APPLICATION,
         'ttl' => 10080 // 7 days.
+    ),
+    'whatsnew' => array(
+        'mode' => cache_store::MODE_APPLICATION,
+        'ttl' => 3600 // 1 hours.
     )
 );
