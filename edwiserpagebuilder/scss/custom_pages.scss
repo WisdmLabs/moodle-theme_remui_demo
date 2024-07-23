@@ -240,10 +240,23 @@
         }
     }
 
+    .epb_sitesetting_nav {
+        gap: 8px;
+    }
+
+    .epb-table-wrapper {
+        overflow: auto;
+        width: 100%;
+    }
+
     .epb_table {
         width: 100%;
         border-radius: 12px;
         overflow: hidden;
+
+        @media screen and (max-width: 767px) {
+            width: max-content;
+        }
 
         th {
             padding: 24px 16px;
@@ -628,4 +641,31 @@
     90% {top: -60.3%}
     95% {top: -63.65%}
     100% {top: -67%}
+}
+
+#page-local-edwiserpagebuilder-pageedit {
+    .form-autocomplete-downarrow {
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+
+
+    @media screen and (max-width: 576px) {
+        .form-control {
+            min-width: 100%;
+        }
+
+        .form-autocomplete-suggestions {
+            width: 100%;
+            overflow: auto;
+            
+            li {
+                width: 100%;
+                min-width: max-content;
+            }
+        }
+    }
+
 }

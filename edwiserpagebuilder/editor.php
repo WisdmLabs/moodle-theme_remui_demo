@@ -109,7 +109,7 @@ $PAGE->requires->js_call_amd('local_edwiserpagebuilder/components-tabwithaccordi
 
 
 $PAGE->requires->js( new moodle_url("/local/edwiserpagebuilder/js/edwiserpagebuilder.js" ));
-$PAGE->requires->js_call_amd('local_edwiserpagebuilder/edwiserpagebuilder', 'init');
+$PAGE->requires->js_call_amd('local_edwiserpagebuilder/edwiserpagebuilder', 'init', ['contextid'=>$PAGE->context->id]);
 
 // if ($formsavailable) {
 //     $depndacy["edwiserform"] = true;

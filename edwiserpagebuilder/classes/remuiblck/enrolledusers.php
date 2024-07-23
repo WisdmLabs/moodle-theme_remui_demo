@@ -107,7 +107,7 @@ class enrolledusers{
                     $others = 1;
                     $otherscount += $course->count;
                 } else {
-                    array_push($labels, $course->shortname);
+                    array_push($labels, format_text($course->shortname, FORMAT_HTML));
                     array_push($data, $course->count);
                     array_push($backgroundcolor, $colors[$index]);
                     array_push($hoverbackgroundcolor, $colors[$index]);

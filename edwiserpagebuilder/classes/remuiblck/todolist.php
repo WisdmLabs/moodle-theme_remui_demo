@@ -184,7 +184,8 @@ class todolist{
             if ($USER->id != $task->createdby) {
                 $task->createdby = 0;
             }
-            $task->summary = $task->summary == '' ? get_string('nosummary', 'local_edwiserpagebuilder') : $task->summary;
+            $task->subject = format_text($task->subject, FORMAT_HTML);
+            $task->summary = $task->summary == '' ? get_string('nosummary', 'local_edwiserpagebuilder') : format_text($task->summary, FORMAT_HTML);
             $task->completed = $task->completed != 0;
             $task->due = ($task->completed == 0 && $task->timedue < $today);
             $task->timedue = date('D, M d, Y', $task->timedue);

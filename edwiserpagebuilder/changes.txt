@@ -1,5 +1,19 @@
 CHANGES LOG
 
+Version 4.2.10
+=============
+Feature - Added language translation files for:
+        - Spanish (Spain) (es)
+        - Deutsch (German) (de)
+        - Spanish (Mexico) (es_mx)
+        - Portuguese (Brazil) (pt_br)
+        - France (fr)
+        - Polish (pl)
+        - Arabic (ar) 
+Tweak - UI/UX Improvements:
+        - Removed the title attribute displayed on hover from each block.
+        - Replaced the images of the slider and testimonial action buttons with icons.
+
 Version 4.2.9
 =============
 Feature - New layouts added:

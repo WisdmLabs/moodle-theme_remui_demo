@@ -982,3 +982,15 @@
           }
     }
 }
+.dir-rtl{
+    .edwcheckfield{
+        .form-check{
+            padding-left: 0px;
+        }
+    }
+    .edwslidedelbtn{
+        & > .input{
+            text-align: left !important;
+        }
+    }
+}

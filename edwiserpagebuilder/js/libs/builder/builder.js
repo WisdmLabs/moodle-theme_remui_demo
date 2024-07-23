@@ -2580,23 +2580,33 @@ Vvveb.StyleManager = {
 		var mediaQueryBlocks = this.cssContainer.text().match(mediaQueryRegex);
 
 
-		let keyFramesInsideMediaQuery = mediaQueryBlocks.join('\n\n').match(keyframeRegex);
+		let keyFramesInsideMediaQuery;
+		if (mediaQueryBlocks && Array.isArray(mediaQueryBlocks)) {
+			keyFramesInsideMediaQuery = mediaQueryBlocks.join('\n\n').match(keyframeRegex);
+		} else {
+			keyFramesInsideMediaQuery = null;
+		}
 
-		if(keyFramesInsideMediaQuery != null || keyFramesInsideMediaQuery != undefined){
-			keyFrameBlock = keyFrameBlock.filter(function(item){
+		if (keyFramesInsideMediaQuery != null && keyFramesInsideMediaQuery != undefined) {
+			keyFrameBlock = keyFrameBlock.filter(function(item) {
 				return keyFramesInsideMediaQuery.indexOf(item) == -1;
 			});
 		}
 
-		if(mediaQueryBlocks == null || mediaQueryBlocks == undefined){
+		if (mediaQueryBlocks == null || mediaQueryBlocks == undefined) {
 			mediaQueryBlocks = [];
 		}
 
-		if(keyFrameBlock == null || keyFrameBlock == undefined){
+		if (keyFrameBlock == null || keyFrameBlock == undefined) {
 			keyFrameBlock = [];
 		}
 
-		this.cssContainer.html(keyFrameBlock.join('\n\n')+css+mediaQueryBlocks.join('\n\n'));
+		let mediaQueryBlocksJoined = '';
+		if (mediaQueryBlocks && Array.isArray(mediaQueryBlocks)) {
+			mediaQueryBlocksJoined = mediaQueryBlocks.join('\n\n');
+		}
+
+		this.cssContainer.html(keyFrameBlock.join('\n\n') + css + mediaQueryBlocksJoined);
 
 	},
 

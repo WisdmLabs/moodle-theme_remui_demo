@@ -47,6 +47,10 @@ class addnotes{
 
         $courses = $obj->get_notes_data();
         if ($courses) {
+            foreach($courses as $i => $course) {
+                $course->shortname = format_text($course->shortname, FORMAT_HTML);
+                $course->fullname = format_text($course->fullname, FORMAT_HTML);
+            }
             $context->has_courses = true;
             $context->courses = array_values($courses);
         }

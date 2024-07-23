@@ -128,9 +128,9 @@ class coursehandler {
                     if (!$grade->is_hidden() || $canviewhiddengrade) {
                         $data[$count] = new \stdClass;
                         $data[$count]->courseurl = (new moodle_url('/course/view.php?id=' . $grade->grade_item->courseid))->out();
-                        $data[$count]->course_shortname = $course->shortname;
+                        $data[$count]->course_shortname = format_text($course->shortname, FORMAT_HTML);
                         $data[$count]->assignurl = $cm->url->out();
-                        $data[$count]->grade_itemname = strip_tags(format_text($grade->grade_item->itemname));
+                        $data[$count]->grade_itemname = strip_tags(format_text($grade->grade_item->itemname, FORMAT_HTML));
                         $data[$count]->grade_rawgrade = intval($grade->rawgrade);
                         $data[$count]->grade_rawgrademax = intval($grade->rawgrademax);
                         $data[$count]->timemodified = $grade->timemodified;
@@ -555,7 +555,7 @@ class coursehandler {
                         'content' => (object)[
                             'id' => $post->postid,
                             'discussion' => $post->discussion,
-                            'subject' => $post->subject,
+                            'subject' => format_text($post->subject, FORMAT_HTML),
                             'parent' => $post->parent
                         ],
                         'user' => $postuser

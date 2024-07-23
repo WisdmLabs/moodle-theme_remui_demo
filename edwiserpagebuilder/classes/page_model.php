@@ -373,7 +373,7 @@ class page_model {
      * Get the value of pagename
      */
     public function get_pagename() {
-        return $this->pagename;
+        return format_text($this->pagename,FORMAT_HTML);
     }
 
     /**

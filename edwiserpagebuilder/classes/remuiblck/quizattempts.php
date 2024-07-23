@@ -118,6 +118,11 @@ class quizattempts{
         $sqlq = "SELECT q.id quizid, q.name quizname, q.course courseid from {quiz} q WHERE q.course = ?";
         $quizzes = $DB->get_records_sql($sqlq, array($courseid));
 
+        foreach ($quizzes as $index => $quiz) {
+            $quiz->quizname = format_text($quiz->quizname, FORMAT_HTML);
+            $quizzes[$index] = $quiz;
+        }
+
         return $quizzes;
     }
 

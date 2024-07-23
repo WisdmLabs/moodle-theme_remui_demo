@@ -1,6 +1,8 @@
 define('local_edwiserpagebuilder/edwiserpagebuilder', ['local_edwiserpagebuilder/jquery', 'core/ajax', 'core/url', 'core/fragment', 'core/templates',], function (jQuery, ajax, url, Fragment, Templates) {
+    var CONTEXTID = 1;
     return {
-        init: function () {
+        init: function (contextid) {
+            CONTEXTID = contextid;
             $(document).ready(function () {
                 var fileinput_refrance = null;
                 // if (window.location.hash.indexOf("no-right-panel") != -1) {
@@ -320,7 +322,7 @@ define('local_edwiserpagebuilder/edwiserpagebuilder', ['local_edwiserpagebuilder
                 $('#file-piker-tabs.nav-tabs a').on('click', function() {
                     var tabid = $(this).attr('href'); // Active tab id.
                     if ('#edwiser-tab-file-upload' === tabid) {
-                        Fragment.loadFragment('local_edwiserpagebuilder', 'upload_media_filepicker', 1, []).done(function (html, js) {
+                        Fragment.loadFragment('local_edwiserpagebuilder', 'upload_media_filepicker', CONTEXTID, []).done(function (html, js) {
                             Templates.replaceNode('#edwiser-tab-file-upload', html, js);
                         });
                         $('#epb-save-popup-media').removeClass('d-none');

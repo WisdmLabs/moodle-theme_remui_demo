@@ -145,6 +145,8 @@ class userhandler {
         $coursesforquiz = $DB->get_records_sql($sqlq);
         $is_first_item = true;
         foreach ($coursesforquiz as $course) {
+            $course->shortname = format_text($course->shortname, FORMAT_HTML);
+            $course->fullname = format_text($course->fullname, FORMAT_HTML);
             $context = context_course::instance($course->courseid);
             if (!has_capability('mod/quiz:preview', $context)) {
                 unset($coursesforquiz[$course->courseid]);
@@ -155,6 +157,11 @@ class userhandler {
                 $quizzes = $DB->get_records_sql($sqlq);
                 $is_first_item = false;
             }
+        }
+
+        foreach ($quizzes as $index => $quiz) {
+            $quiz->quizname = format_text($quiz->quizname, FORMAT_HTML);
+            $quizzes[$index] = $quiz;
         }
 
         if ($coursesforquiz) {

@@ -489,7 +489,14 @@ class custom_page_handler
 
 
     public function action_sitepage_table_content($config) {
-        return array_reverse(array_values($this->fetch_list_of_pages()));
+        $pagesarray = array_reverse(array_values($this->fetch_list_of_pages()));
+
+        $pagesarray = array_reverse(array_map(function($page) {
+            $page->pagename = format_text($page->pagename, FORMAT_HTML);
+            return $page;
+        }, $pagesarray));
+
+        return $pagesarray;
     }
 
     public function perform_action($action, $config) {

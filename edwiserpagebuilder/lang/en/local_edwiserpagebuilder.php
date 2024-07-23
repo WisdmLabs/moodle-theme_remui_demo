@@ -127,6 +127,7 @@ $string['pagetable_name'] = "Page name";
 $string['pagename'] = "Page name";
 $string['pagetable_date'] = "Date modified";
 $string['pagetable_action'] = "Actions";
+$string['titlepagetableaction'] = "Actions";
 $string['no_data_text'] = "No data";
 $string['draft_text'] = "Draft";
 $string['hidden_text'] = "Hidden page";
@@ -358,4 +359,9 @@ $string['layoutblocks'] = "Layouts";
 $string['staticallcategory'] = "All categories";
 $string['dynamicallcategory'] = "All dynamic blocks";
 $string['layoutallcategory'] = "All layouts";
+
+$string['updatedblocksinfotext'] = "All remui blocks are upto date";
+$string['formpageselector'] = "Page Selector";
+$string['formpagename'] = "Page Name";
+$string['formpagewidth'] = "Page Width";
 
