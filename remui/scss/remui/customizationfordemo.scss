@@ -12,6 +12,12 @@ body:not(.notloggedin) {
         }
     }
 
+    [data-region=right-hand-drawer] {
+        &.drawer {
+            top: $navbar-height + $subnav-height;
+        }
+    }
+
     @include media-breakpoint-up(lg) {
         .drawer-left,
         .drawer-right {

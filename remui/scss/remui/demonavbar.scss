@@ -126,8 +126,10 @@ $demo-bg-dark-color: #001C1D;
                 }
 
                 .heighlighted-circle {
-                    right: 9px;
-                    top: 10px;
+                    // right: 9px;
+                    // top: 10px;
+                    right: -6px;
+                    top: 3px;
                 }
             }
 
@@ -182,6 +184,19 @@ $demo-bg-dark-color: #001C1D;
 
             .active-lang-short {
                 display: none;
+            }
+        }
+
+        .switch-userrole-name {
+            max-width: 120px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        @include media-breakpoint-up(sm) {
+            .switch-userrole-name {
+                max-width: unset;
             }
         }
 
@@ -503,6 +518,10 @@ $demo-bg-dark-color: #001C1D;
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 34px 66px;
+
+            @media screen and (max-width: 420px) {
+                grid-template-columns: unset;
+            }
         }
 
         .feature {
