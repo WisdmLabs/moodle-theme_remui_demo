@@ -572,8 +572,8 @@ class core_renderer extends \core_renderer {
         $content = "";
         $coursecontext = $this->page->context;
         $ismanager = \theme_remui\utility::check_user_admin_cap($USER);
-        
-        if(($this->page->pagelayout == 'course'  || $this->page->pagetype == 'course-edit'|| $this->page->pagetype == 'course-view-participants' ) && $ismanager){
+
+        if(($this->page->pagelayout == 'course'  || ($COURSE->id != 1 && $this->page->pagetype == 'course-edit') || $this->page->pagetype == 'course-view-participants' ) && $ismanager){
             $header->enrollpageurl = $CFG->wwwroot.'/enrol/index.php?id='.$COURSE->id;
             $header->participantspageurl = $CFG->wwwroot.'/user/index.php?id='.$COURSE->id;
             $header->isenrolled = is_enrolled($coursecontext, $USER->id);

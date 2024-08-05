@@ -132,6 +132,7 @@ if ($pagedata->refid == -1) {
     $pageurl = new moodle_url('/local/edwiserpagebuilder/pagedraft.php', array("id" => $pagedata->id));
 }
 
+$pagedata->pagename = format_text($pagedata->pagename, FORMAT_HTML,array('noclean' => true));
 $pagecontent = [
     "page" => $pagedata,
     "pageurl" => $pageurl,
