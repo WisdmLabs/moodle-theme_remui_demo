@@ -583,4 +583,4 @@ function init() {
 
 export {
     init
-}
+};

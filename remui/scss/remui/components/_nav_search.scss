@@ -1,8 +1,13 @@
-$searchfield-border-rad: 5px !default;
-$searchfield-pad-x: 16px !default;
-$searchfield-pad-y: 12px !default;
-$searchfield-width: 194px !default;
-$searchfield-gap: 8px !default;
+/* 
+ * $searchfield-border-rad: 5px !default;
+ * $searchfield-pad-x: 16px !default;
+ * $searchfield-pad-y: 12px !default;
+ * $searchfield-width: 194px !default;
+ * $searchfield-gap: 8px !default;
+
+ * all the above variables are already defined in theme/remui/scss/preset/remui.scss
+ */
+
 .navbar {
     #usernavigation {
         .simplesearchform {

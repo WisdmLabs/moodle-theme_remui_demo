@@ -54,8 +54,9 @@ $sec-footer-screen : lg;
                 display: flex;
                 // justify-content: space-between;
                 // gap: $footer-content-gap;
+                gap: map-get($gapspace, '6');
                 @include media-breakpoint-down(sm) {
-                    gap: 32px;
+                    gap: map-get($gapspace, '8');
                     flex-direction: column-reverse;
                 }
 
@@ -84,7 +85,7 @@ $sec-footer-screen : lg;
                     .footer-menu {
                         display: flex;
                         flex-direction: column;
-                        gap: 24px;
+                        gap: map-get($gapspace , '6');
 
                         @include media-breakpoint-down(sm) {
                             gap: 17px;
@@ -93,7 +94,7 @@ $sec-footer-screen : lg;
                         .footer-menu-list {
                             display: flex;
                             flex-direction: column;
-                            gap: 8px;
+                            gap: map-get($gapspace , '1');
 
                             h6 a {
                                 color: $ft-link-color;
@@ -113,16 +114,20 @@ $sec-footer-screen : lg;
                     .custom-html {
                         display: flex;
                         flex-direction: column;
-                        gap: 48px;
+                        gap: map-get($gapspace , '12');
 
                         @include media-breakpoint-down(sm) {
-                            gap: 24px;
+                            gap: map-get($gapspace , '6');
+                        }
+
+                        img {
+                            max-width: 100%;
                         }
 
                         .contenthtml {
                             display: flex;
                             flex-direction: column;
-                            gap: 24px;
+                            gap: map-get($gapspace , '6');
 
                             @include media-breakpoint-down(sm) {
                                 gap: 17px;
@@ -226,7 +231,7 @@ $sec-footer-screen : lg;
         .footer-secondarysection-wrapper {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: map-get($gapspace , '1');
             color: $ft-text-color;
 
             a {
@@ -259,7 +264,7 @@ $sec-footer-screen : lg;
                     }
                     display: flex;
                     flex-direction: column;
-                    gap: 8px;
+                    gap: map-get($gapspace , '1');
                     padding-left: 0px;
                     padding-right: 0px;
 
@@ -358,17 +363,17 @@ $sec-footer-screen : lg;
 
                 display: flex;
                 flex-direction: column;
-                gap: 24px;
+                gap: map-get($gapspace , '6');
 
                 .footer-section {
                     display: flex;
                     flex-direction: column;
-                    gap: 8px;
+                    gap: map-get($gapspace , '1');
                     // padding: 1rem 0;
                     // border-bottom: 2px solid $footer-divider-color;
                     .footer-popover-section-links {
                         display: flex;
-                        gap: 8px;
+                        gap: map-get($gapspace , '1');
                         a {
                             color: inherit;
                             .fa-external-link {
@@ -408,7 +413,7 @@ $sec-footer-screen : lg;
             padding: 16px 24px;
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: map-get($gapspace , '1');
             background: $white;
             align-self: stretch;
             color: $paragraph-color;
@@ -421,7 +426,7 @@ $sec-footer-screen : lg;
             }
             .footer-popover-section-links {
                 display: flex;
-                gap: 8px;
+                gap: map-get($gapspace , '1');
 
                 .popover-icon-wrapper {
                     height: 24px;

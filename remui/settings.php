@@ -321,7 +321,16 @@ if ($ADMIN->fulltree) {
     $setting->set_updatedcallback('remui_clear_cache');
     $page->add($setting);
 
-        // Custom favicon temp.
+    // Enable/Disable site loader
+    $name = 'theme_remui/enablesiteloader';
+    $title = new lang_string('enablesiteloader', 'theme_remui');
+    $description = new lang_string('enablesiteloaderdesc', 'theme_remui');
+    $default = true;
+    $setting = new admin_setting_configcheckbox($name, $title, $description, $default, true, false);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+   // Site loader image
     $name = 'theme_remui/loaderimage';
     $title = new lang_string('loaderimagehead', 'theme_remui');
     $description = new lang_string('loaderimagedesc', 'theme_remui');
@@ -335,6 +344,13 @@ if ($ADMIN->fulltree) {
     );
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
+    $remuisettings['enablesiteloader'] = [[
+        'value'  => true,
+        'show' => ['loaderimage'],
+    ], [
+        'value'  => false,
+        'hide' => ['loaderimage'],
+    ]];
 
     // Dark mode setting  heading
     $page->add(new admin_setting_heading(
@@ -474,40 +490,9 @@ if ($ADMIN->fulltree) {
     $page = new admin_settingpage('theme_remui_frontpage', new lang_string('homepagesettings', 'theme_remui'));
 
     $pluginman = core_plugin_manager::instance();
-    if (
-        array_key_exists("remuihomepage", $pluginman->get_installed_plugins('local'    )) &&
-        class_exists('local_remuihomepage_plugin')
-    ) {
-        $homepage = new local_remuihomepage_plugin();
-    } else {
-        $homepage = false;
-    }
     $activehomepage = get_config('theme_remui', 'frontpagechooser');
 
     $edwpagebuilderavailable = is_plugin_available('local_edwiserpagebuilder');
-    $depricationtemplatecontext = [
-        "wwwroot" => $CFG->wwwroot,
-        "data" => "migrate",
-    ];
-    if ($edwpagebuilderavailable) {
-        $pagebuilderreleasedata = get_theme_req_plugin_release_info("local_edwiserpagebuilder");
-        $pagebuilderrelease = $pagebuilderreleasedata->release;
-        $pagebuiderverson = $pagebuilderreleasedata->versiondb;
-        $homepagerelease = false;
-        $homepageversion = 0;
-        if (is_plugin_available('local_remuihomepage')) {
-            $homepagereleaseinfo = get_theme_req_plugin_release_info("local_remuihomepage");
-            $homepagerelease = $homepagereleaseinfo->release;
-        }
-        if (((version_compare($pagebuilderrelease, "4.1.2")) > 0) && ((version_compare($homepagerelease, "4.1.2") > 0))) {
-            $depricationtemplatecontext['showmigratebtn'] = true;
-        } else {
-            $depricationtemplatecontext['showmigratebtn'] = false;
-            $depricationtemplatecontext['disablebtn'] = 'disabled';
-        }
-        $depricationtemplatecontext['ispagebuilderavailable'] = true;
-    }
-    $depricationdescription = $OUTPUT->render_from_template("theme_remui/homepagedeprication", $depricationtemplatecontext);
     if ($edwpagebuilderavailable) {
         $options = array(
             0 => new lang_string('frontpagedesignold', 'theme_remui'),
@@ -530,18 +515,9 @@ if ($ADMIN->fulltree) {
         );
         $setting->set_updatedcallback('theme_reset_all_caches');
         $page->add($setting);
-    } else if(!$homepage) {
-        if ($activehomepage == 1 || $activehomepage == 3) {
+    } else {
             set_config('frontpagechooser', 0, 'theme_remui');
         }
-    }
-    if(is_plugin_available('local_remuihomepage')) {
-        $page->add(new admin_setting_description(
-            'newhomepagedescription',
-            '',
-            $depricationdescription
-        ));
-    }
     if ($activehomepage == 0) {
         
         if (class_exists('admin_setting_heading')) {
@@ -1197,51 +1173,6 @@ if ($ADMIN->fulltree) {
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
-    // Setting to enable new cards style in course archive page.
-    // $name = 'theme_remui/enablenewcoursecards';
-    // $title = new lang_string('enablenewcoursecards', 'theme_remui');
-    // $description = new lang_string('enablenewcoursecardsdesc', 'theme_remui');
-    // $setting = new admin_setting_configselect(
-    // $name,
-    // $title,
-    // $description,
-    // 'coursecarddesign1',
-    // array(
-    // 0 => new lang_string('coursecarddesign', 'theme_remui') . " 1",
-    // 1 => new lang_string('coursecarddesign', 'theme_remui') . " 2"
-    // )
-    // );
-    // $page->add($setting);
-
-    // Setting for enable and disable course category menu.
-    // $name = 'theme_remui/enablecoursecategorymenu';
-    // $title = new lang_string('enablecoursecategorymenu', 'theme_remui');
-    // $description = new lang_string('enablecoursecategorymenudesc', 'theme_remui');
-    // $default = true;
-    // $setting = new admin_setting_configcheckbox($name, $title, $description, $default, true, false);
-    // $setting->set_updatedcallback('theme_reset_all_caches');
-    // $page->add($setting);
-
-    // Text setting for Course Categories option in header.
-    // $name = 'theme_remui/coursecategoriestext';
-    // $title = new lang_string('coursecategoriestext', 'theme_remui');
-    // $description = new lang_string('coursecategoriestextdesc', 'theme_remui');
-    // $default = new lang_string('coursecategories', 'theme_remui');
-    // $setting = new admin_setting_configtext($name, $title, $description, $default);
-    // $setting->set_updatedcallback('theme_reset_all_caches');
-    // $page->add($setting);
-
-    // $remuisettings['enabledisablecoursecategorymenu'] = [[
-    // 'value' => true,
-    // 'show' => [
-    // 'coursecategoriestext'
-    // ]
-    // ], [
-    // 'value' => false,
-    // 'hide' => [
-    // 'coursecategoriestext'
-    // ]
-    // ]];
 
 
     // Setting for next and previous button in activity.

@@ -48,4 +48,4 @@ function init() {
 export default {
     init,
     apply
-}
+};

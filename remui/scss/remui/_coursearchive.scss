@@ -2,9 +2,9 @@ $pagination-item-border-color:$modal-closebutton-color;
 $edw-small-icon-size:16px;
 $edw-common-icon-size:24px;
 $edw-big-size-icon:24px;
-$flex-gap-8:8px;
-$flex-gap-16:16px;
-$flex-gap-24:24px;
+// $flex-gap-8:8px;
+// $flex-gap-16:16px;
+// $flex-gap-24:24px;
 $filter-max-height:40px;
 $category-wrapper-max-height :  300px;
 .placeholder-color{
@@ -27,9 +27,7 @@ $category-wrapper-max-height :  300px;
                 border-radius: 4px;
                 border: unset;
                 padding: 0px;
-                // height: 24px;
-                // width: 24px;
-                border-radius: 4px;
+
                 .edw-icon {
                     color: $ic-default;
                     display: flex;
@@ -46,15 +44,15 @@ $category-wrapper-max-height :  300px;
                 }
             }
         }
-        >.menu-content {
+
+        > .menu-content {
             display: flex;
-            gap: $flex-gap-8;
+            gap: map-get($gapspace , 1);
             flex-direction: column;
             position: absolute;
             top: 32px;
             right: 0px;
         }
-
     }
 }
 
@@ -62,7 +60,7 @@ $category-wrapper-max-height :  300px;
     .date {
         background-color: $course-archive-date-bg;
         border-radius: 2px;
-        padding: 4px;
+        padding: map-get($spacerspx, '1');
         color: $white;
     }
 }
@@ -97,7 +95,6 @@ $category-wrapper-max-height :  300px;
         }
 
         .enrollmenticons-wrapper {
-
             .edw-icon,
             .icon {
                 margin: 0px;
@@ -120,11 +117,6 @@ $category-wrapper-max-height :  300px;
             align-self: center;
             max-width: 250px;
             width: fit-content;
-
-            // @include media-breakpoint-down(md) {
-            //     width: 100%;
-            //     max-width: unset;
-            // }
         }
     }
 
@@ -137,16 +129,16 @@ $category-wrapper-max-height :  300px;
 @mixin expand-card-on-hover {
     .course-info-container {
         background-color: $white;
-    }
-
-    .course-info-container:not(:hover) {
-        min-height: 100%;
-        transition: min-height 0.1s linear 0.4s;
-        
-        .coursesummary,
-        .lesson-date-wrapper,
-        .payment-view-wrapper {
-            display: none !important;
+    
+        &:not(:hover) {
+            min-height: 100%;
+            transition: min-height 0.1s linear 0.4s;
+            
+            .coursesummary,
+            .lesson-date-wrapper,
+            .payment-view-wrapper {
+                display: none !important;
+            }
         }
     }
 
@@ -162,12 +154,10 @@ $category-wrapper-max-height :  300px;
 
     @keyframes animateToTop {
         0% {
-            // opacity: 0.5;
             transform: translateY(calc(40% - 70px));
         }
 
         100% {
-            // opacity: 1;
             transform: translateY(0);
         }
     }
@@ -176,7 +166,6 @@ $category-wrapper-max-height :  300px;
 .category-description-wrapper {
     @extend .para-regular-1;
     color: $paragraph-color;
-
 }
 
 #page-course-index-category{
@@ -194,66 +183,63 @@ $category-wrapper-max-height :  300px;
     }
 }
 
-#course-archive-main-container,.profile-cards-wrapper {
+#course-archive-main-container,
+.profile-cards-wrapper {
     .rating-short-design{
-        .avgrating,.rnr-link{
+        .avgrating,
+        .rnr-link{
             color: $paragraph-color;
         }
+
         .rnr-link {
             position: relative;
         }
-        // .rnr-link:after {
-        //     content: "";
-        //     border-bottom: 1px solid $paragraph-color;
-        //     position: absolute;
-        //     bottom: 0px;
-        //     left: 5px;
-        //     right: 5px;
-        // }
+
         div{
            span{
               order: 2;
               text-align: right;
-              margin-left: 0.25rem;
+              margin-left: map-get($spacersrem, '1');
            }
         }
     }
     .filters-wrapper {
         justify-content: space-between;
         flex-wrap: wrap;
-        gap: 16px;
+        gap: map-get($gapspace , '4');
         align-items: center;
-        padding-bottom: 16px;
+        padding-bottom: map-get($spacerspx, '4');
         border-bottom: 1px solid $medium-border;
 
         @include media-breakpoint-down(md) {
             flex-direction: column;
             align-items: flex-start;
-            gap: $flex-gap-24;
+            gap: map-get($gapspace , 6);
         }
 
         @include media-breakpoint-down(sm) {
-            gap: $flex-gap-16;
+            gap: map-get($gapspace , 4);
             border-bottom: unset;
         }
 
         .all-filters-wrapper {
             justify-content: center;
             align-items: center;
-            gap: $flex-gap-16;
+            gap: map-get($gapspace , 4);
 
             .filter-option {
                 overflow: hidden;
                 max-width: calc(100% - 60px);
                 text-overflow: ellipsis;
                 float: left !important;
-                margin-left: 14px;
+                margin-left: map-get($spacerspx, '3d5');
+
                 @include media-breakpoint-down(sm) {
                     float: unset !important;
                 }
             }
+
             .dropdown-toggle:after {
-                // margin-left: 0!important;
                 clear: both;
             }
 
@@ -269,17 +255,20 @@ $category-wrapper-max-height :  300px;
                 @include media-breakpoint-down(sm) {
                     width: 100%;
                 }
+
                 .dropdown-menu {
                     max-height: 450px;
                     min-width: 450px;
                     max-width: 450px;
                     width: max-content;
                     overflow-y: auto;
+
                     @include media-breakpoint-down(sm) {
                         min-width: 100%;
                         width: 100%;
                         max-width: 100%;
                     }
+
                     &.show{
                         transform: translate3d(0px, 40px, 0px) !important;
                         top: 0px !important;
@@ -314,7 +303,7 @@ $category-wrapper-max-height :  300px;
                 a {
                     @extend .text-link-regular;
                     color: $form-paragraph-color-default;
-                    padding: 16px 24px;
+                    padding: map-get($spacerspx, '4') map-get($spacerspx, '6');
                     margin: 0px;
                     width: 100%;
                     max-width: 100%;
@@ -348,6 +337,7 @@ $category-wrapper-max-height :  300px;
             max-width: 154px;
             overflow: hidden;
             min-width: 137px;
+
             @include media-breakpoint-down(sm) {
                 max-width: 100%;
             }
@@ -365,7 +355,7 @@ $category-wrapper-max-height :  300px;
 
         [aria-controls="moreactionsmenu"] {
             border: 1px solid $form-medium-color-default;
-            padding: 9px 10px;
+            padding: 9px map-get($spacerspx, '2d5');
             color: $form-paragraph-color-default;
             max-height: $filter-max-height;
             // @extend .h-semibold-6;
@@ -376,10 +366,11 @@ $category-wrapper-max-height :  300px;
         .simplesearchform {
             // max-width: 193px;
             .input-group {
-                padding: 8px 12px;
+                padding: map-get($spacerspx, '2') map-get($spacerspx, '3');
                 border: 1px solid $form-medium-color-default;
                 border-radius: 5px;
                 min-width: 193px;
+
                 @include media-breakpoint-down(sm) {
                     width: 100%;
                 }
@@ -393,6 +384,7 @@ $category-wrapper-max-height :  300px;
                         height: $edw-common-icon-size;
                         width: $edw-common-icon-size;
                         z-index: 1;
+
                         .edw-icon {
                             font-size: $edw-icon-size-large;
                             height: 100%;
@@ -405,7 +397,7 @@ $category-wrapper-max-height :  300px;
 
             input.form-control {
                 @extend .navigation-text;
-                margin-left: 8px;
+                margin-left: map-get($spacerspx, '2');
                 padding: 0px;
                 height: unset;
                 background-color: transparent;
@@ -416,7 +408,7 @@ $category-wrapper-max-height :  300px;
         .btn-group {
             display: flex;
             flex-direction: row;
-            gap: $flex-gap-16;
+            gap: map-get($gapspace , 4);
             align-items: center;
             justify-content: center;
             width: 100%;
@@ -457,7 +449,7 @@ $category-wrapper-max-height :  300px;
         .tag_list {
             display: flex;
             flex-wrap: wrap;
-            gap: $flex-gap-8;
+            gap: map-get($gapspace , 1);
             margin: 0px;
             padding: 0px;
 
@@ -546,7 +538,7 @@ $category-wrapper-max-height :  300px;
                 }
 
                 @include media-breakpoint-down(sm) {
-                    gap: $flex-gap-16;
+                    gap: map-get($gapspace , 4);
                     flex-direction: column;
                     align-items: unset;
                 }
@@ -567,14 +559,14 @@ $category-wrapper-max-height :  300px;
                     @include media-breakpoint-down(sm) {
                         flex-direction: column;
                         align-items: unset;
-                        gap: $flex-gap-16;
+                        gap: map-get($gapspace , 4);
                     }
 
                 }
 
                 .view-button-wrapper {
                     width: 100%;
-                    gap: $flex-gap-16;
+                    gap: map-get($gapspace , 4);
                     justify-content: flex-end;
 
                     .view-course-btn {
@@ -592,7 +584,7 @@ $category-wrapper-max-height :  300px;
     }
 
     .cards-pagination {
-        margin-top: 32px;
+        margin-top: map-get($spacerspx, '8');
 
         .pagination {
             ul {
@@ -639,9 +631,7 @@ $category-wrapper-max-height :  300px;
     }
 
     @include media-breakpoint-up(xl) {
-
         @include expand-card-on-hover();
-
     }
 }
 

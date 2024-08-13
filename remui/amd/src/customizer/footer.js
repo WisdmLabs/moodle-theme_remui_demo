@@ -453,7 +453,7 @@ function footerFonts() {
     }
     let footerfontlineheight = $(SELECTOR.FOOTERFONTLINEHEIGHT).val();
     if (footerfontlineheight) {
-        footerfontlineheight = `line-height: ${footerfontlineheight}rem !important;`
+        footerfontlineheight = `line-height: ${footerfontlineheight}rem !important;`;
     }
     let footerfontltrspace = $(SELECTOR.FOOTERFONTLTRSPACE).val();
     if (footerfontltrspace) {
@@ -465,7 +465,7 @@ function footerFonts() {
     let columntitletexttransformvalue = $(SELECTOR.FOOTERCOLUMMTITLETEXTTRANSFORM).val();
     let columntitlefontsize = $(SELECTOR.FOOTERCOLUMMTITLEFONTSIZE).val();
     if (columntitlefontsize) {
-        columntitlefontsize = `font-size:${columntitlefontsize}rem !important;`
+        columntitlefontsize = `font-size:${columntitlefontsize}rem !important;`;
     }
     let columntitlefontlineheight = $(SELECTOR.FOOTERCOLUMMTITLELINEHEIGHT).val();
     if (columntitlefontlineheight) {

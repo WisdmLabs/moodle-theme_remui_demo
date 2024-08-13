@@ -252,16 +252,7 @@ trait get_myoverviewcourses {
                     'picture' => $pictureurl->__toString()
                 ));
             }
-            // $formatecourse->rnrshortdesign = '';
-            // if ($isrnravailable) {
-            // $rnr = new \block_edwiserratingreview\ReviewManager();
-            // $rnrshortdesign = $rnr->get_course_cardlayout_ratingdata($formatecourse->id);
-            // $formatecourse->rnrshortdesign = $rnrshortdesign;
-            // $formatecourse->hasrating = true;
-            // if ($rnrshortdesign == '') {
             $formatecourse->hasrating = false;
-            // }
-            // }
             $resultcourses[] = $formatecourse;
         }
         return [

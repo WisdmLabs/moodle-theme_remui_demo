@@ -1,5 +1,14 @@
 CHANGES LOG
 
+Version 4.2.12
+=============
+Tweak - The loader image for the live customizer editor and page creation modal has been changed.
+
+
+Version 4.2.11
+=============
+Fix - The issue of block regions not being visible on custom pages has been resolved. Additionally, the issue of blocks appearing in the wrong regions on custom pages has also been fixed.
+
 Version 4.2.10
 =============
 Feature - Added language translation files for:
@@ -13,6 +22,7 @@ Feature - Added language translation files for:
 Tweak - UI/UX Improvements:
         - Removed the title attribute displayed on hover from each block.
         - Replaced the images of the slider and testimonial action buttons with icons.
+        - Tweak - Added missing translated string in  lang files.
 
 Version 4.2.9
 =============
@@ -54,11 +64,11 @@ Fix     - The update issue with the page builder in Moodle 4.4 has been fixed.
 Version 4.2.6
 =============
 Feature - Compatibility with Moodle 4.4.
-Tweak   - Further UI/UX improvements done
+Tweak   - Further UI/UX improvements done.
 
 Version 4.2.5
 =============
-Tweak - Minor UI improvements
+Tweak - Minor UI improvements.
 
 Version 4.2.4
 =============

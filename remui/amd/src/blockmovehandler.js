@@ -92,23 +92,23 @@ define(['jquery', 'core/ajax', 'core/str'], function ($, Ajax, Str) {
         if (regiondirecton == 'up') {
             if (index > 0) {
                 var previousElement = blockregionidarr[index - 1];
-                region = previousElement
+                region = previousElement;
             }
         }
         if (regiondirecton == 'down') {
             if (index > -1 && index < blockregionidarr.length - 1) {
                 var nextElement = blockregionidarr[index + 1];
-                region = nextElement
+                region = nextElement;
             }
         }
         return region;
-    }
+    };
     const checkidtype = (id) => {
         if (typeof (id) === "undefined") {
             return false;
         }
         return true;
-    }
+    };
 
     const swapBlocks = ($block1, $block2) => {
         var block1clone = $block1.clone();
@@ -149,7 +149,7 @@ define(['jquery', 'core/ajax', 'core/str'], function ($, Ajax, Str) {
             }
             $("body.pagelayout-frontpage").removeClass("transparent-header");
         }
-    }
+    };
 
     const registerCommonEvents = () => {
         $(document).on('click', SELECTOR.MOVETOP, function () {
@@ -172,7 +172,7 @@ define(['jquery', 'core/ajax', 'core/str'], function ($, Ajax, Str) {
                     }
                 }
             } else {
-                blockmover(currentelementid, movingelementid, swapdirectonup, blockregionarr[curentregion])
+                blockmover(currentelementid, movingelementid, swapdirectonup, blockregionarr[curentregion]);
             }
         });
 

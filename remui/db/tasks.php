@@ -32,5 +32,14 @@ $tasks = [
         'day' => '1',
         'month' => '*',
         'dayofweek' => '*',
+    ],
+    [
+        'classname' => 'theme_remui\task\remui_stats_update',
+        'blocking' => 0,
+        'minute' => '1',
+        'hour' => '0',
+        'day' => '*',
+        'month' => '*',
+        'dayofweek' => '*',
     ]
 ];

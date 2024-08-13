@@ -2,13 +2,14 @@ $card-icon-height :24px;
 $card-icon-width:24px;
 $card-icon-size :16px;
 $card-border-radius:8px;
-$card-list-gap:24px;
-$edw-list-body-padding:24px;
-$flex-gap-8:8px;
-$flex-gap-16:16px;
-$flex-gap-24:24px;
+$card-list-gap:map-get($gapspace , '6');
+$edw-list-body-padding:map-get($spacerspx, '6');
+// $flex-gap-8:8px;
+// $flex-gap-16:16px;
+// $flex-gap-24:24px;
 $avatar-size:$edw-icon-size-large;
 $card-list-gap-half: $card-list-gap / 2;
+
 @mixin edw-course-content-items-style {
    span.categoryname.small-info-semibold{
       color: $heading-color;
@@ -20,7 +21,8 @@ $card-list-gap-half: $card-list-gap / 2;
       word-break: break-word;
       @extend .ellipsis;
       @extend .ellipsis-1;
-      & span.categoryname{
+
+      span.categoryname{
          padding: unset;
       }
    }
@@ -99,7 +101,7 @@ $card-list-gap-half: $card-list-gap / 2;
       border-radius: $card-border-radius;
       border: 1px solid $light-border;
       filter: drop-shadow(map-get($box-shadows-values, xs));
-      gap: $flex-gap-24;
+      gap: map-get($gapspace , 6);
 
       @include media-breakpoint-down(sm) {
          flex-direction: column;
@@ -114,12 +116,15 @@ $card-list-gap-half: $card-list-gap / 2;
             border-radius: $card-border-radius;
             background-repeat: no-repeat;
             background-size: cover;
+
             .dropdown{
                @extend .lh-1;
             }
+
             @include media-breakpoint-down(md) {
                width: 279px;
             }
+
             @include media-breakpoint-down(sm) {
                width: 100%;
                height: 200px;
@@ -131,17 +136,16 @@ $card-list-gap-half: $card-list-gap / 2;
 
       .edw-list-body {
          @include media-breakpoint-down(sm) {
-            padding: 0px $edw-list-body-padding $edw-list-body-padding $edw-list-body-padding;
+            padding: 0px $edw-list-body-padding $edw-list-body-padding;
          }
 
          .edw-card-design-hd {
             @include edw-course-content-items-style();
+            @include edw-instructor-info();
 
             .category-title-wrapper {
                gap: 4px;
             }
-
-            @include edw-instructor-info();
          }
 
          .edw-card-design-bd {
@@ -189,6 +193,7 @@ $card-list-gap-half: $card-list-gap / 2;
       .edw-course-list {
          flex-direction: column;
          padding: 0px;
+
          .edw-course-img-wrapper {
             .card-img {
                width: 100%;
@@ -197,13 +202,12 @@ $card-list-gap-half: $card-list-gap / 2;
                border-bottom-right-radius: 0px;
             }
          }
+
          .edw-list-body {
             padding: 0px $edw-list-body-padding $edw-list-body-padding $edw-list-body-padding;
          }
       }
-
    }
-
 }
 
 .edw-course-card-grid {
@@ -211,6 +215,7 @@ $card-list-gap-half: $card-list-gap / 2;
    // grid-template-columns: minmax(auto, 424px) minmax(auto, 424px) minmax(auto, 424px);
    grid-template-columns: repeat(4,minmax(auto,25%));
    gap: $card-list-gap;
+
    @include media-breakpoint-down(lg){
       grid-template-columns: repeat(3,minmax(auto,1fr));
    }
@@ -222,7 +227,6 @@ $card-list-gap-half: $card-list-gap / 2;
 
    @include media-breakpoint-down(sm) {
       grid-template-columns: minmax(auto, 100%);
-      justify-content: center;
    }
 }
 
@@ -303,11 +307,14 @@ $card-list-gap-half: $card-list-gap / 2;
 .edw-course-summary-container {
    gap: $card-list-gap;
    @include edw-course-list-veiw();
+
    .progress-data-wrapper{
       width: 30% ;
+
       @include media-breakpoint-down(md){
          width: 50%;
       }
+
       @include media-breakpoint-down(sm){
             width: 100% ;
       }
@@ -326,24 +333,25 @@ body.limitedwidth {
    .edw-course-card-grid{
       grid-template-columns: repeat(3, minmax(auto, 1fr));
       @include media-breakpoint-down(md) {
-         // grid-template-columns: minmax(auto, 424px) minmax(auto, 424px);
          grid-template-columns: repeat(2,minmax(auto,50%));
          justify-content: center;
       }
 
       @include media-breakpoint-down(sm) {
          grid-template-columns: minmax(auto, 100%);
-         justify-content: center;
       }
-
    }
+
    .edw-course-list-container {
       gap: $card-list-gap;
       @include edw-course-list-veiw();
    }
-   .edw-course-summary-container,.edw-course-list-container {
+
+   .edw-course-summary-container,
+   .edw-course-list-container {
       .progress-data-wrapper{
          width: 240px;
+
          @include media-breakpoint-down(sm){
                width: 100% ;
          }
@@ -376,15 +384,13 @@ body:not(.limitedwidth) {
       display: grid;
       gap: $card-list-gap;
 
-      @include media-breakpoint-down(lg) {
-         // grid-template-columns: 1fr;
-      }
       .progress-data-wrapper{
          width: 260px;
    
          @include media-breakpoint-down(md){
             width: 240px;
          }
+
          @include media-breakpoint-down(sm){
             width: 100%;
          }

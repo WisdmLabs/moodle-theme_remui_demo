@@ -59,7 +59,7 @@ $edwqmenu-margin: 14px;
 }
 
 @include media-breakpoint-down(sm) {
-	#edw-quick-menu .quick-menu-nav .menu-item[title="Customizer"] {
+	#edw-quick-menu .quick-menu-nav .menu-item[title="Visual personalizer"] {
 		display: none;
 	}
 }

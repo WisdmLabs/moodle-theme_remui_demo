@@ -144,7 +144,7 @@ define([
                 $('.prof-user-country').text(countryname);
                 $('.prof-user-city').text(profileData.city);
                 $('.prof-user-address').text(profileData.address);
-            }, 1000)
+            }, 1000);
 
         })
             .fail(function (ex) {
@@ -199,6 +199,6 @@ define([
         $(SELECTORS.CANCELICON).toggleClass('d-none');
         $(SELECTORS.PROFILEABOUTMEWRAPPER).toggleClass('d-none');
         $(SELECTORS.EDITPROFILEDETAILSWRAPPER).toggleClass('d-none');
-    })
+    });
 
 });

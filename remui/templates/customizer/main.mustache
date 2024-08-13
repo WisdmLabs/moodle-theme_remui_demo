@@ -105,14 +105,14 @@
         <div class="inner-wrap">
             <div class="customizer-preview h-100 m-auto">
                 <iframe class="h-100 w-100" id="customizer-frame" data-src="{{{url}}}" frameborder="0"></iframe>
-                <div class="customizer-overlay" id="preview-overlay">
-                    <img src="{{{loader}}}"/>
+                <div class="customizer-overlay bg-white" id="preview-overlay">
+                    {{#loader}}<img src="{{{loader}}}"/>{{/loader}}
                 </div>
             </div>
         </div>
     </div>
     <div class="bg-white customizer-overlay d-none" id="main-overlay">
-        <img src="{{{loader}}}"/>
+        {{#loader}}<img src="{{{loader}}}"/>{{/loader}}
     </div>
 </div>
 <div id="settings-save-modal" class="modal moodle-has-zindex" data-region="modal-container" role="dialog" tabindex="-1" style="z-index: 1052;">

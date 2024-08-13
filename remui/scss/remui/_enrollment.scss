@@ -1,8 +1,8 @@
 $enrol-section-bg-color: $white;
-$enrol-section-pad-lg: 24px;
-$enrol-section-pad-sm: 16px;
-$enrol-section-gap: 16px;
-$enrol-section-gutter: 24px;
+$enrol-section-pad-lg: map-get($spacerspx, '6');
+$enrol-section-pad-sm: map-get($spacerspx, '4');
+$enrol-section-gap: map-get($gapspace , '4');
+$enrol-section-gutter: map-get($gapspace , '6');
 $enrol-course-heading-color: $heading-color;
 $enrol-course-para-color: $paragraph-color;
 $course-metadata-gap: 70px;
@@ -20,7 +20,6 @@ $course-metadata-gap: 70px;
 
     .enrollment-sections {
         margin-bottom: $enrol-section-gutter;
-
         display: grid;
         grid-template-columns: 2fr 1fr;
         gap: 24px;
@@ -50,10 +49,6 @@ $course-metadata-gap: 70px;
             display: flex;
             flex: 0 0 calc(70% - #{$enrol-section-gutter});
             flex-direction: column;
-            // gap: $enrol-section-gap;
-            // .course-title {
-            //     color: $enrol-course-heading-color;
-            // }
             padding: 0;
 
             .rating-short-design {
@@ -100,28 +95,25 @@ $course-metadata-gap: 70px;
                 display: flex;
                 flex-direction: column;
             }
+
             .bottom {
                 margin-top: 0;
                 .list-item-group {
                     .list-item {
                         padding: map-get($spacerspx, 4) map-get($spacerspx, 6);
+                        
                         .custom-title-wrapper{
                             width: 40%;
                         }
+
                         .sub-label{
                             width: 60%;
                             word-break: break-word;
-                        }
-                        p {
-                            margin: 0;
+                            color: $paragraph-color;
                         }
 
-                        .label {
-                            // color: $enrol-course-heading-color;
-                        }
-                        .sub-label {
-                            // color: $enrol-course-para-color;
-                            color: $paragraph-color;
+                        p {
+                            margin: 0;
                         }
 
                         @include media-breakpoint-down(lg) {
@@ -163,19 +155,71 @@ $course-metadata-gap: 70px;
                     }
                 }
             }
+
             .pricing {
                 display: flex;
                 flex-direction: column;
                 padding: map-get($spacerspx, 6) map-get($spacerspx, 6) map-get($spacerspx, 1);
                 // color: $enrol-course-heading-color;
+
                 &--label {
                     // @extend .h-regular-6;
                     color: $heading-color;
                     @include get_typography(6, regular, all);
                 }
+
                 &--price {
                     // @extend .h-bold-2;
                     @include get_typography(2, bold, all);
+                    word-break: break-word;
+                }
+
+                .default-pricing-section.disabled {
+                    opacity: 0.3;
+                    pointer-events: none;
+                }
+            }
+            .enable-pricing-text-msg {
+                background-color: $orange;
+                border-radius: $secondarynavbar-border-size;
+
+                p {
+                    color: $warning-btn-color;
+                }
+            }
+            .custom-price-form-box {
+                .form-group {
+                    height: 40px;
+                    position: relative;
+                    max-width: 200px;
+
+                    .form-control {
+                        height: 100%;
+                    }
+
+                    .clear-customprice-input {
+                        color: $button-primary-color-background !important;
+                        position: absolute;
+                        font-size: $edw-icon-size-large;
+                        width: $edw-icon-size-large;
+                        height: $edw-icon-size-large;
+                        top: 50%;
+                        right: 10px;
+                        transform: translateY(-50%);
+                        cursor: pointer;
+                    }
+                }
+
+                .save-btn-wrapper {
+                    min-width: fit-content;
+                }
+
+                .value-saved {
+                    color: $green;
+                }
+
+                @include media-breakpoint-down(lg) {
+                    flex-wrap: wrap;
                 }
             }
             .enroll-btn-wrapper {
@@ -216,20 +260,19 @@ $course-metadata-gap: 70px;
                     transform: translateY(-90%);
                     clip-path: polygon(47% 0, 53% 0, 100% 100%, 0% 100%);
                     z-index: -1;
-                }
-
-                .top-pointer-icon::before {
-                    content: "";
-                    position: absolute;
-                    top: 1px;
-                    left: 1px;
-                    right: 1px;
-                    bottom: 1px;
-                    background-color: $light;
-                    clip-path: polygon(47% 0, 53% 0, 100% 100%, 0% 100%);
+                
+                    &::before {
+                        content: "";
+                        position: absolute;
+                        top: 1px;
+                        left: 1px;
+                        right: 1px;
+                        bottom: 1px;
+                        background-color: $light;
+                        clip-path: polygon(47% 0, 53% 0, 100% 100%, 0% 100%);
+                    }
                 }
             }
-
         }
 
         .courseoverview-section {
@@ -297,6 +340,7 @@ $course-metadata-gap: 70px;
         }
         .video-container {
             padding: map-get($spacerspx, 4) map-get($spacerspx, 6) map-get($spacerspx, 6);
+            
             .videoframe {
                 width: 100%;
                 min-height: 390px;
@@ -318,7 +362,6 @@ $course-metadata-gap: 70px;
         }
     }
 
-    
     .enrol-mainarea-hidden-contentainer {
         background-color: $white;
     }
@@ -625,6 +668,9 @@ $course-metadata-gap: 70px;
                         padding-left: map-get($spacerspx, 6);
                     }
                 }
+            }
+            .custom-price-form-box {
+                flex-wrap: wrap;
             }
         }
     }

@@ -186,6 +186,10 @@ fieldset.collapsible {
                 align-items: center;
                 padding: 0 !important;
                 margin: 0 10px;
+
+                &:has(.edw-icon) {
+                    width: 22px;
+                }
             }
         }
     }

@@ -307,7 +307,7 @@ function apply() {
     switchBgHandler();
     handleHeaderColors();
     handleIconColors();
-    handleBoxShadow()
+    handleBoxShadow();
     handleMenuItemColors();
     handleMenuItemTextStyling();
     handleNodes();
@@ -363,7 +363,7 @@ function init() {
         ${SELECTORS.MENUACTIVECOLOR}
     `).on('color.changed', handleMenuItemColors);
 
-    $(`${SELECTORS.MENULOGOLAYOUT}`).on('change', handleheaderlayout)
+    $(`${SELECTORS.MENULOGOLAYOUT}`).on('change', handleheaderlayout);
 
     // Handle node visibility.
     let id = [];
@@ -380,4 +380,4 @@ function init() {
 export default {
     init,
     apply
-}
+};

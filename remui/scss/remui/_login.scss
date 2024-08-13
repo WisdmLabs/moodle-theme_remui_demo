@@ -39,10 +39,10 @@ $login-link-hover-color:$loginpanellinkhovercolor;
       margin: auto;
     }
     &:before {
-      margin-right: 10px
+      margin-right: map-get($spacerspx, '2d5');
     }
     &:after {
-      margin-left: 10px
+      margin-left: map-get($spacerspx, '2d5');
     }
 }
 #page-login-signup{
@@ -70,14 +70,28 @@ $login-link-hover-color:$loginpanellinkhovercolor;
                 background: rgba(0, 0, 0, $login-page-opacity);
             }
         }
+
+        #region-main-box,
+        #region-main {
+            padding: 0;
+        }
     }
-    @include media-breakpoint-up (md) {
-        #page-footer {
-            .footer-container.container {
-                padding: 0;
+    #page-footer{
+        .footer-container.container{
+            padding: 0px;
+            .footer-secondarysection-wrapper,.footer-mainsection-wrapper,.footer-content-popover{
+                display: none;
             }
         }
     }
+
+    &.logincenter {
+        .login-container {
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+    }
+
     .logo-area {
         padding: 5px 0px;
         .logo,
@@ -100,6 +114,11 @@ $login-link-hover-color:$loginpanellinkhovercolor;
         scrollbar-width: none;  /* Firefox */
         &::-webkit-scrollbar {
             display: none;  /* Safari and Chrome */
+        }
+
+        @include media-breakpoint-down(sm) {
+            margin: 2rem;
+            border-radius: 4px;
         }
     }
     .login-description-container {
@@ -222,6 +241,7 @@ $login-link-hover-color:$loginpanellinkhovercolor;
             padding-top: 0 !important;
         }
     }
+
     &#page-login-signup {
         .mform {
             .form-group {
@@ -231,35 +251,7 @@ $login-link-hover-color:$loginpanellinkhovercolor;
             }
         }
     }
-}
 
-.pagelayout-login {
-    #page {
-        #region-main-box,
-        #region-main {
-            padding: 0;
-        }
-    }
-    #page-footer{
-        .footer-container.container{
-            padding: 0px;
-            .footer-secondarysection-wrapper,.footer-mainsection-wrapper,.footer-content-popover{
-                display: none;
-            }
-        }
-    }
-    &.logincenter {
-        .login-container {
-            margin-top: 2rem;
-            margin-bottom: 2rem;
-        }
-    }
-    @include media-breakpoint-down(sm) {
-        .login-container {
-            margin: 2rem;
-            border-radius: 4px;
-        }
-    }
     @include media-breakpoint-up(md) {
         &.loginleft,
         &.loginright {
@@ -302,11 +294,11 @@ $login-link-hover-color:$loginpanellinkhovercolor;
             }
         }
     }
-
 }
+
 .password-field-eye {
     input {
-        padding-right: 40px;
+        padding-right: map-get($spacerspx, '10');
     }
     .edw-icon {
         position: absolute;

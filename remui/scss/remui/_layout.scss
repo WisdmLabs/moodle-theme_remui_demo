@@ -100,7 +100,7 @@ $drawer-open-container-padding-x: 3rem !default;
         margin-bottom: $drawer-main-inner-margin-y;
     }
 }
-.remui-notification #page.drawers {
+body.remui-notification #page.drawers:has(.site-announcement) {
     .main-inner {
         margin-top: $drawer-main-inner-margin-y + 1rem;
     }

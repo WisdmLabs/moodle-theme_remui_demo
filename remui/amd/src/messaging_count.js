@@ -39,24 +39,42 @@ define(
         MessageDrawerEvents,
     ) {
 
-        const getUserCount = function () {
-            Ajax.call([{
-                methodname: 'theme_remui_get_msg_contact_list_count',
-                args: {
-                    userid: 1
-                },
-                done: function (data) {
-                    data = $.parseJSON(data);
-                    $('.show-contacts-section span').remove();
-                    $('.show-contacts-section').append(data.showmsgcount);
-                    $('[data-action="show-requests-section"] span').remove();
-                    $('[data-action="show-requests-section"]').append(data.showrequestcount);
-                },
-                fail: function () {
-                    console.log(Notification.exception);
-                }
-            }]);
+        let getUserCountListPromise = null;
+
+        const setUserCount = function(data) {
+            $('.show-contacts-section span').remove();
+            $('.show-contacts-section').append(data.showmsgcount);
+            $('[data-action="show-requests-section"] span').remove();
+            $('[data-action="show-requests-section"]').append(data.showrequestcount);
         };
+
+        const getUserCount = function() {
+            if (!getUserCountListPromise) {
+                getUserCountListPromise = new Promise((resolve) => {
+                    Ajax.call([{
+                        methodname: 'theme_remui_get_msg_contact_list_count',
+                        args: {
+                            userid: 1
+                        },
+                        done: function(data) {
+                            const parsedData = $.parseJSON(data);
+                            resolve(parsedData);
+                        },
+                        fail: function() {
+                            console.log(Notification.exception);
+                        }
+                    }]);
+                });
+            }
+
+            // eslint-disable-next-line promise/always-return
+            getUserCountListPromise.then(data => {
+                setUserCount(data);
+            }).catch(error => {
+                console.error("Error fetching user count:", error);
+            });
+        };
+
         const getLogInUserdetails = function () {
             Ajax.call([{
                 methodname: 'theme_remui_get_login_user_detail',

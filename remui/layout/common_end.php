@@ -87,7 +87,7 @@ if (\theme_remui\toolbox::get_setting('enablequickmenu') && isloggedin()) {
 
 }
 
-$templatecontext['statloader'] = $CFG->wwwroot.'/theme/remui/pix/statloader.gif';
+$templatecontext['siteinnerloader'] = $CFG->wwwroot.'/theme/remui/pix/siteinnerloader.svg';
 // Add a block floating button
 $templatecontext['addblockfloatmenu'] = \theme_remui\utility::addblockfloatmenu();
 

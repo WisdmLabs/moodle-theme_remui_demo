@@ -118,8 +118,9 @@ class course_renderer extends \core_course_renderer {
                     'viewmoretext' => new lang_string('fulllistofcourses')));
 
         $chelper->set_attributes(array('class' => 'frontpage-course-list-all'));
-        $courses = core_course_category::get(0)->get_courses($chelper->get_courses_display_options());
-        $courselength = count($courses);
+        // $courses = core_course_category::get(0)->get_courses($chelper->get_courses_display_options());
+
+        $courselength = $CFG->frontpagecourselimit;
         $totalcount = core_course_category::get(0)->get_courses_count($chelper->get_courses_display_options());
         if (!$totalcount &&
         !$this->page->user_is_editing() &&

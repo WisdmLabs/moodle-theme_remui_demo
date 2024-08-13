@@ -61,7 +61,7 @@ function init() {
             $(usernotprefclass).removeClass('active');
             $(SELECTORS.DEFAULTBLOCKWRAPPER).removeClass(notactiveclassview).addClass(activeclassview);
         }
-    })
+    });
 
     document.addEventListener('click', e => {
         const selecteditem = e.target.closest('.add-block-list-view');
@@ -74,7 +74,7 @@ function init() {
             $(usernotprefclass).removeClass('active');
             $(SELECTORS.DEFAULTBLOCKWRAPPER).removeClass(notactiveclassview).addClass(activeclassview);
         }
-    })
+    });
 
     document.addEventListener('click', e => {
         const selecteditem = e.target.closest('.edwiseradvancedblocktab');
@@ -86,7 +86,7 @@ function init() {
             $('.moodleblocktab').removeClass('active show');
             $('.action-buttons-modal').removeClass('d-none');
         }
-    })
+    });
 
     document.addEventListener('click', e => {
         const selecteditem = e.target.closest('.edwmoodleblockstab');
@@ -98,9 +98,9 @@ function init() {
             $('.advancedblocktab').removeClass('active show');
             $('.action-buttons-modal').addClass('d-none');
         }
-    })
+    });
 }
 
 export {
     init
-}
+};

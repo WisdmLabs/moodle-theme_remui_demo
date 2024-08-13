@@ -1258,9 +1258,7 @@ $string['small-info-fontweight_desc'] = 'Configurar el peso de la fuente para in
 $string['full-width-top'] = 'Superior de ancho completo';
 $string['full-bottom'] = 'Inferior de ancho completo';
 
-$string['homepagedepricationmodalhead'] = 'Advertencia de depreciación de la página de inicio';
 
-$string['homepagedepricationmodaldesc'] = 'El constructor de la página de inicio se eliminará próximamente.';
 $string['homepageedwpagebuilderoption'] = "Usar Edwiser Pagebuilder para la página de inicio";
 
 $string['livecustomizer'] = "Personalizador en vivo";
@@ -1307,21 +1305,7 @@ $string['settingpagedepbottomsecondaryst4'] = 'El código y el contenido de cada
 $string['settingpagedepbottomsecondaryst5'] = '<span class="para-semibold-1 m-0">Nota:</span> Esta es la última actualización sobre el Constructor de Páginas de Inicio. Ahora se ha fusionado en el Constructor de Páginas de Edwiser';
 
 
-// depricatio modal strigs
-$string['homepagedepricationmodalst1'] = '¡Introduciendo una mejor manera de construir y personalizar páginas de inicio!';
-$string['homepagedepricationmodalst2'] = '<p class="para-regular-1 m-0">Con esta actualización, ahora puede aprovechar el poder del <span class="para-semibold-1">Edwiser RemUI Page Builder diseñado específicamente para páginas de inicio.</span></p>';
-$string['homepagedepricationmodalfeatureitem1'] = 'Constructor de páginas mejorado';
-$string['homepagedepricationmodalfeatureitem2'] = 'Más de 30 plantillas de bloques bien diseñadas';
-$string['homepagedepricationmodalfeatureitem3'] = '7 diseños de página de inicio';
-$string['homepagedepricationmodalfeatureitem4'] = 'Crear diseños personalizados';
 
-$string['homepagedepricationmodalst3'] = '¿Listo para dar el siguiente paso?';
-$string['homepagedepricationmodalst4'] = 'Haga clic a continuación para ir a la configuración y migrar sin problemas su página de inicio existente';
-$string['homepagedepricationmodalst5'] = 'Configuración de la página';
-$string['homepagedepricationmodalst6'] = 'No mostrar esto de nuevo';
-$string['homepagedepricationmodalst7'] = '<span class="para-regular-2">Nota:</span> Después de las próximas tres actualizaciones, el constructor de páginas de inicio actual se depreciará en Edwiser RemUI';
-
-$string['homepagedrpecationmodalst8'] = 'El nuevo constructor de páginas de Edwiser RemUI está disponible en RemUI Pro y los planes mencionados anteriormente. Si está en el paquete de inicio de RemUI, puede';
 $string['upgradeherelinktext'] = 'actualizar aquí';
 
 $string['addnewpage'] = "Agregar una nueva página";
@@ -1383,7 +1367,7 @@ $string['editreviewapproval'] = 'Editar aprobación de reseñas';
 $string['addchangevideo'] = 'Agregar/Cambiar video';
 $string['novideomessage'] = 'No hay video.<br>Haz clic en el enlace de arriba para agregar un video.';
 $string['changecourseimage'] = 'Cambiar imagen del curso';
-$string['changebtntextandlink'] = 'Cambiar texto del botón y enlace';
+$string['changebtntextandlink'] = 'Añadir enlace y precio';
 $string['edit'] = 'Editar';
 $string['viewalltext'] = 'Ver todo';
 $string['addremuicustomfield'] = 'Agregar campo personalizado de RemUI';
@@ -1466,41 +1450,6 @@ $string["switchtodm"] = "Modo oscuro";
 $string["switchtolm"] = "Modo claro";
 $string["disabledmwarning"] = "Para habilitar el Personalizador visual, apaga la vista previa del modo oscuro.";
 
-$string["forcefullmigratemsgheading"] = "Introduciendo una mejor forma de construir y personalizar páginas de inicio.";
-$string["migratemodalheading"] = "Introduciendo una mejor forma de construir y personalizar páginas de inicio.";
-
-$string["migragetcheckboxlabel"] = "Entiendo la advertencia anterior.";
-$string["migratewarningmsg"] = 'El antiguo Constructor de Páginas de Inicio de Edwiser ya no es compatible. Para asegurarte de que tu sitio web esté actualizado, necesitamos trasladar tu página de inicio al nuevo y mejorado "Constructor de Páginas Edwiser RemUI".<br><br>
-        <span style="font-weight: 600; display: inline-block; margin-bottom: 8px;">Esto es lo que debes hacer:</span>
-        <span class="deprication-choice d-flex flex-gap-4">
-            <span class="choice-1">
-                {$a->clickok}<br>
-                <span style="font-size: 12px; line-height: 15px;">
-                    <span style="font-weight: 600; display: inline-block; margin-top: 8px;">Ten en cuenta:</span> Elegir "Aceptar" no migrará el contenido actual de tu página de inicio.<br>
-                </span>
-            </span>
-            <span class="align-self-center" style="font-weight: 600;">O</span>
-            <span class="choice-2">
-                {$a->warningmsg}
-            </span>
-        </span><br>
-        No te preocupes, este proceso es sencillo y no afectará la funcionalidad de tu sitio web.';
-
-$string["migratewarningmsg1"] = "Haz clic en <span style=\"font-weight: 600;\">‘Migrar’</span> para transferir automáticamente el contenido actual de tu página de inicio al nuevo constructor de páginas.";
-$string["migratewarningmsg2"] = 'Actualiza el Constructor de Páginas Edwiser para migrar tu página de inicio. <a href="https://edwiser.helpscoutdocs.com/article/572-how-to-migrate-current-homepage-to-the-edwiser-page-builder" target="_blank" >Ver instrucciones <span class="edw-icon edw-icon-Shortcut redirect-shortcut"></span></a><br>';
-$string["migratewarningmsg3"] = 'Instala la última versión del Constructor de Páginas Edwiser desde la <a href="https://edwiser.org/my-account/" target="_blank" >Página de Mi cuenta de Edwiser <span class="edw-icon edw-icon-Shortcut redirect-shortcut"></span></a> para migrar tu página de inicio actual.<br>';
-$string["migratewarningmsg4"] = 'El Constructor de Páginas de Inicio de Edwiser ya no es compatible. Por favor, desinstala "Edwiser Homepage Builder (local_remuihomepage)" desde <a href="{$a}" target="_blank">aquí</a>.<br><br>
-<span style="font-size: 12px; line-height: 15px;">
-    <span style="font-weight: 600;">Ten en cuenta:</span> ¡Este paso es opcional, pero lo recomendamos!
-</span>';
-$string["migratewarningmsg5"] = 'Actualiza el Constructor de Páginas Edwiser y el Constructor de Páginas de Inicio de Edwiser a la última versión para migrar tu página de inicio actual. Para descargar la última versión <a href="https://edwiser.org/my-account/" target="_blank" >Haz clic aquí <span class="edw-icon edw-icon-Shortcut redirect-shortcut"></span></a><br>';
-
-$string["clickokmigratewarningmsg"] = 'Haz clic en <span style="font-weight: 600;">‘Aceptar’</span> para crear una página de inicio con el constructor de temas RemUI heredado.';
-$string["clickokmigratewarningmsg2"] = 'Haz clic en <span style="font-weight: 600;">‘Aceptar’</span> para empezar de nuevo con el nuevo constructor y crear una nueva página de inicio';
-
-$string["migragettoastmsg1"] = "El constructor de páginas Edwiser RemUI está configurado. Para migrar la página de inicio ";
-$string["migragettoastmsg2"] = "El constructor de páginas Edwiser RemUI está configurado.";
-$string["migragettoastmsg3"] = "El constructor de páginas legacy está configurado.";
 
 $string["here"] = "aquí";
 $string["clickhere"] = "Haz clic aquí";
@@ -1514,3 +1463,11 @@ $string['moodleblocks'] = 'Bloques de Moodle';
 
 $string['citytown'] = 'Ciudad/Pueblo';
 $string['searchtext'] = 'Texto de búsqueda';
+$string['enablesiteloader'] = "Habilitar/Deshabilitar imagen de carga";
+$string['enablesiteloaderdesc'] = "Para deshabilitar el GIF de carga en el sitio, desmarque la casilla denominada \"Habilitar/Deshabilitar imagen de carga\". Para habilitarlo, simplemente marque la casilla.";
+$string['aria:courseimage'] = 'Imagen del curso';
+
+$string['addcustomprice'] = 'Agregar un precio personalizado';
+$string['enablepricingsettingstext'] = 'Habilitar el precio predeterminado eliminará el "precio personalizado y el enlace de inscripción personalizado".';
+$string['enabledefaultpricing'] = 'Habilitar precio predeterminado';
+$string["dashboardstatsupdate"] = "Actualización de estadísticas de RemUI";

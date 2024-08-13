@@ -120,7 +120,7 @@ define([
 
     // Layout Chooser Modal.
     const openLayoutSelector = async(callback, onlylayout = false) => {
-        var loaderurl = M.cfg.wwwroot + '/local/edwiserpagebuilder/pix/loading.gif';
+        var loaderurl = M.cfg.wwwroot + '/local/edwiserpagebuilder/pix/siteinnerloader.svg';
         layoutmodal = await ModalFactory.create({
             title: onlylayout ? LANGS[6] : LANGS[0],
             type: ModalFactory.types.SAVE_CANCEL,

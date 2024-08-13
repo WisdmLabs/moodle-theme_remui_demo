@@ -49,7 +49,6 @@ define([
     var cardswrapperarea = $('.course-cards');
     var cardspagination = $('.cards-pagination');
 
-    var pageheaderactions = '.page-header-actionss';
     // View templates.
     var gridtemplate = 'theme_remui/course_card_grid';
     var listtemplate = 'theme_remui/course_card_list';
@@ -57,7 +56,6 @@ define([
 
     var searchfilter = $('.layout-1 .filters-wrapper .simplesearchform');
 
-    var mycoursescheckbox = $('.custom-switch');
 
     var coursecounter = $('.course-counter span.course-number');
 
@@ -106,7 +104,7 @@ define([
             _obj.page = {courses: 0, mycourses: 0};
         };
         return _obj;
-    }
+    };
 
     /**
      * Course content object to handle ajax.
@@ -169,7 +167,6 @@ define([
                 var targetElement = $('.categoryfiltermenu .dropdown-menu a[data-cat-id="' + filterdata.category + '"]');
                 $('.categoryfiltermenu .categoryfilter span').text(targetElement.text());
             }
-            // $("#categoryfilter.selectpicker").selectpicker('val', filterdata.category);
         }
 
         if (filterdata.tab == true) {
@@ -185,8 +182,6 @@ define([
             $(searchfilter).find('input[type="text"]').val(filterdata.search);
         }
 
-        // Put animation over here.
-        // $(".filters-wrapper").removeClass('d-none');
     }
 
     /**
@@ -277,11 +272,11 @@ define([
             });
 
             $(_leftscroll).on("mouseout", function() {
- clearInterval(_lInterval);
-});
+                clearInterval(_lInterval);
+            });
             $(_rightscroll).on("mouseout", function() {
- clearInterval(_rInterval);
-});
+                clearInterval(_rInterval);
+            });
         }
     };
 
@@ -353,27 +348,11 @@ define([
         }]);
         getcourses[0].done(function(response) {
             response = JSON.parse(response);
-            // $("#page-header").load(location.href + " #page-header");
-            // $(".filters-wrapper .navitem").load(location.href + " .filters-wrapper .navitem");
-            // Empty the action button on top header, and add new ones.
-            $(coursecounter).text(response.totalcoursescount);
-            $(pageheaderactions).empty();
-            if (response.hasmanagebutton == true) {
-                $(pageheaderactions).append(response.managebuttons);
-            }
 
-            // Show category management dropdown button when user has 'moodle/category:manage' capability.
-            if (response.dropdown != undefined) {
-                $('#page-header .page-header-actionss').append(response.dropdown);
-            } else {
-                $('#page-header .page-header-actionss [data-enhance="moodle-core-actionmenu"]').remove();
-            }
+            $(coursecounter).text(response.totalcoursescount);
 
             // Get the view.
             var viewobj = (typeof filterobj.view === "undefined") ? response.view : filterobj.view;
-            // Var viewobj = 'grid'; // View is always in grid form.
-            // Select the template to render according to view.
-            // Var rendertemplate = (viewobj == 'grid' || response.latest_card) ? gridtemplate : listtemplate;
 
             // It will handle the view buttons synchronization with myoverview settings
             var filterbuttonsarray = $('.filters-wrapper .view-buttons .btn');
@@ -474,28 +453,30 @@ define([
     }
 
     /**
-     * This function is commented because no one is going to resize the screen.
-     * @param  {String} view View typ
+     * Updates the view of the course cards based on the specified view type.
+     *
+     * @param {string} view - The view type to update to ('grid', 'list', or 'summary').
+     * @returns {void}
      */
     function updateView(view) {
-        if (view == 'grid') {
+        const views = {
+            grid: 'grid-view edw-course-card-grid',
+            list: 'list-view list-group edw-course-list-container',
+            summary: 'summary-view edw-course-summary-container d-flex flex-column m-0'
+        };
+
+        const commonRemoveClasses = Object.values(views).join(' ');
+        const btnSelector = `.${view}_btn`;
+
+        cardswrapperarea
+            .removeClass(commonRemoveClasses)
+            .addClass(views[view]);
+
+        $('.grid_btn, .list_btn, .summary_btn').removeClass('btn-primary active');
+        $(btnSelector).addClass('btn-primary active');
+
+        if (view === 'grid') {
             filterobj.view = 'grid';
-            cardswrapperarea.addClass('grid-view edw-course-card-grid').removeClass('list-view edw-course-list-container list-group summary-view edw-course-summary-container edw-course-summary-container d-flex flex-column m-0');
-            $('.grid_btn').addClass('btn-primary active');
-            $('.list_btn').removeClass('btn-primary active');
-            $('.summary_btn').removeClass('btn-primary active');
-        }
-        if (view == 'list') {
-            cardswrapperarea.addClass('list-view list-group edw-course-list-container').removeClass('grid-view edw-course-card-grid summary-view edw-course-summary-container edw-course-summary-container d-flex flex-column m-0');
-            $('.list_btn').addClass('btn-primary active');
-            $('.grid_btn').removeClass('btn-primary active');
-            $('.summary_btn').removeClass('btn-primary active');
-        }
-        if (view == 'summary') {
-            cardswrapperarea.addClass('summary-view edw-course-summary-container d-flex flex-column m-0').removeClass('list-view list-group edw-course-list-container grid-view edw-course-card-grid');
-            $('.summary_btn').addClass('btn-primary active');
-            $('.list_btn').removeClass('btn-primary active');
-            $('.grid_btn').removeClass('btn-primary active');
         }
     }
 
@@ -503,16 +484,16 @@ define([
      *
      * @param  {String} view View typ
      */
-    function updateCardContainer(view){
-        if (view == 'grid') {
-            cardswrapperarea.addClass('grid-view edw-course-card-grid').removeClass('list-view edw-course-list-container list-group summary-view edw-course-summary-container edw-course-summary-container d-flex flex-column m-0');
-        }
-        if (view == 'list') {
-            cardswrapperarea.addClass('list-view list-group edw-course-list-container').removeClass('grid-view edw-course-card-grid summary-view edw-course-summary-container edw-course-summary-container d-flex flex-column m-0');
-        }
-        if (view == 'summary') {
-            cardswrapperarea.addClass('summary-view edw-course-summary-container d-flex flex-column m-0').removeClass('list-view list-group edw-course-list-container grid-view edw-course-card-grid');
-        }
+    function updateCardContainer(view) {
+        const viewClasses = {
+            grid: 'grid-view edw-course-card-grid',
+            list: 'list-view list-group edw-course-list-container',
+            summary: 'summary-view edw-course-summary-container d-flex flex-column m-0'
+        };
+
+        const allClasses = Object.values(viewClasses).join(' ');
+
+        cardswrapperarea.removeClass(allClasses).addClass(viewClasses[view]);
     }
     // This is for, Toolbar redirection not working.
     $(document).delegate('.tool-item', 'click', function() {
@@ -621,20 +602,22 @@ define([
             // Gradient effect handling on category discription
             var summaryheight = $('.category-description-wrapper').height();
 
+            const $container = $('.category-description-container');
+            const $wrapper = $('.category-description-wrapper');
+            const $readMore = $container.find('#readmorebtn');
+            const $readLess = $container.find('#readlessbtn');
             if (summaryheight > 300) {
-                $('.category-description-container').find('#readmorebtn').removeClass('d-none');
-                $('.category-description-wrapper').addClass('summary-collapsed').removeClass('summary-expanded');
+                $readMore.removeClass('d-none');
+                $wrapper.addClass('summary-collapsed').removeClass('summary-expanded');
             }
-            $('.category-description-container #readmorebtn').on('click', function() {
-                $('.category-description-wrapper').addClass('summary-expanded').removeClass('summary-collapsed');
-                $('.category-description-container').find('#readmorebtn').addClass('d-none');
-                $('.category-description-container').find('#readlessbtn').removeClass('d-none');
-            });
-            $('.category-description-container #readlessbtn').on('click', function () {
-                $('.category-description-wrapper').addClass('summary-collapsed').removeClass('summary-expanded');
-                $('.category-description-container').find('#readmorebtn').removeClass('d-none');
-                $('.category-description-container').find('#readlessbtn').addClass('d-none');
-            });
+            function toggleSummary(expand) {
+                $wrapper.toggleClass('summary-expanded', expand).toggleClass('summary-collapsed', !expand);
+                $readMore.toggleClass('d-none', expand);
+                $readLess.toggleClass('d-none', !expand);
+            }
+
+            $readMore.on('click', () => toggleSummary(true));
+            $readLess.on('click', () => toggleSummary(false));
         });
 
         $(categorylink).on('click', function(event) {
@@ -679,7 +662,7 @@ define([
             generateCourseCards(); // Course cards Generation.
             populate_tags();
         });
-    }
+    };
 
     return {
         init: init

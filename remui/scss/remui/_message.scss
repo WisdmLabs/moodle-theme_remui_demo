@@ -1,5 +1,5 @@
-$header-searchfied-icon-gap : 16px;
-$contact-list-gap:16px;
+$header-searchfied-icon-gap : map-get($gapspace , '4');
+$contact-list-gap:map-get($gapspace , '4');
 $avatar-icon-height:48px;
 $avatar-icon-width:48px;
 $msg-panel-padding-bottom-tab:14px;
@@ -7,7 +7,7 @@ $msg-panel-badge-height:24px;
 $msg-panel-badge-width:23px;
 $chat-image-height: 32px;
 $chat-image-width:32px;
-$message-info-gap :8px;
+$message-info-gap :map-get($gapspace , '1');
 $message-clickable-icon-size:16px;
 $image-border-color:$gray-400;
 
@@ -28,7 +28,11 @@ $image-border-color:$gray-400;
     align-items: center;
     background-color: $bg-small-ui;
     color: $paragraph-color;
-    padding: 4px;
+    padding: map-get($spacerspx, '1');
+}
+// By remuiformate badge color is overridden so I add this css to prevent overriding
+body#page-course-view-remuiformat .nav-item .edw-msg-panel-badge {
+    background-color: $bg-small-ui;
 }
 
 @mixin edw-view-overview-msg-tabs {
@@ -55,9 +59,8 @@ $image-border-color:$gray-400;
                 }
 
                 .nav-link {
-                    gap: 8px;
-                    padding: 0px 0px 16px 0px;
-                    // padding-bottom: 16px;
+                    gap: map-get($gapspace , '8');
+                    padding: 0px 0px map-get($spacerspx, '4') 0px;
                     border: none;
 
                     &:hover {
@@ -85,14 +88,10 @@ $image-border-color:$gray-400;
 
 [data-region="section-unread-count"] , [data-region="unread-count"] .badge {
     margin: 0;
-    // height: 15px;
-    padding: 4px;
+    padding: map-get($spacerspx, '1');
     align-items: center;
     justify-content: center;
-    margin-left: 0;
     font-weight: 800;
-    font-size: 10px;
-    /* background: red; */
     background-color: #dc3545;
     color: #fff;
     font-size: 11px;
@@ -161,14 +160,14 @@ $image-border-color:$gray-400;
             &:not(.hidden) {
                 display: flex;
             }
-            gap: 16px;
+            gap: map-get($gapspace , '4');
         }
         .message-header-action-btns {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 16px;
-            padding: 8px;
+            gap: map-get($gapspace , '4');
+            padding: map-get($spacerspx, '2');
             .message-header-action-btn {
                 display: flex;
                 justify-content: center;
@@ -182,6 +181,7 @@ $image-border-color:$gray-400;
                     height: 100%;
                     width: 100%;
                     text-decoration: none;
+                    min-width: fit-content;
                 }
                 .edw-icon {
                     font-size: $edw-icon-size-large;
@@ -192,7 +192,7 @@ $image-border-color:$gray-400;
         .header-panel {
             .panel-left {
                 display: flex;
-                gap: 16px;
+                gap: map-get($gapspace , '4');
                 .back-btn-panel {
                     text-decoration: none;
                     .icon-back-in-drawer,
@@ -211,7 +211,7 @@ $image-border-color:$gray-400;
                     }
                 }
                 .profile-group {
-                    gap: 16px;
+                    gap: map-get($gapspace , '4');
                     .rounded-circle {
                         width: $avatar-icon-height;
                         height: $avatar-icon-height;
@@ -233,20 +233,13 @@ $image-border-color:$gray-400;
                 }
             }
             .panel-right {
-                // width: 24px;
-                // height: 24px;
                 .header-inner-action {
-                    // width: 100%;
-                    // height: 100%;
                     .edw-icon {
                         font-size: 30px;
-                        // width: 24px;
-                        // height: 24px;
                     }
                 }
             }
         }
-
 
         .contacts-header-wrapper {
             .msg-backicon-searchbox-wrapper {
@@ -312,23 +305,24 @@ $image-border-color:$gray-400;
                         align-items: center;
                         color: $paragraph-color;
                         text-align: center;
-                        gap: 4px;
+                        gap: map-get($gapspace , 'd5');
                         padding-bottom: $msg-panel-padding-bottom-tab;
                         padding-top: 0px;
                         //  height: $msg-panel-padding-bottom-tab + $msg-panel-badge-height;
 
                         &.focus,
                         &.active,
-                        &:focus {
-                            box-shadow: none;
-                            color: $heading-color;
-                            font-weight: 600;
-                            border-bottom: 3px solid $brand-primary;
-                        }
-
+                        &:focus,
                         &:hover {
                             color: $heading-color;
                             font-weight: 600;
+                        }
+
+                        &.focus,
+                        &.active,
+                        &:focus {
+                            box-shadow: none;
+                            border-bottom: 3px solid $brand-primary;
                         }
                     }
                 }
@@ -344,11 +338,11 @@ $image-border-color:$gray-400;
             .general-setting-wrapper {
                 display: flex;
                 flex-direction: column;
-                gap: 16px;
+                gap: map-get($gapspace , '4');
                 border-top: 1px solid $light-border;
 
                 .msg-setting-privacy-header {
-                    gap: 8px;
+                    gap: map-get($gapspace , '1');
 
                     .msg-panel-privacydesc {
                         // @extend .h-regular-6;
@@ -361,7 +355,7 @@ $image-border-color:$gray-400;
                 .msg-setting-privacy-content fieldset {
                     display: flex;
                     flex-direction: column;
-                    gap: 16px;
+                    gap: map-get($gapspace , '4');
                 }
 
                 .setting-header {
@@ -377,13 +371,6 @@ $image-border-color:$gray-400;
                     flex-direction: row;
                     align-items: center;
                     gap: map-get($gapspace, "1");
-                    // input {
-                    //     display: inline-flex;
-                    //     &:checked:after{
-                    //         color: $brand-primary;
-                    //     }
-                    // }
-
                 }
             }
 
@@ -437,26 +424,19 @@ $image-border-color:$gray-400;
 
                 .message {
                     background-color: unset;
-
-
                 }
 
                 // it will style the send messages
-                .send {
+                .send, .received {
                     [data-region="text-container"] {
                         color: $paragraph-color;
                         background-color: $bg-small-ui;
-                        border-radius: 8px 0px 8px 8px;
-                        align-self: flex-end;
                         width: fit-content;
                         max-width: 100%;
                         margin-right: $message-info-gap + $chat-image-width;
                         margin-left: $message-info-gap + $chat-image-width;
                         word-break: break-word;
-                        @include media-breakpoint-down(xs) {
-                            // margin-right:($message-info-gap + $chat-image-width)/2 ;
-                            margin-left: ($message-info-gap + $chat-image-width)/2;
-                        }
+                        
                         &:hover {
                             filter: drop-shadow(map-get($box-shadows-values, xs));
                         }
@@ -467,8 +447,6 @@ $image-border-color:$gray-400;
                     }
 
                     .messager-info {
-                        justify-content: flex-start;
-                        flex-direction: row-reverse;
                         gap: $message-info-gap;
                         height: $chat-image-height;
 
@@ -486,6 +464,25 @@ $image-border-color:$gray-400;
 
                 }
 
+                .send {
+                    [data-region="text-container"] {
+                        border-radius: 8px 0 8px 8px;
+                        align-self: flex-end;
+                    }
+                    .messager-info {
+                        justify-content: flex-start;
+                        flex-direction: row-reverse;
+                    }
+                }
+
+                .received {
+                    [data-region="text-container"] {
+                        border-radius: 0 8px 8px 8px;
+                        align-self: flex-start;
+                    }
+                    .messager-info { align-self: flex-start; }
+                }
+
                 .messager-info {
                     span.edw-icon {
                         font-size: $message-clickable-icon-size;
@@ -496,48 +493,13 @@ $image-border-color:$gray-400;
                     }
                 }
 
-                // it will style the received messages
-                .received {
-                    [data-region="text-container"] {
-                        color: $paragraph-color;
-                        background-color: $bg-small-ui;
-                        border-radius: 0px 8px 8px 8px;
-                        align-self: flex-start;
-                        width: fit-content;
-                        max-width: 100%;
-                        word-break: break-word;
-                        margin-right: $message-info-gap + $chat-image-width;
-                        margin-left: $message-info-gap + $chat-image-width;
-                        @include media-breakpoint-down(xs) {
-                            margin-right:($message-info-gap + $chat-image-width)/2 ;
-                            // margin-left: ($message-info-gap + $chat-image-width)/2;
-                        }
-
-                        &:hover {
-                            filter: drop-shadow(map-get($box-shadows-values, xs));
-                        }
-
-                        p {
-                            @extend .para-regular-2;
-                        }
+                @include media-breakpoint-down(xs) {
+                    .send [data-region="text-container"] { 
+                        margin-left: ($message-info-gap + $chat-image-width)/2; 
                     }
-
-                    .messager-info {
-                        align-self: flex-start;
-                        gap: $message-info-gap;
-
-                        .time {
-                            color: $small-text-cust-color;
-                        }
-
-                        .messager-img-container {
-                            img {
-                                height: $chat-image-height;
-                                width: $chat-image-width;
-                            }
-                        }
+                    .received [data-region="text-container"] { 
+                        margin-right: ($message-info-gap + $chat-image-width)/2; 
                     }
-
                 }
             }
         }
@@ -601,7 +563,7 @@ $image-border-color:$gray-400;
 .edw-msg-body-list {
     display: flex;
     gap: $contact-list-gap;
-    padding: 24px;
+    padding: map-get($spacerspx, '6');
 
     .list-group-item {
         padding: 0px;
@@ -622,10 +584,10 @@ $image-border-color:$gray-400;
         .chat-items-wrapper {
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: map-get($gapspace , 'd5');
 
             .name-icon-wrapper {
-                gap: 4px;
+                gap: map-get($gapspace , 'd5');
             }
         }
 
@@ -659,6 +621,7 @@ $image-border-color:$gray-400;
 .edw-msg-panel-badge {
     @include edw-msg-pane-badge-styles();
 }
+ 
 .edw-header-color{
     color: $heading-color;
 }

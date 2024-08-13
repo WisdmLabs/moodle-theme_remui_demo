@@ -2,16 +2,15 @@ $aboutus-card-height : 200px !default;
 $aboutus-card-border-radius: 20px !default;
 
 body.pagelayout-frontpage {
-    &.old-frontpage {
+    &.old-frontpage,
+    &.latest-frontpage {
         .cover.rem-staticimage{
             .cover-background {
                 padding:20% 0;
             }
         }
         #region-fullwidthtop-blocks,
-        #region-fullwidthbottom-blocks{
-            display: none !important;
-        }
+        #region-fullwidthbottom-blocks,
         [data-region="#region-fullwidthtop-blocks"],
         [data-region="#region-fullwidthbottom-blocks"]{
             display: none !important;
@@ -23,27 +22,34 @@ body.pagelayout-frontpage {
             margin-top: 0;
             // margin-left: 0;
             // margin-right: 0;
+
             .frontpage-sections {
                 max-width: map-get($grid-breakpoints, xxl);
-                margin-bottom: 3.5rem;
+                margin-bottom: map-get($spacersrem, '14');
+
                 #edwiser-slider {
                     .wdm-home-video iframe {
                         min-height: 500px;
                     }
                 }
-                #edwiser-aboutus {
+
+                #edwiser-aboutus, #edwiser-testimonials {
                     .heading {
-                        .title {
-                            color: $heading-color;
+                        .title { 
+                            color: $heading-color; 
                         }
-                        .desc {
-                            color: $paragraph-color;
+                        .desc { 
+                            color: $paragraph-color; 
                         }
                     }
+                }    
+
+                #edwiser-aboutus {
                     .cards-deck {
                         display: grid;
                         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
                         gap: 24px;
+
                         .card {
                             border: 0;
                             display: flex;
@@ -66,14 +72,6 @@ body.pagelayout-frontpage {
                     }
                 }
                 #edwiser-testimonials {
-                    .heading {
-                        .title {
-                            color: $heading-color;
-                        }
-                        .desc {
-                            color: $paragraph-color;
-                        }
-                    }
                     .avatar {
                         display: block;
                         width: 100px;
@@ -107,14 +105,6 @@ body.pagelayout-frontpage {
         .btn-floating {
             color: white;
         }
-        #region-fullwidthtop-blocks,
-        #region-fullwidthbottom-blocks{
-            display: none !important;
-        }
-        [data-region="#region-fullwidthtop-blocks"],
-        [data-region="#region-fullwidthbottom-blocks"]{
-            display: none !important;
-        }
     }
 
     #frontpage-available-course-list {
@@ -130,7 +120,7 @@ body.pagelayout-frontpage {
             // @extend .h-semibold-3;
             @include get_typography(3, semibold, all);
             color:$heading-color;
-            margin-bottom: 24px;
+            margin-bottom: map-get($spacerspx, '6');
         }
         .dashboard-card {
             filter: unset;
@@ -183,6 +173,34 @@ body.pagelayout-frontpage {
         }
         .course-content{
             display: $hideactivitysection;
+        }
+    }
+
+    &:not(.editing) {
+        #page {
+            @if $hideheadercontent == none {
+                &.drawers:not(:has(
+                    #site-news-forum,
+                    #frontpage-available-course-list,
+                    #frontpage-course-list,
+                    #frontpage-category-names,
+                    #frontpage-category-combo
+                )) {
+                    .main-inner {
+                        margin: 0;
+                        #page-content {
+                            padding-top: 0;
+                            padding-bottom: 0 !important;
+                            br {
+                                display: none;
+                            }
+                        }
+                        .frontpage-sections:not(:has(:first-child)) {
+                            margin: 0;
+                        }
+                    }
+                }
+            }
         }
     }
 }

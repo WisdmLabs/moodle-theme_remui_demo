@@ -1292,9 +1292,6 @@ $string['small-info-fontweight_desc'] = "Ustaw wagę czcionki dla małych inform
 $string['full-width-top'] = "Pełna szerokość - górna część";
 $string['full-bottom'] = "Pełna szerokość - dolna część";
 
-$string['homepagedepricationmodalhead'] = "Ostrzeżenie o przestarzałości strony głównej";
-
-$string['homepagedepricationmodaldesc'] = "Kreator strony głównej będzie wkrótce przestarzały.";
 $string['homepageedwpagebuilderoption'] = "Użyj Edwiser Pagebuildera na stronie głównej";
 
 $string['livecustomizer'] = "Dostosowywanie na żywo";
@@ -1341,21 +1338,7 @@ $string['settingpagedepbottomsecondaryst3'] = "Co się stanie?";
 $string['settingpagedepbottomsecondaryst4'] = "Kod i treść każdej sekcji obecnej strony głównej zostaną przeniesione do niestandardowego bloku HTML w Edwiser RemUI Page Builder. Projekt i treść strony pozostaną takie same, a będzie można je łatwo edytować w <strong>sposób bez konieczności pisania kodu przy użyciu Edwiser RemUI Page Builder</strong>.";
 $string['settingpagedepbottomsecondaryst5'] = '<span class="para-semibold-1 m-0">Uwaga:</span> To jest ostatnia aktualizacja dotycząca budowniczego strony głównej. Został teraz połączony z Edwiser Page Builder';
 
-// Przestarzałe komunikaty modalne
-$string['homepagedepricationmodalst1'] = "Przedstawiamy lepszy sposób tworzenia i dostosowywania stron głównych!";
-$string['homepagedepricationmodalst2'] = '<p class="para-regular-1 m-0">Dzięki tej aktualizacji możesz teraz wykorzystać możliwości <span class="para-semibold-1">Edwiser RemUI Page Builder, specjalnie zaprojektowanego do tworzenia stron głównych.</span></p>';
-$string['homepagedepricationmodalfeatureitem1'] = "Ulepszony kreator stron";
-$string['homepagedepricationmodalfeatureitem2'] = "Ponad 30 dobrze zaprojektowanych szablonów bloków";
-$string['homepagedepricationmodalfeatureitem3'] = "7 układów stron głównych";
-$string['homepagedepricationmodalfeatureitem4'] = "Tworzenie niestandardowych projektów";
 
-$string['homepagedepricationmodalst3'] = "Gotowy na kolejny krok?";
-$string['homepagedepricationmodalst4'] = "Kliknij poniżej, aby przejść do ustawień i bezproblemowo przenieść swoją obecną stronę główną";
-$string['homepagedepricationmodalst5'] = "Ustawienia";
-$string['homepagedepricationmodalst6'] = "Nie pokazuj tego ponownie";
-$string['homepagedepricationmodalst7'] = '<span class="para-regular-2">Uwaga:</span> Po kolejnych trzech aktualizacjach bieżący Kreator strony głównej zostanie wycofany z Edwiser RemUI.';
-
-$string['homepagedrpecationmodalst8'] = 'Nowy kreator stron Edwiser RemUI jest dostępny w RemUI Pro oraz wyższych planach. Jeśli korzystasz z pakietu RemUI Starter, możesz';
 $string['upgradeherelinktext'] = 'aktualizować tutaj';
 
 $string['addnewpage'] = "Dodaj nową stronę";
@@ -1421,7 +1404,7 @@ $string['editreviewapproval'] = 'Edytuj zatwierdzanie recenzji';
 $string['addchangevideo'] = 'Dodaj/Zmień wideo';
 $string['novideomessage'] = 'Brak wideo.<br>Kliknij powyższy link, aby dodać wideo.';
 $string['changecourseimage'] = 'Zmień obraz kursu';
-$string['changebtntextandlink'] = 'Zmień tekst i link przycisku';
+$string['changebtntextandlink'] = 'Dodaj niestandardowy link do zapisu i cenę';
 $string['edit'] = 'Edytuj';
 $string['viewalltext'] = 'Zobacz wszystko';
 $string['addremuicustomfield'] = 'Dodaj pole niestandardowe RemUI';
@@ -1503,41 +1486,6 @@ $string["switchtodm"] = "Tryb ciemny";
 $string["switchtolm"] = "Tryb jasny";
 $string["disabledmwarning"] = "Aby włączyć Personalizator Wizualny, wyłącz podgląd trybu ciemnego.";
 
-$string["forcefullmigratemsgheading"] = "Prezentujemy lepszy sposób tworzenia i dostosowywania stron głównych.";
-$string["migratemodalheading"] = "Prezentujemy lepszy sposób tworzenia i dostosowywania stron głównych.";
-
-$string["migragetcheckboxlabel"] = "Rozumiem powyższe ostrzeżenie.";
-$string["migratewarningmsg"] = 'Stary Kreator Stron Głównych Edwiser nie jest już obsługiwany. Aby zapewnić aktualność Twojej witryny, musimy przenieść Twoją stronę główną do nowego i udoskonalonego "Kreatora Stron Edwiser RemUI."<br><br>
-        <span style="font-weight: 600; display: inline-block; margin-bottom: 8px;">Oto, co musisz zrobić:</span>
-        <span class="deprication-choice d-flex flex-gap-4">
-            <span class="choice-1">
-                {$a->clickok}<br>
-                <span style="font-size: 12px; line-height: 15px;">
-                    <span style="font-weight: 600; display: inline-block; margin-top: 8px;">Prosimy zauważyć:</span> Wybór opcji "Okay" nie spowoduje migracji Twojej aktualnej zawartości strony głównej.<br>
-                </span>
-            </span>
-            <span class="align-self-center" style="font-weight: 600;">LUB</span>
-            <span class="choice-2">
-                {$a->warningmsg}
-            </span>
-        </span><br>
-        Nie martw się, ten proces jest prosty i nie wpłynie na funkcjonalność Twojej witryny.';
-
-$string["migratewarningmsg1"] = "Kliknij <span style=\"font-weight: 600;\">‘Migruj’</span>, aby automatycznie przenieść istniejącą zawartość strony głównej do nowego kreatora stron.<br>";
-$string["migratewarningmsg2"] = 'Zaktualizuj Kreator Stron Edwiser, aby przemieścić swoją stronę główną. <a href="https://edwiser.helpscoutdocs.com/article/572-how-to-migrate-current-homepage-to-the-edwiser-page-builder" target="_blank" >Zobacz instrukcje <span class="edw-icon edw-icon-Shortcut redirect-shortcut"></span></a><br>';
-$string["migratewarningmsg3"] = 'Zainstaluj najnowszą wersję Kreatora Stron Edwiser z <a href="https://edwiser.org/my-account/" target="_blank" >Kreatora Stron Edwiser Moje Konto <span class="edw-icon edw-icon-Shortcut redirect-shortcut"></span></a>, aby przenieść swoją bieżącą stronę główną.<br>';
-$string["migratewarningmsg4"] = 'Stary Kreator Stron Głównych Edwiser nie jest już obsługiwany. Prosimy odinstalować "Kreator Stron Głównych Edwiser (local_remuihomepage)" <a href="{$a}" target="_blank">tutaj</a>.<br><br>
-<span style="font-size: 12px; line-height: 15px;">
-    <span style="font-weight: 600;">Prosimy zauważyć:</span> Ten krok jest opcjonalny, ale zalecamy go!
-</span>';
-$string["migratewarningmsg5"] = 'Zaktualizuj Kreator Stron Edwiser oraz Kreator Stron Głównych Edwiser do najnowszej wersji, aby przemieścić swoją bieżącą stronę główną. Aby pobrać najnowszą wersję <a href="https://edwiser.org/my-account/" target="_blank" >Kliknij tutaj <span class="edw-icon edw-icon-Shortcut redirect-shortcut"></span></a><br>';
-
-$string["clickokmigratewarningmsg"] = 'Kliknij <span style="font-weight: 600;">‘Okay’</span>, aby utworzyć stronę główną za pomocą starego kreatora strony RemUI.';
-$string["clickokmigratewarningmsg2"] = 'Kliknij <span style="font-weight: 600;">‘Okay’</span>, aby rozpocząć od nowa z nowym kreatorem i utworzyć nową stronę główną';
-
-$string["migragettoastmsg1"] = "Kreator stron Edwiser RemUI jest ustawiony. Aby przenieść stronę główną ";
-$string["migragettoastmsg2"] = "Kreator stron Edwiser RemUI jest ustawiony.";
-$string["migragettoastmsg3"] = "Ustawiono kreatora stron.";
 
 $string["here"] = "tutaj";
 $string["clickhere"] = "Kliknij tutaj";
@@ -1550,3 +1498,11 @@ $string['moodleblocks'] = 'Bloki Moodle';
 
 $string['citytown'] = 'Miasto';
 $string['searchtext'] = 'Tekst wyszukiwania';
+$string['enablesiteloader'] = "Włącz/Wyłącz obraz ładowania";
+$string['enablesiteloaderdesc'] = "Aby wyłączyć GIF ładowania na stronie, odznacz pole oznaczone jako „Włącz/Wyłącz obraz ładowania”. Aby go włączyć, po prostu zaznacz pole.";
+$string['aria:courseimage'] = 'Obraz kursu';
+
+$string['addcustomprice'] = 'Dodaj niestandardową cenę';
+$string['enablepricingsettingstext'] = 'Włączenie domyślnych cen usunie „niestandardową cenę i niestandardowy link do zapisów”.';
+$string['enabledefaultpricing'] = 'Włącz domyślne ceny';
+$string["dashboardstatsupdate"] = "Aktualizacja statystyk RemUI";

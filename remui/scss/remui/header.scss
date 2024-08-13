@@ -1,7 +1,7 @@
 
 $header-icon-size:$navbar-icon-size;
-$input-field-padding-y :12px;
-$input-field-padding-x :16px;
+$input-field-padding-y :map-get($spacerspx, '3');
+$input-field-padding-x :map-get($spacerspx, '4');
 #page-header {
     margin-bottom: $page-header-margin-bottom;
 
@@ -38,9 +38,13 @@ $input-field-padding-x :16px;
         }
 
         h3.welcome-note {
+            color: $heading-color;
+        }
+
+        h3.welcome-note,
+        .page-header-headings .header-heading {
             // @extend .h-semibold-3;
             @include get_typography(3, semibold, all);
-            color: $heading-color;
             margin: 0;
 
             @include media-breakpoint-down(sm) {
@@ -49,23 +53,9 @@ $input-field-padding-x :16px;
             }
         }
 
-        .page-context-header {
-            padding: 0;
-        }
-
+        .page-context-header,
         .page-header-headings {
             padding: 0;
-
-            .header-heading {
-                // @extend .h-semibold-3;
-                @include get_typography(3, semibold, all);
-                // color: $heading-color;
-                margin: 0;
-
-                @include media-breakpoint-down(sm) {
-                    @include get_typography(3, bold, mobile);
-                }
-            }
         }
     }
 }

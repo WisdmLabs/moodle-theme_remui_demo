@@ -18,6 +18,8 @@ $animate-time: 0.5s;
 body {
     @include media-breakpoint-up(sm) {
         &.focusmode {
+            margin-left: 0 !important;
+
             &:not(#page-mod-quiz-attempt):not(#page-mod-book-view) {
                 .drawer-right-toggle {
                     display: none;
@@ -35,8 +37,6 @@ body {
                 padding: 0;
             }
 
-            margin-left: 0 !important;
-
             #nav-drawer,
             #page-footer .container-fluid,
             #wdm_course-stats,
@@ -45,22 +45,26 @@ body {
             .page-aside-switch {
                 display: none !important;
             }
+
             .navbar {
                 &:not(.fm-navbar) {
                     top: $navbar-top-pos !important;
                     transition: all $animate-time ease;
                 }
+
                 &.fm-navbar {
                     display: flex !important;
                     transition: all $animate-time ease $animate-time;
                     top: 0 !important;   
                     color: $primary !important;
+
                     .courseheaderbar{
                         width: 100% !important;
                         @include media-breakpoint-only(md) {
                             width: 90% !important;
                         }
                     }
+
                     .nav-link {
                         color: inherit !important;
                         font-weight: $title-font-weight;
@@ -71,24 +75,30 @@ body {
                             font-style: normal;
                         }
                     }
+
                     .navbar-brand{
                         padding: 0px 0px 0px map-get($spacerspx, 6);
                     }
                 }
             }
+
             .page-header-actionss {
                 align-items: center;
             }
+
             #course-progress-bar .progress {
                 width: 150px !important;
                 border: 1px solid $border-default-color;
             }
+
             #page-footer {
                 background-color: transparent !important;
             }
+
             .floating-buttons {
                 display: block !important;
             }
+
             #page-content {
                 #region-main{
                     font-size: 18px;
@@ -98,28 +108,28 @@ body {
                     border: 1px solid $border-default-color;
                 }
             }
+
             .btn, .custom-select {
                 font-size: 1rem;
             }
-            &.pagelayout-course {
-                .course-content .sectionname{
-                    font-size: 1.286rem;
-                    .wdm-sectionname {
-                        font-size: 1.6rem;
-                    }
+
+            &.pagelayout-course  .course-content .sectionname{
+                font-size: 1.286rem;
+                .wdm-sectionname {
+                    font-size: 1.6rem;
                 }
             }
-            &.pagelayout-incourse{
-                #region-main{
-                    &> .card{
-                        margin: 2rem 0;
-                        border: 1px solid $border-default-color;
-                    }
-                    .activity-navigation{
-                        display: none;
-                    }
+
+            &.pagelayout-incourse #region-main{
+                &> .card{
+                    margin: 2rem 0;
+                    border: 1px solid $border-default-color;
+                }
+                .activity-navigation{
+                    display: none;
                 }
             }
+
             #wdm-courseheader {
                 // width: 65% !important;
                 .title{
@@ -143,21 +153,20 @@ body {
                        background-color: $brand-secondary-static;
                     }
                  }
+
                  .progress-text {
                     color: $paragraph-color;
                 }
             }
+
             .activity-navigation {
                 font-size: 1rem;
                 @include media-breakpoint-only(md) {
-                    .nav-item{
-                        .nav-link{
-                            i {
-                                font-size: 30px;
-                            }
-                        }
+                    .nav-item .nav-link i {
+                        font-size: 30px;
                     }
                 }
+
                 .focus-dropdown {
                     .dropdown-toggle span, .activity-item h5 {
                         display: block;
@@ -186,15 +195,18 @@ body {
                         border-radius: .21428571rem;
                         -webkit-box-shadow: 0 3px 12px rgba(0,0,0,.05);
                         box-shadow: 0 3px 12px rgba(0,0,0,.05);
+                        
                         .activity-item {
                             border: none;
                             padding: map-get($spacerspx, 4) map-get($spacerspx, 6) 0px map-get($spacerspx, 6);
                         }
+
                         .card-body .card:last-of-type{
                             .activity-item:last-of-type{
                                 padding-bottom:  map-get($spacerspx, 4);
                             }
                         }
+                        
                         .card:not(.border-bottom) {
                             border: none;
                         }
@@ -214,6 +226,10 @@ body {
                         }
                     }
                 }
+            }
+
+            #region-fullwidthtop-blocks {
+                margin-top: unset !important;
             }
         }
         &:not(.focusmode) {

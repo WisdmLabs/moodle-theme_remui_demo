@@ -257,14 +257,6 @@ function theme_remui_course_custom_fields($checkupdateorinstall= "update") {
 
     }
 
-    // if($checkupdateorinstall == "update"){
-
-    //     if (!$customfieldid || !$DB->record_exists('customfield_category', array('id' => $customfieldid)) || !$DB->record_exists('customfield_category', array('name' => "RemUI Custom Fields"))) {
-    //         $customfieldid = theme_remui_create_customfield_category('RemUI Custom Fields');
-    //         set_config('remui_customfield_catid', $customfieldid, 'theme_remui');
-    //     }
-
-    // }
 
 
     theme_remui_delete_old_custom_fields($customfieldid);

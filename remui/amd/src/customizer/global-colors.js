@@ -116,11 +116,11 @@ function setLinkColor() {
 
     // Default color.
     let content = `
-    a:not(.btn):not(.nav-link):not(.page-link):not(.badge-primary a):not(.panel-action):not(#page-footer a):not(.quick-menu-nav a):not(#edw-quick-menu a )){
-        color: ${color} !important;
+    a:not(.btn):not(.nav-link):not(.page-link):not(.badge-primary a):not(.panel-action):not(#page-footer a):not(.quick-menu-nav a):not(#edw-quick-menu a ):not(.category-link):not(.dropdown-item){
+        color: ${color};
     }
-    a:not(.btn):not(.nav-link):not(.page-link):not(.badge-primary a):hover:not(.panel-action):not(#page-footer a):not(.quick-menu-nav a):not(#edw-quick-menu a ){
-        color: ${hoverColor} !important;
+    a:not(.btn):not(.nav-link):not(.page-link):not(.badge-primary a):hover:not(.panel-action):not(#page-footer a):not(.quick-menu-nav a):not(#edw-quick-menu a ):not(.category-link):not(.dropdown-item){
+        color: ${hoverColor};
     }`;
 
     Utils.putStyle('site-linkcolor-css', content);
@@ -621,4 +621,4 @@ function init() {
 export default {
     init,
     apply
-}
+};

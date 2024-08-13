@@ -87,6 +87,8 @@ body#page-theme-remui-customizer {
                 position: absolute;
                 inset: 50% 50% 50% 50%;
                 transform: translate(-50%, -50%);
+                height: 50px !important;
+                width: 50px !important;
             }
         }
         .inner-wrap {

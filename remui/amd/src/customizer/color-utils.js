@@ -85,7 +85,7 @@ class ColorUtils {
             red: rgb.red * (1 - 0.01 * shade),
             green: rgb.green * (1 - 0.01 * shade),
             blue: rgb.blue * (1 - 0.01 * shade)
-        }
+        };
     }
 
     /**
@@ -99,7 +99,7 @@ class ColorUtils {
             red: rgb.red + (255 - rgb.red) * tint * 0.01,
             green: rgb.green + (255 - rgb.green) * tint * 0.01,
             blue: rgb.blue + (255 - rgb.blue) * tint * 0.01
-        }
+        };
     }
 
     /**

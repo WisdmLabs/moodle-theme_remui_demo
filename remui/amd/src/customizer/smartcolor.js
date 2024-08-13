@@ -320,7 +320,7 @@ function apply() {
                     color.shift.value
                 )
             ).trigger('color.changed');
-        })
+        });
     });
 
     let obj = {

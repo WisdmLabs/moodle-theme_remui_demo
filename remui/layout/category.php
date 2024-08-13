@@ -35,27 +35,25 @@ $filterdata = \theme_remui_coursehandler::get_course_filters_data();
 $templatecontext['categories'] = $filterdata['catdata'];
 $templatecontext['searchhtml'] = $filterdata['searchhtml'];
 
-if (\theme_remui\toolbox::get_setting('enablenewcoursecards')) {
-    $templatecontext['latest_card'] = true;
-}
 
 $categoryid = 'all';
 $categoryid = optional_param('categoryid', $categoryid, PARAM_RAW);
 
-if ($categoryid != 'all') {
-    if (core_course_category::get($categoryid, IGNORE_MISSING) == null) {
+$courserenderer = $PAGE->get_renderer('core', 'course');
+
+if ($categoryid !== 'all') {
+    $coursecat = core_course_category::get($categoryid, IGNORE_MISSING);
+    if ($coursecat) {
+        $chelper = new coursecat_helper();
+        $description = $chelper->get_category_formatted_description($coursecat);
+        if ($description) {
+            $templatecontext['categorydesciption'] = format_text($description, FORMAT_HTML, ['noclean' => true]);
+        }
+    } else {
         $categoryid = 'all';
     }
 }
 
-$courserenderer = $PAGE->get_renderer('core', 'course');
-if ($categoryid != "all") {
-    $coursecat = core_course_category::get($categoryid);
-    $chelper = new coursecat_helper();
-    if ($description = $chelper->get_category_formatted_description($coursecat)) {
-        $templatecontext['categorydesciption'] = format_text($description, FORMAT_HTML, array("noclean" => true));
-    }
-}
 $templatecontext['coursearchivefiltermenumorebutton'] = $courserenderer->get_morebutton_pagetitle($categoryid);
 $templatecontext['defaultcat'] = $categoryid;
 // Must be called before rendering the template.

@@ -12,90 +12,92 @@ $courseindex-section-pageitem-color: $heading-color;
 $courseindex-section-title-bg: rgba($brand-primary, 10%);
 $courseindex-section-title-border: 1px solid rgba($brand-primary, 30%);
 
+// Mixin
+@mixin drawer-display($property) {
+    @if $property == block {
+      display: flex !important;
+    } @else {
+      display: $property !important;
+    }
+}
+
 .drawer {
     @include get-drop-shadow(xs);
+
     &.drawer-left{
         .drawercontent .list-group{
             .list-group-item{
                 @include get_typography(4,semibold, mobile);
             }
         }
+
         .drawerheader{
             position: relative;
-
         }
+
         &#theme_remui-drawers-courseindex{
             .drawerheader{
                 justify-content: flex-end;
             }
         }
+
         &#theme_remui-drawers-primary{
-            @include media-breakpoint-down(sm){
-                width: 320px;
-            }
             .drawerheader{
                 .drawertoggle{
                     position: absolute;
                     margin-right:  map-get($spacerspx,6);
                     right: 0px;
                 }
-                @include media-breakpoint-down(sm){
-                    height: unset;
-                    padding-left: 0px;
-                    padding-right: 0px;
-                    align-items: center;
-                    gap: map-get($gapspace, 4);
-                    // padding: map-get($spacerspx,4) 0px;
-                    padding: 0px 0px;
-                }
+               
                 .navbar-brand{
                     display: none;
-                    @include media-breakpoint-down(sm){
-                        display: flex;
-                        padding: map-get($spacerspx,6);
-                        .navbar-brand-logo{
-                            width: 100%;
-                            // static font size in sidebar so that it will not follow the customizer setting of font-size
-                            font-size: 1.171rem;
+                }
+            }
 
-                        }
+            @include media-breakpoint-down(sm){
+                width: 320px;
+
+                .drawerheader {
+                    height: unset;
+                    padding: 0;
+                    align-items: center;
+                    gap: map-get($gapspace, 4);
+          
+                    .navbar-brand {
+                      display: flex;
+                      padding: map-get($spacerspx, 6);
+          
+                      .navbar-brand-logo {
+                        width: 100%;
+                        font-size: 1.171rem;
+                      }
                     }
                 }
             }
         }
 
-    }
-    &.drawer-left .list-group a{
-        &.recentcourses{
-            @if $show-recentcourses == block{
-                display: flex !important;
+        .list-group a {
+            &.recentcourses { 
+                @include drawer-display($show-recentcourses); 
             }
-            @else {
-                display: $show-recentcourses !important;
+            &.coursecat { 
+                @include drawer-display($show-coursecat); 
             }
-        }
-        &.coursecat{
-            @if $show-coursecat == block{
-                display: flex !important;
+            &.myhome { 
+                display: $hide-dashboard; 
             }
-            @else {
-                display: $show-coursecat !important;
+            &.home {
+                 display: $hide-home; 
+                }
+            &.mycourses { 
+                display: $hide-my-courses; 
             }
-        }
-
-        &.myhome{
-            display: $hide-dashboard;
-        }
-        &.home{
-            display: $hide-home;
-        }
-        &.mycourses{
-            display: $hide-my-courses;
-        }
-        &.siteadminnod{
-            display: $hide-site-admin;
+            &.siteadminnod { 
+                display: $hide-site-admin; 
+            }
         }
     }
+    
     &.drawer-right,&#theme_remui-drawers-courseindex{
         .drawerheader{
             .navbar-brand{
@@ -107,7 +109,6 @@ $courseindex-section-title-border: 1px solid rgba($brand-primary, 30%);
 
 .drawer-toggler {
     .btn {
-        // background: $dic-default-bg;
         width: $drawer-toggler-width;
         height: $drawer-toggler-height;
     }
@@ -153,7 +154,7 @@ $courseindex-section-title-border: 1px solid rgba($brand-primary, 30%);
 
         #courseindex {
             #courseindex-content {
-                padding: 0px;
+                padding: 0;
 
                 .courseindex {
                     .course-heading {
@@ -221,8 +222,6 @@ $courseindex-section-title-border: 1px solid rgba($brand-primary, 30%);
 
                                     .edw-section-content-wrapper {
                                         display: flex;
-                                        // gap: map-get($gapspace, 1);
-                                        // margin-left: 18px;
                                         position: relative;
                                         .completioninfo {
                                             min-width: unset;
@@ -265,6 +264,5 @@ $courseindex-section-title-border: 1px solid rgba($brand-primary, 30%);
                 }
             }
         }
-
     }
 }

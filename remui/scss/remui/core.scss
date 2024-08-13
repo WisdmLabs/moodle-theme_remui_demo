@@ -78,15 +78,31 @@ body {
    color: $paragraph-color;
 }
 
-body:not(.pagelayout-frontpage) {
+// body:not(.pagelayout-frontpage) {
+body:not(.transparent-header) {
    .site-announcement.alert {
       position: absolute;
    }
+}
+
+#page-wrapper {
+   #page:has(.site-announcement.alert) {
+      #region-fullwidthtop-blocks {
+         margin-top: 59px;
+      }
+   }
+}
+
+// License notice positioning
+// When I write license-notice css "not for frotpage" and "for frontpage" than it's works fine otherwise not so I write separte codes
+body:not(.pagelayout-frontpage),
+body.pagelayout-frontpage {
    .license-notice{
       position: fixed !important;
       top: $navbar-height;
    }
 }
+
 .site-announcement.alert{
    // position: fixed ;
    // top: $navbar-height;

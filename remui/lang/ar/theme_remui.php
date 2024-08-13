@@ -1274,9 +1274,7 @@ $string['small-info-fontweight_desc'] = 'تعيين وزن الخط للمعلو
 $string['full-width-top'] = 'أعلى بعرض كامل';
 $string['full-bottom'] = 'أسفل بعرض كامل';
 
-$string['homepagedepricationmodalhead'] = 'تحذير بشأن إيقاف صفحة البداية';
 
-$string['homepagedepricationmodaldesc'] = 'سيتم إيقاف مُنشئ صفحة البداية قريبًا.';
 $string['homepageedwpagebuilderoption'] = "استخدام Edwiser Pagebuilder للصفحة الرئيسية";
 
 $string['livecustomizer'] = "مُخصص الحي";
@@ -1323,21 +1321,6 @@ $string['settingpagedepbottomsecondaryst4'] = 'سيتم نقل رمز ومحتو
 $string['settingpagedepbottomsecondaryst5'] = '<span class="para-semibold-1 m-0">ملاحظة:</span> هذا هو التحديث النهائي بشأن مُنشئ صفحة البداية. لقد تم دمجه الآن في مُنشئ الصفحات Edwiser.';
 
 
-// depricatio modal strigs
-$string['homepagedepricationmodalst1'] = 'إدخال طريقة أفضل لإنشاء وتخصيص الصفحات الرئيسية!';
-$string['homepagedepricationmodalst2'] = '<p class="para-regular-1 m-0">مع هذا التحديث، يمكنك الآن استغلال قوة <span class="para-semibold-1">مُنشئ الصفحات Edwiser RemUI المصمم خصيصًا للصفحات الرئيسية.</span></p>';
-$string['homepagedepricationmodalfeatureitem1'] = 'مُنشئ الصفحات المحسن';
-$string['homepagedepricationmodalfeatureitem2'] = 'أكثر من 30+ قالب كتلة مصممة بشكل جيد';
-$string['homepagedepricationmodalfeatureitem3'] = '7 تخطيطات للصفحة الرئيسية';
-$string['homepagedepricationmodalfeatureitem4'] = 'إنشاء تصاميم مخصصة';
-
-$string['homepagedepricationmodalst3'] = 'هل أنت مستعد لاتخاذ الخطوة التالية؟';
-$string['homepagedepricationmodalst4'] = 'انقر أدناه للانتقال إلى الإعدادات والترحيل بسلاسة لصفحتك الرئيسية الحالية';
-$string['homepagedepricationmodalst5'] = 'صفحة الإعدادات';
-$string['homepagedepricationmodalst6'] = 'عدم إظهار هذا مرة أخرى';
-$string['homepagedepricationmodalst7'] = '<span class="para-regular-2">ملاحظة:</span> بعد الثلاثة تحديثات القادمة، سيتم إيقاف صفحة البداية الحالية من Edwiser RemUI';
-
-$string['homepagedrpecationmodalst8'] = 'مُنشئ الصفحات الجديد Edwiser RemUI متاح في RemUI Pro والخطط أعلاه. إذا كنت على حزمة RemUI Starter، يمكنك';
 $string['upgradeherelinktext'] = 'الترقية هنا';
 
 $string['addnewpage'] = "إضافة صفحة جديدة";
@@ -1402,7 +1385,7 @@ $string['editreviewapproval'] = 'تحرير موافقة المراجعة';
 $string['addchangevideo'] = 'إضافة / تغيير الفيديو';
 $string['novideomessage'] = 'لا يوجد فيديو.<br>انقر على الرابط أعلاه لإضافة فيديو.';
 $string['changecourseimage'] = 'تغيير صورة الدورة';
-$string['changebtntextandlink'] = 'تغيير نص الزر والرابط';
+$string['changebtntextandlink'] = 'أضف رابط تسجيل مخصص وسعر';
 $string['edit'] = 'تحرير';
 $string['viewalltext'] = 'عرض الكل';
 $string['addremuicustomfield'] = 'إضافة حقل مخصص RemUI';
@@ -1485,41 +1468,6 @@ $string["switchtodm"] = "الوضع الداكن";
 $string["switchtolm"] = "الوضع الفاتح";
 $string["disabledmwarning"] = "لتمكين المُضبِّط البصري، قم بإيقاف معاينة الوضع الداكن.";
 
-$string["forcefullmigratemsgheading"] = "نقدم طريقة أفضل لإنشاء وتخصيص الصفحات الرئيسية.";
-$string["migratemodalheading"] = "نقدم طريقة أفضل لإنشاء وتخصيص الصفحات الرئيسية.";
-
-$string["migragetcheckboxlabel"] = "أفهم التحذير أعلاه.";
-$string["migratewarningmsg"] = 'لا يتم دعم مُنشئ الصفحة الرئيسية القديم لـ Edwiser بعد الآن. لضمان أن يبقى موقعك على اطلاع، نحتاج إلى نقل صفحة البداية الخاصة بك إلى مُنشئ صفحات "Edwiser RemUI" الجديد والمحسَّن.<br><br>
-        <span style="font-weight: 600; display: inline-block; margin-bottom: 8px;">إليك ما يجب عليك القيام به:</span>
-        <span class="deprication-choice d-flex flex-gap-4">
-            <span class="choice-1">
-                {$a->clickok}<br>
-                <span style="font-size: 12px; line-height: 15px;">
-                    <span style="font-weight: 600; display: inline-block; margin-top: 8px;">يرجى ملاحظة:</span> اختيار "موافق" لن ينقل محتوى صفحتك الرئيسية الحالية.<br>
-                </span>
-            </span>
-            <span class="align-self-center" style="font-weight: 600;">أو</span>
-            <span class="choice-2">
-                {$a->warningmsg}
-            </span>
-        </span><br>
-        لا تقلق، هذه العملية بسيطة ولن تؤثر على وظيفة موقعك الإلكتروني.';
-
-$string["migratewarningmsg1"] = "انقر <span style=\"font-weight: 600;\">‘Migrate’</span> لنقل محتوى صفحة البداية الحالية تلقائيًا إلى مُنشئ الصفحات الجديد.";
-$string["migratewarningmsg2"] = 'قم بتحديث مُنشئ صفحات Edwiser لنقل صفحة البداية الخاصة بك. <a href="https://edwiser.helpscoutdocs.com/article/572-how-to-migrate-current-homepage-to-the-edwiser-page-builder" target="_blank" >انظر التعليمات <span class="edw-icon edw-icon-Shortcut redirect-shortcut"></span></a><br>';
-$string["migratewarningmsg3"] = 'قم بتثبيت أحدث إصدار من مُنشئ صفحات Edwiser من <a href="https://edwiser.org/my-account/" target="_blank" >صفحة حسابي Edwiser <span class="edw-icon edw-icon-Shortcut redirect-shortcut"></span></a> لنقل صفحة البداية الحالية لديك.<br>';
-$string["migratewarningmsg4"] = 'مُنشئ الصفحة الرئيسية لـ Edwiser لم يعد مدعومًا. يرجى إلغاء تثبيت "مُنشئ الصفحة الرئيسية لـ Edwiser (local_remuihomepage)" من <a href="{$a}" target="_blank">هنا</a>.<br><br>
-<span style="font-size: 12px; line-height: 15px;">
-    <span style="font-weight: 600;">يرجى ملاحظة:</span> هذه الخطوة اختيارية، ولكننا نوصي بها!
-</span>';
-$string["migratewarningmsg5"] = 'قم بتحديث مُنشئ صفحات Edwiser ومُنشئ الصفحة الرئيسية لـ Edwiser إلى أحدث إصدار لنقل صفحة البداية الحالية لديك. لتنزيل الإصدار الأحدث <a href="https://edwiser.org/my-account/" target="_blank" >انقر هنا <span class="edw-icon edw-icon-Shortcut redirect-shortcut"></span></a><br>';
-
-$string["clickokmigratewarningmsg"] = 'انقر <span style="font-weight: 600;">‘موافق’</span> لإنشاء صفحة رئيسية باستخدام مُنشئ الصفحات القديم لـ RemUI.';
-$string["clickokmigratewarningmsg2"] = 'انقر <span style="font-weight: 600;">‘موافق’</span> للبدء من جديد باستخدام المُنشئ الجديد وإنشاء صفحة رئيسية جديدة';
-
-$string["migragettoastmsg1"] = "تم تعيين مُنشئ صفحات Edwiser RemUI. لنقل صفحة البداية ";
-$string["migragettoastmsg2"] = "تم تعيين مُنشئ صفحات Edwiser RemUI.";
-$string["migragettoastmsg3"] = "تم تعيين مُنشئ صفحات متقادم.";
 
 $string["here"] = "هنا";
 $string["clickhere"] = "انقر هنا";
@@ -1533,3 +1481,11 @@ $string['moodleblocks'] = 'كتل Moodle';
 
 $string['citytown'] = 'المدينة/البلدة';
 $string['searchtext'] = 'بحث في النص';
+$string['enablesiteloader'] = "تفعيل/تعطيل صورة التحميل";
+$string['enablesiteloaderdesc'] = "لتعطيل صورة التحميل المتحركة (GIF) على الموقع، قم بإلغاء تحديد المربع المسمى \"تفعيل/تعطيل صورة التحميل\". لتفعيلها، ببساطة قم بتحديد المربع.";
+$string['aria:courseimage'] = 'صورة الدورة';
+
+$string['addcustomprice'] = 'أضف سعرًا مخصصًا';
+$string['enablepricingsettingstext'] = 'تفعيل السعر الافتراضي سيزيل "السعر المخصص ورابط التسجيل المخصص".';
+$string['enabledefaultpricing'] = 'تفعيل السعر الافتراضي';
+$string["dashboardstatsupdate"] = "تحديث إحصائيات RemUI";

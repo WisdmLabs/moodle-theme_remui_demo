@@ -52,46 +52,13 @@ trait get_dashboard_stats {
      * @return boolean       true
      */
     public static function get_dashboard_stats() {
-        global $PAGE, $USER;
         // Validation for context is needed.
         $context = \context_system::instance();
         self::validate_context($context);
-        $coursepercentage = new \core_completion\progress();
 
-        $stats = array();
+        $coursehandler = new \theme_remui_coursehandler();
 
-        $courses = enrol_get_users_courses($USER->id);
-
-        $coursescount = 0;
-        $coursescompleted = 0;
-        $activitiescomplete = 0;
-        $activitiesdue = 0;
-        foreach ($courses as $key => $course) {
-            $coursescount++;
-            $completion = new \completion_info($course);
-            $progresspercentvalue = $coursepercentage->get_course_progress_percentage($course, $USER->id);
-            if ($completion->is_enabled()) {
-                $modules = $completion->get_activities();
-                $activitiesprogress = 0;
-                foreach ($modules as $module) {
-                    $moduledata = $completion->get_data($module, false, $USER->id);
-                    if ($moduledata->completionstate == COMPLETION_INCOMPLETE) {
-                        $activitiesdue++;
-                    } else {
-                        $activitiescomplete++;
-                    }
-                }
-                if ($progresspercentvalue == "100") {
-                    $coursescompleted++;
-                }
-
-            }
-        }
-
-        $stats['coursesenrolled'] = $coursescount;
-        $stats['coursescompleted'] = $coursescompleted;
-        $stats['activitiescompleted'] = $activitiescomplete;
-        $stats['activitiesdue'] = $activitiesdue;
+        $stats = $coursehandler->get_dashboard_stats();
 
         return $stats;
     }

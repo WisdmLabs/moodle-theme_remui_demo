@@ -1,10 +1,10 @@
 $search-field-color: #ccc!default;
-$searchfield-border-rad: 5px;
-$searchfield-pad-x: 16px;
-$searchfield-pad-y: 12px;
-$searchfield-width: 194px;
-$searchfield-gap: 8px;
-$input-group-field-padding: 8px 8px 8px 16px;
+// $searchfield-border-rad: 5px;
+// $searchfield-pad-x: 16px;
+// $searchfield-pad-y: 12px;
+// $searchfield-width: 194px;
+// $searchfield-gap: 8px;
+// $input-group-field-padding: 8px 8px 8px 16px;
 
 @mixin get_search_field_style($gap, $icon-color, $text-color, $radius) {
     .input-group {

@@ -48,7 +48,7 @@ define(['jquery', 'core/ajax', 'core/toast'], function($, Ajax, Toast) {
             }
         });
         return data;
-    }
+    };
     var callAllFunctions = (blocksectiondata, currentclickedelement, scroll = false) => {
         var currentsectionlink = getSelectedregion(blocksectiondata, currentclickedelement);
         if (scroll) {
@@ -56,10 +56,10 @@ define(['jquery', 'core/ajax', 'core/toast'], function($, Ajax, Toast) {
         }
         activeregionclassaddition(currentclickedelement);
         getAaddblockData(currentsectionlink.regionaddblockbutton);
-    }
+    };
 
     var getAaddblockData = (currentactiveregoninfo) => {
-        var html = $(currentactiveregoninfo).html()
+        var html = $(currentactiveregoninfo).html();
         $(SELECTOR.FLOATADDBLOCKBUTTON).attr({
             'href': $(html).attr('href'),
             'data-key': $(html).attr('data-key'),
@@ -71,7 +71,7 @@ define(['jquery', 'core/ajax', 'core/toast'], function($, Ajax, Toast) {
     var activeregionclassaddition = (currentactiveregionlink) => {
         $(SELECTOR.ADDBLOCKFLOATMENU).find('.dropdown-item').removeClass('activeregion');
         $(currentactiveregionlink).addClass('activeregion');
-    }
+    };
     var scrolltoelement = (element) => {
         var targetOffset = '';
         if (element.regionid == '#block-region-side-pre') {
@@ -89,8 +89,8 @@ define(['jquery', 'core/ajax', 'core/toast'], function($, Ajax, Toast) {
             closeButton: true,
             type: 'warning edw_toast'
         });
-// $(SELECTOR.FLOATADDBLOCKBUTTON).tooltip('hide').attr('data-original-title', 'block will be added in' + ' ' + element.regionname + ' ' + 'region').tooltip('show');
-    }
+        // $(SELECTOR.FLOATADDBLOCKBUTTON).tooltip('hide').attr('data-original-title', 'block will be added in' + ' ' + element.regionname + ' ' + 'region').tooltip('show');
+    };
 // Function to check if the element is in the viewport
 function isElementInViewport(elem) {
     var $elem = $(elem);

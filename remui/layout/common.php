@@ -32,10 +32,10 @@ require_once($CFG->dirroot . '/course/lib.php');
 global $PAGE;
 theme_remui_set_dynamic_settings();
 
-// Adding loader image before everything else.
-$loaderimage = \theme_remui\toolbox::setting_file_url('loaderimage', 'loaderimage');
-if (empty($loaderimage)) {
-    $loaderimage   = $CFG->wwwroot.'/theme/remui/pix/owl_loader.gif';
+$loaderimage = false;
+if(get_config('theme_remui','enablesiteloader')){
+    // Adding loader image before everything else.
+    $loaderimage = \theme_remui\utility::get_site_loader();
 }
 
 // Add block button in editing mode.
@@ -162,14 +162,6 @@ $header = $PAGE->activityheader;
 $headercontent = $header->export_for_template($renderer);
 $lcontroller = new \theme_remui\controller\LicenseController();
 
-$homepagedepricationmodal = '';
-if ( isloggedin() 
-    && is_siteadmin() 
-    && is_plugin_available('local_remuihomepage')
-) {
-    $homepagedepricationmodal = \theme_remui\utility::get_homepage_depriation_modal();
-}
-
 $democontext = \theme_remui\utility::get_demonavbar_context();
 
 $templatecontext = [
@@ -197,9 +189,7 @@ $templatecontext = [
     'footerdata' => \theme_remui\utility::get_footer_data(),
     'cansendfeedback' => (is_siteadmin()) ? true : false,
     'feedbacksender_emailid' => isset($USER->email) ? $USER->email : '',
-    'feedback_loading_image' => $OUTPUT->image_url('a/loading', 'core'),
-    'licensestatus_forfeedback' => ($lcontroller->get_data_from_db() == 'available') ? 1 : 0,
-    'homepagedepricationmodal' => $homepagedepricationmodal,
+    'feedback_loading_image' => new moodle_url('/theme/remui/pix/siteinnerloader.svg'),
     'loaderimage' => $loaderimage,
     'democontext' => $democontext,
 ];

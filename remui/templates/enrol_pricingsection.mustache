@@ -34,30 +34,63 @@
         </div>
     </div>
     <div class="top">
-        {{#courseprice}}
-            <div class="pricing doted-border">
-                {{#editing}}
+        {{^editing}}
+            <div>
+                {{#customcourseprice}} 
+                <div class="pricing">
+                    <p class="pricing--price h-bold-2 m-0">{{{customcourseprice}}} </p>
+                </div>
+                {{/customcourseprice}}
+
+                {{^customcourseprice}}
+                    {{#courseprice}}
+                    <div class="pricing">
+                        <div>
+                            {{{courseprice}}}
+                            {{{currency}}}
+                        </div>
+                    </div>
+                    {{/courseprice}}
+                {{/customcourseprice}}
+            </div>
+        {{/editing}}
+
+        {{#editing}}
+        <div class="doted-border pricing">
+
+            <div class="{{^customcourseprice}}d-none{{/customcourseprice}}" id="custom-price-box">
+                <p class="pricing--price h-bold-2 m-0">{{{customcourseprice}}} </p>
+                <div class="p-p-2 p-mt-4 enable-pricing-text-msg">
+                    <p class="small-info-regular m-0">{{#str}}enablepricingsettingstext, theme_remui{{/str}} </p>
+                </div>
+                <a class="textlink-with-icon text-link-semibold d-inline-flex flex-gap-0d5 align-items-center p-py-2 p-px-1" id="enable-default-pricing">
+                    <span>{{#str}}enabledefaultpricing, theme_remui{{/str}}</span>
+                </a>
+            </div>
+
+            {{#courseprice}}
+                <div class="default-pricing-section {{#customcourseprice}}disabled{{/customcourseprice}} ">
                     <a href="{{editfreelabelsettinglink}}" target="_blank" class="textlink-with-icon text-link-semibold d-inline-flex flex-gap-0d5 align-items-center p-py-2 p-px-1">
                         <span>{{#str}}showhidefreelabel, theme_remui{{/str}}</span>
                         <span class="edw-icon edw-icon-Shortcut"></span>
                     </a>
-                {{/editing}}
-                <div>
-                    {{{courseprice}}}
-                    {{{currency}}}
-                    {{#editing}}
+                    <div>
+                        {{{courseprice}}}
+                        {{{currency}}}
                         <a href="{{editenrolmethodspagelink}}" target="_blank" class="textlink-with-icon text-link-semibold d-inline-flex flex-gap-0d5 align-items-center p-py-2 p-px-1">
                             <span>{{#str}}editpricing, theme_remui{{/str}}</span>
                             <span class="edw-icon edw-icon-Shortcut"></span>
                         </a>
-                    {{/editing}}
+                    </div>
                 </div>
-            </div>
-        {{/courseprice}}
+                
+            {{/courseprice}}
+        </div>
+        {{/editing}}
 
         <div class="enroll-btn-wrapper doted-border">
             <div class="p-px-6">
-                <a class="btn btn-primary btn-block" {{^editing}} href="{{buttonurl}}" {{/editing}}>{{buttontext}}</a>
+                <a class="btn btn-primary btn-block" {{^editing}} href="{{buttonurl}}" {{/editing}}>{{{buttontext}}}</a>
             </div>
             {{#editing}}
                 <div class="btn-group enroll-editbtn-wrapper">
@@ -73,11 +106,15 @@
                         <form class="p-p-6" id="enroll-now-btn-form">
                             <div class="form-group">
                                 <label for="enrolbtntext" class="text-link-semibold">{{#str}}changebtntext, theme_remui{{/str}}</label>
-                                <input type="text" value="{{buttontext}}" class="form-control text-link-regular" id="enrolbtntext">
+                                <input type="text" value="{{buttontextinput}}" class="form-control text-link-regular" id="enrolbtntext">
+                            </div>
+                            <div class="form-group">
+                                <label for="enrolbtntext" class="text-link-semibold">{{#str}}addcustomprice, theme_remui{{/str}}</label>
+                                <input type="text" value="{{customcoursepriceinput}}" max="17" class="form-control text-link-regular" id="custompricetext">
                             </div>
                             <div class="form-group">
                                 <label for="enrolbtnurl" class="text-link-semibold">{{#str}}addlink, theme_remui{{/str}}</label>
-                                <input type="text" value="{{textforbtnlinkinput}}" class="form-control text-link-regular" id="enrolbtnurl">
+                                <input type="text" value="{{{textforbtnlinkinput}}}" class="form-control text-link-regular" id="enrolbtnurl">
                             </div>
 
                             <div class="d-flex flex-gap-3 justify-content-right">

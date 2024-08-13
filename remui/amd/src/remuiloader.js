@@ -152,7 +152,7 @@ define(['jquery'], function ($) {
             }
             $("body.pagelayout-frontpage").removeClass("transparent-header");
         }
-    }
+    };
 
     /*
      * Common method to stop collapsing messaging tabs
@@ -313,7 +313,7 @@ define(['jquery'], function ($) {
                 console.log(searchdata);
                 $('#page-search-index  .page-header-headings').append(searchdata);
             }
-            $("#page-search-index .search-result-count").detach().prependTo("#page-search-index #region-main")
+            $("#page-search-index .search-result-count").detach().prependTo("#page-search-index #region-main");
             $("#page-search-index .search-result-count").removeClass('d-none');
 
             transparentheaderhanlder();

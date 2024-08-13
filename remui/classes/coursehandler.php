@@ -308,7 +308,7 @@ class theme_remui_coursehandler {
                 $focusdata['btnbg'] = 'btn-primary';
                 $focusdata['btnicon'] = 'edw-icon edw-icon-Expand';
             }
-            $focusdata['coursename'] = $COURSE->fullname;
+            $focusdata['coursename'] = format_text($COURSE->fullname, FORMAT_HTML);
             if ($PAGE->pagelayout === 'incourse') {
                 $focusdata['courseurl'] = $CFG->wwwroot . '/course/view.php?id=' . $COURSE->id;
             }
@@ -335,26 +335,32 @@ class theme_remui_coursehandler {
      * @param  Object $context Course context
      * @return Array           Array of users
      */
-    public function get_enrolled_students($course, $context) {
+    public function get_enrolled_students($course, $context,$userid=0,$admin = false) {
         global $DB, $USER;
 
         $groups = [];
 
-        $groups = groups_get_user_groups($course->id, $USER->id);
+        if (empty($userid)) {
+            $userid = $USER->id;
+        }
+
+        $groups = groups_get_user_groups($course->id, $userid);
         $groups = $groups[0];
 
         list($esql, $params) = get_enrolled_sql($context, 'moodle/course:isincompletionreports');
 
         $groupsql = '';
 
-        if (!has_capability('moodle/site:accessallgroups', $context) && $course->groupmode == 1) {
-            if (empty($groups)) {
-                return [];
-            }
+        if(!$admin){
+            if (!has_capability('moodle/site:accessallgroups', $context) && $course->groupmode == 1) {
+                if (empty($groups)) {
+                    return [];
+                }
 
-            list($insql, $inparams) = $DB->get_in_or_equal($groups, SQL_PARAMS_NAMED, 'groups', true, true);
-            $groupsql = " JOIN {groups_members} gm ON gm.groupid $insql AND gm.userid = u.id";
-            $params = array_merge($params, $inparams);
+                list($insql, $inparams) = $DB->get_in_or_equal($groups, SQL_PARAMS_NAMED, 'groups', true, true);
+                $groupsql = " JOIN {groups_members} gm ON gm.groupid $insql AND gm.userid = u.id";
+                $params = array_merge($params, $inparams);
+            }
         }
 
         $fields = implode(', ', [
@@ -392,16 +398,53 @@ class theme_remui_coursehandler {
     }
 
     /**
-     * Get course stats
+     * Set course stats
      *
      * @param object $course Course object
      *
      * @return array
      */
-    public function get_course_stats($course) {
-        $context = context_course::instance($course->id);
+    public function set_course_stats($course,$admins=false) {
+
+        $statsjson = json_decode(get_config('theme_remui',"edwcoursestats"),true);
+
+        $stats = array();
+        $context = \context_course::instance($course->id);
         // This capability is allowed to only students - 'moodle/course:isincompletionreports'.
-        $enrolledusers = $this->get_enrolled_students($course, $context);
+        if($admins){
+
+            $adminuser = get_admin();
+
+            $enrolledusers = $this->get_enrolled_students($course, $context,$adminuser->id,true);
+
+            $stats = $this->calculate_course_stats($course,$enrolledusers);
+
+            $statsjson["course".$course->id] = $stats;
+
+            set_config("edwcoursestats", json_encode($statsjson), "theme_remui");
+
+        }else{
+
+            $enrolledusers = $this->get_enrolled_students($course, $context);
+
+            $stats = $this->calculate_course_stats($course,$enrolledusers);
+
+        }
+
+        return $stats;
+
+    }
+
+    /**
+     * Calculate the course statistics for the given course and enrolled users.
+     *
+     * @param object $course The course object.
+     * @param array $enrolledusers The array of enrolled users.
+     * @return array The course statistics, including the number of completed, in-progress, and not-started courses.
+     */
+
+    public function calculate_course_stats($course,$enrolledusers){
+
         $stats = array();
         $coursepercentage = new \core_completion\progress();
         $stats['completed'] = 0;
@@ -431,10 +474,146 @@ class theme_remui_coursehandler {
             $stats['inprogress'] = $inprogress;
             $stats['notstarted'] = $notstarted;
         }
+
+        return $stats;
+
+    }
+
+    /**
+     * Get course stats
+     *
+     * @param object $course Course object
+     *
+     * @return array
+     */
+    public function get_course_stats($course) {
+
+        $statsjson = json_decode(get_config('theme_remui',"edwcoursestats"),true);
+
+        $stats = array();
+
+        if(isset($statsjson["course".$course->id])){
+
+            $stats = $statsjson["course".$course->id];
+
+        }else{
+
+            $stats = $this->set_course_stats($course,true);
+
+        }
+
+        // It will not update the course stats in db it will calculate and return it.
+        if($course->groupmode == 1 && !$this->is_admin_or_manager()){
+
+            $stats = $this->set_course_stats($course);
+        }
+        return $stats;
+    }
+
+    /**
+     * Set dashboard stats
+     *
+     *
+     * @return array
+     */
+    public function set_dashboard_stats($userid) {
+
+        $statsjson = json_decode(get_config('theme_remui',"edwdashboardstats"),true);
+
+        $coursepercentage = new \core_completion\progress();
+
+        $stats = array();
+
+        $courses = enrol_get_users_courses($userid);
+
+        $coursescount = 0;
+        $coursescompleted = 0;
+        $activitiescomplete = 0;
+        $activitiesdue = 0;
+        foreach ($courses as $key => $course) {
+            $coursescount++;
+            $completion = new \completion_info($course);
+            $progresspercentvalue = $coursepercentage->get_course_progress_percentage($course, $userid);
+            if ($completion->is_enabled()) {
+                $modules = $completion->get_activities();
+                $activitiesprogress = 0;
+                foreach ($modules as $module) {
+                    $moduledata = $completion->get_data($module, false, $userid);
+                    if ($moduledata->completionstate == COMPLETION_INCOMPLETE) {
+                        $activitiesdue++;
+                    } else {
+                        $activitiescomplete++;
+                    }
+                }
+                if ($progresspercentvalue == "100") {
+                    $coursescompleted++;
+                }
+
+            }
+        }
+
+        $stats['coursesenrolled'] = $coursescount;
+        $stats['coursescompleted'] = $coursescompleted;
+        $stats['activitiescompleted'] = $activitiescomplete;
+        $stats['activitiesdue'] = $activitiesdue;
+
+        $statsjson[$userid] = $stats;
+
+        set_config("edwdashboardstats", json_encode($statsjson), "theme_remui");
+
+    }
+
+    /**
+     * Get dashboard stats
+     *
+     *
+     * @return array
+     */
+    public function get_dashboard_stats() {
+
+        global $USER;
+
+        $statsjson = json_decode(get_config('theme_remui',"edwdashboardstats"),true);
+
+        $stats = array();
+
+        if(isset($statsjson[$USER->id])){
+
+            $stats = $statsjson[$USER->id];
+
+        }else{
+            $this->set_dashboard_stats($USER->id);
+
+            $statsjson = json_decode(get_config('theme_remui',"edwdashboardstats"),true);
+
+            $stats = $statsjson[$USER->id];
+        }
         return $stats;
     }
 
 
+    public function reset_dashboard_stats_for_users_incourse($course) {
+
+        $coursecontext = \context_course::instance($course->id);
+
+        $courseuserids = get_enrolled_users($coursecontext,'',0,'u.id',);
+
+        // Convert the array of objects to an array of associative arrays
+        $courseuseridsArray = array_map(function($user) {
+            return (array) $user;
+        }, $courseuserids);
+
+        // Use array_column to extract the 'id' values
+        $courseuserids = array_column($courseuseridsArray, 'id');
+
+        $statsjson = json_decode(get_config('theme_remui',"edwdashboardstats"),true);
+
+        // Remove keys from $statsjson where values are present in $courseuserids
+        $statsjson = array_diff_key($statsjson, $courseuserids);
+
+        set_config("edwdashboardstats", json_encode($statsjson), "theme_remui");
+
+    }
         /**
          * Returns the data for course filter.
          */
@@ -746,36 +925,6 @@ class theme_remui_coursehandler {
             }
             $courseimage = '';
 
-            // Course completion info.
-            if (is_enrolled($context, $USER->id)) {
-                $completion = new \completion_info($course);
-                if ($completion->is_enabled()) {
-                    $percentage = progress::get_course_progress_percentage($course, $USER->id);
-
-                    if (!is_null($percentage)) {
-                        $percentage = floor($percentage);
-                        if ($percentage == 100) {
-                            $coursesarray[$count]["coursecompleted"] = get_string('completed', 'theme_remui');
-                        } else if ($percentage > 0 && $percentage < 100) {
-                            $coursesarray[$count]["courseinprogress"] = get_string('resume', 'theme_remui');
-                            $coursesarray[$count]["percentage"]  = $percentage;
-                            $modules = $completion->get_activities();
-                            foreach ($modules as $module) {
-                                $data = $completion->get_data($module, false, $USER->id);
-                                if (!$data->completionstate) {
-                                    $coursesarray[$count]["lastaccessactivity"] = $CFG->wwwroot."/course/view.php?id=".$course->id
-                                    ."#section-".$module->sectionnum;
-                                    break;
-                                }
-                            }
-                        } else {
-                            $coursesarray[$count]["coursetostart"] = get_string('start', 'theme_remui');
-                        }
-                    } else {
-                        $coursesarray[$count]["coursetostart"] = get_string('start', 'theme_remui');
-                    }
-                }
-            }
 
             $count++;
 

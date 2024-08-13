@@ -51,7 +51,11 @@ $templatecontext = new stdClass;
 
 $templatecontext->panels = $customizer->accordion();
 $templatecontext->url = $url;
-$templatecontext->loader = new moodle_url('/theme/remui/pix/owl_loader.gif');
+// $templatecontext->loader = new moodle_url('/theme/remui/pix/siteloader.gif');
+
+if(get_config('theme_remui','enablesiteloader')){
+    $templatecontext->loader = \theme_remui\utility::get_site_loader();
+}
 $templatecontext->sitename = $COURSE->shortname;
 
 $templatecontext->darkmodecustomizerwarnnotvisible  = get_user_preferences('darkmodecustomizerwarnnotvisible');

@@ -120,7 +120,7 @@ var COMMON = {
     FONTFAMILY: '[name="button-common-fontfamily"]',
     TEXTTRANSFORM: '[name="button-common-text-transform"]',
     LETTERSPACING: '[name="button-common-letterspacing"]',
-}
+};
 
 /**
  * Process selector specific setting settings.

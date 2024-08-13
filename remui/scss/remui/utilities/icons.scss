@@ -1,5 +1,9 @@
 .icon {
     color: $ic-default;
+    
+    &.edw-icon-Help {
+        margin-right: 0; /* help icon always placed at the end of the list */
+    }
 }
 .edw-icon-Info {
     color: inherit;

@@ -6,7 +6,7 @@
         .row {
             .col-md-4 {
                 padding: 0;
-                margin-bottom: 16px;
+                margin-bottom: map-get($spacerspx, '4');
                 @include media-breakpoint-down(sm) {
                     &:nth-child(2) {
                         order: -1;
@@ -28,22 +28,25 @@
 #page-course-view-topics {
     .course-content ul.topics li.section,
     .course-content ul.weeks li.section {
-        padding: 24px;
+        padding: map-get($spacerspx, '6');
         background-color: $white;
         border: 1px solid $light-border;
         border-radius: 8px;
         position: relative;
+
         &:not(:last-of-type) {
-            margin-bottom: 24px;
+            margin-bottom: map-get($spacerspx, '6');
         }
+
         .activity.activity-wrapper {
             padding: 0;
             &:not(:last-of-type) {
-                margin-bottom: 16px;
+                margin-bottom: map-get($spacerspx, '4');
             }
+
             .activity-item {
                 border: 1px solid $light-border;
-                padding: 24px;
+                padding: map-get($spacerspx, '6');
                 .activity-instance {
                     .activityiconcontainer {
                         border-radius: $activity-iconcontainer-rad;
@@ -78,7 +81,7 @@
         .activity-item {
             border: 0;
             // margin-left: map-get($spacers, 3);
-            margin-left: 24px;
+            margin-left: map-get($spacerspx, '6');
         }
     }
 }

@@ -24,7 +24,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2024072300;
+$plugin->version   = 2024081200;
 $plugin->requires  = 2022041200;
-$plugin->release   = '4.2.11';
+$plugin->release   = '4.2.12';
 $plugin->component = 'theme_remui';

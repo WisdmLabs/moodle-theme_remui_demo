@@ -763,28 +763,6 @@ class utility {
         // Courses Data.
         $coursecontext = array();
         foreach ($courses as $key => $course) {
-            if ($date != 'all') {
-                // Get the current time value.
-                $time = new \DateTime("now", \core_date::get_user_timezone_object());
-                $time->add(new \DateInterval("P1D"));
-
-                $timestamp = $time->getTimestamp();
-
-                // Check if inprogress and not passed the course end date.
-                if ($date == 'inprogress' && $timestamp < $course['epochenddate']) {
-                    continue;
-                }
-
-                // Check if future and not passed course start date.
-                if ($date == 'future' && $timestamp > $course['epochstartdate']) {
-                    continue;
-                }
-
-                // Check if past and not passed end date.
-                if ($date == 'past' && $timestamp < $course['epochenddate']) {
-                    continue;
-                }
-            }
 
 
             $coursedata = array();
@@ -798,8 +776,6 @@ class utility {
             $coursedata['activity']    = $course['activity'];
             $coursedata['categoryname'] = strip_tags(format_text($course['categoryname']));
             $coursedata['ernrshortdesign'] = $course['ernrshortdesign'];
-            $coursedata['multilessonpresent'] = $course['multilessonpresent'];
-            $coursedata['singleessonpresent'] = $course['singleessonpresent'];
             $coursedata['lessonstitletext'] = $course['lessonstitletext'];
             $coursedata['enrolledusertitletext'] = $course['enrolledusertitletext'];
             if ($course['visible']) {
@@ -813,44 +789,25 @@ class utility {
                 $coursedata['courseimage'] = $course['courseimage'];
             }
             $coursedata['coursesummary'] = $course['coursesummary'];
-            if (isset($course['coursestartdate'])) {
-                $coursedata['startdate']['day'] = substr($course['coursestartdate'], 0, 2);
-                $coursedata['startdate']['month'] = substr($course['coursestartdate'], 3, 3);
-                $coursedata['startdate']['year'] = substr($course['coursestartdate'], 8, 4);
+
+
+            // Context creation for all courses.
+            if (isset($course['usercanmanage']) && $allowfull) {
+                $coursedata["usercanmanage"] = $course['usercanmanage'];
             }
-            // Course card - Footer context is different for mycourses and all courses tab.
-            if ($mycourses) {
-                // Context creation for mycourses.
-                $coursedata['mycourses'] = true;
-                if (isset($course['coursecompleted'])) {
-                    $coursedata["coursecompleted"] = $course['coursecompleted'];
-                }
-                if (isset($course['courseinprogress'])) {
-                    $coursedata["courseinprogress"] = $course['courseinprogress'];
-                    $coursedata["percentage"] = $course['percentage'];
-                }
-                if (isset($course['coursetostart'])) {
-                    $coursedata["coursetostart"] = $course['coursetostart'];
-                }
-            } else {
-                // Context creation for all courses.
-                if (isset($course['usercanmanage']) && $allowfull) {
-                    $coursedata["usercanmanage"] = $course['usercanmanage'];
-                }
 
-                if (isset($course['enrollmenticons']) && $allowfull) {
-                    $coursedata["enrollmenticons"] = $course['enrollmenticons'];
-                }
-                if(isset($course["enrollmenticonsremainig"])) {
-                    $coursedata["enrollmenticonsremainig"] = $course["enrollmenticonsremainig"];
-                }
-
-                if(isset($course["enrolleduserscount"])){
-                    $coursedata["enrolleduserscount"] = $course["enrolleduserscount"];
-                }
-
-                $coursedata["showselecteddatesetting"] = $course["showselecteddatesetting"];
+            if (isset($course['enrollmenticons']) && $allowfull) {
+                $coursedata["enrollmenticons"] = $course['enrollmenticons'];
             }
+            if(isset($course["enrollmenticonsremainig"])) {
+                $coursedata["enrollmenticonsremainig"] = $course["enrollmenticonsremainig"];
+            }
+
+            if(isset($course["enrolleduserscount"])){
+                $coursedata["enrolleduserscount"] = $course["enrolleduserscount"];
+            }
+
+            $coursedata["showselecteddatesetting"] = $course["showselecteddatesetting"];
 
             if (isset($course['instructors']) && $allowfull) {
                 $instructors = array();
@@ -867,51 +824,14 @@ class utility {
             $coursedata['lessoncount'] = $course['lessoncount'];
             // $pagelayout = get_config('theme_remui', 'categorypagelayout');
 
-            $pagelayout = 0;
-            if ($pagelayout !== "0") {
 
-                switch ($pagelayout) {
-                    case '1':
-                        if ($allowfull) {
-                            $coursedata['widthclasses'] = 'card-main col-lg-4 col-sm-12 col-md-6';
-                        } else {
-                            $coursedata['widthclasses'] = 'col-12 h-p100 ';
-                        }
-                        break;
-
-                    // Commented this code, add here new layout design condition.
-                    // case '2':
-                    // $templatecontext['layout2'] = true;
-                    // break;
-                    default:
-                        if ($allowfull) {
-                            $coursedata['widthclasses'] = 'col-lg-3 col-sm-12 col-md-6';
-                        } else {
-                            $coursedata['widthclasses'] = 'col-12 h-p100 ';
-                        }
-                        break;
-                }
-
-            } else {
-                if ($allowfull) {
-                    $coursedata['widthclasses'] = 'col-lg-3 col-sm-12 col-md-6';
-                } else {
-                    $coursedata['widthclasses'] = 'col-12 h-p100 ';
-                }
-            }
 
             $coursedata['animation'] = \theme_remui\toolbox::get_setting('courseanimation');
-            if (!\theme_remui\toolbox::get_setting('enablenewcoursecards')) {
-                $coursedata['old_card'] = true;
-            }
             $coursecontext[] = $coursedata;
         }
         $result['courses'] = $coursecontext;
         $result['view'] = get_user_preferences('course_view_state');
 
-        if (\theme_remui\toolbox::get_setting('enablenewcoursecards')) {
-            $result['latest_card'] = true;
-        }
 
         return $result;
     }
@@ -1231,101 +1151,6 @@ class utility {
         ];
     }
 
-    public static function get_homepage_depriation_modal() {
-        global $OUTPUT, $CFG;
-
-        if(get_user_preferences('forcefulmigratemodalseen') && get_user_preferences('homepageavailablemodalseen')) return '';
-
-        $depricationtemplatecontext = [];
-
-        $ishomepageselected = get_config('theme_remui', 'frontpagechooser') == 1;
-
-        $homepagereleaseinfo = get_theme_req_plugin_release_info("local_remuihomepage");
-        $homepagelatest = (version_compare($homepagereleaseinfo->release, "4.1.2")) > 0;
-
-        //If homepage builder is not selected
-        if(!$ishomepageselected && !get_user_preferences('homepageavailablemodalseen')) {
-            //This is for preventing to open modal in migrate page
-            $qualifiedurl = qualified_me();
-            $url = "/local/edwiserpagebuilder/homepageimporter/homepage.php?data=migrate";
-            if(strpos($qualifiedurl, $url) !== false) {
-                return "";
-            }
-
-            $depricationtemplatecontext['migratewarningmsg'] = get_string("migratewarningmsg4", "theme_remui", $CFG->wwwroot.'/admin/plugins.php?updatesonly=0&contribonly=1');
-            $depricationtemplatecontext['nocheckbox'] = true;
-            set_user_preferences(['homepageavailablemodalseen'=> true, 'forcefulmigratemodalseen'=> true]);
-
-        } else if (!get_user_preferences('forcefulmigratemodalseen')) {
-            if (is_plugin_available('local_edwiserpagebuilder')) {
-
-                $pagebuilderreleasedata = get_theme_req_plugin_release_info("local_edwiserpagebuilder");
-                $pagebuilderlatest = (version_compare($pagebuilderreleasedata->release, "4.1.2")) > 0;
-
-                //If Pagebuilder and homepage both plugin updated and homepage is selected
-                if ($pagebuilderlatest && $homepagelatest) {
-
-                    $depricationtemplatecontext['migratewarningmsg'] = get_string(
-                        "migratewarningmsg",
-                        "theme_remui",
-                        [
-                            'warningmsg' => get_string("migratewarningmsg1", "theme_remui"),
-                            'clickok' => get_string("clickokmigratewarningmsg2", "theme_remui")
-                        ]
-                    );
-                    $depricationtemplatecontext['migragettoastmsg'] = get_string("migragettoastmsg1", "theme_remui");
-                    $depricationtemplatecontext['showmigratecta'] = true;
-
-                }
-                //If pagebuilder is not updated and homepage is selected
-                else if(!$pagebuilderlatest && $homepagelatest) {
-
-                    $depricationtemplatecontext['migratewarningmsg'] = get_string(
-                        "migratewarningmsg",
-                        "theme_remui",
-                        [
-                            'warningmsg' => get_string("migratewarningmsg2", "theme_remui"),
-                            'clickok' => get_string("clickokmigratewarningmsg2", "theme_remui")
-                        ]
-                    );
-                    $depricationtemplatecontext['migragettoastmsg'] = get_string("migragettoastmsg2", "theme_remui");
-
-                }
-                // Scenario when pagebuilder and homepage both are older versions
-                else {
-
-                    $depricationtemplatecontext['migratewarningmsg'] = get_string(
-                        "migratewarningmsg",
-                        "theme_remui",
-                        [
-                            'warningmsg' => get_string("migratewarningmsg5", "theme_remui"),
-                            'clickok' => get_string("clickokmigratewarningmsg2", "theme_remui")
-                        ]
-                    );
-                    $depricationtemplatecontext['migragettoastmsg'] = get_string("migragettoastmsg5", "theme_remui");
-
-                }
-            // When pagebuilder is not available and homepage selected
-            } else {
-
-                $depricationtemplatecontext['migratewarningmsg'] = get_string(
-                    "migratewarningmsg",
-                    "theme_remui",
-                    [
-                        'warningmsg' => get_string("migratewarningmsg3", "theme_remui"),
-                        'clickok' => get_string("clickokmigratewarningmsg", "theme_remui")
-                    ]
-
-                );
-                $depricationtemplatecontext['migragettoastmsg'] = get_string("migragettoastmsg3", "theme_remui");
-
-            }
-        } else {
-            return "";
-        }
-
-        return $OUTPUT->render_from_template("theme_remui/homepage_deprication_modal", $depricationtemplatecontext);
-    }
 
     public static function addblockfloatmenu() {
         global $OUTPUT, $CFG, $PAGE;
@@ -1427,6 +1252,15 @@ class utility {
         $rnrshortdesingnarray['rnrshortdesign'] = $rnrshortdesign;
         $rnrshortdesingnarray['rnrshortratingvalue'] = $data->averagerating;
         return $rnrshortdesingnarray;
+    }
+
+    public static function get_site_loader(){
+        global $CFG;
+        $loaderimage = \theme_remui\toolbox::setting_file_url('loaderimage', 'loaderimage');
+        if (empty($loaderimage)) {
+            $loaderimage   = $CFG->wwwroot.'/theme/remui/pix/siteloader.svg';
+        }
+        return $loaderimage;
     }
 
     public static function get_demonavbar_context(){

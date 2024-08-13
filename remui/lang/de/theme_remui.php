@@ -1278,9 +1278,6 @@ $string['small-info-fontweight_desc'] = 'Schriftstärke für kleine Informatione
 $string['full-width-top'] = 'Vollbreite oben';
 $string['full-bottom'] = 'Vollbreite unten';
 
-$string['homepagedepricationmodalhead'] = 'Warnung zur Veralteten Startseite';
-
-$string['homepagedepricationmodaldesc'] = 'Der Startseiten-Builder wird bald veraltet sein.';
 $string['homepageedwpagebuilderoption'] = "Verwenden Sie Edwiser Pagebuilder für die Startseite";
 
 $string['livecustomizer'] = "Live-Anpassung";
@@ -1327,21 +1324,6 @@ $string['settingpagedepbottomsecondaryst3'] = 'Was wird passieren?';
 $string['settingpagedepbottomsecondaryst4'] = 'Der Code und der Inhalt jeder Sektion der aktuellen Startseite werden in einen benutzerdefinierten HTML-Block im Edwiser RemUI Page Builder verschoben. Das Design und der Inhalt der Seite bleiben unverändert und Sie können es einfach auf eine "No-Code" Weise mit dem Edwiser RemUI Page Builder bearbeiten.';
 $string['settingpagedepbottomsecondaryst5'] = '<span class="para-semibold-1 m-0">Hinweis:</span> Dies ist das letzte Update zum Homepage Builder. Er wurde nun in den Edwiser Page Builder integriert.';
 
-// Veraltungsmodal-Strings
-$string['homepagedepricationmodalst1'] = 'Wir präsentieren Ihnen eine bessere Möglichkeit, Startseiten zu erstellen und anzupassen!';
-$string['homepagedepricationmodalst2'] = '<p class="para-regular-1 m-0">Mit diesem Update können Sie nun die Leistung des <span class="para-semibold-1">Edwiser RemUI Page Builder nutzen, der speziell für Startseiten entwickelt wurde.</span></p>';
-$string['homepagedepricationmodalfeatureitem1'] = 'Verbesserter Page Builder';
-$string['homepagedepricationmodalfeatureitem2'] = 'Über 30 gut gestaltete Blockvorlagen';
-$string['homepagedepricationmodalfeatureitem3'] = '7 Startseitenlayouts';
-$string['homepagedepricationmodalfeatureitem4'] = 'Benutzerdefinierte Designs erstellen';
-
-$string['homepagedepricationmodalst3'] = 'Bereit für den nächsten Schritt?';
-$string['homepagedepricationmodalst4'] = 'Klicken Sie unten, um zu den Einstellungen zu gelangen und Ihre vorhandene Startseite nahtlos zu migrieren';
-$string['homepagedepricationmodalst5'] = 'Einstellungen';
-$string['homepagedepricationmodalst6'] = 'Nicht mehr anzeigen';
-$string['homepagedepricationmodalst7'] = '<span class="para-regular-2">Hinweis:</span> Nach den nächsten drei Updates wird der aktuelle Homepage Builder von Edwiser RemUI veraltet sein.';
-
-$string['homepagedrpecationmodalst8'] = 'Der neue Edwiser RemUI-Seitenersteller ist in RemUI Pro und den oben genannten Plänen verfügbar. Wenn Sie das RemUI Starterpaket verwenden, können Sie';
 $string['upgradeherelinktext'] = 'hier aktualisieren';
 
 $string['addnewpage'] = "Neue Seite hinzufügen";
@@ -1405,7 +1387,7 @@ $string['editreviewapproval'] = 'Überprüfungsgenehmigung bearbeiten';
 $string['addchangevideo'] = 'Video hinzufügen/ändern';
 $string['novideomessage'] = 'Es gibt kein Video.<br>Klicken Sie auf den obigen Link, um ein Video hinzuzufügen.';
 $string['changecourseimage'] = 'Kursbild ändern';
-$string['changebtntextandlink'] = 'Schaltflächentext und Link ändern';
+$string['changebtntextandlink'] = 'Benutzerdefinierten Anmeldelink & Preis hinzufügen';
 $string['edit'] = 'Bearbeiten';
 $string['viewalltext'] = 'Alle anzeigen';
 $string['addremuicustomfield'] = 'RemUI-Benutzerdefiniertes Feld hinzufügen';
@@ -1488,41 +1470,6 @@ $string["switchtodm"] = "Dunkelmodus";
 $string["switchtolm"] = "Hellmodus";
 $string["disabledmwarning"] = "Um den Visual Personalizer zu aktivieren, schalten Sie die Dunkelmodus-Vorschau AUS.";
 
-$string["forcefullmigratemsgheading"] = "Vorstellung einer besseren Möglichkeit zum Erstellen und Anpassen von Startseiten.";
-$string["migratemodalheading"] = "Vorstellung einer besseren Möglichkeit zum Erstellen und Anpassen von Startseiten.";
-
-$string["migragetcheckboxlabel"] = "Ich verstehe die obige Warnung.";
-$string["migratewarningmsg"] = 'Der alte Edwiser Startseiten-Generator wird nicht mehr unterstützt. Um sicherzustellen, dass Ihre Website auf dem neuesten Stand bleibt, müssen wir Ihre Startseite auf den neuen und verbesserten "Edwiser RemUI Page Builder" migrieren.<br><br>
-        <span style="font-weight: 600; display: inline-block; margin-bottom: 8px;">Hier ist, was Sie tun müssen:</span>
-        <span class="deprication-choice d-flex flex-gap-4">
-            <span class="choice-1">
-                {$a->clickok}<br>
-                <span style="font-size: 12px; line-height: 15px;">
-                    <span style="font-weight: 600; display: inline-block; margin-top: 8px;">Bitte beachten Sie:</span> Die Auswahl von "Okay" migriert Ihren aktuellen Startseiteninhalt nicht.<br>
-                </span>
-            </span>
-            <span class="align-self-center" style="font-weight: 600;">ODER</span>
-            <span class="choice-2">
-                {$a->warningmsg}
-            </span>
-        </span><br>
-        Machen Sie sich keine Sorgen, dieser Vorgang ist einfach und beeinträchtigt nicht die Funktionalität Ihrer Website.';
-
-$string["migratewarningmsg1"] = "Klicken Sie auf <span style=\"font-weight: 600;\">'Migrieren'</span>, um Ihren vorhandenen Startseiteninhalt automatisch in den neuen Seitengenerator zu übertragen.<br>";
-$string["migratewarningmsg2"] = 'Aktualisieren Sie den Edwiser Page Builder, um Ihre Startseite zu migrieren. <a href="https://edwiser.helpscoutdocs.com/article/572-how-to-migrate-current-homepage-to-the-edwiser-page-builder" target="_blank" >Siehe Anweisungen <span class="edw-icon edw-icon-Shortcut redirect-shortcut"></span></a><br>';
-$string["migratewarningmsg3"] = 'Installieren Sie die neueste Version des Edwiser Page Builder von der <a href="https://edwiser.org/my-account/" target="_blank" >Edwiser Mein Konto Seite <span class="edw-icon edw-icon-Shortcut redirect-shortcut"></span></a>, um Ihre aktuelle Startseite zu migrieren.<br>';
-$string["migratewarningmsg4"] = 'Der Edwiser Startseiten-Generator wird nicht mehr unterstützt. Bitte deinstallieren Sie "Edwiser Startseiten-Generator (local_remuihomepage)" von <a href="{$a}" target="_blank">hier</a>.<br><br>
-<span style="font-size: 12px; line-height: 15px;">
-    <span style="font-weight: 600;">Bitte beachten Sie:</span> Dieser Schritt ist optional, aber wir empfehlen ihn!
-</span>';
-$string["migratewarningmsg5"] = 'Aktualisieren Sie den Edwiser Page Builder und den Edwiser Startseiten-Generator auf die neueste Version, um Ihre aktuelle Startseite zu migrieren. Um die neueste Version herunterzuladen <a href="https://edwiser.org/my-account/" target="_blank" >Klicken Sie hier <span class="edw-icon edw-icon-Shortcut redirect-shortcut"></span></a><br>';
-
-$string["clickokmigratewarningmsg"] = 'Klicken Sie auf <span style="font-weight: 600;">‘Okay’</span>, um eine Startseite mit dem RemUI-Design-Generator zu erstellen.';
-$string["clickokmigratewarningmsg2"] = 'Klicken Sie auf <span style="font-weight: 600;">‘Okay’</span>, um mit dem neuen Generator neu zu beginnen und eine neue Startseite zu erstellen';
-
-$string["migragettoastmsg1"] = "Der Edwiser RemUI Seitengenerator ist eingestellt. Um die Startseite zu migrieren ";
-$string["migragettoastmsg2"] = "Der Edwiser RemUI Seitengenerator ist eingestellt.";
-$string["migragettoastmsg3"] = "Der alte Seitengenerator ist eingestellt.";
 
 $string["here"] = "hier";
 $string["clickhere"] = "Klicken Sie hier";
@@ -1536,3 +1483,11 @@ $string['moodleblocks'] = 'Moodle-Blöcke';
 
 $string['citytown'] = 'Stadt';
 $string['searchtext'] = 'Suchtext';
+$string['enablesiteloader'] = "Ladebild aktivieren/deaktivieren";
+$string['enablesiteloaderdesc'] = "Um das Lade-GIF auf der Seite zu deaktivieren, deaktivieren Sie das Kontrollkästchen „Ladebild aktivieren/deaktivieren“. Um es zu aktivieren, aktivieren Sie einfach das Kontrollkästchen.";
+$string['aria:courseimage'] = 'Kursbild';
+
+$string['addcustomprice'] = 'Benutzerdefinierten Preis hinzufügen';
+$string['enablepricingsettingstext'] = 'Durch das Aktivieren der Standardpreise werden „benutzerdefinierter Preis und benutzerdefinierter Anmeldelink“ entfernt.';
+$string['enabledefaultpricing'] = 'Standardpreise aktivieren';
+$string["dashboardstatsupdate"] = "RemUI-Statistik-Update";

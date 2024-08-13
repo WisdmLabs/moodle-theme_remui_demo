@@ -257,7 +257,11 @@ class EnrolmentPageHandler {
         $variable2 = "enrollnowbtnlink".$courseid;
 
         if(get_config('theme_remui', $variable1)){
-            $buttontext = format_text(get_config('theme_remui',$variable1),FORMAT_HTML);
+            $buttontextinput = get_config('theme_remui',$variable1);
+            $buttontext = format_text($buttontextinput, FORMAT_HTML);
+        } else {
+            $buttontextinput = "";
+            $buttontext = "";
         }
         if(get_config('theme_remui',$variable2) && ((get_config('theme_remui',$variable2)!='#'))){
             $buttonurl = get_config('theme_remui',$variable2);
@@ -266,7 +270,20 @@ class EnrolmentPageHandler {
         if($PAGE->user_is_editing()){
             $buttonurl = '#';
         }
+        $custompricetext = "custompricetext".$courseid;
+
+        if(get_config('theme_remui', $custompricetext)) {
+            $customcoursepriceinput = get_config('theme_remui', $custompricetext);
+            $customcourseprice = format_text($customcoursepriceinput, FORMAT_HTML);
+        } else {
+            $customcourseprice = "";
+            $customcoursepriceinput = "";
+        }
+        $contextdata['customcourseprice'] = $customcourseprice;
+        $contextdata['customcoursepriceinput'] = $customcoursepriceinput;
+
         $contextdata['buttontext'] = $buttontext;
+        $contextdata['buttontextinput'] = $buttontextinput;
         $contextdata['buttonurl'] = $buttonurl;
         $contextdata['textforbtnlinkinput'] = $textforbtnlinkinput;
         return $contextdata;
@@ -459,13 +476,37 @@ class EnrolmentPageHandler {
         $config = json_decode($config);
         $variable1 = "enrollnowbtntext".$config->courseid;
         $variable2 = "enrollnowbtnlink".$config->courseid;
+        $variable3 = "custompricetext".$config->courseid;
 
         set_config($variable1,$config->title,"theme_remui");
         set_config($variable2,$config->link,"theme_remui");
+        set_config($variable3,$config->customprice,"theme_remui");
 
         $data = new \stdClass();
-        $data->buttontext = get_config('theme_remui', $variable1);
+        $data->buttontext = format_text(get_config('theme_remui', $variable1), FORMAT_HTML);
         $data->buttonlink = "#";
+        $data->customprice = format_text(get_config('theme_remui', $variable3), FORMAT_HTML);
+
+        return $data;
+    }
+
+    /**
+     * Updates the custom price text for a course.
+     *
+     * @param string $config A JSON-encoded configuration object containing the course ID and the new custom price text.
+     * @return object An object containing the updated custom price text.
+     */
+    public function action_clear_ustomprice_and_link($config){
+        $config = json_decode($config);
+        $variable2 = "enrollnowbtnlink".$config->courseid;
+        $variable3 = "custompricetext".$config->courseid;
+
+        set_config($variable2,"","theme_remui");
+        set_config($variable3,"","theme_remui");
+
+        $data = new \stdClass();
+        $data->buttonlink = "#";
+        $data->customprice = get_config('theme_remui', $variable3);
 
         return $data;
     }

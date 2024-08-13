@@ -1,6 +1,25 @@
 Release
 =======
 
+Version 4.2.12
+==============
+Feature - Added a custom pricing field for third-party payment gateways on the enrollment page.
+Feature - Added a setting to enable or disable the site loader.
+Tweak - UI/UX Improvements:
+        - Resolved the margin issue on help icons.
+        - Removed extra space from the homepage when the site announcement is enabled.
+        - Removed extra space at the bottom of the homepage when a layout is added and everything is hidden.
+        - Hide the visual personalizer button in the quick menu on mobile view.
+        - Other minor UI/UX improvements.
+Tweak   - SCSS improvement and optimization.
+Tweak - Added Multilanguage support to the header in focus mode.
+Tweak - Improved course stats and dashboard stats.
+Tweak - Code improvements on the course archive page and course fetching logic.
+Tweak - Removed deprecation warnings and information previously added for the remuihomepage plugin.
+Tweak - The default site loader image has been changed.
+Fix   - Resolved the issue where link color customizer settings were not working in preview mode.
+
+
 Version 4.2.11
 ==============
 Feature - Added language translation files for:
@@ -8,12 +27,13 @@ Feature - Added language translation files for:
         - Spanish (Mexico)(es_mx)
 Feature - Teachers of the same group are visible in the course header when the separate group setting is selected
 Tweak   - The message typing area in the chat has been increased.
-Tweak   - 'View enrollment' CTA added on participants and settings tabs on the course page
+Tweak   - 'View enrollment' CTA added on participants and settings tabs on the course page.
 Tweak   - On the login page, the site description will now be visible on mobile devices as well.
+Tweak   - Added missing translated strings in lang files.
 Tweak   - Minor UI/UX improvements.
 Fix     - Users with the capability 'viewhiddencategories' can now see hidden categories in the Category Dropdown.
 Fix     - Multilang filters will now work in RemUI custom fields.
-Fix     - keyboard accessibility added on Radio buttons and checkboxes
+Fix     - Keyboard accessibility added to radio buttons and checkboxes.
 
 Version 4.2.10
 ==============

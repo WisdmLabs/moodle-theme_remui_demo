@@ -49,6 +49,11 @@ define([
     const hideenrollbtn = 'hide-enrol-option-btn';
     const enrollbtnupddropdown = '.enroll-btn-upd-dropdown';
     const cancelenrolldropdownbtn = '.cancel-enroll-dropdown-btn';
+    const defaultpricing = '.default-pricing-section';
+    const custompricetextinput = '#custompricetext';
+    const enabledefaultpricing = '#enable-default-pricing';
+    const custompricebox = '#custom-price-box';
+    const enrolbtnurl = '#enrolbtnurl';
     const displayException = (ex) => {
         console.error(ex);
     };
@@ -74,7 +79,7 @@ define([
     };
 
     // Add functionality to update the enroll now button
-    const updateEnrollNowBtn = (title, link) => {
+    const updateEnrollNowBtn = (title, link, customprice) => {
         Ajax.call([{
             methodname: 'theme_remui_enrol_page_action',
             args: {
@@ -82,22 +87,55 @@ define([
                 config: JSON.stringify({
                     'courseid': M.cfg.courseId,
                     'title': title,
-                    'link': link
+                    'link': link,
+                    'customprice': customprice
                 })
             },
             done: function(response) {
                 var data = JSON.parse(response);
-                console.log(data.buttontext);
-                console.log(data.buttonlink);
-                $(enrolbtn).text(data.buttontext);
+
+                $(enrolbtn).html(data.buttontext);
                 // $(enrolbtn).attr('href',data.buttonlink);
 
+                if (data.customprice) {
+                    $(custompricebox).removeClass("d-none");
+                    $(custompricebox + " .pricing--price").html(data.customprice);
+                    $(defaultpricing).addClass("disabled");
+                } else {
+                    $(custompricebox).addClass("d-none");
+                    $(defaultpricing).removeClass("disabled");
+                }
             },
             fail: function (ex) {
                 Notification.exception(ex);
             }
         }]);
 
+    };
+
+    const clearCustomPriceAndLink = () => {
+        Ajax.call([{
+            methodname: 'theme_remui_enrol_page_action',
+            args: {
+                action: "clear_ustomprice_and_link",
+                config: JSON.stringify({
+                    'courseid': M.cfg.courseId,
+                })
+            },
+            done: function(response) {
+                var data = JSON.parse(response);
+                console.log(data);
+                $(custompricebox).addClass("d-none");
+                $(custompricebox + " .pricing--price").text("");
+                $(defaultpricing).removeClass("disabled");
+
+                $(custompricetextinput).val("");
+                $(enrolbtnurl).val("#");
+            },
+            fail: function (ex) {
+                Notification.exception(ex);
+            }
+        }]);
     };
 
     // Add functionality to show/hide the enroll option
@@ -141,9 +179,21 @@ define([
             event.preventDefault();
             var buttontext = $(this).find('#enrolbtntext').val();
             var buttonurl = $(this).find('#enrolbtnurl').val();
-            updateEnrollNowBtn(buttontext, buttonurl);
+            var customprice = $(this).find(custompricetextinput).val();
+            updateEnrollNowBtn(buttontext, buttonurl, customprice);
             $(enrollbtnupddropdown).removeClass('show');
         });
+
+        $(enabledefaultpricing).on('click', function() {
+            clearCustomPriceAndLink();
+        });
+
+        // $(custompricetextinput).on('input', function() {
+        //     let value = $(this).val();
+        //     if (value.length > 17) {
+        //         $(this).val(value.slice(0, 17));
+        //     }
+        // });
 
         $(enrollbtnupddropdown).on('click.bs.dropdown', function(e) {
             e.stopPropagation();

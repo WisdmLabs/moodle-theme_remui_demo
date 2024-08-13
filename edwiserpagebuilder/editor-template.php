@@ -342,7 +342,7 @@
                     <div id="iframe-wrapper">
                         <div id="iframe-layer">
                             <div class="loading-message active">
-                                <img src="../edwiserpagebuilder/js/libs/builder/icons/owl_loader.gif" />
+                                <img src="../edwiserpagebuilder/js/libs/builder/icons/siteinnerloader.svg" />
                             </div>
                             <div id="highlight-box">
                             <div id="highlight-name">

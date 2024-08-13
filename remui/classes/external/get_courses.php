@@ -78,46 +78,7 @@ trait get_courses {
         $PAGE->set_context($context);
 
         $result = utility::get_course_cards_content($wdmdata);
-        if (isset($wdmdata->category) && $wdmdata->category !== 'all') {
-            $categoryid = $wdmdata->category;
-        } else {
-            $customcat = core_course_category::user_top();
-            $categoryid = $customcat->id;
-        }
-        $result['hasmanagebutton'] = false;
 
-        $coursecat = core_course_category::get($categoryid);
-        if ($coursecat->can_create_course() || $coursecat->has_manage_capability()) {
-            if ($categoryid != 0) {
-                $PAGE->set_context(context_coursecat::instance($categoryid));
-                $PAGE->set_pagetype('course-index-category');
-                $result['dropdown'] = $OUTPUT->region_main_settings_menu();
-            }
-
-            $managebutton = $OUTPUT->single_button(new moodle_url(
-                '/course/edit.php',
-                array(
-                    'category' => $categoryid ? $categoryid : $CFG->defaultrequestcategory,
-                    'returnto' => $categoryid ? 'category' : 'topcat'
-                )),
-            get_string('addnewcourse'), 'get');
-
-            $managebutton .= $OUTPUT->single_button(new moodle_url(
-                '/course/management.php',
-                array('categoryid' => $categoryid ? $categoryid : $CFG->defaultrequestcategory)
-            ), get_string('managecourses'), 'get');
-
-            if ($PAGE->user_is_editing()) {
-                $managebutton .= '<div class="singlebutton">';
-                $managebutton .=
-                '<button type="submit" class="btn btn-secondary" id="epbaddblockbutton" title="Add a block button">'.
-                get_string('addblock', 'core').'</button>';
-                $managebutton .= '</div>';
-            }
-
-            $result['hasmanagebutton'] = true;
-            $result['managebuttons'] = str_replace('type="submit"', 'type="submit" class="btn btn-inverse ml-2"', $managebutton);
-        }
         return(json_encode($result));
     }
 

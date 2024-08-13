@@ -1,6 +1,6 @@
-$navbar-nav-gap: 24px;
-$navbar-nav-gap-mobile: 16px;
-$dropdown-icon-size: 24px;
+$navbar-nav-gap: map-get($gapspace , '6');
+$navbar-nav-gap-mobile: map-get($gapspace , '4');
+$dropdown-icon-size: $edw-icon-size-large;
 $navbar-logo-bg-color: $white !default;
 $navbar-logo-max-width:240px;
 $navbar-shadow: true !default;
@@ -36,7 +36,11 @@ body.transparent-header:not(body.latest-frontpage.transparent-header){
                         position: absolute;
                         z-index: 5;
                         top: $navbar-height;
-                        right: 0px;
+                        right: 40px;
+
+                        .controls-wrapper {
+                            padding-right: 10px;
+                        }
                     }
                 }
             }
@@ -99,7 +103,6 @@ body.transparent-header:not(body.latest-frontpage.transparent-header){
             background-color: $header-menu-divider-bg-color;
             border: 0;
             opacity: 0.7;
-
         }
 
         // Old code
@@ -219,7 +222,7 @@ body.transparent-header:not(body.latest-frontpage.transparent-header){
         }
     }
     .dropdown-menu{
-        margin-top: 24px;
+        margin-top: map-get($spacerspx, '6');
     }
 }
 
@@ -251,7 +254,7 @@ body.transparent-header:not(body.latest-frontpage.transparent-header){
 
 
 .navbar-brand{
-    padding: 0 16px;
+    padding: 0 map-get($gapspace, '4');
     height: $navbar-height;
     &.logo,.navbar-brand-logo {
         max-height: 100%;
@@ -306,8 +309,8 @@ body.transparent-header:not(body.latest-frontpage.transparent-header){
     &.nav-link {
         background-color: $header-menu-element-bg-color;
         border-radius: 4px;
-        padding-left: 12px;
-        padding-right: 12px;
+        padding-left: map-get($spacerspx, '3');
+        padding-right: map-get($spacerspx, '3');
         // &:hover {
         //     background: $bg-header-ele;
         // }
@@ -336,12 +339,12 @@ body.transparent-header:not(body.latest-frontpage.transparent-header){
 .navbar.right {
     flex-direction: row-reverse;
     .p-ml-md-8 {
-        margin-right: 32px;
+        margin-right: map-get($spacerspx, '8');
         margin-left: 0;
     }
     .p-mr-4 {
         margin-right: 0;
-        margin-left: 16px;
+        margin-left: map-get($spacerspx, '4');
     }
 }
 .sub-nav {
@@ -352,7 +355,7 @@ body.transparent-header:not(body.latest-frontpage.transparent-header){
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    padding: 16px 24px;
+    padding: map-get($spacerspx, '4') map-get($spacerspx, '6');
     background-color: $navbar-background-color;
 }
 .navbar-brand-logo {

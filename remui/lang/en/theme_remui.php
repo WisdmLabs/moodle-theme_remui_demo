@@ -616,8 +616,8 @@ $string['importer-missing'] = 'Edwiser Site Importer plugin is missing. Please v
 
 // Information center.
 $string['informationcenter'] = 'Information Center';
-$string['licensenotactive'] = '<strong>Alert!</strong> License is not activated , please <strong>activate</strong> the license in RemUI settings.';
-$string['licensenotactiveadmin'] = '<strong>Alert!</strong> License is not activated , please <strong>activate</strong> the license <a class="text-primary" href="'.$CFG->wwwroot.'/admin/settings.php?section=themesettingremui#informationcenter" >here</a>.';
+$string['licensenotactive'] = '<strong>Alert!</strong> License is not activated, please <strong>activate</strong> the license in RemUI settings.';
+$string['licensenotactiveadmin'] = '<strong>Alert!</strong> License is not activated, please <strong>activate</strong> the license <a class="text-primary" href="'.$CFG->wwwroot.'/admin/settings.php?section=themesettingremui#informationcenter" >here</a>.';
 $string['activatelicense'] = 'Activate License';
 $string['deactivatelicense'] = 'Deactivate License';
 $string['renewlicense'] = 'Renew License';
@@ -1279,9 +1279,6 @@ $string['small-info-fontweight_desc'] = 'Set small info  font weight for entire 
 $string['full-width-top'] = 'Full-width Top';
 $string['full-bottom'] = 'Full-width Bottom';
 
-$string['homepagedepricationmodalhead'] = 'Home Page Depriaction Warning';
-
-$string['homepagedepricationmodaldesc'] = 'Home Page bulder will be depricated soon';
 $string['homepageedwpagebuilderoption'] = "Use Edwiser Pagebuilder for homepage";
 
 $string['livecustomizer'] = "Live Customizer";
@@ -1328,21 +1325,6 @@ $string['settingpagedepbottomsecondaryst4'] = 'The code and content of each sect
 $string['settingpagedepbottomsecondaryst5'] = '<span class="para-semibold-1 m-0">Note:</span> This is the final update regarding the Homepage Builder. It has been now merged into the Edwiser Page Builder';
 
 
-// depricatio modal strigs
-$string['homepagedepricationmodalst1'] = 'Introducing a better way to build and customize Homepages!';
-$string['homepagedepricationmodalst2'] = '<p class="para-regular-1 m-0">With this update, you can now leverage the power of the <span class="para-semibold-1">Edwiser RemUI Page Builder specifically designed for homepages.</span></p>';
-$string['homepagedepricationmodalfeatureitem1'] = 'Improved Page Builder';
-$string['homepagedepricationmodalfeatureitem2'] = 'Over 30 +well designed template blocks';
-$string['homepagedepricationmodalfeatureitem3'] = '7 homepage layouts';
-$string['homepagedepricationmodalfeatureitem4'] = 'Create custom designs';
-
-$string['homepagedepricationmodalst3'] = 'Ready to take the next step?';
-$string['homepagedepricationmodalst4'] = 'Click below to go to setting and seamlessly migrate your existing homepage';
-$string['homepagedepricationmodalst5'] = 'Settings\'s Page';
-$string['homepagedepricationmodalst6'] = 'Do not show this again';
-$string['homepagedepricationmodalst7'] = '<span class="para-regular-2">Note:</span> After the next three updates, the current Homepage builder will be deprecated from the Edwiser RemUI';
-
-$string['homepagedrpecationmodalst8'] = 'The new Edwiser RemUI page builder is available in RemUI Pro and the above plans. If you are on the RemUI starter pack, you can';
 $string['upgradeherelinktext'] = 'upgrade here';
 
 $string['addnewpage'] = "Add a new page";
@@ -1408,7 +1390,7 @@ $string['editreviewapproval'] = 'Edit review approval';
 $string['addchangevideo'] = 'Add/Change video';
 $string['novideomessage'] = 'There is no video.<br>Click on the above link to add a video.';
 $string['changecourseimage'] = 'Change course image';
-$string['changebtntextandlink'] = 'Change button text & link';
+$string['changebtntextandlink'] = 'Add custom enrollment link & price';
 $string['edit'] = 'Edit';
 $string['viewalltext'] = 'View all';
 $string['addremuicustomfield'] = 'Add RemUI custom field';
@@ -1491,41 +1473,7 @@ $string["switchtodm"] = "Dark mode";
 $string["switchtolm"] = "Light mode";
 $string["disabledmwarning"] = "To enable the visual personalizer, switch OFF the dark mode preview.";
 
-$string["forcefullmigratemsgheading"] = "Introducing a better way to build and customize Homepages.";
-$string["migratemodalheading"] = "Introducing a better way to build and customize Homepages.";
 
-$string["migragetcheckboxlabel"] = "I understand the above warning.";
-$string["migratewarningmsg"] = 'The old Edwiser Homepage Builder is no longer supported. To ensure your website stays up-to-date, we need to move your homepage to the new and improved "Edwiser RemUI Page Builder."<br><br>
-        <span style="font-weight: 600; display: inline-block; margin-bottom: 8px;">Here\'s what you need to do:</span>
-        <span class="deprication-choice d-flex flex-gap-4">
-            <span class="choice-1">
-                {$a->clickok}<br>
-                <span style="font-size: 12px; line-height: 15px;">
-                    <span style="font-weight: 600; display: inline-block; margin-top: 8px;">Please note:</span> Choosing "Okay" will not migrate your current homepage content.<br>
-                </span>
-            </span>
-            <span class="align-self-center" style="font-weight: 600;">OR</span>
-            <span class="choice-2">
-                {$a->warningmsg}
-            </span>
-        </span><br>
-        Don\'t worry, this process is simple and won\'t affect your website\'s functionality.';
-
-$string["migratewarningmsg1"] = "Click <span style=\"font-weight: 600;\">‘Migrate’</span> to automatically transfer your existing homepage content to the new page builder.<br>";
-$string["migratewarningmsg2"] = 'Update Edwiser Page Builder to migrate your homepage. <a href="https://edwiser.helpscoutdocs.com/article/572-how-to-migrate-current-homepage-to-the-edwiser-page-builder" target="_blank" >See instructions <span class="edw-icon edw-icon-Shortcut redirect-shortcut"></span></a><br>';
-$string["migratewarningmsg3"] = 'Install the latest version of the Edwiser Page Builder from the <a href="https://edwiser.org/my-account/" target="_blank" >Edwiser My Account Page <span class="edw-icon edw-icon-Shortcut redirect-shortcut"></span></a> to migrate your current homepage.<br>';
-$string["migratewarningmsg4"] = 'The Edwiser Homepage Builder is no longer supported. Please Uninstall "Edwiser Homepage Builder (local_remuihomepage)" from <a href="{$a}" target="_blank">here</a>.<br><br>
-<span style="font-size: 12px; line-height: 15px;">
-    <span style="font-weight: 600;">Please note:</span> This step is optional, but we recommend it!
-</span>';
-$string["migratewarningmsg5"] = 'Update the Edwiser Page Builder and Edwiser Homepage Builder to the latest version to migrate your current homepage. To download the latest version <a href="https://edwiser.org/my-account/" target="_blank" >Click here <span class="edw-icon edw-icon-Shortcut redirect-shortcut"></span></a><br>';
-
-$string["clickokmigratewarningmsg"] = 'Click <span style="font-weight: 600;">‘Okay’</span> to create a homepage with the RemUI theme legacy builder.';
-$string["clickokmigratewarningmsg2"] = 'Click <span style="font-weight: 600;">‘Okay’</span> to start fresh with the new builder and create a new homepage';
-
-$string["migragettoastmsg1"] = "Edwiser RemUI page builder is set. To migrate the home page ";
-$string["migragettoastmsg2"] = "Edwiser RemUI page builder is set.";
-$string["migragettoastmsg3"] = "Legacy page builder is set.";
 
 $string["here"] = "here";
 $string["clickhere"] = "Click here";
@@ -1539,3 +1487,11 @@ $string['moodleblocks'] = 'Moodle Blocks';
 
 $string['citytown'] = 'City/Town';
 $string['searchtext'] = 'Search text';
+$string['enablesiteloader'] = "Enable/Disable Loader Image";
+$string['enablesiteloaderdesc'] = "To disable the loader GIF on the site, uncheck the box labeled \"Enable/Disable Loader Image.\" To enable it, simply check the box.";
+$string['aria:courseimage'] = 'Course image';
+
+$string['addcustomprice'] = 'Add a custom price';
+$string['enablepricingsettingstext'] = 'Enabling the default pricing will remove the ‘custom price and custom enrollment link’.';
+$string['enabledefaultpricing'] = 'Enable default pricing';
+$string["dashboardstatsupdate"] = "RemUI stats update";
