@@ -1,6 +1,20 @@
 Release
 =======
 
+Version 4.2.13
+==============
+Feature - Added course filters to the archive page, including four types of filters:
+        - Price
+        - Ratings
+        - Level
+        - Language
+Feature - Extended the sorting filters by adding two additional options:
+        - Date
+        - Ratings
+Feature - Added a dropdown to select the number of courses displayed per row on the course archive page in grid view.
+Feature - The level tag has been added to course cards on both the course archive and enrollment pages.
+Tweak - Repositioned the existing filter menus.
+
 Version 4.2.12
 ==============
 Feature - Added a custom pricing field for third-party payment gateways on the enrollment page.
@@ -18,7 +32,6 @@ Tweak - Code improvements on the course archive page and course fetching logic.
 Tweak - Removed deprecation warnings and information previously added for the remuihomepage plugin.
 Tweak - The default site loader image has been changed.
 Fix   - Resolved the issue where link color customizer settings were not working in preview mode.
-
 
 Version 4.2.11
 ==============

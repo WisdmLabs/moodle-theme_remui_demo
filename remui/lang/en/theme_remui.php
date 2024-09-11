@@ -383,7 +383,10 @@ $string['enrolpagesettingsdesc'] = "Manage the enrolment page content here.";
 $string['coursearchivepagesettings'] = 'Course Archive Page Settings';
 $string['coursearchivepagesettingsdesc'] = 'Manage the layout and content of Course archive page.';
 $string['courseperpage'] = 'Courses Per Page';
-$string['courseperpagedesc'] = 'Number of Courses to be Displayed Per Pages on Course Archive Page.';
+// $string['courseperpagedesc'] = 'Set the number of courses displayed on the course archive page. Not applicable for mobile view.';
+
+$string['courseperpagedesc'] = "<strong>Course 'Grid' view:</strong> By selecting the number of course cards in the settings above, the course archive page will automatically adjust the display, organizing the cards into dynamically generated rows.<br>
+<strong style='display: inline-block;margin-top: 8px;'>Course 'List & Summary' view:</strong> The courses will be displayed according to the selection made in the settings above.";
 $string['none'] = 'None';
 $string['fade'] = 'Fade';
 $string['slide-top'] = 'Slide Top';
@@ -426,6 +429,7 @@ $string['categorypagelayoutdesc'] = 'Select between the Course archive page layo
 $string['edwiserlayout'] = 'Edwiser Layout';
 $string['categoryfilter'] = 'Category Filter';
 
+$string['skill0'] = 'Untagged';
 $string['skill1'] = 'Beginner';
 $string['skill2'] = 'Intermediate';
 $string['skill3'] = 'Advanced';
@@ -458,8 +462,8 @@ $string['mycourses'] = "My Courses";
 $string['allcategories'] = 'All categories';
 $string['categorysort'] = 'Sort Categories';
 $string['sortdefault'] = 'Sort (none)';
-$string['sortascending'] = 'Sort A to Z';
-$string['sortdescending'] = 'Sort Z to A';
+$string['sortascending'] = 'A to Z';
+$string['sortdescending'] = 'Z to A';
 
 // Frontpage Old String.
 // Home Page Settings.
@@ -1495,3 +1499,27 @@ $string['addcustomprice'] = 'Add a custom price';
 $string['enablepricingsettingstext'] = 'Enabling the default pricing will remove the ‘custom price and custom enrollment link’.';
 $string['enabledefaultpricing'] = 'Enable default pricing';
 $string["dashboardstatsupdate"] = "RemUI stats update";
+
+$string["filters"] = "Filters";
+$string["applyfilters"] = "Apply filters";
+$string["clear"] = "Clear";
+$string["level"] = "Level";
+$string["ratings"] = "Ratings";
+$string["free"] = "Free";
+$string["paid"] = "Paid";
+$string["rating4"] = "4 & above";
+$string["rating3"] = "3 & above";
+$string["newest"] = "Newest";
+$string["oldest"] = "Oldest";
+$string["highrating"] = "High rating";
+$string["lowrating"] = "Low rating";
+$string["date"] = "Date";
+$string["alphabetical"] = "Alphabetical";
+$string["showcourseperpage"] = "Show course per page";
+$string["close"] = "Close";
+$string["row2"] = "Show:2 Row";
+$string["row3"] = "Show:3 Row";
+$string["row4"] = "Show:4 Row";
+$string["row5"] = "Show:5 Row";
+$string["row6"] = "Show:6 Row";
+$string["filteremptymsg"] = "NOTE: To view the filters, add filter properties, like Levels, Price, Ratings, and Languages to the course.";

@@ -13,6 +13,12 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.edw-icon-table:before {
+  content: "\e92f";
+}
+.edw-icon-sort-arrow:before {
+  content: "\e930";
+}
 .edw-icon-Dark-mode:before {
   content: "\e92d";
 }

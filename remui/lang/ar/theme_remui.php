@@ -382,7 +382,8 @@ $string['enrolpagesettingsdesc'] = "إدارة محتوى صفحة التسجي�
 $string['coursearchivepagesettings'] = 'إعدادات صفحة أرشيف الدورة';
 $string['coursearchivepagesettingsdesc'] = 'إدارة تخطيط ومحتوى صفحة أرشيف الدورة.';
 $string['courseperpage'] = 'الدورات لكل صفحة';
-$string['courseperpagedesc'] = 'عدد الدورات التي سيتم عرضها في كل صفحة على صفحة أرشيف الدورة.';
+$string['courseperpagedesc'] = "<strong>عرض 'الشبكة' للدورات:</strong> عن طريق اختيار عدد بطاقات الدورات في الإعدادات أعلاه، ستقوم صفحة أرشيف الدورات بضبط العرض تلقائيًا، وتنظيم البطاقات في صفوف تنشأ ديناميكيًا.<br>
+<strong style='display: inline-block;margin-top: 8px;'>عرض 'القائمة والملخص' للدورات:</strong> سيتم عرض الدورات وفقًا للاختيار الذي تم إجراؤه في الإعدا
 $string['none'] = 'لا شيء';
 $string['fade'] = 'تلاشي';
 $string['slide-top'] = 'انزلاق للأعلى';
@@ -425,6 +426,7 @@ $string['categorypagelayoutdesc'] = 'اختيار بين تخطيطات صفحة
 $string['edwiserlayout'] = 'تخطيط Edwiser';
 $string['categoryfilter'] = 'فلترة الفئة';
 
+$string['skill0'] = 'غير معنونة';
 $string['skill1'] = 'مبتدئ';
 $string['skill2'] = 'متوسط';
 $string['skill3'] = 'متقدم';
@@ -457,8 +459,8 @@ $string['mycourses'] = "دوراتي";
 $string['allcategories'] = 'كل الفئات';
 $string['categorysort'] = 'فرز الفئات';
 $string['sortdefault'] = 'فرز (بدون)';
-$string['sortascending'] = 'ترتيب من الألف إلى الياء';
-$string['sortdescending'] = 'ترتيب من الياء إلى الألف';
+$string['sortascending'] = 'من أ إلى ي';
+$string['sortdescending'] = 'من ي إلى أ';
 
 // Frontpage Old String.
 // Home Page Settings.
@@ -1489,3 +1491,28 @@ $string['addcustomprice'] = 'أضف سعرًا مخصصًا';
 $string['enablepricingsettingstext'] = 'تفعيل السعر الافتراضي سيزيل "السعر المخصص ورابط التسجيل المخصص".';
 $string['enabledefaultpricing'] = 'تفعيل السعر الافتراضي';
 $string["dashboardstatsupdate"] = "تحديث إحصائيات RemUI";
+
+$string["filters"] = "الفلاتر";
+$string["applyfilters"] = "تطبيق الفلاتر";
+$string["clear"] = "مسح";
+$string["level"] = "المستوى";
+$string["ratings"] = "التقييمات";
+$string["free"] = "مجاني";
+$string["paid"] = "مدفوع";
+$string["rating4"] = "4 وما فوق";
+$string["rating3"] = "3 وما فوق";
+$string["newest"] = "الأحدث";
+$string["oldest"] = "الأقدم";
+$string["highrating"] = "تقييم عالي";
+$string["lowrating"] = "تقييم منخفض";
+$string["date"] = "التاريخ";
+$string["alphabetical"] = "أبجدي";
+$string["showcourseperpage"] = "عرض الدورة لكل صفحة";
+$string["close"] = "إغلاق";
+$string["row2"] = "عرض:2 صف";
+$string["row3"] = "عرض:3 صفوف";
+$string["row4"] = "عرض:4 صفوف";
+$string["row5"] = "عرض: 5 صفوف";
+$string["row6"] = "عرض: 6 صفوف";
+
+$string["filteremptymsg"] = "ملاحظة: لعرض الفلاتر، أضف خصائص الفلترة مثل المستويات، السعر، التقييمات، واللغات إلى الدورة.";

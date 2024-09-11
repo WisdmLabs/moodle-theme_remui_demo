@@ -4,6 +4,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable babel/semi */
 /* eslint-disable no-trailing-spaces*/
+/* eslint-disable promise/catch-or-return*/
 
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -62,6 +63,18 @@ define([
     var tagswrapper = $('.tag-wrapper');
 
     var togglebtn = $(".togglebtn");
+
+    var courseArchieveFilters = {};
+
+    const SELECTORS = {
+        'CUSTOM_DROPDOWN_MENU': '.edw-custom-dropdown-wrapper .dropdown-menu',
+        'COURSE_SORTING': '.edw-custom-dropdown-wrapper.course-shorting',
+        'COURSE_FILTERS': '.edw-custom-dropdown-wrapper.course-filters',
+        'MAX_COURSE_SHOWN': '.edw-custom-dropdown-wrapper.max-course-shown',
+        'COURSE_FILTER_FORM': '.edw-custom-dropdown-wrapper #course-filter-form',
+        'MAXCOURSE_DEFAULT': '.edw-custom-dropdown-wrapper.max-course-shown .max-course-default',
+    }
+
     /**
      * Main category filters class.
      * @param  {Integer} defaultCategory Default category to select.
@@ -163,7 +176,7 @@ define([
         if (filterdata.category !== "") {
 
 
-            if($.isNumeric(filterdata.category)){
+            if ($.isNumeric(filterdata.category)) {
                 var targetElement = $('.categoryfiltermenu .dropdown-menu a[data-cat-id="' + filterdata.category + '"]');
                 $('.categoryfiltermenu .categoryfilter span').text(targetElement.text());
             }
@@ -385,7 +398,7 @@ define([
             if (prefveiwbuttonavailable) {
                 // Update the view.
                 updateView(viewobj);
-            }else{
+            } else {
                 // Update the card container.
                 updateCardContainer(viewobj);
             }
@@ -420,10 +433,17 @@ define([
                     }).fail(Notification.exception);
                 }
 
+                $(SELECTORS.COURSE_SORTING).removeClass("d-none");
+                $(SELECTORS.MAX_COURSE_SHOWN).removeClass("d-none");
+
             } else {
                 var htmldata = '<div class="alert alert-warning alert-dismissible  w-full mx-10" role="alert">';
                 htmldata += '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
                     '<span aria-hidden="true">×</span><span class="sr-only">Close</span></button>' + langstrings[0] + '</div>';
+
+                $(SELECTORS.COURSE_SORTING).addClass("d-none");
+                $(SELECTORS.MAX_COURSE_SHOWN).addClass("d-none");
+
                 templates.appendNodeContents(cardswrapperarea, htmldata, '');
 
             }
@@ -547,7 +567,7 @@ define([
         filterobj.view = clckviewbtn;
         updateView(filterobj.view);
         M.util.set_user_preference('course_view_state', clckviewbtn, null);
-        updatePage();
+        courseFilterCommon();
     });
 
     // Sorting Filter.
@@ -587,10 +607,229 @@ define([
             filterobj.page.mycourses = vars.page;
         } else {
             filterobj.page.courses = vars.page;
+            courseArchieveFilters.pageno = vars.page;
+            sessionStorage.setItem('courseArchieveFilters', JSON.stringify(courseArchieveFilters));
         }
 
         updatePage();
     });
+
+    function courseFilterCommon() {
+        filterobj.page.courses = 0;
+        courseArchieveFilters.pageno = 0;
+
+        $(SELECTORS.CUSTOM_DROPDOWN_MENU).removeClass('show');
+        setCoursePerPageDetails();
+
+        sessionStorage.setItem('courseArchieveFilters', JSON.stringify(courseArchieveFilters));
+        updatePage();
+    }
+
+    function shortingSelectOption(e) {
+        $(SELECTORS.COURSE_SORTING + ' .dropdown-toggle .toggle-text').text($(this).text());
+        $(SELECTORS.COURSE_SORTING + ' .select-option').removeClass('active');
+        $(this).addClass('active');
+
+        filterobj.sort = $(this).data('value');
+
+        courseArchieveFilters.sort = $(this).data('value');
+
+        courseFilterCommon();
+    }
+
+    function maxCourseSelectOption(e) {
+        $(SELECTORS.MAX_COURSE_SHOWN + ' .dropdown-toggle .toggle-text').text($(this).text());
+        $(SELECTORS.MAX_COURSE_SHOWN + ' .select-option').removeClass('active');
+        $(this).addClass('active');
+
+        filterobj.courserowperpage = $(this).data('value');
+
+        courseArchieveFilters.courserowperpage = $(this).data('value');
+
+        courseFilterCommon();
+    }
+
+    function courseFilterFormSubmit(e) {
+        e.preventDefault();
+        var selectedFilters = getCheckedFiltersData(this);
+
+        if (Object.keys(selectedFilters).length > 0) {
+            filterobj.selectedFilters = selectedFilters;
+            filterobj.isfilterapplied = true;
+        } else {
+            filterobj.isfilterapplied = false;
+            delete filterobj.selectedFilters;
+        }
+
+        courseArchieveFilters.coursefilters = selectedFilters;
+
+        courseFilterCommon();
+    }
+
+    function courseFilterFormClear(e) {
+        $(SELECTORS.COURSE_FILTER_FORM).find('input[type="checkbox"]').each(function() {
+            $(this).prop('checked', false);
+        });
+    }
+
+    function getCheckedFiltersData($filterform) {
+        var selectedFilters = {};
+        var filterCount = 0;
+        $($filterform).find('input[type="checkbox"]:checked').each(function() {
+            var filterType = $(this).data('filtertype');
+            var value = $(this).val();
+            var name = $(this).attr('name');
+            filterCount++;
+
+            if (!selectedFilters[filterType]) {
+                selectedFilters[filterType] = [];
+            }
+
+            selectedFilters[filterType].push({
+                'name': name,
+                'value': value
+            });
+        });
+
+        if (filterCount) {
+            $(SELECTORS.COURSE_FILTERS + " .filter-count-label").removeClass('d-none').text(filterCount);
+        } else {
+            $(SELECTORS.COURSE_FILTERS + " .filter-count-label").addClass('d-none').text("");
+        }
+
+        return selectedFilters;
+    }
+
+    function setCoursePerPageDetails() {
+        let courseperrow = 4;
+        if (typeof window === 'undefined') {
+            courseperrow = 4;
+        }
+
+        var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+
+        if (screenWidth < 768) {
+            courseperrow = 1;
+        } else if (screenWidth < 1024) {
+            courseperrow = 2;
+        } else if (screenWidth < 1200 || $('body').hasClass('limitedwidth')) {
+            courseperrow = 3;
+        } else {
+            courseperrow = 4;
+        }
+
+        if (!filterobj.courserowperpage) {
+            let maxCourseDefault = $(SELECTORS.MAXCOURSE_DEFAULT).data('value');
+            let courserowperpage = Math.ceil(maxCourseDefault / courseperrow)
+            filterobj.courserowperpage = courserowperpage;
+
+            let activeOption = $(SELECTORS.MAX_COURSE_SHOWN + " .select-option[data-value='" + courserowperpage + "']");
+
+            $(SELECTORS.MAX_COURSE_SHOWN + ' .dropdown-toggle .toggle-text').text(activeOption.text());
+            $(SELECTORS.MAX_COURSE_SHOWN + ' .select-option').removeClass('active');
+            activeOption.addClass('active');
+        }
+
+        filterobj.courseperrow = courseperrow;
+    }
+
+
+    function setDefaultCourseFilters() {
+        // Retrieve filters from session storage or initialize empty object
+        courseArchieveFilters = JSON.parse(sessionStorage.getItem('courseArchieveFilters'));
+
+        let activesort = null;
+        let screenWidth = window?.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+
+        if (!courseArchieveFilters) {
+            // Initialize default filters if not present
+            courseArchieveFilters = {};
+
+            courseArchieveFilters.islimitedwidth = $('body').hasClass('limitedwidth');
+            courseArchieveFilters.maxCourseDefault = $(SELECTORS.MAXCOURSE_DEFAULT).data('value');
+            courseArchieveFilters.windowWidth = screenWidth;
+            courseArchieveFilters.category = filterobj.category;
+
+        } else {
+            if (courseArchieveFilters.coursefilters) {
+                // Set checked state for filter inputs
+                Object.keys(courseArchieveFilters.coursefilters).forEach(filterType => {
+                    courseArchieveFilters.coursefilters[filterType].forEach(filter => {
+                        let filterInputField = $(SELECTORS.COURSE_FILTER_FORM + " input[name='" + filter.name + "']");
+                        if (filterInputField) {
+                            filterInputField.prop('checked', true);
+                        }
+                    });
+                });
+
+
+                filterobj.selectedFilters = getCheckedFiltersData(SELECTORS.COURSE_FILTER_FORM);
+
+                if (filterobj.selectedFilters && Object.keys(filterobj.selectedFilters).length > 0) {
+                    filterobj.isfilterapplied = true;
+                }
+            }
+
+            // Set course rows per page
+            if (courseArchieveFilters.courserowperpage) {
+                let activepage = $(SELECTORS.MAX_COURSE_SHOWN + " .select-option[data-value='" + courseArchieveFilters.courserowperpage + "']");
+                $(SELECTORS.MAX_COURSE_SHOWN + ' .dropdown-toggle .toggle-text').text(activepage.text());
+                $(SELECTORS.MAX_COURSE_SHOWN + ' .select-option').removeClass('active');
+                activepage.addClass('active');
+
+                filterobj.courserowperpage = courseArchieveFilters.courserowperpage;
+            }
+
+            // Set active sort option
+            if (courseArchieveFilters.sort) {
+                activesort = $(SELECTORS.COURSE_SORTING + " .select-option[data-value='" + courseArchieveFilters.sort + "']");
+            }
+
+            // Update page number and reset if necessary
+            if (courseArchieveFilters.hasOwnProperty('pageno') || courseArchieveFilters.pageno !== undefined) {
+                filterobj.page.courses = courseArchieveFilters.pageno;
+            }
+            if (!courseArchieveFilters.courserowperpage && (courseArchieveFilters.maxCourseDefault != $(SELECTORS.MAXCOURSE_DEFAULT).data('value'))) {
+                courseArchieveFilters.maxCourseDefault = $(SELECTORS.MAXCOURSE_DEFAULT).data('value');
+                filterobj.page.courses = 0;
+                courseArchieveFilters.pageno = 0;
+            }
+
+            // Reset page if layout or screen width changed
+            if (courseArchieveFilters.islimitedwidth !== $('body').hasClass('limitedwidth') ||
+                courseArchieveFilters.windowWidth !== screenWidth) {
+                courseArchieveFilters.islimitedwidth = $('body').hasClass('limitedwidth');
+                courseArchieveFilters.windowWidth = screenWidth;
+                filterobj.page.courses = 0;
+                courseArchieveFilters.pageno = 0;
+            }
+
+            if (courseArchieveFilters.category != filterobj.category) {
+                courseArchieveFilters.category = filterobj.category;
+                filterobj.page.courses = 0;
+                courseArchieveFilters.pageno = 0;
+            }
+        }
+
+
+        // Set default sort option if not already set
+        if (!activesort || activesort.length == 0) {
+            activesort = $(SELECTORS.COURSE_SORTING + " .select-option[data-value='newest']");
+            courseArchieveFilters.sort = 'newest';
+        }
+
+        // Save filters to session storage
+        sessionStorage.setItem('courseArchieveFilters', JSON.stringify(courseArchieveFilters));
+
+        // Update UI for sorting
+        $(SELECTORS.COURSE_SORTING + ' .dropdown-toggle .toggle-text').text(activesort.text());
+        $(SELECTORS.COURSE_SORTING + ' .select-option').removeClass('active');
+        activesort.addClass('active');
+
+        setCoursePerPageDetails();
+
+        filterobj.sort = courseArchieveFilters.sort;
+    }
 
     var init = function(defaultCategory) {
         $(document).ready(function() {
@@ -618,6 +857,25 @@ define([
 
             $readMore.on('click', () => toggleSummary(true));
             $readLess.on('click', () => toggleSummary(false));
+
+            $(SELECTORS.CUSTOM_DROPDOWN_MENU).on('click.bs.dropdown', function(e) {
+                e.stopPropagation();
+            });
+
+            $(SELECTORS.COURSE_SORTING + ' .select-option').on('click', shortingSelectOption);
+            $(SELECTORS.MAX_COURSE_SHOWN + ' .select-option').on('click', maxCourseSelectOption);
+
+            $(SELECTORS.COURSE_FILTER_FORM + ' .clear-btn').on('click', courseFilterFormClear);
+            $(SELECTORS.COURSE_FILTER_FORM).on('submit', courseFilterFormSubmit);
+
+            $(SELECTORS.CUSTOM_DROPDOWN_MENU + ' .dropdown-close').on('click', () => {
+                $(SELECTORS.CUSTOM_DROPDOWN_MENU).removeClass('show');
+            });
+
+            $('.categoryfiltermenu .dropdown-menu .dropdown-close').on('click', () => {
+                $('.categoryfiltermenu .dropdown-menu').removeClass('show');
+            });
+
         });
 
         $(categorylink).on('click', function(event) {
@@ -640,6 +898,7 @@ define([
             var vars = [],
                 hash;
             var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+
             for (var i = 0; i < hashes.length; i++) {
                 hash = hashes[i].split('=');
                 vars.push(hash[0]);
@@ -650,7 +909,9 @@ define([
                 filterobj.category = vars.categoryid;
             }
 
-            if (vars.sort != undefined) {
+            setDefaultCourseFilters(); // It will set filters default value to global variable filterobj.
+
+            if (vars.hasOwnProperty('sort') && typeof vars.sort !== 'function') {
                 filterobj.sort = vars.sort;
             }
 

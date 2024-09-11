@@ -702,7 +702,17 @@ class utility {
         */
     public static function get_course_cards_content($wdmdata, $date = 'all') {
         global $CFG, $OUTPUT;
-        $courseperpage = \theme_remui\toolbox::get_setting('courseperpage');
+
+        // Resultant Array.
+        $result = array();
+        $result['view'] = get_user_preferences('course_view_state');
+
+        if ((isset($wdmdata->view) && $wdmdata->view == 'grid') || (!isset($wdmdata->view) && ($result['view'] == 'grid' || !$result['view'] ))) {
+            $courseperpage = self::get_rowperpage_on_coursearchive($wdmdata->courserowperpage, $wdmdata->courseperrow);
+        } else {
+            $courseperpage = \theme_remui\toolbox::get_setting('courseperpage');
+        }
+
         $categorysort = $wdmdata->sort;
         $search       = $wdmdata->search;
         $category     = $wdmdata->category;
@@ -713,8 +723,9 @@ class utility {
         $limitto      = $courseperpage;
         $filtermodified = isset($wdmdata->isFilterModified) ? $wdmdata->isFilterModified : true;
         $allowfull = true;
-        // Resultant Array.
-        $result = array();
+        $isfilterapplied = $wdmdata->isfilterapplied ? true : false;
+
+        $filteredcourseids = self::get_all_filtered_courseids($wdmdata->selectedFilters);
 
         if ($page == -1) {
             $startfrom = 0;
@@ -739,7 +750,9 @@ class utility {
                 $mycourses,
                 $categorysort,
                 $courses,
-                $filtermodified
+                $filtermodified,
+                $filteredcourseids,
+                $isfilterapplied
             );
 
             $pagingbar  = new \paging_bar($totalcourses, $page, $courseperpage, 'javascript:void(0);', 'page');
@@ -756,7 +769,9 @@ class utility {
                 $mycourses,
                 $categorysort,
                 $courses,
-                $filtermodified
+                $filtermodified,
+                $filteredcourseids,
+                $isfilterapplied
             );
         }
 
@@ -778,6 +793,7 @@ class utility {
             $coursedata['ernrshortdesign'] = $course['ernrshortdesign'];
             $coursedata['lessonstitletext'] = $course['lessonstitletext'];
             $coursedata['enrolledusertitletext'] = $course['enrolledusertitletext'];
+            $coursedata['skillleveltag'] = $course['skillleveltag'];
             if ($course['visible']) {
                 $coursedata['visible'] = $course['visible'];
             }
@@ -824,16 +840,34 @@ class utility {
             $coursedata['lessoncount'] = $course['lessoncount'];
             // $pagelayout = get_config('theme_remui', 'categorypagelayout');
 
-
-
             $coursedata['animation'] = \theme_remui\toolbox::get_setting('courseanimation');
             $coursecontext[] = $coursedata;
         }
         $result['courses'] = $coursecontext;
-        $result['view'] = get_user_preferences('course_view_state');
 
 
         return $result;
+    }
+
+    /**
+     * Returns the number of rows to display on the course archive page based on the cards per page value.
+     *
+     * @param int $cardsperpagevalue The number of cards to display per page.
+     * @return int The number of rows to display on the course archive page.
+     */
+    public static function get_rowperpage_on_coursearchive($courserowperpage, $courseperrow = 4) {
+        global $OUTPUT;
+
+        if ($courseperrow == 1) {
+            return 6;
+        }
+
+        if (!$courserowperpage) {
+            $courserowperpage = \theme_remui\toolbox::get_setting('courseperpage');
+            $courserowperpage = $courserowperpage / 3;
+        }
+
+        return $courserowperpage * $courseperrow;
     }
 
         /**
@@ -863,7 +897,9 @@ class utility {
         $mycourses = null,
         $categorysort = null,
         $courses = [],
-        $filtermodified = true
+        $filtermodified = true,
+        $filteredcourseids = [],
+        $isfilterapplied = false
     ) {
         $coursehandler = new \theme_remui_coursehandler();
         return $coursehandler->get_courses(
@@ -875,7 +911,9 @@ class utility {
             $mycourses,
             $categorysort,
             $courses,
-            $filtermodified
+            $filtermodified,
+            $filteredcourseids,
+            $isfilterapplied
         );
 
     }
@@ -1262,6 +1300,816 @@ class utility {
         }
         return $loaderimage;
     }
+
+    /**
+     * Get a list of course IDs that match the specified filters.
+     *
+     * This function takes an array of filters (price, rating, skill level, language) and returns an array of course IDs that match those filters.
+     *
+     * @param array $selectedfilters An associative array of filters, where the keys are the filter types and the values are the filter values.
+     * @return array An array of course IDs that match the specified filters.
+     */
+    public static function get_all_filtered_courseids($selectedfilters) {
+
+        if (!$selectedfilters) {
+            return [];
+        }
+
+        $pricecourseids = [];
+        $ratingcourseids = [];
+        $skilllevelcourseids = [];
+        $languagecourseids = [];
+
+        foreach ($selectedfilters as $filtertype => $filters) {
+            switch ($filtertype) {
+                case 'price':
+                    $pricecourseids = self::get_price_filtered_courseids($filters);
+                    break;
+                case 'rating':
+                    $ratingcourseids = self::get_rating_filtered_courseids($filters);
+                    break;
+                case 'skilllevel':
+                    $skillvalues = array_map(function($skill) {
+                        return $skill->value;
+                    }, $filters);
+                    $skilllevelcourseids = self::get_skilllevel_filtered_courseids($skillvalues);
+                    break;
+                case 'language':
+                    $languagecodes = array_map(function($lang) {
+                        return $lang->value;
+                    }, $filters);
+                    $languagecourseids = self::get_language_filtered_courseids($languagecodes);
+                    break;
+            }
+        }
+
+        $arrays = [
+            $pricecourseids,
+            $ratingcourseids,
+            $skilllevelcourseids,
+            $languagecourseids,
+        ];
+
+        // Filter out empty arrays.
+        $nonemptyarrays = array_filter($arrays, function($arr) {
+            return !empty($arr);
+        });
+
+        // If there are no non-empty arrays, result will be an empty array.
+        if (empty($nonemptyarrays)) {
+            $result = [];
+        } else {
+            // Use array_intersect with splat operator to intersect all non-empty arrays.
+            $result = array_intersect(...$nonemptyarrays);
+        }
+
+        return $result;
+    }
+
+    /**
+     * Get the list of course IDs that match the specified price filters.
+     *
+     * This function takes an array of price filters ('free' or 'paid') and returns an array of course IDs that match those filters.
+     *
+     * @param array $filters An array of price filters ('free' or 'paid').
+     * @return array An array of course IDs that match the specified price filters.
+     */
+    public static function get_price_filtered_courseids($filters) {
+        $courseids = [];
+        foreach ($filters as $key => $filter) {
+            switch ($filter->value) {
+                case 'free':
+                    $courseids = array_unique(array_merge($courseids, self::list_of_coursesids_by_price()));
+                    break;
+                case 'paid':
+                    $courseids = array_unique(array_merge($courseids, self::list_of_coursesids_by_price(1)));
+                    break;
+            }
+        }
+
+        return $courseids;
+    }
+
+    /**
+     * Get the list of course IDs that match the specified rating filters.
+     *
+     * This function takes an array of rating filters and returns an array of course IDs that match those filters.
+     *
+     * @param array $filters An array of rating filters.
+     * @return array An array of course IDs that match the specified rating filters.
+     */
+    public static function get_rating_filtered_courseids($filters) {
+        $courseids = [];
+        foreach ($filters as $key => $filter) {
+            $courseids = array_unique(array_merge($courseids, self::get_courseids_by_ratings($filter->value)));
+        }
+        return $courseids;
+    }
+
+    /**
+     * Get the list of course IDs that match the specified skill level filters.
+     *
+     * This function takes an array of skill level filters and returns an array of course IDs that match those filters.
+     * It does this by querying the {customfield_field} and {customfield_data} tables to find courses that have a custom field
+     * with the shortname 'edwskilllevel' and a value that matches the provided filters.
+     *
+     * @param array $skillvalues An array of skill level filters.
+     * @return array An array of course IDs that match the specified skill level filters.
+     */
+    public static function get_skilllevel_filtered_courseids($skillvalues) {
+        global $DB;
+
+        list($insql, $inparams) = $DB->get_in_or_equal($skillvalues, SQL_PARAMS_NAMED, 'param', true);
+
+        $sql = "SELECT DISTINCT cd.instanceid AS courseid
+                FROM {customfield_field} cf
+                JOIN {customfield_data} cd ON cf.id = cd.fieldid
+                WHERE cf.shortname = :shortname AND " . $DB->sql_cast_char2int('cd.intvalue') . " $insql";
+
+        $params = array_merge(['shortname' => 'edwskilllevel'], $inparams);
+
+        $records = $DB->get_records_sql($sql, $params);
+
+        $courseids = array_keys($records);
+
+        if (in_array(0, $skillvalues, true) || in_array('0', $skillvalues, true)) {
+            $noskilllevelcourseids = self::get_noskill_level_couresid();
+            $courseids = array_merge($courseids, $noskilllevelcourseids);
+        }
+
+        return $courseids;
+    }
+
+    /**
+     * Get the list of course IDs that match the specified language filters.
+     *
+     * This function takes an array of language filters and returns an array of course IDs that match those filters.
+     * It does this by querying the {course} table and checking the 'lang' column for a match with the provided filters.
+     *
+     * @param array $filters An array of language filters.
+     * @return array An array of course IDs that match the specified language filters.
+     */
+    public static function get_language_filtered_courseids($languagecodes) {
+        global $DB;
+
+        list($insql, $params) = $DB->get_in_or_equal($languagecodes, SQL_PARAMS_NAMED);
+
+        $sql = "SELECT id
+                FROM {course}
+                WHERE lang $insql";
+
+        $records = $DB->get_records_sql($sql, $params);
+
+        $nolangsetcourseids = [];
+        if(in_array('en', $languagecodes)) {
+            $nolangsetcourseids = self::get_nolangset_coursesids();
+        }
+
+        $courseids = array_keys($records);
+
+        return array_merge($courseids, $nolangsetcourseids);
+    }
+
+    /**
+     * Get the list of course IDs sorted according to their average rating.
+     *
+     * This function retrieves the list of course IDs sorted in descending order by their average rating.
+     * It does this by querying the {course} and {block_edwiserratingreview} tables, calculating the average
+     * rating for each course, and then returning the course IDs sorted by the average rating.
+     *
+     * @return array An array of course IDs sorted by their average rating in descending order.
+     */
+    public static function get_all_courseids_sorted_according_rating() {
+        global $DB;
+
+        $sql = "SELECT c.id, COALESCE(AVG(" . $DB->sql_cast_char2real('r.star_ratings') . "), 0) as avg_rating
+                FROM {course} c
+                LEFT JOIN {block_edwiserratingreview} r ON c.id = r.for_id AND r.approved = 1
+                GROUP BY c.id
+                ORDER BY avg_rating DESC";
+
+        $results = $DB->get_records_sql($sql);
+
+        return array_keys($results);
+    }
+
+
+    /**
+     * Get the list of course IDs that have a custom price set.
+     *
+     * This function retrieves the list of course IDs that have a custom price set in the site configuration.
+     * It does this by querying the {config_plugins} table for plugin configuration entries that start with
+     * 'custompricetext' and have a non-empty value.
+     *
+     * @return array An array of course IDs that have a custom price set.
+     */
+    public static function custom_price_set_coursesids() {
+        global $DB;
+
+        $sql = "SELECT name, value
+        FROM {config_plugins}
+        WHERE name LIKE :custompricetext
+        AND " . $DB->sql_isnotempty('config_plugins', 'value', false, true);
+
+        $params = ['custompricetext' => 'custompricetext%'];
+
+        $cpsetcourseids = $DB->get_fieldset_sql($sql, $params);
+
+        $cpsetcourseids = array_map(function($item) {
+            return (int) str_replace('custompricetext', '', $item);
+        }, $cpsetcourseids);
+
+        return $cpsetcourseids;
+    }
+
+    /**
+     * Get the list of course IDs that are either free or paid.
+     *
+     * This function retrieves the list of course IDs based on whether the course is free or paid.
+     * It does this by querying the {enrol} table and checking the 'cost' column to determine if the course is paid or not.
+     *
+     * @param int $ispaid If set to 1, the function will return the list of paid course IDs.
+     * If set to 0, the function will return the list of free course IDs.
+     * @return array An array of course IDs that match the specified paid/free criteria.
+     */
+    public static function list_of_coursesids_by_price($ispaid = 0) {
+        global $DB;
+
+        $sql = "SELECT courseid
+            FROM (
+                SELECT
+                    courseid,
+                    MAX(CASE WHEN COALESCE(CAST({$DB->sql_cast_char2real('cost')} AS DECIMAL(10,2)), 0) > 0 THEN 1 ELSE 0 END) AS is_paid
+                FROM {enrol}
+                GROUP BY courseid
+            ) course_status
+            WHERE is_paid = :ispaid";
+
+        $params = ['ispaid' => $ispaid];
+        $coursesids = $DB->get_fieldset_sql($sql, $params);
+
+        // If the enrolment page layout is not set to Edwiser Layout than return the coursesid according to moodle payment status.
+        if (!(\theme_remui\toolbox::get_setting('enrolment_page_layout') == 1)) {
+            return $coursesids;
+        }
+
+        $cpsetcourseids = self::custom_price_set_coursesids();
+
+        if ($ispaid) {
+            $paidcoursesids = array_unique(array_merge($coursesids, $cpsetcourseids));
+            return $paidcoursesids;
+        } else {
+            $freecoursesids = array_diff($coursesids, $cpsetcourseids);
+            $freecoursesids = array_values($freecoursesids);
+            return $freecoursesids;
+        }
+    }
+
+    /**
+     * Generate pricing filter data for courses.
+     *
+     * This function checks the enrolment status of courses and calculates the count of free and paid courses.
+     * It returns an array containing the pricing filter data, which includes the count of free and paid courses.
+     *
+     * @return array|null An array containing pricing filter data, or null if no data is available.
+     */
+    public static function generate_pricing_filter_data($courseids) {
+
+        if (empty($courseids)) {
+            return null;
+        }
+
+        $freecoursesids  = self::list_of_coursesids_by_price();
+        $paidcoursesids = self::list_of_coursesids_by_price(1);
+
+        $freecoursesids = array_intersect($freecoursesids, $courseids);
+        $paidcoursesids = array_intersect($paidcoursesids, $courseids);
+
+        $pricingfilter = null;
+
+        if ($freecoursesids && $paidcoursesids) {
+            $pricingfilter = [
+                'filterlabel' => get_string('price', 'theme_remui'),
+                'filtertype' => 'price',
+                'filteroptions' => [
+                    [
+                        'name' => 'free',
+                        'value' => 'free',
+                        'text' => get_string('free', 'theme_remui'),
+                        'count' => count($freecoursesids),
+                    ],
+                    [
+                        'name' => 'paid',
+                        'value' => 'paid',
+                        'text' => get_string('paid', 'theme_remui'),
+                        'count' => count($paidcoursesids),
+                    ],
+                ],
+            ];
+        }
+
+        return $pricingfilter;
+    }
+
+    /**
+     * Get a list of course IDs based on a minimum rating threshold.
+     *
+     * This function retrieves a list of course IDs where the average rating for the course is greater than or equal to the specified threshold.
+     * It uses the `block_edwiserratingreview` table to fetch the approved ratings for each course, and then groups the results by course ID to calculate the average rating.
+     *
+     * @param int $rating The minimum rating threshold to filter courses by.
+     * @return array An array of course IDs that meet the rating threshold.
+     */
+    public static function get_courseids_by_ratings($rating) {
+        global $DB;
+        $sql = "SELECT for_id
+                FROM {block_edwiserratingreview}
+                WHERE approved = 1
+                GROUP BY for_id
+                HAVING AVG(" . $DB->sql_cast_char2real('star_ratings') . ") >= :threshold";
+
+        $courseids = $DB->get_fieldset_sql($sql, ['threshold' => $rating]);
+
+        return $courseids;
+    }
+
+    /**
+     * Checks if any course has a rating.
+     *
+     * This function checks if the Edwiser Rating Review plugin is available and if there are any approved ratings for courses in the system.
+     *
+     * @return bool True if there are any approved course ratings, false otherwise.
+     */
+    public static function has_any_course_rating() {
+        global $DB;
+
+        if (!is_plugin_available("block_edwiserratingreview")) {
+            return false;
+        }
+
+        $sql = "SELECT 'x' AS result
+                FROM {block_edwiserratingreview} r
+                WHERE r.approved = 1";
+
+        return $DB->record_exists_sql($sql, null);
+    }
+
+    /**
+     * Generate rating filter data for courses.
+     *
+     * This function checks if the Edwiser Rating Review plugin is available and generates
+     * rating filter data based on course ratings. It calculates the count of courses with
+     * ratings of 4 and above, and 3 and above.
+     *
+     * @return array|null An array containing rating filter data, or null if no data is available.
+     */
+    public static function generate_rating_filter_data($courseids) {
+        global $DB;
+
+        if (empty($courseids) || !self::has_any_course_rating()) {
+            return null;
+        }
+
+        $rating4count = 0;
+        $rating3count = 0;
+
+        $ratings = [
+            ['name' => 'rating4', 'text' => get_string('rating4', 'theme_remui'), 'threshold' => 4],
+            ['name' => 'rating3', 'text' => get_string('rating3', 'theme_remui'), 'threshold' => 3],
+        ];
+
+        $values = [];
+
+        foreach ($ratings as $rating) {
+            $courseidsbyrating = self::get_courseids_by_ratings($rating['threshold']);
+            $courseidsbyrating = array_intersect($courseidsbyrating, $courseids);
+
+            $count = count($courseidsbyrating);
+
+            if ($count) {
+                $values[] = [
+                    'name' => $rating['name'],
+                    'value' => $rating['threshold'],
+                    'text' => $rating['text'],
+                    'count' => $count,
+                ];
+
+                if ($rating['name'] == 'rating4') {
+                    $rating4count = $count;
+                }
+                if ($rating['name'] == 'rating3') {
+                    $rating3count = $count;
+                }
+            }
+        }
+
+        if (($rating4count == $rating3count || $rating4count == 0) && ($rating3count == count($courseids))) {
+            return null;
+        }
+
+        return !empty($values) ?
+            [
+                'filterlabel' => get_string('ratings', 'theme_remui'),
+                'filtertype' => 'rating',
+                'filteroptions' => $values,
+            ]
+            : null;
+    }
+
+    public static function get_noskill_level_couresid() {
+        global $DB;
+
+        $where = "cf.shortname = :shortname";
+        $params = ['shortname' => 'edwskilllevel', 'siteid' => SITEID];
+
+        $noskilllevelcourseidssql = " SELECT
+            c.id AS courseid
+        FROM
+            {course} c
+        WHERE
+            c.id <> :siteid and c.id NOT IN (
+                SELECT
+                    cd.instanceid
+                FROM
+                    {customfield_data} cd
+                INNER JOIN
+                    {customfield_field} cf
+                ON
+                    cd.fieldid = cf.id
+                WHERE
+                    $where
+            )
+        ";
+
+        $noskilllevelcourseids = $DB->get_records_sql($noskilllevelcourseidssql, $params);
+        return array_keys($noskilllevelcourseids);
+    }
+
+    /**
+     * Generates the data for the level filter options in the courses filters menu.
+     *
+     * The function retrieves the count of courses for each level (Beginner, Intermediate, Advanced)
+     * based on the 'Skill Level' custom field, and returns an array containing the level name, level
+     * value, and course count for each level. If there are less than two levels, the function returns
+     * null.
+     *
+     * @return array|null The level filter data, or null if there is only one level.
+     */
+    public static function generate_level_filter_data($courseids) {
+        global $DB;
+
+        if (empty($courseids)) {
+            return null;
+        }
+
+        $where = "cf.shortname = :shortname";
+        $params = ['shortname' => 'edwskilllevel'];
+
+        if (!empty($courseids)) {
+            list($insql, $inparams) = $DB->get_in_or_equal($courseids, SQL_PARAMS_NAMED);
+            $where .= " AND cd.instanceid $insql";
+            $params = $params + $inparams;
+        }
+
+        $sql = "SELECT cd.intvalue, COUNT(cd.intvalue) AS count
+                FROM {customfield_field} cf
+                INNER JOIN {customfield_data} cd
+                ON cf.id = cd.fieldid
+                WHERE $where
+                GROUP BY cd.intvalue
+                ORDER BY cd.intvalue";
+
+        $result = $DB->get_records_sql($sql, $params);
+
+        $noskilllevelcourseids = self::get_noskill_level_couresid();
+
+        if (!empty($courseids)) {
+            $noskilllevelcourseids = array_intersect($noskilllevelcourseids, $courseids);
+        }
+
+        $noskilllevelcount = count($noskilllevelcourseids);
+
+        $key = array_search(0, array_column($result, 'intvalue'));
+
+        if ($key !== false) {
+            $result[$key]->count += $noskilllevelcount;
+        } else if ($noskilllevelcount != 0) {
+            $result[] = (object)[
+                'intvalue' => 0,
+                'count' => $noskilllevelcount,
+            ];
+        }
+
+        $levelfilter = null;
+
+        if (count($result) >= 2) {
+            $levelfilter = [
+                'filterlabel' => get_string('level', 'theme_remui'),
+                'filtertype' => 'skilllevel',
+                'filteroptions' => [],
+            ];
+
+            foreach ($result as $key => $leveldata) {
+                $levelname = get_string('skill'.$leveldata->intvalue, 'theme_remui');
+
+                $levelfilter['filteroptions'][] = [
+                    'name' => "skill" . $leveldata->intvalue,
+                    'value' => $leveldata->intvalue,
+                    'text' => $levelname,
+                    'count' => $leveldata->count,
+                ];
+            }
+        }
+
+        return $levelfilter;
+    }
+
+    public static function get_nolangset_coursesids() {
+        global $DB;
+
+        $sql = "SELECT id
+                FROM {course}
+                WHERE id <> :siteid AND (lang IS NULL OR lang = :emptylang)";
+
+        $params = [
+            'siteid' => SITEID,
+            'emptylang' => ''
+        ];
+
+        $emptylangcourses = $DB->get_records_sql($sql, $params);
+        return array_keys($emptylangcourses);
+    }
+
+    /**
+     * Generates the data for the language filter options in the courses filters menu.
+     *
+     * The function retrieves the count of courses for each installed language, and returns an array
+     * containing the language name, language code, and course count for each language. If there are
+     * less than two languages, the function returns null.
+     *
+     * @return array|null The language filter data, or null if there is only one language.
+     */
+    public static function generate_language_filter_data($courseids) {
+        global $DB;
+
+        if (empty($courseids)) {
+            return null;
+        }
+
+        $where = "id <> :siteid AND " . $DB->sql_isnotempty('course', 'lang', false, true);
+        $params = ['siteid' => SITEID];
+
+        if (!empty($courseids)) {
+            list($insql, $inparams) = $DB->get_in_or_equal($courseids, SQL_PARAMS_NAMED);
+            $where .= " AND id $insql";
+            $params = array_merge($params, $inparams);
+        }
+
+        $sql = "SELECT lang, COUNT(*) AS count
+                FROM {course}
+                WHERE $where
+                GROUP BY lang";
+
+        $result = $DB->get_records_sql($sql, $params);
+
+        $installedlanguages = \get_string_manager()->get_list_of_translations();
+
+        $languagefilter = null;
+
+        $nolangsetcourseids = self::get_nolangset_coursesids();
+        if (!empty($courseids)) {
+            $nolangsetcourseids = array_intersect($nolangsetcourseids, $courseids);
+        }
+
+        if (!isset($result['en'])) {
+            if (count($nolangsetcourseids) > 0) {
+                $result['en'] = new stdClass();
+                $result['en']->lang = 'en';
+                $result['en']->count = count($nolangsetcourseids);
+            }
+        } else if (count($nolangsetcourseids)) {
+            $result['en']->count += count($nolangsetcourseids);
+        }
+
+        if (count($result) >= 2) {
+            $languagefilter = [
+                'filterlabel' => get_string('language', 'theme_remui'),
+                'filtertype' => 'language',
+                'filteroptions' => [],
+            ];
+
+            $uninstalledlanguages = 0;
+            foreach ($result as $langcode => $langdata) {
+                if ( !isset($installedlanguages[$langcode]) ) {
+                    $uninstalledlanguages++;
+                    continue;
+                }
+                $languagename = isset($installedlanguages[$langcode]) ? $installedlanguages[$langcode] : $langcode;
+
+                $languagefilter['filteroptions'][] = [
+                    'name' => "lang".$langcode,
+                    'value' => $langcode,
+                    'text' => $languagename,
+                    'count' => $langdata->count,
+                ];
+            }
+
+            if ((count($result) - $uninstalledlanguages) < 2) {
+                $languagefilter = null;
+            }
+        }
+
+        return $languagefilter;
+    }
+
+    /**
+     * Retrieves an array of course IDs that are visible to the current user for the specified course category.
+     *
+     * This function checks the user's permissions to view hidden courses and returns an array of course IDs
+     * that are either visible or the user has permission to view.
+     *
+     * @param int|string $categoryid The ID of the course category, or 'all' to get courses from all categories.
+     * @return int[] An array of course IDs that are visible to the current user.
+     */
+    public static function get_visible_courseids($categoryid) {
+        global $DB, $USER;
+        $coursehandler = new \theme_remui_coursehandler();
+        $categoryids = $coursehandler->get_allowed_categories($categoryid);
+
+        $systemcontext = context_system::instance();
+        $canviewhiddencourses = has_capability('moodle/course:viewhiddencourses', $systemcontext);
+
+        $params = array('canviewhidden' => $canviewhiddencourses);
+
+        list($insql, $inparams) = $DB->get_in_or_equal($categoryids, SQL_PARAMS_NAMED);
+        $params = array_merge($params, $inparams);
+
+        $sql = "SELECT id
+                FROM {course}
+                WHERE category $insql
+                  AND (visible = 1 OR :canviewhidden = 1)";
+
+        $courseids = $DB->get_fieldset_sql($sql, $params);
+
+        return $courseids;
+    }
+
+    /**
+     * Generates the data for filters and sorting options for courses.
+     *
+     * This function retrieves filter data for pricing, ratings, levels, and languages,
+     * as well as sorting options for courses. It also includes the number of courses per page.
+     *
+     * @return array An associative array containing:
+     *               - 'coursesfilters': Array of filter options (pricing, ratings, levels, languages)
+     *               - 'coursesortings': Array of sorting options (date, alphabetical, ratings)
+     *               - 'coursesperpagelist': Array of course per page options
+     */
+    public static function generate_filters_and_sorting_data($categoryid) {
+        global $USER;
+
+        $coursehandler = new \theme_remui_coursehandler();
+
+        // Initialize the courses filters array.
+        $coursesfilters = [];
+
+        if (!$categoryid || $categoryid < 0) {
+            $categoryid = 'all';
+        }
+
+        $courseids = self::get_visible_courseids($categoryid);
+
+        // Generate filter data for different categories.
+        $pricingfilters = self::generate_pricing_filter_data($courseids);
+        $ratingsfilters = self::generate_rating_filter_data($courseids);
+        $levelfilters = self::generate_level_filter_data($courseids);
+        $languagefilters = self::generate_language_filter_data($courseids);
+
+        // Add filters to the coursesfilters array if they exist.
+        if ($pricingfilters) {
+            $coursesfilters[] = $pricingfilters;
+        }
+        if ($ratingsfilters) {
+            $coursesfilters[] = $ratingsfilters;
+        }
+        if ($levelfilters) {
+            $coursesfilters[] = $levelfilters;
+        }
+        if ($languagefilters) {
+            $coursesfilters[] = $languagefilters;
+        }
+
+        // Define course sorting options.
+        $coursesortings = [
+            [
+                'sortinglabel' => get_string('date', 'theme_remui'),
+                'sortingoptions' => [
+                    [
+                        'value' => 'newest',
+                        'text' => get_string('newest', 'theme_remui'),
+                    ],
+                    [
+                        'value' => 'oldest',
+                        'text' => get_string('oldest', 'theme_remui'),
+                    ],
+                ],
+            ],
+            [
+                'sortinglabel' => get_string('alphabetical', 'theme_remui'),
+                'sortingoptions' => [
+                    [
+                        'value' => 'ASC',
+                        'text' => get_string('sortascending', 'theme_remui'),
+                    ],
+                    [
+                        'value' => 'DESC',
+                        'text' => get_string('sortdescending', 'theme_remui'),
+                    ],
+                ],
+            ],
+        ];
+
+        // Add ratings sorting option if ratings filter exists.
+        if (self::has_any_course_rating()) {
+            $coursesortings[] = [
+                'sortinglabel' => get_string('ratings', 'theme_remui'),
+                'sortingoptions' => [
+                    [
+                        'value' => 'highrating',
+                        'text' => get_string('highrating', 'theme_remui'),
+                    ],
+                    [
+                        'value' => 'lowrating',
+                        'text' => get_string('lowrating', 'theme_remui'),
+                    ],
+                ],
+            ];
+        }
+
+        // Get the number of courses per page from settings.
+        $courseperpage = \theme_remui\toolbox::get_setting('courseperpage');
+
+        // Define courses per page options.
+        $coursesperpagelist = [
+            'limitlabel' => get_string('row' . ( $courseperpage / 3 ), 'theme_remui'),
+            'limitdefaultvalue' => $courseperpage,
+            'limitlist' => [
+                ['text' => get_string('row2', 'theme_remui'),  'value' => 2, 'isactive' => $courseperpage == 6],
+                ['text' => get_string('row3', 'theme_remui'), 'value' => 3, 'isactive' => $courseperpage == 9],
+                ['text' => get_string('row4', 'theme_remui'), 'value' => 4, 'isactive' => $courseperpage == 12],
+                ['text' => get_string('row5', 'theme_remui'), 'value' => 5, 'isactive' => $courseperpage == 16],
+                ['text' => get_string('row6', 'theme_remui'), 'value' => 6, 'isactive' => $courseperpage == 20],
+            ],
+        ];
+
+        $coursesfilterscontext = [
+            'isfilterinfoavailable' => empty($coursesfilters),
+            'coursesfilters' => $coursesfilters,
+        ];
+
+        // If there are no any filter and user is not admin, manager. than filter will be hidden.
+        if (
+            (!isloggedin() || !(self::check_user_admin_cap()))
+            && empty($coursesfilters)
+        ) {
+            $coursesfilterscontext = null;
+        }
+
+        return [
+            'coursesfilterscontext' => $coursesfilterscontext,
+            'coursesortingcontext' => [
+                'coursesortings' => $coursesortings,
+            ],
+            'coursesperpagelistcontext' => [
+                'coursesperpagelist' => $coursesperpagelist,
+            ],
+        ];
+    }
+
+    public static function get_skilllevel_by_courseid($courseid) {
+        global $DB;
+        $select = "cf.shortname = :shortname AND cd.instanceid = :courseid";
+        $params = [
+            'shortname' => 'edwskilllevel',
+            'courseid' => $courseid,
+        ];
+
+        $sql = "SELECT cd.intvalue
+                FROM {customfield_field} cf
+                JOIN {customfield_data} cd ON cf.id = cd.fieldid
+                WHERE $select";
+
+        $result = $DB->get_field_sql($sql, $params);
+
+        if ($result !== false) {
+            $skilllevel = $result;
+        } else {
+            $skilllevel = false;
+        }
+
+        return $skilllevel;
+    }
+
 
     public static function get_demonavbar_context(){
         global $CFG, $PAGE, $OUTPUT, $COURSE, $USER;

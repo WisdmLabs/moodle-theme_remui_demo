@@ -195,6 +195,27 @@ class theme_remui_coursehandler {
             case 'DESC':
                 $orderby = " ORDER BY c.fullname " . $options['sort'];
                 break;
+            case 'newest':
+                $orderby = " ORDER BY c.startdate DESC";
+                break;
+            case 'oldest':
+                $orderby = " ORDER BY c.startdate ASC";
+                break;
+            case 'highrating':
+            case 'lowrating':
+                $courseidsbyratings = Utility::get_all_courseids_sorted_according_rating();
+                if (!empty($courseidsbyratings)) {
+                    $direction = $options['sort'] === 'lowrating' ? ' DESC' : '';
+                    $casestatements = [];
+                    foreach ($courseidsbyratings as $index => $id) {
+                        $casestatements[] = "WHEN c.id = $id THEN $index";
+                    }
+                    $orderby = " ORDER BY CASE " . implode(' ', $casestatements) . " ELSE " . count($courseidsbyratings) . " END $direction";
+
+                } else {
+                    $orderby = " ORDER BY c.timecreated DESC";
+                }
+                break;
             default:
                 $orderby = " ORDER BY c.sortorder";
                 break;
@@ -693,7 +714,9 @@ class theme_remui_coursehandler {
         $mycourses = null,
         $categorysort = null,
         $courses = [],
-        $filtermodified = false
+        $filtermodified = false,
+        $filteredcourseids = [],
+        $isfilterapplied = false
     ) {
         global $DB, $CFG, $USER, $OUTPUT;
         $count = 0;
@@ -734,6 +757,17 @@ class theme_remui_coursehandler {
                 $where .= " AND ( LOWER(c.fullname) like LOWER(:name1) OR LOWER(c.shortname) like LOWER(:name2) )";
                 $params = $params + array("name1" => $search, "name2" => $search);
             }
+            if ($isfilterapplied) {
+                if (!empty($filteredcourseids)) {
+                    list($insql, $inparams) = $DB->get_in_or_equal($filteredcourseids, SQL_PARAMS_NAMED);
+                    $where .= " AND c.id $insql";
+                    $params = $params + $inparams;
+                } else {
+                    // This will ensure no courses are returned when $filteredcourseids is empty.
+                    $where .= " AND 1=0";
+                }
+            }
+
             // Get list of courses without preloaded coursecontacts because we don't need them for every course.
             list($coursecount, $courses) = $this->get_course_records(
                 $where,
@@ -746,7 +780,7 @@ class theme_remui_coursehandler {
                     'limitfrom' => $limitfrom,
                     'limitto' => $limitto,
                     'mycourses' => $mycourses,
-                    'totalcount' => $totalcount
+                    'totalcount' => $totalcount,
                 ]
             );
             if (is_numeric($category) || is_array($category)) {
@@ -759,8 +793,13 @@ class theme_remui_coursehandler {
             return $coursecount;
         }
 
+        $beginnerecourseids = Utility::get_skilllevel_filtered_courseids([1]);
+        $intermediatecourseids = Utility::get_skilllevel_filtered_courseids([2]);
+        $advancedcourseids = Utility::get_skilllevel_filtered_courseids([3]);
+
         // Prepare courses array.
         $chelper = new \coursecat_helper();
+
         foreach ($courses as $k => $course) {
             $course = (object)$course;
             $corecourselistelement = new \core_course_list_element($course);
@@ -773,9 +812,29 @@ class theme_remui_coursehandler {
             $coursesarray[$count]["courseid"] = $course->id;
             $coursesarray[$count]["coursename"] = strip_tags($chelper->get_course_formatted_name($course));
             $coursesarray[$count]["shortname"] = $course->shortname;
-            $coursesarray[$count]["categoryname"] =format_text($DB->get_record('course_categories', array('id' => $course->category))->name,FORMAT_HTML);
+            $coursesarray[$count]["categoryname"] = format_text($DB->get_record('course_categories', array('id' => $course->category))->name,FORMAT_HTML);
             $coursesarray[$count]["visible"] = $course->visible;
             $coursesarray[$count]["courseurl"] = $CFG->wwwroot."/course/view.php?id=".$course->id;
+
+            $slilllevel = null;
+            if (in_array($course->id, $beginnerecourseids)) {
+                $slilllevel = [
+                    'badge' => 'badge-light',
+                    'labeltag' => get_string('skill1', 'theme_remui'),
+                ];
+            } else if (in_array($course->id, $intermediatecourseids)) {
+                $slilllevel = [
+                    'badge' => 'badge-info',
+                    'labeltag' => get_string('skill2', 'theme_remui'),
+                ];
+            } else if (in_array($course->id, $advancedcourseids) ) {
+                $slilllevel = [
+                    'badge' => 'badge-warning',
+                    'labeltag' => get_string('skill3', 'theme_remui'),
+                ];
+            }
+
+            $coursesarray[$count]["skillleveltag"] = $slilllevel;
 
             // This is to handle the version change.
             // User enrollment link has changed for moodle version 3.4.
@@ -924,10 +983,7 @@ class theme_remui_coursehandler {
                 $coursesarray[$count]["courseimage"] = $OUTPUT->get_generated_image_for_id($course->id);
             }
             $courseimage = '';
-
-
             $count++;
-
         }
 
         if ($totalcount === false) {

@@ -66,15 +66,22 @@ $viewarray = explode(',', $viewarray);
 $viewarray = array_combine($viewarray, $viewarray);
 $templatecontext['viewoptions'] = $viewarray;
 $templatecontext['hideavailableview'] = false;
-if(!get_user_preferences('course_view_state')){
+if (!get_user_preferences('course_view_state')) {
     $templatecontext['viewactivebtn'] = true;
 }
 
-if(count($templatecontext['viewoptions']) == 1){
+if (count($templatecontext['viewoptions']) == 1) {
     $templatecontext['hideavailableview'] = true;
 }
 
 $categories = utility::get_categories_list();
 $caegoryfilterhtml = utility::generateCategoryStructure($categories);
 $templatecontext['caegoryfilterhtml'] = $caegoryfilterhtml;
+
+$filterssortingsdata = utility::generate_filters_and_sorting_data($categoryid);
+
+$templatecontext['coursesfilterscontext'] = $filterssortingsdata['coursesfilterscontext'];
+$templatecontext['coursesortingcontext'] = $filterssortingsdata['coursesortingcontext'];
+$templatecontext['coursesperpagelistcontext'] = $filterssortingsdata['coursesperpagelistcontext'];
+
 echo $OUTPUT->render_from_template('theme_remui/coursearchive', $templatecontext);

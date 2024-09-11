@@ -28,34 +28,40 @@ namespace theme_remui\controller;
  */
 class EventsController {
 
-    public static function remui_stats_common($userid, $courseid, $deleteActivity = false) {
-        
+    public static function remui_stats_common($userid, $courseid, $deleteActivity = false, $coursedeleted=false) {
+
         $coursehandler = new \theme_remui_coursehandler();
 
-        if($userid) {
-            if(get_config( "theme_remui", "enabledashboardcoursestats")) {
+        if ($userid) {
+            if (get_config( "theme_remui", "enabledashboardcoursestats")) {
                 $coursehandler->set_dashboard_stats($userid);
             } else {
                 set_config("edwdashboardstats", "", "theme_remui");
             }
         }
-        if($courseid) {
+        if ($courseid) {
             if (get_config( "theme_remui", "enablecoursestats")) {
-                $course = get_course($courseid);
-                $coursehandler->set_course_stats($course,true);
-                
-                if($deleteActivity) {
-                    $coursehandler->reset_dashboard_stats_for_users_incourse($course);
+                if (!$coursedeleted) {
+                    $course = get_course($courseid);
+                    $coursehandler->set_course_stats($course, true);
+                }
+
+                if ($deleteActivity) {
+                    if (get_config( "theme_remui", "enabledashboardcoursestats")) {
+                        $coursehandler->reset_dashboard_stats_for_users_incourse($course);
+                    } else {
+                        set_config("edwdashboardstats", "", "theme_remui");
+                    }
                 }
             } else {
                 set_config("edwcoursestats", "", "theme_remui");
             }
         }
     }
-
     public static function user_enrollment_event($eventdata) {
 
         $data = $eventdata->get_data();
+
         $userid = $data['relateduserid'];
 
         EventsController::remui_stats_common($userid, $eventdata->courseid);
@@ -71,12 +77,26 @@ class EventsController {
         // Set Global Config to acknowledge to reset the cache.
         // Can reset order is not just for enrolled students.
         // Need to reset the cache of all users as that course get displayed in All Courses Tab.
+
         $data = $eventdata->get_data();
 
         EventsController::remui_stats_common($data['relateduserid'], $eventdata->courseid);
 
         set_config('cache_reset_time', time(), 'theme_remui');
     }
+
+    public static function course_deletion_event($eventdata) {
+        // Set Global Config to acknowledge to reset the cache.
+        // Can reset order is not just for enrolled students.
+        // Need to reset the cache of all users as that course get displayed in All Courses Tab.
+
+        $data = $eventdata->get_data();
+
+        EventsController::remui_stats_common($data['relateduserid'], $eventdata->courseid, false, true);
+
+        set_config('cache_reset_time', time(), 'theme_remui');
+    }
+
     public static function updation_on_create_delete_activity($eventdata) {
         // Set Global Config to acknowledge to reset the cache.
         // Can reset order is not just for enrolled students.
@@ -86,6 +106,8 @@ class EventsController {
 
         set_config('cache_reset_time', time(), 'theme_remui');
     }
+
+
     public static function user_loggedin_event($eventdata) {
         global $USER;
         set_user_preference('enable_focus_mode', false, $USER->id);

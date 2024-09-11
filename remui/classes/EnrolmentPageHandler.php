@@ -154,7 +154,8 @@ class EnrolmentPageHandler {
         if (isset($customfielddata['edwcourseduration'])) {
             $temp['courselength'] = format_text($customfielddata['edwcourseduration'], FORMAT_HTML);
         }
-        if (isset($customfielddata['edwskilllevel'])) {
+
+        if (isset($customfielddata['edwskilllevel']) && Utility::get_skilllevel_by_courseid($COURSE->id)) {
             $temp['skilllevel'] = get_string('skill' . $customfielddata['edwskilllevel'], 'theme_remui');
         }
 
@@ -167,7 +168,7 @@ class EnrolmentPageHandler {
         $temp['showselecteddatesettingdate'] = $coursedata['showselecteddatesettingdate'];
         $langarray = \get_string_manager()->get_list_of_translations();
         $language = $langarray["en"];
-        if ($COURSE->lang != "") {
+        if ($COURSE->lang != "" && isset($langarray[$COURSE->lang])) {
             $language = $langarray[$COURSE->lang];
         }
         $temp['language'] = $language;
@@ -235,7 +236,7 @@ class EnrolmentPageHandler {
         // Default data.
         $enroldata = array('courseprice' => '', 'hascost' => 0);
         $buttontext = get_string('enrolnow', 'theme_remui',get_string('enrol', 'enrol'));
-        $buttontextinput = $buttontext;
+	 $buttontextinput = $buttontext;
 
         $buttonurl  = '#maincontent';
         $textforbtnlinkinput = '#';
@@ -260,8 +261,8 @@ class EnrolmentPageHandler {
         if(get_config('theme_remui', $variable1)){
             $buttontextinput = get_config('theme_remui',$variable1);
             $buttontext = format_text($buttontextinput, FORMAT_HTML);
-        } 
-        
+        }
+
         if(get_config('theme_remui',$variable2) && ((get_config('theme_remui',$variable2)!='#'))){
             $buttonurl = get_config('theme_remui',$variable2);
             $textforbtnlinkinput = $buttonurl;

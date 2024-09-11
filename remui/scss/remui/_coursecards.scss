@@ -302,6 +302,14 @@ $card-list-gap-half: $card-list-gap / 2;
          font-size: $card-icon-size;
       }
    }
+
+   .skilltag {
+      border-radius: 2px;
+
+      &.badge-light {
+         background-color: #d9dee3;
+      }
+   }
 }
 
 .edw-course-summary-container {

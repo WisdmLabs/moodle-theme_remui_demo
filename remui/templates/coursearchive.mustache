@@ -81,7 +81,7 @@
             {{> theme_remui/coursefilters}}
             <div class="loader-overlay d-flex justify-content-center align-items-center" style="min-height:200px;">
                 <div class="inner" style="/* width: 50px; *//* height: 50px; */">
-                    <img src="{{{siteinnerloader}}}"/>
+                    <img src="{{{siteinnerloader}}}" width="50px" height="50px"/>
                 </div>
             </div>
             <div class="d-none tag-wrapper p-my-6" style="display: flex;align-items: center;">
@@ -92,8 +92,31 @@
                 <!-- Here we will render the cards from Javascript side. -->
             </div>
 
-            <div class="d-none w-100 cards-pagination">
-                <!-- Here we will render the pagination from Javascript side. -->
+            <div class="d-flex align-items-center justify-content-between flex-gap-d5">
+
+                {{#coursesperpagelistcontext}}
+                <div class="btn-group dropup edw-custom-dropdown-wrapper max-course-shown p-mt-8">
+
+                    {{#coursesperpagelist}}
+                    <div class="dropdown-toggle btn btn-sm d-flex align-items-center flex-gap-d5 p-p-2" id="" role="menuitem" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#" tabindex="-1" title="{{#str}}showcourseperpage, theme_remui{{/str}}">
+                        <span class="max-course-default d-none" data-value={{{limitdefaultvalue}}}></span>
+                        <span class="p-mr-1 h-semibold-6 toggle-text">{{{limitlabel}}}</span>
+                    </div>
+
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <div class="p-py-2d5 d-flex flex-column flex-gap-d5 select-optgroup-wrapper">
+                            {{#limitlist}}
+                                <p data-value="{{value}}" class="select-option m-0 text-link-regular {{#isactive}}active{{/isactive}}">{{{text}}}</p>
+                            {{/limitlist}}
+                        </div>
+                    </div>
+                    {{/coursesperpagelist}}
+                </div>
+                {{/coursesperpagelistcontext}}
+
+                <div class="d-none w-100 cards-pagination">
+                    <!-- Here we will render the pagination from Javascript side. -->
+                </div>
             </div>
         </div>
     </div>

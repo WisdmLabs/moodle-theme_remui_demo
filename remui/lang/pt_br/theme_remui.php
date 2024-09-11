@@ -387,7 +387,8 @@ $string['enrolpagesettingsdesc'] = "Gerencie o conteúdo da página de inscriç�
 $string['coursearchivepagesettings'] = 'Configurações da Página do Arquivo de Curso';
 $string['coursearchivepagesettingsdesc'] = 'Gerencie o layout e conteúdo da página do arquivo de curso.';
 $string['courseperpage'] = 'Cursos por página';
-$string['courseperpagedesc'] = 'Número de cursos a serem exibidos por página na página do arquivo de curso.';
+$string['courseperpagedesc'] = "<strong>Visualização 'Grade' do curso:</strong> Ao selecionar o número de cartões de curso nas configurações acima, a página de arquivo do curso se ajustará automaticamente, organizando os cartões em linhas geradas dinamicamente.<br>
+<strong style='display: inline-block;margin-top: 8px;'>Visualização 'Lista e Resumo' do curso:</strong> Os cursos serão exibidos de acordo com a seleção feita nas configurações acima.";
 $string['none'] = 'Nenhum';
 $string['fade'] = 'Desvanecer';
 $string['slide-top'] = 'Deslizar para cima';
@@ -430,6 +431,7 @@ $string['categorypagelayoutdesc'] = 'Selecione entre os layouts de página de ar
 $string['edwiserlayout'] = 'Layout Edwiser';
 $string['categoryfilter'] = 'Filtro de Categoria';
 
+$string['skill0'] = 'Sem etiqueta';
 $string['skill1'] = 'Iniciante';
 $string['skill2'] = 'Intermediário';
 $string['skill3'] = 'Avançado';
@@ -462,8 +464,8 @@ $string['mycourses'] = "Meus cursos";
 $string['allcategories'] = 'Todas as categorias';
 $string['categorysort'] = 'Ordenar categorias';
 $string['sortdefault'] = 'Ordem (nenhum)';
-$string['sortascending'] = 'Ordenar A a Z';
-$string['sortdescending'] = 'Ordenar Z a A';
+$string['sortascending'] = 'A a Z';
+$string['sortdescending'] = 'Z a A';
 
 // Antiga string da página inicial.
 // Configurações da página inicial.
@@ -1524,3 +1526,28 @@ $string['addcustomprice'] = 'Adicionar um preço personalizado';
 $string['enablepricingsettingstext'] = 'Ativar o preço padrão removerá o “preço personalizado e o link de inscrição personalizado”.';
 $string['enabledefaultpricing'] = 'Ativar preço padrão';
 $string["dashboardstatsupdate"] = "Atualização de estatísticas RemUI";
+
+$string["filters"] = "Filtros";
+$string["applyfilters"] = "Aplicar filtros";
+$string["clear"] = "Limpar";
+$string["level"] = "Nível";
+$string["ratings"] = "Avaliações";
+$string["free"] = "Gratuito";
+$string["paid"] = "Pago";
+$string["rating4"] = "4 e acima";
+$string["rating3"] = "3 e acima";
+$string["newest"] = "Mais recente";
+$string["oldest"] = "Mais antigo";
+$string["highrating"] = "Alta classificação";
+$string["lowrating"] = "Baixa classificação";
+$string["date"] = "Data";
+$string["alphabetical"] = "Alfabético";
+$string["showcourseperpage"] = "Mostrar curso por página";
+$string["close"] = "Fechar";
+$string["row2"] = "Mostrar:2 linha";
+$string["row3"] = "Mostrar:3 linhas";
+$string["row4"] = "Mostrar:4 linhas";
+$string["row5"] = "Mostrar:5 linhas";
+$string["row6"] = "Mostrar:6 linhas";
+
+$string["filteremptymsg"] = "NOTA: Para visualizar os filtros, adicione propriedades de filtro, como Níveis, Preço, Avaliações e Idiomas ao curso.";

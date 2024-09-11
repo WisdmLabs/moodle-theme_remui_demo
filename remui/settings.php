@@ -1242,7 +1242,7 @@ if ($ADMIN->fulltree) {
             array(
                 12 => new lang_string('twelve', 'theme_remui'),
                 9 => new lang_string('nine', 'theme_remui'),
-                6 => new lang_string('six', 'theme_remui')
+                6 => new lang_string('six', 'theme_remui'),
             )
         );
         $setting->set_updatedcallback('theme_reset_all_caches');

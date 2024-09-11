@@ -91,7 +91,7 @@ $observers = array(
     ),
     array(
         'eventname'   => '\core\event\course_deleted',
-        'callback'    => 'theme_remui\controller\EventsController::course_updation_event',
+        'callback'    => 'theme_remui\controller\EventsController::course_deletion_event',
     ),
     array(
         'eventname'   => '\mod_assign\event\assessable_submitted',

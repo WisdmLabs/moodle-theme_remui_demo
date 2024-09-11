@@ -383,7 +383,8 @@ $string['enrolpagesettingsdesc'] = "Gérez le contenu de la page d'inscription i
 $string['coursearchivepagesettings'] = "Paramètres de la page d'archives de cours";
 $string['coursearchivepagesettingsdesc'] = "Gérez la mise en page et le contenu de la page d'archives de cours.";
 $string['courseperpage'] = 'Cours par page';
-$string['courseperpagedesc'] = "Nombre de cours à afficher par page sur la page d'archives de cours.";
+$string['courseperpagedesc'] = "<strong>Affichage 'Grille' des cours :</strong> En sélectionnant le nombre de cartes de cours dans les paramètres ci-dessus, la page d'archive du cours s'ajustera automatiquement et organisera les cartes en rangées générées dynamiquement.<br>
+<strong style='display: inline-block;margin-top: 8px;'>Affichage 'Liste & Résumé' des cours :</strong> Les cours seront affichés selon la sélection effectuée dans les paramètres ci-dessus.";
 $string['none'] = 'Aucun';
 $string['fade'] = 'Estomper';
 $string['slide-top'] = 'Faire glisser vers le haut';
@@ -426,6 +427,7 @@ $string['categorypagelayoutdesc'] = "Sélectionnez entre les mises en page de la
 $string['edwiserlayout'] = 'Mise en page Edwiser';
 $string['categoryfilter'] = 'Filtre de catégorie';
 
+$string['skill0'] = 'Non étiqueté';
 $string['skill1'] = 'Débutant';
 $string['skill2'] = 'Intermédiaire';
 $string['skill3'] = 'Avancé';
@@ -458,8 +460,8 @@ $string['mycourses'] = "Mes cours";
 $string['allcategories'] = 'Toutes les catégories';
 $string['categorysort'] = 'Trier les catégories';
 $string['sortdefault'] = 'Trier (aucun)';
-$string['sortascending'] = 'Trier A à Z';
-$string['sortdescending'] = 'Trier Z à A';
+$string['sortascending'] = 'A à Z';
+$string['sortdescending'] = 'Z à A';
 
 // Frontpage Old String.
 // Home Page Settings.
@@ -1486,3 +1488,28 @@ $string['addcustomprice'] = 'Ajouter un prix personnalisé';
 $string['enablepricingsettingstext'] = "L'activation des prix par défaut supprimera le « prix personnalisé et le lien d'inscription personnalisé ».";
 $string['enabledefaultpricing'] = 'Activer les prix par défaut';
 $string["dashboardstatsupdate"] = "Mise à jour des statistiques RemUI";
+
+$string["filters"] = "Filtres";
+$string["applyfilters"] = "Appliquer les filtres";
+$string["clear"] = "Effacer";
+$string["level"] = "Niveau";
+$string["ratings"] = "Évaluations";
+$string["free"] = "Gratuit";
+$string["paid"] = "Payé";
+$string["rating4"] = "4 et plus";
+$string["rating3"] = "3 et plus";
+$string["newest"] = "Le plus récent";
+$string["oldest"] = "Le plus ancien";
+$string["highrating"] = "Haute évaluation";
+$string["lowrating"] = "Basse évaluation";
+$string["date"] = "Date";
+$string["alphabetical"] = "Alphabétique";
+$string["showcourseperpage"] = "Afficher le cours par page";
+$string["close"] = "Fermer";
+$string["row2"] = "Afficher:2 ligne";
+$string["row3"] = "Afficher:3 lignes";
+$string["row4"] = "Afficher:4 lignes";
+$string["row5"] = "Afficher:5 lignes";
+$string["row6"] = "Afficher:6 lignes";
+
+$string["filteremptymsg"] = "REMARQUE : Pour afficher les filtres, ajoutez des propriétés de filtre telles que Niveaux, Prix, Évaluations et Langues au cours.";
