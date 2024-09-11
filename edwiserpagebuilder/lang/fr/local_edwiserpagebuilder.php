@@ -360,3 +360,4 @@ $string['updatedblocksinfotext'] = "Tous les blocs remui sont à jour";
 $string['formpageselector'] = "Sélecteur de page";
 $string['formpagename'] = "Nom de la page";
 $string['formpagewidth'] = "Largeur de la page";
+$string['featuredcoursesblockdesc'] = "Le bloc de cours en vedette est conçu pour mettre en valeur votre contenu de qualité et attirer les apprenants.";

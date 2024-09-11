@@ -80,4 +80,5 @@ class epb_api extends external_api {
     use epb_fetch_layout_templates;
     use remuiblck_action;
     use filter_plugin_data;
+    use get_courselist;
 }

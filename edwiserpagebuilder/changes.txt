@@ -1,5 +1,10 @@
 CHANGES LOG
 
+Version 4.2.13
+=============
+Feature - A Featured Courses block has been added.
+Fix - The issue of the editing area not auto-resizing in the editor has been resolved.
+
 Version 4.2.12
 =============
 Tweak - The loader image for the live customizer editor and page creation modal has been changed.

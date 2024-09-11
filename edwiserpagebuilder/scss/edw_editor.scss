@@ -924,6 +924,21 @@
         text-align: right;
         padding: 30px 0 10px 0!important;
     }
+
+    .edwbtntexttitle-wrapper{
+        gap:16px;
+        .titletext{
+            color: #313848;
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+
+        }
+        .iconbutton{
+            height: fit-content;
+        }
+    }
 }
 #content-left-panel-tab,
 #style-left-panel-tab,
@@ -993,4 +1008,162 @@
             text-align: left !important;
         }
     }
+}
+
+.edwcustomdropdown{
+    .dropdown-toggle{
+        width: 100%;
+        height: 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        border-radius: 4px;
+        border: 1px solid  #D5DDEA;
+        &.show{
+            border: 1px solid  #D5DDEA ;
+        }
+        &::after{
+            // content: "" !important;
+            display: none;
+        }
+    }
+    .dropdown-menu{
+        width: 100%;
+    }
+}
+.edwcustomdropdown-wrapper{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border: 1px solid #D5DDEA;
+    border-radius: 4px;
+    img{
+        margin-left: 8px;
+        height: 24px;
+        width: 24px;
+    }
+    input{
+        border: unset;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 14px;
+        &:focus{
+            box-shadow: unset;
+            color: #4C5A73;
+        }
+    }
+}
+
+[data-key="featuredcourses"]{
+    flex-direction: column;
+    &> label{
+        margin-bottom: 8px !important;
+        padding: 0px;
+    }
+    & > * {
+        width: 100%;
+    }
+    & > .col-sm-8.input{
+        padding: 0px;
+    }
+
+    ~ .edwcourseheading,
+    ~.edwcoursewarningheading{
+        font-size: 12px;
+        font-weight: 400;
+        line-height: normal;
+    }
+
+    ~.edwcoursewarningheading
+    {
+        .col-sm-12{
+            padding: 0px;
+        }
+        .header{
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+    }
+
+    margin-bottom: 24px;
+
+    #courseselectordropdown{
+        #edwcustomdropdownmenu{
+            padding: 0px;
+            max-height: 320px;
+            overflow-y: auto;
+            &> *{
+                margin-bottom: 16px;
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+            .edwcustomdropdownexternal-wrapper{
+                position: sticky;
+                background-color: white;
+                padding-top: 16px;
+                padding-bottom: 16px;
+                margin-bottom: 0px;
+                top: 0px;
+                left: 0px;
+                width: 100%;
+                z-index: 10;
+            }
+            .course-list-item{
+                display: flex;
+                align-items: start;
+                justify-content: flex-start;
+                // input{
+                //     margin: 0px !important;
+                //     margin-right: 4px !important;
+                // }
+                .text{
+                    color: #4C5A73;
+                }
+                input[type=checkbox]:checked:after{
+                    color: #28A745;
+                }
+                &.disabled{
+                    cursor: not-allowed;
+                }
+            }
+            .custom-apply-button {
+                position: sticky;
+                bottom: 0px;
+                z-index: 1;
+                left: 0px;
+                width: 100%;
+                padding-left: 0px;
+                padding-right: 0px;
+                background-color: #F5F9FD;
+                margin-bottom: 0px;
+                text-align: center;
+                input[type="checkbox"] {
+                    position: absolute;
+                    visibility: hidden;
+                    opacity: 0;
+                    cursor: pointer;
+                }
+                input[type=checkbox]+label,
+                input[type=checkbox]:checked+label{
+                    padding: 8px;
+                    margin: 0px;
+                    color: #0051F9;
+                    font-size: 12px;
+                    font-style: normal;
+                    font-weight: 600;
+                    line-height: normal;
+                }
+                label {
+                  display: inline-block;
+                  cursor: pointer;
+                }
+            }
+        }
+
+    }
+
 }

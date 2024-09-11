@@ -563,6 +563,7 @@ function block_info_in_addblockmodel($blockname) {
         'recentfeedbackblockdesc' => get_string("recentfeedbackblockdesc", "local_edwiserpagebuilder"),
         'recentforumsblockdesc' => get_string("recentforumsblockdesc", "local_edwiserpagebuilder"),
         'todolistblockdesc' => get_string("todolistblockdesc", "local_edwiserpagebuilder"),
+        'featuredcoursesblockdesc' => get_string("featuredcoursesblockdesc", "local_edwiserpagebuilder"),
     );
 
     $blockdescription = false;

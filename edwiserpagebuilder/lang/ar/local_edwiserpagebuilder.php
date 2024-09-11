@@ -365,3 +365,4 @@ $string['updatedblocksinfotext'] = "جميع كتل remui محدثة";
 $string['formpageselector'] = "محدد الصفحة";
 $string['formpagename'] = "اسم الصفحة";
 $string['formpagewidth'] = "عرض الصفحة";
+$string['featuredcoursesblockdesc'] = "تم تصميم كتلة الدورة المميزة لعرض أفضل محتوياتك وجذب المتعلمين.";

@@ -14252,6 +14252,11 @@ body {
       font-size: 12px; } */
     /* #vvveb-builder .component-properties label {
       margin-top: 4px; } */
+      #vvveb-builder .component-properties-sidepane,
+      #vvveb-builder .component-properties{
+        height: 100%;
+
+      }
     #vvveb-builder .component-properties .form-select {
       height: auto; }
       #vvveb-builder .component-properties .form-select#catselector {
@@ -15001,7 +15006,7 @@ li.header > input.header_check:checked + ol {
 
 div.section, .header > ol {
   height: 0;
-  overflow: hidden;
+  /* overflow: hidden; */
   opacity: 0;
   transition: height,opacity 0.5s; }
 

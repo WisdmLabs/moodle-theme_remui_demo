@@ -205,5 +205,13 @@ $functions = [
         'type'          => 'write',
         'loginrequired' => true,
         'ajax'          => true,
-    )
+    ),
+    'local_edwiserpagebuilder_get_courselist' => array(
+        'classname'     => 'local_edwiserpagebuilder\external\epb_api',
+        'methodname'    => 'get_courselist',
+        'description'   => 'Get courses list',
+        'type'          => 'read',
+        'loginrequired' => false,
+        'ajax'          => true,
+    ),
 ];

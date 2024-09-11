@@ -231,7 +231,7 @@ class coursehandler {
 
         $fields = array('c.id', 'c.category', 'c.sortorder',
                         'c.shortname', 'c.fullname', 'c.idnumber',
-                        'c.startdate', 'c.enddate', 'c.visible', 'c.cacherev');
+                        'c.startdate', 'c.enddate', 'c.visible', 'c.cacherev','c.timemodified','c.groupmode');
 
         // Load summary data.
         if (!empty($options['summary'])) {
@@ -340,6 +340,7 @@ class coursehandler {
             $sesskey = strtolower(sesskey());
             $cattable = 'tmp_catids' . $sesskey;
             $category = explode(",", $category);
+
             if (is_numeric($category) || is_array($category)) {
                 $categories = [];
                 if (is_array($category)) {
@@ -351,23 +352,23 @@ class coursehandler {
                     $categories  = self::get_allowed_categories($category);
                 }
 
+                if (empty($categories)) {
+                    return array(0, array());
+                }
+
                 $cats = [];
                 foreach ($categories as $category) {
                     $cats[] = (object)[
                         'tempid' => $category
                     ];
                 }
+
                 if (!empty($categories)) {
                     $this->create_temp_table($cattable, $cats);
                     $join = " INNER JOIN {" . $cattable . "} catids ON c.category = catids.tempid";
                 }
             }
 
-            if (!empty($search)) {
-                $search = '%' . str_replace(' ', '%', $search) . '%';
-                $where .= " AND ( LOWER(c.fullname) like LOWER(:name1) OR LOWER(c.shortname) like LOWER(:name2) )";
-                $params = $params + array("name1" => $search, "name2" => $search);
-            }
             // Get list of courses without preloaded coursecontacts because we don't need them for every course.
             list($coursecount, $courses) = $this->get_course_records(
                 $where,
@@ -393,8 +394,28 @@ class coursehandler {
             return $coursecount;
         }
 
+        $beginnerecourseids = self::get_skilllevel_filtered_courseids([1]);
+        $intermediatecourseids = self::get_skilllevel_filtered_courseids([2]);
+        $advancedcourseids = self::get_skilllevel_filtered_courseids([3]);
+
         // Prepare courses array.
         $chelper = new \coursecat_helper();
+
+        $moreiconimg = $OUTPUT->image_url("more", "local_edwiserpagebuilder")->__toString();
+        $geariconimg = $OUTPUT->image_url("Gear_icon", "local_edwiserpagebuilder")->__toString();
+        $canceliconimg = $OUTPUT->image_url("Cancel", "local_edwiserpagebuilder")->__toString();
+        $coursereportimg = $OUTPUT->image_url("Group_user", "local_edwiserpagebuilder")->__toString();
+        $enroluserlinkimg = $OUTPUT->image_url("Group_user", "local_edwiserpagebuilder")->__toString();
+        $graderreportimg = $OUTPUT->image_url("Rating_stars_Active", "local_edwiserpagebuilder")->__toString();
+        $activityreportimg = $OUTPUT->image_url("Graph", "local_edwiserpagebuilder")->__toString();
+        $editcoursesettingimg = $OUTPUT->image_url("Edit", "local_edwiserpagebuilder")->__toString();
+        $coursereportimg = $OUTPUT->image_url("table", "local_edwiserpagebuilder")->__toString();
+
+        $watchiconimg = $OUTPUT->image_url("watch_icon", "local_edwiserpagebuilder")->__toString();
+        $profileiconimg = $OUTPUT->image_url("profile_icon", "local_edwiserpagebuilder")->__toString();
+        $bookiconimg = $OUTPUT->image_url("book_icon", "local_edwiserpagebuilder")->__toString();
+        $hideiconimg = $OUTPUT->image_url("hide_icon_dark", "local_edwiserpagebuilder")->__toString();
+
         foreach ($courses as $k => $course) {
             $course = (object)$course;
             $corecourselistelement = new \core_course_list_element($course);
@@ -419,15 +440,38 @@ class coursehandler {
             $coursesarray[$count]["activityreportlink"] = $CFG->wwwroot."/report/outline/index.php?id=".$course->id;
             $coursesarray[$count]["editcourselink"] = $CFG->wwwroot."/course/edit.php?id=".$course->id;
 
-            $coursesarray[$count]["moreiconimg"] =  $OUTPUT->image_url("more", "local_edwiserpagebuilder")->__toString();
-            $coursesarray[$count]["canceliconimg"] =  $OUTPUT->image_url("Cancel", "local_edwiserpagebuilder")->__toString();
-            $coursesarray[$count]["coursereportimg"] =  $OUTPUT->image_url("Group_user", "local_edwiserpagebuilder")->__toString();
-            $coursesarray[$count]["enroluserlinkimg"] =  $OUTPUT->image_url("Group_user", "local_edwiserpagebuilder")->__toString();
-            $coursesarray[$count]["graderreportimg"] =  $OUTPUT->image_url("Rating_stars_Active", "local_edwiserpagebuilder")->__toString();
-            $coursesarray[$count]["activityreportimg"] =  $OUTPUT->image_url("Graph", "local_edwiserpagebuilder")->__toString();
-            $coursesarray[$count]["editcoursesettingimg"] =  $OUTPUT->image_url("Edit", "local_edwiserpagebuilder")->__toString();
-            $coursesarray[$count]["coursereportimg"] =  $OUTPUT->image_url("table", "local_edwiserpagebuilder")->__toString();
+            $coursesarray[$count]["moreiconimg"] = $moreiconimg;
+            $coursesarray[$count]["canceliconimg"] = $canceliconimg;
+            $coursesarray[$count]["coursereportimg"] = $coursereportimg;
+            $coursesarray[$count]["enroluserlinkimg"] = $enroluserlinkimg;
+            $coursesarray[$count]["graderreportimg"] = $graderreportimg;
+            $coursesarray[$count]["activityreportimg"] = $activityreportimg;
+            $coursesarray[$count]["editcoursesettingimg"] = $editcoursesettingimg;
+            $coursesarray[$count]["coursereportimg"] = $coursereportimg;
+            $coursesarray[$count]["bookiconimg"] = $bookiconimg;
+            $coursesarray[$count]["watchiconimg"] = $watchiconimg;
+            $coursesarray[$count]["profileiconimg"] = $profileiconimg;
+            $coursesarray[$count]["hideiconimg"] = $hideiconimg;
 
+            $slilllevel = null;
+            if (in_array($course->id, $beginnerecourseids)) {
+                $slilllevel = [
+                    'badge' => 'badge-light',
+                    'labeltag' => get_string('skill1', 'theme_remui'),
+                ];
+            } else if (in_array($course->id, $intermediatecourseids)) {
+                $slilllevel = [
+                    'badge' => 'badge-info',
+                    'labeltag' => get_string('skill2', 'theme_remui'),
+                ];
+            } else if (in_array($course->id, $advancedcourseids) ) {
+                $slilllevel = [
+                    'badge' => 'badge-warning',
+                    'labeltag' => get_string('skill3', 'theme_remui'),
+                ];
+            }
+
+            $coursesarray[$count]["skillleveltag"] = $slilllevel;
 
             // It will check that user have capability or not to view manage course actions
             $canview_manage_course_action = false;
@@ -446,58 +490,132 @@ class coursehandler {
 
             // This is to handle the version change.
             // User enrollment link has changed for moodle version 3.4.
-            // $version33 = "2017092100";
-            // $curversion = $DB->get_record_sql(
-            // 'SELECT * FROM {config_plugins} WHERE plugin = ? AND name = ?',
-            // array('theme_remui', 'version')
-            // );
-            // $userenrollink = "/enrol/users.php?id=";
-            // if ($curversion > $version33) {
-            // $userenrollink = "/user/index.php?id=";
-            // }
-            // $coursesarray[$count]["enrollusers"] = $CFG->wwwroot.$userenrollink.$course->id."&version=".$course->id;
-            // $coursesarray[$count]["editcourse"] = $CFG->wwwroot."/course/edit.php?id=".$course->id;
-            // $coursesarray[$count]["grader"] = $CFG->wwwroot."/grade/report/grader/index.php?id=".$course->id;
-            // $coursesarray[$count]["activity"] = $CFG->wwwroot."/report/outline/index.php?id=".$course->id;
+            $version33 = "2017092100";
+            $curversion = $DB->get_record_sql(
+            'SELECT * FROM {config_plugins} WHERE plugin = ? AND name = ?',
+            array('theme_remui', 'version')
+            );
+            $userenrollink = "/enrol/users.php?id=";
+            if ($curversion > $version33) {
+            $userenrollink = "/user/index.php?id=";
+            }
+            $coursesarray[$count]["enrollusers"] = $CFG->wwwroot.$userenrollink.$course->id."&version=".$course->id;
+            $coursesarray[$count]["editcourse"] = $CFG->wwwroot."/course/edit.php?id=".$course->id;
+            $coursesarray[$count]["grader"] = $CFG->wwwroot."/grade/report/grader/index.php?id=".$course->id;
+            $coursesarray[$count]["activity"] = $CFG->wwwroot."/report/outline/index.php?id=".$course->id;
             $coursesummary = strip_tags($chelper->get_course_formatted_summary($corecourselistelement));
             $coursesummary = preg_replace('/\n+/', '', $coursesummary);
             $summarystring = strlen($coursesummary) > 80 ? mb_substr($coursesummary, 0, 80) . "..." : $coursesummary;
             $coursesarray[$count]["coursesummary"] = $summarystring;
-            // $coursesarray[$count]["epochstartdate"] = $course->startdate;
-            // $coursesarray[$count]["coursestartdate"] = date('d M, Y', $course->startdate);
-            // $coursesarray[$count]["epochenddate"] = $course->enddate;
-            // if (!$mycourses) {
-            // $coursecontext = context_course::instance($course->id);
-            // if (has_capability('moodle/course:update', $coursecontext)) {
-            // $coursesarray[$count]["usercanmanage"] = true;
-            // }
-            // }
+            $coursesarray[$count]["epochstartdate"] = $course->startdate;
+            $coursesarray[$count]["coursestartdate"] = date('d M, Y', $course->startdate);
+            $coursesarray[$count]["epochenddate"] = $course->enddate;
+            if (!$mycourses) {
+                $coursecontext = context_course::instance($course->id);
+                if (has_capability('moodle/course:update', $coursecontext)) {
+                    $coursesarray[$count]["usercanmanage"] = true;
+                }
+            }
+            // Course enrolled users count
+            $coursesarray[$count]["enrolleduserscount"] = false;
+            if(get_config('theme_remui', 'enrolleduserscountvisibility')){
+                $coursesarray[$count]["enrolleduserscount"] = $this->formatcoursecounts(count($this->get_enrolled_students($course, $context)));
+            }
+
+            $coursedatevisibility = get_config('theme_remui', 'coursedatevisibility');
+            $coursesarray[$count]["showselecteddatesetting"] = false;
+            $coursesarray[$count]["showselecteddatesettingname"] =false;
+            $coursesarray[$count]["showselecteddatesettingdate"] =false;
+            if($coursedatevisibility == 'hidedate'){
+                $coursesarray[$count]["showselecteddatesetting"]  = false;
+            } else if($coursedatevisibility == 'showstartdate'){
+                $coursesarray[$count]["showselecteddatesetting"] = get_string('coursestarted', 'theme_remui').": ".date('M Y', $course->startdate);
+                $coursesarray[$count]["showselecteddatesettingname"] = get_string('coursestarted', 'theme_remui');
+                $coursesarray[$count]["showselecteddatesettingdate"] = date('d M Y', $course->startdate);
+            } else if($coursedatevisibility == 'showupdatedate'){
+                $coursesarray[$count]["showselecteddatesetting"] = get_string('courseupdated', 'theme_remui').": ".date('M Y', $course->timemodified);
+                $coursesarray[$count]["showselecteddatesettingname"] = get_string('courseupdated', 'theme_remui');
+                $coursesarray[$count]["showselecteddatesettingdate"] = date('d M Y', $course->timemodified);
+            }else if($coursedatevisibility == 'showstartwhenend' && $course->enddate){
+                $coursesarray[$count]["showselecteddatesetting"] = get_string('coursestarted', 'theme_remui').": ".date('M Y', $course->startdate);
+                $coursesarray[$count]["showselecteddatesettingname"] = get_string('coursestarted', 'theme_remui');
+                $coursesarray[$count]["showselecteddatesettingdate"] = date('d M Y', $course->startdate);
+            }else{
+                $coursesarray[$count]["showselecteddatesetting"] = false;
+            }
+
+            $coursesarray[$count]["enrolledusertitletext"] =  get_string('coursecardsenrolledetxt', 'theme_remui' );
+            $coursesarray[$count]["lessonstitletext"]  = get_string('coursecardlessonstext','theme_remui'  );
+
+            if(get_config('theme_remui', 'showenrolledtextinput')){
+                $coursesarray[$count]["enrolledusertitletext"] = format_text(get_config('theme_remui', 'showenrolledtextinput'),FORMAT_HTML);
+            }
+            if(get_config('theme_remui', 'showlessontextinput')){
+                $coursesarray[$count]["lessonstitletext"] = format_text(get_config('theme_remui', 'showlessontextinput'),FORMAT_HTML);
+            }
 
             // Course enrollment icons.
-            // if ($icons = enrol_get_course_info_icons($course)) {
-            // $iconhtml = '';
-            // foreach ($icons as $pixicon) {
-            // $iconhtml .= $OUTPUT->render($pixicon);
-            // }
-            // $coursesarray[$count]["enrollmenticons"] = $iconhtml; // Add icons in context.
-            // }
+            if ($icons = enrol_get_course_info_icons($course)) {
+                $iconhtml = '';
+                $iconsarraylength = count($icons);
+                $arraylenthcount = 0;
+                if($iconsarraylength > 2){
+                    $coursesarray[$count]["enrollmenticonsremainig"] = $iconsarraylength - 2;
+                }else{
+                    $coursesarray[$count]["enrollmenticonsremainig"] = false;
+                }
+                foreach ($icons as $pixicon) {
+                    if($arraylenthcount == 2){
+                        break;
+                    }
+                    $iconhtml .= $OUTPUT->render($pixicon);
+                    $arraylenthcount++;
+                }
+                $coursesarray[$count]["enrollmenticons"] = $iconhtml; // Add icons in context.
+            }
 
-            // Course instructors.
-            // $instructors = $corecourselistelement->get_course_contacts();
-            // $coursesarray[$count]['instructorcount'] = (count($instructors) > 1) ? count($instructors) - 1 : "";
+           // Course instructors.
+           $instructors = $corecourselistelement->get_course_contacts();
+           $coursesarray[$count]['instructorcount'] = (count($instructors) > 1) ? count($instructors) - 1 : "";
 
-             // Get sections information.
-            // $modinfo = get_fast_modinfo($course);
-            // $sections = $modinfo->get_section_info_all();
-            // $coursesarray[$count]['lessoncount'] = count($sections);
-            // foreach ($instructors as $key => $instructor) {
-            // $coursesarray[$count]["instructors"][] = array(
-            // 'name' => $instructor['username'],
-            // 'url'  => $CFG->wwwroot.'/user/profile.php?id='.$key,
-            // 'picture' => self::get_user_picture($DB->get_record('user', array('id' => $key)))
-            // );
-            // break;
-            // }
+           // Get Ratings and Review Context.
+           $rnrshortdesign =false;
+           if (self::is_plugin_available('block_edwiserratingreview')) {
+               $rnrshortdesignarray = $this->get_ernr_coursecard_design($course);
+               if($rnrshortdesignarray['rnrshortratingvalue'] > 0){
+                   $rnrshortdesign = $rnrshortdesignarray['rnrshortdesign'];
+               }
+           }
+
+           $coursesarray[$count]["ernrshortdesign"] = $rnrshortdesign;
+            // Get sections information.
+           $modinfo = get_fast_modinfo($course);
+           $sections = $modinfo->get_section_info_all();
+           $courselessoncount = 0;
+           foreach($sections as $section){
+               if($section->visible){
+                   $courselessoncount++;
+               }
+           }
+           $coursesarray[$count]['lessoncount'] = false;
+           $coursesarray[$count]['multilessonpresent']  = false;
+           $coursesarray[$count]['singleessonpresent']  = false;
+           if(get_config('theme_remui', 'lessonsvisiblityoncoursecard')){
+               $coursesarray[$count]['lessoncount'] = $courselessoncount;
+               if($coursesarray[$count]['lessoncount'] > 1){
+                   $coursesarray[$count]['multilessonpresent']  = true;
+               }else{
+                $coursesarray[$count]['singleessonpresent']  = true;
+               }
+           }
+           foreach ($instructors as $key => $instructor) {
+               $coursesarray[$count]["instructors"][] = array(
+                   'name' => $instructor['username'],
+                   'url'  => $CFG->wwwroot.'/user/profile.php?id='.$key,
+                   'picture' =>  $this->get_user_picture($DB->get_record('user', array('id' => $key)))
+               );
+               break;
+           }
 
             // Course image.
             foreach ($corecourselistelement->get_course_overviewfiles() as $file) {
@@ -519,43 +637,13 @@ class coursehandler {
             }
             $courseimage = '';
 
-            // Course completion info.
-            // if (is_enrolled($context, $USER->id)) {
-            // $completion = new \completion_info($course);
-            // if ($completion->is_enabled()) {
-            // $percentage = progress::get_course_progress_percentage($course, $USER->id);
-
-            // if (!is_null($percentage)) {
-            // $percentage = floor($percentage);
-            // if ($percentage == 100) {
-            // $coursesarray[$count]["coursecompleted"] = get_string('completed', 'theme_remui');
-            // } else if ($percentage > 0 && $percentage < 100) {
-            // $coursesarray[$count]["courseinprogress"] = get_string('resume', 'theme_remui');
-            // $coursesarray[$count]["percentage"]  = $percentage;
-            // $modules = $completion->get_activities();
-            // foreach ($modules as $module) {
-            // $data = $completion->get_data($module, false, $USER->id);
-            // if (!$data->completionstate) {
-            // $coursesarray[$count]["lastaccessactivity"] = $CFG->wwwroot."/course/view.php?id=".$course->id
-            // ."#section-".$module->sectionnum;
-            // break;
-            // }
-            // }
-            // } else {
-            // $coursesarray[$count]["coursetostart"] = get_string('start', 'theme_remui');
-            // }
-            // } else {
-            // $coursesarray[$count]["coursetostart"] = get_string('start', 'theme_remui');
-            // }
-            // }
-            // }
-
             $count++;
 
         }
         // if ($totalcount === false) {
         // return $coursesarray;
         // }
+
         return array($coursecount, $coursesarray);
     }
     /**
@@ -595,5 +683,160 @@ class coursehandler {
         $userimg = new \user_picture($userobject);
         $userimg->size = $imgsize;
         return  $userimg->get_url($PAGE);
+    }
+
+    /**
+     * Get numbers formated in the format of 1k 2k 1m etc
+     */
+
+     function formatcoursecounts($number) {
+        // If the number is greater than or equal to 1 million, format as millions
+        if ($number >= 1000000) {
+            return intval($number / 1000000, 1) . 'm';
+        }
+        // If the number is greater than or equal to 1000, format as thousands
+        elseif ($number >= 1000) {
+            return intval($number / 1000, 1) . 'k';
+        }
+        // Otherwise, return the original number
+        else {
+            return $number;
+        }
+    }
+
+    /**
+     * Get enrolled students in course
+     * @param  Object $course  Course
+     * @param  Object $context Course context
+     * @return Array           Array of users
+     */
+    public function get_enrolled_students($course, $context,$userid=0,$admin = false) {
+        global $DB, $USER;
+
+        $groups = [];
+
+        if (empty($userid)) {
+            $userid = $USER->id;
+        }
+
+        $groups = groups_get_user_groups($course->id, $userid);
+
+        $groups = $groups[0];
+
+        list($esql, $params) = get_enrolled_sql($context, 'moodle/course:isincompletionreports');
+
+        $groupsql = '';
+
+        if(!$admin){
+            if (!has_capability('moodle/site:accessallgroups', $context) && $course->groupmode == 1) {
+                if (empty($groups)) {
+                    return [];
+                }
+
+                list($insql, $inparams) = $DB->get_in_or_equal($groups, SQL_PARAMS_NAMED, 'groups', true, true);
+                $groupsql = " JOIN {groups_members} gm ON gm.groupid $insql AND gm.userid = u.id";
+                $params = array_merge($params, $inparams);
+            }
+        }
+
+        $fields = implode(', ', [
+            'u.id',
+            'u.confirmed',
+            'u.policyagreed',
+            'u.deleted',
+            'u.suspended',
+            'u.username',
+            'u.idnumber',
+            'u.firstname',
+            'u.lastname',
+            'u.email',
+            'u.lang',
+            'u.theme',
+            'u.firstaccess',
+            'u.lastaccess',
+            'u.lastlogin',
+            'u.currentlogin',
+            'u.timecreated',
+            'u.timemodified',
+            'u.lastnamephonetic',
+            'u.firstnamephonetic',
+            'u.middlename',
+            'u.alternatename',
+        ]);
+
+        $sql = "SELECT DISTINCT $fields
+                FROM {user} u
+                $groupsql
+                JOIN ($esql) je ON je.id = u.id
+                WHERE u.deleted = 0";
+
+        return $DB->get_records_sql($sql, $params);
+    }
+    public static function get_ernr_coursecard_design($course){
+        global $CFG;
+        $rnrshortdesign = '';
+        if (self::is_plugin_available("block_edwiserratingreview")) {
+            $dbhandler = new \block_edwiserratingreview\dbhandler();
+            $data  = new \stdClass();
+            $data->averagerating = $dbhandler->get_averageratingvalue($course->id);
+            $data->averagerating  = number_format($data->averagerating, 1);
+            $data->totalcount = $dbhandler->get_recordcount($course->id);
+            $data->avergeratingstar = '<div class="stars d-flex"><i aria-hidden="true" class="fa fa-star"></i></div>';
+            $rnrshortdesign .= '<div class="d-flex align-items-center justify-content-left rating-short-design" style="color:orange;">';
+            $rnrshortdesign .= "<div class='d-flex align-items-center'>";
+            $rnrshortdesign .= "<span class='avgrating small-info-semibold d-flex'>$data->averagerating</span>" . $data->avergeratingstar . "</div>";
+            $rnrshortdesign .= "<a class='rnr-link d-flex' href='". $CFG->wwwroot ."/course/view.php?id=".$course->id."#reviewarea'>";
+            $rnrshortdesign .= "<span class=' small-info-semibold d-flex p-pl-0d5'>({$data->totalcount})</span></a></div>";
+        }
+        $rnrshortdesingnarray = [];
+        $rnrshortdesingnarray['rnrshortdesign'] = $rnrshortdesign;
+        $rnrshortdesingnarray['rnrshortratingvalue'] = $data->averagerating;
+        return $rnrshortdesingnarray;
+    }
+
+    /**
+     * This function check  plugin is available or not.
+     *
+     * @return boolean
+     */
+
+     public static function is_plugin_available($component) {
+
+        list($type, $name) = \core_component::normalize_component($component);
+
+        $dir = \core_component::get_plugin_directory($type, $name);
+        if (!file_exists($dir ?? '')) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Get the list of course IDs that match the specified skill level filters.
+     *
+     * This function takes an array of skill level filters and returns an array of course IDs that match those filters.
+     * It does this by querying the {customfield_field} and {customfield_data} tables to find courses that have a custom field
+     * with the shortname 'edwskilllevel' and a value that matches the provided filters.
+     *
+     * @param array $skillvalues An array of skill level filters.
+     * @return array An array of course IDs that match the specified skill level filters.
+     */
+    public static function get_skilllevel_filtered_courseids($skillvalues) {
+        global $DB;
+
+        list($insql, $inparams) = $DB->get_in_or_equal($skillvalues, SQL_PARAMS_NAMED, 'param', true);
+
+        $sql = "SELECT DISTINCT cd.instanceid AS courseid
+                FROM {customfield_field} cf
+                JOIN {customfield_data} cd ON cf.id = cd.fieldid
+                WHERE cf.shortname = :shortname AND " . $DB->sql_cast_char2int('cd.intvalue') . " $insql";
+
+        $params = array_merge(['shortname' => 'edwskilllevel'], $inparams);
+
+        $records = $DB->get_records_sql($sql, $params);
+
+        $courseids = array_keys($records);
+
+        return $courseids;
     }
 }

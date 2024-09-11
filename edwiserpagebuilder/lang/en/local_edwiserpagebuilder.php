@@ -365,3 +365,5 @@ $string['formpageselector'] = "Page Selector";
 $string['formpagename'] = "Page Name";
 $string['formpagewidth'] = "Page Width";
 
+$string['featuredcoursesblockdesc'] = "The Featured Course Block is designed to showcase your top content and attract learners.";
+

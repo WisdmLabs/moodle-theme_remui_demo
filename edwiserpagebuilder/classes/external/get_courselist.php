@@ -18,27 +18,24 @@
  * @package   local_edwiserpagebuilder
  * @copyright (c) 2022 WisdmLabs (https://wisdmlabs.com/) <support@wisdmlabs.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @author Gourav Govande
+ * @author Abhishek Kushwah
  */
 namespace local_edwiserpagebuilder\external;
 
-// defined('MOODLE_INTERNAL') || die;
 
 use external_function_parameters;
 use external_value;
 use context_system;
 use context_user;
-trait get_courses {
+trait get_courselist {
     /**
      * Describes the parameters for get_frontpage_section_courses_in_category
      * @return external_function_parameters
      */
-    public static function get_courses_parameters() {
+    public static function get_courselist_parameters() {
         return new external_function_parameters(
             array(
-                'limitstart' => new external_value(PARAM_RAW, 'First card'),
-                'limitend' => new external_value(PARAM_RAW, 'Last card'),
-                'categorylist' => new external_value(PARAM_RAW, 'Is Block/ Card')
+                'config' => new external_value(PARAM_RAW, 'courseids')
             )
         );
     }
@@ -49,22 +46,33 @@ trait get_courses {
      * @param  int   $categoryid Category id
      * @return array             Courses list
      */
-    public static function get_courses($limitstart, $limitend, $categorylist) {
-        global $PAGE, $OUTPUT, $USER, $CFG;
-        $PAGE->set_context(context_system::instance());
-        $coursehandler = new \local_edwiserpagebuilder\coursehandler();
+    public static function get_courselist($config) {
+        global $PAGE, $DB;
 
-        list($totalcoursecount, $courses) = $coursehandler->get_courses(false, null, $categorylist, $limitstart, $limitend);
-        $context['courses'] = $courses;
-        $data = $OUTPUT->render_from_template('filter_edwiserpbf/coursecard', $context);
-        return $data;
+        // Validation for context is needed.
+        $context = \context_system::instance();
+
+        $PAGE->set_context($context);
+
+        // $courselistdata = $DB->get_records('course',null,'','id,fullname');
+        $courselistdata = $DB->get_records_select('course', 'id != :siteid', ['siteid' => SITEID], 'fullname', 'id, fullname');
+
+        // if (!empty($courselistdata)) {
+        //     array_shift($courselistdata);
+        // }
+        foreach ($courselistdata as &$course) {
+                $course->fullname = format_text($course->fullname,FORMAT_HTML);
+        }
+        $courselistdata = json_encode($courselistdata);
+
+        return $courselistdata;
     }
 
     /**
-     * Describes the  get_courses_returns  value
+     * Describes the  get_courselist_returns  value
      * @return external_value
      */
-    public static function get_courses_returns() {
-        return new external_value(PARAM_RAW, 'Courses ');
+    public static function get_courselist_returns() {
+        return new external_value(PARAM_RAW, 'Courses list');
     }
 }

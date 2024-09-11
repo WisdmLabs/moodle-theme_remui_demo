@@ -16,7 +16,12 @@
 }}
 <div class="menu-picker-select">
     <button class="btn coursemenubtn p-0 d-flex align-items-center justify-content-center" type="button" aria-expanded="false" data-toolbar='#manage-course-{{id}}'>
-        <span class="showmenuoption" aria-hidden="true" aria-label=""><img class="epb-img-icon" src="{{{moreiconimg}}}"  width="16" height="16"></span>
+        <span class="showmenuoption" aria-hidden="true" aria-label="">
+            <img class="epb-img-icon"
+                src="{{#geariconimg}}{{{geariconimg}}}{{/geariconimg}}{{^geariconimg}}{{{moreiconimg}}}{{/geariconimg}}"
+                width="16" height="16"
+            >
+        </span>
         <span class="hidemenuoption d-none" aria-hidden="true" aria-label=""><img class="epb-img-icon" src="{{{canceliconimg}}}"  width="16" height="16"></span>
     </button>
     <div id="manage-course-{{id}}" class="menu-content d-none">

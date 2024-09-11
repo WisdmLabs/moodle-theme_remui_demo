@@ -397,11 +397,9 @@ define('local_edwiserpagebuilder/components-edwiser', ['local_edwiserpagebuilder
                     // do something with the exception
                 });
                 var shortcode = `[edwiser-cnc layout="coursesncategories" show="${show}" catid="${catid}" date="all"]`;
-                if(show == 'categories'){
-                    node =    updateCardView(shortcode, node,'category',edwsiercncjs);
-                }else{
-                    node =   updateCardView(shortcode, node,'course',edwsiercncjs);
-                }
+
+                node =   updateCardView(shortcode, node);
+
                 return node;
             },
             properties: [
@@ -416,11 +414,7 @@ define('local_edwiserpagebuilder/components-edwiser', ['local_edwiserpagebuilder
                         $(node).attr('data-catid',selected);
                         var show = $(node).attr('data-show');
                         var shortcode = `[edwiser-cnc layout="coursesncategories" show='${show}' catid='${selected}' date="all"]`;
-                        if(show == 'categories'){
-                            node =     updateCardView(shortcode, node,'category',edwsiercncjs);
-                        }else{
-                            node =   updateCardView(shortcode, node,'course',edwsiercncjs);
-                        }
+                        node =   updateCardView(shortcode, node);
 
                         return node;
                     }
@@ -452,15 +446,234 @@ define('local_edwiserpagebuilder/components-edwiser', ['local_edwiserpagebuilder
                         $(node).attr('data-show', value);
                         var shortcode = `[edwiser-cnc layout="coursesncategories" show='${value}' catid='${selected}' date="all"]`;
                         // var shortcode = `[edwiser-courses catid='${selected}' layout='${layoutid}']`;
-                        if(value == 'categories'){
-                          node =   updateCardView(shortcode, node,'category',edwsiercncjs);
-                        }else{
-                           node =  updateCardView(shortcode, node,'course',edwsiercncjs);
-                        }
+                        node =   updateCardView(shortcode, node);
 
                         return node;
                     }
                 }
+            ]
+        });
+
+        var initialhtml = ``;
+        Vvveb.Components.extend("_base", "html/edwiserfc", {
+            name: "Featured Courses",
+            image: "icons/fccourses.svg",
+            classes: ['edwiser-fc'],
+            html: `<div class="edwiser-fc" data-edwiser-dynamic data-shortcode="edwiser-fc" data-vvveb-disabled-area data-layout="coursesncategories" data-block=fetured-courses data-show="courses" data-courseid="0" data-date="all" data-btnlabel="Explore" contenteditable="false">[edwiser-fc layout="coursesncategories" show="courses" courseid="0" date="all"]</div>`,
+            beforeInit: function(node) {
+
+                properties = [];
+
+
+                //Fetching all the properties defined in this component
+                property1 = courseProperty1 = this.properties[0];
+
+                // All the couresids which are already selected, it will be comma separated strings
+                var courseids = $(node).attr('data-courseid');
+
+                //This shortcode will be used for generating dynamic content from filter plugins
+                var shortcode = `[edwiser-fc layout="coursesncategories" show="courses" courseid="${courseids}" date="all"]`;
+
+                //Updating the html content of the node with the dynamic content
+                node =   updateCardView(shortcode, node);
+
+                var componentoptionshtml = '';
+
+                var applybuttonhtml = ``;
+
+                var selectedCourseIdArray = [];
+
+                // var checkedCourses = [];
+
+                if (courseids && courseids !== '0') {
+                    // converting the courseids into array
+                    selectedCourseIdArray = courseids.split(',').map(id => id.trim());
+                }
+
+                // Maximum allowed featured courses
+                var maxAllowedChecked = 12;
+                var  isLimitExceeded = selectedCourseIdArray.length >= maxAllowedChecked;
+                // Total courses added into the featured courses
+                var totalcourses = $(node).find('div[data-totalcourses]').attr('data-totalcourses');
+
+                // Fetching all the courses from the database
+                getcourselistresponse(this).then(response => {
+                    response = JSON.parse(response);
+
+                    $searchfieldhtml = `<div class="edwcustomdropdownexternal-wrapper">
+                                            <div class="edwcustomdropdown-wrapper">
+                                                <img src="./js/libs/builder/icons/edwsearchicon.svg"/>
+                                                <input class="form-control edwcustomdropdowncustomsearch" placeholder="Search for Courses" data-searchtag=".dropdown-menu li" data-texttag="span" type="text"  id="myInput">
+                                            </div>
+                                        </div>`;
+                    applybuttonhtml =`<div class="custom-apply-button">
+                                        <input type="checkbox" class="customapplybtn" data-action="applycourse" name="customapplybtn" id="cb">
+                                        <label for="cb">Add courses</label>
+                                    </div>`;
+
+
+                    //Generating all courses list dropdown options
+                    Object.entries(response).forEach(([key, course], index) => {
+
+                        let isChecked = selectedCourseIdArray.includes(course.id.toString()) ? 'checked' : '';
+                        // let isDisabled = isLimitExceeded && !isChecked  ? 'disabled' : '';
+
+                        // if(totalcourses < maxAllowedChecked){
+                        //     isDisabled = ''
+                        // }
+
+                        let isDisabled = (isLimitExceeded && !isChecked && totalcourses >= maxAllowedChecked) ? 'disabled' : '';
+
+                        componentoptionshtml += `<li class="course-list-item ${isDisabled}">
+                                                    <input name="featuredcourses" class="form-check-input" type="checkbox"
+                                                        value="${course.id}" data-courseid="${course.id}" ${isChecked} ${isDisabled}>
+                                                    <span class="text ellips ellips-2">${course.fullname}</span>
+                                                    </li>`;
+                    });
+
+                    //Updating options in the dropdown menu
+                    property1.inputtype.updateOptions($searchfieldhtml+componentoptionshtml+applybuttonhtml);
+
+                }).catch(error => {
+                    // Handle any errors that occurred during the Promise resolution
+                    console.error(error);
+                });
+
+
+                // It will remove the old properties when the component is recreated
+                this.properties = this.properties.filter(function (item) {
+                    return item.key.indexOf("slider") === -1;
+                });
+
+                var courseno = 0;
+
+                // This loop will generate the new properties for the component according to the selected courses
+                selectedCourseIdArray.forEach(courseid => {
+                    var coursenode = $(node).find(`.slick-carousel-item[data-courseid='${courseid}']`).first();
+                    if(coursenode.length != 0){
+                        var coursename = coursenode.find(".coursename").text();
+                        courseno++;
+                        properties.push(
+                            {
+                                name: "",
+                                key: "deleteslideritem",
+                                inputtype: Edwbuttonwithtext,
+                                edwclasses: "edwcoursedelbtn",
+                                data: { text:"", icon: "la-trash", wrapperclasses:"d-flex justify-content-between edwbtntexttitle-wrapper", extraclasses: "btn btn-outline-danger d-flex iconbutton",value: `${courseid}`,titletext:`${courseno}.${coursename}`},
+                                onChange: function (node, value, input) {
+                                    var coursecheckbox = $(document).find('[name="featuredcourses"][value="' + this.data.value + '"]');
+                                    if (coursecheckbox.attr('checked')) {
+                                        coursecheckbox.removeAttr('checked');
+                                    }
+                                    var courseids = [];
+
+                                        $('[name="featuredcourses"]:checked').each(function () {
+                                            courseids.push($(this).val());
+                                        });
+                                        var courseids = courseids.join(',');
+
+                                        if (courseids == '') {
+                                            courseids = 0;
+                                        }
+
+                                        $(node).attr('data-courseid', courseids);
+
+                                        var shortcode = `[edwiser-fc layout="coursesncategories" show="courses" courseid="${courseids}" date="all"]`;
+
+                                        node =   updateCardView(shortcode, node);
+
+                                        Vvveb.Components.render("html/edwiserfc");
+
+                                        return node;
+                                },
+                            }
+                        );
+                    }
+                });
+
+                if(courseno >= maxAllowedChecked){
+                    properties.unshift(
+                        {
+                            name: "",
+                            key: "slidertabswarning",
+                            inputtype: EdwheaderInput,
+                            edwclasses: "edwcoursewarningheading",
+                            data: {
+                                header: "You’ve reached the max limit of 12 to add courses",
+                                extraclass: "  p-3 border-0 alert alert-warning",
+                                type: "h6",
+                                style: ""
+                            }
+                        },
+                    );
+                }
+                // Adding the above created properties before all other properties.
+                this.properties.splice(1, 0, ...properties);
+                // this.properties = properties.concat(this.properties);
+
+                return node;
+            },
+            // Select course setting for the component
+            properties: [
+                {
+                    name: "Select course",
+                    key: "featuredcourses",
+                    inputtype: edwcustomdropdown,
+                    data: { eleid: "courseselectordropdown",buttontext: "Select", initialhtml: "", edwclasses:`edwcustomdropdown`,options: []},
+                    onChange: function (node, value, input) {
+
+                        var coursecheckbox = $(document).find('li [name="featuredcourses"][value="' + value + '"]');
+                        if (coursecheckbox.attr('checked')) {
+                            coursecheckbox.removeAttr('checked');
+                        } else {
+                            coursecheckbox.attr('checked', 'checked');
+                        }
+
+                        let checkedCourses = $('li [name="featuredcourses"]:checked');
+                        if (checkedCourses.length >= 12) {
+                            $('li:has([name="featuredcourses"]:not(:checked))')
+                            .addClass('disabled')
+                            .find('[name="featuredcourses"]')
+                            .prop('disabled', true)
+                            .prop('checked', false);
+                        } else {
+                            $('li:has([name="featuredcourses"])')
+                            .removeClass('disabled')
+                            .find('[name="featuredcourses"]')
+                            .prop('disabled', false);
+                        }
+
+                        var courseids = [];
+
+                        if($(input).attr('data-action') == "applycourse") {
+                            $('[name="featuredcourses"]:checked').each(function () {
+                                courseids.push($(this).val());
+                            });
+
+                            var courseids = courseids.join(',');
+
+                            if (courseids == '') {
+                                courseids = 0;
+                            }
+
+                            $(node).attr('data-courseid', courseids);
+
+                            var shortcode = `[edwiser-fc layout="coursesncategories" show="courses" courseid="${courseids}" date="all"]`;
+
+                            node =   updateCardView(shortcode, node);
+
+                            setTimeout(() => {
+                                $(node).click();
+                            }, 500);
+
+                            // Vvveb.Components.render("html/edwiserfc");
+                            // Vvveb.Components.render("html/edwiserfc");
+
+                            // return node;
+
+                        }
+                    }
+                },
             ]
         });
 
@@ -601,13 +814,13 @@ define('local_edwiserpagebuilder/components-edwiser', ['local_edwiserpagebuilder
         }])[0].done(function (response) {
             $(node).empty();
             $(node).append(response);
-            if(appendjs == 'course' || appendjs == 'category'){
-                var containerid = $(response).find('.slider').attr('id');
-                var match = containerid.match(/\d+/);
-                appendjs = js.replaceAll("{{instid}}",match[0])
-                checknavigation(node)
-                $(node).append(appendjs)
-            }
+            // if(appendjs == 'course' || appendjs == 'category'){
+            //     var containerid = $(response).find('.slider').attr('id');
+            //     var match = containerid.match(/\d+/);
+            //     appendjs = js.replaceAll("{{instid}}",match[0])
+            //     checknavigation(node)
+            //     $(node).append(appendjs)
+            // }
             // edwiserfrompreview.render_form(node);
         });
         return node;
@@ -668,11 +881,9 @@ define('local_edwiserpagebuilder/components-edwiser', ['local_edwiserpagebuilder
             var navinnerwidth = $(node).find('.navbar-inner').innerWidth();
             var navitemcontainerwidth =  $(node).find('.navbar-item-container').innerWidth();
             if(navinnerwidth < navitemcontainerwidth){
-                console.log("if is working");
                 $(node).find('.nav-left-arrow').removeClass('d-none');
                 $(node).find('.nav-right-arrow').removeClass('d-none');;
             }else{
-                console.log("else is working");
                 $(node).find('.nav-left-arrow').addClass('d-none');
                 $(node).find('.nav-right-arrow').addClass('d-none');;
             }
@@ -681,15 +892,41 @@ define('local_edwiserpagebuilder/components-edwiser', ['local_edwiserpagebuilder
         }
     }
 
+    /**
+     * Asynchronously retrieves a list of courses.
+     *
+     * @returns {Promise<Object>} A promise that resolves to an object containing the course list.
+     */
+    const getcourselist = async () => {
+        const request = {
+            methodname: 'local_edwiserpagebuilder_get_courselist',
+            args: {
+                config:"all"
+            }
+        };
+
+        return Ajax.call([request])[0];
+    };
+
+    /**
+     * Asynchronously retrieves a list of courses.
+     *
+     * @returns {Promise<Object>} A promise that resolves to an object containing the course list.
+     */
+
+    const getcourselistresponse = async()=>{
+        return response = await getcourselist();
+    }
+
     return {
         init: function (formavailable) {
             if (formavailable) {
                 require(['local_edwiserpagebuilder/edwiserfrompreview'], function(edwiserfrompreview){
-                    var blocks = ["html/modal", "html/courses", "html/categories", "html/edwiserform", "html/edwisercnc","html/edwiseraddnotes", "html/courseanalytics", "html/courseprogress", "html/enrolledusers", "html/latestmembers", "html/quizattempts", "html/recentfeedback", "html/recentforums", "html/todolist"];
+                    var blocks = ["html/modal", "html/courses", "html/categories", "html/edwiserform", "html/edwisercnc","html/edwiseraddnotes", "html/courseanalytics", "html/courseprogress", "html/enrolledusers", "html/latestmembers", "html/quizattempts", "html/recentfeedback", "html/recentforums", "html/todolist","html/edwiserfc"];
                     addBlocks(blocks, edwiserfrompreview);
                 });
             } else {
-                var blocks = ["html/modal", "html/courses", "html/categories", "html/edwisercnc", "html/edwiseraddnotes", "html/courseanalytics", "html/courseprogress", "html/enrolledusers", "html/latestmembers", "html/quizattempts", "html/recentfeedback", "html/recentforums", "html/todolist"];
+                var blocks = ["html/modal", "html/courses", "html/categories", "html/edwisercnc", "html/edwiseraddnotes", "html/courseanalytics", "html/courseprogress", "html/enrolledusers", "html/latestmembers", "html/quizattempts", "html/recentfeedback", "html/recentforums", "html/todolist","html/edwiserfc"];
                 addBlocks(blocks);
             }
         }

@@ -180,6 +180,7 @@ define('local_edwiserpagebuilder/components-edwtestimonial', ['local_edwiserpage
                     if(item.edwclasses){
                         return item.edwclasses.indexOf("arrowassetcolor") === -1;
                     }
+                    return true;
                 });
                 if($(node).find('.edw-control-prev .fa').length>0){
                     this.properties.splice(1, 0,
@@ -548,6 +549,7 @@ define('local_edwiserpagebuilder/components-edwtestimonial', ['local_edwiserpage
                     if(item.edwclasses){
                         return item.edwclasses.indexOf("arrowassetcolor") === -1;
                     }
+                    return true;
                 });
                 if($(node).find('.edw-control-prev .fa').length>0){
                     this.properties.splice(1, 0,
@@ -1343,6 +1345,7 @@ define('local_edwiserpagebuilder/components-edwtestimonial', ['local_edwiserpage
                     if(item.edwclasses){
                         return item.edwclasses.indexOf("arrowassetcolor") === -1;
                     }
+                    return true;
 
                 });
 

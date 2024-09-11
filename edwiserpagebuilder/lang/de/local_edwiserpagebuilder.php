@@ -359,3 +359,4 @@ $string['updatedblocksinfotext'] = "Alle remui-Blöcke sind auf dem neuesten Sta
 $string['formpageselector'] = "Seitenauswahl";
 $string['formpagename'] = "Seitenname";
 $string['formpagewidth'] = "Seitenbreite";
+$string['featuredcoursesblockdesc'] = "Der Featured-Kurs-Block ist dazu gedacht, Ihre Top-Inhalte zu präsentieren und Lernende anzuziehen.";

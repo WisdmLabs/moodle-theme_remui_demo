@@ -362,3 +362,4 @@ $string['updatedblocksinfotext'] = "Wszystkie bloki remui są aktualne";
 $string['formpageselector'] = "Selektor strony";
 $string['formpagename'] = "Nazwa strony";
 $string['formpagewidth'] = "Szerokość strony";
+$string['featuredcoursesblockdesc'] = "Blok polecanych kursów został zaprojektowany, aby prezentować najlepsze treści i przyciągać uczniów.";

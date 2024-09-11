@@ -360,3 +360,4 @@ $string['formpageselector'] = "Selector de página";
 $string['formpagename'] = "Nombre de la página";
 $string['formpagewidth'] = "Ancho de la página";
 
+$string['featuredcoursesblockdesc'] = "El bloque de cursos destacados está diseñado para mostrar tu mejor contenido y atraer a los estudiantes.";

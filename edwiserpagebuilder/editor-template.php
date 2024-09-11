@@ -710,7 +710,7 @@
                 </div>
             </div>
         </div>
-        <!-- <div id="left-panel" style="display: none;">                     
+        <!-- <div id="left-panel" style="display: none;">
             <div class="component-properties">
                <ul class="nav nav-tabs nav-justified sticky-top" id="properties-tabs" role="tablist">
                    <li class="nav-item content-tab">
@@ -736,9 +736,9 @@
                    </div>
                </div>
             </div>
-            
+
             <div class="drag-elements">
-                
+
                 <div class="header">
                     <ul class="nav nav-tabs  nav-fill" id="elements-tabs" role="tablist">
                       <li class="nav-item sections-tab">
@@ -762,7 +762,7 @@
                         </a>
                       </li>
                     </ul>
-            
+
                     <div class="tab-content">
                         <div class="tab-pane show active sections" id="sections" role="tabpanel" aria-labelledby="sections-tab">
 
@@ -776,7 +776,7 @@
                                             <i class="la la-th-list"></i> <div><span>Page Sections</span></div></a>
                                     </li>
                                     </ul>
-                            
+
                                     <div class="tab-content">
 
                                         <div class="tab-pane" id="sections-list" data-section="style" role="tabpanel" aria-labelledby="style-tab">
@@ -792,7 +792,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div> 
+                                                        </div>
                                                         <div class="section-item" draggable="true">
                                                             <div class="controls">
                                                                 <div class="handle"></div>
@@ -802,7 +802,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div> 
+                                                        </div>
                                                         <div class="section-item" draggable="true">
                                                             <div class="controls">
                                                                 <div class="handle"></div>
@@ -812,20 +812,20 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div> 
+                                                        </div>
                                                 </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="tab-pane show active" id="sections-new-tab" data-section="content" role="tabpanel" aria-labelledby="content-tab">
 
 
                                                 <div class="search">
                                                         <div class="expand">
-                                                            <button class="text-sm" title="Expand All" data-vvveb-action="expand"><i class="la la-plus"></i></button> 
-                                                            <button title="Collapse all" data-vvveb-action="collapse"><i class="la la-minus"></i></button> 
-                                                        </div>    
+                                                            <button class="text-sm" title="Expand All" data-vvveb-action="expand"><i class="la la-plus"></i></button>
+                                                            <button title="Collapse all" data-vvveb-action="collapse"><i class="la la-minus"></i></button>
+                                                        </div>
 
                                                         <input class="form-control section-search" placeholder="Search sections" type="text" data-vvveb-action="search" data-vvveb-on="keyup">
                                                         <button class="clear-backspace"  data-vvveb-action="clearSearch" title="Clear search">
@@ -833,11 +833,11 @@
                                                         </button>
                                                     </div>
 
-                                                
+
                                                     <div class="drag-elements-sidepane sidepane">
                                                         <div class="block-preview"><img src="" style="display:none"></div>
                                                         <div>
-                                                            
+
                                                             <ul class="sections-list clearfix" data-type="leftpanel">
                                                             </ul>
 
@@ -845,14 +845,14 @@
                                                     </div>
 
                                         </div>
-                                        
+
                                     </div>
-                        
+
                         </div>
-                    
+
                         <div class="tab-pane show" id="components-tabs" role="tabpanel" aria-labelledby="components-tab">
-                          
-                          
+
+
                                 <ul class="nav nav-tabs nav-fill sections-tabs" role="tablist">
                                   <li class="nav-item components-tab">
                                     <a class="nav-link active" data-bs-toggle="tab" href="#components" role="tab" aria-controls="components" aria-selected="true">
@@ -863,16 +863,16 @@
                                         <i class="la la-copy"></i> <div><span>Blocks</span></div></a>
                                   </li>
                                 </ul>
-                        
+
                                 <div class="tab-content">
 
                                      <div class="tab-pane show active components" id="components" data-section="components" role="tabpanel" aria-labelledby="components-tab">
-                                         
+
                                            <div class="search">
                                                   <div class="expand">
-                                                          <button class="text-sm" title="Expand All" data-vvveb-action="expand"><i class="la la-plus"></i></button> 
-                                                          <button title="Collapse all" data-vvveb-action="collapse"><i class="la la-minus"></i></button> 
-                                                  </div>    
+                                                          <button class="text-sm" title="Expand All" data-vvveb-action="expand"><i class="la la-plus"></i></button>
+                                                          <button title="Collapse all" data-vvveb-action="collapse"><i class="la la-minus"></i></button>
+                                                  </div>
 
                                                   <input class="form-control component-search" placeholder="Search components" type="text" data-vvveb-action="search" data-vvveb-on="keyup">
                                                   <button class="clear-backspace" data-vvveb-action="clearSearch">
@@ -880,23 +880,23 @@
                                                     </button>
                                             </div>
 
-                                            <div class="drag-elements-sidepane sidepane">   
+                                            <div class="drag-elements-sidepane sidepane">
                                                  <div>
-                                                  
+
                                                 <ul class="components-list clearfix" data-type="leftpanel">
                                                 </ul>
 
-                                            </div>                                           
+                                            </div>
                                         </div>
                                     </div>
-                                  
+
                                     <div class="tab-pane show active blocks" id="blocks" data-section="content" role="tabpanel" aria-labelledby="content-tab">
 
                                                <div class="search">
                                                       <div class="expand">
-                                                          <button class="text-sm" title="Expand All" data-vvveb-action="expand"><i class="la la-plus"></i></button> 
-                                                          <button title="Collapse all" data-vvveb-action="collapse"><i class="la la-minus"></i></button> 
-                                                      </div>    
+                                                          <button class="text-sm" title="Expand All" data-vvveb-action="expand"><i class="la la-plus"></i></button>
+                                                          <button title="Collapse all" data-vvveb-action="collapse"><i class="la la-minus"></i></button>
+                                                      </div>
 
                                                       <input class="form-control block-search" placeholder="Search blocks" type="text" data-vvveb-action="search" data-vvveb-on="keyup">
                                                       <button class="clear-backspace" data-vvveb-action="clearSearch">
@@ -904,7 +904,7 @@
                                                       </button>
                                                 </div>
 
-                                      
+
                                                 <div class="drag-elements-sidepane sidepane">
                                                       <div class="block-preview"><img src=""></div>
                                                       <div>
@@ -914,7 +914,7 @@
                                                       </div>
                                                 </div>
                                     </div>
-                                    
+
                                 </div>
                         </div>
 
@@ -937,18 +937,18 @@
                                                 <i class="la la-lg la-tools"></i> <div><span>Advanced</span></div></a>
                                             </li>
                                         </ul>
-                                    
+
                                         <div class="tab-content">
                                                 <div class="tab-pane show active" id="content-left-panel-tab" data-section="content" role="tabpanel" aria-labelledby="content-tab">
-                                                <div class="alert alert-dismissible fade show alert-light m-3" role="alert" style="">         
-                                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>          
-                                                    <strong>No selected element!</strong><br> Click on an element to edit.      
+                                                <div class="alert alert-dismissible fade show alert-light m-3" role="alert" style="">
+                                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                                    <strong>No selected element!</strong><br> Click on an element to edit.
                                                 </div>
                                             </div>
-                                            
+
                                                 <div class="tab-pane show" id="style-left-panel-tab" data-section="style" role="tabpanel" aria-labelledby="style-tab">
                                                 </div>
-                                            
+
                                                 <div class="tab-pane show" id="advanced-left-panel-tab" data-section="advanced"  role="tabpanel" aria-labelledby="advanced-tab">
                                             </div>
                                         </div>
@@ -956,9 +956,9 @@
                                 </div>
                             </div>
                         </div>
-                    
+
                         <div class="tab-pane" id="configuration" role="tabpanel" aria-labelledby="configuration-tab">
-                            
+
                             <div class="drag-elements-sidepane sidepane">
                             <div>
                                 <div class="component-properties">
@@ -973,7 +973,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="mb-3  col-sm-6  inline " data-key="background-color">
                                             <label class=" form-label" for="input-model">Background Color</label>
                                             <div class=" input">
@@ -982,17 +982,17 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                             </div>
                             </div>
-                            
-                            
+
+
                         </div>
                     </div>
-                </div>                          
-            
+                </div>
+
             </div>
         </div> -->
 
@@ -1142,7 +1142,7 @@
                     <button type="button" class="close ml-auto" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true" class="edw-icon edw-icon-Cancel small"></span>
                     </button>
-                    
+
                 </div>
                 <ul class="nav nav-tabs" id="file-piker-tabs" role="tablist">
                     <li class="nav-item">
@@ -1326,13 +1326,13 @@
 					{% } %}
 					<optgroup label="{%=options[i].optgroup%}">
 				{% optgroup = true; } else { %}
-			<option value="{%=options[i].value%}" 
-				{% 
+			<option value="{%=options[i].value%}"
+				{%
 					for (attr in options[i]) {
 							if (attr != "value" && attr != "text") {
-						 %} 
-							{%=attr%}={%=options[i][attr]%} 
-						{% } 
+						 %}
+							{%=attr%}={%=options[i][attr]%}
+						{% }
 					} %}>
 			{%=options[i].text%}</option>
 			{% } } %}
@@ -1637,6 +1637,16 @@
     </div>
 </script>
 
+<script id="vvveb-input-edwbuttonwithtext" type="text/html">
+    <div class="{%if (typeof wrapperclasses !== undefined) { %}{%=wrapperclasses%} {% } %}">
+        <div class="titletext ellips ellips-2">{%=titletext%}</div>
+        <button class="{%if (typeof extraclasses !== undefined) { %}{%=extraclasses%} {% } %}">
+            <i class="fa  {% if (typeof icon !== 'undefined') { %} {%=icon%} {% } else { %} fa-plus {% } %}"></i>
+            {%=text%}
+        </button>
+    </div>
+</script>
+
 <script id="vvveb-input-linkbutton" type="text/html">
     <div>
         <button class="btn btn-sm btn-outline-light {% if (typeof className !== 'undefined') { %} {%=className%} {% } else { %} text-danger {% } %}">
@@ -1815,6 +1825,32 @@
     </div>
 </script>
 
+<script id="vvveb-input-edwcustomdropdown" type="text/html">
+    <div class="dropdown {%=edwclasses%} " id="{%=eleid%}">
+        <button class="btn  dropdown-toggle" type="button" id="edwcustomdropdownmenutooglebtn" data-bs-toggle="dropdown" aria-expanded="false">
+            {%=buttontext%}
+            <img src="../edwiserpagebuilder/js/libs/builder/edw_icons/DownArrow.svg" alt="" id="yui_3_18_1_1_1724150271575_75">
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="edwcustomdropdownmenutooglebtn" id="edwcustomdropdownmenu">
+            <!-- Options will be dynamically added here -->
+            {%=initialhtml%}
+            {% for ( var i = 0; i < options.length; i++ ) { %}
+            <li class="course-list-item">
+                <input name="{%=key%}" class="form-check-input" type="checkbox" value="{%=options[i].value%}" {%if
+                    (options[i].checked)
+                    {
+                    %}checked="{%=options[i].checked%}" {%
+                    }
+                    %} />
+                <span class="text">{%=options[i].text%}</span>
+            </li>
+
+            {% } %}
+
+        </ul>
+    </div>
+</script>
+
 <script id="vvveb-section-rowcreator" type="text/html">
     <div>
         <section class="row p-2">
@@ -1824,7 +1860,7 @@
                         <img src="../../local/edwiserpagebuilder/js/libs/builder/edw_icons/Add.svg" alt="">
                     </div>
                 </div>
-            {% } %} 
+            {% } %}
         </section>
 
     </div>

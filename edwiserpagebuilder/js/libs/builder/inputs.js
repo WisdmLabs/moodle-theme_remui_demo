@@ -686,6 +686,25 @@ var EdwbuttonInput = $.extend({}, Input, {
 
   }
 );
+
+var Edwbuttonwithtext = $.extend({}, Input, {
+
+    events: [
+        ["click", "onChange", "button" /*'select'*/],
+	 ],
+
+
+	setValue: function(value) {
+		$('button', this.element).val(value);
+	},
+
+	init: function(data) {
+		return this.render("edwbuttonwithtext", data);
+	},
+
+  }
+);
+
 var ButtonInput = $.extend({}, Input, {
 
     events: [
@@ -907,6 +926,28 @@ var MultiSelectInput = $.extend({}, Input, {
 
 	init: function (data) {
 		return this.render("multiselect", data);
+	},
+}
+);
+
+
+var edwcustomdropdown = $.extend({}, Input, {
+
+	events: [
+		["change", "onChange", "input"],
+	],
+
+	updateOptions: function (html) {
+		$(".dropdown-menu", this.element).append(html);
+	},
+
+	setValue: function (value) {
+		// console.log("set function is called");
+		// $('select', this.element).val(value);
+	},
+
+	init: function (data) {
+		return this.render("edwcustomdropdown", data);
 	},
 }
 );

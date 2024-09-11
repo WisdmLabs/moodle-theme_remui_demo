@@ -116,9 +116,11 @@ define('local_edwiserpagebuilder/edwiserpagebuilder', ['local_edwiserpagebuilder
                                 $(this).empty().append(shortc);
                                 break;
                             case "edwiser-cnc":
-                                // var shortc = `[edwiser-cnc layout="coursesncategories" show="courses" catid="all" date="all"]`;
                                 var shortc = `[edwiser-cnc layout="${$(this).data('layout')}" show="${$(this).data('show')}" catid="${$(this).data('catid')}" date="all"]`;
-                                // var shortc = `[${shortcode} layout="${$(this).data('layout')}" show="courses" catid="${$(this).data('catid')}"  date="all"]`;
+                                $(this).empty().append(shortc);
+                                break;
+                            case "edwiser-fc":
+                                var shortc = `[edwiser-fc layout="${$(this).data('layout')}" show="${$(this).data('show')}" courseid="${$(this).data('courseid')}" date="all"]`;
                                 $(this).empty().append(shortc);
                                 break;
                             case "edwiser-addnotes":
@@ -397,6 +399,20 @@ define('local_edwiserpagebuilder/edwiserpagebuilder', ['local_edwiserpagebuilder
                 $('#mobile-view,#tablet-view,#desktop-view').click(function () {
                     $('#mobile-view, #tablet-view, #desktop-view').removeClass('active')
                     $(this).addClass('active');
+                });
+
+                $(document).on('keyup', '.edwcustomdropdowncustomsearch', function() {
+                    var filter = $(this).val().toUpperCase();
+                    var selector = $(this).attr(('data-searchtag'));
+                    var texttag = $(this).attr(('data-texttag'));
+                    $(selector).each(function() {
+                        var txtValue = $(this).find(texttag).text();
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            $(this).show();
+                        } else {
+                            $(this).hide();
+                        }
+                    });
                 });
             });
         }

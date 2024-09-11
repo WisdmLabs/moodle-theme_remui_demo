@@ -1088,16 +1088,23 @@ Vvveb.Builder = {
 					}
 				});
 
-				$(window.FrameDocument).find('body').on('DOMSubtreeModified', function() {
-					// Calculate iframe height according to its content.
+				const bodyElement = $(window.FrameDocument).find('body')[0];
 
+				const observer = new MutationObserver(function(mutations) {
 					delay(() => {
 						var frmdiv = document.getElementById("iframe1");
-						var newHeight = $(this).get(0).scrollHeight;
+						var newHeight = bodyElement.scrollHeight;
 						frmdiv.style.height = 0;
 						frmdiv.style.height = newHeight + 'px';
 						// Vvveb.SectionList.loadSections();
 					}, 1000);
+				});
+
+				observer.observe(bodyElement, {
+					childList: true,
+					subtree: true,
+					attributes: true,
+					characterData: true
 				});
 				$(window.FrameWindow).on("scroll resize", function(event) {
 
