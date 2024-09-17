@@ -660,11 +660,23 @@ define('local_edwiserpagebuilder/components-edwiser', ['local_edwiserpagebuilder
 
                             var shortcode = `[edwiser-fc layout="coursesncategories" show="courses" courseid="${courseids}" date="all"]`;
 
-                            node =   updateCardView(shortcode, node);
+                            // node =   updateCardView(shortcode, node);
 
-                            setTimeout(() => {
-                                $(node).click();
-                            }, 500);
+                            // setTimeout(() => {
+                            //     $(node).click();
+                            // }, 500);
+
+                            Ajax.call([{
+                                methodname: 'local_edwiserpagebuilder_get_shortcode_parsered_html',
+                                args: {
+                                    shortcode: shortcode,
+                                }
+                            }])[0].done(function (response) {
+                                $(node).empty();
+                                $(node).append(response);
+
+                                Vvveb.Components.render("html/edwiserfc");
+                            });
 
                             // Vvveb.Components.render("html/edwiserfc");
                             // Vvveb.Components.render("html/edwiserfc");
