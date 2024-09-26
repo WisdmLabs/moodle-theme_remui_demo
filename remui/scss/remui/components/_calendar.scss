@@ -395,7 +395,8 @@ aside:not(#block-region-side-pre) {
         @extend .btn;
         text-align: left;
         border: 1px solid $medium-border;
-        color:$paragraph-color
+        color:$paragraph-color;
+        padding-right:32px;
      }
      #calendarviewdropdown{
         border: 1px solid $medium-border;

@@ -259,6 +259,7 @@ function theme_remui_course_custom_fields($checkupdateorinstall= "update") {
 
 
 
+
     theme_remui_delete_old_custom_fields($customfieldid);
 
     // Changing the text from "Course Duration in Hours" to "Course Duration"

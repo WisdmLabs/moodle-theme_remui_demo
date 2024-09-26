@@ -627,6 +627,10 @@ $course-metadata-gap: 70px;
             .edw-icon {
                 transition: rotate .5s ease-in-out;
             }
+            img{
+                width: $edw-icon-size-large;
+                height: $edw-icon-size-large;
+            }
             &.accordion-bb:not(:first-of-type) {
                 border-top: 1px solid $medium-border;
             }

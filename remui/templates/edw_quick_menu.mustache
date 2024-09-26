@@ -36,7 +36,7 @@
 </div>
 
 {{#js}}
-require(['jquery'], function($){
+require(['jquery','core_user/repository'], function($, UserRepository){
 	$(document).ready(function(){
 		$('#edw-quick-menu .close-quick-menu').click(function(e){
 			e.preventDefault();
@@ -45,7 +45,7 @@ require(['jquery'], function($){
 				edw_quickmenu_pref = false;
 			}
 			$('#edw-quick-menu').toggleClass("collapsed");
-			M.util.set_user_preference('edw-quick-menu', edw_quickmenu_pref);
+			UserRepository.setUserPreference('edw-quick-menu', edw_quickmenu_pref);
 		});
 	});
 });

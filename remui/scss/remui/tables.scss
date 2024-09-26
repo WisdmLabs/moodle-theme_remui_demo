@@ -5,6 +5,7 @@ $table_head_bg_color: $bg-small-ui;
 $table-border-rad:8px;
 $table-th-height:50px;
 $table-bd-hd-height:50px; // height of table body th
+$box-shadow-value :0 13px 37px rgba(92, 107, 121, 0.1);
 
 
 table {
@@ -14,7 +15,8 @@ table {
         font-size: 14px;
         border-radius: $table-border-rad;
         color: $heading-color;
-        filter: drop-shadow(map-get($box-shadows-values, xs));
+        // filter: drop-shadow(map-get($box-shadows-values, xs));
+        box-shadow: $box-shadow-value;
 
         thead {
             background-color: $table_head_bg_color;
@@ -86,7 +88,8 @@ table {
 
 #page-report-outline-index {
     .table-responsive {
-        filter: drop-shadow(map-get($box-shadows-values, xs));
+        // filter: drop-shadow(map-get($box-shadows-values, xs));
+        box-shadow: $box-shadow-value;
         border-radius: $table-border-rad;
 
         .generaltable {
@@ -109,7 +112,8 @@ table {
 
 #page-admin-plugins {
     .table-responsive {
-        filter: drop-shadow(map-get($box-shadows-values, xs));
+        // filter: drop-shadow(map-get($box-shadows-values, xs));
+        box-shadow: $box-shadow-value;
         border-radius: $table-border-rad;
 
         .generaltable {
@@ -137,7 +141,8 @@ table {
 }
 #page-admin-theme-index{
     .table-responsive{
-        filter: drop-shadow(map-get($box-shadows-values, xs));
+        // filter: drop-shadow(map-get($box-shadows-values, xs));
+        box-shadow: $box-shadow-value;
         .generaltable{
             filter: unset;
             overflow: hidden;
@@ -180,6 +185,11 @@ table {
 }
 
 #report-eventlist-table,
-.reportbuilder-report .reportbuilder-wrapper .table-dynamic {
+.reportbuilder-report .reportbuilder-wrapper .table-dynamic:not(#page-badges-index .table-dynamic) {
     overflow: auto;
+}
+#question_table{
+    overflow: auto;
+    white-space: nowrap;
+    max-height: 600px;
 }

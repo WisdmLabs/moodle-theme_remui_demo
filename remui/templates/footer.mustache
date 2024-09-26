@@ -44,6 +44,11 @@
                 <span class="edw-icon edw-icon-UpArrow"></span>
                 <span class="btn-floating-text">{{#str}}gotop, theme_remui{{/str}}</span>
             </button>
+            {{#output.has_communication_links}}
+                <button onclick="window.open('{{output.communication_url}}', '_blank', 'noreferrer')" class="btn btn-primary btn-floating  align-items-center justify-content-center  btn-footer-communication" aria-label="{{#str}}communicationroomlink, course{{/str}}">
+                    {{#pix}}t/messages-o, core{{/pix}}
+                </button>
+            {{/output.has_communication_links}}
             {{#focusdata.enabled}}
                 <button id="focusmodebutton" type="button" class="btn {{focusdata.btnbg}} btn-floating align-items-center justify-content-center d-flex" data-toggle="tooltip" data-placement="left" data-trigger="hover" aria-label="{{#str}}togglefocusmode, theme_remui{{/str}}" role="Button" aria-pressed="false" >
                     <i class="{{focusdata.btnicon}}" aria-hidden="true"></i>

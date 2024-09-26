@@ -17,6 +17,7 @@ $courseindex-item-current: $primary !default;
         color: $courseindex-link-hover-color;
 
         .courseindex-link,
+        .courseindex-name,
         .courseindex-chevron {
             color: $courseindex-link-hover-color;
             cursor: pointer;
@@ -58,6 +59,7 @@ $courseindex-item-current: $primary !default;
         }
 
         .courseindex-link,
+        .courseindex-name,
         .courseindex-chevron {
             color: $courseindex-link-color;
             @include hover-focus() {

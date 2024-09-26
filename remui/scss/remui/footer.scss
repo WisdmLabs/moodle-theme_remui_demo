@@ -398,6 +398,11 @@ $sec-footer-screen : lg;
     position: relative;
 }
 
+.btn-floating.btn-footer-communication{
+    i{
+        font-size: 20px !important;
+    }
+}
 .popover.footer {
     filter: drop-shadow(map-get($box-shadows-values, xs));
     border-radius: $popover-border-radius-all;

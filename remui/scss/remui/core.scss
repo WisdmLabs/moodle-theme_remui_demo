@@ -485,22 +485,30 @@ hr {
 .stickyfooter .btn{
    font-size: (0.9375rem * 1.10) !important;
 }
-.pagelayout-course{
+
+.pagelayout-course:not(#page-course-view-weeks){
+   .course-section-header{
+      .bulkselect{
+         margin-left: 8px;
+      }
+   }
    .activity-item .bulkselect{
       margin-left: 6px;
    }
-
+}
+.pagelayout-course{
    .header-enrolbtn-wrapper {
       .btn-enrolpage {
          &.disabled {
             background-color: $secondary;
             color: #fff;
             border: unset;
-            font-style: normal;
+	    font-style: normal;
          }
       }
    }
 }
+
 
 
 .activity-navigation{
@@ -724,9 +732,22 @@ body.hasstickyfooter{
          }
       }
    }
+   &.path-grade{
+      #sticky-footer{
+         #fitem_id_submitbutton{
+            margin-right: 24px;
+         }
+      }
+   }
    .floating-widget {
       bottom: calc(max(96px, calc(1rem * 3)));
   }
+}
+
+#userselector_options_inner{
+   .form-check label{
+      gap: 8px;
+   }
 }
 // Beacon CSS.
 .Beacon .BeaconFabButtonFrame {
@@ -737,7 +758,7 @@ body.hasstickyfooter{
    display: flex;
    align-items: center;
    gap: 12px;
- 
+
    margin: 0 0 16px 0;
    padding: 16px 24px;
    border-radius: 6px;
@@ -746,18 +767,18 @@ body.hasstickyfooter{
    width: fit-content;
    max-width: 770px;
    min-width: 346px;
- 
+
    .warning-img,
    .edw-icon  {
      font-size: 36px;
      width: 36px;
      height: 36px;
    }
- 
+
    .warning-msg {
       line-height: 20px;
    }
- 
+
    @media(max-width:360px){
        min-width: 240px;
    }

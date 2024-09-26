@@ -61,6 +61,8 @@
     .collapse-all-menu{
         position: absolute;
         right: 56px;
+        z-index: 1;
+
     }
     &.editing {
         .course-content ul.topics li.section,
@@ -83,5 +85,28 @@
             // margin-left: map-get($spacers, 3);
             margin-left: map-get($spacerspx, '6');
         }
+    }
+}
+
+.cm_action_menu.actions{
+    .dropdown-item.dropdown-toggle{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .dropleft .dropdown-toggle::before{
+        order: 3;
+        transform: rotate(180deg);
+        font-size: 10px;
+    }
+}
+.activity-badges {
+    .badge-pill{
+        .edw-icon,.icon{
+            color: white;
+        }
+    }
+    .dropdown.show>.dropdown-toggle{
+        @extend .badge-secondary;
     }
 }

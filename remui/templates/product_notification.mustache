@@ -45,9 +45,9 @@
     </div>
 </div>
 {{#js}}
-require(['jquery'], function($){
+require(['jquery','core_user/repository'], function($, UserRepository){
     $(".inproduct-notification-popup .closebtn").on("click", function (){
-        M.util.set_user_preference('edwiser_inproduct_notification', false);
+        UserRepository.setUserPreference('edwiser_inproduct_notification', false);
         $("#inproduct-notification").remove();
     });
 });

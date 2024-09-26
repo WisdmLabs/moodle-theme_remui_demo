@@ -58,10 +58,10 @@ class EventsController {
             }
         }
     }
+
     public static function user_enrollment_event($eventdata) {
 
         $data = $eventdata->get_data();
-
         $userid = $data['relateduserid'];
 
         EventsController::remui_stats_common($userid, $eventdata->courseid);
@@ -77,14 +77,12 @@ class EventsController {
         // Set Global Config to acknowledge to reset the cache.
         // Can reset order is not just for enrolled students.
         // Need to reset the cache of all users as that course get displayed in All Courses Tab.
-
         $data = $eventdata->get_data();
 
         EventsController::remui_stats_common($data['relateduserid'], $eventdata->courseid);
 
         set_config('cache_reset_time', time(), 'theme_remui');
     }
-
     public static function course_deletion_event($eventdata) {
         // Set Global Config to acknowledge to reset the cache.
         // Can reset order is not just for enrolled students.
@@ -96,7 +94,6 @@ class EventsController {
 
         set_config('cache_reset_time', time(), 'theme_remui');
     }
-
     public static function updation_on_create_delete_activity($eventdata) {
         // Set Global Config to acknowledge to reset the cache.
         // Can reset order is not just for enrolled students.
@@ -106,8 +103,6 @@ class EventsController {
 
         set_config('cache_reset_time', time(), 'theme_remui');
     }
-
-
     public static function user_loggedin_event($eventdata) {
         global $USER;
         set_user_preference('enable_focus_mode', false, $USER->id);

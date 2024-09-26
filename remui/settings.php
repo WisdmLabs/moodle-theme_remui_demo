@@ -344,6 +344,7 @@ if ($ADMIN->fulltree) {
     );
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
+
     $remuisettings['enablesiteloader'] = [[
         'value'  => true,
         'show' => ['loaderimage'],
@@ -519,7 +520,7 @@ if ($ADMIN->fulltree) {
             set_config('frontpagechooser', 0, 'theme_remui');
         }
     if ($activehomepage == 0) {
-        
+
         if (class_exists('admin_setting_heading')) {
             $page->add(new admin_setting_heading(
                 'theme_remui_upsection',

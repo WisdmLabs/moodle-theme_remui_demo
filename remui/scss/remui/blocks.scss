@@ -35,6 +35,14 @@ $timeline-activity-mob-size:48px;
         }
     }
 }
+#region-bottom-blocks,
+#region-top-blocks{
+    div[role="main"]{
+        padding: unset !important;
+        background-color: unset !important;
+        box-shadow: unset !important;
+    }
+}
 #region-fullwidthtop-blocks,
 #region-fullwidthbottom-blocks{
     div[role="main"]{

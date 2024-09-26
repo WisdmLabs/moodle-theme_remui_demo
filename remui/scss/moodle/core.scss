@@ -43,6 +43,14 @@ $font-size-xs: ($font-size-base * .75) !default;
     }
 }
 
+@mixin optional-animation($animation) {
+    animation: $animation;
+
+    @media (prefers-reduced-motion: reduce) {
+        animation: none;
+    }
+}
+
 .context-header-settings-menu .dropdown-toggle > .icon,
 #region-main-settings-menu .dropdown-toggle > .icon {
     height: 24px;
@@ -3000,11 +3008,20 @@ body.dragging {
     width: 9px;
 }
 
+.dir-rtl .dropleft .dropdown-toggle::before {
+    content: fa-content($fa-var-chevron-right);
+}
+
 .dropright .dropdown-toggle::after {
     border: 0;
     @extend .fa-solid;
     content: fa-content($fa-var-chevron-right);
 }
+
+.dir-rtl .dropright .dropdown-toggle::after {
+    content: fa-content($fa-var-chevron-left);
+}
+
 
 .dropup .dropdown-toggle::after {
     border: 0;
@@ -3098,5 +3115,71 @@ blockquote {
         word-break: normal;
         overflow-wrap: anywhere;
         white-space: normal;
+    }
+}
+
+/* Showmore component */
+.showmore-container {
+    &.collapsed {
+        .collapsed-content {
+            display: block;
+        }
+        .expanded-content {
+            display: none;
+        }
+    }
+    &:not(.collapsed) {
+        .collapsed-content {
+            display: none;
+        }
+        .expanded-content {
+            display: block;
+        }
+    }
+    button {
+        float: right;
+        &.btn-link {
+            text-decoration: none;
+        }
+        .icon {
+            font-size: $btn-font-size-sm;
+            margin: 0;
+        }
+    }
+}
+
+/* Combobox search dropdowns */
+.usersearchdropdown,
+.gradesearchdropdown,
+.groupsearchdropdown {
+    max-width: 350px;
+    .searchresultitemscontainer {
+        max-height: 170px;
+        overflow: auto;
+        /* stylelint-disable declaration-no-important */
+        img {
+            height: 48px !important;
+            width: 48px !important;
+        }
+    }
+}
+
+/* Bulk actions in sticky footer. */
+#sticky-footer {
+    [data-type="bulkactions"] {
+        display: flex;
+        flex: 0 0 100%;
+        align-items: center;
+    }
+}
+
+/* Choice list component. */
+.choicelist {
+    // Choicelist is designed to fit inside a small modal.
+    min-width: calc(#{$modal-sm} - 25px);
+
+    // Align the font based icons.
+    i.icon {
+        vertical-align: middle;
     }
 }

@@ -40,7 +40,7 @@
     </div>
 </div>
 {{#js}}
-    require(["jquery", "jqueryui"], function($){
+    require(['jquery', 'core_user/repository'], function($, UserRepository){
         $(document).ready(function(){
             {{^darkmodecustomizerwarnnotvisible}}
               $(".darkmodewarnmodal").modal({backdrop: 'static', keyboard: false}, 'show');
@@ -54,7 +54,7 @@
 
             $('.darkmodewarnmodal .hidedarkmodewarnpopup').click(function(e){
               e.preventDefault();
-              M.util.set_user_preference('darkmodecustomizerwarnnotvisible', true);
+               UserRepository.setUserPreference('darkmodecustomizerwarnnotvisible', true);
               $('.darkmodewarnmodal').modal('hide');
             });
         });

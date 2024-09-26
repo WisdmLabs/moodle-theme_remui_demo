@@ -15,6 +15,7 @@ body:not(.notloggedin) {
     [data-region=right-hand-drawer] {
         &.drawer {
             top: $navbar-height + $subnav-height;
+            height: calc(100% - #{$navbar-height + $subnav-height});
         }
     }
 

@@ -364,6 +364,17 @@ function theme_remui_create_custom_field($categoryid, $fieldname, $fieldtype, $o
         error_log($e);
     }
 }
+
+function theme_remui_check_customfield_empty_status($customfieldid, $customfield, $shortname) {
+    global $DB;
+    $customfieldrecords = $DB->get_records('customfield_field', array('shortname' => $shortname), $sort = '', $fields = '*');
+    foreach ($customfieldrecords as $customfieldrecord) {
+        if (empty($customfieldrecord->description)) {
+            $customfieldrecord->description = ' ';
+        }
+        $DB->update_record('customfield_field', $customfieldrecord, $bulk = false);
+    }
+}
 /**
  * This function creates custom field.
  * @param  int $categoryid  Category Id, in which new field will be created.
@@ -641,6 +652,88 @@ function edw_reposition_block($bi, $newregion, $newweight, $contexid, $pagetype,
         $bp->region = $newregion;
         $DB->insert_record('block_positions', $bp);
     }
+}
+
+/**
+ * Get the current user preferences that are available
+ *
+ * @return array[]
+ */
+function theme_remui_user_preferences(): array {
+    return [
+        'drawer-open-nav' => [
+            'type' => PARAM_ALPHA,
+            'null' => NULL_NOT_ALLOWED,
+            'default' => '',
+            'permissioncallback' => [core_user::class, 'is_current_user'],
+        ],
+        'drawer-open-index' => [
+            'type' => PARAM_BOOL,
+            'null' => NULL_NOT_ALLOWED,
+            'default' => false,
+            'permissioncallback' => [core_user::class, 'is_current_user'],
+        ],
+        'drawer-open-block' => [
+            'type' => PARAM_BOOL,
+            'null' => NULL_NOT_ALLOWED,
+            'default' => false,
+            'permissioncallback' => [core_user::class, 'is_current_user'],
+        ],
+        'course_view_state' => [
+            'type' => PARAM_ALPHA,
+            'null' => NULL_NOT_ALLOWED,
+            'default' => '',
+            'permissioncallback' => [core_user::class, 'is_current_user'],
+        ],
+        'remui_dismised_announcement' => [
+            'type' => PARAM_BOOL,
+            'null' => NULL_NOT_ALLOWED,
+            'default' => false,
+            'permissioncallback' => [core_user::class, 'is_current_user'],
+        ],
+        'edw-quick-menu' => [
+            'type' => PARAM_BOOL,
+            'null' => NULL_NOT_ALLOWED,
+            'default' => false,
+            'permissioncallback' => [core_user::class, 'is_current_user'],
+        ],
+        'edwiser_inproduct_notification' => [
+            'type' => PARAM_ALPHA,
+            'null' => NULL_NOT_ALLOWED,
+            'default' => '',
+            'permissioncallback' => [core_user::class, 'is_current_user'],
+        ],
+        'enable_focus_mode' => [
+            'type' => PARAM_BOOL,
+            'null' => NULL_NOT_ALLOWED,
+            'default' => false,
+            'permissioncallback' => [core_user::class, 'is_current_user'],
+        ],
+        'homepagedepricatedseen' => [
+            'type' => PARAM_BOOL,
+            'null' => NULL_NOT_ALLOWED,
+            'default' => false,
+            'permissioncallback' => [core_user::class, 'is_current_user'],
+        ],
+        'darkmodecustomizerwarnnotvisible' => [
+            'type' => PARAM_BOOL,
+            'null' => NULL_NOT_ALLOWED,
+            'default' => false,
+            'permissioncallback' => [core_user::class, 'is_current_user'],
+        ],
+	'forcefulmigratemodalseen' => [
+            'type' => PARAM_BOOL,
+            'null' => NULL_NOT_ALLOWED,
+            'default' => false,
+            'permissioncallback' => [core_user::class, 'is_current_user'],
+        ],
+	'homepageavailablemodalseen' => [
+            'type' => PARAM_BOOL,
+            'null' => NULL_NOT_ALLOWED,
+            'default' => false,
+            'permissioncallback' => [core_user::class, 'is_current_user'],
+        ],
+    ];
 }
 
 function theme_remui_set_dynamic_settings() {

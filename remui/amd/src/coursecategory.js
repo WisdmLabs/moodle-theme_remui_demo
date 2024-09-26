@@ -34,8 +34,9 @@ define([
     'core/templates',
     'theme_remui/jquery-toolbar',
     'core/notification',
+    'core_user/repository',
     'theme_remui/bootstrap-select'
-], function($, Ajax, str, templates, toolbar, Notification) {
+], function($, Ajax, str, templates, toolbar, Notification,UserRepository) {
 
     // Globals.
     var filterobj;
@@ -73,7 +74,7 @@ define([
         'MAX_COURSE_SHOWN': '.edw-custom-dropdown-wrapper.max-course-shown',
         'COURSE_FILTER_FORM': '.edw-custom-dropdown-wrapper #course-filter-form',
         'MAXCOURSE_DEFAULT': '.edw-custom-dropdown-wrapper.max-course-shown .max-course-default',
-    }
+    };
 
     /**
      * Main category filters class.
@@ -566,7 +567,7 @@ define([
         var clckviewbtn = $(this).attr('data-view');
         filterobj.view = clckviewbtn;
         updateView(filterobj.view);
-        M.util.set_user_preference('course_view_state', clckviewbtn, null);
+        UserRepository.setUserPreference('course_view_state', clckviewbtn, null);
         courseFilterCommon();
     });
 
@@ -720,7 +721,7 @@ define([
 
         if (!filterobj.courserowperpage) {
             let maxCourseDefault = $(SELECTORS.MAXCOURSE_DEFAULT).data('value');
-            let courserowperpage = Math.ceil(maxCourseDefault / courseperrow)
+            let courserowperpage = Math.ceil(maxCourseDefault / courseperrow);
             filterobj.courserowperpage = courserowperpage;
 
             let activeOption = $(SELECTORS.MAX_COURSE_SHOWN + " .select-option[data-value='" + courserowperpage + "']");

@@ -367,8 +367,3 @@ body.transparent-header:not(body.latest-frontpage.transparent-header){
 .navbar-brand {
     background-color: $navbar-logo-bg-color;
 }
-
-// Make navbar height available for non-sass use.
-:root {
-    --navbar-height: #{$navbar-height};
-}

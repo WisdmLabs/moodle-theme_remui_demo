@@ -41,17 +41,14 @@ if(get_config('theme_remui','enablesiteloader')){
 // Add block button in editing mode.
 $addblockbutton = $OUTPUT->addblockbutton();
 
-user_preference_allow_ajax_update('drawer-open-nav', PARAM_ALPHA);
-user_preference_allow_ajax_update('drawer-open-index', PARAM_BOOL);
-user_preference_allow_ajax_update('drawer-open-block', PARAM_BOOL);
-user_preference_allow_ajax_update('course_view_state', PARAM_ALPHA);
-user_preference_allow_ajax_update('remui_dismised_announcement', PARAM_BOOL);
-user_preference_allow_ajax_update('edw-quick-menu', PARAM_BOOL);
-user_preference_allow_ajax_update('edwiser_inproduct_notification', PARAM_ALPHA);
-user_preference_allow_ajax_update('homepagedepricatedseen', PARAM_BOOL);
-user_preference_allow_ajax_update('darkmodecustomizerwarnnotvisible', PARAM_BOOL);
-user_preference_allow_ajax_update('forcefulmigratemodalseen', PARAM_BOOL);
-user_preference_allow_ajax_update('homepageavailablemodalseen', PARAM_BOOL);
+// user_preference_allow_ajax_update('drawer-open-nav', PARAM_ALPHA);
+// user_preference_allow_ajax_update('drawer-open-index', PARAM_BOOL);
+// user_preference_allow_ajax_update('drawer-open-block', PARAM_BOOL);
+// user_preference_allow_ajax_update('course_view_state', PARAM_ALPHA);
+// user_preference_allow_ajax_update('remui_dismised_announcement', PARAM_BOOL);
+// user_preference_allow_ajax_update('edw-quick-menu', PARAM_BOOL);
+// user_preference_allow_ajax_update('edwiser_inproduct_notification', PARAM_ALPHA);
+// user_preference_allow_ajax_update('homepagedepricatedseen', PARAM_BOOL);
 
 // CUSTOMIZATION - START
 $demoblocklayouts = [

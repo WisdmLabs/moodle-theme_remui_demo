@@ -20,7 +20,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-define(['jquery', 'theme_remui/notice', 'core/str'], function($, Notice, Str) {
+define(['jquery', 'theme_remui/notice', 'core/str','core_user/repository'], function($, Notice, Str, UserRepository) {
     return {
         init: function(action) {
             $(document).ready(function() {
@@ -127,7 +127,7 @@ define(['jquery', 'theme_remui/notice', 'core/str'], function($, Notice, Str) {
             _obj.changeFMButtonClasses(action);
 
             _obj.fmstatus = status;
-            M.util.set_user_preference('enable_focus_mode', _obj.fmstatus);
+            UserRepository.setUserPreference('enable_focus_mode', _obj.fmstatus);
             Notice.info(tostr);
         };
         return _obj;
