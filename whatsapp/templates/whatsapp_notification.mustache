@@ -1,0 +1,81 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template message_whatsapp/whatsapp_notification
+
+    TODO describe template whatsapp_notification
+
+    Example context (json):
+    {
+    }
+}}
+
+{{#mod_assign_assign_notification_submissionreceipt}}
+    You have submitted your assignment submission for {{contexturlname}}
+    <a href={{contexturl}}>{{contexturlname}}</a>
+{{/mod_assign_assign_notification_submissionreceipt}}
+
+{{#mod_assign_assign_notification_feedbackavailable}}
+    {{userfromname}} has given feedback for assignment {{contexturlname}}
+    <a href={{contexturl}}>{{contexturlname}}</a>
+{{/mod_assign_assign_notification_feedbackavailable}}
+
+{{#moodle_enrolcoursewelcomemessage}}
+    Dear {{usertoname}}, you have successfully been enrolled to course {{contexturlname}}
+    <a href={{contexturl}}>{{contexturlname}}</a>
+{{/moodle_enrolcoursewelcomemessage}}
+
+{{#moodle_courserequested}}
+    {{userfromname}} requested a new course
+{{/moodle_courserequested}}
+
+{{#moodle_courserequestapproved}}
+    Your course has been approved! To access your new course.
+    <a href={{courseurl}}>view</a>
+{{/moodle_courserequestapproved}}
+
+{{#moodle_courserequestrejected}}
+    Sorry, but the course you requested has been rejected.
+{{/moodle_courserequestrejected}}
+
+{{#moodle_newlogin}}
+    Hi {{usertoname}}, Your {{sitename}} account was just signed in to from a new device. If this was you, then you don't need to do anything. If you don't recognise this activity, please change your password.
+{{/moodle_newlogin}}
+
+{{#mod_quiz_confirmation}}
+    Hi {{usertoname}}, Thank you for submitting your answers to '{{contexturlname}}' in course '{{coursename}}'
+    <a href={{contexturl}}>{{contexturlname}}</a>
+{{/mod_quiz_confirmation}}
+
+{{#mod_reengagement_mod_reengagement}}
+    This is a reminder notification from course '{{coursename}}'.
+    {{subject}}
+{{/mod_reengagement_mod_reengagement}}
+
+{{#mod_forum_posts}}
+    {{userfromname}} posted in {{courseshortname}}: {{forumname}}: {{contexturlname}}
+    <a href={{contexturl}}>{{contexturlname}}</a>
+{{/mod_forum_posts}}
+
+{{#moodle_coursecontentupdated}}
+    {{modname}} {{contexturlname}}  has been changed or new in the course {{coursename}}
+    <a href={{contexturl}}>{{contexturlname}}</a>
+{{/moodle_coursecontentupdated}}
+
+{{#mod_lesson_graded_essay}}
+    You have received {{earned}} out of {{outof}} for this essay question. Your grade for the {{lesson}} lesson has been changed to {{newgrade}}%.</p>
+{{/mod_lesson_graded_essay}}
