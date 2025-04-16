@@ -12,6 +12,10 @@
         "name": "Online University"
     },
     {
+        "id": "training",
+        "name": "Personal Training"
+    },
+    {
         "id": "classic",
         "name": "Other"
     }

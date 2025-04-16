@@ -4,7 +4,7 @@
         header("Location: https://demo.tryremui.edwiser.org/maintenance.html");
     }
 
-    // Include the JSONFileManager class  
+    // Include the JSONFileManager class
     require("JsonFileManager.php");
 ?>
 <!doctype html>
@@ -18,6 +18,17 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./styles.css">
+    <!-- Hotjar Tracking Code for Site 5075383 (name missing) -->
+    <script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:5075383,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+    </script>
   </head>
   <body>
     <div class="bg-top-left"></div>
@@ -26,7 +37,7 @@
       <div class="bg-top-left d-none"></div>
       <div class="bg-bottom-right d-none"></div>
       <div id="layout-wrapper" class="container wrapper">
-      
+
         <div class="logo-container">
           <img class="logo"src="./images/Logo.png" alt="Edwiser RemUI Brand Logo"/>
         </div>
@@ -50,14 +61,14 @@
                   // NOTE :::::::::::::::
                   // If new category is added on demo landing page, make sure to add new tag on edwiser.org FluentCRM.
                   // Also add the ID of newly created instance into the $demos array.
-                  
+
                   // Get the JSON data
                   $json_data = $json_file_manager->read();
                   // Loop through each category and create a layout card
                   foreach ($json_data as $category) {
                       $category_id = $category->id;
                       $category_name = $category->name;
-                      
+
                       echo '<label class="d-flex layout-box" for="'. $category_id .'" >';
                       echo '  <input type="radio" id="'. $category_id .'" class="layout-radio-btn" name="layoutName" value="'. $category_id .'" />';
                       echo '  <span class="layout-name">'. $category_name .'</span>';
@@ -66,7 +77,7 @@
                 ?>
               </div>
             </div>
-            
+
             <div class="email-form-wrapper disabled">
 
               <h1 class="form-heading m-0 p-0">Enter your email to create a sandbox</h1>
@@ -83,11 +94,11 @@
                 <button type="submit" class="form-control btn btn-primary disabled" title="Create Sandbox" disabled>
                   Create sandbox
                 </button>
-                <div class="tooltip" id="emailTooltip">Please enter valid email</div>
+                <div class="tooltip" id="emailTooltip">Oops! Email didn’t go through. Check it?</div>
               </div>
 
             </div>
-            
+
           </form>
         </div>
       </div>
@@ -113,13 +124,13 @@
     const debouncedVerifyEmail = debounce((email) => {
       submitBtn.classList.add('disabled');
       submitButton.disabled = true;
-      
+
       if (isValidEmail(email)) {
         verifyEmail(email);
       }
     }, 500);
 
-    
+
     function validateEmail() {
       const email = emailInput.value.trim();
       document.querySelector('.email-form').classList.remove('invalid');
@@ -129,7 +140,7 @@
     function add_email_warning() {
       document.querySelector('.email-form').classList.add('invalid');
     }
-    
+
     // Validating the syntax.
     function isValidEmail(email) {
       const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -142,9 +153,9 @@
         method: "GET",
         redirect: "follow"
       };
-      
+
       var url = "https://api.bouncify.io/v1/verify";
-      const apikey = "kaoak7pq648xwnehewh8s2lnzdg1j6fi";
+      const apikey = "yn35ir8x8jhnon5jt4eebjej4olfnwip";
 
       url = url + "?apikey=" + apikey + "&email=" + email;
 
@@ -155,7 +166,7 @@
           submitButton.disabled = false;
           return;
         }
-        
+
         return response.text();
       })
       .then((result) => {

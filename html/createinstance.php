@@ -28,6 +28,11 @@ if (isset($_POST) && isset($_POST['tagid'])) {
 
 if (5 <= round(disk_free_space("/") / 1024 / 1024 / 1024)) {
   $demoinstance = $im->retrieve_fresh_instance($email, $demotype, $tagid);
+  // Set cookie with email that expires in 30 days
+  // Extract domain from instance URL
+  $domain = $demoinstance['instanceurl'];
+  $domain = substr($domain, 0, strpos($domain, '/'));
+  setcookie('user_email', $email, time() + (86400 * 30), '/', $domain, true, true);
 } else {
   $demoinstance = [
     'invalid' => true,
@@ -73,7 +78,7 @@ if (5 <= round(disk_free_space("/") / 1024 / 1024 / 1024)) {
           </h1>
           <?php if (!isset($demoinstance['invalid'])) { ?>
             <p class="sub-text italic d-flex align-items-center">
-              <span>If not redirected in</span> <img class="hourglass" src="./images/hourglass.gif" alt="Timer Image" width="30"><span id="redirecttimer">10 seconds</span>,&nbsp;<a href="https://<?php echo $demoinstance['instanceurl']?>" title="Demo Instance link">Click here</a>
+              <span>If not redirected in</span> <img class="hourglass" src="./images/hourglass.gif" alt="Timer Image" width="30"><span id="redirecttimer">30 seconds</span>,&nbsp;<a href="https://<?php echo $demoinstance['instanceurl']?>" title="Demo Instance link">Click here</a>
             </p>
           <?php }?>
         </div>
@@ -88,7 +93,7 @@ if (5 <= round(disk_free_space("/") / 1024 / 1024 / 1024)) {
     <script>
         document.addEventListener("DOMContentLoaded", function(event) {
             var myVar = setInterval(myTimer, 1000);
-            var timelimit = 10;
+            var timelimit = 30;
             function myTimer() {
                 var element = document.getElementById("redirecttimer");
                 // var timelimit = element.innerHTML;

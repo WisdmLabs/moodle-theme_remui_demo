@@ -63,11 +63,12 @@ class InstanceManager {
      * @return void
      */
     function existing($ip) {
+	//    return false;
         if ($ip == 'CLI') {
             return false;
         }
         foreach ($this->_allInstances['inuse'] as $instance) {
-		
+
             if ($ip == "223.233.85.136") {
                 return false;
             }
@@ -99,7 +100,8 @@ class InstanceManager {
             "classic"=> 21,
             "school"=> 22,
             "university"=> 24,
-            "corporate" => 23
+            "corporate" => 23,
+            "training" => 30,
         ];
 
         // Generate data for requesting user.
@@ -107,15 +109,26 @@ class InstanceManager {
         if ($existingdata = $this->existing($ip)) {
             // Record Demo type $demotype to newly received $existingdata['instanceurl']
             // making a curl request to sent demotype to theme
-            $token = 'a277139e7f0926487f693e8171a348ee';
-            $functionName = 'theme_remui_set_demo_layouttype';
+            // $token = 'a277139e7f0926487f693e8171a348ee';
+            //$functionName = 'theme_remui_set_demo_layouttype';
+
+            $token = 'c7fca00e9a91ee570abc333677815456';
+            $functionName = 'theme_remui_external_data_receiver';
             // Data to be sent in the POST request
-            $postData = [
+            $data = [
                 'blocklayout' => $demotype,
+                'email' => $email
+            ];
+
+            $requestParams = [
+                'wstoken' => $token,
+                'wsfunction' => $functionName,
+                'moodlewsrestformat' => 'json',
+                'externaldata' => json_encode($data)
             ];
 
             // URL of the web service
-            $url ='https://'.$existingdata['instanceurl'].'/webservice/rest/server.php?wstoken='.$token.'&wsfunction='.$functionName;
+            $url ='https://'.$existingdata['instanceurl'].'/webservice/rest/server.php';
 
             // Initialize cURL session
             $ch = curl_init();
@@ -123,7 +136,7 @@ class InstanceManager {
             // Set the URL and other necessary options
             curl_setopt($ch, CURLOPT_URL, $url);
             curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postData));
+            curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($requestParams));
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_HTTPHEADER, [
                 'Content-Type: application/x-www-form-urlencoded',
@@ -150,7 +163,7 @@ class InstanceManager {
             $existingdata['lists'] = array(10); // On FluentCRM "Edwiser RemUI Leads" list id is 10.
             $existingdata['tags'] = array(($tagid == -1)? $demos[$demotype] : $tagid);
             $this->_allInstances['inuse'][] = $existingdata;
-	        
+
             $this->erd_record_users($existingdata);
 
             // Delete 0th Index from existing instances.
@@ -158,18 +171,31 @@ class InstanceManager {
 
             $demoname = $this->generate_demo_name('tryremui'.$timecreation);
             $demourl = "instances.tryremui.edwiser.org/".$demoname;
-	
+
             // Record Demo type $demotype to newly received $existingdata['instanceurl']
             // making a curl request to sent demotype to theme
-            $token = 'a277139e7f0926487f693e8171a348ee';
-            $functionName = 'theme_remui_set_demo_layouttype';
+            // $token = 'a277139e7f0926487f693e8171a348ee';
+            // $functionName = 'theme_remui_set_demo_layouttype';
+
+
+            $token = 'c7fca00e9a91ee570abc333677815456';
+            $functionName = 'theme_remui_external_data_receiver';
             // Data to be sent in the POST request
-            $postData = [
+            $data = [
                 'blocklayout' => $demotype,
+                'email' => $email
             ];
 
+            $requestParams = [
+                'wstoken' => $token,
+                'wsfunction' => $functionName,
+                'moodlewsrestformat' => 'json',
+                'externaldata' => json_encode($data)
+            ];
+
+
             // URL of the web service
-            $url ='https://'.$existingdata['instanceurl'].'/webservice/rest/server.php?wstoken='.$token.'&wsfunction='.$functionName;
+            $url ='https://'.$existingdata['instanceurl'].'/webservice/rest/server.php';
 
             // Initialize cURL session
             $ch = curl_init();
@@ -177,7 +203,7 @@ class InstanceManager {
             // Set the URL and other necessary options
             curl_setopt($ch, CURLOPT_URL, $url);
             curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postData));
+            curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($requestParams));
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_HTTPHEADER, [
                 'Content-Type: application/x-www-form-urlencoded',
@@ -212,15 +238,15 @@ class InstanceManager {
 
             $this->write_instance_to_json($this->jsonfile, $this->_allInstances);
 
-            // $this->create_new_instance($newdata['instancename']);
+            //$this->create_new_instance($newdata['instancename']);
 
         }
-        
+
         return $existingdata;
     }
 
     function erd_record_layout($demourl, $demotype) {
-	
+
 	    // Web service token.
 	    $token = 'a277139e7f0926487f693e8171a348ee';
 
@@ -238,7 +264,7 @@ class InstanceManager {
         $result = $this->sendCurlRequest($url, http_build_query($data), 'application/x-www-form-urlencoded');
 
     }
-    
+
     // Send Curl requests function.
     function sendCurlRequest($url, $payload, $contenttype = 'application/json')
     {
@@ -271,7 +297,7 @@ class InstanceManager {
 
     function erd_record_users($existingData)
     {
-        
+
         $payload = json_encode($existingData);
 
         $fluentCrmUrl = "https://edwiser.org/?fluentcrm=1&route=contact&hash=c099cc8b-0e8f-401a-b86f-0003379138b0";
@@ -281,7 +307,7 @@ class InstanceManager {
         // $remUiDemoDetailsUrl = "https://edwiser.org/wp-json/demo/v1/remui_demo_details";
         // $result = $this->sendCurlRequest($remUiDemoDetailsUrl, $payload);
     }
-    
+
     /**
      * Generate New Name for demo.
      * Used sha256 to generate unique hashcode each time for new demo name.
@@ -328,7 +354,7 @@ class InstanceManager {
      */
     function destroy_instances_by_time() {
         $currTime = time();
-        
+
         foreach ($this->_allInstances['inuse'] as $key => $instance) {
             if ($currTime >= $instance['timedeletion']) {
                 // $this->delete_instance($instance['instancename']);

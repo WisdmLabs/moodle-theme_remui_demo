@@ -38,7 +38,7 @@ submitBtn.addEventListener('click', function(event) {
     headers: myHeaders,
     redirect: "follow"
     };
-    
+
     // Get the email value from the form
     const emailInput = layoutWrapper.querySelector('input[name="email"]');
 
@@ -60,9 +60,9 @@ submitBtn.addEventListener('click', function(event) {
         if (result.subscriber.tags.length > 0) {
         // Loop through each tag
         result.subscriber.tags.forEach((tag) => {
-            if (tag.id == 21 || tag.id == 22 || tag.id == 23 || tag.id == 24 ) {
+            if (tag.id == 21 || tag.id == 22 || tag.id == 23 || tag.id == 24 || tag.id == 30) {
             tagidInput.value = tag.id;
-            
+
             // Submit the form
             form.submit();
             }
@@ -74,7 +74,7 @@ submitBtn.addEventListener('click', function(event) {
     })
     .catch((error) => {
         console.error("we are in error", error);
-        
+
         // Submit the form
         form.submit();
     });
