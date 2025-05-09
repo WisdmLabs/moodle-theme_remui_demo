@@ -68,8 +68,8 @@ define([
             response = JSON.parse(response);
             // response = Object.values(response);
             response.tasks = Object.values(response.tasks);
-            
-            
+
+
             if (response.tasks.length == 0) {
                 response.no_tasks_image = M.util.image_url('empty_task_list', 'local_edwiserpagebuilder');
                 $(root + " " + SELECTORS.SHEDULE_TASK_BTN).addClass("d-none");

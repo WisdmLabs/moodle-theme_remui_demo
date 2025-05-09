@@ -27,10 +27,16 @@
             <div class="card-footer d-flex justify-content-between align-items-center">
                 <div class="h-semibold-6">
                     {{#addableblock}}
-                    <a href="{{url}}&amp;bui_addblock={{name}}{{#section}}&amp;section={{section}}{{/section}}" class="text-decoration-none footer-add-link"><span class="edw-icon edw-icon-Add-block d-none"></span><span>{{title}}</span></a>
+                    <a href="{{url}}&amp;bui_addblock={{name}}{{#section}}&amp;section={{section}}{{/section}}" class="text-decoration-none footer-add-link">
+                        <span class="edw-icon {{#importicon}}edw-icon-Download{{/importicon}} {{^importicon}}edw-icon-Add-block{{/importicon}} d-none"></span>
+                        <span>{{title}}</span>
+                    </a>
                     {{/addableblock}}
                     {{^addableblock}}
-                    <a href="#" class="text-decoration-none footer-add-link"><span class="edw-icon edw-icon-Add-block d-none"></span><span>{{title}}</span></a>
+                    <a href="#" class="text-decoration-none footer-add-link">
+                        <span class="edw-icon {{#importicon}}edw-icon-Download{{/importicon}} {{^importicon}}edw-icon-Add-block{{/importicon}} d-none"></span>
+                        <span>{{title}}</span>
+                    </a>
                     {{/addableblock}}
                 </div>
                 <div class="action-icon-wrapper">

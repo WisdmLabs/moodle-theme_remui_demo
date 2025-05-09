@@ -81,4 +81,5 @@ class epb_api extends external_api {
     use remuiblck_action;
     use filter_plugin_data;
     use get_courselist;
+    use import_export_blocks;
 }

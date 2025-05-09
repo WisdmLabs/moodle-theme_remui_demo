@@ -360,3 +360,17 @@ $string['formpageselector'] = "Seitenauswahl";
 $string['formpagename'] = "Seitenname";
 $string['formpagewidth'] = "Seitenbreite";
 $string['featuredcoursesblockdesc'] = "Der Featured-Kurs-Block ist dazu gedacht, Ihre Top-Inhalte zu präsentieren und Lernende anzuziehen.";
+
+$string['hiddencourse'] = 'Versteckter Kurs';
+$string['graderreport'] = 'Notenübersicht';
+$string['enroluser'] = 'Benutzer einschreiben';
+$string['activityeport'] = 'Aktivitätsbericht';
+$string['editcourse'] = 'Kurs bearbeiten';
+$string['skill0'] = 'Nicht markiert';
+$string['skill1'] = 'Anfänger';
+$string['skill2'] = 'Fortgeschritten';
+$string['skill3'] = 'Experte';
+$string['coursecardlessonstext'] = 'Lektionen';
+$string['coursestarted'] = "Gestartet:";
+$string['courseupdated'] = "Aktualisiert:";
+$string['coursecardsenrolledetxt'] = 'Eingeschrieben';

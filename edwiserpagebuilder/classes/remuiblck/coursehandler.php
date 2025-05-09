@@ -38,7 +38,9 @@ use context_system;
 require_once($CFG->dirroot.'/course/renderer.php');
 require_once($CFG->libdir . '/grade/constants.php');
 require_once($CFG->dirroot. '/grade/querylib.php'); // required by get_analytics_overview
-require_once($CFG->libdir . '/outputrenderers.php');
+if ($CFG->branch < '405') {
+    require_once($CFG->libdir . '/outputrenderers.php');
+}
 require_once($CFG->libdir. '/grade/grade_grade.php');
 require_once($CFG->libdir. '/grade/grade_item.php');
 

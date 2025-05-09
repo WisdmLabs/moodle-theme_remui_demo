@@ -30,7 +30,7 @@ define('COURSE_MANAGE_PIE_COLORS', array(
 ));
 global $CFG;
 
-if($CFG->branch < '404'){
+if ($CFG->branch < '404') {
 
     function local_edwiserpagebuilder_before_standard_html_head() {
         global $PAGE;
@@ -58,6 +58,101 @@ if($CFG->branch < '404'){
         }
         return $output;
     }
+}
+
+
+function local_edwiserpagebuilder_extend_navigation(global_navigation $nav) {
+
+    global $PAGE, $OUTPUT;
+
+    if ($PAGE->theme->name != 'remui'  && (isset($PAGE->theme->addblockposition) &&
+        $PAGE->user_is_editing() &&
+        $PAGE->user_can_edit_blocks() &&
+        $PAGE->pagelayout !== 'mycourses'
+    )) {
+        $regionsid = [
+            "content" => '#block-region-content',
+            "side-pre" => '#block-region-side-pre',
+            "side-top" => '#region-top-blocks',
+            "side-bottom" => '#region-bottom-blocks',
+            "full-width-top" => '#region-fullwidthtop-blocks',
+            "full-bottom" => '#region-fullwidthbottom-blocks',
+            "side-post" => '#region-sidepost-blocks',
+        ];
+        $sortingarray = ['full-width-top', 'side-top', 'content', 'side-bottom',  'full-bottom', 'side-pre'];
+
+        $addblockmodalcontext = [
+            'editing' => $PAGE->user_is_editing(),
+            'regiondata' => [],
+        ];
+        $regionsarray = $PAGE->blocks->get_regions();
+
+        usort($regionsarray, function ($a, $b) use ($sortingarray) {
+            $indexa = array_search($a, $sortingarray);
+            $indexb = array_search($b, $sortingarray);
+            return $indexa - $indexb;
+        });
+
+        foreach ($regionsarray as $region) {
+            // if (empty($OUTPUT->addblockbutton($region))) {
+            //     continue;
+            // }
+            $singleregiondata = array(
+                'region' => $region,
+                'regionname' => get_string($region, 'local_edwiserpagebuilder'),
+                'regionid' => $regionsid[$region],
+                // 'regionaddblockbutton' => $OUTPUT->addblockbutton($region),
+                'regionaddblockbutton' => get_addblock_btn_for_region($region),
+                'pageurl' => $PAGE->url,
+            );
+            $addblockmodalcontext['regiondata'][] = $singleregiondata;
+        }
+
+        $PAGE->requires->data_for_js('blocksectiondata', $addblockmodalcontext['regiondata']);
+        $PAGE->requires->data_for_js('addblockmodalcontext', json_encode($addblockmodalcontext));
+        $PAGE->requires->data_for_js('currentpagesubtype', $PAGE->subpage);
+
+        // Add the required JS modules
+        $PAGE->requires->js_call_amd('local_edwiserpagebuilder/addblockmodal', 'init', [
+            $PAGE->pagetype,
+            $PAGE->pagelayout,
+            null,
+            $PAGE->subpage,
+            (is_siteadmin() && is_pagebuilder_req_plugin_available('block_edwiseradvancedblock')),
+            is_pagebuilder_req_plugin_available('filter_edwiserpbf'),
+            filter_get_active_state('edwiserpbf') != 1,
+        ]);
+
+        $PAGE->requires->js_call_amd('local_edwiserpagebuilder/addblockaddedlistners', 'init');
+        $PAGE->requires->js_call_amd('local_edwiserpagebuilder/custombutton', 'init');
+
+    }
+}
+
+function get_addblock_btn_for_region($region) {
+    global $OUTPUT, $PAGE;
+
+    $params = ['bui_addblock' => '', 'sesskey' => sesskey()];
+    if (!empty($region)) {
+        $params['bui_blockregion'] = $region;
+    }
+    $url = new moodle_url($PAGE->url, $params);
+    $addblockbutton = $OUTPUT->render_from_template(
+        'core/add_block_button',
+        context: [
+            'link' => $url->out(false),
+            'escapedlink' => "?{$url->get_query_string(false)}",
+            'pagehash' => $PAGE->get_edited_page_hash(),
+            'blockregion' => $region,
+            // The following parameters are not used since Moodle 4.2 but are
+            // still passed for backward-compatibility.
+            'pageType' => $PAGE->pagetype,
+            'pageLayout' => $PAGE->pagelayout,
+            'subPage' => $PAGE->subpage,
+        ]
+    );
+
+    return $addblockbutton;
 }
 
 
@@ -124,7 +219,11 @@ function local_edwiserpagebuilder_customizer_button($instanceid) {
 
     $url = $CFG->wwwroot . "/local/edwiserpagebuilder/editor.php?bui_edit=" . $instanceid;
     $url .= "&returl=". urlencode($PAGE->url);
-    $customizerbutton = "<div class='d-flex justify-content-end live-customizer-btn ' style='margin-top:24px;'>";
+    $customizerbutton = "<div class='d-flex justify-content-end live-customizer-btn ''>";
+    // New button
+    $customizerbutton .= "<a class='btn btn-secondary mr-2 block_exporter_btn' data-blockid='".$instanceid."' href='#'";
+    $customizerbutton .= "role='button'>";
+    $customizerbutton .= "<i class='fa fa-upload'></i> Export block</a>";
     $customizerbutton .= "<a class='btn btn-primary' href='".$url."'";
     $customizerbutton .= "role='button'>";
     $customizerbutton .= "<i class='fa fa-pencil'></i> ".get_string("livecustomizer", "local_edwiserpagebuilder")."</a>";
@@ -299,10 +398,10 @@ function process_css($styles, $styleprefix) {
 function get_homepaegcourses_categories($categories) {
     global $DB;
     if (empty($categories)) {
-        return \theme_remui_coursehandler::get_allowed_categories('all');
+        return \local_edwiserpagebuilder\coursehandler::get_allowed_categories('all');
     }
     foreach ($categories as $category) {
-        $cats = \theme_remui_coursehandler::get_allowed_categories($category);
+        $cats = \local_edwiserpagebuilder\coursehandler::get_allowed_categories($category);
         foreach ($cats as $cat) {
             if (!in_array($cat, $categories)) {
                 array_push($categories, $cat);
@@ -328,6 +427,8 @@ function get_category_details($categories, $start = 0, $limit = 20) {
         $total = count($categories);
 
         $categories = array_slice($categories, $start, $limit);
+
+        $coursehandler = new \local_edwiserpagebuilder\coursehandler();
 
     foreach ($categories as $key => $category) {
         $rescategories = array();
@@ -365,7 +466,8 @@ function get_category_details($categories, $start = 0, $limit = 20) {
         $catsummary = strlen($catsummary) > 150 ? mb_substr($catsummary, 0, 150) . "..." : $catsummary;
         $rescategories['categorydesc'] = $catsummary;
         $rescategories['categoryurl'] = $CFG->wwwroot. '/course/index.php?categoryid=' . $category->id;
-        $count = \theme_remui\utility::get_courses(true, null, $category->id, 0, 0, null, null);
+        // $count = \theme_remui\utility::get_courses(true, null, $category->id, 0, 0, null, null);
+        $count = $coursehandler->get_courses(true, null, $category->id, 0, 0, null, null);
         $rescategories['coursecount'] = $count;
 
         if ($category->idnumber != '') {
@@ -634,11 +736,12 @@ function check_plugin_version_series($versionstring) {
     }
 }
 
-    /**
-     * Get section config by section instance id
-     * @param  int    $instanceid Instance id of section
-     * @return object             Section record
-     */
+/**
+ * Get section config by section instance id
+ * @param  int    $instanceid Instance id of section
+ * @return object             Section record
+*/
+
 function get_config_by_instanceid($instanceid) {
     global $DB;
     $record = $DB->get_record('remuihomepage_sections', array('id' => $instanceid));
@@ -655,7 +758,7 @@ function get_courses_from_category($categories, $date, $start = 0) {
     global $CFG;
 
     // Retrieve list of courses in category.
-    $coursehandler = new \theme_remui_coursehandler();
+    $coursehandler = new \local_edwiserpagebuilder\coursehandler();
     $where = 'WHERE c.id <> :siteid ';
     $params = array('siteid' => SITEID);
     $join = '';
@@ -663,7 +766,7 @@ function get_courses_from_category($categories, $date, $start = 0) {
     $cattable = 'catids' . $sesskey;
     if (is_numeric($categories) || is_array($categories)) {
         if (is_numeric($categories)) {
-            $categories = \theme_remui_coursehandler::get_allowed_categories($categories);
+            $categories = \local_edwiserpagebuilder\coursehandler::get_allowed_categories($categories);
         } else {
             $categories = get_homepaegcourses_categories($categories);
         }
@@ -719,7 +822,8 @@ function get_courses_from_category($categories, $date, $start = 0) {
     $obj->category = 0;
     $obj->limiteddata = true;
 
-    $result = \theme_remui\utility::get_course_cards_content($obj, $date);
+    // $result = \theme_remui\utility::get_course_cards_content($obj, $date);
+    $result = $coursehandler->get_course_cards_content($obj, $date);
 
     return array($total, $result['courses']);
 }

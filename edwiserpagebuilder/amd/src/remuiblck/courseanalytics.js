@@ -362,7 +362,7 @@ define([
      * @param  {String} uniqid uniqid for chart
      */
     var init = function(root, uniqid) {
-        fetchLanguages()
+        fetchLanguages();
         $(document).ready(function() {
             initEvents(root, uniqid);
             if ($(root).find('#analysischart').length) {

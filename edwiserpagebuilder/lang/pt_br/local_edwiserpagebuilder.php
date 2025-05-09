@@ -127,7 +127,7 @@
  $string['pagename'] = "Nome da página";
  $string['pagetable_date'] = "Data de modificação";
  $string['pagetable_action'] = "Operações";
- $string['titlepagetableaction'] = "Operações"; 
+ $string['titlepagetableaction'] = "Operações";
  $string['no_data_text'] = "Sem dados";
  $string['draft_text'] = "Rascunho";
  $string['hidden_text'] = "Página oculta";
@@ -363,3 +363,17 @@ $string['formpageselector'] = "Seletor de página";
 $string['formpagename'] = "Nome da página";
 $string['formpagewidth'] = "Largura da página";
 $string['featuredcoursesblockdesc'] = "O bloco de cursos em destaque foi projetado para mostrar seu melhor conteúdo e atrair alunos.";
+
+$string['hiddencourse'] = 'Curso oculto';
+$string['graderreport'] = 'Relatório de avaliador';
+$string['enroluser'] = 'Matricular usuários';
+$string['activityeport'] = 'Relatório de atividade';
+$string['editcourse'] = 'Editar curso';
+$string['skill0'] = 'Sem etiqueta';
+$string['skill1'] = 'Iniciante';
+$string['skill2'] = 'Intermediário';
+$string['skill3'] = 'Avançado';
+$string['coursecardlessonstext'] = 'lições';
+$string['coursestarted'] = "Iniciado:";
+$string['courseupdated'] = "Atualizado:";
+$string['coursecardsenrolledetxt'] = 'Matriculado';

@@ -6,7 +6,7 @@
 define('local_edwiserpagebuilder/edwisercnc', [
     'local_edwiserpagebuilder/jquery',
     'core/ajax',
-    'theme_remui/slick'
+    'local_edwiserpagebuilder/slick'
 ], function ($, ajax) {
     // function get_from_data(formid) {
     //     return ajax.call([{

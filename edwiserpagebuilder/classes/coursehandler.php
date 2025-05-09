@@ -17,7 +17,7 @@
 /**
  * Course Related Queries and functionalities.
  *
- * @package   theme_remui
+ * @package   local_edwiserpagebuilder
  * @copyright (c) 2023 WisdmLabs (https://wisdmlabs.com/) <support@wisdmlabs.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -138,9 +138,9 @@ class coursehandler {
     private function get_cache() {
         global $USER;
         if (!empty($USER->id) || isguestuser($USER->id)) {
-            return \cache::make('theme_remui', 'courses');
+            return \cache::make('local_edwiserpagebuilder', 'courses');
         }
-        return \cache::make('theme_remui', 'guestcourses');
+        return \cache::make('local_edwiserpagebuilder', 'guestcourses');
     }
     /**
      * Create temporary table to join ids with table
@@ -153,8 +153,14 @@ class coursehandler {
         $dbman = $DB->get_manager();
 
         $table = new \xmldb_table($tablename);
-        $table->add_field('id', XMLDB_TYPE_INTEGER, 10);
+        // $table->add_field('id', XMLDB_TYPE_INTEGER, 10);
+        // $table->add_field('tempid', XMLDB_TYPE_INTEGER, 10);
+
+
+        $table->add_field('id', XMLDB_TYPE_INTEGER, 10,XMLDB_UNSIGNED, XMLDB_NOTNULL, XMLDB_SEQUENCE);
         $table->add_field('tempid', XMLDB_TYPE_INTEGER, 10);
+        $table->add_key('primary', XMLDB_KEY_PRIMARY, ['id']);
+
 
         if ($dbman->table_exists($tablename)) {
             $dbman->drop_table($table);
@@ -457,17 +463,17 @@ class coursehandler {
             if (in_array($course->id, $beginnerecourseids)) {
                 $slilllevel = [
                     'badge' => 'badge-light',
-                    'labeltag' => get_string('skill1', 'theme_remui'),
+                    'labeltag' => get_string('skill1', 'local_edwiserpagebuilder'),
                 ];
             } else if (in_array($course->id, $intermediatecourseids)) {
                 $slilllevel = [
                     'badge' => 'badge-info',
-                    'labeltag' => get_string('skill2', 'theme_remui'),
+                    'labeltag' => get_string('skill2', 'local_edwiserpagebuilder'),
                 ];
             } else if (in_array($course->id, $advancedcourseids) ) {
                 $slilllevel = [
                     'badge' => 'badge-warning',
-                    'labeltag' => get_string('skill3', 'theme_remui'),
+                    'labeltag' => get_string('skill3', 'local_edwiserpagebuilder'),
                 ];
             }
 
@@ -490,15 +496,16 @@ class coursehandler {
 
             // This is to handle the version change.
             // User enrollment link has changed for moodle version 3.4.
-            $version33 = "2017092100";
-            $curversion = $DB->get_record_sql(
-            'SELECT * FROM {config_plugins} WHERE plugin = ? AND name = ?',
-            array('theme_remui', 'version')
-            );
-            $userenrollink = "/enrol/users.php?id=";
-            if ($curversion > $version33) {
+            // $version33 = "2017092100";
+            // $curversion = $DB->get_record_sql(
+            // 'SELECT * FROM {config_plugins} WHERE plugin = ? AND name = ?',
+            // array('theme_remui', 'version')
+            // );
+            // $userenrollink = "/enrol/users.php?id=";
+            // if ($curversion > $version33) {
+            //     $userenrollink = "/user/index.php?id=";
+            // }
             $userenrollink = "/user/index.php?id=";
-            }
             $coursesarray[$count]["enrollusers"] = $CFG->wwwroot.$userenrollink.$course->id."&version=".$course->id;
             $coursesarray[$count]["editcourse"] = $CFG->wwwroot."/course/edit.php?id=".$course->id;
             $coursesarray[$count]["grader"] = $CFG->wwwroot."/grade/report/grader/index.php?id=".$course->id;
@@ -518,41 +525,43 @@ class coursehandler {
             }
             // Course enrolled users count
             $coursesarray[$count]["enrolleduserscount"] = false;
-            if(get_config('theme_remui', 'enrolleduserscountvisibility')){
+            // if(get_config('theme_remui', 'enrolleduserscountvisibility')){
+            if(true){
                 $coursesarray[$count]["enrolleduserscount"] = $this->formatcoursecounts(count($this->get_enrolled_students($course, $context)));
             }
 
-            $coursedatevisibility = get_config('theme_remui', 'coursedatevisibility');
+            // $coursedatevisibility = get_config('theme_remui', 'coursedatevisibility');
+            $coursedatevisibility = "showstartdate";
             $coursesarray[$count]["showselecteddatesetting"] = false;
             $coursesarray[$count]["showselecteddatesettingname"] =false;
             $coursesarray[$count]["showselecteddatesettingdate"] =false;
             if($coursedatevisibility == 'hidedate'){
                 $coursesarray[$count]["showselecteddatesetting"]  = false;
             } else if($coursedatevisibility == 'showstartdate'){
-                $coursesarray[$count]["showselecteddatesetting"] = get_string('coursestarted', 'theme_remui').": ".date('M Y', $course->startdate);
-                $coursesarray[$count]["showselecteddatesettingname"] = get_string('coursestarted', 'theme_remui');
+                $coursesarray[$count]["showselecteddatesetting"] = get_string('coursestarted', 'local_edwiserpagebuilder').": ".date('M Y', $course->startdate);
+                $coursesarray[$count]["showselecteddatesettingname"] = get_string('coursestarted', 'local_edwiserpagebuilder');
                 $coursesarray[$count]["showselecteddatesettingdate"] = date('d M Y', $course->startdate);
             } else if($coursedatevisibility == 'showupdatedate'){
-                $coursesarray[$count]["showselecteddatesetting"] = get_string('courseupdated', 'theme_remui').": ".date('M Y', $course->timemodified);
-                $coursesarray[$count]["showselecteddatesettingname"] = get_string('courseupdated', 'theme_remui');
+                $coursesarray[$count]["showselecteddatesetting"] = get_string('courseupdated', 'local_edwiserpagebuilder').": ".date('M Y', $course->timemodified);
+                $coursesarray[$count]["showselecteddatesettingname"] = get_string('courseupdated', 'local_edwiserpagebuilder');
                 $coursesarray[$count]["showselecteddatesettingdate"] = date('d M Y', $course->timemodified);
             }else if($coursedatevisibility == 'showstartwhenend' && $course->enddate){
-                $coursesarray[$count]["showselecteddatesetting"] = get_string('coursestarted', 'theme_remui').": ".date('M Y', $course->startdate);
-                $coursesarray[$count]["showselecteddatesettingname"] = get_string('coursestarted', 'theme_remui');
+                $coursesarray[$count]["showselecteddatesetting"] = get_string('coursestarted', 'local_edwiserpagebuilder').": ".date('M Y', $course->startdate);
+                $coursesarray[$count]["showselecteddatesettingname"] = get_string('coursestarted', 'local_edwiserpagebuilder');
                 $coursesarray[$count]["showselecteddatesettingdate"] = date('d M Y', $course->startdate);
             }else{
                 $coursesarray[$count]["showselecteddatesetting"] = false;
             }
 
-            $coursesarray[$count]["enrolledusertitletext"] =  get_string('coursecardsenrolledetxt', 'theme_remui' );
-            $coursesarray[$count]["lessonstitletext"]  = get_string('coursecardlessonstext','theme_remui'  );
+            $coursesarray[$count]["enrolledusertitletext"] =  get_string('coursecardsenrolledetxt', 'local_edwiserpagebuilder' );
+            $coursesarray[$count]["lessonstitletext"]  = get_string('coursecardlessonstext', 'local_edwiserpagebuilder'  );
 
-            if(get_config('theme_remui', 'showenrolledtextinput')){
-                $coursesarray[$count]["enrolledusertitletext"] = format_text(get_config('theme_remui', 'showenrolledtextinput'),FORMAT_HTML);
-            }
-            if(get_config('theme_remui', 'showlessontextinput')){
-                $coursesarray[$count]["lessonstitletext"] = format_text(get_config('theme_remui', 'showlessontextinput'),FORMAT_HTML);
-            }
+            // if(get_config('theme_remui', 'showenrolledtextinput')){
+            //     $coursesarray[$count]["enrolledusertitletext"] = format_text(get_config('theme_remui', 'showenrolledtextinput'),FORMAT_HTML);
+            // }
+            // if(get_config('theme_remui', 'showlessontextinput')){
+            //     $coursesarray[$count]["lessonstitletext"] = format_text(get_config('theme_remui', 'showlessontextinput'),FORMAT_HTML);
+            // }
 
             // Course enrollment icons.
             if ($icons = enrol_get_course_info_icons($course)) {
@@ -597,16 +606,17 @@ class coursehandler {
                    $courselessoncount++;
                }
            }
-           $coursesarray[$count]['lessoncount'] = false;
-           $coursesarray[$count]['multilessonpresent']  = false;
-           $coursesarray[$count]['singleessonpresent']  = false;
-           if(get_config('theme_remui', 'lessonsvisiblityoncoursecard')){
-               $coursesarray[$count]['lessoncount'] = $courselessoncount;
-               if($coursesarray[$count]['lessoncount'] > 1){
-                   $coursesarray[$count]['multilessonpresent']  = true;
-               }else{
-                $coursesarray[$count]['singleessonpresent']  = true;
-               }
+            $coursesarray[$count]['lessoncount'] = false;
+            $coursesarray[$count]['multilessonpresent']  = false;
+            $coursesarray[$count]['singleessonpresent']  = false;
+            // if(get_config('theme_remui', 'lessonsvisiblityoncoursecard')){
+            if(true){
+                $coursesarray[$count]['lessoncount'] = $courselessoncount;
+                if ($coursesarray[$count]['lessoncount'] > 1) {
+                    $coursesarray[$count]['multilessonpresent']  = true;
+                } else {
+                    $coursesarray[$count]['singleessonpresent']  = true;
+                }
            }
            foreach ($instructors as $key => $instructor) {
                $coursesarray[$count]["instructors"][] = array(
@@ -650,7 +660,7 @@ class coursehandler {
      * Get allowed categories from category id
      *
      * @param  integer $categoryid Category id
-     * @return array               Category ids
+     * @return array               Category id
      */
     public static function get_allowed_categories($categoryid) {
         global $DB;
@@ -838,5 +848,160 @@ class coursehandler {
         $courseids = array_keys($records);
 
         return $courseids;
+    }
+
+    /**
+     * Get card content for courses
+     * @param  object $wdmdata Data to create cards
+     * @param  string $date    Date filter
+     * @return array           Courses cards
+     */
+    public function get_course_cards_content($wdmdata, $date = 'all') {
+        global $CFG, $OUTPUT;
+
+        // Resultant Array.
+        $result = array();
+        $result['view'] = get_user_preferences('course_view_state');
+
+        // if ((isset($wdmdata->view) && $wdmdata->view == 'grid') || (!isset($wdmdata->view) && ($result['view'] == 'grid' || !$result['view']))) {
+        //     $courseperpage = self::get_rowperpage_on_coursearchive($wdmdata->courserowperpage, $wdmdata->courseperrow);
+        // } else {
+        //     $courseperpage = \theme_remui\toolbox::get_setting('courseperpage');
+        // }
+
+        $categorysort = $wdmdata->sort;
+        $search = $wdmdata->search;
+        $category = $wdmdata->category;
+        $courses = isset($wdmdata->courses) ? $wdmdata->courses : [];
+        $mycourses = $wdmdata->tab;
+        $page = ($mycourses) ? $wdmdata->page->mycourses : $wdmdata->page->courses;
+        // $startfrom = $courseperpage * $page;
+        // $limitto = $courseperpage;
+        $startfrom = 0;
+        $limitto = 0;
+        $filtermodified = isset($wdmdata->isFilterModified) ? $wdmdata->isFilterModified : true;
+        $allowfull = true;
+
+        // $isfilterapplied = $wdmdata->isfilterapplied ? true : false;
+
+        // $filteredcourseids = self::get_all_filtered_courseids($wdmdata->selectedFilters);
+
+        if ($page == -1) {
+            $startfrom = 0;
+            $limitto = 0;
+        }
+
+        // This condition is for coursecategory page only, that is why on frontpage it is not
+        // necessary so returning limiteddata.
+        if (isset($wdmdata->limiteddata)) {
+            $allowfull = false;
+        }
+
+        // Pagination Context creation.
+        if ($wdmdata->pagination) {
+            // First paremeter true means get_courses function will return count of the result and if false, returns actual data.
+            list($totalcourses, $courses) = self::get_courses(
+                2,
+                $search,
+                $category,
+                $startfrom,
+                $limitto,
+                $mycourses,
+                $categorysort,
+                $courses,
+                $filtermodified
+            );
+
+            // $pagingbar = new \paging_bar($totalcourses, $page, $courseperpage, 'javascript:void(0);', 'page');
+            // $result['totalcoursescount'] = $totalcourses;
+            // $result['pagination'] = $OUTPUT->render($pagingbar);
+        } else {
+            // Fetch the courses.
+            $courses = self::get_courses(
+                false,
+                $search,
+                $category,
+                $startfrom,
+                $limitto,
+                $mycourses,
+                $categorysort,
+                $courses,
+                $filtermodified
+            );
+        }
+
+        // Courses Data.
+        $coursecontext = array();
+        foreach ($courses as $key => $course) {
+
+
+            $coursedata = array();
+            $coursedata['id'] = $course['courseid'];
+            $coursedata['grader'] = $course['grader'];
+            $coursedata['shortname'] = strip_tags(format_text($course['shortname']));
+            $coursedata['courseurl'] = $course['courseurl'];
+            $coursedata['coursename'] = strip_tags(format_text($course['coursename']));
+            $coursedata['enrollusers'] = $course['enrollusers'];
+            $coursedata['editcourse'] = $course['editcourse'];
+            $coursedata['activity'] = $course['activity'];
+            $coursedata['categoryname'] = strip_tags(format_text($course['categoryname']));
+            $coursedata['ernrshortdesign'] = $course['ernrshortdesign'];
+            $coursedata['lessonstitletext'] = $course['lessonstitletext'];
+            $coursedata['enrolledusertitletext'] = $course['enrolledusertitletext'];
+            $coursedata['skillleveltag'] = $course['skillleveltag'];
+            if ($course['visible']) {
+                $coursedata['visible'] = $course['visible'];
+            }
+
+            // This condition to handle the string url or moodle_url object problem.
+            if (is_object($course['courseimage'])) {
+                $coursedata['courseimage'] = $course['courseimage']->__toString();
+            } else {
+                $coursedata['courseimage'] = $course['courseimage'];
+            }
+            $coursedata['coursesummary'] = $course['coursesummary'];
+
+
+            // Context creation for all courses.
+            if (isset($course['usercanmanage']) && $allowfull) {
+                $coursedata["usercanmanage"] = $course['usercanmanage'];
+            }
+
+            if (isset($course['enrollmenticons']) && $allowfull) {
+                $coursedata["enrollmenticons"] = $course['enrollmenticons'];
+            }
+            if (isset($course["enrollmenticonsremainig"])) {
+                $coursedata["enrollmenticonsremainig"] = $course["enrollmenticonsremainig"];
+            }
+
+            if (isset($course["enrolleduserscount"])) {
+                $coursedata["enrolleduserscount"] = $course["enrolleduserscount"];
+            }
+
+            $coursedata["showselecteddatesetting"] = $course["showselecteddatesetting"];
+
+            if (isset($course['instructors']) && $allowfull) {
+                $instructors = array();
+                foreach ($course['instructors'] as $key2 => $instructor) {
+                    $instructordetail['name'] = $instructor['name'];
+                    $instructordetail['url'] = $instructor['url'];
+                    $instructordetail['picture'] = $instructor['picture']->__toString();
+                    $instructors[] = $instructordetail;
+                }
+                $coursedata['instructors'] = $instructors;
+            }
+
+            $coursedata['instructorcount'] = $course['instructorcount'];
+            $coursedata['lessoncount'] = $course['lessoncount'];
+            // $pagelayout = get_config('theme_remui', 'categorypagelayout');
+
+            // $coursedata['animation'] = \theme_remui\toolbox::get_setting('courseanimation');
+            $coursedata['animation'] = 'none';
+            $coursecontext[] = $coursedata;
+        }
+        $result['courses'] = $coursecontext;
+
+
+        return $result;
     }
 }

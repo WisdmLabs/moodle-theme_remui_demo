@@ -367,3 +367,32 @@ $string['formpagewidth'] = "Page Width";
 
 $string['featuredcoursesblockdesc'] = "The Featured Course Block is designed to showcase your top content and attract learners.";
 
+$string["blockimportexportwarning"] = "Error: Invalid file. Please ensure the uploaded file is a valid Edwiser JSON block.";
+
+$string['privacy:metadata:edw_taskslist'] = 'Information about tasks';
+$string['privacy:metadata:edw_taskslist:createdby'] = 'The user who created the task';
+$string['privacy:metadata:edw_taskslist:assignedto'] = 'The users assigned to the task';
+
+
+$string['content'] = 'content';
+$string['side-pre'] = 'Right';
+$string['side-top'] = 'Top';
+$string['side-bottom'] = 'Bottom';
+$string['side-post'] = 'side-post';
+$string['full-width-top'] = 'Full-width Top';
+$string['full-bottom'] = 'Full-with Bottom';
+$string['floataddblockbtnregionselectionmsg'] = 'New blocks will be added currently visible "{$a}" region';
+
+$string['hiddencourse'] = 'Hidden Course';
+$string['graderreport'] = 'Grader Report';
+$string['enroluser'] = 'Enrol Users';
+$string['activityeport'] = 'Activity Report';
+$string['editcourse'] = 'Edit Course';
+$string['skill0'] = 'Untagged';
+$string['skill1'] = 'Beginner';
+$string['skill2'] = 'Intermediate';
+$string['skill3'] = 'Advanced';
+$string['coursecardlessonstext'] = 'Lessons';
+$string['coursestarted'] = "Started";
+$string['courseupdated'] = "Updated";
+$string['coursecardsenrolledetxt'] = 'Enrolled';

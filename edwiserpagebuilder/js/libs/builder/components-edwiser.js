@@ -659,7 +659,6 @@ define('local_edwiserpagebuilder/components-edwiser', ['local_edwiserpagebuilder
                             $(node).attr('data-courseid', courseids);
 
                             var shortcode = `[edwiser-fc layout="coursesncategories" show="courses" courseid="${courseids}" date="all"]`;
-
                             // node =   updateCardView(shortcode, node);
 
                             // setTimeout(() => {

@@ -292,6 +292,12 @@ class block_handler {
                 $block->categories = "htmlblock";
             }
 
+            // Check if the current block is an HTML block
+            if ($block->title == "importblock") {
+                $key = "importblock";
+                $block->categories = "importblock";
+            }
+
             // Check if the block title is "courses", "categories", or "coursesncategories"
             if ($block->title == "courses" || $block->title == "categories" || $block->title == "coursesncategories") {
                 // If the block type is "block", change it to "dynamic"
@@ -337,7 +343,7 @@ class block_handler {
         // Prepare data for output
         foreach ($categories as $category) {
             $blockscontext[] = $category; // Add category to blocks context
-            if($category['categorytitle'] != 'htmlblock') {
+            if ($category['categorytitle'] != 'htmlblock' && $category['categorytitle'] != 'importblock') {
                 $categoriescontext[] = [
                     'categorytitle' => $category['categorytitle'], // Category title
                     'categoryvalue' => $category['categoryvalue'], // Category value
@@ -351,7 +357,7 @@ class block_handler {
         // Return the prepared data
         return [
             "blockscontext" => $blockscontext,
-            "categoriescontext" => $categoriescontext
+            "categoriescontext" => $categoriescontext,
         ];
     }
 }

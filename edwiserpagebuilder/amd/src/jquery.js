@@ -20,6 +20,7 @@
 /* eslint-disable jsdoc/check-param-names*/
 /* eslint-disable max-len*/
 /* eslint-disable no-unused-vars*/
+/* eslint-disable @babel/no-unused-expressions */
 /*!
  * jQuery JavaScript Library v3.6.0
  * https://jquery.com/

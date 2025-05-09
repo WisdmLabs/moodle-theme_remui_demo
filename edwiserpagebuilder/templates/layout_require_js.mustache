@@ -25,16 +25,18 @@ $(document).ready(function(){
     });
 
     require(['jquery'], function($) {
-        $('.custom-slider-section').carousel({
-            interval: 5000,
-            pause: false,
-            ride: 'carousel'
-        });
+        if ($('.custom-slider-section').length) {
+            $('.custom-slider-section').carousel({
+                interval: 5000,
+                pause: false,
+                ride: 'carousel'
+            });
+        }
     });
 
 
 
-    require(['jquery', 'theme_remui/slick'], function($) {
+    require(['jquery', 'local_edwiserpagebuilder/slick'], function($) {
         // return;
         $('.custom-teacher-section .slicker .teacher-item').removeClass('col-12 col-md-6 col-lg-3');
         $('.custom-teacher-section .slicker').slick({
@@ -70,7 +72,7 @@ $(document).ready(function(){
     });
 
 
-    require(['jquery', 'theme_remui/slick'], function($) {
+    require(['jquery', 'local_edwiserpagebuilder/slick'], function($) {
         $('.custom-testimonial-section .slicker .col-12.col-lg-4.px-4').removeClass('col-12 col-lg-4 px-4');
         let slick = $('.custom-testimonial-section .slicker').slick({
             infinite: true,
@@ -105,7 +107,7 @@ $(document).ready(function(){
 {{! university }}
 {{#js}}
 
-require(['jquery', 'theme_remui/slick'], function($) {
+require(['jquery', 'local_edwiserpagebuilder/slick'], function($) {
     // return;
     $('.custom-teacher-section .slicker .teacher-item').removeClass('col-12 col-md-6 col-lg-3');
     $('.campus-life-section .content-cards').slick({

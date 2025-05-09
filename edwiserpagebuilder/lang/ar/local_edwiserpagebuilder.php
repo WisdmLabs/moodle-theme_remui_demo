@@ -366,3 +366,17 @@ $string['formpageselector'] = "محدد الصفحة";
 $string['formpagename'] = "اسم الصفحة";
 $string['formpagewidth'] = "عرض الصفحة";
 $string['featuredcoursesblockdesc'] = "تم تصميم كتلة الدورة المميزة لعرض أفضل محتوياتك وجذب المتعلمين.";
+
+$string['hiddencourse'] = 'الدورة المخفية';
+$string['graderreport'] = 'تقرير المصحح';
+$string['enroluser'] = 'تسجيل المستخدمين';
+$string['activityeport'] = 'تقرير النشاط';
+$string['editcourse'] = 'تحرير الدورة';
+$string['skill0'] = 'غير معنونة';
+$string['skill1'] = 'مبتدئ';
+$string['skill2'] = 'متوسط';
+$string['skill3'] = 'متقدم';
+$string['coursecardlessonstext'] = 'الدروس';
+$string['coursestarted'] = "بدأت";
+$string['courseupdated'] = "تم التحديث";
+$string['coursecardsenrolledetxt'] = 'الطلاب المسجلين';

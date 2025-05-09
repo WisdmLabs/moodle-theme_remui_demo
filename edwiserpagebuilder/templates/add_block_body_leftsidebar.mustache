@@ -41,6 +41,9 @@
       {{#htmlblock}}
           {{> local_edwiserpagebuilder/block_card }}
       {{/htmlblock}}
+      {{#importblock}}
+          {{> local_edwiserpagebuilder/block_card }}
+      {{/importblock}}
     </div>
     <div class="left-sidebar-mid-region static-blocks-filters">
       <ul class="block-category-list-desktop">
@@ -52,7 +55,7 @@
           {{#str}}staticallcategory, local_edwiserpagebuilder{{/str}}
         </button>
         <div class="dropdown-menu" aria-labelledby="blockCategoryDropdown">
-          
+
             {{> local_edwiserpagebuilder/block_category_select_mob }}
         </div>
       </div>

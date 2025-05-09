@@ -11,8 +11,8 @@
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 
-    Edwiser RemUI
-    @package   theme_remui
+    Edwiser Page Builder
+    @package   local_edwiserpagebuilder
     @copyright (c) 2022 WisdmLabs (https://wisdmlabs.com/)
     @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
 
@@ -24,7 +24,7 @@
         <div class="img-container position-relative">
             <a href="{{ courseurl }}" aria-label="Course - {{{ coursename }}}">
             <div class="rounded-top" style="background-image: url('{{ courseimage }}');background-size: cover;background-position: center; position: relative; height:200px;"></div>
-            {{^visible}}<i class="hidden-icon fa fa-eye-slash text-white" aria-hidden="true" title="{{#str}} hiddencourse, theme_remui {{/str}}"></i>{{/visible}}
+            {{^visible}}<i class="hidden-icon fa fa-eye-slash text-white" aria-hidden="true" title="{{#str}} hiddencourse, local_edwiserpagebuilder {{/str}}"></i>{{/visible}}
             </a>
 
             {{# instructors }}
@@ -83,10 +83,10 @@
                     </button>
                 </div>
                 <div class="toolbar-icons tool-items toolbar-primary" id="course-{{ id }}-options" hidden="">
-                    <a href="{{ enrollusers }}" class="tool-item" title="{{# str }} enroluser, theme_remui {{/ str }}"><i class="icon fa fa-users" aria-hidden="true"></i></a>
-                    <a href="{{ grader }}" class="tool-item" title="{{# str }} graderreport, theme_remui {{/ str }}"><i class="icon fa fa-star" aria-hidden="true"></i></a>
-                    <a href="{{ activity }}" class="tool-item" title="{{# str }} activityeport, theme_remui {{/ str }}"><i class="icon fa fa-pie-chart" aria-hidden="true"></i></a>
-                    <a href="{{ editcourse }}" class="tool-item" title="{{# str }} editcourse, theme_remui {{/ str }}"><i class="icon fa fa-edit" aria-hidden="true"></i></a>
+                    <a href="{{ enrollusers }}" class="tool-item" title="{{# str }} enroluser, local_edwiserpagebuilder {{/ str }}"><i class="icon fa fa-users" aria-hidden="true"></i></a>
+                    <a href="{{ grader }}" class="tool-item" title="{{# str }} graderreport, local_edwiserpagebuilder {{/ str }}"><i class="icon fa fa-star" aria-hidden="true"></i></a>
+                    <a href="{{ activity }}" class="tool-item" title="{{# str }} activityeport, local_edwiserpagebuilder {{/ str }}"><i class="icon fa fa-pie-chart" aria-hidden="true"></i></a>
+                    <a href="{{ editcourse }}" class="tool-item" title="{{# str }} editcourse, local_edwiserpagebuilder {{/ str }}"><i class="icon fa fa-edit" aria-hidden="true"></i></a>
                 </div>
             {{/ usercanmanage }}
 
@@ -118,7 +118,7 @@
         </div>
         {{/startdate}}
         {{^visible}}
-            <i class="hidden-icon fa fa-eye-slash visible text-white" aria-hidden="true" title="{{#str}} hiddencourse, theme_remui {{/str}}"></i>
+            <i class="hidden-icon fa fa-eye-slash visible text-white" aria-hidden="true" title="{{#str}} hiddencourse, local_edwiserpagebuilder {{/str}}"></i>
         {{/visible}}
         {{# usercanmanage }}
         <div class="menu-picker-select">
@@ -126,16 +126,16 @@
               <label for="show-menu" class="menu-button"><span></span></label>
             </div>
             <div class="menu-content btn-group btn-group-vertical" aria-label="Vertical button group">
-                <a href="{{ enrollusers }}" title="{{# str }} enroluser, theme_remui {{/ str }}" class="btn btn-primary d-block py-2 px-2">
+                <a href="{{ enrollusers }}" title="{{# str }} enroluser, local_edwiserpagebuilder {{/ str }}" class="btn btn-primary d-block py-2 px-2">
                     <i class="m-0 icon fa fa-users text-white" aria-hidden="true"></i>
                 </a>
-                <a href="{{ grader }}" title="{{# str }} graderreport, theme_remui {{/ str }}" class="btn btn-primary d-block py-2 px-2">
+                <a href="{{ grader }}" title="{{# str }} graderreport, local_edwiserpagebuilder {{/ str }}" class="btn btn-primary d-block py-2 px-2">
                     <i class="m-0 icon fa fa-star text-white" aria-hidden="true"></i>
                 </a>
-                <a href="{{ activity }}" title="{{# str }} activityeport, theme_remui {{/ str }}" class="btn btn-primary d-block py-2 px-2">
+                <a href="{{ activity }}" title="{{# str }} activityeport, local_edwiserpagebuilder {{/ str }}" class="btn btn-primary d-block py-2 px-2">
                     <i class="m-0 icon fa fa-pie-chart text-white" aria-hidden="true"></i>
                 </a>
-                <a href="{{ editcourse }}" title="{{# str }} editcourse, theme_remui {{/ str }}" class="btn btn-primary d-block py-2 px-2">
+                <a href="{{ editcourse }}" title="{{# str }} editcourse, local_edwiserpagebuilder {{/ str }}" class="btn btn-primary d-block py-2 px-2">
                     <i class="m-0 icon  fa fa-edit text-white" aria-hidden="true"></i>
                 </a>
             </div>

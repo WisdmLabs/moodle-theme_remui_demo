@@ -33,7 +33,7 @@ define([
     'core/fragment',
     'core/ajax',
     'core/notification',
-    'theme_remui/slick'
+    'local_edwiserpagebuilder/slick'
 ], function (
     $,
     ModalFactory,

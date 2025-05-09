@@ -214,4 +214,12 @@ $functions = [
         'loginrequired' => false,
         'ajax'          => true,
     ),
+    'local_edwiserpagebuilder_do_import_export_action' => array(
+        'classname'     => 'local_edwiserpagebuilder\external\epb_api',
+        'methodname'    => 'import_export_blocks',
+        'description'   => 'import/export block content',
+        'type'          => 'read',
+        'loginrequired' => false,
+        'ajax'          => true,
+    ),
 ];

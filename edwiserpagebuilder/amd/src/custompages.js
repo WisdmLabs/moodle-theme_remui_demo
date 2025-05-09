@@ -54,7 +54,7 @@ define([
             LANGS = results;
             return results;
         });
-    }
+    };
 
     // Add functionality to create page from Scratch.
     const createpagefromscratch = (title, layoutid) => {
@@ -346,7 +346,8 @@ define([
     const registerEvents = () => {
 
         // Trigger Modal Creation.
-        $(SELECTORS.ADDNEWPAGESEL).on('click', function() {
+        $(document).on('click', SELECTORS.ADDNEWPAGESEL, function() {
+            console.log("register common events fro custompages");
             createPageTitleModal();
         });
 
@@ -373,13 +374,13 @@ define([
         $(document).on('click', SELECTORS.PREVIEWLAYOUTBTNSEL, function() {
             let layoutid = $(this).data("layoutid");
             $(`${SELECTORS.PREVIEWLAYOUT}-${layoutid}`).removeClass("d-none");
-        })
+        });
 
         // Trigger on back button of preview
         $(document).on('click', SELECTORS.CLOSELAYOUTBTNSEL, function() {
             let layoutid = $(this).data("layoutid");
             $(`${SELECTORS.PREVIEWLAYOUT}-${layoutid}`).addClass("d-none");
-        })
+        });
 
     };
 

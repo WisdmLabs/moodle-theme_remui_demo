@@ -86,7 +86,7 @@ define([
         coursesTable: [],
         alwaysloadwarning: false
     };
-    
+
     var PROMISES = {
         /**
          * Get courses using ajax
@@ -387,7 +387,7 @@ define([
 
         // Send message
         .on('click', root + ' ' + SELECTORS.MESSAGE_SEND, function() {
-            
+
             var studentid = $(root).find(SELECTORS.MESSAGE_HIDDEN).val();
             var message = $(root).find(SELECTORS.MESSAGE_AREA).val();
             if (message != '') {
@@ -418,7 +418,7 @@ define([
                     var modalRoot = modal.getRoot();
                     modalRoot.on(ModalEvents.save, function() {
                         DATA.alwaysloadwarning = true;
-                        
+
                         if (typeof rmblckmdlrelease !== 'undefined' && rmblckmdlrelease < '4.3') {
                             M.util.set_user_preference('always-load-warning', true);
                         } else {

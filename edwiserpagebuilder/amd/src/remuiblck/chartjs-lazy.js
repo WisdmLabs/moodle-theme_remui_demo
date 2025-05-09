@@ -16,6 +16,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-return-assign*/
 /* eslint-disable no-trailing-spaces*/
+/* eslint-disable @babel/no-unused-expressions */
 /* !
  * Chart.js v2.9.4
  * https://www.chartjs.org

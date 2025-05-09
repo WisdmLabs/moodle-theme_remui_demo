@@ -1,5 +1,18 @@
 CHANGES LOG
 
+Version 4.2.16
+=============
+Feature - Block import and export functionality added on the static blocks
+Feature - New Import block added.
+
+Version 4.2.15
+=============
+Fix - "Programming error was detected" issue resolved in Course Progress block.
+
+Version 4.2.14
+=============
+Feature - Compatibility with Moodle 4.5.
+
 Version 4.2.13
 =============
 Feature - A Featured Courses block has been added.
@@ -23,7 +36,7 @@ Feature - Added language translation files for:
         - Portuguese (Brazil) (pt_br)
         - France (fr)
         - Polish (pl)
-        - Arabic (ar) 
+        - Arabic (ar)
 Tweak - UI/UX Improvements:
         - Removed the title attribute displayed on hover from each block.
         - Replaced the images of the slider and testimonial action buttons with icons.

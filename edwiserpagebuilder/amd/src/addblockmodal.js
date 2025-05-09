@@ -32,7 +32,8 @@ import Ajax from 'core/ajax';
 import blockmanager from 'local_edwiserpagebuilder/blockmanager';
 
 const SELECTORS = {
-    ADD_BLOCK: '[data-key="addblock"]',
+    ADD_BLOCK_REMUI: '[data-key="addblock"]',
+    ADD_BLOCK: '.floating-add-block-button',
     MODAL_SUB_HEADER: '.modal-subheader',
     MODAL_HEADER_TITLE: '.modal-header .modal-title'
 };
@@ -53,18 +54,20 @@ let listenerEventsRegistered = false;
  * @param {Boolean} pbfnotenable check setting is enable or not
  */
 const registerListenerEvents = async (pageType, pageLayout, addBlockUrl, subPage, issiteadmin, edwepbf, pbfnotenable) => {
-    document.addEventListener('click', e => {
+    let ADD_BLOCK_SELECTOR = SELECTORS.ADD_BLOCK;
 
-        const addBlock = e.target.closest(SELECTORS.ADD_BLOCK);
-        if (addBlock) {
+    if (M.cfg.theme === "remui") {
+        ADD_BLOCK_SELECTOR = SELECTORS.ADD_BLOCK_REMUI;
+    }
+    $(document).on('click', ADD_BLOCK_SELECTOR, function(e) {
             e.preventDefault();
 
             let addBlockModal = null;
-            let addBlockModalUrl = addBlockUrl ?? addBlock.dataset.url;
+            let addBlockModalUrl = addBlockUrl ?? this.dataset.url;
 
             buildAddBlockModal()
                 .then(modal => {
-                    modal.getRoot().addClass("epb_custom_modal");
+                    modal.getRoot().addClass("epb_custom_modal fullwidth-modal");
                     modal.getRoot().on(ModalEvents.cancel, function (e) {
                         e.preventDefault();
                         modal.destroy();
@@ -83,7 +86,7 @@ const registerListenerEvents = async (pageType, pageLayout, addBlockUrl, subPage
                 .catch(() => {
                     addBlockModal.destroy();
                 });
-        }
+
     });
 };
 
@@ -131,7 +134,6 @@ const renderBlocks = async (addBlockUrl, pageType, pageLayout, subPage, issitead
     let blockscontext = await getAddableBlocks(pageType, pageLayout, subPage);
     blockscontext = JSON.parse(blockscontext);
 
-
     var filterplugindata = false;
 
     var showfilterreleaseinfo = false;
@@ -147,16 +149,21 @@ const renderBlocks = async (addBlockUrl, pageType, pageLayout, subPage, issitead
             showfilterreleaseinfo = true;
         }
     }
-    var showmodalsecondnav = false;
-    // The variable edwremuitheninfo is comming from theme using data for js
-    if ( typeof edwremuithemeinfo !== 'undefined' && edwremuithemeinfo == 'available') {
-        showmodalsecondnav = true;
-    }
+
+    // var showmodalsecondnav = false;
+    // // The variable edwremuitheninfo is comming from theme using data for js
+    // if ( typeof edwremuithemeinfo !== 'undefined' && edwremuithemeinfo == 'available') {
+    //     showmodalsecondnav = true;
+    // }
+
+    var showmodalsecondnav = true;
+
     var match = addBlockUrl.match(/[?&]bui_blockregion=([^&]+)/);
     var region = match ? match[1] : "";
     return Templates.render('local_edwiserpagebuilder/add_block_body', {
         blockscontext: blockscontext?.blockscontext,
         htmlblock: blockscontext?.htmlblock,
+        importblock: blockscontext?.importblock,
         categories: blockscontext?.categories,
         moodleblock: blockscontext.moodleblock,
         url: addBlockUrl,

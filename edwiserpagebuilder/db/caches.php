@@ -15,17 +15,23 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Defines the cache usage
+ *
  * @package   local_edwiserpagebuilder
  * @copyright (c) 2023 WisdmLabs (https://wisdmlabs.com/) <support@wisdmlabs.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @author    Gourav Govande
  */
 
-defined( 'MOODLE_INTERNAL' ) || die();
+// This line protects the file from being accessed by a URL directly.
+defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2025012001;      // The current module version (Date: YYYYMMDDXX).
-$plugin->requires  = 2022041900;      // Requires this Moodle version.
-$plugin->component = 'local_edwiserpagebuilder'; // Full name of the plugin (used for diagnostics).
-// $plugin->cron      = 0;
-$plugin->maturity  = MATURITY_STABLE;
-$plugin->release   = '4.2.16';
+$definitions = array(
+    'courses' => array(
+        'mode' => cache_store::MODE_SESSION,
+        'ttl' => 600, // Ten minutes.
+    ),
+    'guestcourses' => array(
+        'mode' => cache_store::MODE_APPLICATION,
+        'ttl' => 600, // Ten minutes.
+    ),
+);

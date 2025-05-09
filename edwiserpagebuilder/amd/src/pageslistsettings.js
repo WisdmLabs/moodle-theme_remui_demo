@@ -62,7 +62,7 @@ define([
         'BTN_PUBLISH': '.btn-publish',
         'HIDDEN_TAG': '.hidden-tag',
         'DRAFT_TAG': '.draft-tag'
-    }
+    };
 
     const ACTION = {
         'UPDATE_PAGE': 'update_page',
@@ -70,7 +70,7 @@ define([
         'DELETE_PAGE_RECORD': 'delete_page',
         'ADD_NEW_PAGE': 'add_new_page',
         'PUBLISH_PAGE': 'publish_page_with_layouts'
-    }
+    };
 
 
     // ****** IMPORTANT ******
@@ -104,7 +104,7 @@ define([
             LANGS = results;
             return results;
         });
-    }
+    };
 
     // Set sub header on top.
     function setHeaderOnTop() {
@@ -114,7 +114,7 @@ define([
 
                 pagesubheader.remove();
 
-                $($("#page-wrapper nav.navbar")[1]).after(pagesubheader);
+                $($("#page-wrapper nav.navbar").last()).after(pagesubheader);
 
                 let navbarheight = $('#page-wrapper nav.navbar').height();
 
@@ -302,7 +302,7 @@ define([
                     "indraft": true,
                     "visible": visible,
                     "pagemodified": dateModifier(Math.floor(Date.now() / 1000))
-                }
+                };
                 if ($(`${SELECTORS.PAGE_SUB_HEADER_MENUS} ${SELECTORS.BTN_DUPLICATE}`).length) {
 
                     showToastMessage(' ', LANGS[1]);
@@ -382,7 +382,7 @@ define([
         .done(function(modal) {
             modal.setButtonText('cancel', LANGS[5]);
             modal.setButtonText('save', LANGS[6]);
-            
+
             var root = modal.getRoot();
             root.on(ModalEvents.save, function() {
                 Ajax.call([{
@@ -408,7 +408,7 @@ define([
             });
             modal.show();
         });
-    }
+    };
 
     function showAddPageInput(e) {
         let addPageRow = $(SELECTORS.ADD_PAGE_ROW);
@@ -424,7 +424,7 @@ define([
         $(tableRowName).addClass("name_editing");
 
         inputField.focus();
-    }
+    };
 
     function inputChangeHandler(e) {
         let submitEdit = $(SELECTORS.BTN_SUBMITEDIT);
@@ -435,7 +435,7 @@ define([
         } else {
             submitEdit.addClass("d-none");
         }
-    }
+    };
 
     function addPageHandler(e) {
         let inputField = $(`${SELECTORS.ADD_PAGE_ROW} ${SELECTORS.ROW_INPUT}`);
@@ -448,7 +448,7 @@ define([
 
             let pagedata = JSON.stringify({
                 "pagename": pagename
-            })
+            });
 
             Ajax.call([{
                 methodname: 'local_edwiserpagebuilder_do_page_action',
@@ -469,7 +469,7 @@ define([
                         "indraft": true,
                         "visible": true,
                         "pagemodified": dateModifier(Math.floor(Date.now() / 1000))
-                    }
+                    };
 
                     insertRowToTable(page);
                 },
@@ -589,7 +589,7 @@ define([
 
     // These event listner are common for both sub header and site page settings
     function initCommon() {
-        setHeaderOnTop()
+        setHeaderOnTop();
 
         fetchLanguages();
 

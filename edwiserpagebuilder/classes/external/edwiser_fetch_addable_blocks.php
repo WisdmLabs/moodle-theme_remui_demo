@@ -117,6 +117,7 @@ trait edwiser_fetch_addable_blocks {
 
                 // Map each block of category to an array with block details
                 $data["blocks"] = array_values(array_map(function ($block) {
+
                     return [
                         'id' => $block->id,
                         'name' => 'edwiseradvancedblock',
@@ -134,10 +135,18 @@ trait edwiser_fetch_addable_blocks {
 
                 // Update the category data in the context
                 if ($data["categorytitle"] == 'htmlblock') {
+
                     $data["blocks"][0]['title'] = "Create custom blocks";
                     $blockscontext->htmlblock = $data;
 
                     unset($context["blockscontext"][$categorykey]);
+
+                } else if ($data["categorytitle"] == 'importblock') {
+                    $data["blocks"][0]['importicon'] = true;
+                    $blockscontext->importblock = $data;
+
+                    unset($context["blockscontext"][$categorykey]);
+
                 } else {
                     $context["blockscontext"][$categorykey] = $data;
                 }

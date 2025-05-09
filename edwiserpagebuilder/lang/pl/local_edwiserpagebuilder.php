@@ -363,3 +363,17 @@ $string['formpageselector'] = "Selektor strony";
 $string['formpagename'] = "Nazwa strony";
 $string['formpagewidth'] = "Szerokość strony";
 $string['featuredcoursesblockdesc'] = "Blok polecanych kursów został zaprojektowany, aby prezentować najlepsze treści i przyciągać uczniów.";
+
+$string['hiddencourse'] = 'Ukryty kurs';
+$string['graderreport'] = 'Raport oceniania';
+$string['enroluser'] = 'Zapisz użytkowników';
+$string['activityeport'] = 'Raport aktywności';
+$string['editcourse'] = 'Edytuj kurs';
+$string['skill0'] = 'Nieoznaczony';
+$string['skill1'] = 'Początkujący';
+$string['skill2'] = 'Średniozaawansowany';
+$string['skill3'] = 'Zaawansowany';
+$string['coursecardlessonstext'] = 'Lekcje';
+$string['coursestarted'] = "Rozpoczęto:";
+$string['courseupdated'] = "Zaktualizowano:";
+$string['coursecardsenrolledetxt'] = 'Zapisany';

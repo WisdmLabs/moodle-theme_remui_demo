@@ -361,3 +361,17 @@ $string['formpageselector'] = "Sélecteur de page";
 $string['formpagename'] = "Nom de la page";
 $string['formpagewidth'] = "Largeur de la page";
 $string['featuredcoursesblockdesc'] = "Le bloc de cours en vedette est conçu pour mettre en valeur votre contenu de qualité et attirer les apprenants.";
+
+$string['hiddencourse'] = 'Cours masqué';
+$string['graderreport'] = "Rapport d'évaluation";
+$string['enroluser'] = 'Inscrire des utilisateurs';
+$string['activityeport'] = 'Rapport d activité';
+$string['editcourse'] = 'Modifier le cours';
+$string['skill0'] = 'Non étiqueté';
+$string['skill1'] = 'Débutant';
+$string['skill2'] = 'Intermédiaire';
+$string['skill3'] = 'Avancé';
+$string['coursecardlessonstext'] = 'Leçons';
+$string['coursestarted'] = "Commencé :";
+$string['courseupdated'] = "Mis à jour :";
+$string['coursecardsenrolledetxt'] = 'Inscrit';

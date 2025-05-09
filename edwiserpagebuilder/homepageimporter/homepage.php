@@ -138,7 +138,7 @@ if ($data == "migrate") {
                 </div>");
             echo "<div class='mt-1 text-center'><a class='btn btn-primary btn-sm' href='" . $CFG->wwwroot . "?redirect=0'>" .get_string('viewhomepage', 'local_edwiserpagebuilder'). "</a></div>";
 
-            
+
         } else {
             echo('<div class="alert alert-info" role="alert">'
                     .get_string('homepagemigrationnoblockmsg', 'local_edwiserpagebuilder').

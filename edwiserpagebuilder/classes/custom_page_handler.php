@@ -770,4 +770,13 @@ class custom_page_handler
         return $contentregion;
     }
 
+    public function action_add_addblock_floating_btn($config) {
+        global $OUTPUT, $PAGE;
+        $addblockmodalcontext = json_decode($config);
+
+        return array(
+            "html" => $OUTPUT->render_from_template("local_edwiserpagebuilder/add_block_float_menu_remui", $addblockmodalcontext),
+        );
+    }
+
 }

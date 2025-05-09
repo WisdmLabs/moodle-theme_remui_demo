@@ -10,7 +10,7 @@ define([
     Notification,
     Templates
 ) {
-    
+
     var TEMPLATES = {
         RECENT_FEEDBACK_LIST: 'local_edwiserpagebuilder/remuiblck/recent_assignments_list'
     };
@@ -37,9 +37,9 @@ define([
     var loadRecentFeedbacks = function(root) {
         PROMISES.GET_RECENT_FEEDBACKS().done(function(response) {
             response = JSON.parse(response);
-            
+
             if (response?.recentdata?.recentfeedback)
-            response.recentdata.recentfeedback = Object.values(response.recentdata.recentfeedback)
+            response.recentdata.recentfeedback = Object.values(response.recentdata.recentfeedback);
 
             var output = Templates.render(TEMPLATES.RECENT_FEEDBACK_LIST, response);
             output.done(function(html) {

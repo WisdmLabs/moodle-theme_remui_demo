@@ -48,7 +48,7 @@ trait edwiser_get_cards_list {
         return new external_function_parameters(
             array(
                 'belongsto' => new external_value( PARAM_RAW, 'Belongs to' ),
-                'updatefirst' => new external_value( PARAM_BOOL, "Update first", VALUE_OPTIONAL)
+                'updatefirst' => new external_value( PARAM_BOOL, "Update first", default: false),
             )
         );
     }

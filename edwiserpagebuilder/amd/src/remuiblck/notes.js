@@ -1,3 +1,4 @@
+/* eslint-disable @babel/no-unused-expressions */
 define(['jquery', 'core/ajax', 'core/str'], function($, Ajax, Str) {
      /* Add Notes Block */
      var SELECTORS = {
@@ -32,7 +33,7 @@ define(['jquery', 'core/ajax', 'core/str'], function($, Ajax, Str) {
             LANGS = results;
             return results;
         });
-    }
+    };
 
     function initializeEvents(root) {
 
@@ -41,7 +42,7 @@ define(['jquery', 'core/ajax', 'core/str'], function($, Ajax, Str) {
             $(root + " " + SELECTORS.STUDENT_LABEL).hide();
             $(root + " " + SELECTORS.STUDENT_LIST).hide();
             var courseId, studentCount, userId, courseName;
-    
+
             $(root + " " + SELECTORS.ADD_NOTE_SELECT + ' select').on('change', function() {
                 $(root + " " + SELECTORS.ADD_NOTE_BUTTON).hide();
                 $(root + " " + SELECTORS.SELECT_STUDENT_NOTE).removeClass('d-none');
@@ -52,8 +53,8 @@ define(['jquery', 'core/ajax', 'core/str'], function($, Ajax, Str) {
                     $(root + " " + SELECTORS.STUDENT_LIST).empty();
                     $(root + " " + SELECTORS.STUDENT_LIST).hide();
                     return;
-                }root + " " + 
-               
+                }root + " " +
+
                 Ajax.call([{
                     methodname: 'local_edwiserpagebuilder_remuiblck_action',
                     args: {
@@ -72,21 +73,21 @@ define(['jquery', 'core/ajax', 'core/str'], function($, Ajax, Str) {
                         $(root + " " + SELECTORS.STUDENT_LIST).append('<option>' + M.util.get_string(
                             "selectastudent", "local_edwiserpagebuilder") + ' (' + M.util.get_string("total", "moodle") +
                             ': ' + studentCount + ')</option>');
-    
+
                         $.each(response, function(index, student) {
                             $(root + " " + SELECTORS.STUDENT_LIST).append('<option value="' + student.id + '">' + student.fullname + '</option>');
                         });
-    
+
                     } else {
                         $(root + " " + SELECTORS.STUDENT_LIST).append('<option>' + M.util.get_string("nousersenrolledincourse",
                             "local_edwiserpagebuilder", courseName) + '</option>');
                     }
-    
+
                 }).fail(function(ex) {
                     $(root + " " + SELECTORS.STUDENT_LIST).html('<option>' + ex.message + '</option>');
                 });
             });
-    
+
             $(root + " " + SELECTORS.STUDENT_LIST).on('change', function() {
                 $(root + " " + SELECTORS.ADD_NOTE_BUTTON).show();
                 $(root + " " + SELECTORS.ADD_NOTES_BUTTON_WRAPPER).removeClass('d-none');

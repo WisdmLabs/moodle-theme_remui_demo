@@ -361,3 +361,17 @@ $string['formpagename'] = "Nombre de la página";
 $string['formpagewidth'] = "Ancho de la página";
 
 $string['featuredcoursesblockdesc'] = "El bloque de cursos destacados está diseñado para mostrar tu mejor contenido y atraer a los estudiantes.";
+
+$string['hiddencourse'] = 'Curso oculto';
+$string['graderreport'] = 'Informe del Evaluador';
+$string['enroluser'] = 'Inscribir usuarios';
+$string['activityeport'] = 'Informe de Actividades';
+$string['editcourse'] = 'Editar Curso';
+$string['skill0'] = 'Sin etiqueta';
+$string['skill1'] = 'Principiante';
+$string['skill2'] = 'Intermedio';
+$string['skill3'] = 'Avanzado';
+$string['coursecardlessonstext'] = 'Lecciones';
+$string['coursestarted'] = "Iniciado:";
+$string['courseupdated'] = "Actualizado:";
+$string['coursecardsenrolledetxt'] = 'Inscrito';

@@ -18,7 +18,7 @@
 /**
  * Show an add block modal instead of doing it on a separate page.
  *
- * @module     theme_remui/addblockaddedlistners
+ * @module     local_edwiserpagebuilder/addblockaddedlistners
  * @copyright  2016 Damyon Wiese <damyon@moodle.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -47,7 +47,8 @@ let activeclassview = 'grid-view';
 let notactiveclassview = 'list-view';
 let userprefclass = SELECTORS.ADDBLOCKGRIDVIEW;
 let usernotprefclass = SELECTORS.ADDBLOCKLISTVIEW;
-let templatefile = 'theme_remui/add_block_body_cards';
+// let templatefile = 'theme_remui/add_block_body_cards';
+let templatefile = 'local_edwiserpagebuilder/add_block_body_cards';
 let csscontent = '';
 let prefview = 'card';
 let tabpref = 'edwadvancedblocks';
@@ -70,11 +71,12 @@ function init() {
                 $(this).stop(true, true); // Stop the animation immediately
             }
         });
-    }
+    };
 
     document.addEventListener('click', e => {
         const selecteditem = e.target.closest('.add-block-grid-view');
-        templatefile = 'theme_remui/add_block_body_cards';
+        // templatefile = 'theme_remui/add_block_body_cards';
+        templatefile = 'local_edwiserpagebuilder/add_block_body_cards';
         if (selecteditem) {
             activeclassview = 'grid-view';
             notactiveclassview = 'list-view';
@@ -84,7 +86,7 @@ function init() {
             $(usernotprefclass).removeClass('active');
             $(SELECTORS.DEFAULTBLOCKWRAPPER).removeClass(notactiveclassview).addClass(activeclassview);
         }
-    })
+    });
 
     document.addEventListener('click', e => {
         const selecteditem = e.target.closest('.add-block-list-view');
@@ -97,7 +99,7 @@ function init() {
             $(usernotprefclass).removeClass('active');
             $(SELECTORS.DEFAULTBLOCKWRAPPER).removeClass(notactiveclassview).addClass(activeclassview);
         }
-    })
+    });
 
     document.addEventListener('click', e => {
         const selecteditem = e.target.closest('.edwiseradvancedblocktab');
@@ -114,7 +116,7 @@ function init() {
                 $('.modal-subheader').addClass('p-mb-2').removeClass('p-mb-6');
             }
         }
-    })
+    });
 
     document.addEventListener('click', e => {
         const selecteditem = e.target.closest('.edwmoodleblockstab');
@@ -128,7 +130,7 @@ function init() {
             $('.modal-subheader').addClass('p-mb-6').removeClass('p-mb-2');
             $('.edw-tabs-navigation.edwiser-custom-blocks-nav').addClass('d-none');
         }
-    })
+    });
 
     document.addEventListener('click', e => {
         const selecteditem = e.target.closest('#static-blocks-btn');
@@ -140,7 +142,7 @@ function init() {
             applySelectedCategory(filteritem);
             applyFilterOnBlocks($(filteritem));
         }
-    })
+    });
 
     document.addEventListener('click', e => {
         const selecteditem = e.target.closest('#dynamic-blocks-btn');
@@ -152,7 +154,7 @@ function init() {
             applySelectedCategory(filteritem);
             applyFilterOnBlocks($(filteritem));
         }
-    })
+    });
 
     document.addEventListener('click', e => {
         const selecteditem = e.target.closest('#layout-blocks-btn');
@@ -165,7 +167,7 @@ function init() {
             applyFilterOnBlocks($(filteritem));
 
         }
-    })
+    });
 
     // On mouse enter of block layout image
     $(document).on('mouseenter', ".addblock-modal-body .block-page-layout", function () {
@@ -243,6 +245,142 @@ function init() {
         applySelectedCategory(this);
         applyFilterOnBlocks($(this));
     });
+    $(document).off('click', '.block_exporter_btn').on('click', '.block_exporter_btn', async function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        try {
+            const blockid = $(this).data('blockid'); // Get the block ID from the button
+
+            // Prepare request payload
+            const request = {
+                methodname: 'local_edwiserpagebuilder_do_import_export_action',
+                args: {
+                    action: "export_blocks_data",
+                    config: JSON.stringify({ blockid })
+                }
+            };
+
+            // Send the AJAX request
+            let response = await Ajax.call([request])[0];
+
+            response = JSON.parse(response);
+
+            // Check for errors in the response
+            if (response.error) {
+                alert("Error: " + response.message);
+                return;
+            }
+
+            // Create a Blob from the JSON response
+            const blob = new Blob([JSON.stringify(response, null, 2)], { type: 'application/json' });
+            const filename = `block_${blockid}.json`;
+
+            // Create a link element to download the file
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = filename;
+
+            // Trigger the download
+            document.body.appendChild(link);
+            link.click();
+
+            // Clean up
+            document.body.removeChild(link);
+            URL.revokeObjectURL(link.href);
+
+            console.log("Export successful");
+        } catch (error) {
+            console.error("Export failed:", error);
+        }
+    });
+
+    $(document).off('submit', '.block_json_upload_form').on('submit', '.block_json_upload_form', function (e) {
+
+        e.preventDefault(); // Prevent the default form submission
+        const form = $(this); // Capture the form element context
+        const submitButton = form.find('button[type="submit"]'); // Get the submit button
+        submitButton.prop('disabled', true); // Disable the submit button
+
+        const fileInput = form.find('.jsonfileholder')[0]; // Get the file input element by class
+        const file = fileInput.files[0]; // Get the selected file
+
+        const blockid = form.closest("section.block_edwiseradvancedblock").attr('data-instance-id'); // Get the block ID
+
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = async function (event) {
+                let fileContent = event.target.result;
+
+                try {
+                    fileContent = JSON.parse(fileContent); // Parse the file content
+                } catch (err) {
+                    console.error("Invalid JSON file content");
+                    alert("The selected file contains invalid JSON.");
+                    submitButton.prop('disabled', false);
+                    return;
+                }
+
+                // Prepare request payload
+                const request = {
+                    methodname: 'local_edwiserpagebuilder_do_import_export_action',
+                    args: {
+                        action: "import_blocks_data",
+                        config: JSON.stringify({
+                            'blockid': blockid,
+                            'blockdata': fileContent,
+                        })
+                    }
+                };
+
+                try {
+                    // Send the AJAX request
+                    let response = await Ajax.call([request])[0];
+
+                    response = JSON.parse(response);
+
+                    if (response.status == 'success') {
+                        window.location.reload();
+                    } else {
+                        // Remove existing error message elements
+                        form.find('.block_import_exporterrormsg').remove();
+
+                        // Create a new error message paragraph element with red text
+                        const errorMessage = `<p class="block_import_exporterrormsg " style="margin-top: 16px;margin-bottom: 0px;color: #B60011;font-size: 12px;font-style: normal;font-weight: 400">${response.message}</p>`;
+
+                        // Insert the new error message above the submit button
+                        submitButton.before(errorMessage);
+
+                    }
+                } catch (err) {
+                    console.error("Error with AJAX request:", err);
+                } finally {
+                    // Re-enable the submit button
+                    submitButton.prop('disabled', false);
+                }
+            };
+
+            reader.onerror = function () {
+                console.error('Error reading the file');
+                submitButton.prop('disabled', false);
+            };
+
+            reader.readAsText(file); // Read the file as text
+        } else {
+            submitButton.prop('disabled', false);
+        }
+    });
+
+    $(document).ready(function () {
+        // Iterate through all sections that have block bodies containing 'data-edwiser-dynamic'
+        $('section.block_edwiseradvancedblock').each(function () {
+            // Check if the block body contains the attribute 'data-edwiser-dynamic'
+            if ($(this).find('[data-edwiser-dynamic]').length > 0) {
+                // Hide the button with class 'block_exporter_btn' in the header of this block
+                $(this).find('.block_exporter_btn').hide();
+            }
+        });
+    });
 
     // $(window).on('resize', blockViewHandler);
 }
@@ -297,4 +435,4 @@ function applyFilterOnBlocks(selector) {
 
 export {
     init
-}
+};
