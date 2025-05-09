@@ -366,6 +366,7 @@ $string['formpageselector'] = "محدد الصفحة";
 $string['formpagename'] = "اسم الصفحة";
 $string['formpagewidth'] = "عرض الصفحة";
 $string['featuredcoursesblockdesc'] = "تم تصميم كتلة الدورة المميزة لعرض أفضل محتوياتك وجذب المتعلمين.";
+$string["blockimportexportwarning"] = "خطأ: ملف غير صالح. يرجى التأكد من أن الملف الذي تم تحميله هو ملف Edwiser JSON صالح.";
 
 $string['hiddencourse'] = 'الدورة المخفية';
 $string['graderreport'] = 'تقرير المصحح';

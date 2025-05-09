@@ -363,6 +363,7 @@ $string['formpageselector'] = "Seletor de página";
 $string['formpagename'] = "Nome da página";
 $string['formpagewidth'] = "Largura da página";
 $string['featuredcoursesblockdesc'] = "O bloco de cursos em destaque foi projetado para mostrar seu melhor conteúdo e atrair alunos.";
+$string["blockimportexportwarning"] = "Erro: Arquivo inválido. Certifique-se de que o arquivo enviado seja um arquivo JSON Edwiser válido.";
 
 $string['hiddencourse'] = 'Curso oculto';
 $string['graderreport'] = 'Relatório de avaliador';

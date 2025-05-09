@@ -82,7 +82,7 @@ $avatar-size: map-get($edw-icon-sizes, 'large');
   }
 
   .coursename {
-    color: #313848 !important;
+    color: #313848;
     background-color: transparent;
     white-space: normal;
     font-weight: 600;
@@ -92,7 +92,7 @@ $avatar-size: map-get($edw-icon-sizes, 'large');
     &:hover {
       background-color: transparent;
       box-shadow: none;
-      color: lighten(#313848, 10%)  !important;
+      color: lighten(#313848, 10%);
     }
   }
 
@@ -100,7 +100,7 @@ $avatar-size: map-get($edw-icon-sizes, 'large');
   .lesson-count,
   .updated-date,
   .enrolled-users-count {
-    color: #647390 !important;
+    color: #647390;
   }
 
   .course-instructors {
@@ -131,7 +131,7 @@ $avatar-size: map-get($edw-icon-sizes, 'large');
   .rating-short-design{
     .avgrating,
     .rnr-link{
-        color: #4c5a73 !important;
+        color: #4c5a73;
         font-size: 12px;
         line-height: 14px;
         font-weight: 600;
@@ -159,12 +159,12 @@ $avatar-size: map-get($edw-icon-sizes, 'large');
 
   .instructorscount,
   .paymentmethodcount {
-    color: #647390 !important;
+    color: #647390;
     height: 24px;
     width: 24px;
     min-width: 24px;
     border-radius: 50%;
-    background-color: #ebf0f9 !important;
+    background-color: #ebf0f9;
   }
 
   .progress-data-wrapper {
@@ -184,16 +184,16 @@ $avatar-size: map-get($edw-icon-sizes, 'large');
     }
   }
 
-  .view-course-btn {
-    color: #0051f9 !important;
-    border-color: #0051f9 !important;
-    background: #fff !important;
+  // .view-course-btn {
+  //   color: #0051f9;
+  //   border-color: #0051f9;
+  //   background: #fff;
 
-    &:hover {
-      color: #0041c7 !important;
-      border-color: #0041c7 !important;
-    }
-  }
+  //   &:hover {
+  //     color: #0041c7;
+  //     border-color: #0041c7;
+  //   }
+  // }
 
 
 }
@@ -243,6 +243,10 @@ $avatar-size: map-get($edw-icon-sizes, 'large');
         border-radius: 2px;
         padding: 4px 8px;
         font-weight: 400;
+      }
+
+      .skilltag.badge-light {
+        background-color: #d9dee3;
       }
     }
 

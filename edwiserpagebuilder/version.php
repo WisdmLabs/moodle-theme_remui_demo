@@ -23,9 +23,9 @@
 
 defined( 'MOODLE_INTERNAL' ) || die();
 
-$plugin->version   = 2025012001;      // The current module version (Date: YYYYMMDDXX).
+$plugin->version   = 2025050800;      // The current module version (Date: YYYYMMDDXX).
 $plugin->requires  = 2022041900;      // Requires this Moodle version.
 $plugin->component = 'local_edwiserpagebuilder'; // Full name of the plugin (used for diagnostics).
 // $plugin->cron      = 0;
 $plugin->maturity  = MATURITY_STABLE;
-$plugin->release   = '4.2.16';
+$plugin->release   = '4.2.18';

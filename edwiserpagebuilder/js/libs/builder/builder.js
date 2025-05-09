@@ -83,8 +83,8 @@ Vvveb.dragHtml = '<div style="background:limegreen;;width:100%;height:3px;border
 
 Vvveb.baseUrl =  document.currentScript?document.currentScript.src.replace(/[^\/]*?\.js$/,''):'';
 Vvveb.imgBaseUrl =  Vvveb.baseUrl;
-Vvveb.serverurl =  "https://staticcdn.edwiser.org";
-// Vvveb.serverurl =  "https://qastaticcdn.edwiser.org";
+Vvveb.serverurl = "https://staticcdn.edwiser.org";
+// Vvveb.serverurl = "https://qastaticcdn.edwiser.org";
 Vvveb.ComponentsGroup = {};
 Vvveb.SectionsGroup = {};
 Vvveb.BlocksGroup = {};

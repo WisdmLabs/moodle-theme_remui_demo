@@ -170,6 +170,7 @@
       padding: 12px;
       border-color: $form-control-border;
       @include select-box-styling();
+      appearance: auto;
     }
 
   }
@@ -177,6 +178,10 @@
   .epb-add-notes-button-wrapper {
     justify-content: space-between;
     gap: 16px;
+
+    .epb-add-notes-button {
+      width: fit-content;
+    }
   }
 }
 
@@ -232,6 +237,10 @@
     }
 
     border-bottom: 1px solid $light-border-color-default;
+
+    select.form-control{
+      appearance: auto;
+    }
   }
 
   .quiz-overview-body {
@@ -246,6 +255,7 @@
         border: 1px solid $medium-border;
         border-radius: $common-border-radius;
         background-color: $bg-color;
+        width: fit-content;
 
         #highestactivity.counter-label,
         #lowestactivity.counter-label,
@@ -289,6 +299,10 @@
             color: darken($edw-icon-ic-default,10%)
           }
         }
+      }
+
+      .dropdown-toggle::after {
+        font-size: 9px;
       }
     }
   }
@@ -570,7 +584,7 @@
 
   .bootstrap-select {
     border: 1px solid #d5ddea !important;
-    
+
     button.epb-coursecategorylistblock {
       display: flex;
       align-items:center;
@@ -705,6 +719,7 @@
 
     .form-control {
       @include select-box-styling();
+      appearance: auto;
     }
   }
 
@@ -725,8 +740,13 @@
     border-bottom: 1px solid $light-border-color-default;
     row-gap: 16px;
 
+    .filter-options {
+      width: fit-content;
+    }
+
     .add-item-toggle {
       height: fit-content;
+      width: fit-content;
       align-self: center;
       margin-top: unset;
     }
@@ -850,7 +870,7 @@
     border-radius: 2px;
     width: 24px;
     height: 24px;
-  
+
     .edw-icon {
       font-size: 24px;
       color: $edw-icon-ic-default;

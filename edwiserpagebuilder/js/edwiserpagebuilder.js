@@ -236,7 +236,7 @@ define('local_edwiserpagebuilder/edwiserpagebuilder', ['local_edwiserpagebuilder
                             methodname: 'local_edwiserpagebuilder_get_media_list',
                             args: {
                                 limitfrom: limit,
-                                offset: 50
+                                offset: 70
                             }
                         }
                     ]);

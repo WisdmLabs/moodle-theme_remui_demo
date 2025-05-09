@@ -42,6 +42,12 @@ define([
 
                 $(e.target).trigger(RemuiblckEvents.TASK_DURATION_FILTER_CHANGE);
 
+                // Get the aria-label from the selected option
+                var ariaLabel = option.attr('aria-label');
+
+                // Update the button with ID "taskduration" - both title and inner span text
+                $('#taskduration').attr('title', ariaLabel).find('span').text(ariaLabel);
+
                 data.originalEvent.preventDefault();
 
                 TaskView.loadTasks(root, option.data('value'), getTaskStatus(root), getTaskSearch(root));
@@ -80,6 +86,12 @@ define([
                 }
 
                 $(e.target).trigger(RemuiblckEvents.TASK_STATUS_FILTER_CHANGE);
+
+                // Get the aria-label from the selected option
+                var ariaLabel = option.attr('aria-label');
+
+                // Update the button with ID "taskduration" - both title and inner span text
+                $('#taskstatus').attr('title', ariaLabel).find('span').text(ariaLabel);
 
                 data.originalEvent.preventDefault();
 

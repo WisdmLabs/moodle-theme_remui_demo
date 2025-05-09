@@ -490,6 +490,10 @@
         }
     }
 
+    .filepicker.d-flex > .form-control {
+        width: 100%;
+    }
+
     #bottom-panel {
         width: 100%;
         display: flex;

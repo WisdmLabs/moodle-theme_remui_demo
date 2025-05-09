@@ -363,6 +363,7 @@ $string['formpageselector'] = "Selektor strony";
 $string['formpagename'] = "Nazwa strony";
 $string['formpagewidth'] = "Szerokość strony";
 $string['featuredcoursesblockdesc'] = "Blok polecanych kursów został zaprojektowany, aby prezentować najlepsze treści i przyciągać uczniów.";
+$string["blockimportexportwarning"] = "Błąd: Nieprawidłowy plik. Upewnij się, że przesłany plik jest prawidłowym plikiem Edwiser JSON.";
 
 $string['hiddencourse'] = 'Ukryty kurs';
 $string['graderreport'] = 'Raport oceniania';

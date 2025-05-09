@@ -30,7 +30,7 @@ define('COURSE_MANAGE_PIE_COLORS', array(
 ));
 global $CFG;
 
-if ($CFG->branch < '404') {
+if($CFG->branch < '404'){
 
     function local_edwiserpagebuilder_before_standard_html_head() {
         global $PAGE;

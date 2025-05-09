@@ -1,5 +1,13 @@
 CHANGES LOG
 
+Version 4.2.18
+=============
+Feature - Compatibility with Moodle 5.0.
+
+Version 4.2.17
+=============
+Tweak– Additional UI/UX improvements in Edwiser advanced blocks.
+
 Version 4.2.16
 =============
 Feature - Block import and export functionality added on the static blocks

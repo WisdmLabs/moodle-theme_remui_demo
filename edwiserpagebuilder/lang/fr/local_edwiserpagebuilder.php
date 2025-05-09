@@ -361,6 +361,7 @@ $string['formpageselector'] = "Sélecteur de page";
 $string['formpagename'] = "Nom de la page";
 $string['formpagewidth'] = "Largeur de la page";
 $string['featuredcoursesblockdesc'] = "Le bloc de cours en vedette est conçu pour mettre en valeur votre contenu de qualité et attirer les apprenants.";
+$string["blockimportexportwarning"] = "Erreur : Fichier invalide. Veuillez vous assurer que le fichier téléchargé est un fichier JSON Edwiser valide.";
 
 $string['hiddencourse'] = 'Cours masqué';
 $string['graderreport'] = "Rapport d'évaluation";

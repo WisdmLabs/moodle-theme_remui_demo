@@ -360,6 +360,7 @@ $string['formpageselector'] = "Seitenauswahl";
 $string['formpagename'] = "Seitenname";
 $string['formpagewidth'] = "Seitenbreite";
 $string['featuredcoursesblockdesc'] = "Der Featured-Kurs-Block ist dazu gedacht, Ihre Top-Inhalte zu präsentieren und Lernende anzuziehen.";
+$string["blockimportexportwarning"] = "Fehler: Ungültige Datei. Bitte stellen Sie sicher, dass die hochgeladene Datei eine gültige Edwiser JSON-Datei ist.";
 
 $string['hiddencourse'] = 'Versteckter Kurs';
 $string['graderreport'] = 'Notenübersicht';

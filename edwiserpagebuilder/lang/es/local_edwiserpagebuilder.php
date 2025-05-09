@@ -361,6 +361,7 @@ $string['formpagename'] = "Nombre de la página";
 $string['formpagewidth'] = "Ancho de la página";
 
 $string['featuredcoursesblockdesc'] = "El bloque de cursos destacados está diseñado para mostrar tu mejor contenido y atraer a los estudiantes.";
+$string["blockimportexportwarning"] = "Error: Archivo no válido. Asegúrese de que el archivo cargado sea un archivo JSON de Edwiser válido.";
 
 $string['hiddencourse'] = 'Curso oculto';
 $string['graderreport'] = 'Informe del Evaluador';

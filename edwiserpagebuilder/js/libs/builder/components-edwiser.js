@@ -413,7 +413,10 @@ define('local_edwiserpagebuilder/components-edwiser', ['local_edwiserpagebuilder
                         var selected = $("#catselector").val();
                         $(node).attr('data-catid',selected);
                         var show = $(node).attr('data-show');
-                        var shortcode = `[edwiser-cnc layout="coursesncategories" show='${show}' catid='${selected}' date="all"]`;
+                        if(selected == 0){
+                            var shortcode = `[edwiser-cnc layout="coursesncategories" show='${show}' catid='all' date="all"]`;
+                        }else{
+                            var shortcode = `[edwiser-cnc layout="coursesncategories" show='${show}' catid='${selected}' date="all"]`;}
                         node =   updateCardView(shortcode, node);
 
                         return node;
