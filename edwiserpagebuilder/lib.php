@@ -99,8 +99,8 @@ function local_edwiserpagebuilder_extend_navigation(global_navigation $nav) {
             // }
             $singleregiondata = array(
                 'region' => $region,
-                'regionname' => get_string($region, 'local_edwiserpagebuilder'),
-                'regionid' => $regionsid[$region],
+                'regionname' => isset($regionsid[$region]) ? get_string($region, 'local_edwiserpagebuilder') : $region,
+                'regionid' => isset($regionsid[$region]) ? $regionsid[$region] : "#{$region}",
                 // 'regionaddblockbutton' => $OUTPUT->addblockbutton($region),
                 'regionaddblockbutton' => get_addblock_btn_for_region($region),
                 'pageurl' => $PAGE->url,

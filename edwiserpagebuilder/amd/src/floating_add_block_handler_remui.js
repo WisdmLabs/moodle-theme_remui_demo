@@ -203,7 +203,10 @@ define(['jquery', 'core/ajax', 'core/toast', 'core/str'], function($, Ajax, Toas
         //     callAllFunctions(blocksectiondata, this, true);
         // });
 
-        $(document).on("click", elements.join(","), function() {
+        // $(document).on("click", elements.join(","), function() {
+        //     callAllFunctions(blocksectiondata, this, true);
+        // });
+        $(document).on("click", ".edw-theme-region-link", function() {
             callAllFunctions(blocksectiondata, this, true);
         });
 
