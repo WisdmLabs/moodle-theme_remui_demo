@@ -104,6 +104,7 @@
     align-items: center;
     padding: 10px 60px;
     position: fixed;
+    left: 0;
     width: 100%;
     z-index: 1020;
     transition: width 0.2s;
@@ -660,7 +661,7 @@
         .form-autocomplete-suggestions {
             width: 100%;
             overflow: auto;
-            
+
             li {
                 width: 100%;
                 min-width: max-content;

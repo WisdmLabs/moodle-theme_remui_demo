@@ -230,7 +230,9 @@ $edwqmenu-bgcolor: #222222;
     .dropdown-menu{
         background-color: $edwqmenu-bgcolor;
         border-radius: 10px;
-        overflow: hidden;
+        overflow-x: hidden;
+        overflow-y: auto;
+        max-height: 70vh;
         border: unset;
         left: 50% !important;
         transform: translate(-50%, -103%) !important;
@@ -1117,4 +1119,197 @@ $edwqmenu-bgcolor: #222222;
             }
         }
     }
+}
+
+
+
+
+// SCSS for theme independent
+// SCSS for full-with regions and some blocks releted css
+.block-indicator{
+    height: 60px;
+    background-image: url([[pix:local_edwiserpagebuilder|blockindicatorbg]]);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.25) inset;
+    .block-indicator-text-wrapper{
+       width: fit-content;
+       color: #343A40;
+       font-size: 12px;
+       font-style: italic;
+       font-weight: 600;
+       line-height: normal;
+       letter-spacing: 1.68px;
+       text-transform: uppercase;
+    }
+}
+
+.block_edwiseradvancedblock {
+    & > .card-body {
+        & > .content {
+            margin-top: 0 !important;
+        }
+
+        & > .block-controls {
+            margin-left: 12px;
+            margin-right: 12px;
+            margin-top: 5px;
+        }
+    }
+}
+
+
+.edw-icon-Cancel.small::before {
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    content: "\f00d"; /* Unicode for xmark */
+    font-style: normal;
+    display: inline-block;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+#page-epb-page-draft,
+#page-epb-page-publish {
+    @media screen and ( min-width: 1024px ) {
+        &.path-epb-page:not(.limitedwidth) .main-inner {
+            padding-left: 3rem;
+            padding-right: 3rem;
+        }
+    }
+}
+
+#region-top-blocks.has-blocks {
+    margin-bottom: 56px;
+}
+#region-bottom-blocks,
+#region-top-blocks{
+    div[role="region-main"]{
+        padding: unset !important;
+        background-color: unset !important;
+        box-shadow: unset !important;
+    }
+}
+
+
+#region-fullwidthtop-blocks,
+#region-fullwidthbottom-blocks{
+    div[role="region-main"]{
+        padding: unset !important;
+        background-color: unset !important;
+    }
+    .block {
+        margin: unset !important;
+        .block-body-wrapper{
+            background: #fff;
+            gap: unset;
+            .block-header-wrapper{
+                // padding: map-get($spacerspx, '1d5')  map-get($spacerspx, '6');
+                position: relative;
+                padding: unset;
+                .controls-wrapper{
+                    padding: 6px 24px;
+                    padding-right: 50px ;
+
+                    @media screen and (max-width: 767px) {
+                        padding-right: 0px;
+                        padding: 6px;
+                    }
+                }
+            }
+            .edw-block-body{
+                box-shadow: unset;
+                padding: unset;
+            }
+        }
+
+        border: 0;
+        border-radius: 0;
+
+        & > .card-body {
+            padding: 0 !important;
+            margin-top: 0 !important;
+        }
+
+        & > .card-body > .content {
+            margin-top: 0 !important;
+        }
+    }
+}
+.region-placeholder{
+    display: none;
+}
+.editing {
+    #region-fullwidthtop-blocks,
+    #region-fullwidthbottom-blocks {
+        .block {
+            &:hover{
+                box-shadow: 0 0 15px -5px #000;
+                position: relative;
+            }
+        }
+    }
+    .region-placeholder{
+        display: block;
+    }
+    #region-fullwidthtop-blocks {
+        .block{
+            &:first-of-type {
+                .block-header-wrapper {
+                    .block-controls {
+                        .move-top {
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    #region-fullwidthbottom-blocks {
+        .block{
+            &:last-of-type {
+                .block-header-wrapper {
+                    .block-controls {
+                        .move-bottom {
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    #block-region-side-pre{
+        .block{
+            &:first-of-type {
+                .block-header-wrapper {
+                    .block-controls {
+                        .move-top {
+                            display: none;
+                        }
+                    }
+                }
+            }
+            &:last-of-type {
+                .block-header-wrapper {
+                   .block-controls {
+                        .move-bottom {
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+#region-fullwidthtop-blocks-indicator,
+#region-fullwidthbottom-blocks-indicator {
+    max-width: none;
+}
+
+.slick-list {
+    overflow: hidden;
 }
