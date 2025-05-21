@@ -376,3 +376,23 @@ $string['coursecardlessonstext'] = 'Lecciones';
 $string['coursestarted'] = "Iniciado:";
 $string['courseupdated'] = "Actualizado:";
 $string['coursecardsenrolledetxt'] = 'Inscrito';
+
+
+$string['licensestatus'] = 'Estado de la licencia';
+$string['edwiserpagebuilderlicenseactivation'] = 'Activación de la licencia de Edwiser Page Builder';
+$string['licensekey'] = 'Clave de licencia';
+$string['active'] = 'Activo';
+$string['notactive'] = 'Inactivo';
+$string['expired'] = 'Expirado';
+$string['activatelicense'] = 'Activar licencia';
+$string['deactivatelicense'] = 'Desactivar licencia';
+$string['renewlicense'] = 'Renovar licencia';
+$string['enterlicensekey'] = 'Por favor, introduzca su clave de licencia';
+$string['licensekeyactivated'] = 'Clave de licencia activada con éxito';
+$string['licensekeyhasexpired'] = 'La clave de licencia ha expirado';
+$string['licensekeyisdisabled'] = 'La clave de licencia está deshabilitada';
+$string['entervalidlicensekey'] = 'Por favor, introduzca una clave de licencia válida';
+$string['siteinactive'] = 'El sitio está inactivo';
+$string['licensekeydeactivated'] = 'Clave de licencia desactivada con éxito';
+$string['noresponsereceived'] = 'No se recibió respuesta del servidor';
+$string['licensenotactive'] = 'La licencia no está activa';

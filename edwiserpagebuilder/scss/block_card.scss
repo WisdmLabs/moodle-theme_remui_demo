@@ -324,7 +324,7 @@
 
 
 
-// When license not active on that case we have restricted live-customizer button
+// FOR LICENSE NOT ACTIVE: When license not active on that case we have restricted live-customizer button and showing not active message
 .epb-block-customize-btn-wrapper {
   position: relative;
   display: inline-block;
@@ -362,6 +362,7 @@
 
     .btn-primary {
       position: relative;
+      opacity: 0.65;
 
       background-color: #6a737b;
       color: #fff;

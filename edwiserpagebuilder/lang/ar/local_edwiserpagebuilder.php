@@ -381,3 +381,23 @@ $string['coursecardlessonstext'] = 'الدروس';
 $string['coursestarted'] = "بدأت";
 $string['courseupdated'] = "تم التحديث";
 $string['coursecardsenrolledetxt'] = 'الطلاب المسجلين';
+
+
+$string['licensestatus'] = 'حالة الترخيص';
+$string['edwiserpagebuilderlicenseactivation'] = 'تفعيل ترخيص Edwiser Page Builder';
+$string['licensekey'] = 'مفتاح الترخيص';
+$string['active'] = 'نشط';
+$string['notactive'] = 'غير نشط';
+$string['expired'] = 'منتهي';
+$string['activatelicense'] = 'تفعيل الترخيص';
+$string['deactivatelicense'] = 'إلغاء تفعيل الترخيص';
+$string['renewlicense'] = 'تجديد الترخيص';
+$string['enterlicensekey'] = 'يرجى إدخال مفتاح الترخيص';
+$string['licensekeyactivated'] = 'تم تفعيل مفتاح الترخيص بنجاح';
+$string['licensekeyhasexpired'] = 'انتهت صلاحية مفتاح الترخيص';
+$string['licensekeyisdisabled'] = 'تم تعطيل مفتاح الترخيص';
+$string['entervalidlicensekey'] = 'يرجى إدخال مفتاح ترخيص صالح';
+$string['siteinactive'] = 'الموقع غير نشط';
+$string['licensekeydeactivated'] = 'تم إلغاء تفعيل مفتاح الترخيص بنجاح';
+$string['noresponsereceived'] = 'لم يتم استلام أي رد من الخادم';
+$string['licensenotactive'] = 'الترخيص غير نشط';
