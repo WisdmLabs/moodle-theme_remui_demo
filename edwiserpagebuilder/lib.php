@@ -208,7 +208,7 @@ function get_block_id() {
 
 // Add the customizer button on each block.
 function local_edwiserpagebuilder_customizer_button($instanceid) {
-    global $PAGE, $CFG;
+    global $PAGE, $CFG, $DB;
     if (!$PAGE->user_is_editing()) {
         return "";
     }
@@ -217,6 +217,9 @@ function local_edwiserpagebuilder_customizer_button($instanceid) {
         return "";
     }
 
+    // Check license status
+    $licensestatus = get_epb_license_status();
+
     $url = $CFG->wwwroot . "/local/edwiserpagebuilder/editor.php?bui_edit=" . $instanceid;
     $url .= "&returl=". urlencode($PAGE->url);
     $customizerbutton = "<div class='d-flex justify-content-end live-customizer-btn ''>";
@@ -224,12 +227,39 @@ function local_edwiserpagebuilder_customizer_button($instanceid) {
     $customizerbutton .= "<a class='btn btn-secondary mr-2 block_exporter_btn' data-blockid='".$instanceid."' href='#'";
     $customizerbutton .= "role='button'>";
     $customizerbutton .= "<i class='fa fa-upload'></i> Export block</a>";
-    $customizerbutton .= "<a class='btn btn-primary' href='".$url."'";
-    $customizerbutton .= "role='button'>";
-    $customizerbutton .= "<i class='fa fa-pencil'></i> ".get_string("livecustomizer", "local_edwiserpagebuilder")."</a>";
+
+    // Check if license is valid
+    if ($licensestatus === 'valid') {
+        $customizerbutton .= "<a class='btn btn-primary' href='".$url."'";
+        $customizerbutton .= "role='button'>";
+        $customizerbutton .= "<i class='fa fa-pencil'></i> ".get_string("livecustomizer", "local_edwiserpagebuilder")."</a>";
+    } else {
+        $customizerbutton .= "<div class='epb-block-customize-btn-wrapper'>";
+        $customizerbutton .= "<div class='epb-live-customizer-btn-inner-wrapper'><a class='btn btn-primary disabled' href='#'";
+        $customizerbutton .= "role='button'>";
+        $customizerbutton .= "<i class='fa fa-pencil'></i> ".get_string("livecustomizer", "local_edwiserpagebuilder")."</a></div>";
+        $customizerbutton .= "<div class='epb-licensenotactive-msg-wrapper'>";
+        $customizerbutton .= get_string("licensenotactive", "local_edwiserpagebuilder");
+        $customizerbutton .= "<div class='epb-licensenotactive-msg-arrow'></div>";
+        $customizerbutton .= "</div>";
+        $customizerbutton .= "</div>";
+    }
     $customizerbutton .= "</div>";
 
     return $customizerbutton;
+}
+
+function get_epb_license_status() {
+    global $DB;
+    // Check license status
+    $licensestatus = $DB->get_field_select(
+        'config_plugins',
+        'value',
+        'name = :name',
+        array('name' => 'edd_edwiser-page-builder-for-moodle_license_status'),
+        IGNORE_MISSING
+    );
+    return $licensestatus;
 }
 
 // Update the list of blocks.

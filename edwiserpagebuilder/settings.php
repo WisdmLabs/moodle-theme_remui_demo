@@ -55,4 +55,14 @@ if ($hassiteconfig or has_any_capability($capabilities, \context_system::instanc
         )
     );
 
+    // Add license page to admin menu.
+    $ADMIN->add(
+        $componentname,
+        new \admin_externalpage(
+            'local_edwiserpagebuilder_licensestatus',
+            get_string('licensestatus', $componentname),
+            new \moodle_url('/local/edwiserpagebuilder/classes/license.php'),
+            array('moodle/site:config')
+        )
+    );
 }

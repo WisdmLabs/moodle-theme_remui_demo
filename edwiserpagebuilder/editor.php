@@ -117,6 +117,11 @@ $PAGE->requires->js_call_amd('local_edwiserpagebuilder/edwiserpagebuilder', 'ini
 //    $PAGE->requires->js_call_amd('local_edwiserpagebuilder/edwiserfrompreview', 'init');
 // }
 
+$licensestatus = get_epb_license_status();
+if ($licensestatus !== 'valid') {
+    throw new moodle_exception(get_string('licensenotactive', 'local_edwiserpagebuilder'));
+}
+
 echo $OUTPUT->header();
 echo $OUTPUT->container_start();
 require_once('editor-template.php');

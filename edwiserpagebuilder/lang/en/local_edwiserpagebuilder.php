@@ -373,7 +373,6 @@ $string['privacy:metadata:edw_taskslist'] = 'Information about tasks';
 $string['privacy:metadata:edw_taskslist:createdby'] = 'The user who created the task';
 $string['privacy:metadata:edw_taskslist:assignedto'] = 'The users assigned to the task';
 
-
 $string['content'] = 'content';
 $string['side-pre'] = 'Right';
 $string['side-top'] = 'Top';
@@ -396,3 +395,22 @@ $string['coursecardlessonstext'] = 'Lessons';
 $string['coursestarted'] = "Started";
 $string['courseupdated'] = "Updated";
 $string['coursecardsenrolledetxt'] = 'Enrolled';
+
+$string['licensestatus'] = 'License Status';
+$string['edwiserpagebuilderlicenseactivation'] = 'Edwiser Page Builder License Activation';
+$string['licensekey'] = 'License Key';
+$string['active'] = 'Active';
+$string['notactive'] = 'Not Active';
+$string['expired'] = 'Expired';
+$string['activatelicense'] = 'Activate License';
+$string['deactivatelicense'] = 'Deactivate License';
+$string['renewlicense'] = 'Renew License';
+$string['enterlicensekey'] = 'Please enter your license key';
+$string['licensekeyactivated'] = 'License key activated successfully';
+$string['licensekeyhasexpired'] = 'License key has expired';
+$string['licensekeyisdisabled'] = 'License key is disabled';
+$string['entervalidlicensekey'] = 'Please enter a valid license key';
+$string['siteinactive'] = 'Site is inactive';
+$string['licensekeydeactivated'] = 'License key deactivated successfully';
+$string['noresponsereceived'] = 'No response received from server';
+$string['licensenotactive'] = "License not active";

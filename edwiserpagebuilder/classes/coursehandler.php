@@ -161,7 +161,6 @@ class coursehandler {
         $table->add_field('tempid', XMLDB_TYPE_INTEGER, 10);
         $table->add_key('primary', XMLDB_KEY_PRIMARY, ['id']);
 
-
         if ($dbman->table_exists($tablename)) {
             $dbman->drop_table($table);
         }

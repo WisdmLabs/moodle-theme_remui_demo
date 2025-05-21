@@ -778,5 +778,4 @@ class custom_page_handler
             "html" => $OUTPUT->render_from_template("local_edwiserpagebuilder/add_block_float_menu_remui", $addblockmodalcontext),
         );
     }
-
 }
