@@ -1,5 +1,18 @@
 CHANGES LOG
 
+Version 4.2.8
+=============
+Feature - Compatibility with Moodle 4.5.
+Fix Conflict between featured courses and courses/categories has been resolved.
+
+Version 4.2.7
+=============
+Tweak– Dynamic block colors are now synchronized with RemUI theme colors.
+
+Version 4.2.6
+=============
+Feature - Compatibility with Moodle 4.5.
+
 Version 4.2.5
 =============
 Feature - Added functionality to handle featured courses block.
@@ -14,7 +27,7 @@ Feature - Added language translation files for:
         - Portuguese (Brazil) (pt_br)
         - France (fr)
         - Polish (pl)
-        - Arabic (ar)   
+        - Arabic (ar)
 Tweak - Multi lang filter plugins  support added
 
 

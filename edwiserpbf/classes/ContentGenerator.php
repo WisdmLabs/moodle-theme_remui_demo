@@ -375,10 +375,11 @@ class ContentGenerator
 
     public function get_edw_categories_from_tag( $tags ) {
         $data = [];
-        if ($tags['catid'] == 0 || $tags['catid'] == 'all' ) {
+        $cats = explode(',', $tags['catid']);
+        
+        if (in_array('all', $cats) || in_array(0, $cats)) {
             $data = core_course_category::get_all();
         } else {
-            $cats = explode(',', $tags['catid']);
             $data = core_course_category::get_many($cats);
         }
         $categories = [];
@@ -410,7 +411,10 @@ class ContentGenerator
             } else {
                 $context['catids'] = $tags['catid'];
             }
-            list($totalcoursecount, $courses) = $coursehandler->get_courses(false, null, $context['catids'], 0  , $maxlimit);
+            $catidsNew = $context['catids'];
+            $catidsNewArray = explode(",", $catidsNew);
+            if (in_array("all",$catidsNewArray) || in_array(0,$catidsNewArray)) $catidsNew = 'all';
+            list($totalcoursecount, $courses) = $coursehandler->get_courses(false, null, $catidsNew, 0  , $maxlimit);
             $context['coursecount'] = $totalcoursecount;
             $context['courses'] = $courses;
             $context['fetchedcoursecount'] = count($courses);

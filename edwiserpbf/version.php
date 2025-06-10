@@ -22,11 +22,11 @@
  */
 
 defined('MOODLE_INTERNAL') || die();
-$plugin->version   = 2024091000;        // The current plugin version (Date: YYYYMMDDXX)
+$plugin->version   = 2025050800;        // The current plugin version (Date: YYYYMMDDXX)
 $plugin->requires  = 2022041900;        // Requires this Moodle version
 $plugin->component = 'filter_edwiserpbf'; // Full name of the plugin (used for diagnostics)
 $plugin->maturity  = MATURITY_STABLE;
-$plugin->release   = '4.2.5';
+$plugin->release   = '4.2.8';
 $plugin->dependencies = array(
     'local_edwiserpagebuilder' => ANY_VERSION
 );

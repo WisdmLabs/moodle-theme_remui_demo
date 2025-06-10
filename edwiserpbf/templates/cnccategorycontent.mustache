@@ -1,5 +1,5 @@
 
-<div class="navbar-carousel collapsed">
+<div class="navbar-carousel collapsed cnc-navbar-carousel">
     <div class="navbar-inner">
         <div class="mob-navbar"></div>
         <ol class="navbar-item-container">
@@ -7,7 +7,7 @@
             <li class="navitem {{#active}}active{{/active}}" data-categoryid="{{id}}" data-coursecount="{{coursecount}}">
                 <div class="navitem-content">
                     <P>{{{name}}}</P>
-                    <p>{{{coursecount}}}</p>
+                    <p class="course-count">{{{coursecount}}}</p>
                 </div>
             </li>
             {{/categories}}
@@ -18,16 +18,10 @@
             src="{{cdnurl}}/CDN/coursesncategories/dropdown-icon.svg"
             alt="dropdown icon" /></button>
 
-    <button class="nav-left-arrow">
-        <img src="{{cdnurl}}/CDN/coursesncategories/nav-indicator-dark.svg"
-            alt="nav indicator dark" />
-        <img src="{{cdnurl}}/CDN/coursesncategories/nav-indicator-light.svg"
-            alt="nav indicator light" />
+    <button class="nav-left-arrow border-color-primary hover hover-bg-primary">
+       <span class="fa fa-light fa-angle-left color-primary hover-color-white" aria-hidden="true"></span>
     </button>
-    <button class="nav-right-arrow">
-        <img src="{{cdnurl}}/CDN/coursesncategories/nav-indicator-dark.svg"
-            alt="nav indicator dark" />
-        <img src="{{cdnurl}}/CDN/coursesncategories/nav-indicator-light.svg"
-            alt="nav indicator light" />
+    <button class="nav-right-arrow border-color-primary hover hover-bg-primary">
+      <span class="fa fa-light fa-angle-right color-primary hover-color-white" aria-hidden="true"></span>
     </button>
 </div>

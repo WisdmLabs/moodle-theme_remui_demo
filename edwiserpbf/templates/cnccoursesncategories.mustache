@@ -9,12 +9,12 @@
                 {{> filter_edwiserpbf/coursecard}}
             </div>
 
-            <button class="carousel-control-prev{{instid}} position-absolute" type="button">
-                <span class="fa fa-light fa-angle-left" aria-hidden="true"></span>
+            <button class="carousel-control-prev{{instid}} position-absolute border-color-primary" type="button">
+                <span class="fa fa-light fa-angle-left color-primary" aria-hidden="true"></span>
             </button>
 
-            <button class="carousel-control-next{{instid}} position-absolute" type="button">
-                <span class="fa fa-light fa-angle-right" aria-hidden="true"></span>
+            <button class="carousel-control-next{{instid}} position-absolute border-color-primary" type="button">
+                <span class="fa fa-light fa-angle-right color-primary" aria-hidden="true"></span>
             </button>
 
         </div>
@@ -80,27 +80,20 @@
      justify-content: center;
      align-items: center;
      transition: background-color 0.3s ease-in;
+     transform: translateY(-50%);
 }
- .section-all-courses-category-design-{{instid}} .navbar-carousel .nav-left-arrow img:last-child, .section-all-courses-category-design-{{instid}} .navbar-carousel .nav-right-arrow img:last-child {
-     display: none;
-}
+
  .section-all-courses-category-design-{{instid}} .navbar-carousel .nav-left-arrow {
      left: 0px;
-     transform: rotate(180deg) translateY(50%);
 }
  .section-all-courses-category-design-{{instid}} .navbar-carousel .nav-right-arrow {
-     transform: translateY(-50%);
      right: 0px;
 }
  .section-all-courses-category-design-{{instid}} .navbar-carousel .nav-left-arrow:hover, .section-all-courses-category-design-{{instid}} .navbar-carousel .nav-right-arrow:hover {
      background-color: #0051f9;
 }
- .section-all-courses-category-design-{{instid}} .navbar-carousel .nav-left-arrow:hover img:first-child, .section-all-courses-category-design-{{instid}} .navbar-carousel .nav-right-arrow:hover img:first-child {
-     display: none;
-}
- .section-all-courses-category-design-{{instid}} .navbar-carousel .nav-left-arrow:hover img:last-child, .section-all-courses-category-design-{{instid}} .navbar-carousel .nav-right-arrow:hover img:last-child {
-     display: block;
-}
+
+
  .section-all-courses-category-design-{{instid}} .navbar-inner {
      position: relative;
      height: 42px;
@@ -289,17 +282,13 @@
      min-height: 37px;
      padding: 5px 20px;
      border-radius: 4px;
-     border: 1px solid #0051F9;
-     background: #FFF;
-     color: #0051F9;
+    border-width: 1px;
+    border-style: solid;
      font-size: 14px;
      font-weight: 600;
      transition: background 0.3s ease-in, color 0.2s ease-in;
 }
-.section-all-courses-category-design-{{instid}} .card .card-btn:hover button {
-     background: #0051F9;
-     color: #FFF;
-}
+
  .section-all-courses-category-design-{{instid}} .carousel-control-prev{{instid}}, .section-all-courses-category-design-{{instid}} .carousel-control-next{{instid}} {
      width: 46px;
      height: 46px;

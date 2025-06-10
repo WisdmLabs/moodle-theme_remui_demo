@@ -14,20 +14,15 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * @package   filter_edwiserpbf
- * @copyright (c) 2022 WisdmLabs (https://wisdmlabs.com/) <support@wisdmlabs.com>
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @author    Gourav Govande
- */
-
+namespace filter_edwiserpbf;
 use filter_edwiserpbf\ContentGenerator;
-use filter_edwiserpbf\CommonFilterTrait;
-
-if ($CFG->branch > '404') { // Moodle 4.5 and newer
-    class_alias('\filter_edwiserpbf\text_filter', 'filter_edwiserpbf');
-} else {
-    class filter_edwiserpbf extends moodle_text_filter {
-        use CommonFilterTrait;
-    }
+/**
+ * Class text_filter
+ *
+ * @package    filter_edwiserpbf
+ * @copyright  2024 YOUR NAME <your@email.com>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+class text_filter extends \moodle_text_filter {
+    use CommonFilterTrait;
 }

@@ -7,12 +7,12 @@
                 {{> filter_edwiserpbf/featurecoursecard}}
             </div>
 
-            <button class="carousel-control-prev{{instid}} position-absolute" type="button">
-                <span class="fa fa-light fa-angle-left" aria-hidden="true"></span>
+            <button class="carousel-control-prev{{instid}} position-absolute border-color-primary" type="button">
+                <span class="fa fa-light fa-angle-left color-primary" aria-hidden="true"></span>
             </button>
 
-            <button class="carousel-control-next{{instid}} position-absolute" type="button">
-                <span class="fa fa-light fa-angle-right" aria-hidden="true"></span>
+            <button class="carousel-control-next{{instid}} position-absolute border-color-primary" type="button">
+                <span class="fa fa-light fa-angle-right color-primary" aria-hidden="true"></span>
             </button>
         </div>
       {{/hascourses}}
@@ -164,8 +164,9 @@
      gap: 8px;
 }
  .section-all-courses-category-design-{{instid}} .carousel-indicators li {
+      list-style-type: none;
      opacity: 1;
-     background-color: #5B6880 !important;
+     background-color: #5B6880;
      width: 8px;
      height: 8px;
      border-radius: 50%;
@@ -176,7 +177,7 @@
      display: none;
 }
  .section-all-courses-category-design-{{instid}} .carousel-indicators .slick-active {
-     background-color: #0051F9 !important;
+     background-color: #0051F9;
 }
 .ellips-item-2{
         overflow: hidden;
@@ -369,29 +370,6 @@ require(['jquery', 'core/ajax', 'core/templates', 'local_edwiserpagebuilder/remu
                 }
               }
           });
-        $(document).on('click','.navitem',function(){
-          limitfrom = 0;
-          totalcourses = $(this).data('coursecount');
-          var categoryid = $(this).data('categoryid');
-          categorycommalist = categoryid;
-          $('#all-courses-category-carousel-{{instid}}').attr('data-totalcourses',totalcourses);
-          if(totalcourses > maxlimit){
-            limitto = maxlimit
-            remaingcards = totalcourses - maxlimit;
-            lastcard = maxlimit;
-          }else{
-            remaingcards = 0;
-            limitto = totalcourses;
-            lastcard = totalcourses;
-          }
-          $("#all-courses-category-carousel-{{instid}}").slick('unslick');
-          get_courses_list(limitfrom,limitto,categorycommalist,emptytrack = true);
-          if (carousleContainer.parents(".edw-limitedwidth-block").length > 0) {
-            slickvariationlimitedwidth();
-          } else {
-            slickvariationfullwidth();
-          }
-        });
     });
 });
 {{/js}}

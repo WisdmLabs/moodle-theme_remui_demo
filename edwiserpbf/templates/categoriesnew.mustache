@@ -4,14 +4,12 @@
             <div class="slider" id="all-courses-category-carousel-{{instid}}">
                 {{>filter_edwiserpbf/categorycard}}
             </div>
-            <button class="carousel-control-prev{{instid}} position-absolute" type="button">
-                <img src="{{cdnurl}}/CDN/coursesncategories/indicator-left.svg"
-                    alt="prev" />
+            <button class="carousel-control-prev{{instid}} position-absolute border-color-primary" type="button">
+               <span class="fa fa-light fa-angle-left color-primary" aria-hidden="true"></span>
             </button>
 
-            <button class="carousel-control-next{{instid}} position-absolute" type="button">
-                <img src="{{cdnurl}}/CDN/coursesncategories/indicator-right.svg"
-                    alt="next" />
+            <button class="carousel-control-next{{instid}} position-absolute border-color-primary" type="button">
+                <span class="fa fa-light fa-angle-right color-primary" aria-hidden="true"></span>
             </button>
 
         </div>
@@ -144,18 +142,12 @@
         height: 32px;
         padding: 5px 20px;
         border-radius: 4px;
-        border: 1px solid #0051F9;
-        background: #FFF;
-        color:  #0051F9;
+          border-width: 1px;
+        border-style: solid;
         font-size: 14px;
         font-weight: 600;
         transition: background 0.3s ease-in, color 0.2s ease-in;
         cursor: pointer;
-    }
-
-    .section-all-courses-category-design-2 .card .cards-footer .footer-btn:hover {
-        background: #0051F9;
-        color: #FFF;
     }
 
     .section-all-courses-category-design-2 .card:hover {
