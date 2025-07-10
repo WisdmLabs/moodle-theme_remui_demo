@@ -89,9 +89,15 @@ $floating-button-margin: 14px;
         }
     }
 }
+.jsenabled #page.drawers.show-drawer-right{
+    ~ #page-footer .floating-buttons-wrapper {
+        right: $drawer-right-width + $floating-button-margin;
+    }
+}
 .btn-outline-primary {
     &:hover, &:active {
         color: white !important;
+        background-color: $brand-primary !important;
     }
     &:focus {
         box-shadow: none !important;
@@ -110,9 +116,11 @@ $floating-button-margin: 14px;
     padding-right: #{$button-md-padingright}rem;
     padding-bottom: #{$button-md-padingbottom}rem;
     padding-left: #{$button-md-padingleft}rem;
+    text-decoration: none;
 }
 /* Primary button styling except colors. */
-.btn-primary {
+.btn-primary, .btn-primary.disabled,.btn-primary:disabled {
+    text-decoration: none;
     .fa,.edw-icon {
         color: $button-primary-color-icon;
     }
@@ -148,10 +156,11 @@ $floating-button-margin: 14px;
 }
 
 /* Secondary button */
-.btn-secondary {
+.btn-secondary, .btn-secondary.disabled,.btn-secondary:disabled {
     .fa,.edw-icon {
         color: $button-secondary-color-icon;
     }
+    text-decoration: none;
     &:hover {
         color: $button-secondary-color-texthover;
         background-color: $button-secondary-color-backgroundhover;
@@ -214,5 +223,55 @@ $floating-button-margin: 14px;
     }
     &:not(:disabled):not(.disabled):active{
         color: $warning-btn-color !important;
+    }
+}
+
+// To fix the issue where secondary buttons appear gray after being clicked
+.btn-secondary{
+    --bs-btn-disabled-color: unset;
+    --bs-btn-disabled-bg: unset;
+    --bs-btn-disabled-border-color: unset;
+}
+
+//Fix of Action button hover color was incorrect on the assignment submission page
+.container-fluid {
+    .navitem {
+        .action-menu{
+            .menubar {
+                .action-menu-trigger{
+                    .dropdown{
+                        .btn-outline-primary:hover{
+                            color: $button-secondary-color-texthover !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// To fix color sync issue in Add a block button (Right side Bar)
+.drawer-right {
+    .drawercontent {
+        .add_block_button {
+            a.btn {
+                @extend .btn-secondary
+            }
+        }
+    }
+}
+
+
+body.bulkenabled.hasstickyfooter {
+    .course-content {
+        #sticky-footer {
+            ul.actions.nav {
+                li.nav-item {
+                    button.btn.disabled {
+                        border-color: transparent;
+                    }
+                }
+            }
+        }
     }
 }

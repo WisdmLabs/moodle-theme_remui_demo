@@ -85,21 +85,21 @@
                 <div class="edw-tabs-navigation">
                     <ul class="nav nav-tabs more-nav " role="tablist">
                         <li class="nav-item" role="presentation">
-                            <a id="aboutmetab" class="nav-link active" data-toggle="tab" href="#aboutme" aria-controls="aboutme" role="tab">
+                            <a id="aboutmetab" class="nav-link active"  data-toggle="tab"  data-bs-toggle="tab" href="#aboutme" aria-controls="aboutme" role="tab">
                                 {{# notcurrentuser }} {{ firstname }}{{/ notcurrentuser}}
                                 {{^ notcurrentuser }}{{# str }} aboutme, theme_remui {{/ str }}{{/ notcurrentuser}}
                             </a>
                         </li>
                         {{#usercourses}}
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link" data-toggle="tab" href="#usercourses" aria-controls="usercourses"
+                            <a class="nav-link"  data-toggle="tab"  data-bs-toggle="tab" href="#usercourses" aria-controls="usercourses"
                                 role="tab">
                                 {{# str }} courses, theme_remui {{/ str }}
                             </a>
                         </li>
                         {{/usercourses}}
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link" data-toggle="tab" href="#userprefs" aria-controls="userprefs" role="tab">
+                            <a class="nav-link"  data-toggle="tab"  data-bs-toggle="tab" href="#userprefs" aria-controls="userprefs" role="tab">
                                 {{# str }} setting, theme_remui {{/ str }}
                             </a>
                         </li>

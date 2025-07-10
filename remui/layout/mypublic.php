@@ -94,7 +94,9 @@ if (user_can_view_profile($userobject, null, $context)) {
     $templatecontext['user']->forumpostcount = usercontroller::get_user_forum_post_count($userobject);
     $templatecontext['user']->blogpostcount  = usercontroller::get_user_blog_post_count($userobject);
     $templatecontext['user']->contactscount  = usercontroller::get_user_contacts_count($userobject);
-    $templatecontext['user']->description  = format_text($userobject->description,FORMAT_HTML);
+    // $templatecontext['user']->description  = format_text($userobject->description,FORMAT_HTML);
+    $usercontext = context_user::instance($userobject->id, MUST_EXIST);
+    $templatecontext['user']->description = format_text(file_rewrite_pluginfile_urls($user->description, 'pluginfile.php', $usercontext->id, 'user','profile', null), $user->descriptionformat);
 
     // About me tab data.
     $interests = \core_tag_tag::get_item_tags('core', 'user', $userobject->id);
@@ -181,6 +183,7 @@ if (user_can_view_profile($userobject, null, $context)) {
     $templatecontext['user']->editmodecity  = $templatecontext['user']->city;
     $templatecontext['user']->editmodeemail = $templatecontext['user']->email;
     $templatecontext['user']->editmodedescription = $templatecontext['user']->description;
+    $templatecontext['user']->department = format_text($templatecontext['user']->department, FORMAT_HTML);
     if (isset($identityfields['address']) && $user->address) {
         $templatecontext['user']->location .= format_text($user->address, FORMAT_HTML);
     }
@@ -190,7 +193,7 @@ if (user_can_view_profile($userobject, null, $context)) {
 
     $templatecontext['user']->instidept = "";
     if (isset($identityfields['department']) && $user->department) {
-        $templatecontext['user']->instidept .= $user->department;
+        $templatecontext['user']->instidept .= format_text($user->department, FORMAT_HTML);
     }
 
     if (isset($identityfields['institution']) && $user->institution) {

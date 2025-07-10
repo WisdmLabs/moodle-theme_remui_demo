@@ -18,7 +18,8 @@ $edwqmenu-margin: 14px;
 	border-radius: 8px;
 	background-color: $edwqmenu-bgcolor;
 	box-shadow: $edwqmenu-shadow;
-	z-index: 10;
+	// z-index specifically change for 4.4.
+	z-index: 1016;
 	.close-quick-menu {
 		text-decoration: none;
 		padding: 4px;

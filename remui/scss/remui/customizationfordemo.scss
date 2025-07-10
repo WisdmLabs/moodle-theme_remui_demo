@@ -1,5 +1,11 @@
-body:not(.notloggedin) {
+body.edwembeded {
+    elevenlabs-convai[agent-id="vs6WJkhAKECIs362uMI7"],
+    #hello-bubble {
+        display: none !important;
+    }
+}
 
+body:not(.notloggedin):not(.videoformatdemo):not(.edwembeded) {
 
     #page.drawers {
         margin-top: $navbar-height + $subnav-height;
@@ -38,7 +44,7 @@ body:not(.notloggedin) {
         &.focusmode {
             .navbar {
                 &.fm-navbar {
-                    top: $subnav-height !important; 
+                    top: $subnav-height !important;
                 }
             }
         }
@@ -69,7 +75,7 @@ body:not(.notloggedin) {
     &:has(.page_sub_header) {
         #page.drawers {
             margin-top: $navbar-height + $subnav-height + 56px; //56px for page_sub_header height
-            
+
             @media (max-width: 720px) {
                 margin-top: $navbar-height + $subnav-height + 82px;
             }
@@ -77,7 +83,7 @@ body:not(.notloggedin) {
             @media (max-width: 400px) {
                 margin-top: $navbar-height + $subnav-height + 115px ;
             }
-            
+
             @media (max-width: 380px) {
                 margin-top: $navbar-height + $subnav-height + 168px;
             }
@@ -112,4 +118,33 @@ body:not(.notloggedin) {
             margin-top: $navbar-height + $subnav-height + 74px;
         }
      }
+}
+
+
+.floating-buttons-wrapper {
+    .asw-container {
+
+        .asw-menu {
+            top: 90px + $subnav-height;
+
+
+            .asw-menu-content {
+                max-height: calc(100% - 36px);
+            }
+
+            .asw-footer {
+                display: none !important;
+            }
+        }
+    }
+
+}
+
+#feedback-overview-description-text .dataoverview {
+    max-width: 250px;
+}
+
+// navbar searchbar is close icon is breaking on mobile view
+#searchform-navbar .btn-close .edw-icon-Cancel {
+    font-size: 0 !important;
 }

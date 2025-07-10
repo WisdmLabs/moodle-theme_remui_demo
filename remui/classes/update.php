@@ -25,8 +25,8 @@ namespace theme_remui;
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once($CFG->libdir . '/markdown/MarkdownInterface.php');
-require_once($CFG->libdir . '/markdown/Markdown.php');
+// require_once($CFG->libdir . '/markdown/MarkdownInterface.php');
+// require_once($CFG->libdir . '/markdown/Markdown.php');
 require_once($CFG->dirroot . '/theme/remui/classes/controller/LicenseController.php');
 
 define('REMUI_PLUGINS_LIST', "https://edwiser.org/edwiserupdates.json");

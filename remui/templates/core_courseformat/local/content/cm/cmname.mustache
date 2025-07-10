@@ -56,6 +56,11 @@
                 <img src="{{{icon}}}" class="activityicon {{iconclass}}" alt="{{{modname}}} icon" loading='lazy'>
             </div>
             {{/activityicon}}
+            {{^activityicon}}
+            <div class="activityiconcontainer {{purpose}} courseicon align-self-start mr-3">
+                <img src="{{{icon}}}" class="activityicon {{iconclass}}" alt="{{{modname}}} icon" loading='lazy'>
+            </div>
+            {{/activityicon}}
             <div class="media-body align-self-center">
                 <div class="small h-regular-5 text-font-small">
                     {{{pluginname}}}

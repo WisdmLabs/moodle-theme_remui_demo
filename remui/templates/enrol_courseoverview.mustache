@@ -25,34 +25,34 @@
     <div class="secondary-navigation edw-tabs-navigation m-0">
         <nav class="moremenu navigation observed">
             <ul role="tablist" class="nav more-nav nav-tabs">
-                <li 
-                    data-key="courseoverview" 
-                    class="nav-item {{^coursesummary}}opacity-50{{/coursesummary}} {{^editing}}{{^coursesummary}}d-none{{/coursesummary}}{{/editing}}" 
-                    role="none" 
-                    data-forceintomoremenu="false" 
+                <li
+                    data-key="courseoverview"
+                    class="nav-item {{^coursesummary}}opacity-50{{/coursesummary}} {{^editing}}{{^coursesummary}}d-none{{/coursesummary}}{{/editing}}"
+                    role="none"
+                    data-forceintomoremenu="false"
                 >
-                    <a role="tab" class="nav-link {{#coursesummary}}active{{/coursesummary}}" href="#linkcourseoverview" data-toggle="tab" data-text="courseoverview" aria-selected="true" tabindex="0" >
+                    <a role="tab" class="nav-link {{#coursesummary}}active{{/coursesummary}}" href="#linkcourseoverview"  data-toggle="tab"  data-bs-toggle="tab" data-text="courseoverview" aria-selected="true" tabindex="0" >
                         {{#str}}courseoverview, theme_remui{{/str}}
                     </a>
                 </li>
                 <li data-key="coursecontent" class="nav-item" role="none" data-forceintomoremenu="false" >
-                    <a role="tab" class="nav-link loading {{^coursesummary}}active{{/coursesummary}}" href="#linkcoursecontent" data-toggle="tab" data-text="coursecontent" tabindex="-1"  aria-selected="false">
+                    <a role="tab" class="nav-link loading {{^coursesummary}}active{{/coursesummary}}" href="#linkcoursecontent"  data-toggle="tab"  data-bs-toggle="tab" data-text="coursecontent" tabindex="-1"  aria-selected="false">
                         {{#str}}coursecontent, theme_remui{{/str}}
                     </a>
                 </li>
-                <li 
-                    data-key="instructors" 
-                    class="nav-item loading {{^hasintstructors}}opacity-50{{/hasintstructors}} {{^editing}}{{^hasintstructors}}d-none{{/hasintstructors}}{{/editing}}" 
-                    role="none" 
+                <li
+                    data-key="instructors"
+                    class="nav-item loading {{^hasintstructors}}opacity-50{{/hasintstructors}} {{^editing}}{{^hasintstructors}}d-none{{/hasintstructors}}{{/editing}}"
+                    role="none"
                     data-forceintomoremenu="false"
                 >
-                    <a role="tab" class="nav-link loading" href="#linkinstructors" data-toggle="tab" data-text="instructors" tabindex="-1">
+                    <a role="tab" class="nav-link loading" href="#linkinstructors"  data-toggle="tab"  data-bs-toggle="tab" data-text="instructors" tabindex="-1">
                         {{#str}}instructors, theme_remui{{/str}}
                     </a>
                 </li>
                 {{#rnrreviewfull}}
                 <li data-key="reviews" class="nav-item {{#noratingfound}}opacity-50{{/noratingfound}} {{#noratingfound}} noratingtablink {{/noratingfound}}" role="none" data-forceintomoremenu="false">
-                    <a role="tab" class="nav-link" href="#linkreviews" data-toggle="tab" data-text="reviews" tabindex="-1">
+                    <a role="tab" class="nav-link" href="#linkreviews"  data-toggle="tab"  data-bs-toggle="tab" data-text="reviews" tabindex="-1">
                         {{#str}}reviews, theme_remui{{/str}}
                     </a>
                 </li>
@@ -95,7 +95,7 @@
             <div class="tab-pane-area">
                 <div class="accordion" id="courseContentAccordion">
                     <ul class="accordion-list-group">
-                        <li class="accordion-list-item accordion-bb" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        <li class="accordion-list-item accordion-bb" id="headingOne" data-toggle="collapse" data-bs-toggle="collapse" data-target="#collapseOne" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                             <div class="placeholder"></div>
                             <div class="placeholder icon"></div>
                         </li>

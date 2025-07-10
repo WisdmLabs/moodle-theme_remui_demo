@@ -34,6 +34,7 @@ class icon_system_fontawesome extends \core\output\icon_system_fontawesome {
 
         $overrides = array(
             'core:t/message' => 'edw-icon edw-icon-Comment-03',
+            'core:message' => 'edw-icon edw-icon-Comment-03',
             'core:i/notifications' => 'edw-icon edw-icon-Notification',
             'core:t/markasread' => 'edw-icon edw-icon-Checkbox_Active',
             'core:i/settings' => 'edw-icon edw-icon-Setting',
@@ -71,11 +72,15 @@ class icon_system_fontawesome extends \core\output\icon_system_fontawesome {
             'core:t/index_drawer' => 'edw-icon edw-icon-List-View-08',
             'core:t/expandedchevron' => 'edw-icon edw-icon-Down-Arrow',
             'core:t/collapsedchevron' => 'edw-icon edw-icon-Right-Arrow',
+            'core:t/collapsedchevron_up' => 'edw-icon edw-icon-UpArrow',
             'core:t/collapsedchevron_rtl' => 'edw-icon edw-icon-Left-Arrow',
             'core:t/email' => 'edw-icon edw-icon-Email',
             'core:i/enrolusers' => 'edw-icon edw-icon-Adduser',
             'core:t/enrolusers' => 'edw-icon edw-icon-Adduser',
             'core:t/addcontact' => 'edw-icon edw-icon-User-Event',
+            'core:addcontact' => 'edw-icon edw-icon-User-Event',
+            'core:t/removecontact' => 'fa fa-user-times fa-fw',
+            'core:removecontact' => 'fa fa-user-times fa-fw',
         );
 
         $merged = array_merge($iconmap, $overrides);

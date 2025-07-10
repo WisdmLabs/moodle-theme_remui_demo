@@ -23,7 +23,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-define(['jquery'], function ($) {
+define(['jquery', 'theme_remui/feedbackcollection', 'https://elevenlabs.io/convai-widget/index.js'], function ($, feedbackcollection) {
 
     const registerCommonEvents = () => {
 
@@ -142,7 +142,7 @@ define(['jquery'], function ($) {
                     }
 
                 }
-                if ((hascarouselclass || hasedwcarouselclass) && !hashomepagetestimonial && !hastestimonial) {
+                if (((hascarouselclass || hasedwcarouselclass) && !hashomepagetestimonial && !hastestimonial) && $(".old-frontpage").length === 0) {
                     $("body.pagelayout-frontpage").addClass("transparent-header");
                 }
                 if ($('.old-frontpage .frontpage-sections #edwiser-slider').children().first().hasClass('carousel')) {
@@ -283,8 +283,130 @@ define(['jquery'], function ($) {
 
             $('#page.drawers').css('margin-top', navbarheight + demonavbarheight + subpageheaderheight);
             $('.drawer-toggler').css('margin-top', subpageheaderheight + siteannouncementheight);
-        }, 10)
+        }, 100);
     }
+
+    async function blockediting_feedbackcollection(e) {
+        e.preventDefault();
+        let href =$(this).attr('href');
+
+        const feedbackcontext = await feedbackcollection.get_feedback_context("livecustomizer_question");
+        if(JSON.parse(feedbackcontext)){
+            feedbackcollection.render_feedbackform("livecustomizer_question",function(){
+                // Attach click event to a specific button within the rendered form
+                $(document).on("click","#feedbackcollection-form .skip-btn", function() {
+                    feedbackcollection.close_modal();
+                    window.location = href;
+                });
+
+                $(document).on("submit", "#feedbackcollection-form", function(e) {
+                    e.preventDefault();
+                    feedbackcollection.submit_feedback_handler(e);
+                    window.location = href;
+                });
+            });
+        }else{
+            window.location = href;
+        }
+    }
+
+
+    // AI Beacon start
+    window.conversationStart = false;
+
+    function shouldShowAnimation() {
+        if (window.conversationStart) {
+            return false;
+        }
+        return true;
+    }
+
+    function playBeepSound() {
+        return;
+        const beepSound = document.getElementById('beep-sound');
+        if (beepSound) {
+            beepSound.play();
+        }
+    }
+
+    function triggerHelloAnimation() {
+        if (window.conversationStart) {
+            return;
+        }
+
+        const chatbot = document.querySelector('elevenlabs-convai');
+        if (chatbot) {
+            playBeepSound();
+            chatbot.classList.add('elevenlabs-animate-hello');
+            localStorage.setItem('helloAnimationLastShown', Date.now().toString());
+
+            const bubble = document.getElementById('hello-bubble');
+            const botRect = chatbot.getBoundingClientRect();
+
+            bubble.style.position = 'absolute';
+            bubble.style.top = `${botRect.top + 6 + window.scrollY}px`;
+            bubble.style.left = `${botRect.right - 170 + window.scrollX}px`;
+            bubble.style.display = 'block';
+
+            setTimeout(() => {
+                bubble.style.display = 'none';
+                chatbot.classList.remove('elevenlabs-animate-hello');
+            }, 4000);
+        }
+    }
+
+    function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+    }
+
+    // Set cookie if email query param exists
+    const ai_email = getQueryParam('email');
+    if (ai_email) {
+        const expiryDays = 7;
+        const d = new Date();
+        d.setTime(d.getTime() + (expiryDays * 24 * 60 * 60 * 1000));
+        const expires = "expires=" + d.toUTCString();
+        document.cookie = "remui_user_email=" + encodeURIComponent(ai_email) + ";" + expires + ";path=/";
+    }
+
+    function getDemoCookie(name) {
+        const decodedCookies = decodeURIComponent(document.cookie);
+        const cookies = decodedCookies.split(';');
+        for (let cookie of cookies) {
+        cookie = cookie.trim();
+        if (cookie.startsWith(name + '=')) {
+            return cookie.substring(name.length + 1);
+        }
+        }
+        return null;
+    }
+
+    function setWidgetAttributes(attempt = 1) {
+        const widget = document.querySelector('elevenlabs-convai');
+
+        if (widget) {
+        const userEmail = getDemoCookie('remui_user_email');
+
+        if (userEmail) {
+            const browserDetails = {
+            url: window.location.href,
+            OS: navigator.platform,
+            email_id: userEmail
+            };
+
+            const browserDetailsJSON = JSON.stringify(browserDetails);
+            widget.setAttribute('dynamic-variables', browserDetailsJSON);
+
+            if (shouldShowAnimation()) {
+            setTimeout(triggerHelloAnimation, 10000);
+            }
+        }
+        } else if (attempt < 4) {
+        setTimeout(() => setWidgetAttributes(attempt + 1), 2000);
+        }
+    }
+    // AI Beacon end
 
     return {
         init: function () {
@@ -297,6 +419,12 @@ define(['jquery'], function ($) {
             $(window).resize(function() {
                 handleSiteAnnouncementPosition();
             });
+
+            // AI Beacon start
+            $(document).ready(function() {
+                setWidgetAttributes();
+            });
+            // AI Beacon end
 
             // Enable Category Search filter in header.
             if ($(".catselector-menu").length) {
@@ -315,6 +443,10 @@ define(['jquery'], function ($) {
             }
             $("#page-search-index .search-result-count").detach().prependTo("#page-search-index #region-main");
             $("#page-search-index .search-result-count").removeClass('d-none');
+
+            $(document).on('click', '#page-local-edwiserpagebuilder-editor .header-right-controls .closeeditor', blockediting_feedbackcollection);
+
+            // Add inside registerCommonEvents function
 
             transparentheaderhanlder();
         },

@@ -27,3 +27,27 @@
         padding: 2px;
     }
 }
+
+//Fix of issue where the edit instructions on edit quiz question page were not displaying properly
+#page-mod-quiz-edit{
+   #region-main{
+      .mod-quiz-edit-content{
+         .instancesectioncontainer{
+            span.editinstructions {
+               position: absolute;
+               top: 0;
+               margin-top: -22px;
+               margin-left: 30px;
+               font-size: 0.875rem;
+               padding: 0.1em 0.4em;
+               text-decoration: none;
+               z-index: 9999;
+               border: 1px solid transparent;
+               color: #0c5460;
+               background-color: #d1ecf1;
+               border-color: #bee5eb;
+            }
+         }
+      }
+   }
+}

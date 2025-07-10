@@ -1,16 +1,13 @@
 /* core.less */
 
-// When we upgrade boostrap to v4 release, we will need to change this to be used by the text-white class.
-// Because a primary colour that is both AA accessible on grey (footer) and white is not possible, we always
-// want white default colour.
-$bg-inverse-link-color: #fff !default;
+$bg-inverse-link-color: $white !default;
 
 $dropzone-border: $gray-900 !default;
 
 $collapse-list-item-padding-y: 0.5rem !default;
 $collapse-list-item-padding-x: 1rem !default;
-$collapse-list-item-hover-bg: theme-color-level('info', -11) !default;
-$collapse-list-item-hover-border: theme-color-level('info', -9) !default;
+$collapse-list-item-hover-bg: shift-color($info, -90%) !default;
+$collapse-list-item-hover-border: shift-color($info, -70%) !default;
 
 $thin-scroll-bg-thumb: $gray-600 !default;
 $thin-scroll-bg-hover: $gray-700 !default;
@@ -18,9 +15,9 @@ $thin-scroll-bg-hover: $gray-700 !default;
 $font-size-xs: ($font-size-base * .75) !default;
 
 #region-main {
-    // overflow-x: auto;
-    // overflow-y: visible;
+    overflow-y: visible;
     // background-color: $body-bg;
+    // Modified by Edwiser
 }
 
 @include media-breakpoint-up(sm) {
@@ -35,7 +32,7 @@ $font-size-xs: ($font-size-base * .75) !default;
     }
 }
 
-@include media-breakpoint-down(sm) {
+@include media-breakpoint-down(md) {
     .context-header-settings-menu,
     .region-main-settings-menu {
         display: flex;
@@ -47,6 +44,10 @@ $font-size-xs: ($font-size-base * .75) !default;
     animation: $animation;
 
     @media (prefers-reduced-motion: reduce) {
+        animation: none;
+    }
+
+    body.behat-site & {
         animation: none;
     }
 }
@@ -122,10 +123,10 @@ a:not([class]),
 .activityinstance > a {
     &.focus,
     &:focus {
-        // outline: $btn-focus-width solid transparent;
-        // color: $gray-900;
-        // background-color: lighten($primary, 50%);
-        // box-shadow: 0 -#{$btn-focus-width} lighten($primary, 50%), 0 $btn-focus-width $gray-800;
+        outline: $btn-focus-width solid transparent;
+        color: $gray-900;
+        background-color: lighten($primary, 50%);
+        box-shadow: 0 -#{$btn-focus-width} lighten($primary, 50%), 0 $btn-focus-width $gray-800;
     }
     &:focus:hover {
         text-decoration: none;
@@ -145,11 +146,10 @@ input[type="checkbox"],
 input[type="radio"],
 input[type="file"],
 input[type="image"],
-.sr-only-focusable,
+.visually-hidden-focusable,
 a.dropdown-toggle,
-.modal-dialog[tabindex="0"],
 .moodle-dialogue-base .closebutton,
-button.close,
+button.btn-close,
 .form-autocomplete-selection,
 [role="treeitem"]:not([aria-expanded="true"]) {
     &.focus,
@@ -166,7 +166,14 @@ button.close,
 .modal-dialog[tabindex="0"] {
     &.focus,
     &:focus {
-        @include border-radius($modal-content-border-radius);
+        outline: 0;
+        .modal-content {
+            outline: 0;
+            box-shadow: $input-btn-focus-box-shadow;
+
+            // Modal dialogs border should be rounded too.
+            @include border-radius($modal-content-border-radius);
+        }
     }
 }
 
@@ -215,18 +222,6 @@ button.close,
     padding: 0;
 }
 
-.section li.movehere a {
-    display: block;
-    width: 100%;
-    height: 2rem;
-    border: 2px dashed $gray-800;
-}
-
-.editing .course-content .hidden.sectionname {
-    visibility: hidden;
-    display: initial;
-}
-
 .inline,
 .inline-list li {
     display: inline;
@@ -253,6 +248,10 @@ button.close,
 
 .highlight {
     color: map-get($theme-colors, 'info');
+}
+
+.bg-primary-light {
+    background-color: $primary-light-background;
 }
 
 .fitem.advanced .text-info {
@@ -286,7 +285,7 @@ a.autolink {
     margin-top: -1px;
 }
 
-@include media-breakpoint-down(sm) {
+@include media-breakpoint-down(md) {
     .pagelayout-mydashboard,
     .pagelayout-login {
         #region-main-box {
@@ -304,12 +303,8 @@ a.autolink {
     display: none;
 }
 
-.visibleifjs {
+body:not(.jsenabled) .visibleifjs {
     display: none;
-}
-
-.jsenabled .visibleifjs {
-    display: inline;
 }
 
 .jsenabled .collapsibleregion {
@@ -331,10 +326,10 @@ a.autolink {
 }
 
 .yui-overlay .yui-widget-bd {
-    background-color: #ffee69;
-    border: 1px solid #a6982b;
-    border-top-color: #d4c237;
-    color: #000;
+    background-color: $yui-overlay-bg;
+    border: 1px solid $yui-overlay-border-color;
+    border-top-color: $yui-overlay-border-top-color;
+    color: $yui-overlay-color;
     left: 0;
     padding: 2px 5px;
     position: relative;
@@ -365,24 +360,14 @@ img.resize {
     width: 1em;
 }
 
-.action-menu .dropdown-toggle {
-    text-decoration: none;
-    display: inline-block;
-}
-
-.action-menu {
-    white-space: nowrap;
-    display: inline;
-}
-
 .block img.resize {
     height: 0.9em;
     width: 0.8em;
 }
 /* Icon styles */
 img.activityicon {
-    height: 24px;
-    width: 24px;
+    height: 32px;
+    width: 32px;
     vertical-align: middle;
 }
 
@@ -393,7 +378,7 @@ img.activityicon {
 #maincontent {
     display: block;
     height: 1px;
-    overflow: hidden;
+    overflow: clip;
 }
 
 img.uihint {
@@ -421,16 +406,11 @@ form.popupform div {
     overflow: auto;
 }
 
-// Position required for table sizing inside a flex container.
-.no-overflow > .generaltable {
-    position: relative;
-    margin-bottom: 0;
-}
 // Accessibility features
 
 // Accessibility: text 'seen' by screen readers but not visual users.
 .accesshide {
-    @include sr-only();
+    @include visually-hidden();
 }
 
 span.hide,
@@ -614,7 +594,7 @@ table.mod_index {
 }
 
 .comment-meta span {
-    color: gray;
+    color: $comment-meta-color;
 }
 
 .comment-link img {
@@ -651,7 +631,7 @@ table.mod_index {
 }
 
 .comment-paging .curpage {
-    border: 1px solid #ccc;
+    border: 1px solid $comment-paging-current-border-color;
 }
 
 .comment-message .picture {
@@ -719,77 +699,14 @@ table.mod_index {
 .completion-expired .completion-expected {
     font-weight: bold;
 }
+
 /**
 * Tags
 */
-img.user-image {
-    height: 100px;
-    width: 100px;
-}
 
 #tag-search-box {
     text-align: center;
     margin: 10px auto;
-}
-
-.path-tag .tag-index-items .tagarea {
-    border: 1px solid #e3e3e3;
-    border-radius: 4px;
-    padding: 10px;
-    margin-top: 10px;
-}
-
-.path-tag .tag-index-items .tagarea h3 {
-    display: block;
-    padding: 3px 0 10px 0;
-    margin: 0;
-    font-size: 1.1em;
-    font-weight: bold;
-    line-height: 20px;
-    color: #999;
-    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
-    text-transform: uppercase;
-    word-wrap: break-word;
-    border-bottom: solid 1px #e3e3e3;
-    margin-bottom: 10px;
-}
-
-.path-tag .tagarea .controls,
-.path-tag .tagarea .taggeditems {
-    @include clearfix();
-}
-
-.path-tag .tagarea .controls,
-.path-tag .tag-backtoallitems {
-    text-align: center;
-}
-
-.path-tag .tagarea .controls .gotopage.nextpage {
-    float: right;
-}
-
-.path-tag .tagarea .controls .gotopage.prevpage {
-    float: left;
-}
-
-.path-tag .tagarea .controls .exclusivemode {
-    display: inline-block;
-}
-
-.path-tag .tagarea .controls.controls-bottom {
-    margin-top: 5px;
-}
-
-.path-tag .tagarea .controls .gotopage.nextpage::after {
-    padding-right: 5px;
-    padding-left: 5px;
-    content: "»";
-}
-
-.path-tag .tagarea .controls .gotopage.prevpage::before {
-    padding-right: 5px;
-    padding-left: 5px;
-    content: "«";
 }
 
 span.flagged-tag,
@@ -799,198 +716,159 @@ tr.flagged-tag a {
     color: map-get($theme-colors, 'warning');
 }
 
-.tag-management-table td,
-.tag-management-table th {
-    vertical-align: middle;
-    padding: 4px;
-}
-
-.tag-management-table .inplaceeditable.inplaceeditingon input {
-    width: 150px;
+.tag-management-table {
+    td,
+    th {
+        vertical-align: middle;
+        padding: 4px;
+    }
+    .inplaceeditable.inplaceeditingon input {
+        width: 150px;
+    }
 }
 
 .path-admin-tag .addstandardtags {
     float: right;
-
     img {
         margin: 0 5px;
     }
 }
 
-.path-tag .tag-relatedtags {
-    padding-top: 10px;
+.path-tag {
+    .tag-relatedtags {
+        padding-top: 10px;
+    }
+    .tag-management-box {
+        text-align: right;
+    }
+    .tag-index-toc {
+        padding: 10px;
+        text-align: center;
+    }
+    .tag-index-toc li {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+    .tag-management-box li {
+        margin-left: 5px;
+        margin-right: 5px;
+        a {
+            background-repeat: no-repeat;
+            background-position: left;
+            padding-left: 17px;
+        }
+        a.edittag {
+            background-image: url([[pix:moodle|i/settings]]);
+        }
+        a.flagasinappropriate {
+            background-image: url([[pix:moodle|i/flagged]]);
+        }
+        a.removefrommyinterests {
+            background-image: url([[pix:moodle|t/delete]]);
+        }
+        a.addtomyinterests {
+            background-image: url([[pix:moodle|t/add]]);
+        }
+    }
+    .tag-backtoallitems {
+        text-align: center;
+    }
+    .tag-index-items .tagarea {
+        border: 1px solid $tags-tagarea-border-color;
+        border-radius: 4px;
+        padding: 10px;
+        margin-top: 10px;
+        h3 {
+            display: block;
+            padding: 3px 0 10px 0;
+            margin: 0;
+            font-size: 1.1em;
+            font-weight: bold;
+            line-height: 20px;
+            color: $tags-tagarea-title-color;
+            text-shadow: 0 1px 0 $tags-tagarea-title-text-shadow-color;
+            text-transform: uppercase;
+            word-wrap: break-word;
+            border-bottom: solid 1px $tags-tagarea-title-border-color;
+            margin-bottom: 10px;
+        }
+        .taggeditems {
+            @include clearfix();
+        }
+        .controls {
+            @include clearfix();
+            text-align: center;
+            &.controls-bottom {
+                margin-top: 5px;
+            }
+            .gotopage.nextpage {
+                float: right;
+            }
+            .gotopage.prevpage {
+                float: left;
+            }
+            .exclusivemode {
+                display: inline-block;
+            }
+            .gotopage.prevpage::before {
+                padding-right: 5px;
+                padding-left: 5px;
+                content: "«";
+            }
+            .gotopage.nextpage::after {
+                padding-right: 5px;
+                padding-left: 5px;
+                content: "»";
+            }
+        }
+    }
 }
 
-.path-tag .tag-management-box {
-    text-align: right;
-}
-
-.path-tag .tag-index-toc {
-    padding: 10px;
-    text-align: center;
-}
-
-.path-tag .tag-index-toc li,
-.path-tag .tag-management-box li {
-    margin-left: 5px;
-    margin-right: 5px;
-}
-
-.path-tag .tag-management-box li a.edittag {
-    background-image: url([[pix:moodle|i/settings]]);
-}
-
-.path-tag .tag-management-box li a.flagasinappropriate {
-    background-image: url([[pix:moodle|i/flagged]]);
-}
-
-.path-tag .tag-management-box li a.removefrommyinterests {
-    background-image: url([[pix:moodle|t/delete]]);
-}
-
-.path-tag .tag-management-box li a.addtomyinterests {
-    background-image: url([[pix:moodle|t/add]]);
-}
-
-.path-tag .tag-management-box li a {
-    background-repeat: no-repeat;
-    background-position: left;
-    padding-left: 17px;
-}
-
-.tag_feed.media-list .media .itemimage {
-    float: left;
-}
-
-.tag_feed.media-list .media .itemimage img {
-    height: 35px;
-    width: 35px;
-}
-
-.tag_feed.media-list .media .media-body {
-    padding-right: 10px;
-    padding-left: 10px;
-}
-
-.tag_feed .media .muted a {
-    color: $text-muted;
+.tag_feed {
+    img {
+        max-height: 35px;
+        max-width: 35px;
+    }
+    .muted a {
+        color: $text-muted;
+    }
 }
 
 .tag_cloud {
     text-align: center;
+    .inline-list li {
+        padding: 0 0.2em;
+    }
+    .tag_overflow {
+        margin-top: 1em;
+        font-style: italic;
+    }
+    // Generate a series of .s# rule declarations based on the number of tag sizes.
+    @for $i from 0 through 20 {
+        .s#{$i} {
+            font-size: (0.7 + ($i * 0.1)) * 1em;
+        }
+    }
 }
 
-.tag_cloud .inline-list li {
-    padding: 0 0.2em;
-}
-
-.tag_cloud .tag_overflow {
-    margin-top: 1em;
-    font-style: italic;
-}
-
-.tag_cloud .s20 {
-    font-size: 2.7em;
-}
-
-.tag_cloud .s19 {
-    font-size: 2.6em;
-}
-
-.tag_cloud .s18 {
-    font-size: 2.5em;
-}
-
-.tag_cloud .s17 {
-    font-size: 2.4em;
-}
-
-.tag_cloud .s16 {
-    font-size: 2.3em;
-}
-
-.tag_cloud .s15 {
-    font-size: 2.2em;
-}
-
-.tag_cloud .s14 {
-    font-size: 2.1em;
-}
-
-.tag_cloud .s13 {
-    font-size: 2em;
-}
-
-.tag_cloud .s12 {
-    font-size: 1.9em;
-}
-
-.tag_cloud .s11 {
-    font-size: 1.8em;
-}
-
-.tag_cloud .s10 {
-    font-size: 1.7em;
-}
-
-.tag_cloud .s9 {
-    font-size: 1.6em;
-}
-
-.tag_cloud .s8 {
-    font-size: 1.5em;
-}
-
-.tag_cloud .s7 {
-    font-size: 1.4em;
-}
-
-.tag_cloud .s6 {
-    font-size: 1.3em;
-}
-
-.tag_cloud .s5 {
-    font-size: 1.2em;
-}
-
-.tag_cloud .s4 {
-    font-size: 1.1em;
-}
-
-.tag_cloud .s3 {
-    font-size: 1em;
-}
-
-.tag_cloud .s2 {
-    font-size: 0.9em;
-}
-
-.tag_cloud .s1 {
-    font-size: 0.8em;
-}
-
-.tag_cloud .s0 {
-    font-size: 0.7em;
-}
-
-.tag_list ul {
-    display: inline;
-}
-
-.tag_list.hideoverlimit .overlimit {
-    display: none;
-}
-
-.tag_list .tagmorelink {
-    display: none;
-}
-
-.tag_list.hideoverlimit .tagmorelink {
-    display: inline;
-}
-
-.tag_list.hideoverlimit .taglesslink {
-    display: none;
+.tag_list {
+    ul {
+        display: inline;
+    }
+    .tagmorelink {
+        display: none;
+    }
+    &.hideoverlimit {
+        .overlimit {
+            display: none;
+        }
+        .tagmorelink {
+            display: inline;
+        }
+        .taglesslink {
+            display: none;
+        }
+    }
 }
 
 /**
@@ -998,7 +876,7 @@ tr.flagged-tag a {
 */
 #webservice-doc-generator td {
     text-align: left;
-    border: 0 solid black;
+    border: 0 solid $webservice-doc-td-border-color;
 }
 
 /**
@@ -1071,7 +949,7 @@ tr.flagged-tag a {
     margin: 3px;
 
     > a:hover {
-        border-bottom: 1px solid #666;
+        border-bottom: 1px solid $userenrolment-link-hover-border-color;
     }
 }
 
@@ -1104,7 +982,7 @@ tr.flagged-tag a {
 }
 
 .corelightbox {
-    background-color: #ccc;
+    background-color: $corelightbox-bg;
     position: absolute;
     top: 0;
     left: 0;
@@ -1117,40 +995,6 @@ tr.flagged-tag a {
     position: fixed;
     top: 50%;
     left: 50%;
-}
-
-.mod-indent-outer {
-    display: table;
-}
-
-.mod-indent {
-    display: table-cell;
-}
-
-.label .mod-indent {
-    float: left;
-    padding-top: 20px;
-}
-
-.activity.label.modtype_label .mod-indent {
-    float: none;
-}
-
-@include media-breakpoint-up(sm) {
-    $mod-indent-size: 30px;
-    /* Creates a series of .mod-indent-# rule declarations based on indent size and number of indent levels. */
-
-    @for $i from 1 through 16 {
-        $width: ($i * $mod-indent-size);
-
-        .mod-indent-#{$i} {
-            width: $width;
-        }
-    }
-
-    .mod-indent-huge {
-        width: (16 * $mod-indent-size);
-    }
 }
 
 /* Audio player size in 'block' mode (can only change width, height is hardcoded in JS) */
@@ -1196,9 +1040,9 @@ audio.mediaplugin_html5audio {
 }
 
 /* Moodle Dialogue Settings (moodle-core-dialogue)  */
-// .moodle-dialogue-base .moodle-dialogue-lightbox {
-// background-color: $gray-700;
-// }
+.moodle-dialogue-base .moodle-dialogue-lightbox {
+    background-color: $gray-700;
+}
 
 // Prevent adding backdrops to popups in popups.
 .pagelayout-popup {
@@ -1234,8 +1078,8 @@ audio.mediaplugin_html5audio {
 }
 
 .moodle-dialogue-base .moodle-dialogue-wrap {
-    background-color: #fff;
-    border: 1px solid #ccc;
+    background-color: $dialogue-base-bg;
+    border: 1px solid $dialogue-base-border-color;
 }
 
 // Show is a bootstrap 2 class - but we use it for modals. We don't want to enable it everywhere because they removed
@@ -1244,20 +1088,20 @@ audio.mediaplugin_html5audio {
     display: block;
 }
 
-// .moodle-dialogue-base .moodle-dialogue-wrap .moodle-dialogue-hd {
-// display: flex;
-// padding: 1rem 1rem;
-// border-bottom: 1px solid #dee2e6;
-// }
+.moodle-dialogue-base .moodle-dialogue-wrap .moodle-dialogue-hd {
+    display: flex;
+    padding: 1rem 1rem;
+    border-bottom: 1px solid $dialogue-base-hd-border-color;
+}
 
-// .moodle-dialogue-base .moodle-dialogue-wrap .moodle-dialogue-hd.yui3-widget-hd {
-//     // Undo some YUI damage.
-//     min-height: 3rem;
-//     color: initial;
-//     background: initial;
-//     font-size: 1.5rem;
-//     line-height: 1.5;
-// }
+.moodle-dialogue-base .moodle-dialogue-wrap .moodle-dialogue-hd.yui3-widget-hd {
+    // Undo some YUI damage.
+    min-height: 3rem;
+    color: initial;
+    background: initial;
+    font-size: 1.5rem;
+    line-height: 1.5;
+}
 
 .moodle-dialogue-base .moodle-dialogue-wrap .moodle-dialogue-hd h5 {
     font-size: 1.5rem;
@@ -1277,9 +1121,11 @@ audio.mediaplugin_html5audio {
 }
 
 .moodle-dialogue-base .closebutton {
-    // padding: $modal-header-padding;
-    // margin: (-$modal-header-padding-y) (-$modal-header-padding-x) (-$modal-header-padding-y) auto;
-    // position: relative;
+    padding: $modal-header-padding;
+    // negative margin cause UI issue in modal closeicon
+    // modified by Edwiser (margin commented)
+    //margin: (-$modal-header-padding-y) (-$modal-header-padding-x) (-$modal-header-padding-y) auto;
+    position: relative;
     background-color: transparent;
     border: 0;
     background-image: none;
@@ -1295,7 +1141,7 @@ audio.mediaplugin_html5audio {
 }
 
 .moodle-dialogue-base .moodle-dialogue .moodle-dialogue-bd {
-    // padding: 0.5rem;
+    padding: 0.5rem;
     body {
         background-color: $body-bg;
     }
@@ -1317,18 +1163,18 @@ audio.mediaplugin_html5audio {
 }
 
 .moodle-dialogue-exception .param-stacktrace label {
-    background-color: #eee;
-    border: 1px solid #ccc;
+    background-color: $dialogue-exception-label-bg;
+    border: 1px solid $dialogue-exception-label-border-color;
     border-bottom-width: 0;
 }
 
 .moodle-dialogue-exception .param-stacktrace pre {
-    border: 1px solid #ccc;
-    background-color: #fff;
+    border: 1px solid $dialogue-exception-pre-border-color;
+    background-color: $dialogue-exception-pre-bg;
 }
 
 .moodle-dialogue-exception .param-stacktrace .stacktrace-file {
-    color: navy;
+    color: $dialogue-exception-file-color;
     font-size: $font-size-sm;
 }
 
@@ -1338,9 +1184,9 @@ audio.mediaplugin_html5audio {
 }
 
 .moodle-dialogue-exception .param-stacktrace .stacktrace-call {
-    color: #333;
+    color: $dialogue-exception-call-color;
     font-size: 90%;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid $dialogue-exception-call-border-color;
 }
 
 .moodle-dialogue-base .moodle-dialogue .moodle-dialogue-content .moodle-dialogue-ft:empty {
@@ -1407,7 +1253,7 @@ audio.mediaplugin_html5audio {
     height: 100%;
     top: 0;
     left: 0;
-    background-color: white;
+    background-color: $dialogue-lightbox-bg;
     text-align: center;
     padding: 10% 0;
 }
@@ -1442,7 +1288,7 @@ audio.mediaplugin_html5audio {
 
 .chooserdialogue .moodle-dialogue-wrap .moodle-dialogue-bd {
     padding: 0;
-    // background: #f2f2f2;
+    background: $chooserdialogue-bg;
 
     @include border-bottom-radius(10px);
 }
@@ -1466,7 +1312,7 @@ audio.mediaplugin_html5audio {
 /* Various settings for the options area */
 .choosercontainer #chooseform .options {
     position: relative;
-    border-bottom: 1px solid #bbb;
+    border-bottom: 1px solid $chooserdialogue-options-border-color;
 }
 /* Only set these options if we're showing the js container */
 .jschooser .choosercontainer #chooseform .alloptions {
@@ -1490,7 +1336,7 @@ audio.mediaplugin_html5audio {
 .choosercontainer #chooseform .option,
 .choosercontainer #chooseform .nonoption {
     margin-bottom: 0;
-    // padding: 0 1.6em 0 1.6em;
+    padding: 0 1.6em 0 1.6em;
 }
 
 .choosercontainer #chooseform .moduletypetitle {
@@ -1519,7 +1365,7 @@ audio.mediaplugin_html5audio {
     display: block;
     margin: 0;
     padding: ($spacer * 0.5) 0;
-    border-bottom: 1px solid #fff;
+    border-bottom: 1px solid $choosercontainer-label-border-color;
 }
 
 .choosercontainer #chooseform .option .icon {
@@ -1552,7 +1398,7 @@ audio.mediaplugin_html5audio {
     left: 240px;
     margin: 0;
     padding: 1.6em;
-    background-color: #fff;
+    background-color: $choosercontainer-instruction-bg;
     overflow-x: hidden;
     overflow-y: auto;
     line-height: 2em;
@@ -1564,13 +1410,13 @@ audio.mediaplugin_html5audio {
 }
 
 .choosercontainer #chooseform .selected {
-    background-color: #fff;
+    background-color: $choosercontainer-chooseform-selected-bg;
     margin-top: -1px;
     padding-top: 1px;
 }
 
 
-@include media-breakpoint-down(xs) {
+@include media-breakpoint-down(sm) {
     .jsenabled .choosercontainer #chooseform .alloptions {
         max-width: 100%;
     }
@@ -1612,8 +1458,8 @@ audio.mediaplugin_html5audio {
         .icon {
             display: block;
             font-size: 3em;
-            height: 1em;
-            width: 1em;
+            max-height: 3em;
+            max-width: 3em;
         }
     }
     .carousel-item .loading-icon .icon {
@@ -1631,6 +1477,8 @@ audio.mediaplugin_html5audio {
         .icon {
             height: 2.5rem;
             width: 6rem;
+            max-height: 2.5rem;
+            max-width: 6rem;
             margin-bottom: .6rem;
         }
     }
@@ -1690,7 +1538,7 @@ audio.mediaplugin_html5audio {
     }
 }
 
-@include media-breakpoint-down(xs) {
+@include media-breakpoint-down(sm) {
     .path-course-view .modal-dialog.modal-lg,
     .path-course-view .modal-content,
     .modchooser .modal-body,
@@ -1747,8 +1595,8 @@ audio.mediaplugin_html5audio {
     position: relative;
     margin: 15px 0;
     padding: 1px 19px 14px;
-    background-color: white;
-    border: 1px solid #ddd;
+    background-color: $formlisting-bg;
+    border: 1px solid $formlisting-border-color;
 
     @include border-radius(4px);
 }
@@ -1761,9 +1609,9 @@ audio.mediaplugin_html5audio {
     padding: 3px 7px;
     font-size: 12px;
     font-weight: bold;
-    background-color: whitesmoke;
-    border: 1px solid #ddd;
-    color: #9da0a4;
+    background-color: $formlistingmore-bg;
+    border: 1px solid $formlistingmore-border-color;
+    color: $formlistingmore-color;
 
     @include border-radius(4px 0 4px 0);
 }
@@ -1778,10 +1626,10 @@ audio.mediaplugin_html5audio {
 .formlistingrow {
     cursor: pointer;
     border-bottom: 1px solid;
-    border-color: #e1e1e8;
-    border-left: 1px solid #e1e1e8;
-    border-right: 1px solid #e1e1e8;
-    background-color: #f7f7f9;
+    border-color: $formlistingrow-border-color;
+    border-left: 1px solid $formlistingrow-border-color;
+    border-right: 1px solid $formlistingrow-border-color;
+    background-color: $formlistingrow-bg;
 
     @include border-radius(0 0 4px 4px);
     padding: 6px;
@@ -1808,8 +1656,8 @@ a.criteria-action {
 div.criteria-description {
     padding: 10px 15px;
     margin: 5px 0;
-    background: none repeat scroll 0 0 #f9f9f9;
-    border: 1px solid #eee;
+    background: none repeat scroll 0 0 $criteria-desc-bg;
+    border: 1px solid $criteria-desc-border-color;
 }
 
 ul.badges {
@@ -1947,6 +1795,28 @@ ul.badges {
     color: map-get($theme-colors, 'warning');
 }
 
+#page-badges-index #page {
+    .badges-heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    h2 {
+        margin: 0; /* Removes default margins */
+    }
+
+    #action_bar {
+        margin: 0; /* Removes any default margin that might affect alignment */
+    }
+
+    .tertiary-navigation.container-fluid {
+        width: auto;
+        height: 50px;
+        padding-top: 0;
+    }
+}
+
 #page-badges-award .recipienttable tr td {
     vertical-align: top;
 }
@@ -2044,24 +1914,14 @@ nav.navbar .logo img {
     overflow: hidden;
     padding: 0.25rem 0;
 
-    display: flex;
-
     .page-header-image {
         & > a {
             display: inline-block;
         }
-    }
-
-    .page-header-headings,
-    .header-button-group {
-        position: relative;
-        line-height: 24px;
-        vertical-align: middle;
-    }
-
-    .header-button-group {
-        display: block;
-        float: left;
+        .userinitials,
+        .userpicture {
+            margin-right: map-get($spacers, 3);
+        }
     }
 }
 
@@ -2074,7 +1934,11 @@ a.disabled {
     text-decoration: none;
     cursor: default;
     font-style: italic;
-    color: #808080;
+    color: $text-muted;
+}
+
+a.btn.disabled {
+    opacity: 1;
 }
 
 body.lockscroll {
@@ -2122,6 +1986,17 @@ dd:after {
             left: 0;
             right: auto;
             white-space: nowrap;
+            position: absolute;
+            top: 0;
+            font-size: $font-size-sm;
+            padding: .1em .4em;
+            text-decoration: none;
+            z-index: 9999;
+            border: $alert-border-width solid transparent;
+            width: fit-content;
+            color: shift-color($info, $alert-color-scale);
+            border-color: shift-color($info, $alert-border-scale);
+            @include gradient-bg(shift-color($info, $alert-bg-scale));
         }
         @include media-breakpoint-up(sm) {
             input {
@@ -2162,10 +2037,6 @@ dd:after {
     }
 }
 
-h3.sectionname .inplaceeditable.inplaceeditingon .editinstructions {
-    margin-top: -20px;
-}
-
 /** Chart area. */
 .chart-area {
     @include media-breakpoint-up(lg) {
@@ -2195,12 +2066,6 @@ h3.sectionname .inplaceeditable.inplaceeditingon .editinstructions {
             }
         }
     }
-}
-
-// Reset for ul.
-ul {
-    padding-left: 1rem;
-    -webkit-margin-start: 0.2rem;  /* stylelint-disable-line */
 }
 
 /* YUI 2 Tree View */
@@ -2239,8 +2104,8 @@ ul {
         left: 50%;
         top: calc(-50% - 5px);
         transform: translate(-50%, -50%);
-        background-color: #fff;
-        border: 1px solid rgba(0, 0, 0, .2);
+        background-color: $hover-tooltip-bg;
+        border: 1px solid $hover-tooltip-border-color;
         border-radius: .3rem;
         box-sizing: border-box;
         padding: 5px;
@@ -2253,7 +2118,7 @@ ul {
             display: inline-block;
             border-left: 8px solid transparent;
             border-right: 8px solid transparent;
-            border-top: 8px solid rgba(0, 0, 0, .2);
+            border-top: 8px solid $hover-tooltip-border-color;
             position: absolute;
             bottom: -8px;
             left: calc(50% - 8px);
@@ -2264,7 +2129,7 @@ ul {
             display: inline-block;
             border-left: 7px solid transparent;
             border-right: 7px solid transparent;
-            border-top: 7px solid #fff;
+            border-top: 7px solid $hover-tooltip-border-top-color;
             position: absolute;
             bottom: -6px;
             left: calc(50% - 7px);
@@ -2288,7 +2153,7 @@ ul {
         margin-right: $grid-gutter-width * 0.5;
         background-color: $card-bg;
     }
-    @include media-breakpoint-down(sm) {
+    @include media-breakpoint-down(md) {
         .nav {
             margin-top: $grid-gutter-width;
             margin-right: 0;
@@ -2305,6 +2170,8 @@ $footer-link-color: $bg-inverse-link-color !default;
     a {
         color: $footer-link-color;
         text-decoration: underline;
+        padding-top: map-get($spacers, 1);
+        padding-bottom: map-get($spacers, 1);
 
         .icon {
             color: $footer-link-color;
@@ -2324,8 +2191,24 @@ $footer-link-color: $bg-inverse-link-color !default;
     @include box-shadow($popover-box-shadow);
 }
 
+.btn-footer-communication {
+    display: none;
+    position: fixed;
+    bottom: 5rem;
+    right: 2rem;
+    @include box-shadow($popover-box-shadow);
+}
+
 .hasstickyfooter .btn-footer-popover {
     bottom: calc(1rem + #{$stickyfooter-height});
+}
+
+.hasstickyfooter .btn-footer-communication {
+    bottom: calc(4rem + #{$stickyfooter-height});
+}
+
+.hasstickyfooter .maintenancewarning {
+    bottom: #{$stickyfooter-height};
 }
 
 .popover.footer {
@@ -2354,9 +2237,14 @@ $footer-link-color: $bg-inverse-link-color !default;
     .jsenabled #page-footer .footer-content-popover {
         display: none;
     }
-    .jsenabled .btn-footer-popover {
+    .jsenabled .btn-footer-popover,
+    .jsenabled .btn-footer-communication {
         display: block;
         z-index: $zindex-dropdown;
+    }
+    .jsenabled .maintenancewarning,
+    .jsenabled.hasstickyfooter:has(.drawer-right-toggle) .maintenancewarning {
+        right: 5rem;
     }
 }
 
@@ -2374,52 +2262,18 @@ $footer-link-color: $bg-inverse-link-color !default;
     }
 }
 
-// Make links in a menu clickable anywhere in the row.
-.dropdown-item {
-    a {
-        display: block;
-        width: 100%;
-        color: $body-color;
-    }
-    &.active,
-    &:active,
-    &:hover,
-    &:focus,
-    &:focus-within {
-        outline: 0;
-        background-color: $dropdown-link-active-bg;
-        color: $dropdown-link-active-color;
-        a {
-            color: $dropdown-link-active-color;
-        }
-    }
-    &[aria-current="true"],
-    &[aria-selected="true"] {
-        position: relative;
-        display: flex;
-        align-items: center;
-        // &:before {
-        //     @include fa-icon();
-        //     content: $fa-var-circle;
-        //     position: absolute;
-        //     left: 0.4rem;
-        //     font-size: 0.7rem;
-        // }
-    }
-}
-
 .competency-tree {
     ul {
         padding-left: 1.5rem;
     }
 }
 
-.sr-only-focusable {
+.visually-hidden-focusable {
     &:active,
     &:focus {
         z-index: 1031;
         position: fixed;
-        background: #fff;
+        background: $visually-hidden-active-bg;
         padding: 7px;
         left: 0;
         top: 0;
@@ -2441,7 +2295,7 @@ $footer-link-color: $bg-inverse-link-color !default;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: $overlay-icon-bg;
 
     .loading-icon {
         position: absolute;
@@ -2450,9 +2304,9 @@ $footer-link-color: $bg-inverse-link-color !default;
         transform: translate(-50%, -50%);
 
         .icon {
-            height: 30px;
-            width: 30px;
-            font-size: 30px;
+            max-height: 2em;
+            max-width: 2em;
+            font-size: 2em;
         }
     }
 }
@@ -2524,6 +2378,10 @@ body.h5p-embed {
     }
 }
 
+#page-contentbank-edit fieldset {
+    margin-top: 1em;
+}
+
 .text-decoration-none {
     text-decoration: none !important; /* stylelint-disable-line declaration-no-important */
 }
@@ -2556,26 +2414,12 @@ body.h5p-embed {
     z-index: 1 !important; /* stylelint-disable-line declaration-no-important */
 }
 
-// These floats are deprecated in Bootstrap 4.3.1. It is still okay to use them in Moodle.
-.float-left {
-    float: left !important; /* stylelint-disable-line declaration-no-important */
-}
-
-.float-right {
-    float: right !important; /* stylelint-disable-line declaration-no-important */
-}
-
 .img-responsive {
     @include img-fluid();
 }
 
 input[disabled] {
     cursor: not-allowed;
-}
-
-.custom-select {
-    width: auto;
-    max-width: 100%;
 }
 
 .fade.in {
@@ -2607,6 +2451,42 @@ input[disabled] {
 
 .v-hidden {
     visibility: hidden;
+}
+
+// Any dialog (modal or dropdown) forced max-widths limits.
+.dialog-big {
+    max-width: $modal-md;
+}
+
+.dialog-small {
+    max-width: $modal-sm;
+}
+
+@include media-breakpoint-up(sm) {
+    .dialog-big {
+        width: $modal-md;
+    }
+
+    .dialog-small {
+        width: $modal-sm;
+    }
+}
+
+/*
+ * Helpers to show elements only when a parent element has focus or hover.
+ */
+
+// Add this class to the element to hide.
+.v-parent-focus {
+    opacity: 0;
+    visibility: hidden;
+}
+
+// Add this class to the parent element to control focus.
+.focus-control:focus-within .v-parent-focus,
+.focus-control:hover .v-parent-focus {
+    opacity: 1;
+    visibility: visible;
 }
 
 // Emoji picker.
@@ -2655,11 +2535,6 @@ $picker-emojis-per-row: 7 !default;
             line-height: $picker-emoji-button-size;
             font-size: $picker-emoji-button-font-size;
             overflow: hidden;
-
-            @include hover-focus {
-                color: inherit;
-                text-decoration: none;
-            }
         }
     }
 
@@ -2673,7 +2548,7 @@ $picker-emojis-per-row: 7 !default;
         line-height: $picker-row-height * 0.5;
     }
 
-    @include media-breakpoint-down(xs) {
+    @include media-breakpoint-down(sm) {
         width: $picker-width-xs;
     }
 }
@@ -2706,12 +2581,12 @@ $picker-emojis-per-row: 7 !default;
 
 @each $color, $value in $theme-colors {
     .alert-#{$color} {
-        // a {
-        //     color: darken(theme-color-level($color, $alert-color-level), 10%);
-        // }
+        a {
+            color: darken(shift-color($value, $alert-color-scale), 10%);
+        }
         // Darken the close button text colour inside notification alerts for better contrast.
-        .close {
-            color: darken(theme-color-level($color, $alert-color-level), 20%);
+        .btn-close {
+            color: darken(shift-color($value, $alert-color-scale), 20%);
             opacity: 0.6;
         }
     }
@@ -2724,7 +2599,7 @@ $picker-emojis-per-row: 7 !default;
     padding: 0;
 }
 
-@include media-breakpoint-down(sm) {
+@include media-breakpoint-down(md) {
     #page-navbar {
         width: 100%;
     }
@@ -2749,15 +2624,12 @@ $picker-emojis-per-row: 7 !default;
 
     .mform {
         width: 100%;
-        // padding-right: 15px;
-        // padding-left: 15px;
+        padding-right: 15px;
+        padding-left: 15px;
     }
     .pagination {
         flex-wrap: wrap;
         justify-content: center;
-    }
-    .custom-select {
-        max-width: 100%;
     }
     .card .card-body {
         padding: $card-spacer-x * 0.5;
@@ -2770,8 +2642,11 @@ $picker-emojis-per-row: 7 !default;
             }
         }
     }
+    // Navs and Tabs in small screens.
     .nav-tabs:not(.more-nav),
     .nav-pills {
+        --#{$prefix}nav-tabs-link-active-color: #{$nav-pills-link-active-color};
+        --#{$prefix}nav-tabs-link-active-bg: #{$nav-pills-link-active-bg};
         margin: 0;
         border: 0;
         padding: $spacer * 0.125;
@@ -2781,12 +2656,10 @@ $picker-emojis-per-row: 7 !default;
             text-align: center;
         }
         .nav-link {
-            background: $white;
             border: 0;
             margin: $spacer * 0.125;
-            &.active {
-                @include button-outline-variant($gray-600);
-                border-color: $gray-600;
+            &:not(.active) {
+                background-color: var(--#{$prefix}body-bg);
             }
         }
     }
@@ -2821,8 +2694,8 @@ $picker-emojis-per-row: 7 !default;
         }
     }
 }
-.core_payment_gateways_modal .custom-control-label::before,
-.core_payment_gateways_modal .custom-control-label::after {
+.core_payment_gateways_modal .form-check-label::before,
+.core_payment_gateways_modal .form-check-label::after {
     top: 45%;
 }
 
@@ -2875,6 +2748,18 @@ $scrollbar-track: lighten($primary, 40%);
     }
 }
 
+// Add top/bottom shadow to scrolling area.
+@mixin scroll-shadow($background-colour: $white, $shadow-colour: $black, $shadow-size: 1rem) {
+    background:
+        linear-gradient($background-colour 30%, rgba($background-colour, 0)) center top,
+        linear-gradient(rgba($background-colour, 0), $background-colour 70%) center bottom,
+        radial-gradient(farthest-side at 50% 0, rgba($shadow-colour, 0.2), rgba($shadow-colour, 0)) center top,
+        radial-gradient(farthest-side at 50% 100%, rgba($shadow-colour, 0.2), rgba($shadow-colour, 0)) center bottom;
+    background-repeat: no-repeat;
+    background-size: 100% $shadow-size, 100% $shadow-size, 100% calc(#{$shadow-size} / 2), 100% calc(#{$shadow-size} / 2);
+    background-attachment: local, local, scroll, scroll;
+}
+
 // Generic dropzones and dragging styles.
 
 body.dragging {
@@ -2909,10 +2794,52 @@ body.dragging {
     cursor: move;
 }
 
+.dropzone-container {
+    cursor: pointer;
+
+    .dropzone {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        border: 2px dashed $filemanager-dnd-border-color;
+        border-radius: 0.5rem;
+
+        &.dragover {
+            border: 2px dashed $filemanager-dnd-upload-over-border-color;
+        }
+    }
+
+    .dropzone-icon {
+        color: $gray-500;
+
+        .icon {
+            font-size: 6em;
+            width: auto;
+            height: auto;
+            max-width: initial;
+            max-height: initial;
+            margin-right: 0;
+        }
+    }
+
+    .dropzone-visually-hidden-focusable {
+        &:active,
+        &:focus {
+            outline: 0;
+            box-shadow: $input-btn-focus-box-shadow;
+            z-index: $zindex-popover;
+            position: relative;
+            background: $visually-hidden-active-bg;
+            padding: 7px;
+        }
+    }
+}
+
 // Generic classes reactive components can use.
 
 .overlay-preview {
-    background-color: rgba($white, .8);
+    background-color: $overlay-preview-bg;
     border: 2px dashed $primary;
     position: absolute;
     top: 0;
@@ -2964,7 +2891,8 @@ body.dragging {
 .collapse-list {
     .collapse-list-item {
         padding: $collapse-list-item-padding-y $collapse-list-item-padding-x;
-        @include hover-focus() {
+        &:hover,
+        &:focus {
             background-color: $collapse-list-item-hover-bg;
             border-color: $collapse-list-item-hover-border;
         }
@@ -2987,20 +2915,33 @@ body.dragging {
     }
 }
 
+#page-my-index .my-action-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
 .dropdown-toggle::after {
-    @extend .fa-solid;
+    font: var(--fa-font-solid);
     content: fa-content($fa-var-chevron-down);
     margin-right: 0;
     margin-left: 4px;
     font-size: 9px;
     width: 9px;
     border: 0;
-
 }
 
+.listitem-category .dropdown-toggle::after {
+    /* This can be removed when the .dropdown-toggle::after is updated to remove content. */
+    content: none;
+}
+
+
+// TODO: Check if these are still needed.
 .dropleft .dropdown-toggle::before {
     border: 0;
-    @extend .fa-solid;
+    font: var(--fa-font-solid);
     content: fa-content($fa-var-chevron-left);
     font-size: 9px;
     margin-left: 0;
@@ -3014,7 +2955,7 @@ body.dragging {
 
 .dropright .dropdown-toggle::after {
     border: 0;
-    @extend .fa-solid;
+    font: var(--fa-font-solid);
     content: fa-content($fa-var-chevron-right);
 }
 
@@ -3025,7 +2966,7 @@ body.dragging {
 
 .dropup .dropdown-toggle::after {
     border: 0;
-    @extend .fa-solid;
+    font: var(--fa-font-solid);
     content: fa-content($fa-var-chevron-up);
 }
 
@@ -3049,8 +2990,13 @@ body.dragging {
             padding-left: 2.5rem;
         }
     }
-    .dropdown-item[aria-selected="true"] {
-        font-weight: bold;
+
+    .dropdown-item {
+        padding: map-get($spacers, 1) map-get($spacers, 4);
+
+        [aria-selected="true"] {
+            font-weight: bold;
+        }
     }
 }
 
@@ -3071,28 +3017,28 @@ body.dragging {
     &:first-child {
         .page-link {
             .initialbargroups & {
-                @include border-left-radius(0);
-                @include border-right-radius(0);
+                @include border-start-radius(0);
+                @include border-end-radius(0);
             }
             .initialbargroups .pagination-lg:first-child & {
-                @include border-left-radius($pagination-border-radius-lg);
+                @include border-start-radius($pagination-border-radius-lg);
             }
             .initialbargroups .pagination-sm:first-child & {
-                @include border-left-radius($pagination-border-radius-sm);
+                @include border-start-radius($pagination-border-radius-sm);
             }
         }
     }
     &:last-child {
         .page-link {
             .initialbargroups & {
-                @include border-left-radius(0);
-                @include border-right-radius(0);
+                @include border-start-radius(0);
+                @include border-end-radius(0);
             }
             .initialbargroups .pagination-lg:last-child & {
-                @include border-right-radius($pagination-border-radius-lg);
+                @include border-end-radius($pagination-border-radius-lg);
             }
             .initialbargroups .pagination-sm:last-child & {
-                @include border-right-radius($pagination-border-radius-sm);
+                @include border-end-radius($pagination-border-radius-sm);
             }
         }
     }
@@ -3102,7 +3048,14 @@ blockquote {
     margin: 0 0.5rem 1rem;
     padding-left: 1rem;
     color: $gray-700;
-    border-left: 5px solid $gray-400;
+    border-left: 5px solid $gray-500;
+}
+
+.pagelayout-maintenance,
+.pagelayout-secure {
+    .page-header-headings {
+        background-color: $body-bg;
+    }
 }
 
 /* Prevent long strings exceeding page width */
@@ -3121,9 +3074,6 @@ blockquote {
 /* Showmore component */
 .showmore-container {
     &.collapsed {
-        .collapsed-content {
-            display: block;
-        }
         .expanded-content {
             display: none;
         }
@@ -3131,9 +3081,6 @@ blockquote {
     &:not(.collapsed) {
         .collapsed-content {
             display: none;
-        }
-        .expanded-content {
-            display: block;
         }
     }
     button {
@@ -3152,14 +3099,17 @@ blockquote {
 .usersearchdropdown,
 .gradesearchdropdown,
 .groupsearchdropdown {
-    max-width: 350px;
-    .searchresultitemscontainer {
-        max-height: 170px;
-        overflow: auto;
-        /* stylelint-disable declaration-no-important */
-        img {
-            height: 48px !important;
-            width: 48px !important;
+    &.dropdown-menu {
+        top: 100%;
+        width: 350px;
+        .searchresultitemscontainer {
+            max-height: 170px;
+            overflow: auto;
+            /* stylelint-disable declaration-no-important */
+            img {
+                height: 48px !important;
+                width: 48px !important;
+            }
         }
     }
 }
@@ -3182,4 +3132,9 @@ blockquote {
     i.icon {
         vertical-align: middle;
     }
+}
+
+/* General card customisations. */
+.card.active {
+    border-color: $gray-500;
 }

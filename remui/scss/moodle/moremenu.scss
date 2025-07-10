@@ -1,5 +1,5 @@
 .moremenu {
-    opacity: 0;
+    // opacity: 0;
     height: $moremenu-height;
     &.observed {
         opacity: 1;
@@ -30,7 +30,7 @@
         &:focus {
             position: relative;
         }
-        &[data-toggle="tab"] {
+        &[data-bs-toggle="tab"] {
             display: inline-flex;
             flex-direction: column;
             align-items: center;
@@ -76,7 +76,8 @@
             }
             .dropdown-item {
                 background-color: $gray-100;
-                @include hover-focus() {
+                &:hover,
+                &:focus {
                     color: $dropdown-link-hover-color;
                     @include gradient-bg($dropdown-link-active-bg);
                 }
@@ -84,6 +85,10 @@
             .dropdown-divider {
                 display: none;
             }
+        }
+        // Make space for active item indicator.
+        .dropdown-item {
+            padding-left: map-get($spacers, 4);
         }
     }
 

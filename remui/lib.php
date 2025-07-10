@@ -75,7 +75,10 @@ function theme_remui_pluginfile($course, $cm, $context, $filearea, $args, $force
         'loginsettingpic',
         'loginpanellogo',
         'secondaryfooterlogo',
-        'loaderimage'
+        'secondaryfooterlogodarkmode',
+        'loaderimage',
+        'darkmodelogo',
+        'darkmodelogomini'
     ];
     if (in_array($filearea, $settings)) {
         $theme = theme_config::load('remui');
@@ -108,20 +111,35 @@ function theme_remui_get_main_scss_content($theme) {
     global $CFG;
 
     $scss = '';
-    $filename = !empty($theme->settings->preset) ? $theme->settings->preset : null;
-    $fs = get_file_storage();
+    // $filename = !empty($theme->settings->preset) ? $theme->settings->preset : null;
+    // $fs = get_file_storage();
 
-    $context = context_system::instance();
-    if ($filename == 'default.scss') {
-        $scss .= file_get_contents($CFG->dirroot . '/theme/remui/scss/preset/default.scss');
-    } else if ($filename == 'plain.scss') {
-        $scss .= file_get_contents($CFG->dirroot . '/theme/remui/scss/preset/plain.scss');
-    } else if ($filename && ($presetfile = $fs->get_file($context->id, 'theme_remui', 'preset', 0, '/', $filename))) {
-        $scss .= $presetfile->get_content();
-    } else {
-        // Safety fallback - maybe new installs etc.
-        $scss .= file_get_contents($CFG->dirroot . '/theme/remui/scss/preset/default.scss');
-    }
+    // $context = context_system::instance();
+    // if ($filename == 'default.scss') {
+    //     $scss .= file_get_contents($CFG->dirroot . '/theme/remui/scss/preset/default.scss');
+    // } else if ($filename == 'plain.scss') {
+    //     $scss .= file_get_contents($CFG->dirroot . '/theme/remui/scss/preset/plain.scss');
+    // } else if ($filename && ($presetfile = $fs->get_file($context->id, 'theme_remui', 'preset', 0, '/', $filename))) {
+    //     $scss .= $presetfile->get_content();
+    // } else {
+    //     // Safety fallback - maybe new installs etc.
+    //     $scss .= file_get_contents($CFG->dirroot . '/theme/remui/scss/preset/default.scss');
+    // }
+
+    $branch = get_moodle_release_version_branch();
+
+    $scss .= file_get_contents($CFG->dirroot . '/theme/remui/scss/preset/remui.scss');
+
+    // if($branch  >= '405') {
+    //     $scss .= file_get_contents($CFG->dirroot . '/theme/remui/scss/m45/m45.scss');
+    // }elseif($branch  == '404') {
+    //     $scss .= file_get_contents($CFG->dirroot . '/theme/remui/scss/m44/m44.scss');
+    // }elseif($branch  == '403') {
+    //     $scss .= file_get_contents($CFG->dirroot . '/theme/remui/scss/m43/m43.scss');
+    // }else{
+    //     $scss .= file_get_contents($CFG->dirroot . '/theme/remui/scss/m42/m42.scss');
+    // }
+    $scss .= file_get_contents($CFG->dirroot . '/theme/remui/scss/remui.scss');
 
     return $scss;
 }
@@ -327,7 +345,10 @@ function get_all_remui_course_metadata($courseid) {
                 $value = userdate($data->get_value(), $machineformat, 99, false, false);
 
             }
-
+            if($data->get_field()->get('type') == 'select'){
+                $options = explode("\n",$data->get_field()->get('configdata')['options']);
+                $value = $options[$data->get_value()-1];
+            }
             $remuicustomfieldarray[$data->get_field()->get('shortname')] = array(
                 "categoryid" =>$data->get_field()->get_category()->get('id'),
                 "shortname"=>$data->get_field()->get('shortname'),
@@ -349,10 +370,10 @@ function get_all_remui_course_metadata($courseid) {
  * @param  string $options default [] (Optional) Extra data to create the field
  * @return int    Newly created Category id.
  */
-function theme_remui_create_custom_field($categoryid, $fieldname, $fieldtype, $options = []) {
+function theme_remui_create_custom_field($categoryid, $fieldname, $fieldtype, $options = [], $description = "") {
     try {
 
-        $configdata = get_customfield_data($categoryid, $fieldname, $fieldtype, $options);
+        $configdata = get_customfield_data($categoryid, $fieldname, $fieldtype, $options, $description);
 
         $category = \core_customfield\category_controller::create($categoryid);
         $field = \core_customfield\field_controller::create(0, (object)['type' => $fieldtype], $category);
@@ -383,10 +404,12 @@ function theme_remui_check_customfield_empty_status($customfieldid, $customfield
  * @param  string $options default [] (Optional) Extra data to create the field, $key => value
  * @return data  array[] of custom field configuration
  */
-function get_customfield_data($categoryid, $fieldname, $fieldtype, $options = [] ) {
+function get_customfield_data($categoryid, $fieldname, $fieldtype, $options = [], $description = "" ) {
     $data = new \stdClass;
 
     $data->name = $fieldname;
+    $data->description = $description;  // Add description field
+    $data->descriptionformat = FORMAT_HTML;  // Add description format (typically HTML)
 
     $replacefor = [' ', '(', ')'];
     $replacewith = ['', '', ''];
@@ -613,7 +636,14 @@ function adv_block_customizer_button($instanceid) {
 
     $url = $CFG->wwwroot . "/local/edwiserpagebuilder/editor.php?bui_edit=" . $instanceid;
     $url .= "&returl=". urlencode($PAGE->url);
-    $customizerbutton = "<div class='d-flex justify-content-end live-customizer-btn'>";
+
+    // export button
+    $customizerbutton = "<button class='btn btn-secondary d-flex justify-content-end block_exporter_btn' data-blockid='.$instanceid.'>";
+    $customizerbutton .= "<i class='fa fa-pencil'></i> ".get_string("exportblock", "theme_remui")."</a>";
+    $customizerbutton .= "</button>";
+
+    // live customizer button
+    $customizerbutton .= "<div class='d-flex justify-content-end live-customizer-btn'>";
     $customizerbutton .= "<a class='btn btn-primary' href='".$url."'";
     $customizerbutton .= "role='button'>";
     $customizerbutton .= "<i class='fa fa-pencil'></i> ".get_string("livecustomizer", "theme_remui")."</a>";
@@ -655,85 +685,152 @@ function edw_reposition_block($bi, $newregion, $newweight, $contexid, $pagetype,
 }
 
 /**
+ * Get the current Moodle release version branch.
+ *
+ * @return string The current Moodle release version branch.
+ */
+function get_moodle_release_version_branch(){
+    global $CFG;
+    $branch = $CFG->branch;
+    return $branch;
+}
+
+/**
+ * Checks if the current Moodle release version branch is greater than '402'.
+ *
+ * @return bool True if the current Moodle release version branch is greater than '402', false otherwise.
+ */
+
+function apply_latest_user_pref(){
+    $branch = get_moodle_release_version_branch();
+    if($branch > '402'){
+        return true;
+    }
+    return false;
+}
+
+
+/**
  * Get the current user preferences that are available
  *
  * @return array[]
  */
 function theme_remui_user_preferences(): array {
     return [
-        'drawer-open-nav' => [
-            'type' => PARAM_ALPHA,
-            'null' => NULL_NOT_ALLOWED,
-            'default' => '',
-            'permissioncallback' => [core_user::class, 'is_current_user'],
-        ],
-        'drawer-open-index' => [
-            'type' => PARAM_BOOL,
-            'null' => NULL_NOT_ALLOWED,
-            'default' => false,
-            'permissioncallback' => [core_user::class, 'is_current_user'],
-        ],
-        'drawer-open-block' => [
-            'type' => PARAM_BOOL,
-            'null' => NULL_NOT_ALLOWED,
-            'default' => false,
-            'permissioncallback' => [core_user::class, 'is_current_user'],
-        ],
-        'course_view_state' => [
-            'type' => PARAM_ALPHA,
-            'null' => NULL_NOT_ALLOWED,
-            'default' => '',
-            'permissioncallback' => [core_user::class, 'is_current_user'],
-        ],
-        'remui_dismised_announcement' => [
-            'type' => PARAM_BOOL,
-            'null' => NULL_NOT_ALLOWED,
-            'default' => false,
-            'permissioncallback' => [core_user::class, 'is_current_user'],
-        ],
-        'edw-quick-menu' => [
-            'type' => PARAM_BOOL,
-            'null' => NULL_NOT_ALLOWED,
-            'default' => false,
-            'permissioncallback' => [core_user::class, 'is_current_user'],
-        ],
-        'edwiser_inproduct_notification' => [
-            'type' => PARAM_ALPHA,
-            'null' => NULL_NOT_ALLOWED,
-            'default' => '',
-            'permissioncallback' => [core_user::class, 'is_current_user'],
-        ],
-        'enable_focus_mode' => [
-            'type' => PARAM_BOOL,
-            'null' => NULL_NOT_ALLOWED,
-            'default' => false,
-            'permissioncallback' => [core_user::class, 'is_current_user'],
-        ],
-        'homepagedepricatedseen' => [
-            'type' => PARAM_BOOL,
-            'null' => NULL_NOT_ALLOWED,
-            'default' => false,
-            'permissioncallback' => [core_user::class, 'is_current_user'],
-        ],
-        'darkmodecustomizerwarnnotvisible' => [
-            'type' => PARAM_BOOL,
-            'null' => NULL_NOT_ALLOWED,
-            'default' => false,
-            'permissioncallback' => [core_user::class, 'is_current_user'],
-        ],
-	'forcefulmigratemodalseen' => [
-            'type' => PARAM_BOOL,
-            'null' => NULL_NOT_ALLOWED,
-            'default' => false,
-            'permissioncallback' => [core_user::class, 'is_current_user'],
-        ],
-	'homepageavailablemodalseen' => [
-            'type' => PARAM_BOOL,
-            'null' => NULL_NOT_ALLOWED,
-            'default' => false,
-            'permissioncallback' => [core_user::class, 'is_current_user'],
-        ],
+            'drawer-open-nav' => [
+                'type' => PARAM_ALPHA,
+                'null' => NULL_NOT_ALLOWED,
+                'default' => '',
+                'permissioncallback' => [core_user::class, 'is_current_user'],
+            ],
+            'drawer-open-index' => [
+                'type' => PARAM_BOOL,
+                'null' => NULL_NOT_ALLOWED,
+                'default' => false,
+                'permissioncallback' => [core_user::class, 'is_current_user'],
+            ],
+            'drawer-open-block' => [
+                'type' => PARAM_BOOL,
+                'null' => NULL_NOT_ALLOWED,
+                'default' => false,
+                'permissioncallback' => [core_user::class, 'is_current_user'],
+            ],
+            'course_view_state' => [
+                'type' => PARAM_ALPHA,
+                'null' => NULL_NOT_ALLOWED,
+                'default' => '',
+                'permissioncallback' => [core_user::class, 'is_current_user'],
+            ],
+            'remui_dismised_announcement' => [
+                'type' => PARAM_BOOL,
+                'null' => NULL_NOT_ALLOWED,
+                'default' => false,
+                'permissioncallback' => [core_user::class, 'is_current_user'],
+            ],
+            'edw-quick-menu' => [
+                'type' => PARAM_BOOL,
+                'null' => NULL_NOT_ALLOWED,
+                'default' => false,
+                'permissioncallback' => [core_user::class, 'is_current_user'],
+            ],
+            'edwiser_inproduct_notification' => [
+                'type' => PARAM_ALPHA,
+                'null' => NULL_NOT_ALLOWED,
+                'default' => '',
+                'permissioncallback' => [core_user::class, 'is_current_user'],
+            ],
+            'enable_focus_mode' => [
+                'type' => PARAM_RAW,
+                'null' => NULL_NOT_ALLOWED,
+                'default' => false,
+                'permissioncallback' => [core_user::class, 'is_current_user'],
+            ],
+            'homepagedepricatedseen' => [
+                'type' => PARAM_BOOL,
+                'null' => NULL_NOT_ALLOWED,
+                'default' => false,
+                'permissioncallback' => [core_user::class, 'is_current_user'],
+            ],
+            'darkmodecustomizerwarnnotvisible' => [
+                'type' => PARAM_BOOL,
+                'null' => NULL_NOT_ALLOWED,
+                'default' => false,
+                'permissioncallback' => [core_user::class, 'is_current_user'],
+            ],
+            'forcefulmigratemodalseen' => [
+                    'type' => PARAM_BOOL,
+                    'null' => NULL_NOT_ALLOWED,
+                    'default' => false,
+                    'permissioncallback' => [core_user::class, 'is_current_user'],
+                ],
+            'homepageavailablemodalseen' => [
+                    'type' => PARAM_BOOL,
+                    'null' => NULL_NOT_ALLOWED,
+                    'default' => false,
+                    'permissioncallback' => [core_user::class, 'is_current_user'],
+                ],
+            'acs-widget-status' => [
+                'type' => PARAM_BOOL,
+                'null' => NULL_NOT_ALLOWED,
+                'default' => false,
+                'permissioncallback' => [core_user::class, 'is_current_user'],
+            ],
+            'acs-feedback-status' => [
+                'type' => PARAM_BOOL,
+                'null' => NULL_NOT_ALLOWED,
+                'default' => false,
+                'permissioncallback' => [core_user::class, 'is_current_user'],
+            ],
     ];
+}
+/**
+ * Navigation hook to add to preferences page.
+ *
+ * @param navigation_node $useraccount
+ * @param stdClass $user
+ * @param context_user $context
+ * @param stdClass $course
+ * @param context_course $coursecontext
+ */
+function theme_remui_extend_navigation_user_settings(navigation_node $useraccount) {
+    global $PAGE;
+
+    if (get_config('theme_remui', 'enableaccessibilitytools')  && $PAGE->theme->name == 'remui') {
+        if (!get_user_preferences('acs-widget-status')) {
+            $text = get_string('disable-aw-for-me', 'theme_remui');
+            $url = "#disable_aw";
+        } else {
+            $text = get_string('enable-aw-for-me', 'theme_remui');
+            $url = "#enable_aw";
+        }
+        $parent = $useraccount->parent->find('useraccount', navigation_node::TYPE_CONTAINER);
+        $parent->add($text,
+        new moodle_url($url), // URL (keep as '#' if non-clickable)
+        navigation_node::TYPE_SETTING,  // Type of navigation item
+        null,
+        'custom-preference');
+    }
+
 }
 
 function theme_remui_set_dynamic_settings() {

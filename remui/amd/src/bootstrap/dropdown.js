@@ -46,7 +46,7 @@ const CLASS_NAME_DROPLEFT = 'dropleft'
 const CLASS_NAME_MENURIGHT = 'dropdown-menu-right'
 const CLASS_NAME_POSITION_STATIC = 'position-static'
 
-const SELECTOR_DATA_TOGGLE = '[data-toggle="dropdown"]'
+const SELECTOR_DATA_TOGGLE = '[data-toggle="dropdown"],[data-bs-toggle="dropdown"]'
 const SELECTOR_FORM_CHILD = '.dropdown form'
 const SELECTOR_MENU = '.dropdown-menu'
 const SELECTOR_NAVBAR_NAV = '.navbar-nav'
@@ -115,6 +115,7 @@ class Dropdown {
       return
     }
 
+
     const isActive = $(this._menu).hasClass(CLASS_NAME_SHOW)
 
     Dropdown._clearMenus()
@@ -122,7 +123,6 @@ class Dropdown {
     if (isActive) {
       return
     }
-
     this.show(true)
   }
 

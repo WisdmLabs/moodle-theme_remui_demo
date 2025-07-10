@@ -1,3 +1,4 @@
+/* eslint-disable no-undef*/
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -20,7 +21,7 @@
  * @copyright  2016 Damyon Wiese
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-define(['jquery', 'core/custom_interaction_events', 'core/log', 'core/pubsub', 'core/aria','core_user/repository'],
+define(['jquery', 'core/custom_interaction_events', 'core/log', 'core/pubsub', 'core/aria', 'core_user/repository'],
      function($, CustomEvents, Log, PubSub, Aria, UserRepository) {
 
     var SELECTORS = {
@@ -55,7 +56,7 @@ define(['jquery', 'core/custom_interaction_events', 'core/log', 'core/pubsub', '
             var body = $(SELECTORS.BODY);
             var preference = trigger.attr('data-preference');
             if (small) {
-                UserRepository.setUserPreference(preference, 'false');
+                UserRepository.setUserPreference(preference, false);
             }
 
             drawer.on('mousewheel DOMMouseScroll', this.preventPageScroll);
@@ -88,7 +89,7 @@ define(['jquery', 'core/custom_interaction_events', 'core/log', 'core/pubsub', '
             Aria.hide(drawer.get());
             drawer.addClass('closed');
             if (!small) {
-                UserRepository.setUserPreference(preference, 'false');
+                UserRepository.setUserPreference(preference, false);
             }
         });
     };
@@ -107,7 +108,7 @@ define(['jquery', 'core/custom_interaction_events', 'core/log', 'core/pubsub', '
         var side = trigger.attr('data-side');
         var preference = trigger.attr('data-preference');
         if (small) {
-            UserRepository.setUserPreference(preference, 'false');
+            UserRepository.setUserPreference(preference, false);
         }
 
         body.addClass('drawer-ease');
@@ -120,7 +121,7 @@ define(['jquery', 'core/custom_interaction_events', 'core/log', 'core/pubsub', '
             body.addClass('drawer-open-' + side);
             drawer.removeClass('closed');
             if (!small) {
-                UserRepository.setUserPreference(preference, 'true');
+                UserRepository.setUserPreference(preference, true);
             }
         } else {
             // Close.
@@ -134,7 +135,7 @@ define(['jquery', 'core/custom_interaction_events', 'core/log', 'core/pubsub', '
                 $(this).dequeue();
             });
             if (!small) {
-                UserRepository.setUserPreference(preference, 'false');
+                UserRepository.setUserPreference(preference, false);
             }
         }
 

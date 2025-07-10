@@ -62,6 +62,13 @@ $templatecontext->darkmodecustomizerwarnnotvisible  = get_user_preferences('dark
 
 $templatecontext->dmstatus = (new theme_remui_darkmodehandler())->get_status() !== "disable";
 
+set_config("dashboardpersonalizerinfo", "hide", 'theme_remui');
+
+
+
+$PAGE->requires->js_call_amd('theme_remui/feedbackcollection', 'init', [false]);
+
+
 echo $OUTPUT->header();
 echo $OUTPUT->render_from_template('theme_remui/customizer/main', $templatecontext);
 echo $OUTPUT->footer();

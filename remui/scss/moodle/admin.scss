@@ -14,19 +14,6 @@
     text-align: left;
 }
 
-.environmenttable {
-    .warn {
-        @extend .alert-warning;
-    }
-
-    .error {
-        @extend .alert-danger;
-    }
-
-    .ok {
-        @extend .alert-success;
-    }
-}
 
 .path-admin .admintable.environmenttable .name,
 .path-admin .admintable.environmenttable .info,
@@ -56,10 +43,6 @@
 
 .timewarninghidden {
     display: none;
-}
-
-#page-admin-report-capability-index #capabilitysearch {
-    width: 30em;
 }
 
 #page-admin-qtypes #qtypes div,
@@ -145,6 +128,9 @@
     text-align: left;
 }
 
+#page-admin-index .upgradekeyreq {
+    min-width: 220px;
+}
 #page-admin-index .adminwarning.availableupdatesinfo .moodleupdateinfo span {
     display: block;
 }
@@ -344,7 +330,9 @@
 }
 
 .form-item .form-setting .defaultsnext {
-    display: inline;
+    display: inline-block;
+    // Added by Edwiser
+    width: 50%;
 }
 
 .form-item .form-setting .locked-checkbox {
@@ -371,15 +359,6 @@
     width: 4em;
 }
 
-#adminthemeselector .selectedtheme td.c0 {
-    border: 1px solid $state-info-border;
-    border-right-width: 0;
-}
-
-#adminthemeselector .selectedtheme td.c1 {
-    border: 1px solid $state-info-border;
-    border-left-width: 0;
-}
 
 .admin_colourpicker,
 .admin_colourpicker_preview {
@@ -414,7 +393,7 @@
     }
 }
 
-@include media-breakpoint-down(sm) {
+@include media-breakpoint-down(md) {
     .jsenabled .admin_colourpicker {
         height: 150px;
         margin-bottom: 10px;
@@ -441,11 +420,22 @@
     text-align: center;
 }
 
+#page-admin-index #page-content .alert a {
+    font-weight: normal;
+    text-decoration: underline;
+}
+
 // Plugins overview page at admin/plugins.php
 #page-admin-plugins {
     #plugins-overview-panel {
         .info {
             display: inline-block;
+            margin-right: 1em;
+            [data-filterby].active {
+                font-weight: bold;
+            }
+        }
+        .updateavailableinstallall {
             margin-right: 1em;
         }
     }
@@ -475,7 +465,8 @@
     }
 
     #plugins-control-panel {
-        .status-missing td {
+        .status-missing td,
+        .deprecatedtype td {
             background-color: $state-warning-bg;
         }
 
@@ -520,6 +511,7 @@
     // Plugins check table.
     #plugins-check {
         .status-missing,
+        .deprecatedtype,
         .status-downgrade {
             td {
                 background-color: $state-danger-bg;
@@ -624,8 +616,12 @@
     position: fixed;
     bottom: 0;
     right: 0;
+    margin: 1rem;
     overflow: hidden;
     z-index: $zindex-dropdown;
+}
+.jsenabled .maintenancewarning {
+    @include transition(0.2s);
 }
 
 .modal.modal-in-page {

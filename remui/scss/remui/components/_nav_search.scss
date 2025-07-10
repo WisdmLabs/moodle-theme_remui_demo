@@ -1,4 +1,4 @@
-/* 
+/*
  * $searchfield-border-rad: 5px !default;
  * $searchfield-pad-x: 16px !default;
  * $searchfield-pad-y: 12px !default;
@@ -32,6 +32,7 @@
                     }
                 }
                 input {
+                    flex: 1;
                     height: 100%;
                     border: none;
                     background-color: transparent;

@@ -42,11 +42,17 @@
 
     {{#focusdata.enabled}} {{> theme_remui/navbar_fm }} {{/focusdata.enabled}}
 
-    {{> theme_remui/demonavbar }}
+    {{^democontext.isvideoformatdemo}}
+        {{> theme_remui/demonavbar }}
+    {{/democontext.isvideoformatdemo}}
+
     {{> theme_remui/navbar }}
     {{#courseindex}}
         {{< theme_remui/drawer }}
             {{$id}}theme_remui-drawers-courseindex{{/id}}
+            {{$drawerheadercontent}}
+                {{> theme_remui/courseindexdrawercontrols}}
+            {{/drawerheadercontent}}
             {{$drawerclasses}}drawer drawer-left {{#courseindexopen}}show{{/courseindexopen}}{{/drawerclasses}}
             {{$drawercontent}}
                 {{{courseindex}}}
@@ -80,7 +86,7 @@
         {{#sitenotification}}{{{sitenotification}}}{{/sitenotification}}
         {{#canaddfwtopblocks}}
         <section id="region-fullwidthtop-blocks" class="has-blocks" aria-label="region top blocks">
-            <div role="main">
+            <div role="region-main">
                 {{{addblockbuttonfwtop}}}
                 {{{ sidefwtopblocks }}}
                 {{#addblockbuttonfwtop}}
@@ -155,6 +161,9 @@
                 {{> theme_remui/dashboard_stats }}
             {{/isdashboardstatsshow}}
 
+            {{#showpersonlizerinfo}}
+                {{> theme_remui/personalizer_info_dashboard }}
+            {{/showpersonlizerinfo}}
             {{#secondarymoremenu}}
                 <div class="secondary-navigation edw-tabs-navigation d-print-none">
                     {{> core/moremenu}}
@@ -162,7 +171,7 @@
             {{/secondarymoremenu}}
             {{#canaddtopblocks}}
             <section id="region-top-blocks" class="has-blocks" aria-label="region top blocks">
-                <div role="main">
+                <div role="region-main">
                     {{{addblockbuttontop}}}
                     {{{ sidetopblocks }}}
                     {{#addblockbuttontop}}
@@ -176,9 +185,32 @@
             </section>
             {{/canaddtopblocks}}
 
+{{#js}}
+    require(['jquery'], function($){
+        if (localStorage.getItem("nighteyewState") == "1") {
+
+            const lightLogo = document.querySelector('.light-logo');
+            const lightLogoMini = document.querySelector('.light-logomini');
+            const darkLogo = document.querySelector('.dark-logo');
+            const darkLogoMini = document.querySelector('.dark-logomini');
+
+            if (lightLogo) {
+                lightLogo.style.display = 'none';
+                darkLogo.style.display = 'flex';
+            }
+
+            if (lightLogoMini) {
+                lightLogoMini.style.display = 'none';
+                darkLogoMini.style.display = 'flex';
+
+            }
+        }
+    });
+{{/js}}
+
 {{#sitenotification}}
 {{#js}}
-    require(['jquery','core_user/repository'], function($, UserRepository){
+    require(['jquery','theme_remui/user/repository'], function($, UserRepository){
         // Save the preference, after dismiss the announcement
         $('.site-announcement #dismiss_announcement').click(function(){
             UserRepository.setUserPreference('remui_dismised_announcement', true);

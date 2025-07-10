@@ -110,12 +110,15 @@ $login-link-hover-color:$loginpanellinkhovercolor;
     .login-container {
         max-width: $login-container-width;
         width: 422px;
-        -ms-overflow-style: none;  /* Internet Explorer 10+ */
-        scrollbar-width: none;  /* Firefox */
-        &::-webkit-scrollbar {
-            display: none;  /* Safari and Chrome */
-        }
+        // -ms-overflow-style: none;  /* Internet Explorer 10+ */
+        // scrollbar-width: none;  /* Firefox */
+        // &::-webkit-scrollbar {
+        //     display: none;  /* Safari and Chrome */
+        // }
 
+        div[role="main"]{
+            height: unset !important;
+        }
         @include media-breakpoint-down(sm) {
             margin: 2rem;
             border-radius: 4px;
@@ -127,6 +130,8 @@ $login-link-hover-color:$loginpanellinkhovercolor;
         top: 0;
         padding: $container-main-area-pad;
         width: calc(100% - #{$login-container-width});
+        max-height: 100%;
+        overflow-y: auto;
         @include media-breakpoint-down(sm) {
             display: block;
             width: 100%;
@@ -346,3 +351,15 @@ $login-link-hover-color:$loginpanellinkhovercolor;
     }
 }
 
+// For fixing the position of login dropdown
+.dropdown-menu.dropdown-menu-right.loginddown {
+    top: 100%;
+}
+
+// To remove scroll bar coming at the bottom of login page
+#page-login-index.notloggedin.pagelayout-login {
+    #page-content.row {
+      margin-left: unset;
+      margin-right: unset;
+  }
+}

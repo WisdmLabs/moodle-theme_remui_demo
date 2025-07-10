@@ -28,6 +28,8 @@ use html_writer;
 use context_system;
 use moodle_page;
 use block_contents;
+// use core\di;
+// use core\hook\manager as hook_manager;
 
 class core_renderer extends \core_renderer {
     /**
@@ -74,7 +76,7 @@ class core_renderer extends \core_renderer {
             $url->param('edit', 'on');
             $editstring = get_string('turneditingon');
         }
-        $button = new \single_button($url, $editstring, $method, ['class' => 'btn btn-primary']);
+        $button = new \single_button($url, $editstring, $method, attributes: ['class' => 'btn btn-primary']);
         return $this->render_single_button($button);
     }
 
@@ -360,17 +362,27 @@ class core_renderer extends \core_renderer {
         switch ($logoorsitename) {
             case 'logo':
                 $logo = \theme_remui\toolbox::setting_file_url('logo', 'logo');
+                $darklogo = \theme_remui\toolbox::setting_file_url('darkmodelogo', 'darkmodelogo');
                 if (empty($logo)) {
                     $logo = \theme_remui\toolbox::image_url('logo', 'theme');
                 }
                 $context['logourl'] = $logo;
+                if (empty($darklogo)) {
+                    $darklogo = $logo;
+                }
+                $context['darklogourl'] = $darklogo;
                 break;
             case 'logomini':
                 $logomini = \theme_remui\toolbox::setting_file_url('logomini', 'logomini');
+                $darklogomini = \theme_remui\toolbox::setting_file_url('darkmodelogomini', 'darkmodelogomini');
                 if (empty($logomini)) {
                     $logomini = \theme_remui\toolbox::image_url('logomini', 'theme');
                 }
                 $context['logominiurl'] = $logomini;
+                if (empty($darklogomini)) {
+                    $darklogomini = $logomini;
+                }
+                $context['darklogominiurl'] = $darklogomini;
                 break;
             case 'icononly':
                 $context['icononly'] = true;
@@ -545,6 +557,11 @@ class core_renderer extends \core_renderer {
         }
 
         if ($this->page->pagelayout == 'course' && $design = get_config('theme_remui', 'courseheaderdesign')) {
+            if (strpos($this->page->pagetype, 'course-view-section') !== false) {
+                // $header->contextheader = false;
+                $header->sectionpage = true;
+                $header->coursename = format_text($COURSE->fullname, FORMAT_HTML);
+            }
             $coursehandler = new \theme_remui_coursehandler();
             $header->edwcourseheader = true;
             $template = 'theme_remui/edw_course_header' . $design;
@@ -633,7 +650,9 @@ class core_renderer extends \core_renderer {
             $context->controls .= get_block_move_buttons($id);
         }
         if (is_plugin_available('block_edwiseradvancedblock') && $bc->attributes["data-block"] == 'edwiseradvancedblock' ) {
-            $context->livecustomizationbtn = adv_block_customizer_button($bc->blockinstanceid);
+            global $CFG;
+            require_once($CFG->dirroot . '/local/edwiserpagebuilder/lib.php');
+            $context->livecustomizationbtn = local_edwiserpagebuilder_customizer_button($bc->blockinstanceid);
         }
         return $this->render_from_template('core/block', $context);
     }
@@ -751,6 +770,39 @@ class core_renderer extends \core_renderer {
             $output .= $this->page->periodicrefreshdelay.';url='.$this->page->url->out().'" />';
         }
 
+        if(get_moodle_release_version_branch() > '403'){
+            // Give plugins an opportunity to add any head elements. The callback
+            // must always return a string containing valid html head content.
+            $hook = new \core\hook\output\before_standard_head_html_generation($this);
+            $hook->process_legacy_callbacks();
+            \core\di::get(\core\hook\manager::class)->dispatch($hook);
+
+            // Allow a url_rewrite plugin to setup any dynamic head content.
+            if (isset($CFG->urlrewriteclass) && !isset($CFG->upgraderunning)) {
+                $class = $CFG->urlrewriteclass;
+                $hook->add_html($class::html_head_setup());
+            }
+
+            $hook->add_html('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />' . "\n");
+            $hook->add_html('<meta name="keywords" content="moodle, ' . $this->page->title . '" />' . "\n");
+            // This is only set by the {@link redirect()} method
+            $hook->add_html($this->metarefreshtag);
+
+            // Check if a periodic refresh delay has been set and make sure we arn't
+            // already meta refreshing
+            if ($this->metarefreshtag=='' && $this->page->periodicrefreshdelay!==null) {
+                $hook->add_html(
+                    html_writer::empty_tag('meta', [
+                        'http-equiv' => 'refresh',
+                        'content' => $this->page->periodicrefreshdelay . ';url='.$this->page->url->out(),
+                    ]),
+                );
+            }
+
+            $output = $hook->get_output();
+        }
+
+
         // Set up help link popups for all links with the helptooltip class.
         $this->page->requires->js_init_call('M.util.help_popups.setup');
 
@@ -823,7 +875,7 @@ class core_renderer extends \core_renderer {
      * @return string the navigation HTML.
      */
     public function activity_navigation() {
-        global $OUTPUT;
+        global $OUTPUT, $CFG;
         $activitynavenable = get_config('theme_remui', 'activitynextpreviousbutton');
         if (!$activitynavenable) {
             return '';
@@ -855,14 +907,26 @@ class core_renderer extends \core_renderer {
         $modules = get_fast_modinfo($course->id)->get_cms();
 
         // Put the modules into an array in order by the position they are shown in the course.
-        $mods = [];
+        $allmods = [];
         $activitylist = [];
         foreach ($modules as $module) {
             // Only add activities the user can access, aren't in stealth mode and have a url (eg. mod_label does not).
-            if (!$module->uservisible || $module->is_stealth() || empty($module->url)) {
+            if (!$module->uservisible || $module->is_stealth() || (empty($module->url) && $module->modname !== "subsection")) {
                 continue;
             }
-            $mods[$module->id] = $module;
+
+            if ($module->modname === 'subsection') {
+                $allmods[$module->customdata['sectionid']] = $module;
+            } else {
+                if (isset($module->sectionid) && array_key_exists($module->sectionid, $allmods)) {
+                    if (!isset($subsectionsmodules[$module->sectionid])) {
+                        $subsectionsmodules[$module->sectionid] = [];
+                    }
+                    $subsectionsmodules[$module->sectionid][$module->id] = $module;
+                } else {
+                    $allmods[$module->id] = $module;
+                }
+            }
 
             // No need to add the current module to the list for the activity dropdown menu.
             if ($module->id == $this->page->cm->id) {
@@ -870,14 +934,29 @@ class core_renderer extends \core_renderer {
             }
             // Module name.
             $modname = $module->get_formatted_name();
+
             // Display the hidden text if necessary.
             if (!$module->visible) {
                 $modname .= ' ' . get_string('hiddenwithbrackets');
             }
             // Module URL.
-            $linkurl = new moodle_url($module->url, array('forceview' => 1));
+            if ($module->modname === 'subsection') {
+                $linkurl = new moodle_url('/course/section.php', array('id' => $module->customdata['sectionid']));
+            } else {
+                $linkurl = new moodle_url($module->url, array('forceview' => 1));
+            }
             // Add module URL (as key) and name (as value) to the activity list array.
             $activitylist[$linkurl->out(false)] = $modname;
+        }
+
+        $mods = [];
+
+        foreach ($allmods as $key => $value) {
+            $mods[$key] = $value;
+
+            if (isset($subsectionsmodules[$key])) {
+                $mods = $mods + $subsectionsmodules[$key];
+            }
         }
 
         $nummods = count($mods);
@@ -899,8 +978,32 @@ class core_renderer extends \core_renderer {
         // Check if we have a previous mod to show.
         if ($position > 0) {
             $prevmod = $mods[$modids[$position - 1]];
+
             if ($mods[$modids[$position - 1]]->sectionnum != $mods[$modids[$position]]->sectionnum) {
-                $prevSection = $mods[$modids[$position - 1]]->sectionnum;
+
+                if($CFG->branch >= 404) {
+                    $prevSection = $mods[$modids[$position - 1]]->sectionid;
+                } else {
+                    $prevSection = $mods[$modids[$position - 1]]->sectionnum;
+                }
+
+                if (isset($mods[$modids[$position - 1]]->sectionid) && isset($mods[$mods[$modids[$position - 1]]->sectionid])) {
+                    $subsectionmodule = $mods[$mods[$modids[$position - 1]]->sectionid];
+                    if ($mods[$modids[$position]]->sectionnum === $subsectionmodule->sectionnum) {
+                        $prevSection = null;
+                    }
+                }
+
+                if (isset($mods[$modids[$position]]->sectionid) && isset($mods[$mods[$modids[$position]]->sectionid])) {
+                    $subsectionmodule = $mods[$mods[$modids[$position]]->sectionid];
+                    if ($mods[$modids[$position-1]]->sectionnum === $subsectionmodule->sectionnum) {
+                        $prevSection = null;
+                    }
+                }
+            }
+
+            if ($prevmod->modname === 'subsection') {
+                $prevsubsection = $prevmod;
             }
         }
         // $cminfo = get_fast_modinfo($course->id);
@@ -913,7 +1016,24 @@ class core_renderer extends \core_renderer {
             // }
 
             if ($mods[$modids[$position + 1]]->sectionnum != $mods[$modids[$position]]->sectionnum) {
-                $nextSection = $mods[$modids[$position + 1]]->sectionnum;
+
+
+                if ($CFG->branch >= 404) {
+                    $nextSection = $mods[$modids[$position + 1]]->sectionid;
+                } else {
+                    $nextSection = $mods[$modids[$position + 1]]->sectionnum;
+                }
+
+                if (isset($mods[$modids[$position]]->sectionid) && isset($mods[$mods[$modids[$position]]->sectionid])) {
+                    $subsectionmodule = $mods[$mods[$modids[$position]]->sectionid];
+                    if ($mods[$modids[$position + 1]]->sectionnum === $subsectionmodule->sectionnum) {
+                        $nextSection = null;
+                    }
+                }
+            }
+
+            if ($nextmod->modname === 'subsection') {
+                $nextsubsection = $nextmod;
             }
         }
 
@@ -951,28 +1071,68 @@ class core_renderer extends \core_renderer {
             }
         }
 
-        if (isset($nextSection)) {
-            $activitynav->nextlink->url = new \moodle_url(
-                "/course/view.php",
-                array(
-                    'id' => $course->id,
-                    'section' => $nextSection
-                )
+        if (isset($prevsubsection)) {
+            $activitynav->prevlink->url = new moodle_url(
+                '/course/section.php',
+                array('id' => $prevsubsection->customdata['sectionid'])
             );
+            $activitynav->prevlink->text =  get_string('prevsubsectionbuttontext', 'theme_remui');
+            $activitynav->prevlink->attributes['class'] = 'btn btn-primary btn-sm';
+        }
+
+        if (isset($nextsubsection)) {
+            $activitynav->nextlink->url = new moodle_url(
+                '/course/section.php',
+                array('id' => $nextsubsection->customdata['sectionid'])
+            );
+            $activitynav->nextlink->text =  get_string('nextsubsectionbuttontext', 'theme_remui');
+            $activitynav->nextlink->attributes['class'] = 'btn btn-primary btn-sm';
+        }
+
+        if (isset($nextSection)) {
+            if ($CFG->branch >= 404) {
+                $activitynav->nextlink->url = new \moodle_url(
+                    "/course/section.php",
+                    array(
+                        'id' => $nextSection,
+                    )
+                );
+            } else {
+                $activitynav->nextlink->url = new \moodle_url(
+                    "/course/view.php",
+                    array(
+                        'id' => $course->id,
+                        'section' => $nextSection
+                    )
+                );
+            }
+
             $activitynav->nextlink->text = get_string('nextsectionbuttontext', 'theme_remui');
             $activitynav->nextlink->attributes['class'] = 'btn btn-primary btn-sm';
         }
         if (isset($prevSection)) {
-            $activitynav->prevlink->url = new \moodle_url(
-                "/course/view.php",
-                array(
-                    'id' => $course->id,
-                    'section' => $prevSection
-                )
-            );
+
+            if ($CFG->branch >= 404) {
+                $activitynav->prevlink->url = new \moodle_url(
+                    "/course/section.php",
+                    array(
+                        'id' => $prevSection,
+                    )
+                );
+            } else {
+                $activitynav->prevlink->url = new \moodle_url(
+                    "/course/view.php",
+                    array(
+                        'id' => $course->id,
+                        'section' => $prevSection
+                    )
+                );
+            }
+
             $activitynav->prevlink->text = get_string('prevsectionbuttontext', 'theme_remui');
             $activitynav->prevlink->attributes['class'] = 'btn btn-primary btn-sm';
         }
+
         $renderer = $this->page->get_renderer('core', 'course');
         return $renderer->render($activitynav);
     }
@@ -1084,4 +1244,30 @@ class core_renderer extends \core_renderer {
         return $this->opencontainers->pop('container');
     }
 
+     /**
+     * Get the HTML for blocks in the given region.
+     *
+     * @since Moodle 2.5.1 2.6
+     * @param string $region The region to get HTML for.
+     * @param array $classes Wrapping tag classes.
+     * @param string $tag Wrapping tag.
+     * @param boolean $fakeblocksonly Include fake blocks only.
+     * @return string HTML.
+     */
+    public function blocks($region, $classes = array(), $tag = 'aside', $fakeblocksonly = false) {
+        $displayregion = $this->page->apply_theme_region_manipulations($region);
+        $classes = (array)$classes;
+        $classes[] = 'block-region';
+        $attributes = array(
+            'id' => 'block-region-'.preg_replace('#[^a-zA-Z0-9_\-]+#', '-', $displayregion),
+            'class' => join(' ', $classes),
+            'data-blockregion' => $displayregion,
+            'data-droptarget' => '1'
+        );
+        $content = '';
+        if ($this->page->blocks->region_has_content($displayregion, $this)) {
+            $content =  $this->blocks_for_region($displayregion, $fakeblocksonly);
+        }
+        return html_writer::tag($tag, $content, $attributes);
+    }
 }

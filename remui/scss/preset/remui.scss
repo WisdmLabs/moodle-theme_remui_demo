@@ -1,3 +1,10 @@
+//
+// Bootstrap variables
+//
+
+// Prefix for all CSS variables
+$prefix: bs- !default;
+
 
 // *** COLOR SCHEME
 // Basic Colors
@@ -48,11 +55,16 @@ $theme-colors: map-merge(
         info	: $info,
         warning	: $warning,
         danger	: $danger,
+        light   : $light,
+        dark    : $dark,
         brand-primary	: $brand-primary,
         brand-secondary	: $brand-secondary
     ),
     $theme-colors
 );
+
+// Fonts
+$font-size-base: 0.9375rem !default;
 
 // Background colors
 // $bg-colors:
@@ -63,6 +75,9 @@ $bg-small-ui: #ebf0f9 !default;
 $bg-header	: $white !default;
 $bg-footer	: #000819 !default;
 $bg-header-ele : #f0f6fc !default;
+
+// Links
+$link-decoration: none !default;
 
 $background-colors: () !default;
 $background-colors: map-merge(
@@ -78,6 +93,13 @@ $background-colors: map-merge(
     $background-colors
 );
 
+// Border radius
+$border-radius: .5rem !default;
+$border-radius-lg: .6rem !default;
+
+
+// HR
+$hr-opacity: .15 !default;
 
 // Font Colors
 $link-color	: $brand-primary !default;
@@ -90,6 +112,11 @@ $header-text-active : $brand-primary !default;
 $header-text-default: #63718c !default;
 $header-text-hover-color : $brand-primary !default;
 
+// Breadcrumbs
+$breadcrumb-padding-y:      .5rem !default;
+$breadcrumb-margin-bottom:  0 !default;
+
+
 // Element Colors
 $light-border	: #ebf0f9 !default;
 $medium-border	: #d5ddea !default;
@@ -98,7 +125,9 @@ $header-divider-color-light	: #ebf0f9 !default;
 $header-divider-color-dark	: #7590C2 !default;
 $footer-divider-color	: #00184b !default;
 
-// *** ICONS
+// Cards
+$card-group-margin: .25rem;
+
 
 // PAGE ICONS
 // Icon colors
@@ -112,6 +141,10 @@ $dic-hover-bg 	: #0041c7 !default;
 $dic-active-bg 	: #003094 !default;
 $dic-white-bg 	: $white !default;
 
+// Dropdowns
+$dropdown-link-hover-color: $white;
+$dropdown-link-hover-bg: $primary;
+
 // HEADER ICONS
 $header-ic-default : #5b6880 !default;
 $header-ic-hover   : #465062 !default;
@@ -120,8 +153,24 @@ $header-ic-active  : $brand-primary !default;
 $footer-ic-default : #909bb1 !default;
 $footer-ic-hover   : $white !default;
 
+// Popovers
+$popover-max-width: 300px !default;
+
 // Tables
 $table-accent-bg: rgba($black, .03) !default;
+
+
+// Spacers
+$spacer: 1rem !default;
+$spacers: (
+    0: 0,
+    1: ($spacer * .25),
+    2: ($spacer * .5),
+    3: $spacer,
+    4: ($spacer * 1.5),
+    5: ($spacer * 2),
+    6: ($spacer * 3)
+) !default;
 
 // COLOR SCHEME ***
 
@@ -435,16 +484,49 @@ $warning-btn-color:#343A40;
 // $text-muted: $gray-400;
 
 // Import Required Fonts
-@import "../fonts";
+@import "fonts";
 
 // Import FontAwesome.
-@import "../fontawesome";
+@import "fontawesome";
 
 // Import All of Bootstrap
-@import "../bootstrap";
+@import "bootstrap";
 
 // Import Core moodle CSS
-@import "../moodle";
+@import "moodle";
 
-// Import RemUI CSS
-@import "../remui";
+// // Import RemUI CSS
+// @import "remui";
+
+
+// *** ICONS
+
+// Inputs
+$focus-ring-opacity: .75 !default;
+$input-border-color: var(--#{$prefix}gray-500) !default;
+$form-check-input-border: var(--#{$prefix}border-width) solid var(--#{$prefix}gray-500) !default;
+
+// Rounded user pictures
+.userpicture {
+    border-radius: 50%;
+}
+
+// Reset the default styling back to the bootstrap defaults for
+// the secondary outline button because gray-200 is much too light
+// for an outline button.
+
+$info-outline:    #1f7e9a;
+$warning-outline: #a6670e;
+
+.btn-outline-secondary {
+    @include button-outline-variant($gray-600);
+    border-color: $gray-600;
+}
+
+.btn-outline-info {
+    @include button-outline-variant($info-outline);
+}
+
+.btn-outline-warning {
+    @include button-outline-variant($warning-outline);
+}

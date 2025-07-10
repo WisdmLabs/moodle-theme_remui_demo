@@ -54,7 +54,11 @@
 
    #page-footer {
       .popover {
-         transform: translate3d(220px, -406px, 0px) !important;
+         transform: translate(190px, -56px) !important;
+
+         .popover-arrow{
+            transform: translate(-90px, 0px) !important;
+         }
       }
    }
 
@@ -160,5 +164,11 @@
          }
       }
 
+   }
+
+   .section_goto {
+      .btn {
+         transform: rotate(180deg);
+      }
    }
 }

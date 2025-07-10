@@ -42,6 +42,7 @@ import iconsettings from "theme_remui/customizer/icon-settings";
 import quickSetup from "theme_remui/customizer/quicksetup-settings";
 import login from "theme_remui/customizer/login";
 import "theme_remui/color-picker";
+import feedbackcollection from  "theme_remui/feedbackcollection";
 
 /**
  * Ajax promise requests
@@ -174,6 +175,7 @@ function resetHandlers() {
         $(this).closest('.form-group').find("input").val(value).trigger("input").trigger("change");
     });
 
+
     // Reset textarea.
     $(SELECTOR.TEXTAREA_RESET).on("click", function() {
         let value = $(this).data("default");
@@ -265,6 +267,8 @@ function preserveResetSettings() {
         'instagramsetting',
         'pinterestsetting',
         'quorasetting',
+        'whatsappsetting',
+        'telegramsetting',
         'footerprivacypolicy',
         'footertermsandconditions',
         'brandlogotext',
@@ -428,8 +432,27 @@ function closeCustomizer(event) {
         modal.show();
         modal.setSaveButtonText(M.util.get_string("yes", "moodle"));
         var root = modal.getRoot();
-        root.on(ModalEvents.save, () => {
-            window.location = $(SELECTOR.CLOSE_CUSTOMIZER).attr("href");
+        root.on(ModalEvents.save,async  () => {
+            const feedbackcontext = await feedbackcollection.get_feedback_context("visualpersonalizer_question");
+            if(JSON.parse(feedbackcontext)){
+                feedbackcollection.render_feedbackform("visualpersonalizer_question",function(){
+
+                    // Attach click event to a specific button within the rendered form
+                    $(document).on("click","#feedbackcollection-form .skip-btn", function() {
+                        // feedbackcollection.close_modal();
+                        window.location = $(SELECTOR.CLOSE_CUSTOMIZER).attr("href");
+                    });
+
+                    $(document).on("submit", "#feedbackcollection-form", function(e) {
+                        e.preventDefault();
+                        // feedbackcollection.submit_feedback_handler(e);
+                        window.location = $(SELECTOR.CLOSE_CUSTOMIZER).attr("href");
+                    });
+                });
+                console.log("inside feedback collection");
+            }else{
+                window.location = $(SELECTOR.CLOSE_CUSTOMIZER).attr("href");
+            }
         });
     });
 

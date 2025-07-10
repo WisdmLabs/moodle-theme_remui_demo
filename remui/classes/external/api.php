@@ -50,5 +50,8 @@ class api extends external_api {
     use set_block_pos;
     use enroll_page_action;
     use change_frontpagechooser;
+    use do_setup_action;
+    use do_feedbackcollection_action;
     use set_demo_layouttype;
+    use handle_external_data_receiver;
 }

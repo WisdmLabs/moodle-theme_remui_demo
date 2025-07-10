@@ -67,7 +67,8 @@
 </li>
 
 {{#js}}
-require(['core/edit_switch'], function(editSwitch) {
+require(['core/edit_switch', 'theme_remui/demo_general'], function(editSwitch, editSwitchHandler) {
     editSwitch.init('{{uniqid}}-editingswitch');
+    editSwitchHandler.init('{{uniqid}}');
 });
 {{/js}}

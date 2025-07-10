@@ -151,6 +151,22 @@ $functions = array(
         'ajax'          => true,
         'loginrequired' => true
     ),
+    'theme_remui_do_setup_action' => array(
+        'classname'     => 'theme_remui\external\api',
+        'methodname'    => 'do_setup_action',
+        'description'   => 'perform theme setup actions',
+        'type'          => 'read',
+        'ajax'          => true,
+        'loginrequired' => true
+    ),
+    'theme_remui_do_feedbackcollection_action' => array(
+        'classname'     => 'theme_remui\external\api',
+        'methodname'    => 'do_feedbackcollection_action',
+        'description'   => 'perform theme setup actions',
+        'type'          => 'read',
+        'ajax'          => true,
+        'loginrequired' => true
+    ),
     'theme_remui_set_demo_layouttype' => array(
         'classname'     => 'theme_remui\external\api',
         'methodname'    => 'set_demo_layouttype',
@@ -158,5 +174,13 @@ $functions = array(
         'type'          => 'write',
         'ajax'          => true,
         'loginrequired' => false
+    ),
+    'theme_remui_external_data_receiver' => array(
+        'classname'     => 'theme_remui\external\api',
+        'methodname'    => 'handle_external_data_receiver',
+        'description'   => 'set layout type for specific demo',
+        'type'          => 'write',
+        'ajax'          => true,
+        'loginrequired' => false,
     ),
 );

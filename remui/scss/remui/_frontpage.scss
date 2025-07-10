@@ -176,6 +176,15 @@ body.pagelayout-frontpage {
         }
     }
 
+    .carousel-indicators li {
+        list-style-type: none;
+    }
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        background-image: unset;
+    }
+
     &:not(.editing) {
         #page {
             @if $hideheadercontent == none {

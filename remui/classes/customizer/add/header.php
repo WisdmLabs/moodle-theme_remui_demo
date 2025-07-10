@@ -507,6 +507,47 @@ trait header {
             ]
         );
 
+        //dark mode logo 
+        $label = get_string('darkmodelogo', 'theme_remui');
+        $name = 'darkmodelogo';
+        $this->add_setting(
+            'file',
+            $name,
+            $label,
+            $panel,
+            [
+                'help' => get_string('darkmodelogodesc', 'theme_remui'),
+                'description' => get_string('darkmodelogosize', 'theme_remui'),
+                'default' => '',
+                'options' => [
+                    'subdirs' => 0,
+                    'maxfiles' => 1,
+                    'accepted_types' => array('web_image')
+                ]
+            ]
+        );
+
+        //dark mode logo Mini
+        $label = get_string('darkmodelogomini', 'theme_remui');
+        $name = 'darkmodelogomini';
+        $this->add_setting(
+            'file',
+            $name,
+            $label,
+            $panel,
+            [
+                'help' => get_string('darkmodelogominidesc', 'theme_remui'),
+                'description' => get_string('darkmodelogominisize', 'theme_remui'),
+                'default' => '',
+                'options' => [
+                    'subdirs' => 0,
+                    'maxfiles' => 1,
+                    'accepted_types' => array('web_image')
+                ]
+            ]
+        );
+
+
         // Icon.
         $label = get_string('siteicon', 'theme_remui');
         $this->add_setting(

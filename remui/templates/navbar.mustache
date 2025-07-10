@@ -65,12 +65,20 @@
     <a href="{{{ config.homeurl }}}" class="navbar-brand d-none d-md-flex align-items-center m-0 aabtn" aria-label="{{ sitename }} - {{#str}}brandname, theme_remui{{/str}}" title="{{ sitename }}">
         {{#output.get_branding_context}}
             {{#logourl}}
-                <img src="{{ logourl }}" class="navbar-brand-logo logo">
+                <img src="{{ logourl }}" class="navbar-brand-logo logo light-logo">
             {{/logourl}}
+            
+            {{#darklogourl}}
+                <img src="{{ darklogourl }}" class="navbar-brand-logo logo dark-logo">
+            {{/darklogourl}}
 
             {{#logominiurl}}
-                <img src="{{ logominiurl }}" class="navbar-brand-logo logomini">
+                <img src="{{ logominiurl }}" class="navbar-brand-logo logomini light-logomini">
             {{/logominiurl}}
+
+            {{#darklogominiurl}}
+                <img src="{{ darklogominiurl }}" class="navbar-brand-logo logomini dark-logomini">
+            {{/darklogominiurl}}
 
             {{#icononly}}
                 <span class="navbar-brand-logo icononly" style="color: {{color}};">

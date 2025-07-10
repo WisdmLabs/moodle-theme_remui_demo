@@ -48,7 +48,7 @@ $courseindex-section-title-border: 1px solid rgba($brand-primary, 30%);
                     margin-right:  map-get($spacerspx,6);
                     right: 0px;
                 }
-               
+
                 .navbar-brand{
                     display: none;
                 }
@@ -62,11 +62,11 @@ $courseindex-section-title-border: 1px solid rgba($brand-primary, 30%);
                     padding: 0;
                     align-items: center;
                     gap: map-get($gapspace, 4);
-          
+
                     .navbar-brand {
                       display: flex;
                       padding: map-get($spacerspx, 6);
-          
+
                       .navbar-brand-logo {
                         width: 100%;
                         font-size: 1.171rem;
@@ -76,35 +76,54 @@ $courseindex-section-title-border: 1px solid rgba($brand-primary, 30%);
             }
         }
 
+        .drawerheader {
+            .drawertoggle  {
+                margin-right: auto;
+            }
+        }
+
         .list-group a {
-            &.recentcourses { 
-                @include drawer-display($show-recentcourses); 
+            &.recentcourses {
+                @include drawer-display($show-recentcourses);
             }
-            &.coursecat { 
-                @include drawer-display($show-coursecat); 
+            &.coursecat {
+                @include drawer-display($show-coursecat);
             }
-            &.myhome { 
-                display: $hide-dashboard; 
+            &.myhome {
+                display: $hide-dashboard;
             }
             &.home {
-                 display: $hide-home; 
+                 display: $hide-home;
                 }
-            &.mycourses { 
-                display: $hide-my-courses; 
+            &.mycourses {
+                display: $hide-my-courses;
             }
-            &.siteadminnod { 
-                display: $hide-site-admin; 
+            &.siteadminnod {
+                display: $hide-site-admin;
             }
         }
     }
-    
+
     &.drawer-right,&#theme_remui-drawers-courseindex{
         .drawerheader{
             .navbar-brand{
                 display: none !important;
             }
         }
+
+        .drawerheadercontent {
+	      &:not(:has(:first-child)) {
+		   margin: unset !important;
+	      }
+	  }
     }
+}
+
+.ai-drawer {
+    @include get-drop-shadow(xs);
+    width: $drawer-right-width;
+    max-width: $drawer-right-width;
+    background-color: $white;
 }
 
 .drawer-toggler {
@@ -141,6 +160,16 @@ $courseindex-section-title-border: 1px solid rgba($brand-primary, 30%);
             color: inherit !important;
         }
     }
+    .courseindex-section-title.pageitem {
+        background-color: rgba($brand-primary, 0.5) !important;
+      }
+      .courseindex-item.pageitem {
+        .edw-section-content-wrapper {
+          .courseindex-link {
+            font-weight: 700 !important;
+          }
+        }
+      }
 
     .drawerheader {
         padding: $l-sidebar-padding-y $l-sidebar-padding-x;
@@ -168,7 +197,7 @@ $courseindex-section-title-border: 1px solid rgba($brand-primary, 30%);
                         &:not(:last-child) {
                             margin-bottom: 3px;
                         }
-                        
+
                         .courseindex-section-title {
                             padding: $l-sidebar-padding-y $l-sidebar-padding-x;
                             color: $courseindex-section-title-color;
@@ -229,11 +258,26 @@ $courseindex-section-title-border: 1px solid rgba($brand-primary, 30%);
                                             left: 0;
                                             .icon {
                                                 margin: unset;
-                                                height: 100%;
-                                                width: 100%;
+                                                // Adjusted bullet size to match that of the Boost theme.
+                                                // height: 100%;
+                                                // width: 100%;
+                                                height: 16px;
+                                                width: 20px;
 
-                                                &.fa-circle {
-                                                    color: $brand-secondary;
+                                                // &.fa-circle {
+                                                //     color: $brand-secondary;
+                                                // }
+                                            }
+
+                                            &.completion_complete {
+                                                .icon.fa.fa-circle {
+                                                    &::before {
+                                                        content: "\f00c"; // This is the unicode for fa-check
+                                                        font-family: "Font Awesome 6 Free";
+                                                        font-weight: 900;
+                                                    }
+                                                    font-size: 16px;
+                                                    color: $success;
                                                 }
                                             }
                                         }
@@ -258,9 +302,57 @@ $courseindex-section-title-border: 1px solid rgba($brand-primary, 30%);
                                         color: $ic-default;
                                     }
                                 }
+
+                                // .courseindex-item:hover {
+                                //     .courseindex-section.delegated-section {
+                                //         .courseindex-link:not(:hover) {
+                                //             color: $paragraph-color;
+                                //         }
+                                //     }
+                                // }
                             }
                         }
                     }
+
+                    .courseindex-section.delegated-section {
+                        border: unset;
+                        overflow: hidden;
+
+                        margin-bottom: 5px;
+                        .courseindex-section-title {
+                            padding-left: 16px !important;
+                            padding-right: 16px !important;
+                        }
+
+                        .courseindex-item-content {
+                            background-color: $courseindex-section-title-bg;
+
+                            .courseindex-sectioncontent {
+                                padding-top: 0;
+
+
+                            }
+                        }
+
+                        // .courseindex-sectioncontent:not(:has(:nth-child(1))) {
+                        //     display: none !important;
+                        // }
+
+                    }
+
+                }
+            }
+        }
+    }
+}
+
+body.edw-m402,
+body.edw-m403 {
+    .drawer {
+        &.drawer-left {
+            .drawerheader {
+                .drawertoggle {
+                    margin-right: unset;
                 }
             }
         }

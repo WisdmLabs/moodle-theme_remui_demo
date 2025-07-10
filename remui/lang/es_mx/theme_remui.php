@@ -31,7 +31,7 @@ $string['brandcolor'] = 'Color de marca';
 $string['brandcolor_desc'] = 'El color de la marca.';
 $string['bootswatch'] = 'Bootswatch';
 $string['bootswatch_desc'] = 'Un bootswatch es un conjunto de variables de Bootstrap y css para dar estilo a Bootstrap';
-$string['choosereadme'] = 'Edwiser RemUI es un tema moderno y altamente personalizable. Este tema está diseñado para ser utilizado directamente o como tema padre al crear nuevos temas utilizando Bootstrap 4.';
+$string['choosereadme'] = 'Edwiser RemUI es un tema personalizable de Moodle diseñado para mejorar tu experiencia de eLearning al abordar desafíos como la personalización limitada y problemas de la interfaz de usuario. Con su diseño moderno e intuitivo y sus características integrales, puedes crear fácilmente un sitio visualmente impresionante y con tu propia marca que aumente el compromiso de los estudiantes y brinde una experiencia que los alumnos amarán.';
 $string['currentinparentheses'] = '(actual)';
 $string['configtitle'] = 'Edwiser RemUI';
 $string['generalsettings'] = 'Básico';
@@ -184,8 +184,8 @@ $string['socialmedia'] = 'Redes sociales';
 $string['socialmediadesc'] = 'Ingresa los enlaces de redes sociales para tu sitio.';
 $string['facebooksetting'] = 'Facebook';
 $string['facebooksettingdesc'] = 'Ingresa el enlace de la página de Facebook de tu sitio. Por ejemplo: https://www.facebook.com/nombrepagina';
-$string['twittersetting'] = 'Twitter';
-$string['twittersettingdesc'] = 'Ingresa el enlace de la página de Twitter de tu sitio. Por ejemplo: https://www.twitter.com/nombrepagina';
+$string['twittersetting'] = ' X (anteriormente Twitter)';
+$string['twittersettingdesc'] = 'Ingresa el enlace de la página de x de tu sitio. Por ejemplo: https://www.x.com/nombrepagina';
 $string['linkedinsetting'] = 'Linkedin';
 $string['linkedinsettingdesc'] = 'Ingresa el enlace de la página de Linkedin de tu sitio. Por ejemplo: https://www.linkedin.com/in/nombrepagina';
 $string['gplussetting'] = 'Google Plus';
@@ -308,7 +308,8 @@ $string['fullname']  = 'Nombre completo';
 $string['viewcourselow'] = "ver curso";
 
 $string['focusmodesettings'] = 'Configuración del modo de enfoque';
-$string['focusmode'] = 'Modo de enfoque';
+$string['focusmodenormalstatetext'] = 'Enfoque: ACTIVADO';
+$string['focusmodeactivestatetext'] = 'Enfoque: DESACTIVADO';
 $string['enablefocusmode'] = 'Habilitar modo de enfoque';
 $string['togglefocusmode'] = "Alternar modo de enfoque";
 $string['enablefocusmodedesc'] = 'Si se habilita, aparecerá un botón para cambiar al modo de aprendizaje sin distracciones en la página del curso.';
@@ -626,6 +627,8 @@ $string['entervalidlicensekey'] = "Por favor ingresa la clave de licencia correc
 $string['edwiserremuilicenseactivation'] = 'Activación de Licencia de Edwiser RemUI';
 $string['enterlicensekey'] = "Ingresa la clave de licencia...";
 $string['invalid'] = "Inválido";
+$string['licensemismatch'] = "Incompatibilidad de licencia";
+$string['licensemismatchdesc'] = '¡Ups! Parece que utilizaste una clave de licencia diferente para activar el tema Edwiser RemUI. Por favor, usa la clave correcta desde tu <a class="text-decoration-underline" href="https://edwiser.org/my-account/">página de Mi cuenta</a> para activar el tema Edwiser RemUI.';
 
 $string['courseheaderdesign'] = 'Diseño del encabezado de la página del curso';
 $string['courseheaderdesigndesc'] = 'Elige el diseño del encabezado de la página del curso';
@@ -912,7 +915,7 @@ $string['menuorientationdesc'] = 'Establecer la orientación del menú. La orien
 $string['menuorientationvertical'] = 'Vertical';
 $string['menuorientationhorizontal'] = 'Horizontal';
 $string['footerfacebook'] = 'Facebook';
-$string['footertwitter'] = 'Twitter';
+$string['footertwitter'] = ' X (anteriormente Twitter)';
 $string['footerlinkedin'] = 'LinkedIn';
 $string['footergplus'] = 'Google Plus';
 $string['footeryoutube'] = 'YouTube';
@@ -1151,7 +1154,7 @@ $string['socialiconspanel'] = "Panel de íconos sociales";
 $string['social-icons-info'] = "<p>Para mostrar los íconos de redes sociales en la parte inferior de cualquier columna con contenido, ve a <b>Pie de página > Área principal del pie de página > Widget > Seleccionar tipo = Contenido </b> y activa la configuración para mostrar íconos de redes sociales.</p>";
 $string['social-icons-heading'] = "Íconos de redes sociales";
 $string["custommenulinktext"] = 'Elementos del menú personalizado';
-$string["custommenulink"] = '<h6>Elementos del menú personalizado</h6><p> Para agregar / editar / eliminar elementos del menú personalizado ve a Administración del sitio > Apariencia > Configuración del tema > <a href="{$a}/admin/settings.php?section=themesettings#admin-custommenuitems" target ="_blank" class="text-decoration-none">Elementos del menú personalizado</a> <p>';
+$string["custommenulink"] = '<h6>Elementos del menú personalizado</h6><p> Para agregar / editar / eliminar elementos del menú personalizado ve a Administración del sitio > Apariencia > Configuración del tema > <a href="{$a}/admin/settings.php?section=themesettingsadvanced#admin-custommenuitems" target ="_blank" class="text-decoration-none">Elementos del menú personalizado</a> <p>';
 $string['note'] = 'Nota';
 $string['social-media-selection-note'] = "<p>Presiona Ctrl para seleccionar/deseleccionar los medios</p>";
 
@@ -1445,8 +1448,8 @@ $string['customizerdarkmodedonotshowbtntext'] = 'No mostrar de nuevo';
 $string['customizerdarkmodeok'] = 'Aceptar';
 $string['previewswitchon'] = 'Encender';
 $string['previewswitchoff'] = 'Apagar';
-$string['darkmodepreview'] =  'Vista previa del modo oscuro';
-$string['darkmodecustomizernote']='<li>En el ‘Personalizador visual’, todos los cambios se realizarán en el ‘modo claro’ del sitio y se reflejarán automáticamente en el ‘modo oscuro’.</li>
+$string['darkmodepreview'] = 'Vista previa del modo oscuro';
+$string['darkmodecustomizernote'] = '<li>En el ‘Personalizador visual’, todos los cambios se realizarán en el ‘modo claro’ del sitio y se reflejarán automáticamente en el ‘modo oscuro’.</li>
 <li>La configuración del Personalizador visual se desactivará al previsualizar en el modo oscuro.</li>';
 $string["switchtodm"] = "Modo oscuro";
 $string["switchtolm"] = "Modo claro";
@@ -1498,3 +1501,47 @@ $string["row5"] = "Mostrar:5 filas";
 $string["row6"] = "Mostrar:6 filas";
 
 $string["filteremptymsg"] = "NOTA: Para ver los filtros, agregue propiedades de filtro como Niveles, Precio, Calificaciones e Idiomas al curso.";
+
+$string['sectionaddmax'] = 'Has alcanzado el número máximo de secciones permitidas para un curso...';
+$string['prevsubsectionbuttontext'] = 'Subsección anterior';
+$string['nextsubsectionbuttontext'] = 'Siguiente subsección';
+// Site sync strings
+$string['site_sync_button_title'] = 'Ir a la página de sincronización del sitio';
+$string['sitesyncplugintabtext'] = "Sincronización del sitio (nuevo)";
+
+
+$string['whatsappsetting'] = "WhatsApp";
+$string['whatsappsettingdesc'] = "Ingresa el enlace de WhatsApp de tu sitio. Por ejemplo: https://wa.me/1XXXXXXXXXX";
+$string['footerwhatsapp'] = "WhatsApp";
+$string['telegramsetting'] = "Telegram";
+$string['telegramsettingdesc'] = "Ingresa el enlace de Telegram de tu sitio. Por ejemplo: https://t.me/someusername";
+$string['footertelegram'] = "Telegram";
+
+$string['accessbilityfeatureshead'] = 'Configuración de la herramienta de accesibilidad';
+$string['accessbilityfeaturesheaddesc'] = 'Múltiples configuraciones que ayudan a los usuarios con discapacidades';
+$string['enableaccessibilitytools'] = 'Habilitar herramienta de accesibilidad';
+$string['enableaccessibilitytoolsdesc'] = 'Si está deshabilitada, la herramienta no se mostrará en todo el sitio.';
+$string['disable-aw-for-me'] = 'Deshabilitar la herramienta de accesibilidad para mí';
+$string['enable-aw-for-me'] = 'Habilitar la herramienta de accesibilidad para mí';
+$string['disable-aw-for-me-notice'] = 'La herramienta de accesibilidad está deshabilitada.';
+$string['enable-aw-for-me-notice'] = 'La herramienta de accesibilidad está habilitada.';
+
+$string['darkmodelogo'] = 'Logotipo para modo "Oscuro"';
+$string['darkmodelogomini'] = 'Logotipo mini para modo "Oscuro"';
+$string['darkmodelogodesc'] = 'Si este campo está vacío, se mostrará el logotipo cargado en el campo "Logotipo" cuando el modo oscuro esté ACTIVADO. Puede añadir el logotipo que se mostrará en el encabezado. Nota: La altura preferida es de 50px. En caso de que desee personalizarlo, puede hacerlo desde el cuadro de CSS personalizado.';
+$string['darkmodelogosize'] = 'La proporción de aspecto esperada es 40:33';
+$string['darkmodelogomini'] = 'Logotipo mini para modo "Oscuro"';
+$string['darkmodelogominidesc'] = 'Si este campo está vacío, se mostrará el logotipo cargado en el campo "Logotipo mini" cuando el modo oscuro esté ACTIVADO. Puede añadir el logotipo que se mostrará en el encabezado. Nota: La altura preferida es de 50px. En caso de que desee personalizarlo, puede hacerlo desde el cuadro de CSS personalizado.';
+$string['darkmodelogominisize'] = 'La proporción de aspecto esperada es 40:33';
+$string['secondaryfooterlogodarkmode'] = 'Logotipo para modo "Oscuro"';
+$string['secondaryfooterlogodarkmode_help'] = 'Logotipo para modo "Oscuro"';
+
+$string['focusmode'] = 'Modo de enfoque';
+$string['focusmodedesc'] = '<p class="m-0">Modo de enfoque ACTIVADO: Aparecerá un botón para cambiar a un aprendizaje sin distracciones en la página del curso.</p>
+<p class="m-0">Modo de enfoque DESACTIVADO: No aparecerá el botón para cambiar a un aprendizaje sin distracciones en la página del curso.</p>
+<p class="m-0">Forzar modo de enfoque ACTIVADO para todos los cursos: Todos los cursos se mostrarán en modo de enfoque por defecto para todos los estudiantes. Los estudiantes pueden desactivarlo si lo desean.</p>';
+$string['focusmodeon'] = 'Modo de enfoque ACTIVADO';
+$string['focusmodeoff'] = 'Modo de enfoque DESACTIVADO';
+$string['forcefocusmode'] = 'Forzar modo de enfoque ACTIVADO para todos los cursos';
+$string['focusmodeactiveadminmsg'] = 'El modo de enfoque está activo para los usuarios estudiantes';
+$string['focusmodeactivenavinfo'] = 'El modo de enfoque está ACTIVADO. Haz clic en "X" en la esquina inferior derecha para cerrarlo.';

@@ -68,19 +68,6 @@
             }
         }
     }
-    body.mediumwidth {
-        #page.drawers {
-            .main-inner {
-                max-width: $medium-content-maxwidth;
-            }
-            .footer-popover {
-                max-width: $medium-content-maxwidth;
-                width: 100%;
-                margin: 0 auto;
-                @include border-radius();
-            }
-        }
-    }
     .header-maxwidth {
         max-width: $course-content-maxwidth;
         margin: 0 auto;
@@ -175,6 +162,12 @@
             visibility: hidden;
         }
     }
+    .hasstickyfooter:has(.drawer-right-toggle) .maintenancewarning {
+        right: 2rem;
+    }
+    .hasstickyfooter:has(.drawer-left-toggle) .maintenancewarning {
+        margin-left: 3.5rem;
+    }
 }
 
 // @include media-breakpoint-up(sm) {
@@ -201,16 +194,22 @@
 
 @include media-breakpoint-up(lg) {
     .drawer-left,
-    .drawer-right {
+    .drawer-right,
+    .ai-drawer {
         top: $navbar-height;
         height: calc(100vh - #{$navbar-height});
     }
     .hasstickyfooter {
         .drawer-left,
-        .drawer-right {
+        .drawer-right,
+        .ai-drawer {
             top: $navbar-height;
             height: calc(100vh - #{$navbar-height} - #{$stickyfooter-height});
         }
+    }
+
+    .ai-drawer-body {
+        height: calc(100% - 60px);
     }
 
     #page.drawers {
@@ -229,10 +228,14 @@
         &.show-drawer-right {
             margin-left: 0;
             margin-right: $drawer-right-width;
-            // padding-left: $drawer-open-container-padding-x;
-            // padding-right: $drawer-open-container-padding-x;
-            .jsenabled & .btn-footer-popover {
+            //padding-right: 1rem;
+            .jsenabled & .popover-process-monitor,
+            .jsenabled & .btn-footer-popover,
+            .jsenabled & .btn-footer-communication {
                 right: calc(#{$drawer-right-width} + 2rem);
+            }
+            .jsenabled:has(&) .maintenancewarning {
+                right: calc(#{$drawer-right-width} + 5rem);
             }
         }
         &.show-drawer-left.show-drawer-right {
@@ -240,7 +243,7 @@
             margin-right: $drawer-right-width;
         }
         &.hasstickyfooter {
-            // height: calc(100vh - #{$navbar-height} - #{$stickyfooter-height}); commented for remui
+            //margin-bottom: $stickyfooter-height;
         }
     }
 }

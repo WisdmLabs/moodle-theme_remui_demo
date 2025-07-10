@@ -85,10 +85,10 @@ class theme_remui_admin_settingspage_tabs extends admin_settingpage {
             );
         }
 
-        // Add edwiser importer.
+        // Add Personalizer tab.
         $personalizer = $OUTPUT->render_from_template('theme_remui/personalizer', array());
 
-        // Information center.
+        // Personalizer tab.
         $context['tabs'][] = array(
             'name' => 'theme_remui_edwiserpersonalizer',
             'displayname' => get_string('personalizer', 'theme_remui'),
@@ -123,6 +123,29 @@ class theme_remui_admin_settingspage_tabs extends admin_settingpage {
             $importer = ob_get_clean();
         } else {
             $importer = get_string('importer-missing', 'theme_remui');
+        }
+
+
+        if (is_plugin_available("local_sitesync")) {
+            // Add site sync.
+            $sitesyncurl = $CFG->wwwroot . '/local/sitesync/overview.php';
+            $sitesynchtml = '<div class="alert alert-warning  fade show" role="alert">
+                                    '.get_string('user_syncinfo', 'local_sitesync').'
+                            </div>
+                            <div class="sitesync-button-wrapper">
+                                <a href="' . $sitesyncurl . '" class="btn btn-primary" title="Go to site sync settings">
+                                    '.get_string('site_sync_button_title', 'theme_remui').'
+                                </a>
+                            </div>';
+
+            // Site sync tab.
+            $context['tabs'][] = array(
+                'name' => 'theme_remui_sitesync',
+                'displayname' => get_string('sitesyncplugintabtext', 'theme_remui'),
+                'html' => $sitesynchtml,
+                'active' => $activetab == 'edwsitesync',
+                'customclass' => 'remuitab edwsitesync'
+            );
         }
 
         // Information center.

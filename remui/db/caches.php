@@ -41,5 +41,9 @@ $definitions = array(
     'whatsnew' => array(
         'mode' => cache_store::MODE_APPLICATION,
         'ttl' => 3600 // 1 hours.
+    ),
+    'offers' => array(
+        'mode' => cache_store::MODE_APPLICATION,
+        'ttl' => 3600 // 1 hours.
     )
 );

@@ -45,7 +45,7 @@
 <ul class="nav nav-tabs" role="tablist">
     {{#tabs}}
         <li class="nav-item">
-            <a href="#{{name}}" class="nav-link {{#active}}active{{/active}} {{ customclass }}" data-toggle="tab" role="tab"
+            <a href="#{{name}}" class="nav-link {{#active}}active{{/active}} {{ customclass }}" data-toggle="tab"  data-bs-toggle="tab" role="tab"
                 {{#active}}aria-selected="true"{{/active}}
                 {{^active}}aria-selected="false" tabindex="-1"{{/active}}>{{displayname}}</a>
         </li>
@@ -76,8 +76,12 @@
         $(document).ready(function() {
             activeTab($('.settingsform .nav-tabs .nav-link.active'));
         });
-        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-            activeTab($(this));
-        });
+
+        const tabEl = document.querySelectorAll('a[data-bs-toggle="tab"]')
+        tabEl.forEach(tab => {
+            tab.addEventListener('shown.bs.tab', function (e) {
+                activeTab($(this));
+            })
+        })
     });
 {{/js}}

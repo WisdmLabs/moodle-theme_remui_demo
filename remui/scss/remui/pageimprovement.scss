@@ -6,13 +6,31 @@
 #page-grade-report-user-index,
 #page-report-outline-index,
 #page-report-completion-index,
-#page-report-progress-index{
+#page-report-progress-index,
+#page-mod-assign-grading{
     #page #topofscroll > div.container{
         max-width: 90%;
     }
+
+    .tertiary-navigation > div {
+        flex-wrap: wrap;
+    }
 }
 
+#page-grade-report-singleview-index,
+#page-mod-assign-grading {
+    .tertiary-navigation > div {
+        flex-wrap: wrap;
+    }
+}
 
+@include media-breakpoint-up(sm) {
+    #page-question-edit {
+        #page #topofscroll > div.container{
+            max-width: 90%;
+        }
+    }
+}
 
 
 #page-course-view-participants{
@@ -87,7 +105,6 @@
         }
     }
 
-
     div[data-filterregion="filter"] {
         fieldset {
             .d-flex.align-items-md-stretch{
@@ -103,6 +120,12 @@
             }
         }
     }
+}
+
+.form-autocomplete-downarrow {
+    top: 50%;
+    right: .625rem;
+    transform: translate(0, -50%);
 }
 
 #page-enrol-instances{
@@ -128,6 +151,10 @@
                 // }
             }
         }
+
+    }
+    .urlselect select.urlselect {
+        margin-left: .5rem;
     }
 }
 
@@ -149,7 +176,7 @@
     }
     .gradeparent{
         max-height: unset;
-        min-height: 300px;
+        min-height: 450px;
         table{
             padding-right: 0px !important;
         }
@@ -160,7 +187,12 @@
             z-index: 3 !important;
         }
         th.header{
-            z-index: 0;
+            z-index: 2;
+        }
+    }
+    .gradetreebox{
+        @include media-breakpoint-down(sm){
+            overflow: hidden;
         }
     }
     @include media-breakpoint-down(sm){
@@ -177,12 +209,16 @@
     }
 }
 
+
 #page-grade-report-overview-index{
     #toggle-contact-button,
     #message-user-button{
         .edw-icon{
             font-size: $edw-icon-size-large;
         }
+    }
+    .page-context-header{
+        align-items: center;
     }
     #overview-grade{
         border-bottom: 1px solid $light-border;
@@ -351,4 +387,107 @@
             min-width: 476px;
         }
     }
+}
+.edw-course-card-grid.theme_card_grid{
+    // grid-template-columns: repeat(3,minmax(auto,33%));
+    .dashboard-card{
+        min-height: unset;
+        height: 100%;
+        // background-size: contain;
+        .card-body{
+            padding: 16px;
+            padding-bottom: 0px;
+        }
+    }
+}
+#page-my-index.pagelayout-mycourses{
+    .header-wrapper{
+       .dashboard-bar-wrapper{
+          width: unset;
+          flex-grow: 1;
+       }
+       .my-action-buttons.my-action-buttons-right{
+          display: flex;
+          gap: map-get($spacerspx, '4');
+       }
+    }
+}
+
+.gradingtable {
+    overflow: auto;
+}
+
+#page-admin-reportbuilder-edit {
+    .navbar > .container-fluid {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+}
+
+.tiny_image_footer_template {
+    .openimagebrowser {
+        @media screen and (max-width: 1024px) and (min-width: 767px) {
+            margin-top: 8px;
+        }
+    }
+
+    .tiny_image_addurl:disabled {
+        color: $button-secondary-color-text;
+    }
+}
+
+
+#page-question-bank-managecategories-category {
+    #region-main {
+    	div[role="main"] {
+            .row {
+                & > div:first-child {
+                    padding-left: 0 !important;
+                }
+            }
+
+            #categoryroot {
+                padding-top: map-get($spacerspx, 4);
+            }
+    	}
+    }
+}
+
+#page-mod-assign-grading {
+    #sticky-footer {
+        overflow: unset;
+    }
+
+    .tertiary-navigation > div {
+        flex-wrap: wrap;
+    }
+}
+
+#page-mod-assign-view {
+	&.path-mod-assign.jsenabled .mod-assign-history-link-open,
+    &.path-mod-assign.jsenabled .mod-assign-history-link-closed {
+		padding-left: 34px;
+	}
+}
+
+
+// For making 'Manage Courses btn' sync with customizer
+.btn-outline-primary {
+    @extend .btn-secondary;
+}
+
+#managecoursesform .btn-outline-primary {
+    &:hover {
+        color: $button-secondary-color-texthover !important;
+    }
+}
+
+#page-admin-roles-admins {
+    table.generaltable tbody td {
+        vertical-align: top;
+    }
+}
+
+#page-mod-quiz-edit .question-bank-table .questionnametext{
+    width: 60% important;
 }

@@ -93,35 +93,35 @@ require(['theme_remui/focusmode'], function(focusmode){
 });
 {{/focusdata.enabled}}
 
-require(['theme_remui/loader', 'theme_remui/TimeCircles'], function (loader, TimeCircles) {
+require(['jquery', 'theme_remui/loader', 'theme_remui/TimeCircles'], function ($, loader, TimeCircles) {
     // This code is to move Left QuizTimer To Right Sidebar.
     $('#quiztimer').detach().appendTo('#mod_quiz_navblock .block-body-wrapper .card-text .othernav');
     $('#quiztimer').css('display', 'block');
     // quiz time circles for timed quizzes
-    $("#quiztimer").TimeCircles({
-        time: {
-            Days: {
-                show: false
+    if($("#quiztimer").length > 0) {
+        $("#quiztimer").TimeCircles({
+            time: {
+                Days: {
+                    show: false
+                },
+                Hours: {
+                    color: "#3c8dbc"
+                },
+                Minutes: {
+                    color: "#00a65a"
+                },
+                Seconds: {
+                    color: "#f56954"
+                }
             },
-            Hours: {
-                color: "#3c8dbc"
-            },
-            Minutes: {
-                color: "#00a65a"
-            },
-            Seconds: {
-                color: "#f56954"
-            }
-        },
-        bg_width: 0.9,
-        fg_width: 0.1,
-        circle_bg_color: "#EBF0F9",
-        number_size: 0.18,
-        text_size: 0.08,
-        refresh_interval: 1,
-        animation_interval: "ticks"
-    });
-
-
+            bg_width: 0.9,
+            fg_width: 0.1,
+            circle_bg_color: "#EBF0F9",
+            number_size: 0.18,
+            text_size: 0.08,
+            refresh_interval: 1,
+            animation_interval: "ticks"
+        });
+    }
 });
 {{/js}}

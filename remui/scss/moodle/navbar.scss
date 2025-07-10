@@ -1,6 +1,6 @@
 @mixin hover-navbar {
     border-color: transparent;
-    background-color: $header-menu-element-bg-color;
+    background-color: $gray-100;
 }
 
 .navbar.fixed-top {
@@ -62,7 +62,7 @@
             .dropdown-item {
                 padding: $dropdown-item-padding-y $dropdown-item-padding-x;
                 &.carousel-navigation-link::after {
-                    @extend .fa-solid;
+                    font: var(--fa-font-solid);
                     content: fa-content($fa-var-caret-right);
                     font-size: 1rem;
                     right: .75rem;
@@ -83,7 +83,7 @@
                 .items {
                     .dropdown-item {
                         &[aria-current="true"]::before {
-                            @extend .fa-solid;
+                            font: var(--fa-font-solid);
                             content: fa-content($fa-var-check);
                             font-size: 0.75rem;
                             padding-left: .25rem;
@@ -97,22 +97,22 @@
             align-items: center;
         }
     }
-    .usermenu,
-    .langmenu {
-        .dropdown {
-            display: flex;
-            align-items: center;
-            height: 100%;
-            .dropdown-toggle {
-                padding-top: 0;
-                padding-bottom: 0;
-                border-radius: 0;
-                display: flex;
-                align-items: center;
-                height: 100%;
-            }
-        }
-    }
+    // .usermenu,
+    // .langmenu {
+    //     .dropdown {
+    //         display: flex;
+    //         align-items: center;
+    //         height: 100%;
+    //         .dropdown-toggle {
+    //             padding-top: 0;
+    //             padding-bottom: 0;
+    //             border-radius: 0;
+    //             display: flex;
+    //             align-items: center;
+    //             height: 100%;
+    //         }
+    //     }
+    // }
     .langmenu {
         .dropdown-menu {
             .dropdown-item {
@@ -140,7 +140,7 @@
         .dropdown-menu {
             .dropdown-item {
                 &.carousel-navigation-link::after {
-                    @extend .fa-solid;
+                    font: var(--fa-font-solid);
                     content: fa-content($fa-var-caret-left);
                 }
             }
@@ -168,4 +168,20 @@
 }
 .pagelayout-embedded #page {
     margin-top: 0;
+}
+.navbar-bootswatch {
+    .navbar-brand {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        .sitename {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+    }
+}
+
+// Make navbar height available for non-sass use.
+:root {
+    --navbar-height: #{$navbar-height};
 }

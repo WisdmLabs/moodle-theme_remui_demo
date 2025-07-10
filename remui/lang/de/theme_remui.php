@@ -31,7 +31,7 @@ $string['brandcolor'] = 'Markenfarbe';
 $string['brandcolor_desc'] = 'Die Markenfarbe.';
 $string['bootswatch'] = 'Bootswatch';
 $string['bootswatch_desc'] = 'Ein Bootswatch ist eine Sammlung von Bootstrap-Variablen und CSS zur Gestaltung von Bootstrap.';
-$string['choosereadme'] = 'Edwiser RemUI ein modernes und hochgradig anpassbares Theme. Dieses Theme ist zur direkten Verwendung oder als Eltern-Theme gedacht, wenn neue Themes erstellt werden, die Bootstrap 4 verwenden.';
+$string['choosereadme'] = 'Edwiser RemUI ist ein anpassbares Moodle-Theme, das entwickelt wurde, um Ihr E-Learning-Erlebnis zu verbessern, indem es Herausforderungen wie begrenzte Anpassung und Benutzeroberflächenprobleme löst. Mit seinem modernen, intuitiven Design und umfassenden Funktionen können Sie mühelos eine visuell beeindruckende, markengerechte Seite erstellen, die das Engagement der Schüler steigert und eine Erfahrung bietet, die Lernende lieben werden!';
 $string['currentinparentheses'] = '(aktuell)';
 $string['configtitle'] = 'Edwiser RemUI';
 $string['generalsettings'] = 'grundlegend';
@@ -204,8 +204,8 @@ $string['socialmedia'] = 'Soziale Medien';
 $string['socialmediadesc'] = 'Geben Sie die Links zu den sozialen Medien für Ihre Website ein.';
 $string['facebooksetting'] = 'Facebook';
 $string['facebooksettingdesc'] = 'Geben Sie den Link zur Facebook-Seite Ihrer Website ein. Zum Beispiel: https://www.facebook.com/pagename';
-$string['twittersetting'] = 'Twitter';
-$string['twittersettingdesc'] = 'Geben Sie den Link zur Twitter-Seite Ihrer Website ein. Zum Beispiel: https://www.twitter.com/pagename';
+$string['twittersetting'] = 'X (ehemals Twitter)';
+$string['twittersettingdesc'] = 'Geben Sie den Link zur X-Seite Ihrer Website ein. Zum Beispiel: https://www.x.com/pagename';
 $string['linkedinsetting'] = 'Linkedin';
 $string['linkedinsettingdesc'] = 'Geben Sie den Link zur Linkedin-Seite Ihrer Website ein. Zum Beispiel: https://www.linkedin.com/in/pagename';
 $string['gplussetting'] = 'Google Plus';
@@ -328,7 +328,8 @@ $string['fullname'] = 'Vollständiger Name';
 $string['viewcourselow'] = 'Kurs anzeigen';
 
 $string['focusmodesettings'] = 'Einstellungen für den Fokus-Modus';
-$string['focusmode'] = 'Fokus-Modus';
+$string['focusmodenormalstatetext'] = 'Fokus: EIN';
+$string['focusmodeactivestatetext'] = 'Fokus: AUS';
 $string['enablefocusmode'] = 'Fokus-Modus aktivieren';
 $string['enablefocusmodedesc'] = 'Wenn aktiviert, wird auf der Kursseite ein Button zur Umschaltung auf ein ablenkungsfreies Lernen angezeigt.';
 $string['focusmodeenabled'] = 'Fokus-Modus aktiviert';
@@ -645,6 +646,8 @@ $string['entervalidlicensekey'] = "Bitte geben Sie den korrekten Lizenzschlüsse
 $string['edwiserremuilicenseactivation'] = 'Edwiser RemUI Lizenzaktivierung';
 $string['enterlicensekey'] = "Geben Sie den Lizenzschlüssel ein...";
 $string['invalid'] = "Ungültig";
+$string['licensemismatch'] = "Lizenzkonflikt";
+$string['licensemismatchdesc'] = 'Hoppla! Es scheint, dass Sie einen anderen Produktschlüssel verwendet haben, um das Edwiser RemUI-Theme zu aktivieren. Bitte verwenden Sie den korrekten Lizenzschlüssel aus Ihrer <a class="text-decoration-underline" href="https://edwiser.org/my-account/">Mein Konto-Seite</a>, um das Edwiser RemUI-Theme zu aktivieren.';
 
 $string['courseheaderdesign'] = 'Kursseitenkopf-Design';
 $string['courseheaderdesigndesc'] = 'Wählen Sie das Design des Kursseitenkopfes';
@@ -931,7 +934,7 @@ $string['menuorientationdesc'] = 'Setzen Sie die Ausrichtung des Menüs. Die Aus
 $string['menuorientationvertical'] = 'Vertikal';
 $string['menuorientationhorizontal'] = 'Horizontal';
 $string['footerfacebook'] = 'Facebook';
-$string['footertwitter'] = 'Twitter';
+$string['footertwitter'] = 'X (ehemals Twitter)';
 $string['footerlinkedin'] = 'Linkedin';
 $string['footergplus'] = 'Google Plus';
 $string['footeryoutube'] = 'Youtube';
@@ -1169,7 +1172,7 @@ $string['socialiconspanel'] = "Panel für soziale Symbole";
 $string['social-icons-info'] = "<p>Um die Symbole für soziale Medien am unteren Rand jeder Spalte mit Inhalten anzuzeigen, gehen Sie zu <b>Footer > Footer Hauptbereich > Widget > Wählen Sie Typ = Inhalte</b> und aktivieren Sie die Einstellung zur Anzeige von Symbolen für soziale Medien.</p>";
 $string['social-icons-heading'] = "Symbole für soziale Medien";
 $string["custommenulinktext"] = 'Benutzerdefinierte Menüelemente';
-$string["custommenulink"] = '<h6>Benutzerdefinierte Menüelemente</h6><p> Um benutzerdefinierte Menüelemente hinzuzufügen / zu bearbeiten / zu löschen, gehen Sie zu Site-Administration > Darstellung > Thema-Einstellungen > <a href="{$a}/admin/settings.php?section=themesettings#admin-custommenuitems" target ="_blank" class="text-decoration-none">Benutzerdefinierte Menüelemente</a></p>';
+$string["custommenulink"] = '<h6>Benutzerdefinierte Menüelemente</h6><p> Um benutzerdefinierte Menüelemente hinzuzufügen / zu bearbeiten / zu löschen, gehen Sie zu Site-Administration > Darstellung > Thema-Einstellungen > <a href="{$a}/admin/settings.php?section=themesettingsadvanced#admin-custommenuitems" target ="_blank" class="text-decoration-none">Benutzerdefinierte Menüelemente</a></p>';
 $string['note'] = 'Hinweis';
 $string['social-media-selection-note'] = "<p>Drücken Sie Strg, um die Medien auszuwählen / abzuwählen</p>";
 
@@ -1465,8 +1468,8 @@ $string['customizerdarkmodedonotshowbtntext'] = 'Nicht erneut anzeigen';
 $string['customizerdarkmodeok'] = 'Okay';
 $string['previewswitchon'] = 'Einschalten';
 $string['previewswitchoff'] = 'Ausschalten';
-$string['darkmodepreview'] =  'Vorschau des Dunkelmodus';
-$string['darkmodecustomizernote']='<li>In \'Visual Personalizer\' werden alle Änderungen im \'Hellmodus\' der Website vorgenommen und automatisch im \'Dunkelmodus\' reflektiert.</li>
+$string['darkmodepreview'] = 'Vorschau des Dunkelmodus';
+$string['darkmodecustomizernote'] = '<li>In \'Visual Personalizer\' werden alle Änderungen im \'Hellmodus\' der Website vorgenommen und automatisch im \'Dunkelmodus\' reflektiert.</li>
 <li>Die Einstellungen des Visual Personalizers werden während der Vorschau im Dunkelmodus deaktiviert.</li>';
 $string["switchtodm"] = "Dunkelmodus";
 $string["switchtolm"] = "Hellmodus";
@@ -1518,3 +1521,45 @@ $string["row5"] = "Zeigen:5 Zeilen";
 $string["row6"] = "Zeigen:6 Zeilen";
 
 $string["filteremptymsg"] = "HINWEIS: Um die Filter anzuzeigen, fügen Sie Filtereigenschaften wie Stufen, Preis, Bewertungen und Sprachen zum Kurs hinzu.";
+
+$string['sectionaddmax'] = 'Sie haben die maximale Anzahl an Abschnitten für einen Kurs erreicht...';
+$string['prevsubsectionbuttontext'] = 'Vorheriger Unterabschnitt';
+$string['nextsubsectionbuttontext'] = 'Nächster Unterabschnitt';
+// Site sync strings
+$string['site_sync_button_title'] = 'Zur Site-Synchronisationsseite gehen';
+$string['sitesyncplugintabtext'] = "Site-Synchronisation (neu)";
+
+$string['whatsappsetting'] = "WhatsApp";
+$string['whatsappsettingdesc'] = "Geben Sie den WhatsApp-Link Ihrer Website ein. Zum Beispiel: https://wa.me/1XXXXXXXXXX";
+$string['footerwhatsapp'] = "WhatsApp";
+$string['telegramsetting'] = "Telegram";
+$string['telegramsettingdesc'] = "Geben Sie den Telegram-Link Ihrer Website ein. Zum Beispiel: https://t.me/someusername";
+$string['footertelegram'] = "Telegram";
+
+$string['accessbilityfeatureshead'] = 'Einstellungen für das Barrierefreiheits-Tool';
+$string['accessbilityfeaturesheaddesc'] = 'Mehrere Einstellungen, die Benutzern mit Behinderungen helfen';
+$string['enableaccessibilitytools'] = 'Barrierefreiheits-Tool aktivieren';
+$string['enableaccessibilitytoolsdesc'] = 'Wenn deaktiviert, wird das Tool auf der gesamten Website nicht angezeigt.';
+$string['disable-aw-for-me'] = 'Barrierefreiheits-Tool für mich deaktivieren';
+$string['enable-aw-for-me'] = 'Barrierefreiheits-Tool für mich aktivieren';
+$string['disable-aw-for-me-notice'] = 'Das Barrierefreiheits-Tool ist deaktiviert.';
+$string['enable-aw-for-me-notice'] = 'Das Barrierefreiheits-Tool ist aktiviert.';
+
+$string['darkmodelogo'] = 'Logo für den „Dark“-Modus';
+$string['darkmodelogomini'] = 'Mini-Logo für den „Dark“-Modus';
+$string['darkmodelogodesc'] = 'Wenn dieses Feld leer ist, wird das im Feld „Logo“ hochgeladene Logo angezeigt, wenn der „Dark“-Modus aktiviert ist. Sie können ein Logo hinzufügen, das im Header angezeigt wird. Hinweis: Bevorzugte Höhe ist 50px. Wenn Sie es anpassen möchten, können Sie dies über das benutzerdefinierte CSS-Feld tun.';
+$string['darkmodelogominidesc'] = 'Wenn dieses Feld leer ist, wird das im Feld „Mini-Logo“ hochgeladene Logo angezeigt, wenn der „Dark“-Modus aktiviert ist. Sie können ein Logo hinzufügen, das im Header angezeigt wird. Hinweis: Bevorzugte Höhe ist 50px. Wenn Sie es anpassen möchten, können Sie dies über das benutzerdefinierte CSS-Feld tun.';
+$string['darkmodelogosize'] = 'Erwartetes Seitenverhältnis ist 40:33';
+$string['darkmodelogominisize'] = 'Erwartetes Seitenverhältnis ist 40:33';
+$string['secondaryfooterlogodarkmode'] = 'Logo für den „Dark“-Modus';
+$string['secondaryfooterlogodarkmode_help'] = 'Logo für den „Dark“-Modus';
+
+$string['focusmode'] = 'Fokusmodus';
+$string['focusmodedesc'] = '<p class="m-0">Fokusmodus EIN: Eine Schaltfläche zum Wechseln in den ablenkungsfreien Lernmodus erscheint auf der Kursseite.</p>
+<p class="m-0">Fokusmodus AUS: Die Schaltfläche zum Wechseln in den ablenkungsfreien Lernmodus erscheint NICHT auf der Kursseite.</p>
+<p class="m-0">Fokusmodus für alle Kurse erzwingen: Alle Kurse werden standardmäßig im Fokusmodus für alle Lernenden angezeigt. Lernende können ihn bei Bedarf deaktivieren.</p>';
+$string['focusmodeon'] = 'Fokusmodus EIN';
+$string['focusmodeoff'] = 'Fokusmodus AUS';
+$string['forcefocusmode'] = 'Fokusmodus für alle Kurse erzwingen';
+$string['focusmodeactiveadminmsg'] = 'Der Fokusmodus ist für Studierende aktiv';
+$string['focusmodeactivenavinfo'] = 'Fokusmodus ist AKTIV. Klicken Sie unten rechts auf „X“, um ihn zu schließen.';

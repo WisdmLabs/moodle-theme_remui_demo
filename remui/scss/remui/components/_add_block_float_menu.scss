@@ -34,6 +34,7 @@ $edwqmenu-margin: 14px;
         overflow: hidden;
         border: unset;
         left: 50% !important;
+        bottom: auto !important;
         transform: translate(-50%, -103%) !important;
         width: 100%;
         @include media-breakpoint-down(sm){

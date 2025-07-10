@@ -26,6 +26,11 @@ use theme_remui\utility;
 
 defined('MOODLE_INTERNAL') || die();
 
+$switchtheme = optional_param('switchtheme', null, PARAM_TEXT);
+if ($switchtheme) {
+    set_config("switchtheme", $switchtheme, "theme_remui");
+}
+
 require_once($CFG->libdir . '/behat/lib.php');
 require_once($CFG->dirroot . '/course/lib.php');
 
@@ -33,7 +38,7 @@ global $PAGE;
 theme_remui_set_dynamic_settings();
 
 $loaderimage = false;
-if(get_config('theme_remui','enablesiteloader')){
+if (get_config('theme_remui','enablesiteloader')) {
     // Adding loader image before everything else.
     $loaderimage = \theme_remui\utility::get_site_loader();
 }
@@ -41,29 +46,65 @@ if(get_config('theme_remui','enablesiteloader')){
 // Add block button in editing mode.
 $addblockbutton = $OUTPUT->addblockbutton();
 
-// user_preference_allow_ajax_update('drawer-open-nav', PARAM_ALPHA);
-// user_preference_allow_ajax_update('drawer-open-index', PARAM_BOOL);
-// user_preference_allow_ajax_update('drawer-open-block', PARAM_BOOL);
-// user_preference_allow_ajax_update('course_view_state', PARAM_ALPHA);
-// user_preference_allow_ajax_update('remui_dismised_announcement', PARAM_BOOL);
-// user_preference_allow_ajax_update('edw-quick-menu', PARAM_BOOL);
-// user_preference_allow_ajax_update('edwiser_inproduct_notification', PARAM_ALPHA);
-// user_preference_allow_ajax_update('homepagedepricatedseen', PARAM_BOOL);
-
 // CUSTOMIZATION - START
 $demoblocklayouts = [
     "corporate" => $CFG->wwwroot. '/mod/page/view.php?id=292',
     "school" => $CFG->wwwroot. '/mod/page/view.php?id=288',
     "university" => $CFG->wwwroot. '/mod/page/view.php?id=290',
     "classic" => $CFG->wwwroot. '/mod/page/view.php?id=287',
+    "training" => $CFG->wwwroot. '/local/edwiserpagebuilder/page.php?id=17',
+    "videoformatdemo" => $CFG->wwwroot. '/course/view.php?id=26',
 ];
 
-if (get_config("theme_remui", "redirecttodemoblocklayout")) {
-    $redirectUrl = $demoblocklayouts[get_config("theme_remui", "redirecttodemoblocklayout")];
-    unset_config('redirecttodemoblocklayout', 'theme_remui');
-    redirect($redirectUrl);
-    die();
+// if (get_config("theme_remui", "redirecttodemoblocklayout")) {
+//     $redirectUrl = $demoblocklayouts[get_config("theme_remui", "redirecttodemoblocklayout")];
+//     unset_config('redirecttodemoblocklayout', 'theme_remui');
+//     redirect($redirectUrl);
+//     die();
+// }
+
+$isvideoformatdemo = get_config("theme_remui", "isvideoformatdemo");
+
+if (get_config("theme_remui", "edw_external_data")) {
+    $redirectUrl = "";
+    $edwexternaldata = get_config("theme_remui", "edw_external_data");
+    $edwexternaldata = json_decode($edwexternaldata);
+
+    if (isset($edwexternaldata->blocklayout)) {
+        $redirectUrl = $demoblocklayouts[$edwexternaldata->blocklayout];
+        $edwexternaldata->loginblocklayout = $edwexternaldata->blocklayout;
+
+        if ($edwexternaldata->blocklayout == "videoformatdemo") {
+            $isvideoformatdemo = true;
+            set_config('isvideoformatdemo', true, 'theme_remui');
+        }
+
+        unset($edwexternaldata->blocklayout); // Remove blocklayout from config object
+    }
+
+    if (isset($edwexternaldata->email)) {
+        setcookie('remui_user_email', $edwexternaldata->email, time() + (86400 * 30), '/');
+        unset($edwexternaldata->email);
+    }
+
+    set_config('edw_external_data', json_encode($edwexternaldata), 'theme_remui'); // Update config
+
+    if ($redirectUrl) {
+        redirect($redirectUrl);
+    }
 }
+
+if (isloggedin()) {
+    $switchtheme = get_config("theme_remui", "switchtheme");
+
+    if ($switchtheme) {
+        unset_config("switchtheme", "theme_remui");
+        $theme = \theme_config::load($switchtheme);
+        set_config('theme', $theme->name);
+        redirect($CFG->wwwroot . "/my");
+    }
+}
+
 // CUSTOMIZATION - END
 
 if (isloggedin()) {
@@ -88,6 +129,9 @@ if ($courseindexopen) {
     $extraclasses[] = 'drawer-open-index';
 }
 
+if (isguestuser()) {
+    $extraclasses[] = 'isguest';
+}
 $blockshtml = $OUTPUT->blocks('side-pre');
 $hasblocks = (strpos($blockshtml, 'data-block=') !== false || !empty($addblockbutton));
 if (!$hasblocks) {
@@ -160,6 +204,10 @@ $headercontent = $header->export_for_template($renderer);
 $lcontroller = new \theme_remui\controller\LicenseController();
 
 $democontext = \theme_remui\utility::get_demonavbar_context();
+if ($isvideoformatdemo) {
+    $extraclasses[] = 'videoformatdemo';
+    $democontext['isvideoformatdemo'] = true;
+}
 
 $templatecontext = [
     'sitename' => format_string($SITE->shortname, true, ['context' => context_course::instance(SITEID), "escape" => false]),

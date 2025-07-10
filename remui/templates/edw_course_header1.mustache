@@ -32,6 +32,14 @@
         "welcomemessage": "welcomemessage"
     }
 }}
+
+
+{{#hasnavbar}}
+    <div class="p-mb-3 {{#headeractions}}has-actions{{/headeractions}}" style="font-size: 12px;">
+        {{{navbar}}}
+    </div>
+{{/hasnavbar}}
+
 {{#pageheadingbutton}}
 <div class="d-flex reset-pagebutton-wrapper">
          {{{pageheadingbutton}}}
@@ -39,9 +47,9 @@
 {{/pageheadingbutton}}
 <header{{!
 }} id="page-header"{{!
-}} class="header-maxwidth d-print-none {{classes}} position-relative overflow-hidden"{{!
+}} class="header-maxwidth d-print-none {{classes}} position-relative "{{!
 }} style="background: url({{courseimage}});">
-    <div class = "position-absolute w-100 h-100" style="background: linear-gradient(180deg, rgba(0, 0, 0, 0.0)  -24.52%, #000000 97.67%);left:0%;bottom:0%; opacity:{{{overlayopacity}}}"> </div>
+    <div class = "position-absolute w-100 h-100" style="background: linear-gradient(180deg, rgba(0, 0, 0, 0.0)  -24.52%, #000000 97.67%);left:0%;bottom:0%; opacity:{{{overlayopacity}}};border-radius:inherit;"> </div>
     <div class="w-100 header-wrapper" style="z-index:1;">
         <div class="d-flex flex-wrap">
             {{#hasnavbar}}
@@ -66,6 +74,15 @@
                     </div>
                     {{/categoryname}}
                     {{^welcomemessage}}
+                        {{#sectionpage}}
+                            <div class="page-context-header coursenamewrapper">
+                                <div class="page-header-headings">
+                                    <h1 class="h2 header-heading coursepage design-1">
+                                        {{{coursename}}}
+                                    </h1>
+                                </div>
+                            </div>
+                        {{/sectionpage}}
                         {{#contextheader}}
                             {{{contextheader}}}
                         {{/contextheader}}

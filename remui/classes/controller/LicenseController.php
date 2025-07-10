@@ -345,6 +345,16 @@ class LicenseController {
             }
         }
 
+        $licensecontext = json_decode(get_config("theme_remui", "edd_remui_setup_license_data"));
+        if (isset($licensecontext->error) && $licensecontext->error == 'item_name_mismatch') {
+            $templatecontext['alert'] = [
+                'icon' => "fa-ban",
+                'subtext' => "Alert!",
+                'classes' => 'alert-danger',
+                'text' => get_string('licensemismatchdesc', 'theme_remui')
+            ];
+            $templatecontext['licensestatus'] = get_string('licensemismatch', 'theme_remui');
+        }
         return $templatecontext;
     }
     /**
@@ -407,5 +417,56 @@ class LicenseController {
 
         toolbox::set_plugin_config(EDD_LICENSE_STATUS, $status);
         return $status;
+    }
+    /**
+     * Handles the license activation and deactivation for the setup wizard.
+     *
+     * This method is responsible for processing the license key provided by the user
+     * during the setup wizard. It validates the license key and either activates or
+     * deactivates the license based on the user's actions.
+     *
+     * @param mixed $config The configuration JSON  contains the license key.
+     * @return mixed The result of the license activation or deactivation operation.
+     */
+    public function license_handler_for_setup_wizard($key){
+        global $CFG;
+
+
+        if (is_siteadmin()) {
+            try {
+                $licensekey = trim($key);
+
+                // Make sure the puchase code looks valid before sending it to Envato.
+                if (preg_match("/([a-f0-9]{32})/", $licensekey)) {
+                    $controller = new RemUIController($licensekey);
+                    // if (isset($_POST[EDD_LICENSE_ACTIVATE])) {
+                    //     return $controller->activate_license();
+                    // } else if (isset($_POST[EDD_LICENSE_DEACTIVATE])) {
+                    //     return $controller->deactivate_license();
+                    // }
+
+                    $initiallicensedata =  $controller->activate_license();
+
+                    return $initiallicensedata;
+
+                    // $finallicensedata =[];
+
+                    // if($initiallicensedata){
+                    //     $finallicensedata = $controller->request_license_data_for_setup_wizard($licensekey);
+                    // }
+                    // $finallicensedata['licensekey'] = $licensekey;
+                    // It will content data of   plugins bundles and license data
+                    // return $finallicensedata;
+
+                } else {
+                    utility::throw_error('entervalidlicensekey', 30);
+                }
+
+            } catch (Exception $ex) {
+                // Set the error message, received via exception.
+                set_config(EDD_LICENSE_DATA, $ex->getMessage(), 'theme_remui');
+                return $ex->getMessage();
+            }
+        }
     }
 }

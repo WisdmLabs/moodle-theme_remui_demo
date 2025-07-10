@@ -160,7 +160,7 @@ class usercontroller {
             } else {
 
                 foreach ($modules as $module) {
-                    $data = $completioninfo->get_data($module, true, $USER->id);
+                    $data = $completioninfo->get_data($module, true, $userobject->id);
                     if ($data->completionstate != COMPLETION_INCOMPLETE) {
                         $completedactivites++;
                     }

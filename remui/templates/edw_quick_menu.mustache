@@ -36,7 +36,7 @@
 </div>
 
 {{#js}}
-require(['jquery','core_user/repository'], function($, UserRepository){
+require(['jquery','theme_remui/user/repository'], function($, UserRepository){
 	$(document).ready(function(){
 		$('#edw-quick-menu .close-quick-menu').click(function(e){
 			e.preventDefault();
@@ -45,7 +45,7 @@ require(['jquery','core_user/repository'], function($, UserRepository){
 				edw_quickmenu_pref = false;
 			}
 			$('#edw-quick-menu').toggleClass("collapsed");
-			UserRepository.setUserPreference('edw-quick-menu', edw_quickmenu_pref);
+				UserRepository.setUserPreference('edw-quick-menu', edw_quickmenu_pref);
 		});
 	});
 });

@@ -5,8 +5,8 @@
 $icon-width: 16px;
 $icon-height: 16px;
 // Size of big icons.
-$icon-medium-width: 24px;
-$icon-medium-height: 24px;
+$icon-medium-width: 32px;
+$icon-medium-height: 32px;
 // Size of big icons.
 $icon-big-width: 64px;
 $icon-big-height: 64px;
@@ -18,6 +18,17 @@ $icon-box-height: 48px;
 $iconsizes: () !default;
 $iconsizes: map-merge((
   0: 0,
+  1: ($icon-height * .25),
+  2: ($icon-height * .5),
+  3: $icon-height,
+  4: ($icon-height * 1.5),
+  5: ($icon-height * 2),
+  6: ($icon-height * 2.5),
+  7: ($icon-height * 3)
+), $iconsizes);
+$iconwidthsizes: () !default;
+$iconwidthsizes: map-merge((
+  0: 0,
   1: ($icon-width * .25),
   2: ($icon-width * .5),
   3: $icon-width,
@@ -25,13 +36,41 @@ $iconsizes: map-merge((
   5: ($icon-width * 2),
   6: ($icon-width * 2.5),
   7: ($icon-width * 3)
-), $iconsizes);
+), $iconwidthsizes);
+
 // stylelint-enable
 
+// This mixin change an icon color using filters.
+// The code is adapted from https://jsfiddle.net/Tegos/3fchp0qm/ example.
+@mixin recolor-icon($color: #000, $opacity: 1) {
+    // Extracting the color component using / 255 is deprecated in Sass.
+    // However, the alternative of using math.div is not working in moodle yet.
+    // The workaround to extract the color component is multiply by 1/255 as float.
+    $r: red($color) * 0.00392156862745098;
+    $g: green($color) * 0.00392156862745098;
+    $b: blue($color) * 0.00392156862745098;
+    $a: $opacity;
+    $svg-filter-id: "recolor";
+
+    $svg-url: 'data:image/svg+xml;utf8,' +
+        '<svg xmlns="http://www.w3.org/2000/svg">' +
+        '<filter id="#{$svg-filter-id}" color-interpolation-filters="sRGB">' +
+        '<feColorMatrix type="matrix" values="' +
+        '0 0 0 0 #{$r} ' +
+        '0 0 0 0 #{$g} ' +
+        '0 0 0 0 #{$b} ' +
+        '0 0 0 #{$a} 0 ' +
+        '"/>' +
+        '</filter>' +
+        '</svg>' +
+        '##{$svg-filter-id}';
+
+    filter: url($svg-url);
+}
+
 .icon {
-    font-size: $icon-height;
-    width: $icon-width;
-    height: $icon-height;
+    max-width: map-get($iconwidthsizes, 4);
+    max-height: map-get($iconsizes, 4);
     margin: 0;
     padding: 0;
     box-sizing: content-box;
@@ -41,11 +80,32 @@ $iconsizes: map-merge((
         margin-right: 0;
     }
 
+    &.iconsize-medium {
+        font-size: $icon-medium-height;
+        width: $icon-medium-width;
+        height: $icon-medium-height;
+        max-width: $icon-medium-width;
+        max-height: $icon-medium-height;
+    }
+
     &.iconsize-big {
         width: $icon-big-width;
         height: $icon-big-height;
+        max-width: $icon-big-width;
+        max-height: $icon-big-height;
         font-size: $icon-big-height;
     }
+
+    &.emoticon {
+        width: map-get($iconsizes, 3);
+        height: map-get($iconsizes, 3);
+    }
+}
+
+// Force size for the SVG icons.
+img.icon {
+    width: 20px;
+    height: 16px;
 }
 
 .navbar-dark a .icon {
@@ -96,7 +156,9 @@ $iconsizes: map-merge((
     .icon-size-#{$size} {
         .icon {
             height: $length !important; /* stylelint-disable-line declaration-no-important */
-            width: $length !important; /* stylelint-disable-line declaration-no-important */
+            width: map-get($iconwidthsizes, $size) !important; /* stylelint-disable-line declaration-no-important */
+            max-height: $length !important; /* stylelint-disable-line declaration-no-important */
+            max-width: map-get($iconwidthsizes, $size) !important; /* stylelint-disable-line declaration-no-important */
             font-size: $length !important; /* stylelint-disable-line declaration-no-important */
         }
     }
@@ -130,35 +192,53 @@ $iconsizes: map-merge((
     }
 }
 
-
+// Revisit these styles when MDL-78284 lands with new icons.
+// Icon container will be removed and icons will be used directly.
 .activityiconcontainer {
     width: $activity-iconcontainer-width;
     height: $activity-iconcontainer-height;
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    background-color: $gray-100;
     border-radius: 4px;
     padding: 0.7rem;
     .activityicon,
     .icon {
         margin: 0;
-        height: $icon-medium-width;
-        width: $icon-medium-height;
+        font-size: $icon-medium-height;
+        height: $icon-medium-height;
+        width: $icon-medium-width;
+        max-height: $icon-medium-height;
+        max-width: $icon-medium-width;
     }
     &.small {
         width: $activity-iconcontainer-width - 10px;
         height: $activity-iconcontainer-height - 10px;
+        max-width: $activity-iconcontainer-width - 10px;
+        max-height: $activity-iconcontainer-height - 10px;
+    }
+    &.smaller {
+        width: $activity-iconcontainer-width - 20px;
+        height: $activity-iconcontainer-height - 20px;
+        max-width: $activity-iconcontainer-width - 20px;
+        max-height: $activity-iconcontainer-height - 20px;
+        .activityicon {
+            width: $icon-medium-width;
+            height: $icon-medium-height;
+            max-width: $icon-medium-width;
+            max-height: $icon-medium-height;
+        }
     }
 }
 
 @each $type, $value in $activity-icon-colors {
     .activityiconcontainer.#{$type} {
-        background-color: $value;
-        .activityicon,
-        .icon {
-            &:not(.nofilter) {
-                filter: brightness(0) invert(1);
+        &:not(.isbranded) {
+            .activityicon,
+            .icon {
+                &:not(.nofilter) {
+                    @include recolor-icon($value, 1);
+                }
             }
         }
     }
@@ -178,6 +258,28 @@ $iconsizes: map-merge((
         margin: 0;
         height: $icon-medium-width;
         width: $icon-medium-height;
+    }
+}
+
+.icon-circle {
+    display: inline-block;
+    background-color: darken($gray-400, 4%);
+    border-radius: 50%;
+    padding: 1.3rem;
+
+    .icon {
+        margin: 0;
+        text-align: center;
+        max-width: unset;
+        max-height: unset;
+        color: $black;
+    }
+
+    &.reversed {
+        background-color: darken($gray-400, 8%);
+        .icon {
+            color: $white;
+        }
     }
 }
 

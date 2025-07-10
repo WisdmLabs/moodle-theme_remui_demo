@@ -240,7 +240,11 @@ class customizer {
         // $color['singlecoloricon'] = Color::tint($t, 9); // Single Color Icon: Default T Tint 9% #5C6980.
         // $color['singlecoloriconhover'] = Color::shade($t, 15); // Single Color Icon: Hover T Shade 15% #414C62.
         // $color['singlecoloriconactive'] = $p; // Single Color Icon: Active P.
-        $color['headericons'] = Color::tint($t, 9); // Header icons: Default T Tint 9% #5C6980.
+        
+        //Modified by Edwiser
+        // $color['headericons'] = Color::tint($t, 9); // Header icons: Default T Tint 9% #5C6980.
+        $color['headericons'] = Color::tint($p, 0); // Header icons: Default T Tint 0% #0051F9.
+        
         $color['headericonshover'] = Color::shade($t, 11); // Header icons: Hover T Shade 11% #445066.
         $color['headericonsactive'] = $p; // Header icons: Active P.
         $color['footericons'] = Color::tint($t, 40); // Footer icons: Default T Tint 40% #949CAB.

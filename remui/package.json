@@ -8,9 +8,9 @@
         "amd": "grunt amd",
         "css": "grunt css",
         "watch": "grunt watch",
-        "styles-remui": "node-sass ./scss/preset/remui.scss  ./style/remui.css -w",
-        "styles-default": "node-sass ./scss/preset/default.scss  ./style/remui.css -w",
-        "styles-plain": "node-sass ./scss/preset/plain.scss  ./style/remui.css -w"
+        "styles-remui": "sass ./scss/preset/remui.scss  ./style/remui.css -w",
+        "styles-default": "sass ./scss/preset/default.scss  ./style/remui.css -w",
+        "styles-plain": "sass ./scss/preset/plain.scss  ./style/remui.css -w"
     },
     "author": "",
     "license": "ISC",
@@ -31,7 +31,11 @@
         "gulp-shell": "^0.8.0",
         "gulp-stylelint": "^13.0.0",
         "gulp-util": "^3.0.8",
-        "node-sass": "^7.0.1",
         "sass": "~1.32.12"
+    },
+    "dependencies": {
+        "@babel/eslint-parser": "^7.24.1",
+        "eslint": "^7.24.1",
+        "eslint-plugin-babel": "^5.3.1"
     }
 }

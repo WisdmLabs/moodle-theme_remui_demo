@@ -252,6 +252,12 @@ $category-wrapper-max-height :  300px;
     }
 }
 
+#course-archive-main-container{
+    .dropdown-menu{
+        margin-top: 15px;
+    }
+
+}
 #course-archive-main-container,
 .profile-cards-wrapper {
     .rating-short-design{
@@ -297,6 +303,10 @@ $category-wrapper-max-height :  300px;
             gap: map-get($gapspace , 4);
             padding-bottom: map-get($spacerspx, '4');
             border-bottom: 1px solid $medium-border;
+
+            @include media-breakpoint-down(md) {
+                flex-wrap: wrap;
+            }
 
             .course-filters-wrapper {
                 justify-content: center;
@@ -505,6 +515,15 @@ $category-wrapper-max-height :  300px;
                 background-color: transparent;
                 border: unset;
             }
+
+
+            // To fix an UI issue in search input on course archive page in mobile view
+            @include media-breakpoint-down(md) {
+                form.mform.simplesearchform {
+                    padding-right: unset;
+                    padding-left: unset;
+                }
+            }
         }
 
         .btn-group {
@@ -535,7 +554,7 @@ $category-wrapper-max-height :  300px;
                     border: unset;
 
                     .edw-icon {
-                        color: $blue;
+                        color: $brand-primary;
                     }
                 }
             }
@@ -599,6 +618,10 @@ $category-wrapper-max-height :  300px;
 
                 .select-option {
                     padding: map-get($spacerspx, '1d5') map-get($spacerspx, '5') map-get($spacerspx, '1d5') map-get($spacerspx, '8');
+                }
+
+                .select-option[data-value="none"] {
+                    padding: map-get($spacerspx, '1d5') map-get($spacerspx, '5');
                 }
             }
 

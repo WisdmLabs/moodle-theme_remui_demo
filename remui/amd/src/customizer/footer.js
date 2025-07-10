@@ -64,6 +64,7 @@ var SELECTOR = {
     FOOTERCOLUMMTITLECOLOR: '[name="footer-columntitle-color"]',
     USEHEADERLOGO: '[name="useheaderlogo"]',
     SECONDARYFOOTERLOGO: '[name="secondaryfooterlogo"]',
+    SECONDARYFOOTERLOGODARKMODE: '[name="secondaryfooterlogodarkmode"]',
     FOOTERLOGOCOLOR: '[name="footer-logo-color"]',
     FOOTERMAINSECTIONWRAPPER: '.footer-mainsection-wrapper',
     POWEREDBY: '[name="poweredbyedwiser"]',
@@ -78,17 +79,25 @@ var SELECTOR = {
         [name="gplussetting"],
         [name="instagramsetting"],
         [name="pinterestsetting"],
-        [name="quorasetting"]
+        [name="quorasetting"],
+        [name="whatsappsetting"],
+        [name="telegramsetting"]
     `,
     // Header selectors.
     HEADER: {
         LOGOORSITENAME: '[name="logoorsitename"]',
         LOGO: '[name="logo"]',
         LOGOMINI: '[name="logomini"]',
-        ICON: '[name="siteicon"]'
+        ICON: '[name="siteicon"]',
+        DARKMODELOGO: '[name="darkmodelogo"]',
+        DARKMODELOGOMINI: '[name="darkmodelogomini"]',
     }
 };
 
+var CONSTANTS = {
+    NIGHTEYESTATE: 'nighteyewState',
+    CURRNIGHTEYESTATE: 'currnighteyewState'
+};
 /**
  * Social icon details.
  */
@@ -133,6 +142,16 @@ let socialList = {
         'class': "social-quora",
         'icon': "icon fa fa-quora",
         'title': M.util.get_string('follometext', 'theme_remui', 'quore')
+    },
+    'whatsapp': {
+        'class': "social-whatsapp",
+        'icon': "icon fa fa-whatsapp",
+        'title': M.util.get_string('follometext', 'theme_remui', 'whatsapp')
+    },
+    'telegram': {
+        'class': "social-telegram",
+        'icon': "icon fa fa-telegram",
+        'title': M.util.get_string('follometext', 'theme_remui', 'telegram')
     }
 };
 
@@ -648,6 +667,9 @@ function useDifferentLogo() {
     $(SELECTOR.SECONDARYFOOTERLOGO)
         .closest(SELECTOR.SETTINGITEM)
         .toggleClass(SELECTOR.DNONE, useHeader);
+    $(SELECTOR.SECONDARYFOOTERLOGODARKMODE)
+        .closest(SELECTOR.SETTINGITEM)
+        .toggleClass(SELECTOR.DNONE, useHeader);
 
     $(SELECTOR.FOOTERLOGOCOLOR)
         .closest(SELECTOR.SETTINGITEM)
@@ -656,6 +678,11 @@ function useDifferentLogo() {
     let itemid;
     if (!useHeader) {
         itemid = $(SELECTOR.SECONDARYFOOTERLOGO).val();
+
+        if(localStorage.getItem(CONSTANTS.NIGHTEYESTATE) == 1) {
+            itemid = $(SELECTOR.SECONDARYFOOTERLOGODARKMODE).val();
+        }
+
         Utils.getFileURL(itemid).done(function(response) {
             if (response == "") {
                 response = M.cfg.wwwroot + "/theme/remui/pix/logo.png";
@@ -667,7 +694,12 @@ function useDifferentLogo() {
     } else {
         switch ($(SELECTOR.HEADER.LOGOORSITENAME).val()) {
             case 'logo':
-                Utils.getFileURL($(SELECTOR.HEADER.LOGO).val()).done(function(response) {
+                itemid = $(SELECTOR.HEADER.LOGO).val();
+                if(localStorage.getItem(CONSTANTS.NIGHTEYESTATE) == 1) {
+                    itemid = $(SELECTOR.HEADER.DARKMODELOGO).val();
+                }
+
+                Utils.getFileURL(itemid).done(function(response) {
                     if (response == "") {
                         response = M.cfg.wwwroot + "/theme/remui/pix/logo.png";
                     }
@@ -677,7 +709,11 @@ function useDifferentLogo() {
                 });
                 break;
             case 'logomini':
-                Utils.getFileURL($(SELECTOR.HEADER.LOGOMINI).val()).done(function(response) {
+                itemid = $(SELECTOR.HEADER.LOGOMINI).val();
+                if(localStorage.getItem(CONSTANTS.NIGHTEYESTATE) == 1) {
+                    itemid = $(SELECTOR.HEADER.DARKMODELOGOMINI).val();
+                }
+                Utils.getFileURL(itemid).done(function(response) {
                     if (response == "") {
                         response = M.cfg.wwwroot + "/theme/remui/pix/logomini.png";
                     }
@@ -717,7 +753,7 @@ function showLogo() {
     let iframeDocument = Utils.getDocument();
     let show = $(SELECTOR.SHOWLOGO).is(":checked");
     $(iframeDocument).find(".secondary-footer-logo").toggleClass(SELECTOR.DNONE, !show);
-    $(`${SELECTOR.SECONDARYFOOTERLOGO}, ${SELECTOR.USEHEADERLOGO}, ${SELECTOR.FOOTERLOGOCOLOR}`)
+    $(`${SELECTOR.SECONDARYFOOTERLOGO}, ${SELECTOR.USEHEADERLOGO}, ${SELECTOR.FOOTERLOGOCOLOR}, ${SELECTOR.SECONDARYFOOTERLOGODARKMODE}`)
         .closest(SELECTOR.SETTINGITEM)
         .toggleClass(SELECTOR.DNONE, !show);
     if (show) {

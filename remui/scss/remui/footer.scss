@@ -45,7 +45,8 @@ $sec-footer-screen : lg;
         }
 
         .floating-buttons-wrapper {
-            z-index: 2;
+            // z-index: 2;
+            z-index: 1021; 
         }
 
         .footer-mainsection-wrapper {
@@ -54,13 +55,16 @@ $sec-footer-screen : lg;
                 display: flex;
                 // justify-content: space-between;
                 // gap: $footer-content-gap;
-                gap: map-get($gapspace, '6');
+                // gap: map-get($gapspace, '6');
                 @include media-breakpoint-down(sm) {
                     gap: map-get($gapspace, '8');
                     flex-direction: column-reverse;
                 }
 
                 .footer-section-wrapper {
+                    &:not(:last-child) {
+                        padding-right: map-get($spacerspx, '5');
+                    }
                     &#footer-column-1 {
                         flex: 0 0 $footer-section-1-width;
                     }

@@ -34,4 +34,78 @@
             @import "https://fonts.googleapis.com/css?family={{.}}:100,200,300,400,500,600,700,800,900";
         {{/fonts}}
     </style>
+
+    <!-- AI Beacon -->
+    <style>
+    @keyframes helloWave {
+    0%, 100% { transform: rotate(0deg); }
+    20% { transform: rotate(15deg); }
+    40% { transform: rotate(-10deg); }
+    60% { transform: rotate(15deg); }
+    80% { transform: rotate(-5deg); }
+    }
+
+    .elevenlabs-animate-hello {
+    animation: helloWave 1.2s ease-in-out;
+    transform-origin: bottom center;
+    }
+
+    .hello-bubble {
+    position: absolute;
+    display: none;
+    background: #fff;
+    color: #333;
+    padding: 10px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+
+    animation: customfadeInOut  4s ease-in-out;
+    z-index: 9999;
+    max-width: 200px;
+    white-space: nowrap;
+    }
+
+    .hello-bubble::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    right: 20px;
+    width: 0;
+    height: 0;
+    border: 10px solid transparent;
+    border-top-color: #fff;
+
+    }
+
+    @keyframes customfadeInOut {
+    0% { opacity: 0; transform: translateY(10px); }
+    10% { opacity: 1; transform: translateY(0); }
+    90% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-10px); }
+    }
+
+    elevenlabs-convai {
+    position: fixed;
+    right: 85px;
+    }
+
+    @media (max-width: 768px) {
+    elevenlabs-convai {
+        right: 38px;
+        bottom: 80px;
+    }
+    }
+
+    </style>
+
+    <!-- Supporting HTML -->
+    <!-- <audio id="beep-sound" src="https://filehippo.wisdmlabs.net/wp-content/uploads/notification.mp3" preload="auto"></audio> -->
+
+    <div id="hello-bubble" class="hello-bubble" style="display: none;">
+    Need help? Ask here!
+    </div>
+
+    <elevenlabs-convai agent-id="vs6WJkhAKECIs362uMI7"></elevenlabs-convai>
+    <!-- AI Beacon -->
 </head>

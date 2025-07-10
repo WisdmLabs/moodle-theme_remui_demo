@@ -19,6 +19,12 @@ input[type="radio"] {
 
     &.form-check-input {
         margin-right: 15px;
+        border: unset;
+
+        &:checked {
+            background-color: unset;
+            border-color: unset;
+        }
     }
     // -moz-appearance: initial;
     &:after {

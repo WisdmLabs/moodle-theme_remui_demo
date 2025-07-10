@@ -23,7 +23,7 @@
 
 {{#iscoursestatsshow}}
 
-<div id="wdm_course-stats" class="edw-stats-wrapper">
+<div id="wdm_course-stats" class="edw-stats-wrapper" data-course-id={{courseid}}>
 	<div class="stat-block">
 		<div class="inner">
 			<div class="icon-container">
@@ -137,7 +137,7 @@
 			    }
 			}
 
-			let courseid = getUrlParameter('id');
+			let courseid = $("#wdm_course-stats").data('course-id');
 			let service_name = 'theme_remui_get_course_stats';
 			let cstats = Ajax.call([
 			    {

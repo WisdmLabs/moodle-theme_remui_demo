@@ -1,143 +1,18 @@
 Release
 =======
 
-Version 4.3.12
-==============
-Feature - Added course filters to the archive page, including four types of filters:
-        - Price
-        - Ratings
-        - Level
-        - Language
-Feature - Extended the sorting filters by adding two additional options:
-        - Date
-        - Ratings
-Feature - Added a dropdown to select the number of courses displayed per row on the course archive page in grid view.
-Feature - The level tag has been added to course cards on both the course archive and enrollment pages.
-Tweak - Repositioned the existing filter menus. 
-
-Version 4.3.11
-==============
-Feature - Added a custom pricing field for third-party payment gateways on the enrollment page.
-Feature - Added a setting to enable or disable the site loader.
-Tweak - UI/UX Improvements:
-        - Resolved the margin issue on help icons.
-        - Removed extra space from the homepage when the site announcement is enabled.
-        - Removed extra space at the bottom of the homepage when a layout is added and everything is hidden.
-        - Hide the visual personalizer button in the quick menu on mobile view.
-        - Other minor UI/UX improvements.
-Tweak   - SCSS improvement and optimization.
-Tweak - Added Multilanguage support to the header in focus mode.
-Tweak - Improved course stats and dashboard stats.
-Tweak - Code improvements on the course archive page and course fetching logic.
-Tweak - Removed deprecation warnings and information previously added for the remuihomepage plugin.
-Tweak - The default site loader image has been changed.
-Fix   - Resolved the issue where link color customizer settings were not working in preview mode.
-
-Version 4.3.10
-==============
-Feature - Added language translation files for:
-        - Arabic(ar)
-        - Spanish (Mexico)(es_mx)
-Feature - Teachers of the same group are visible in the course header when the separate group setting is selected
-Tweak   - The message typing area in the chat has been increased.
-Tweak   - 'View enrollment' CTA added on participants and settings tabs on the course page.
-Tweak   - On the login page, the site description will now be visible on mobile devices as well.
-Tweak   - Added missing translated strings in lang files.
-Tweak   - Minor UI/UX improvements.
-Fix     - Users with the capability 'viewhiddencategories' can now see hidden categories in the Category Dropdown.
-Fix     - Multilang filters will now work in RemUI custom fields.
-Fix     - Keyboard accessibility added to radio buttons and checkboxes.
-
-Version 4.3.9
-==============
-Tweak - UI/UX Improvements on
-        - Grade pages
-        - Report pages
-        - Participants page
-        - Enroll methods page
-Version 4.3.8
-==============
-Tweak - UI/UX Improvement in add a block modal UI.
-Tweak - Minor UI/UX improvements.
-Fix   - Error on customizer reset issue resolved.
-
-Version 4.3.7
+Version 5.0.2
 =============
-Tweak   - Further UI/UX improvements done
+Tweak - Minor improvements in left sidebar.
+Twweak - Css support added for Edwiser video format plugin
 
-Version 4.3.6
-==============
-Tweak - RemUI Homepage builder plugin final update. Plugin deprecated.
-Tweak - Minor UI/UX improvements.
-Tweak - Improved the Category dropdown functionality:
-        - Hidden categories are now properly hidden from students.
-        - Rearranging course categories in site admin settings now reflects in the dropdown.
-Fix   - Limited the number of loaded courses as specified in the settings.
-
-Version 4.3.5
-==============
-Feature - Dark mode and its settings added
-
-Version 4.3.4
-==============
-Feature - Button added in the header of course page to access the enrollment page of that course.
-Feature - Back to the course page link added on  enrollment page .
-Feature - Functionality added to customize the "Enrol now" button.
-Feature - Users can  hide/show the Enrollment section.
-Feature - Links added on the enrollment page to simplify editing :
-          - Title
-          - Section.
-          - Category.
-          - Review approval page
-          - Course overview section
-          - Course content tab
-          - Instructors tab
-          - Enrolment methods
-          - Eenrollment options.
-          - To add new custom fields
-          - To edit existing fields
-          - RemUI setting.
-Tweak - Added new settings for handling Enrollment page information
-        -   Lesson string setting
-        -   Enrolled string   setting
-Tweak - Added course image on pricing section.
-Tweak - UI improvments:
-        - Improvement on Course header for teachers information.
-        - Custom fields of “Edwiser RemUI fields”.
-        - Course price formatting changed.
-        - enrol_payment setting renamed to "Display 'FREE' label on course with ‘0’ enroll cost"
-
-Version 4.3.3
-==============
-Feature - Added a setting to handle the course header gradient opacity.
-Tweak - Implemented  new designs for course cards (all three views).
-Tweak - Added new settings for handling course information on course cards.
-Tweak - Organized course settings of RemUI settings.
-Tweak - Added multilingual support for category name and course name on course cards.
-Tweak - Added "Read more/less" button to handle long category description on the course archive page.
-Tweak - UI improvements:
-        - Category dropdown
-        - Dashboard stats and Course page stats
-        - Improvement on header in focus mode
-        - View icons on the course archive page will work in sync with block_myoverview layouts settings.
-
-
-Version 4.3.2
-==============
-Fix - The issue of the messaging icon active state not being removed when clicking on other icons has been fixed
-
-Version 4.3.1
-==============
-
-Feature - Integrated page creation functionality from Edwiser Page builder.
-    Now page creation functionality is available at quick link menu.
-    These pages can also be managed from Edwiser RemUI settings page.
-Feature - New beacon added on Edwiser RemUI settings page. Which is visible
-    to only admins.
-Fix - Compatibility changes with latest moodle.
-Fix - Sticky footer height issue.
-
-Version 4.3.0
+Version 5.0.1
 =============
-Feature - Compatibility with Moodle 4.3.  
+Tweak - Improved alert messaging on the settings page.
+Tweak - Further UI/UX improvements implemented.
+Fix - Resolved issue with the collapse/expand icon not working as expected.
+
+Version 5.0.0
+=============
+Feature - Compatibility with Moodle 5.0.
 

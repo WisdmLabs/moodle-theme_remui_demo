@@ -2,12 +2,16 @@
     color: $input-placeholder-color;
 }
 
-.custom-select {
+// Modified by Edwiser
+.custom-select,
+.form-select {
     -webkit-appearance: none;
     -moz-appearance: none;
 }
 
-.custom-range {
+// Modified by Edwiser
+.custom-range,
+.form-range {
     -webkit-appearance: none;
     -moz-appearance: none;
     &::-webkit-slider-thumb,
@@ -27,6 +31,8 @@ input[type="month"] {
         -moz-appearance: none;
     }
 }
+
+$card-columns-gap: 1.25rem !default;
 
 .card-columns {
     @include media-breakpoint-up(sm) {
@@ -56,6 +62,8 @@ input[type="month"] {
     -webkit-user-select: none;
     -ms-user-select: none;
 }
+
+$user-selects: all, auto, none !default;
 
 @each $value in $user-selects {
     .user-select-#{$value} {

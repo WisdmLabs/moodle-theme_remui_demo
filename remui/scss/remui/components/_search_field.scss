@@ -14,11 +14,12 @@ $search-field-color: #ccc!default;
         border-radius: $searchfield-border-rad;
         border: $searchfield-border;
         input {
+            flex: 1;
             height: 100%;
             border: none;
             background-color: transparent;
             padding: 0;
-            margin-left: $gap;
+            margin-left: $gap !important; 
             &:focus {
                 box-shadow: none;
             }

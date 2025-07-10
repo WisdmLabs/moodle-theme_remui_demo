@@ -160,8 +160,9 @@ select {
     }
 }
 
+// Modified by Edwiser
 .discussion-settings-container {
-    .custom-select {
+    .custom-select,.form-select {
         width: 100%;
     }
 
@@ -245,15 +246,6 @@ select {
     }
 }
 
-#page-mod-forum-discuss .discussioncontrols {
-    width: auto;
-    margin: 0;
-
-    .form-inline input {
-        margin-top: -1px;
-    }
-}
-
 $author-image-width: 70px;
 $author-image-margin: 24px;
 $author-image-width-sm: 30px;
@@ -262,7 +254,7 @@ $author-image-margin-sm: 8px;
 /** Gently highlight the selected post by changing it's background to blue and then fading it out. */
 @keyframes background-highlight {
     from {
-        background-color: rgba(0, 123, 255, 0.5);
+        background-color: $modules-highlight-bg;
     }
     to {
         background-color: inherit;
@@ -300,14 +292,14 @@ $author-image-margin-sm: 8px;
     }
 
     .badge-light {
-        // background-color: #f6f6f6;
-        color: #5b5b5b;
+        //background-color: $modules-badge-bg;
+        color: $modules-badge-color;
     }
 
     /** Style the ratings like a badge. */
     .rating-aggregate-container {
-        background-color: #f6f6f6;
-        color: #5b5b5b;
+        background-color: $modules-rating-aggregate-bg;
+        color: $modules-rating-aggregate-color;
         padding: .25em .5em;
         line-height: 1;
         margin-right: .5rem;
@@ -337,13 +329,13 @@ $author-image-margin-sm: 8px;
 
     /** Don't show the discussion locked alert in this mode because it's already indicated with a badge. */
     .alert.discussionlocked {
-        @include sr-only();
+        @include visually-hidden();
     }
 
     /** Fix muted text contrast ratios for accessibility. */
     .text-muted,
     .dimmed_text {
-        color: #707070 !important; /* stylelint-disable-line declaration-no-important */
+        color: $modules-forum-muted-color !important; /* stylelint-disable-line declaration-no-important */
     }
 
     .author-header {
@@ -356,7 +348,7 @@ $author-image-margin-sm: 8px;
 
     /** Make the tag list text screen reader visible only */
     .tag_list > b {
-        @include sr-only();
+        @include visually-hidden();
     }
 
     :target > .focus-target {
@@ -369,7 +361,7 @@ $author-image-margin-sm: 8px;
     .forum-post-container {
         .replies-container {
             .forum-post-container {
-                border-top: 1px solid #dee2e6;
+                border-top: 1px solid $modules-forum-post-border-color;
                 padding-top: 1.5rem;
 
                 .replies-container .forum-post-container {
@@ -477,10 +469,12 @@ $grading-drawer-width: 430px !default;
 $grading-animation-duration: .3s !default;
 $grading-icon-button-size: 36px !default;
 $grading-search-button-padding-left: calc(#{map-get($spacers, 2)} + 8px) !default;
-$grading-search-input-padding-left: calc(#{map-get($spacers, 2)} + #{map-get($spacers, 2)} + #{$grading-icon-button-size - ($input-border-width * 2)}) !default; /* stylelint-disable-line max-line-length */
+$grading-search-input-padding-left: calc(#{map-get($spacers, 2)} + #{map-get($spacers, 2)} + #{$grading-icon-button-size} - calc(#{$input-border-width} * 2)) !default; /* stylelint-disable-line max-line-length */
 $grading-search-input-padding-right: calc(#{map-get($spacers, 2)} + #{$grading-icon-button-size}) !default;
 $grading-nav-bar-active-drawer-button-bottom: calc(#{map-get($spacers, 2) * -1} - 1px) !default;
 $grading-content-show-content-button-padding-left: calc(#{map-get($spacers, 2) * 2} + 45px) !default;
+
+$input-line-height-lg:  1.5 !default;
 
 @keyframes expandSearchButton {
     from {
@@ -643,7 +637,7 @@ $grading-content-show-content-button-padding-left: calc(#{map-get($spacers, 2) *
                         transform: translateY(-50%);
                         color: $input-color;
                         height: $grading-icon-button-size;
-                        width: $grading-icon-button-size - ($input-border-width * 2);
+                        width: calc(#{$grading-icon-button-size} - calc(#{$input-border-width} * 2));
                         background-color: $input-bg;
                         opacity: 1;
                         visibility: visible;
@@ -976,10 +970,6 @@ $grading-content-show-content-button-padding-left: calc(#{map-get($spacers, 2) *
     text-align: inherit;
 }
 
-#page-mod-chat-gui_basic input#message {
-    max-width: 100%;
-}
-
 #page-mod-data-view #singleimage {
     width: auto;
 }
@@ -1020,9 +1010,6 @@ div#dock {
 .path-mod-lesson .answeroption .checkbox label p {
     display: inline;
 }
-.path-mod-lesson .form-inline label.form-check-label {
-    display: inline-block;
-}
 .path-mod-lesson .slideshow {
     overflow: auto;
     padding: 15px;
@@ -1038,7 +1025,9 @@ div#dock {
             margin-top: 1rem;
         }
     }
-    .fitem .felement .custom-select {
+// Modified by Edwiser
+    .fitem .felement .custom-select,
+    .fitem .felement .form-select {
         align-self: flex-start;
     }
 }
@@ -1064,25 +1053,6 @@ div#dock {
 
 .path-mod-wiki .wiki_contentbox {
     width: 100%;
-}
-
-// Survey module
-
-.path-mod-survey {
-    .surveytable {
-        > tbody > tr:nth-of-type(odd) {
-            background-color: $table-bg;
-        }
-
-        > tbody > tr:nth-of-type(even) {
-            background-color: $table-accent-bg;
-        }
-
-        .rblock label {
-            text-align: center;
-        }
-    }
-
 }
 
 .nav .caret {
@@ -1203,30 +1173,23 @@ div#dock {
 }
 
 // Quiz module
-.path-mod-quiz .mod-quiz-edit-content {
-    // Force the quiz edit page to always be large enough to prevent scrolling when accessing the menu.
-    margin-bottom: 10rem;
-}
-
 #page-mod-quiz-mod #id_reviewoptionshdr .col-md-3,
 #page-mod-quiz-mod #id_reviewoptionshdr .col-md-9 {
     width: auto;
     max-width: none;
 }
-#page-mod-quiz-mod #id_reviewoptionshdr .form-group {
+
+#page-mod-quiz-mod #id_reviewoptionshdr .fcontainer > .fitem {
     float: left;
     width: 20rem;
     display: inline-block;
-    min-height: 12rem;
+    // commented intentionally by Edwiser
+    // min-height: 12rem;
 }
 
 #page-mod-quiz-mod #id_reviewoptionshdr .btn-link {
     line-height: 1.5;
     vertical-align: bottom;
-}
-#page-mod-quiz-mod #id_reviewoptionshdr .form-inline {
-    float: left;
-    clear: left;
 }
 #page-mod-quiz-mod #id_reviewoptionshdr .form-check {
     width: auto;
@@ -1283,10 +1246,6 @@ div#dock {
         border-width: 1px;
     }
 
-    .qnbutton.flagged .thispageholder {
-        background: transparent url([[pix:theme|mod/quiz/flag-on]]) 15px 0 no-repeat;
-    }
-
     .qnbutton .trafficlight {
         border: 0;
         background: $card-bg none center / 10px no-repeat scroll;
@@ -1295,39 +1254,76 @@ div#dock {
         border-radius: 0 0 3px 3px;
     }
 
+    .qnbutton.correct .thispageholder {
+        border-color: shift-color($success, 10%);
+    }
+
+    .qnbutton.incorrect .thispageholder {
+        border-color: shift-color($danger, 10%);
+    }
+
+    .qnbutton.partiallycorrect .thispageholder {
+        border-color: shift-color($warning, 40%);
+    }
+
+    .qnbutton.correct,
+    .qnbutton.correct .trafficlight {
+        background-color: #dff4d8; /* light green */
+    }
+
+    .qnbutton.incorrect,
+    .qnbutton.incorrect .trafficlight {
+        background-color: #fdd; /* light red */
+    }
+
+    .qnbutton.partiallycorrect,
+    .qnbutton.partiallycorrect .trafficlight {
+        background-color: #fcefdc; /* light yellow */
+    }
+
+    .qnbutton.blocked,
+    .qnbutton.blocked .trafficlight,
+    .qnbutton.complete,
+    .qnbutton.complete .trafficlight,
+    .qnbutton.answersaved,
+    .qnbutton.answersaved .trafficlight,
+    .qnbutton.requiresgrading,
+    .qnbutton.requiresgrading .trafficlight {
+        background-color: $gray-300;
+    }
+
     .qnbutton.notyetanswered .trafficlight,
     .qnbutton.invalidanswer .trafficlight {
         background-color: $card-bg;
     }
 
-    .qnbutton.invalidanswer .trafficlight {
-        background-image: url([[pix:theme|mod/quiz/warningtriangle]]);
-    }
-
     .qnbutton.correct .trafficlight {
-        background-image: url([[pix:theme|mod/quiz/checkmark]]);
-        background-color: $success;
+        background-image: url([[pix:core|i/grade_correct]]);
+        color: $success;
+        background-size: 14px;
     }
 
     .qnbutton.blocked .trafficlight {
         background-image: url([[pix:core|t/locked]]);
-        background-color: $input-disabled-bg;
     }
 
     .qnbutton.notanswered .trafficlight,
     .qnbutton.incorrect .trafficlight {
-        background-color: $danger;
+        background-image: url([[pix:core|i/grade_incorrect]]);
+        color: $danger;
+        background-size: 14px;
     }
 
     .qnbutton.partiallycorrect .trafficlight {
-        background-image: url([[pix:theme|mod/quiz/whitecircle]]);
-        background-color: $warning;
+        background-image: url([[pix:core|i/grade_partiallycorrect]]);
+        color: $warning;
+        background-size: 14px;
     }
 
     .qnbutton.complete .trafficlight,
     .qnbutton.answersaved .trafficlight,
     .qnbutton.requiresgrading .trafficlight {
-        background-color: $gray-600;
+        background-color: $gray-300;
     }
 }
 
@@ -1337,8 +1333,22 @@ div#dock {
 }
 
 #page-mod-quiz-edit ul.slots li.section li.activity .instancemaxmarkcontainer {
-    padding: 0;
-    margin: 0 0.4em;
+    padding: 0.5em 0 0.5em 0.1em;
+    margin: 2px;
+}
+
+/* Override the color of the quiz attempt icons for accessibility. */
+#attemptsform,
+.formulation .answer {
+    .icon.text-success {
+        color: shift-color($success, 10%) !important; /* stylelint-disable-line declaration-no-important */
+    }
+    .icon.text-danger {
+        color: shift-color($danger, 10%) !important; /* stylelint-disable-line declaration-no-important */
+    }
+    .icon.text-warning {
+        color: shift-color($warning, 40%) !important; /* stylelint-disable-line declaration-no-important */
+    }
 }
 
 /* Countdown timer. */
@@ -1365,7 +1375,7 @@ div#dock {
     #quiz-timer-wrapper #quiz-timer.timeleft#{$i} {
         $bg: lighten($red, ($i * 3%));
         background-color: $bg;
-        color: color-yiq($bg);
+        color: color-contrast($bg);
     }
 }
 
@@ -1494,8 +1504,10 @@ $popout-header-height: 4rem;
     padding: $alert-padding-y $alert-padding-x;
     margin-bottom: $alert-margin-bottom;
     border: $alert-border-width solid transparent;
+    color: shift-color($info, $alert-color-scale);
+    border-color: shift-color($info, $alert-border-scale);
     @include border-radius($alert-border-radius);
-    @include alert-variant(theme-color-level('info', $alert-bg-level), theme-color-level('info', $alert-border-level), theme-color-level('info', $alert-color-level)); /* stylelint-disable-line max-line-length */
+    @include gradient-bg(shift-color($info, $alert-bg-scale));
 }
 
 .assignfeedback_editpdf_menu {
@@ -1517,6 +1529,13 @@ $popout-header-height: 4rem;
     background-color: $card-bg;
 }
 
+// MODIFIED by Edwiser by comparing moodle45
+// .path-mod-assign .gradingtable thead tr {
+//     position: sticky;
+//     top: $navbar-height;
+//     z-index: 1;
+// }
+
 /**
  * Mod LTI.
  */
@@ -1524,5 +1543,157 @@ $popout-header-height: 4rem;
     .btn .loader img,
     #tool-list-loader-container .loader img {
         height: auto;
+    }
+}
+
+/**
+ * Mod Feedback.
+ */
+
+.path-mod-feedback {
+    span.feedback_info {
+        font-weight: bold;
+    }
+    div.feedback_is_dependent {
+        background: $gray-600;
+    }
+    span.feedback_depend {
+        color: $danger;
+    }
+    hr.feedback_pagebreak {
+        height: 4px;
+        color: $gray-600;
+        background-color: $gray-600;
+        border: 0;
+        margin: 0;
+    }
+    .feedback_bar_image {
+        height: 10px;
+    }
+    #analysis-form {
+        label {
+            display: inline;
+        }
+    }
+    .templateslist {
+        td.cell.action {
+            width: 10%;
+        }
+        th.header.action {
+            width: 10%;
+        }
+    }
+    .feedback-item-label {
+        width: 100%;
+    }
+    // Feedback edit form.
+    #feedback_edit_form {
+        [id*=_feedback_item_].feedback_itemlist,
+        .feedback_itemlist.sortable-list-is-dragged {
+            padding: map-get($spacers, 3);
+            border: $border-width solid $border-color;
+            background-color: $white;
+            position: relative;
+            @include border-radius();
+            .itemname {
+                margin-right: map-get($spacers, 5);
+            }
+            .itemactions {
+                position: absolute;
+                top: map-get($spacers, 3);
+                right: map-get($spacers, 3);
+            }
+            &.sortable-list-current-position {
+                background-color: $light;
+            }
+        }
+        .sortable-list-is-dragged {
+            opacity: .75;
+            max-width: $course-content-maxwidth;
+        }
+        .loading-icon {
+            position: absolute;
+            left: 50%;
+            top: calc(50% - .5rem);
+        }
+    }
+
+    // Templates page.
+    &#page-mod-feedback-manage_templates {
+        .coursetemplates,
+        .publictemplates {
+            .no-overflow {
+                overflow: visible;
+            }
+            .action-menu .menubar {
+                justify-content: end;
+            }
+        }
+    }
+
+    // Analysis page.
+    table.analysis {
+        width: 100%;
+        border-top: $border-width solid $border-color;
+        margin-top: 10px;
+        &.itemtype_textarea td {
+            padding: 4px 0;
+        }
+        tr:first-child th {
+            padding-top: 10px;
+        }
+        tr:hover {
+            background: $gray-300;
+        }
+        td.singlevalue:before,
+        td.optionname:before {
+            content: '- ';
+        }
+        tr.isempty {
+            display: none;
+        }
+    }
+
+    // Responses list.
+    #showentrytable td.cell.completed_timemodified,
+    #showentryanontable td.cell.random_response {
+        font-weight: bold;
+    }
+
+    #showentrytable td.cell.userpic,
+    #showentrytable td.cell.deleteentry,
+    #showentryanontable td.cell.deleteentry {
+        width: 10px;
+    }
+
+    // Responses navigation.
+    .response_navigation {
+        margin: map-get($spacers, 2) 0;
+        a {
+            display: block;
+            &.back_to_list {
+                text-align: center;
+            }
+        }
+        .prev_response {
+            text-align: left;
+            &:before {
+                /*rtl:raw:
+                content: ' ► ';
+                */
+                /*rtl:remove*/
+                content: ' ◄ ';
+            }
+        }
+        .next_response {
+            text-align: right;
+            &:after {
+                /*rtl:raw:
+                content: ' ◄ ';
+                */
+                /*rtl:remove*/
+                content: ' ► ';
+            }
+        }
     }
 }

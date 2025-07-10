@@ -139,7 +139,7 @@ define(['jquery', 'core/ajax', 'core/str'], function ($, Ajax, Str) {
                     }
 
                 }
-                if ((hascarouselclass || hasedwcarouselclass) && !hashomepagetestimonial && !hastestimonial) {
+                if (((hascarouselclass || hasedwcarouselclass) && !hashomepagetestimonial && !hastestimonial) && $(".old-frontpage").length === 0 ) {
                     $("body.pagelayout-frontpage").addClass("transparent-header");
                 }
                 if ($('.old-frontpage .frontpage-sections #edwiser-slider').children().first().hasClass('carousel')) {

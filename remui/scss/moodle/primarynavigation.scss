@@ -47,7 +47,7 @@ $primary-navigation-width: 440px;
         display: none;
     }
     .editmode-switch-form label {
-        @include sr-only();
+        @include visually-hidden();
     }
 }
 

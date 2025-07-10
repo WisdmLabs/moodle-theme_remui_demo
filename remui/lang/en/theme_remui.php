@@ -31,7 +31,7 @@ $string['brandcolor'] = 'Brand colour';
 $string['brandcolor_desc'] = 'The brand colour.';
 $string['bootswatch'] = 'Bootswatch';
 $string['bootswatch_desc'] = 'A bootswatch is a set of Bootstrap variables and css to style Bootstrap';
-$string['choosereadme'] = 'Edwiser RemUI is a modern highly-customisable theme. This theme is intended to be used directly, or as a parent theme when creating new themes utilising Bootstrap 4.';
+$string['choosereadme'] = 'Edwiser RemUI is a customizable Moodle theme designed to elevate your eLearning experience by addressing challenges like limited customization and user interface concerns. With its modern, intuitive design and comprehensive features, you can effortlessly create a visually stunning, branded site that boosts student engagement and delivers an experience learners will love!';
 $string['currentinparentheses'] = '(current)';
 $string['configtitle'] = 'Edwiser RemUI';
 $string['generalsettings'] = 'Basic';
@@ -126,6 +126,9 @@ $string['typedanger'] = "Urgent";
 $string['typewarning'] = "Warning";
 $string['typesuccess'] = "Success";
 
+
+
+
 // Google Analytics.
 $string['googleanalytics'] = 'Google Analytics Tracking ID';
 $string['googleanalyticsdesc'] = 'Please enter your Google Analytics Tracking ID to enable analytics on your website. The  tracking ID format shold be like [UA-XXXXX-Y].<br/>Please be aware that by including this setting, you will be sending data to Google Analytics and you should make sure that your users are warned about this. Our product does not store any of the data being sent to Google Analytics.';
@@ -201,8 +204,8 @@ $string['socialmedia'] = 'Social Media';
 $string['socialmediadesc'] = 'Enter the social media links for your site.';
 $string['facebooksetting'] = 'Facebook';
 $string['facebooksettingdesc'] = 'Enter your site\'s facebook page link. For eg. https://www.facebook.com/pagename';
-$string['twittersetting'] = 'Twitter';
-$string['twittersettingdesc'] = 'Enter your site\'s twitter page link. For eg. https://www.twitter.com/pagename';
+$string['twittersetting'] = 'X (formerly Twitter)';
+$string['twittersettingdesc'] = 'Enter your site\'s X page link. For eg. https://www.x.com/pagename';
 $string['linkedinsetting'] = 'Linkedin';
 $string['linkedinsettingdesc'] = 'Enter your site\'s linkedin page link. For eg. https://www.linkedin.com/in/pagename';
 $string['gplussetting'] = 'Google Plus';
@@ -325,7 +328,8 @@ $string['fullname']  = 'Full Name';
 $string['viewcourselow'] = "view course";
 
 $string['focusmodesettings'] = 'Focus Mode Settings';
-$string['focusmode'] = 'Focus Mode';
+$string['focusmodenormalstatetext'] = 'Focus:ON';
+$string['focusmodeactivestatetext'] = 'Focus:OFF';
 $string['enablefocusmode'] = 'Enable Focus Mode';
 $string['togglefocusmode'] = "Toggle Focus Mode";
 $string['enablefocusmodedesc'] = 'If enabled, a button to switch to distraction free learning will appear on the course page.';
@@ -645,6 +649,8 @@ $string['entervalidlicensekey'] = "Please enter correct license key.";
 $string['edwiserremuilicenseactivation'] = 'Edwiser RemUI License Activation';
 $string['enterlicensekey'] = "Enter license key...";
 $string['invalid'] = "Invalid";
+$string['licensemismatch'] = "License mismatch";
+$string['licensemismatchdesc'] = 'Oops! It seems you\'ve used a different product license key to activate the Edwiser RemUI theme. Please use the correct license key from your <a class="text-decoration-underline" href="https://edwiser.org/my-account/">My Account page</a> to activate the Edwiser RemUI theme.';
 
 $string['courseheaderdesign'] = 'Course page header design';
 $string['courseheaderdesigndesc'] = 'Choose course page header\'s design';
@@ -931,7 +937,7 @@ $string['menuorientationdesc'] = 'Set orientation of menu. Orientation can be ei
 $string['menuorientationvertical'] = 'Vertical';
 $string['menuorientationhorizontal'] = 'Horizontal';
 $string['footerfacebook'] = 'Facebook';
-$string['footertwitter'] = 'Twitter';
+$string['footertwitter'] = 'X (formerly Twitter)';
 $string['footerlinkedin'] = 'Linkedin';
 $string['footergplus'] = 'Google Plus';
 $string['footeryoutube'] = 'Youtube';
@@ -1170,7 +1176,7 @@ $string['socialiconspanel'] = "Social icons panel";
 $string['social-icons-info'] = "<p>To display the social media icons at the bottom on any column with content, go to <b>Footer > Footer Main Area > Widget > Select type = Content </b> and turn on the show social media icons setting.</p>";
 $string['social-icons-heading'] = "Social media icons";
 $string["custommenulinktext"] = 'Custom menu items';
-$string["custommenulink"] = '<h6>Custom menu items</h6><p> To Add / Edit / Delete custom menu items go to Site Administration > Appearance > Theme Settings > <a href="{$a}/admin/settings.php?section=themesettings#admin-custommenuitems" target ="_blank" class="text-decoration-none">Custom menu items</a> <p>';
+$string["custommenulink"] = '<h6>Custom menu items</h6><p> To Add / Edit / Delete custom menu items go to Site Administration > Appearance > Theme Settings > <a href="{$a}/admin/settings.php?section=themesettingsadvanced#admin-custommenuitems" target ="_blank" class="text-decoration-none">Custom menu items</a> <p>';
 $string['note'] = 'Note';
 $string['social-media-selection-note'] = "<p>Press Ctrl to select/deselect the media</p>";
 
@@ -1428,7 +1434,7 @@ $string['nocontentmessage'] = 'There is no content in this section.<br>To add co
 $string['noinstructormessage'] = 'There is no instructor enroll in this course.<br>To add instructor, click on the above link ‘Manage instructors’ ';
 $string['noinstructor'] = 'No instructor';
 
-//Dark mode settings strings
+// Dark mode settings strings
 $string['darkmodetitilestring'] = 'Dark mode';
 $string['lightmodetitlestring'] = 'Light mode';
 $string['darkmodesettingshead'] = 'Dark mode settings';
@@ -1470,8 +1476,8 @@ $string['customizerdarkmodedonotshowbtntext'] = 'Don’t show again';
 $string['customizerdarkmodeok'] = 'Okay';
 $string['previewswitchon'] = 'Switch ON';
 $string['previewswitchoff'] = 'Switch OFF';
-$string['darkmodepreview'] =  'Dark mode preview';
-$string['darkmodecustomizernote']='<li>In ‘visual personalizer’ all the changes will be done on the ‘light mode’ of the site, and it will automatically reflected on the ’dark mode’.</li>
+$string['darkmodepreview'] = 'Dark mode preview';
+$string['darkmodecustomizernote'] = '<li>In ‘visual personalizer’ all the changes will be done on the ‘light mode’ of the site, and it will automatically reflected on the ’dark mode’.</li>
 <li >The visual personalizer settings will be disabled while previewing in the dark mode.</li>';
 $string["switchtodm"] = "Dark mode";
 $string["switchtolm"] = "Light mode";
@@ -1523,3 +1529,153 @@ $string["row4"] = "Show:4 Row";
 $string["row5"] = "Show:5 Row";
 $string["row6"] = "Show:6 Row";
 $string["filteremptymsg"] = "NOTE: To view the filters, add filter properties, like Levels, Price, Ratings, and Languages to the course.";
+$string['courseindexoptions'] = 'Course index options';
+$string['gotosection'] = 'Go to section {$a}';
+
+// This sectionaddmax string is for overriding core languages to remove error for other moodle versions
+$string['sectionaddmax'] = 'You have reached the maximum number of sections allowed for a course...';
+
+$string['sectionaddmax'] = 'You have reached the maximum number of sections allowed for a course...';
+$string['prevsubsectionbuttontext'] = 'Prev Subsection';
+$string['nextsubsectionbuttontext'] = 'Next Subsection';
+
+// Setup wizard strings start here
+$string['setuppagetitle'] = 'RemUI setup wizard';
+$string['setupwizardmodal:heading'] = 'How it works?';
+$string['setupwizardmodal:msg1'] = 'Set up your site effortlessly.';
+$string['setupwizardmodal:msg2'] = 'Automatic download, installation, and activation.';
+$string['setupwizardmodal:msg3'] = 'Enter your license key to skip manual steps.';
+$string['setupwizardmodal:msg4'] = 'Get your site ready instantly.';
+$string['setupwizardmodal:msg5'] = 'To get started, please activate the RemUI theme by checking the box below.';
+$string['setupwizardmodal:activateremui'] = 'Activate the RemUI theme';
+$string['setupwizardmodal:continuesetup'] = 'Continue setup';
+$string['setupwizardmodal:note'] = '<strong>NOTE:</strong> If you choose to ‘Cancel’, and want to run the setup wizard later, you can find it under <strong>RemUI settings > Basic tab.</strong>';
+
+$string['wearechecking'] = 'We are checking..';
+$string['checkingdone'] = 'Checking done.';
+$string['moodleversion'] = 'Moodle version';
+$string['writepermissioncheck'] = 'Server write permission to install the plugins';
+$string['internetconnectincheck'] = 'Internet connection to install the plugins';
+
+$string['setupwizard:warning1'] = 'It seems that you’re using older Moodle version. Use ‘4.2’ or above Moodle version';
+$string['setupwizard:warning2'] = 'It seems that you don\'t have write permissions for the following Moodle folders: {$a->nonwriteablestr}. Please check with the server administrator.';
+$string['setupwizard:warning3'] = 'You are not connected to suitable internet connection.';
+
+$string['setupwizard:success1'] = 'You’re using the correct Moodle version.';
+$string['setupwizard:success2'] = "You’ve write permission on the server.";
+$string['setupwizard:success3'] = 'You’re connected to the internet.';
+
+$string['setupwizard:info1'] = 'Please take a moment to share a few details . This will help us configure the setup to match your needs and streamline your experience.';
+$string['setupwizard:info5'] = 'Relax, while your site is getting ready!';
+$string['setupwizard:info6'] = 'We are downloading, installing and enabling all the required plugins on your site.';
+$string['setupwizard:info7'] = 'Plugin installation is in progress. This may take a few moments. Please <strong>do not ‘Close or Refresh’</strong> this page.';
+
+$string['edwiseraddons'] = 'Edwiser add-ons';
+$string['submitandcontinue'] = 'Submit & Continue';
+$string['setupwizard:licensehead'] = "Activate your Edwiser RemUI license";
+$string['setupwizard:licensedesc'] = "To unlock the full potential of the Edwiser RemUI theme, please enter your license key. You can find your license key in the email received after purchase or by logging into your Edwiser account.";
+$string['setupwizard:licenseformtext1'] = "Add your license key";
+$string['setupwizard:licenseformtext2'] = "Not sure where to find your license key?";
+$string['setupwizard:licenseformtext3'] = "Click here for guidance";
+$string['setupwizard:licenseforminputplaceholder'] = "License key";
+$string['submit'] = 'Submit';
+$string['setupwizard:saveandinstallplugins'] = 'Save & install plugins';
+$string['downloadsuccessmsg'] = 'Download successful';
+$string['installsuccessmsg'] = 'Installation successful';
+$string['setratingreviewoncourse'] = 'Set ratings & reviews for all courses';
+$string['courseformatsetmsg'] = 'Set as default course format with card format view';
+$string['setashomepage'] = 'Set as home page builder';
+$string['enablesuccessmsg'] = 'Enabled successfully';
+$string['finish'] = 'Finish';
+$string['somthingwentwrong'] = 'Something went wrong. ';
+$string['alreadyinstalled'] = 'Already installed';
+$string['ratingreviewaddedallcoursesmsg'] = 'Edwiser ratings & reviews added to courses sucessfully';
+$string['submitvisityoursite'] = 'Submit & visit your site!';
+$string['hadissues'] = 'Had issues';
+$string['normal'] = 'Normal';
+$string['smoothandfast'] = 'Smooth and fast';
+$string['messageafterinstallation'] = '<strong>IMPORTANT:</strong> If you’ve purchased the Course Creator Suite or Edwiser Bundle, there are a few plugins that still require manual setup. For more details and step-by-step instructions, check out the documentation below:';
+$string['setupwizardcomplitionmsg'] = 'You’ve successfully setup your site. Did you know it can take experts up to 2 days to do this? You’ve done it in less than an hour. Now you’re ready to explore powerful features and make the most of your site.';
+$string['congratulations'] = 'Congratulations!';
+$string['yoursiteisready'] = ' Your site is ready.';
+$string['setupwizard:emailus'] = 'Email Us';
+$string['setupwizard:contactsupport'] = 'Contact Support';
+$string['setupwizard:mylicensekey'] = 'My License Key';
+$string['setupwizard:RemUIdocumenation'] = 'Edwiser RemUI Documentation';
+$string['setupwizard:alldocumentation'] = 'All Documentations';
+$string["otherpagenotice"] = "<strong>Note:</strong> You can access the above custom pages from the footer.";
+
+$string["done"] = "Done";
+$string["default"] = "Default";
+$string["pagewidthinfo"] = "Page width set to ‘Full width’";
+$string["enrollayoutinfo"] ="Enable ‘Edwiser Layout’ for new and improved Enrolment page design.";
+$string["colorschemehead"] = "Color scheme selected";
+$string["fontfamilyhead"] = "Font family selected";
+$string["siteiconnamehead"] = "Logo selected ‘ Site name & Icon’";
+$string["homepageselectionhead"] = "Home page template selected";
+$string["otherpageselectionhead"] ="Other page templates selected";
+$string["democourseimporthead"] = "Demo courses imported (Only visible to admin)";
+$string["personalizertophead"] = "Your site is ready. If you want to personalize it further, please go to ‘Visual Personalizer’.";
+$string["editwithpersonalizertopctatext"] = "View Visual Personalizer";
+
+$string["personalizerbottomhead"] = "Don’t know how to personalize your site?";
+$string["editwithpersonalizerbottomctatext"] = "Check documentation";
+$string["setupwizardsettingpagehead"] = "Setup wizard";
+$string["setupwizardsettingpagedesc"] = "The setup was interrupted. Please click the button below to continue.";
+$string["setupwizard"] = "Enable setup wizard";
+$string["setupwizarddesc"] = '<a id="resume-setup" data-action="{$a->setupstep}" class="btn btn-secondary" href="'.$CFG->wwwroot.'/theme/remui/setup.php'.'"> Resume setup</a>';
+// $string["setupwizarddesc"] = '<a id="resume-setup" data-action="{$a->setupstep}" class="btn btn-primary" href="'.$CFG->wwwroot.'/theme/remui/setup.php?action={$a->setupstep}'.'"> Resume setup</a>';
+$string["skipfornow"] = "Skip for now";
+$string["downloadfailed"] = "Download failed";
+$string["tryagain"] = "Please try again!";
+$string["view"] = "View";
+$string["licensetooltipmsg"] = "The license key is a 32-character alphanumeric code available in your account and purchase receipt";
+$string["onlyfornewsites"] = "Sorry! This page is for new sites only.";
+// Setup Wizard strings end here
+// Site sync strings
+$string['site_sync_button_title'] = 'Go to Site Sync page';
+$string['sitesyncplugintabtext'] = "Site Sync (new)";
+
+$string['exportblock'] = "Export Block";
+$string['whatsappsetting'] = "WhatsApp";
+$string['whatsappsettingdesc'] = "Enter your site's WhatsApp  link. For eg. https://wa.me/1XXXXXXXXXX";
+$string['footerwhatsapp'] = "WhatsApp";
+$string['telegramsetting'] = "Telegram";
+$string['telegramsettingdesc'] = "Enter your site's Telegram  link. For eg. https://t.me/someusername";
+$string['footertelegram'] = "Telegram";
+
+$string['accessbilityfeatureshead'] = 'Accessibility Tool Settings';
+$string['accessbilityfeaturesheaddesc'] = 'Multiple settings that helps the users with disabilities';
+$string['enableaccessibilitytools'] = 'Enable Accessibility Tool';
+$string['enableaccessibilitytoolsdesc'] = 'If disabled, the tool will not be displayed on the entire site.';
+$string['disable-aw-for-me'] = 'Disable accessibility tool for me ';
+$string['enable-aw-for-me'] = 'Enable accessibility tool for me ';
+$string['disable-aw-for-me-notice'] = 'Accessibility tool is disabled.';
+$string['enable-aw-for-me-notice'] = 'Accessibility tool is enabled.';
+
+//
+$string['darkmodelogo'] = 'Logo for ‘Dark’ mode';
+//
+$string['darkmodelogomini'] = 'Logo Mini for ‘Dark’ mode';
+//
+$string['darkmodelogodesc'] = 'If this field is empty, the logo uploaded in ‘Logo’ field will be displayed when the ‘Dark mode’ is ON. You may add the logo to be displayed on the header. Note- Preferred height is 50px. In case you wish to customise, you can do so from the custom CSS box.';
+//
+$string['darkmodelogominidesc'] = 'If this field is empty, the logo uploaded in ‘Logo Mini’ field will be displayed when the ‘Dark mode’ is ON. You may add the logo to be displayed on the header. Note- Preferred height is 50px. In case you wish to customise, you can do so from the custom CSS box.';
+$string['darkmodelogo'] = "Logo for ‘Dark’ mode";
+$string['darkmodelogodesc'] = "If this field is empty, the logo uploaded in ‘Logo’ field will be displayed when the ‘Dark mode’ is ON. You may add the logo to be displayed on the header. Note- Preferred height is 50px. In case you wish to customise, you can do so from the custom CSS box.";
+$string['darkmodelogosize'] = "Expected aspect ratio is 40:33";
+$string['darkmodelogomini'] = "Logo Mini for ‘Dark’ mode";
+$string['darkmodelogominidesc'] = "If this field is empty, the logo uploaded in ‘Logo Mini’ field will be displayed when the ‘Dark mode’ is ON. You may add the logo to be displayed on the header. Note- Preferred height is 50px. In case you wish to customise, you can do so from the custom CSS box.";
+$string['darkmodelogominisize'] = "Expected aspect ratio is 40:33";
+$string['secondaryfooterlogodarkmode'] = 'Logo for ‘Dark’ mode';
+$string['secondaryfooterlogodarkmode_help'] = 'Logo for ‘Dark’ mode';
+
+$string['focusmode'] = 'Focus Mode';
+$string['focusmodedesc'] = '<p class="m-0">Focus Mode ON: A button to switch to distraction free learning will appear on the course page.</p>
+<p class="m-0">Focus Mode OFF: The switch to distraction free learning will NOT appear on the course page.</p>
+<p class="m-0">Force Focus Mode ON for all courses: All courses will be displayed in Focus Mode by default for all learners. Learners can switch it OFF if required. </p>';
+$string['focusmodeon'] = 'Focus Mode ON';
+$string['focusmodeoff'] = 'Focus Mode OFF';
+$string['forcefocusmode'] = 'Force Focus Mode ON for all courses';
+$string['focusmodeactiveadminmsg'] = 'Focus mode is active for student users';
+$string['focusmodeactivenavinfo'] = 'Focus Mode is ON. Click ‘X’ at right bottom to close it.';

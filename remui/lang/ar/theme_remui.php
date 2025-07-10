@@ -31,7 +31,7 @@ $string['brandcolor'] = 'لون العلامة التجارية';
 $string['brandcolor_desc'] = 'لون العلامة التجارية.';
 $string['bootswatch'] = 'Bootswatch';
 $string['bootswatch_desc'] = 'مجموعة من المتغيرات وأنماط CSS التي تخص Bootstrap للتنسيق.';
-$string['choosereadme'] = 'Edwiser RemUI هي سمة حديثة قابلة للتخصيص بشكل كبير. تم تصميم هذه السمة للاستخدام المباشر أو كسمة أصلية عند إنشاء سمات جديدة باستخدام Bootstrap 4.';
+$string['choosereadme'] = 'Edwiser RemUI هو قالب Moodle قابل للتخصيص مصمم لتحسين تجربة التعلم الإلكتروني عن طريق معالجة التحديات مثل التخصيص المحدود ومشاكل واجهة المستخدم. مع تصميمه الحديث والبديهي وميزاته الشاملة، يمكنك بسهولة إنشاء موقع مرئي رائع يعزز تفاعل الطلاب ويقدم تجربة سيحبها المتعلمون!';
 $string['currentinparentheses'] = '(الحالي)';
 $string['configtitle'] = 'Edwiser RemUI';
 $string['generalsettings'] = 'الإعدادات الأساسية';
@@ -201,7 +201,7 @@ $string['socialmediadesc'] = 'أدخل روابط وسائل التواصل ال
 $string['facebooksetting'] = 'فيسبوك';
 $string['facebooksettingdesc'] = 'أدخل رابط صفحة فيسبوك موقعك. على سبيل المثال: https://www.facebook.com/pagename';
 $string['twittersetting'] = 'تويتر';
-$string['twittersettingdesc'] = 'أدخل رابط صفحة تويتر موقعك. على سبيل المثال: https://www.twitter.com/pagename';
+$string['twittersettingdesc'] = 'أدخل رابط صفحة تويتر موقعك. على سبيل المثال: https://www.x.com/pagename';
 $string['linkedinsetting'] = 'لينكد إن';
 $string['linkedinsettingdesc'] = 'أدخل رابط صفحة لينكد إن موقعك. على سبيل المثال: https://www.linkedin.com/in/pagename';
 $string['gplussetting'] = 'جوجل بلس';
@@ -323,7 +323,8 @@ $string['detailssavedsuccessfully'] = 'تم حفظ التفاصيل بنجاح!'
 $string['fullname']  = 'الاسم الكامل';
 $string['viewcourselow'] = "عرض دورة";
 $string['focusmodesettings'] = 'إعدادات وضع التركيز';
-$string['focusmode'] = 'وضع التركيز';
+$string['focusmodenormalstatetext'] = 'التركيز: تشغيل';
+$string['focusmodeactivestatetext'] = 'التركيز: إيقاف';
 $string['enablefocusmode'] = 'تمكين وضع التركيز';
 $string['togglefocusmode'] = "تبديل وضع التركيز";
 $string['enablefocusmodedesc'] = 'إذا تم تمكينه، سيظهر زر للتبديل إلى التعلم خاليًا من الانحراف على صفحة الدورة.';
@@ -641,6 +642,8 @@ $string['entervalidlicensekey'] = "يرجى إدخال مفتاح ترخيص ص�
 $string['edwiserremuilicenseactivation'] = 'تفعيل ترخيص Edwiser RemUI';
 $string['enterlicensekey'] = "أدخل مفتاح الترخيص...";
 $string['invalid'] = "غير صالح";
+$string['licensemismatch'] = "عدم تطابق الترخيص";
+$string['licensemismatchdesc'] = 'عذرًا! يبدو أنك استخدمت مفتاح ترخيص مختلف لتنشيط قالب Edwiser RemUI. يرجى استخدام مفتاح الترخيص الصحيح من <a class="text-decoration-underline" href="https://edwiser.org/my-account/">صفحة حسابي</a> لتنشيط قالب Edwiser RemUI.';
 
 $string['courseheaderdesign'] = 'تصميم رأس صفحة الدورة';
 $string['courseheaderdesigndesc'] = 'اختر تصميم رأس صفحة الدورة';
@@ -927,7 +930,7 @@ $string['menuorientationdesc'] = 'تعيين اتجاه القائمة. يمكن
 $string['menuorientationvertical'] = 'عمودي';
 $string['menuorientationhorizontal'] = 'أفقي';
 $string['footerfacebook'] = 'Facebook';
-$string['footertwitter'] = 'Twitter';
+$string['footertwitter'] = 'X (formerly Twitter)';
 $string['footerlinkedin'] = 'Linkedin';
 $string['footergplus'] = 'Google Plus';
 $string['footeryoutube'] = 'Youtube';
@@ -1166,7 +1169,7 @@ $string['socialiconspanel'] = "لوحة الرموز الاجتماعية";
 $string['social-icons-info'] = "<p>لعرض الرموز الاجتماعية في الجزء السفلي من أي عمود به محتوى، اذهب إلى <b>التذييل > منطقة التذييل الرئيسية > ويدجيت > حدد النوع = المحتوى </b> وقم بتشغيل إعداد عرض الرموز الاجتماعية.</p>";
 $string['social-icons-heading'] = "الرموز الاجتماعية";
 $string["custommenulinktext"] = 'عناصر القائمة المخصصة';
-$string["custommenulink"] = '<h6>عناصر القائمة المخصصة</h6><p> لإضافة / تحرير / حذف عناصر القائمة المخصصة، اذهب إلى إدارة الموقع > المظهر > إعدادات النسق > <a href="{$a}/admin/settings.php?section=themesettings#admin-custommenuitems" target ="_blank" class="text-decoration-none">عناصر القائمة المخصصة للمسؤول</a> <p>';
+$string["custommenulink"] = '<h6>عناصر القائمة المخصصة</h6><p> لإضافة / تحرير / حذف عناصر القائمة المخصصة، اذهب إلى إدارة الموقع > المظهر > إعدادات النسق > <a href="{$a}/admin/settings.php?section=themesettingsadvanced#admin-custommenuitems" target ="_blank" class="text-decoration-none">عناصر القائمة المخصصة للمسؤول</a> <p>';
 $string['note'] = 'ملاحظة';
 $string['social-media-selection-note'] = "<p>اضغط على Ctrl لتحديد / إلغاء تحديد الوسائط</p>";
 
@@ -1463,8 +1466,8 @@ $string['customizerdarkmodedonotshowbtntext'] = 'لا تظهر مرة أخرى';
 $string['customizerdarkmodeok'] = 'موافق';
 $string['previewswitchon'] = 'تشغيل';
 $string['previewswitchoff'] = 'إيقاف';
-$string['darkmodepreview'] =  'معاينة الوضع الداكن';
-$string['darkmodecustomizernote']='<li>في "المُضبِّط البصري"، ستتم جميع التغييرات في "الوضع الفاتح" من الموقع، وستنعكس تلقائيًا في "الوضع الداكن".</li>
+$string['darkmodepreview'] = 'معاينة الوضع الداكن';
+$string['darkmodecustomizernote'] = '<li>في "المُضبِّط البصري"، ستتم جميع التغييرات في "الوضع الفاتح" من الموقع، وستنعكس تلقائيًا في "الوضع الداكن".</li>
 <li>سيتم تعطيل إعدادات المُضبِّط البصري أثناء المعاينة في الوضع الداكن.</li>';
 $string["switchtodm"] = "الوضع الداكن";
 $string["switchtolm"] = "الوضع الفاتح";
@@ -1516,3 +1519,46 @@ $string["row5"] = "عرض: 5 صفوف";
 $string["row6"] = "عرض: 6 صفوف";
 
 $string["filteremptymsg"] = "ملاحظة: لعرض الفلاتر، أضف خصائص الفلترة مثل المستويات، السعر، التقييمات، واللغات إلى الدورة.";
+
+$string['sectionaddmax'] = 'لقد وصلت إلى الحد الأقصى لعدد الأقسام المسموح به للدورة...';
+$string['prevsubsectionbuttontext'] = 'القسم الفرعي السابق';
+$string['nextsubsectionbuttontext'] = 'القسم الفرعي التالي';
+// Site sync strings
+$string['site_sync_button_title'] = 'الانتقال إلى صفحة مزامنة الموقع';
+$string['sitesyncplugintabtext'] = "مزامنة الموقع (جديد)";
+
+
+$string['whatsappsetting'] = "واتساب";
+$string['whatsappsettingdesc'] = "أدخل رابط واتساب الخاص بموقعك. على سبيل المثال: https://wa.me/1XXXXXXXXXX";
+$string['footerwhatsapp'] = "واتساب";
+$string['telegramsetting'] = "تيليجرام";
+$string['telegramsettingdesc'] = "أدخل رابط تيليجرام الخاص بموقعك. على سبيل المثال: https://t.me/someusername";
+$string['footertelegram'] = "تيليجرام";
+
+$string['accessbilityfeatureshead'] = 'إعدادات أداة إمكانية الوصول';
+$string['accessbilityfeaturesheaddesc'] = 'إعدادات متعددة تساعد المستخدمين ذوي الإعاقة';
+$string['enableaccessibilitytools'] = 'تمكين أداة إمكانية الوصول';
+$string['enableaccessibilitytoolsdesc'] = 'إذا تم تعطيله، فلن يتم عرض الأداة على الموقع بالكامل.';
+$string['disable-aw-for-me'] = 'تعطيل أداة إمكانية الوصول لي';
+$string['enable-aw-for-me'] = 'تمكين أداة إمكانية الوصول لي';
+$string['disable-aw-for-me-notice'] = 'تم تعطيل أداة إمكانية الوصول.';
+$string['enable-aw-for-me-notice'] = 'تم تمكين أداة إمكانية الوصول.';
+
+$string['darkmodelogo'] = 'الشعار لوضع "الوضع الداكن"';
+$string['darkmodelogomini'] = 'شعار مصغر لوضع "الوضع الداكن"';
+$string['darkmodelogodesc'] = 'إذا كان هذا الحقل فارغًا، فسيتم عرض الشعار الذي تم تحميله في حقل "الشعار" عند تفعيل "الوضع الداكن". يمكنك إضافة الشعار الذي سيظهر في الترويسة. ملاحظة: الارتفاع المفضل هو 50 بكسل. في حال كنت ترغب في التخصيص، يمكنك القيام بذلك من خلال مربع CSS المخصص.';
+$string['darkmodelogominidesc'] = 'إذا كان هذا الحقل فارغًا، فسيتم عرض الشعار المصغر الذي تم تحميله في حقل "الشعار المصغر" عند تفعيل "الوضع الداكن". يمكنك إضافة الشعار الذي سيظهر في الترويسة. ملاحظة: الارتفاع المفضل هو 50 بكسل. في حال كنت ترغب في التخصيص، يمكنك القيام بذلك من خلال مربع CSS المخصص.';
+$string['darkmodelogosize'] = 'نسبة العرض إلى الارتفاع المتوقعة هي 40:33';
+$string['darkmodelogominisize'] = 'نسبة العرض إلى الارتفاع المتوقعة هي 40:33';
+$string['secondaryfooterlogodarkmode'] = 'شعار "الوضع الداكن" في التذييل الثانوي';
+$string['secondaryfooterlogodarkmode_help'] = 'شعار "الوضع الداكن" في التذييل الثانوي';
+
+$string['focusmode'] = 'وضع التركيز';
+$string['focusmodedesc'] = '<p class="m-0">تشغيل وضع التركيز: سيظهر زر للتبديل إلى وضع التعلم الخالي من المشتتات في صفحة المقرر.</p>
+<p class="m-0">إيقاف وضع التركيز: لن يظهر زر التبديل إلى وضع التعلم الخالي من المشتتات في صفحة المقرر.</p>
+<p class="m-0">فرض تشغيل وضع التركيز لجميع المقررات: سيتم عرض جميع المقررات في وضع التركيز بشكل افتراضي لجميع المتعلمين. يمكن للمتعلمين إيقافه إذا رغبوا بذلك.</p>';
+$string['focusmodeon'] = 'تشغيل وضع التركيز';
+$string['focusmodeoff'] = 'إيقاف وضع التركيز';
+$string['forcefocusmode'] = 'فرض تشغيل وضع التركيز لجميع المقررات';
+$string['focusmodeactiveadminmsg'] = 'وضع التركيز مفعل للمستخدمين الطلاب';
+$string['focusmodeactivenavinfo'] = 'وضع التركيز مفعل. انقر على "X" في الأسفل إلى اليمين لإغلاقه.';

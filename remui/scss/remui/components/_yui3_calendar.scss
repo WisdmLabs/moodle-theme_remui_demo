@@ -23,6 +23,13 @@ $yui3-row-gap-sm: 6px;
     }
 }
 
+.dir-rtl .yui3-widget.yui3-calendarbase.yui3-calendar {
+    min-width: 450px;
+    @include media-breakpoint-down(xs) {
+        min-width: 320px;
+    }
+}
+
 .yui3-skin-sam {
     .yui3-calendar-content {
         padding: 0px;

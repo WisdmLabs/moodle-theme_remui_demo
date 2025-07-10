@@ -50,9 +50,9 @@
                 </button>
             {{/output.has_communication_links}}
             {{#focusdata.enabled}}
-                <button id="focusmodebutton" type="button" class="btn {{focusdata.btnbg}} btn-floating align-items-center justify-content-center d-flex" data-toggle="tooltip" data-placement="left" data-trigger="hover" aria-label="{{#str}}togglefocusmode, theme_remui{{/str}}" role="Button" aria-pressed="false" >
+                <button id="focusmodebutton" type="button" class="btn {{focusdata.btnbg}} {{#focusdata.on}}open{{/focusdata.on}} btn-floating align-items-center justify-content-center d-flex" data-toggle="tooltip" data-placement="left" data-trigger="hover" aria-label="{{#str}}togglefocusmode, theme_remui{{/str}}" role="Button" aria-pressed="false" >
                     <i class="{{focusdata.btnicon}}" aria-hidden="true"></i>
-                    <span class="btn-floating-text">{{#str}}focusmode, theme_remui{{/str}}</span>
+                    <span class="btn-floating-text">{{focusdata.btntext}}</span>
                 </button>
             {{/focusdata.enabled}}
             {{#floating_buttons}}
@@ -153,24 +153,34 @@
                         class="navbar-brand d-flex  m-0 p-0 aabtn footer-logo"
                         aria-label="{{ sitename }} - {{#str}}brandname, theme_remui{{/str}}">
                         {{#output.get_branding_context}}
-                        {{#logourl}}
-                        <img src="{{ logourl }}" class="navbar-brand-logo logo">
-                        {{/logourl}}
+                            {{#logourl}}
+                                <img src="{{ logourl }}" class="navbar-brand-logo logo light-logo">
+                            {{/logourl}}
 
-                        {{#logominiurl}}
-                        <img src="{{ logominiurl }}" class="navbar-brand-logo logomini">
-                        {{/logominiurl}}
+                            {{#darklogourl}}
+                                <img src="{{ darklogourl }}" class="navbar-brand-logo logo dark-logo">
+                            {{/darklogourl}}
 
-                        {{#icononly}}
-                        <span class="navbar-brand-logo icononly"><i class="fa fa-{{siteicon}}"></i></span>
-                        {{/icononly}}
+                            {{#logominiurl}}
+                                <img src="{{ logominiurl }}" class="navbar-brand-logo logomini light-logomini">
+                            {{/logominiurl}}
 
-                        {{#iconwithsitename}}
-                        <span class="navbar-brand-logo font-weight-bolder iconsitename">
-                            <i class="fa fa-{{siteicon}}"></i>&nbsp;
-                            {{{ sitename }}}
-                        </span>
-                        {{/iconwithsitename}}
+                            {{#darklogominiurl}}
+                                <img src="{{ darklogominiurl }}" class="navbar-brand-logo logomini dark-logomini">
+                            {{/darklogominiurl}}
+
+                            {{#icononly}}
+                                <span class="navbar-brand-logo icononly" style="color: {{color}};">
+                                    <i class="fa fa-{{siteicon}}"></i>
+                                </span>
+                            {{/icononly}}
+
+                            {{#iconwithsitename}}
+                                <span class="navbar-brand-logo iconsitename" style="color: {{color}};">
+                                    <i class="fa fa-{{siteicon}}"></i>&nbsp;
+                                    {{{ sitename }}}
+                                </span>
+                            {{/iconwithsitename}}
                         {{/output.get_branding_context}}
                     </a>
                     </div>
@@ -179,7 +189,8 @@
                         <a href="{{{ config.homeurl }}}"
                         class="navbar-brand d-flex m-0 p-0 aabtn footer-logo"
                         aria-label="{{ sitename }} - {{#str}}brandname, theme_remui{{/str}}">
-                        <img src="{{footerdata.secondaryfooterlogo}}" class="navbar-brand-logo logomini">
+                        <img src="{{footerdata.secondaryfooterlogo}}" class="navbar-brand-logo logomini light-logo">
+                        <img src="{{footerdata.secondaryfooterlogodarkmode}}" class="navbar-brand-logo logomini dark-logo">
                     </a>
                     </div>
                 </div>
@@ -198,8 +209,14 @@
     </div>
 </footer>
 {{#js}}
-require(['theme_remui/footer-popover'], function(FooterPopover) {
+require(['jquery', 'theme_remui/footer-popover'], function($, FooterPopover) {
     FooterPopover.init();
+
+    $(document).ready(function() {
+        setTimeout(function(){
+            $(".btn-floating.open").removeClass('open');
+        }, 2000);
+    });
 });
 
 
@@ -250,10 +267,6 @@ require(['jquery', 'theme_remui/feedback'], function($) {
 
             r.style.setProperty('--hs-beacon-window-v-offset', '70px');
             r.style.setProperty('--hs-beacon-window-h-offset-right', '14px');
-
-            setTimeout(function(){
-                $(".btn-floating.open").removeClass('open');
-            }, 2000);
 
             // Toggle Button icon.
             $(document).on('click', '.beaconbtn', function() {

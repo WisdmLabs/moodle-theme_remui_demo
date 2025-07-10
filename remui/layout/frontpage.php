@@ -26,11 +26,37 @@ defined('MOODLE_INTERNAL') || die();
 
 global $CFG , $PAGE;
 
+// Add the optional parameters
+$legacypage = optional_param('legacypage', null, PARAM_TEXT);
+
 require_once("{$CFG->dirroot}/theme/remui/layout/common.php");
+
+$legacystyles = [
+    '1' => '/theme/remui/style/legacy/legacy1.css',
+    '2' => '/theme/remui/style/legacy/legacy2.css',
+];
+
+$islegacyhomepage = isset($legacystyles[$legacypage]);
+
+// Load legacy styles for frontpage chooser setting
+if (\theme_remui\toolbox::get_setting('frontpagechooser') == 0 && $legacypage !== "2") {
+    $PAGE->requires->css('/theme/remui/style/legacy/legacy.css');
+    $PAGE->requires->css($legacystyles['1']);
+}
+
+// Load base legacy style if legacy homepage
+if ($islegacyhomepage) {
+    $PAGE->requires->css('/theme/remui/style/legacy/legacy.css');
+}
+
+// Load specific legacy style based on page type
+if (isset($legacystyles[$legacypage])) {
+    $PAGE->requires->css($legacystyles[$legacypage]);
+}
 
 $templatecontext['pagelayout_frontpage'] = true;
 
-if (\theme_remui\toolbox::get_setting('frontpagechooser') == 0) {
+if (\theme_remui\toolbox::get_setting('frontpagechooser') == 0 || $islegacyhomepage) {
     $extraclasses[] = 'old-frontpage';
 }
 
@@ -40,7 +66,7 @@ require_once($CFG->dirroot . '/theme/remui/layout/common_end.php');
 
 $templatecontext['bodyattributes'] = str_replace("limitedwidth", "", $templatecontext['bodyattributes']);
 
-if (\theme_remui\toolbox::get_setting('frontpagechooser') == 0) {
+if (\theme_remui\toolbox::get_setting('frontpagechooser') == 0 || $islegacyhomepage) {
     // Frontpage context.
             // Frontpage context.
     // Slider.

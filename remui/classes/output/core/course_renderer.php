@@ -65,7 +65,12 @@ class course_renderer extends \core_course_renderer {
             }
 
             $actionbar = new \core_course\output\category_action_bar($this->page, $coursecat);
-            $output = $this->render_from_template('core_course/category_actionbar', $actionbar->export_for_template($this));
+
+            // $output = $this->render_from_template('core_course/category_actionbar', $actionbar->export_for_template($this));
+
+            $actionbardata = $actionbar->export_for_template($this);
+            $output = $actionbardata["additionaloptions"];
+
             if (core_course_category::is_simple_site()) {
                 $strfulllistofcourses = get_string('fulllistofcourses');
                 $this->page->set_title("$site->shortname: $strfulllistofcourses");

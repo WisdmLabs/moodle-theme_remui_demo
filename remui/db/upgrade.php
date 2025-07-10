@@ -37,6 +37,7 @@ function xmldb_theme_remui_upgrade($oldversion) {
     theme_remui_handle_orphan_settings();
     buttons_compatibility();
     login_compatibility($oldversion);
+    focus_mode_migration_compatibility($oldversion);
 
     if (get_config('theme_remui', 'header-primary-border-bottom-size') != 0) {
         set_config('hds-boxshadow-enable', 'enabled', 'theme_remui');
@@ -248,17 +249,24 @@ function theme_remui_course_custom_fields($checkupdateorinstall= "update") {
     // Create Custom Fields Required for enrollment page.
     $customfieldid = get_config('theme_remui', 'remui_customfield_catid');
 
-    if($checkupdateorinstall == "install"){
+    if ($checkupdateorinstall == "install") {
 
         if (!$DB->record_exists('customfield_category', array('name' => "RemUI Custom Fields"))) {
             $customfieldid = theme_remui_create_customfield_category('RemUI Custom Fields');
             set_config('remui_customfield_catid', $customfieldid, 'theme_remui');
         }
 
+    } else {
+        if ($DB->record_exists('customfield_category', array('name' => "RemUI Custom Fields"))) {
+            $customfieldcat = $DB->get_record('customfield_category', array('name' => "RemUI Custom Fields"));
+            set_config('remui_customfield_catid', $customfieldcat->id, 'theme_remui');
+        }
+
+
+
     }
-
-
-
+    // Create Custom Fields Required for enrollment page.
+    $customfieldid = get_config('theme_remui', 'remui_customfield_catid');
 
     theme_remui_delete_old_custom_fields($customfieldid);
 
@@ -286,10 +294,12 @@ function theme_remui_course_custom_fields($checkupdateorinstall= "update") {
         [
             'fieldname' => 'Course Duration',
             'type' => 'text',
+            'description' => "",
         ],
         [
             'fieldname' => 'Course Intro Video Url (Embedded)',
             'type' => 'text',
+            'description' => "",
         ],
         [
             'fieldname' => 'Skill Level',
@@ -298,6 +308,27 @@ function theme_remui_course_custom_fields($checkupdateorinstall= "update") {
                 'options' => "Beginner\n Intermediate\n Advanced",
                 'defaultvalue' => 'Beginner',
             ],
+            'description' => "",
+        ],
+        [
+            'fieldname' => 'Focus Mode',
+            'type' => 'select',
+            'options' => [
+                // 1st option Default will be added using JS because moodle add default blank option with value 0
+                'options' => "Force Focus Mode with learner control",
+                'defaultvalue' => 'Default',
+            ],
+            'description' => "<div class='overflow-hidden' style='padding: 12px; border-radius: 6px; border: 1px solid #FFC107; background: #FFF9E5;'>
+                    <p class='m-0' style='font-size: 14px;'>
+                        <strong>Default:</strong> Uses the Focus Mode setting defined by the site admin.
+                    </p>
+                    <p class='m-0 mt-2' style='font-size: 14px;'>
+                        <strong>Force Focus Mode (with learner control): </strong> This option lets you keep Focus Mode active for your course. Learners will see the course in Focus Mode by default, but they can choose to turn it off anytime. This applies only to learners.
+                    </p>
+                    <p class='m-0 mt-2' style='font-size: 14px;'>
+                        <strong>Note:</strong> If the site admin has either <strong>disabled</strong> or <strong>enforced</strong> Focus Mode across the site, the settings here won’t apply.
+                    </p>
+                </div>",
         ],
     ];
 
@@ -317,9 +348,15 @@ function theme_remui_course_custom_fields($checkupdateorinstall= "update") {
         if (!$DB->record_exists('customfield_field', array(
             'shortname' => $shortname,
             // 'name' => $customfield['fieldname'],
-            'categoryid' => $customfieldid
+            'categoryid' => $customfieldid,
             ))) {
-            theme_remui_create_custom_field($customfieldid, $customfield['fieldname'], $customfield['type'], $options);
+                theme_remui_create_custom_field(
+                    $customfieldid,
+                    $customfield['fieldname'],
+                    $customfield['type'],
+                    $options,
+                    $customfield['description']
+                );
         }
     }
 }
@@ -342,6 +379,30 @@ function theme_remui_delete_old_custom_fields($customfieldid) {
         );
         if ($DB->record_exists('customfield_field', $record)) {
             $DB->delete_records('customfield_field', $record);
+        }
+    }
+}
+
+
+/**
+ * Handles the migration from enablefocusmode (checkbox) to focusmode (dropdown)
+ */
+function focus_mode_migration_compatibility($oldversion) {
+    // Get the old setting value
+    if ($oldversion > "2025031100") {
+        $oldsetting = get_config('theme_remui', 'enablefocusmode');
+
+        // If old setting exists, migrate it to the new format
+        if ($oldsetting !== false) {
+            // If checkbox was checked (true), set dropdown to "Focus mode on" (1)
+            // If checkbox was unchecked (false), set dropdown to "Focus mode off" (0)
+            $newvalue = $oldsetting ? 1 : 0;
+
+            // Set the new config value
+            set_config('focusmode', $newvalue, 'theme_remui');
+
+            // Unset the old config value
+            // unset_config('enablefocusmode', 'theme_remui');
         }
     }
 }

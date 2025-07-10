@@ -74,11 +74,14 @@
         >
             <span class="edw-icon edw-icon-Cancel"></span>
         </button>
+        <div class="drawerheadercontent hidden ml-auto">
+            {{$drawerheadercontent}}{{/drawerheadercontent}}
+        </div>
     </div>
     <div class="drawercontent drag-container" data-usertour="scroller">
         {{$drawercontent}}{{/drawercontent}}
     </div>
 </div>
 {{#js}}
-require(['theme_remui/drawers']);
+        require(['theme_remui/drawers']);
 {{/js}}

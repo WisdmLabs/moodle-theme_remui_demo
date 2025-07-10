@@ -50,6 +50,7 @@ $card-list-gap-half: $card-list-gap / 2;
    .coursesummary{
       @extend .ellipsis;
       @extend .ellipsis-2;
+      word-break: break-word;
    }
 }
 @mixin progress-data-style {
@@ -102,7 +103,7 @@ $card-list-gap-half: $card-list-gap / 2;
       border: 1px solid $light-border;
       filter: drop-shadow(map-get($box-shadows-values, xs));
       gap: map-get($gapspace , 6);
-
+      background-color: $white;
       @include media-breakpoint-down(sm) {
          flex-direction: column;
          padding: 0px;
@@ -394,7 +395,7 @@ body:not(.limitedwidth) {
 
       .progress-data-wrapper{
          width: 260px;
-   
+
          @include media-breakpoint-down(md){
             width: 240px;
          }
@@ -413,4 +414,25 @@ body:not(.limitedwidth) {
    }
 
    @include sidebar-responsiveness();
+}
+
+.card-body{
+   .list-group{
+       .list-group-item{
+           background-color: unset;
+       }:hover{
+           background-color: var(--#{$prefix}list-group-action-hover-bg);
+       }
+   }
+}
+
+//Fix of button(mark as done) color in card view
+.single-card{
+   .completion-container{
+       .activity-information{
+           .btn-subtle-body {
+               @extend .btn-secondary;
+           }
+       }
+   }
 }

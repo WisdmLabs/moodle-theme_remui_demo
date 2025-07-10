@@ -116,7 +116,7 @@ trait enrol_get_course_instructors {
             $instructors[] = $instructor;
         }
 
-        return array("instructors" => $instructors);
+        return json_encode(array("instructors" => $instructors));
     }
 
     /**
@@ -124,24 +124,6 @@ trait enrol_get_course_instructors {
      * @return external_value
      */
     public static function enrol_get_course_instructors_returns() {
-        return new external_single_structure (
-            array(
-                'instructors' => new external_multiple_structure(
-                    new external_single_structure(
-                        array(
-                            'id' => new external_value(PARAM_INT, 'Instructor id'),
-                            'fullname' => new external_value(PARAM_TEXT, 'Instructor Full Name'),
-                            'avatar' => new external_value(PARAM_RAW, 'Instructor Avatar'),
-                            'totalstudents' => new external_value(PARAM_INT, 'Instructor id'),
-                            'totalcourses' => new external_value(PARAM_INT, 'Instructor id'),
-                            'profileurl'   => new external_value(PARAM_TEXT, 'Instructor url'),
-                            'email'   => new external_value(PARAM_RAW, 'Instructor email'),
-                            'description'   => new external_value(PARAM_RAW, 'Instructor description'),
-                            'allowedmessaging'   => new external_value(PARAM_TEXT, 'Instructor is allowed for messaging'),
-                        )
-                    )
-                )
-            )
-        );
+        return new external_value(PARAM_RAW, 'course instructors data');
     }
 }

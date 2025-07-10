@@ -76,7 +76,7 @@ function setPrimaryColor() {
     .dataTables_paginate .pagination .paginate_button.active .page-link,
     .all-filter-wrapper .nav-display-selector-wrapper .nav-display-selector .nav .nav-item .nav-link [aria-current="true"],
     #course-archive-main-container .filters-wrapper .btn-group a.btn-primary .edw-icon,
-    .block-myoverview [data-region="filter"] .nav-tabs .nav-grouping-selector .nav li.nav-item [aria-current="true"],.users-list-name {
+    .block-myoverview [data-region="filter"] .nav-tabs .nav-grouping-selector .nav li.nav-item [aria-current="true"],.users-list-name,.color-primary {
         color: ${color} !important;
     }
     .navbar .primary-navigation .nav-link.active::before,
@@ -84,8 +84,15 @@ function setPrimaryColor() {
     .block-myoverview [data-region="filter"] .nav-grouping-selector .nav li.nav-item [aria-current="true"]::after {
         border-bottom-color: ${color} !important;
     }
+    .navbar-item-container .navitem.active .course-count{
+      background-color: ${color} !important;
+    }
+    .navbar-item-container .navitem.active .course-count,.cnc-navbar-carousel.navbar-carousel .navbar-inner .navbar-item-container .navitem.active,
+    .border-color-primary{
+        border-color: ${color} !important;
+    }
     #theme_remui-drawers-courseindex .drawercontent #courseindex #courseindex-content .courseindex .courseindex-section .courseindex-section-title,.que .formulation{
-            background-color:${ColorUtils.tint(color, 90)} !important;
+        background-color:${ColorUtils.tint(color, 90)} !important;
     }
     #theme_remui-drawers-courseindex .drawercontent #courseindex #courseindex-content .courseindex .courseindex-section,.que .formulation{
         border-color: ${ColorUtils.tint(color, 70)} !important;

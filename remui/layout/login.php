@@ -23,6 +23,11 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$switchtheme = optional_param('switchtheme', null, PARAM_TEXT);
+if ($switchtheme) {
+    set_config("switchtheme", $switchtheme, "theme_remui");
+}
+
 $extraclasses = array();
 
 $extraclasses[] = \theme_remui\utility::get_main_bg_class();
@@ -36,9 +41,25 @@ $customizer = \theme_remui\customizer\customizer::instance();
 $fonts = $customizer->get_fonts_to_load();
 
 $loginbgurl = "";
-if(get_config("theme_remui", "demoblocklayout")) {
-    $loginbgurl = "https://staticcdn.edwiser.org/theme_remuiassets/images/demolayouts/" . get_config("theme_remui", "demoblocklayout") . ".jpg";
+if (get_config("theme_remui", "edw_external_data")) {
+    $edwexternaldata = json_decode(get_config("theme_remui", "edw_external_data"));
+
+    // Determine which layout to use (blocklayout takes precedence over loginblocklayout)
+    $layouttype = null;
+    if (!empty($edwexternaldata->blocklayout)) {
+        $layouttype = $edwexternaldata->blocklayout;
+    } else if (!empty($edwexternaldata->loginblocklayout)) {
+        $layouttype = $edwexternaldata->loginblocklayout;
+    }
+
+    // Set login background URL if a layout type was found
+    if ($layouttype && $layouttype != "videoformatdemo") {
+        $loginbgurl = "https://staticcdn.edwiser.org/theme_remuiassets/images/demolayouts/{$layouttype}.jpg";
+    } else if ($layouttype && $layouttype == "videoformatdemo") {
+        $loginbgurl = "https://staticcdn.edwiser.org/theme_remuiassets/images/demolayouts/classic.jpg";
+    }
 }
+
 
 $templatecontext = [
     'loginbgurl' => $loginbgurl,
@@ -55,4 +76,6 @@ if (get_config('theme_remui', 'loginpagelayout') != 'logincenter') {
     $templatecontext['brandlogotext'] = format_text(get_config('theme_remui', 'brandlogotext'),FORMAT_HTML,array("noclean" => true));
 }
 
+// Enable accessibility widgets
+\theme_remui\utility::enable_edw_aw_menu();
 echo $OUTPUT->render_from_template('theme_remui/login', $templatecontext);

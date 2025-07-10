@@ -25,6 +25,10 @@ defined('MOODLE_INTERNAL') || die();
 
 $bodyattributes = $OUTPUT->body_attributes($extraclasses);
 
+// Adding a version based class on the body which will be used for adding version based css
+$extraclasses[] = 'edw-m'.get_moodle_release_version_branch();
+$bodyattributes = $OUTPUT->body_attributes($extraclasses);
+
 if (get_config('theme_remui', 'pagewidth') == 'fullwidth') {
     $bodyattributes = str_replace("limitedwidth", "", $bodyattributes);
 }
@@ -148,7 +152,9 @@ $PAGE->requires->strings_for_js(array(
     'noresutssearchmsg',
     'searchtotalcount',
     'searchresultdesctext',
-    'floataddblockbtnregionselectionmsg'
+    'floataddblockbtnregionselectionmsg',
+    'focusmodeactivestatetext',
+    'focusmodenormalstatetext',
 ), 'theme_remui');
 
 // RemUI Usage Tracking (RemUI Analytics).
@@ -161,3 +167,8 @@ $dmhandler = new theme_remui_darkmodehandler(true);
 $templatecontext['canenabledm'] = $dmhandler->init();
 $templatecontext['dmanimate'] = $dmhandler->show_icon_animation();
 
+$questionname = \theme_remui\feedbackcollection::get_current_feedback_questionname();
+$PAGE->requires->js_call_amd('theme_remui/feedbackcollection', 'init', [$questionname]);
+
+// Enable accessibility widgets in theme
+\theme_remui\utility::enable_edw_aw_menu();

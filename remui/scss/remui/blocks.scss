@@ -37,7 +37,7 @@ $timeline-activity-mob-size:48px;
 }
 #region-bottom-blocks,
 #region-top-blocks{
-    div[role="main"]{
+    div[role="region-main"]{
         padding: unset !important;
         background-color: unset !important;
         box-shadow: unset !important;
@@ -45,7 +45,7 @@ $timeline-activity-mob-size:48px;
 }
 #region-fullwidthtop-blocks,
 #region-fullwidthbottom-blocks{
-    div[role="main"]{
+    div[role="region-main"]{
         padding: unset !important;
         background-color: unset !important;
     }
@@ -379,7 +379,7 @@ $timeline-activity-mob-size:48px;
                 flex-direction: column;
                 gap: map-get($gapspace , '4');
             }
-            
+
             .nav-search-sort-selector {
                 gap: map-get($gapspace , '4');
                 color: $paragraph-color;
@@ -513,6 +513,15 @@ $timeline-activity-mob-size:48px;
         }
         .view-course-btn{
             height: fit-content;
+        }
+    }
+
+    // this is for resolving the placeholder Issue of My course page
+    .container-fluid {
+        .card-grid {
+            .col {
+                display: block !important;
+            }
         }
     }
 }

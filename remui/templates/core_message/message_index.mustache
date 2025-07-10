@@ -82,7 +82,7 @@
     </div>
 </div>
 {{#js}}
-    require(['jquery', 'core_message/message_drawer'], function($, MessageDrawer) {
+    require(['jquery', 'theme_remui/message/message_drawer'], function($, MessageDrawer) {
     var root = $('#message-index-{{uniqid}}');
     MessageDrawer.init(root, '{{uniqid}}', true, {{{route}}});
     });

@@ -139,6 +139,14 @@ table {
         }
     }
 }
+
+// multiple table have issue with overflow
+// added css global level
+
+.table-responsive {
+    overflow: auto
+}
+
 #page-admin-theme-index{
     .table-responsive{
         // filter: drop-shadow(map-get($box-shadows-values, xs));
@@ -184,12 +192,116 @@ table {
     }
 }
 
-#report-eventlist-table,
-.reportbuilder-report .reportbuilder-wrapper .table-dynamic:not(#page-badges-index .table-dynamic) {
+#report-eventlist-table {
     overflow: auto;
 }
-#question_table{
+
+#question_table,
+#questionscontainer {
     overflow: auto;
     white-space: nowrap;
     max-height: 600px;
+    min-height: 400px;
+}
+
+body.edw-m402 {
+    .reportbuilder-report .reportbuilder-wrapper .table-dynamic {
+        overflow: auto;
+    }
+}
+
+body:not(.edw-m402) {
+    .reportbuilder-report .reportbuilder-wrapper .table-dynamic:not(#page-badges-index .table-dynamic) {
+        overflow: auto;
+        min-height: 300px;
+    }
+}
+
+//For making the table background transparent
+.course-overview{
+    .table{
+        --#{$prefix}table-accent-bg: transparent;
+    }
+}
+
+
+//Fix table layout issue in question bank
+#questionsubmit{
+    .categoryquestionscontainer{
+       #question_table{
+          #categoryquestions{
+             table-layout: auto;
+          }
+       }
+    }
+}
+
+//Increased the height of questions container
+#page-question-edit{
+    .questionbankwindow{
+        #questionscontainer {
+            max-height: 1000px;
+        }
+    }
+}
+
+#page-question-edit{
+    .questionbankwindow{
+       #questionscontainer{
+           #questionsubmit{
+               .invisiblefieldset{
+                   .categoryquestionscontainer{
+                       #question_table{
+                           max-height: 600px;
+                       }
+                    }
+               }
+           }
+       }
+   }
+}
+
+//Fix of three scrollbars appearing in quiz edit page
+#page-mod-quiz-edit{
+    #questionscontainer{
+        max-height: unset;
+    }
+
+    #question_table{
+        max-height: 600px;
+    }
+}
+
+#page-message-notificationpreferences{
+    //Fix of incorrect accent color of table in notification preferences page
+    #region-main-box{
+        .preferences-page-container{
+            .preferences-container {
+                table.preference-table{
+                    --bs-table-accent-bg: transparent;
+                }
+            }
+        }
+    }
+
+    // Centered aligned the toggles on Notification preferences page
+    .preference-state{
+        .form-check{
+           justify-content: space-evenly;
+           input{
+              margin-left: -1em;
+           }
+        }
+     }
+}
+
+// These table properties are modified because they are causing table background color issue in dark mode
+.table {
+   --bs-table-bg: unset;
+}
+html[nighteyeplgn="active"] {
+   .table {
+      --bs-table-bg-type: unset;
+      --bs-table-bg-state: unset;
+   }
 }

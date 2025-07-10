@@ -721,6 +721,7 @@ body#page-theme-remui-customizer {
 #fitem_id_footer-logo-color,
 #fitem_id_useheaderlogo,
 #fitem_id_secondaryfooterlogo,
+#fitem_id_secondaryfooterlogodarkmode,
 #fitem_id_footerprivacypolicy,
 #fitem_id_privacypolicynewtab,
 #fitem_id_footertermsandconditions,
@@ -735,6 +736,7 @@ body#page-theme-remui-customizer {
 }
 #fitem_id_footercopyrights,
 #fitem_id_secondaryfooterlogo,
+#fitem_id_secondaryfooterlogodarkmode,
 #fitem_id_footerprivacypolicy,
 #fitem_id_footertermsandconditions {
     > div:nth-child(2) {
@@ -949,6 +951,23 @@ body#page-theme-remui-customizer {
                 margin-top: unset;
                 margin-left: 8px;
             }
+        }
+    }
+    .form-control{
+        height: calc(1.0625em + 1.8125rem + 2px) !important;
+    }
+    select.form-control{
+        appearance: auto;
+    }
+}
+
+//Fix of tox editor header overlap issue on widgets Visual personalizer page
+.setting-type-htmleditor{
+    .tox-tinymce{
+        .tox-editor-container{
+         .tox-editor-header{
+             z-index: 0 !important;
+          }
         }
     }
 }

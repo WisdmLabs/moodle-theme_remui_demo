@@ -25,10 +25,10 @@
 <section id="edwiser-slider">
         {{# isslider }}
         <!-- slider -->
-        <div class="carousel slide" id="edwiser-carousel-old" data-interval="{{ slideinterval }}" data-ride="carousel">
+        <div class="carousel slide" id="edwiser-carousel-old" data-interval="{{ slideinterval }}" data-ride="carousel" data-bs-ride="carousel">
             <ol class="carousel-indicators">
                 {{# slides }}
-                    <li data-slide-to="{{count}}" data-target="#edwiser-carousel-old" class="{{#active}}active{{/active}}"></li>
+                    <li data-slide-to="{{count}}" data-target="#edwiser-carousel-old" data-bs-slide-to="{{count}}" data-bs-target="#edwiser-carousel-old" class="{{#active}}active{{/active}}"></li>
                 {{/ slides}}
             </ol>
 
@@ -45,11 +45,11 @@
                     </div>
                 {{/ slides }}
 
-                <a class="carousel-control-prev" href="#edwiser-carousel-old" role="button" data-slide="prev">
+                <a class="carousel-control-prev" href="#edwiser-carousel-old" role="button" data-target="#edwiser-carousel-old" data-bs-target="#edwiser-carousel-old" data-slide="prev" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon edw-icon edw-icon-Left-Arrow" aria-hidden="true"></span>
                     <span class="sr-only">Previous</span>
                 </a>
-                <a class="carousel-control-next" href="#edwiser-carousel-old" role="button" data-slide="next">
+                <a class="carousel-control-next" href="#edwiser-carousel-old" role="button" data-target="#edwiser-carousel-old" data-bs-target="#edwiser-carousel-old" data-slide="next" data-bs-slide="next">
                     <span class="carousel-control-next-icon edw-icon edw-icon-Right-Arrow" aria-hidden="true"></span>
                     <span class="sr-only">Next</span>
                 </a>

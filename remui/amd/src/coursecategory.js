@@ -6,6 +6,7 @@
 /* eslint-disable no-trailing-spaces*/
 /* eslint-disable promise/catch-or-return*/
 
+/* eslint-disable no-undef*/
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -34,7 +35,7 @@ define([
     'core/templates',
     'theme_remui/jquery-toolbar',
     'core/notification',
-    'core_user/repository',
+    'theme_remui/user/repository',
     'theme_remui/bootstrap-select'
 ], function($, Ajax, str, templates, toolbar, Notification,UserRepository) {
 
@@ -567,7 +568,7 @@ define([
         var clckviewbtn = $(this).attr('data-view');
         filterobj.view = clckviewbtn;
         updateView(filterobj.view);
-        UserRepository.setUserPreference('course_view_state', clckviewbtn, null);
+            UserRepository.setUserPreference('course_view_state', clckviewbtn, null);
         courseFilterCommon();
     });
 
@@ -815,8 +816,8 @@ define([
 
         // Set default sort option if not already set
         if (!activesort || activesort.length == 0) {
-            activesort = $(SELECTORS.COURSE_SORTING + " .select-option[data-value='newest']");
-            courseArchieveFilters.sort = 'newest';
+            activesort = $(SELECTORS.COURSE_SORTING + " .select-option[data-value='none']");
+            courseArchieveFilters.sort = 'none';
         }
 
         // Save filters to session storage

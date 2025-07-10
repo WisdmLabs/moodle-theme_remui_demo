@@ -1,3 +1,4 @@
+/* eslint-disable no-console, no-unused-vars */
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -38,12 +39,18 @@ var SELECTOR = {
     BACKGROUNDCOLOR: '[name="header-background-color"]',
     SITENAMECOLOR: '[name="sitenamecolor"]',
     LOGOBGCOLOR: '[name="logo-bg-color"]',
+    DARKMODELOGO: '[name="darkmodelogo"]',
+    DARKMODELOGOMINI: '[name="darkmodelogomini"]',
     FOOTER: {
         SHOWLOGO: '[name="footershowlogo"]',
         USEHEADER: '[name="useheaderlogo"]'
     }
 };
 
+var CONSTANTS = {
+    NIGHTEYESTATE: 'nighteyewState',
+    CURRNIGHTEYESTATE: 'currnighteyewState'
+};
 /**
  * True if footer logo is on and use header checked.
  * @returns {boolean}
@@ -62,13 +69,19 @@ function logoSelectorHandler() {
         ${SELECTOR.LOGO},
         ${SELECTOR.LOGOMINI},
         ${SELECTOR.BACKGROUNDCOLOR},
-        ${SELECTOR.SITENAMECOLOR}
+        ${SELECTOR.SITENAMECOLOR},
+        ${SELECTOR.DARKMODELOGO},
+        ${SELECTOR.DARKMODELOGOMINI}
     `).closest('.setting-item').addClass('d-none');
     switch ($(SELECTOR.LOGOORSITENAME).val()) {
         case 'logo':
             $(`${SELECTOR.LOGO}`).closest('.setting-item').removeClass('d-none');
+            $(`${SELECTOR.DARKMODELOGO}`).closest('.setting-item').removeClass('d-none');
 
             itemid = $(SELECTOR.LOGO).val();
+            if(localStorage.getItem(CONSTANTS.NIGHTEYESTATE) == 1) {
+                itemid = $(SELECTOR.DARKMODELOGO).val();
+            }
             Utils.getFileURL(itemid).done(function(response) {
                 if (response == '') {
                     response = M.cfg.wwwroot + '/theme/remui/pix/logo.png';
@@ -85,8 +98,13 @@ function logoSelectorHandler() {
             break;
         case 'logomini':
             $(`${SELECTOR.LOGOMINI}`).closest('.setting-item').removeClass('d-none');
+            $(`${SELECTOR.DARKMODELOGOMINI}`).closest('.setting-item').removeClass('d-none');
 
             itemid = $(SELECTOR.LOGOMINI).val();
+            if(localStorage.getItem(CONSTANTS.NIGHTEYESTATE) == 1) {
+                itemid = $(SELECTOR.DARKMODELOGOMINI).val();
+            }
+
             Utils.getFileURL(itemid).done(function(response) {
                 if (response == '') {
                     response = M.cfg.wwwroot + '/theme/remui/pix/logomini.png';

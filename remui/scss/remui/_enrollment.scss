@@ -101,7 +101,7 @@ $course-metadata-gap: 70px;
                 .list-item-group {
                     .list-item {
                         padding: map-get($spacerspx, 4) map-get($spacerspx, 6);
-                        
+
                         .custom-title-wrapper{
                             width: 40%;
                         }
@@ -118,6 +118,9 @@ $course-metadata-gap: 70px;
 
                         @include media-breakpoint-down(lg) {
                             padding: map-get($spacerspx, 4);
+                        }
+                        &.edwfocusmode{
+                            display: none !important;
                         }
                     }
 
@@ -260,7 +263,7 @@ $course-metadata-gap: 70px;
                     transform: translateY(-90%);
                     clip-path: polygon(47% 0, 53% 0, 100% 100%, 0% 100%);
                     z-index: -1;
-                
+
                     &::before {
                         content: "";
                         position: absolute;
@@ -340,7 +343,7 @@ $course-metadata-gap: 70px;
         }
         .video-container {
             padding: map-get($spacerspx, 4) map-get($spacerspx, 6) map-get($spacerspx, 6);
-            
+
             .videoframe {
                 width: 100%;
                 min-height: 390px;
@@ -402,7 +405,7 @@ $course-metadata-gap: 70px;
         }
         .pricing-section {
             gap: map-get($gapspace, 6);
-            
+
             .top {
                 gap: map-get($gapspace, 4);
             }
@@ -412,11 +415,11 @@ $course-metadata-gap: 70px;
             }
         }
         .doted-border {
-            border: 2px dashed $medium-border; 
+            border: 2px dashed $medium-border;
         }
     }
 
-    .edw-icon:not(.btn .edw-icon):not(.textlink-with-icon .edw-icon):not(#edw-quick-menu .edw-icon) {
+    .edw-icon:not(.btn .edw-icon):not(.textlink-with-icon .edw-icon):not(#edw-quick-menu .edw-icon):not(.asw-container .edw-icon) {
         color: $ic-default;
     }
 
@@ -473,7 +476,7 @@ $course-metadata-gap: 70px;
         .dashboard-card{
             filter: unset !important;
         }
-        
+
         .edw-icon {
             font-size: $edw-icon-size-small;
             color: $ic-default;
@@ -640,6 +643,14 @@ $course-metadata-gap: 70px;
                     transition: rotate .3s ease-in-out;
                 }
             }
+        }
+    }
+    .accordion-list-item + .subsection-wrapper {
+        border-top: 1px solid  $medium-border;
+     }
+    .subsection-wrapper {
+        &:has(+ .accordion-list-item) {
+          border-bottom: 1px solid $medium-border;
         }
     }
 }

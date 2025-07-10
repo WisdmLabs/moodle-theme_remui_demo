@@ -29,7 +29,10 @@ global $PAGE, $OUTPUT;
 if (optional_param('section', '', PARAM_TEXT) == 'themesettingremui') {
     // Handle license status change on form submit.
     $licensecontroller = new theme_remui\controller\LicenseController();
-    $licensecontroller->serve_license_data();
+    $licensedata = $licensecontroller->serve_license_data();
+    if ($licensedata) {
+        set_config('edd_remui_setup_license_data', json_encode($licensedata), 'theme_remui');
+    }
 
     // Form is submitted with changed settings. Do not want to execute when modifying a block.
     $data = data_submitted();
@@ -77,6 +80,25 @@ if ($ADMIN->fulltree) {
 
     $page = new admin_settingpage('theme_remui_general', new lang_string('generalsettings', 'theme_remui'));
 
+    $setupwizard = new \theme_remui\setupwizard();
+    $setupstatus = $setupwizard->get_setup_status();
+
+    if($setupstatus != 'finished' && (get_config('theme_remui', 'setupinstallcheck'))) {
+        //setupwizard setting.
+        $page->add(new admin_setting_heading(
+            'theme_remui_setupwizard',
+            new lang_string('setupwizardsettingpagehead', 'theme_remui'),
+            format_text(new lang_string('setupwizardsettingpagedesc', 'theme_remui'), FORMAT_MARKDOWN)
+        ));
+
+        $name = 'theme_remui/setupwizard';
+        $title = new lang_string('setupwizard', 'theme_remui');
+        $description = new lang_string('setupwizarddesc', 'theme_remui');
+        $default = false;
+        $setting = new admin_setting_configcheckbox($name, $title, $description, $default, true, false);
+        $setting->set_updatedcallback('theme_reset_all_caches');
+        $page->add($setting);
+    }
     // General Page site announcement Settings.
     $page->add(new admin_setting_heading(
         'theme_remui_general',
@@ -186,20 +208,20 @@ if ($ADMIN->fulltree) {
     $remuisettings['logoorsitename'] = [
         [
             'value'  => 'logo',
-            'show' => ['logo'],
-            'hide' => ['logomini', 'siteicon']
+            'show' => ['logo','darkmodelogo'],
+            'hide' => ['logomini', 'siteicon', 'darkmodelogomini']
         ], [
             'value'  => 'logomini',
-            'show' => ['logomini'],
-            'hide' => ['logo', 'siteicon']
+            'show' => ['logomini', 'darkmodelogomini'],
+            'hide' => ['logo', 'siteicon', 'darkmodelogo']
         ], [
             'value'  => 'icononly',
             'show' => ['siteicon'],
-            'hide' => ['logo', 'logomini']
+            'hide' => ['logo', 'logomini', 'darkmodelogo', 'darkmodelogomini']
         ], [
             'value'  => 'iconsitename',
             'show' => ['siteicon'],
-            'hide' => ['logo', 'logomini']
+            'hide' => ['logo', 'logomini', 'darkmodelogo', 'darkmodelogomini']
         ]
     ];
 
@@ -218,6 +240,22 @@ if ($ADMIN->fulltree) {
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
+    // Logo file setting in dark mode.
+    $name = 'theme_remui/darkmodelogo';
+    $title = new lang_string('darkmodelogo', 'theme_remui');
+    $description = new lang_string('darkmodelogodesc', 'theme_remui');
+    $setting = new admin_setting_configstoredfile(
+        $name,
+        $title,
+        $description,
+        'darkmodelogo',
+        0,
+        array('subdirs' => 0, 'accepted_types' => 'web_image')
+    );
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+
     // LogoMini file setting.
     $name = 'theme_remui/logomini';
     $title = new lang_string('logomini', 'theme_remui');
@@ -227,6 +265,22 @@ if ($ADMIN->fulltree) {
         $title,
         $description,
         'logomini',
+        0,
+        array('subdirs' => 0, 'accepted_types' => 'web_image')
+    );
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+
+    // LogoMini file setting for dark mode.
+    $name = 'theme_remui/darkmodelogomini';
+    $title = new lang_string('darkmodelogomini', 'theme_remui');
+    $description = new lang_string('darkmodelogominidesc', 'theme_remui');
+    $setting = new admin_setting_configstoredfile(
+        $name,
+        $title,
+        $description,
+        'darkmodelogomini',
         0,
         array('subdirs' => 0, 'accepted_types' => 'web_image')
     );
@@ -344,7 +398,6 @@ if ($ADMIN->fulltree) {
     );
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
-
     $remuisettings['enablesiteloader'] = [[
         'value'  => true,
         'show' => ['loaderimage'],
@@ -415,6 +468,21 @@ if ($ADMIN->fulltree) {
         ]
     ];
 
+    // Accessibility widgets settings
+    $page->add(new admin_setting_heading(
+        'theme_remui_accessbilityfeatures',
+        new lang_string('accessbilityfeatureshead', 'theme_remui'),
+        format_text(new lang_string('accessbilityfeaturesheaddesc', 'theme_remui'), FORMAT_MARKDOWN)
+    ));
+
+    // Dictionary.
+    $name = 'theme_remui/enableaccessibilitytools';
+    $title = new lang_string('enableaccessibilitytools', 'theme_remui');
+    $description = new lang_string('enableaccessibilitytoolsdesc', 'theme_remui');
+    $default = true;
+    $setting = new admin_setting_configcheckbox($name, $title, $description, $default, true, false);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
     // Advance features settings
     $page->add(new admin_setting_heading(
         'theme_remui_advancefetures',
@@ -1166,15 +1234,18 @@ if ($ADMIN->fulltree) {
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
-    $name = 'theme_remui/enablefocusmode';
-    $title = new lang_string('enablefocusmode', 'theme_remui');
-    $description = new lang_string('enablefocusmodedesc', 'theme_remui');
-    $default = true;
-    $setting = new admin_setting_configcheckbox($name, $title, $description, $default, true, false);
+    $name = 'theme_remui/focusmode';
+    $title = new lang_string('focusmode', 'theme_remui');
+    $description = new lang_string('focusmodedesc', 'theme_remui');
+    $default = 1; // Default to 'Focus mode on'
+    $options = array(
+        1 => new lang_string('focusmodeon', 'theme_remui'),
+        0 => new lang_string('focusmodeoff', 'theme_remui'),
+        2 => new lang_string('forcefocusmode', 'theme_remui'),
+    );
+    $setting = new admin_setting_configselect($name, $title, $description, $default, $options);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
-
-
 
     // Setting for next and previous button in activity.
     $name = 'theme_remui/activitynextpreviousbutton';
@@ -1772,7 +1843,7 @@ if ($ADMIN->fulltree) {
     $title = new lang_string('footertermsandconditions', 'theme_remui');
     $description = new lang_string('footertermsandconditionsdesc', 'theme_remui');
     $default = "#";
-    $setting = new admin_setting_configtext($name, $title, $description, $default, true, false);
+    $setting = new admin_setting_configtext($name, $title, $description, $default);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
@@ -1796,7 +1867,7 @@ if ($ADMIN->fulltree) {
     $title = new lang_string('footerprivacypolicy', 'theme_remui');
     $description = new lang_string('footerprivacypolicydesc', 'theme_remui');
     $default = "#";
-    $setting = new admin_setting_configtext($name, $title, $description, $default, true, false);
+    $setting = new admin_setting_configtext($name, $title, $description, $default);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
@@ -1887,6 +1958,22 @@ if ($ADMIN->fulltree) {
     $page->add($setting);
 
 
+    // Whatsapp.
+    $name = 'theme_remui/whatsappsetting';
+    $title = new lang_string('whatsappsetting', 'theme_remui');
+    $description = new lang_string('whatsappsettingdesc', 'theme_remui');
+    $default = '';
+    $setting = new admin_setting_configtext($name, $title, $description, $default);
+    $page->add($setting);
+
+
+    // Telegram.
+    $name = 'theme_remui/telegramsetting';
+    $title = new lang_string('telegramsetting', 'theme_remui');
+    $description = new lang_string('telegramsettingdesc', 'theme_remui');
+    $default = '';
+    $setting = new admin_setting_configtext($name, $title, $description, $default);
+    $page->add($setting);
     $settings->add($page);
 
     // Login Page Settings.
@@ -2001,5 +2088,9 @@ if (optional_param('section', '', PARAM_TEXT) == 'themesettingremui') {
     $PAGE->requires->js_call_amd('theme_remui/redirectsettingshandler', 'init');
 }
 
-// $PAGE->requires->js_call_amd('theme_remui/setupwizard', 'skipUpgrade');
+$showmodal = false;
+if (get_config("theme_remui", "setupinstallcheck") == "showmodal") {
+    $showmodal = true;
+}
+$PAGE->requires->js_call_amd('theme_remui/setupwizard', 'registerModalEvents', [$showmodal]);
 // $PAGE->requires->js_call_amd('theme_remui/setupwizard', 'addButtonOnsetup');

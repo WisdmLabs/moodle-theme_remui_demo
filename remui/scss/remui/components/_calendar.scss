@@ -152,7 +152,8 @@ aside:not(#block-region-side-pre) {
                 span.day-number-circle {
                     border-radius: $day-circle-border-radius;
                     color: $calendarCurrentDateColor;
-                    background-color: $calendarCurrentDateBackground;
+                    // background-color: $calendarCurrentDateBackground;
+                    background-color: $brand-primary;
                     // @include get-drop-shadow(xs);
                     @include get-box-shadow-custom(sm, $brand-primary, 21%);
 
@@ -256,6 +257,9 @@ aside:not(#block-region-side-pre) {
             }
         }
         .calendar-controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             a {
                 &:hover {
                     text-decoration: none;
@@ -410,4 +414,8 @@ aside:not(#block-region-side-pre) {
             margin-bottom: 1.5rem;
         }
     }
+}
+.yui3-u.yui3-calendarnav-prevmonth,
+.yui3-u.yui3-calendarnav-nextmonth{
+    box-shadow: unset !important;
 }

@@ -36,29 +36,61 @@ class remui_stats_update extends \core\task\scheduled_task {
     }
 
     /**
-     * Execute the task.
-     * @return void
+     * Executes the task of updating the dashboard and course statistics for the Remui theme.
+     *
+     * This task is responsible for updating the dashboard and course statistics for the Remui theme.
+     * It retrieves the user IDs and course IDs, and then updates the statistics for each user and course.
+     * The task also sets the cache reset time to ensure the statistics are updated correctly.
      */
     public function execute() {
-        if(get_config( "theme_remui", "enabledashboardcoursestats")) {
-            $allusers = get_users();
-            foreach($allusers as $user) {
-                $coursehandler = new \theme_remui_coursehandler();
-                $coursehandler->set_dashboard_stats($user->id);
+        set_time_limit(0);
+        $coursehandler = new \theme_remui_coursehandler();
+
+        if (get_config("theme_remui", "enabledashboardcoursestats")) {
+            $userids = $this->get_user_ids();
+            foreach ($userids as $userid) {
+                $coursehandler->set_dashboard_stats($userid);
+                // Free up memory
+                \core_php_time_limit::raise(30);
+                gc_collect_cycles();
             }
             set_config('cache_reset_time', time(), 'theme_remui');
         } else {
             set_config("edwdashboardstats", "", "theme_remui");
         }
 
-        if(get_config( "theme_remui", "enablecoursestats")) {
-            $allcourses = get_courses();
-            foreach($allcourses as $course) {
-                $coursehandler->set_course_stats($course,true);
+        if (get_config("theme_remui", "enablecoursestats")) {
+            $courseids = $this->get_course_ids();
+            foreach ($courseids as $courseid) {
+                $course = get_course($courseid);
+                $coursehandler->set_course_stats($course, true);
+                // Free up memory
+                \core_php_time_limit::raise(30);
+                gc_collect_cycles();
             }
             set_config('cache_reset_time', time(), 'theme_remui');
         } else {
             set_config("edwcoursestats", "", "theme_remui");
         }
+    }
+
+    /**
+     * Retrieves a list of user IDs for all non-deleted users.
+     *
+     * @return array An array of user IDs.
+     */
+    private function get_user_ids() {
+        global $DB;
+        return $DB->get_fieldset_select('user', 'id', 'deleted = 0');
+    }
+
+    /**
+     * Retrieves a list of course IDs for all courses except the site course (with ID 1).
+     *
+     * @return array An array of course IDs.
+     */
+    private function get_course_ids() {
+        global $DB;
+        return $DB->get_fieldset_select('course', 'id', 'id <> :siteid', ['siteid' => SITEID]);
     }
 }

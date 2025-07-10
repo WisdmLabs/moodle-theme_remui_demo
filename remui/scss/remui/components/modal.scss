@@ -713,6 +713,7 @@
             .blocklayout-wrapper{
                 display: none;
             }
+            .importblock.static-block,
             .html.static-block{
                 display: none;
             }
@@ -724,6 +725,7 @@
             .dynamic-wrapper{
                 display: none;
             }
+            .importblock.static-block,
             .html.static-block{
                 display: none;
             }
@@ -787,6 +789,7 @@
             }
 
             // html block SCSS
+            .static-block.importblock,
             .static-block.html{
                 height: fit-content;
                 padding: map-get($spacerspx, "6");
@@ -850,6 +853,7 @@
                                 justify-content: center;
                                 align-items: center;
                                 color: $link-color;
+                                .edw-icon-Download,
                                 .edw-icon-Add-block{
                                     display: flex !important;
                                     align-items: center;
@@ -866,6 +870,11 @@
                     }
                 }
             }
+
+            .static-block.importblock {
+                padding-top: map-get($spacerspx, "3");
+            }
+
             .left-sidebar-mid-region{
                 background-color: $bg-small-ui;
                 height: 100%;
@@ -1078,4 +1087,6 @@
     100% {top: -67%}
 }
 
-
+.modal-content {
+    --bs-body-bg: #FFF;
+ }

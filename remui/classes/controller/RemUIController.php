@@ -344,4 +344,57 @@ class RemUIController {
         }
         return $templatecontext;
     }
+    /**
+     * Requests license data for the setup wizard.
+     *
+     * @param mixed $config The configuration object.
+     * @return object|null The license data, or null if there was an error.
+     */
+    public function request_license_data_for_setup_wizard($key){
+
+        global $CFG;
+
+
+        $licensekey = $key;
+
+        // Get cURL resource.
+        $curl = new curl();
+
+        $curl->setopt([
+            'CURLOPT_RETURNTRANSFER' => 1,
+            'CURLOPT_URL' => STOREURL,
+            'CURLOPT_POST' => 1,
+            'CURLOPT_USERAGENT' => $_SERVER['HTTP_USER_AGENT'] . ' - ' . $CFG->wwwroot,
+            'CURLOPT_TIMEOUT' => 30,
+            'CURLOPT_SSL_VERIFYPEER' => false
+        ]);
+
+        // Since edwiser.org dose not accept request from the IPv6 address to solve that problem,
+        // Try to send request using IPv4 address.
+        if (defined('CURLOPT_IPRESOLVE') && defined('CURL_IPRESOLVE_V4')) {
+            $curl->setopt(['CURLOPT_IPRESOLVE' => CURL_IPRESOLVE_V4]);
+        }
+
+        $url = "https://edwiser.org/wp-json/edd/v1/validate-license";
+        // Send the request & save response to $resp.
+        $resp = $curl->post($url, array(
+            'license_key' => $licensekey,
+            'item_name' => urlencode(PLUGINNAME),
+            'current_version' => PLUGINVERSION,
+            'url' => urlencode($CFG->wwwroot),
+            'CURLOPT_USERAGENT' => $_SERVER['HTTP_USER_AGENT'] . ' - ' . $CFG->wwwroot,
+        ));
+
+        $responsecode = $curl->info['http_code'];
+
+        try {
+            $licensedata = json_decode($resp);
+        } catch (Exception $ex) {
+            $licensedata = null;
+            // utility::throw_error("errorparsingresponse", 30); // Throw exception - Error while Parsing the response.
+        }
+
+        return $licensedata;
+
+    }
 }

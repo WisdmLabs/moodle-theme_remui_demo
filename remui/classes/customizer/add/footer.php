@@ -95,7 +95,7 @@ trait footer {
             ]
         );
 
-        $socials = ['facebook', 'twitter', 'linkedin', 'gplus', 'youtube', 'instagram', 'pinterest', 'quora'];
+        $socials = ['facebook', 'twitter', 'linkedin', 'gplus', 'youtube', 'instagram', 'pinterest', 'quora', 'whatsapp', 'telegram'];
 
         // Footer social settings.
         foreach ($socials as $social) {
@@ -577,7 +577,7 @@ trait footer {
         $defaulttypes = ['customhtml', 'customhtml', 'customhtml', 'customhtml'];
 
         // Default social link selection.
-        $socials = ['facebook', 'twitter', 'linkedin', 'gplus', 'youtube', 'instagram', 'pinterest', 'quora'];
+        $socials = ['facebook', 'twitter', 'linkedin', 'gplus', 'youtube', 'instagram', 'pinterest', 'quora', 'whatsapp', 'telegram'];
 
         // Generating select input options for social link selection.
         $socialoptions = [];
@@ -767,6 +767,24 @@ trait footer {
             ]
         );
 
+        // secondaryfooterlogodarkmode.
+        $label = get_string('secondaryfooterlogodarkmode', 'theme_remui');
+        $name = 'secondaryfooterlogodarkmode';
+        $this->add_setting(
+            'file',
+            $name,
+            $label,
+            $panel,
+            [
+                'help' => get_string('secondaryfooterlogodarkmode', 'theme_remui'),
+                'description' => get_string('favicosize', 'theme_remui'),
+                'options' => [
+                    'subdirs' => 0,
+                    'maxfiles' => 1,
+                    'accepted_types' => array('web_image')
+                ]
+            ]
+        );
         // Show privacy policy the footer.
         $label = get_string('footerprivacypolicyshow', 'theme_remui');
         $this->add_setting(

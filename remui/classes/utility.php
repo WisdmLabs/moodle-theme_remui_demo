@@ -79,7 +79,7 @@ class utility {
 
         $mainarr = [];
         $coursecategorytext = get_config('theme_remui', 'coursecategoriestext');
-        $mainarr['text'] = $coursecategorytext == "" ? get_string('coursecategories', 'theme_remui') : $coursecategorytext;
+        $mainarr['text'] = $coursecategorytext == "" ? get_string('coursecategories', 'theme_remui') : format_text($coursecategorytext, FORMAT_HTML);
         $mainarr['key'] = 'coursecat';
         $mainarr['url'] = "#";
         $mainarr['children'] = [];
@@ -226,7 +226,7 @@ class utility {
         return $contextmenu;
     }
     public static function get_login_menu_data($primarymenu) {
-        global $PAGE;
+        global $PAGE, $CFG;
 
         $loginpopup = [];
 
@@ -255,6 +255,12 @@ class utility {
                 }
                 $loginpopup['authmethods'][] = $authmethod;
             }
+        }
+
+        // ReCaptcha.
+        if (login_captcha_enabled()) {
+            require_once($CFG->libdir . '/recaptchalib_v2.php');
+            $loginpopup['recaptcha'] = recaptcha_get_challenge_html(RECAPTCHA_API_URL, $CFG->recaptchapublickey);
         }
 
         $primarymenu['user']['unauthenticateduser']['loginpopup'] = $loginpopup;
@@ -347,6 +353,18 @@ class utility {
                 'icon' => "icon fa fa-quora",
                 'link' => $customizer->get_config('quorasetting'),
                 'title' => get_string('follometext', 'theme_remui', 'quore')
+            ],
+            'whatsapp' => [
+                'class' => "social-whatsapp",
+                'icon' => "icon fa fa-whatsapp",
+                'link' => $customizer->get_config('whatsappsetting'),
+                'title' => get_string('follometext', 'theme_remui', 'WhatsApp')
+            ],
+            'telegram' => [
+                'class' => "social-telegram",
+                'icon' => "icon fa fa-telegram",
+                'link' => $customizer->get_config('telegramsetting'),
+                'title' => get_string('follometext', 'theme_remui', 'Telegram')
             ]
         ];
 
@@ -390,7 +408,9 @@ class utility {
 
             $footerarr['menu'] = $customizer->get_config('footercolumn'.$i.'menu');
             if (!empty($footerarr['menu'])) {
-                $footerarr['menu'][0]['text'] = format_text($footerarr['menu'][0]['text'], FORMAT_HTML,array("noclean"=> true));
+                foreach ($footerarr['menu'] as $key => $item) {
+                    $footerarr['menu'][$key]['text'] = format_text($item['text'], FORMAT_HTML,array("noclean"=> true));
+                }
             }
             $footer['sections'][] = $footerarr;
         }
@@ -409,9 +429,14 @@ class utility {
         $secondaryfooterlogo = '';
         if (!$footer['useheaderlogo']) {
             $secondaryfooterlogo = \theme_remui\toolbox::setting_file_url('secondaryfooterlogo', 'secondaryfooterlogo');
+            $secondaryfooterlogodarkmode = \theme_remui\toolbox::setting_file_url('secondaryfooterlogodarkmode', 'secondaryfooterlogodarkmode');
             if (empty($secondaryfooterlogo)) {
                 $secondaryfooterlogo = \theme_remui\toolbox::image_url('logo', 'theme_remui');
             }
+            if (empty($secondaryfooterlogodarkmode)) {
+                $secondaryfooterlogodarkmode = $secondaryfooterlogo;
+            }
+            $footer['secondaryfooterlogodarkmode'] = $secondaryfooterlogodarkmode;
         }
         $footer['secondaryfooterlogo'] = $secondaryfooterlogo;
         // Show social icons in secondary footer.
@@ -575,9 +600,11 @@ class utility {
         $current = '';
         $next = '';
 
+        $sectiondelegatedsectionmap = [];
         foreach ($sections as $sectiondata) {
             $section = new stdClass;
             $section->sectionid = 'Section-'.$sectiondata->id;
+            $section->id = $sectiondata->id;
             $section->section = $sectiondata->section;
             $section->name = get_section_name($course, $sectiondata->section);
             $section->hasactivites = false;
@@ -589,12 +616,22 @@ class utility {
 
             foreach ($modinfo->sections[$sectiondata->section] as $cmid) {
                 $cm = $modinfo->cms[$cmid];
+                $activity = new stdClass;
+
+                if ($cm->modname == 'subsection') {
+                    $activity->delegatesectionid = $cm->__get('customdata')['sectionid'];
+                    $sectiondelegatedsectionmap[$activity->delegatesectionid] = $sectiondata->id;
+                    $section->activities[$activity->delegatesectionid] = $activity;
+                    $section->hasactivites = true;
+                    continue;
+                }
 
                 // Only add activities the user can access, aren't in stealth mode and have a url (eg. mod_label does not).
                 if (!$cm->uservisible || $cm->is_stealth() || empty($cm->url)) {
                     continue;
                 }
-                $activity = new stdClass;
+                $completion = new \completion_info($course);
+                $moduledata = $completion->get_data($cm, false, $USER->id);
                 $activity->id = $cm->id;
                 $activity->course = $course->id;
                 $activity->section = $sectiondata->section;
@@ -604,6 +641,7 @@ class utility {
                 $activity->modname = $cm->modname;
                 $activity->onclick = $cm->onclick;
                 $activity->active = '';
+                $activity->completionstate = $moduledata->completionstate;
                 $url = $cm->url;
                 if (!$url) {
                     $activity->url = null;
@@ -628,12 +666,85 @@ class utility {
                         }
                     }
                     $section->hasactivites = true;
-                    $section->activities[] = $activity;
+                    $section->activities[$cm->id] = $activity;
                 }
             }
-            $allsections[] = $section;
+            $allsections[$sectiondata->id] = $section;
         }
-        if (count($allsections) != 0 && $active == '') {
+        // Add the delegated sections to the parent section
+        foreach ($sectiondelegatedsectionmap as $key => $singlesection) {
+            // Reference to the parent section in the allsections array
+            $parentsection = &$allsections[$singlesection];
+
+            // Add the referenced section to the delegatedsections array
+            $parentsection->activities[$key] = &$allsections[$key];
+            // Check if activities exist and is an array before calling array_values
+            if (isset($allsections[$key]->active) && ($allsections[$key]->active == 'show')) {
+                $parentsection->active = 'show';
+            }
+            if (isset($parentsection->activities[$key]->activities) && is_array($parentsection->activities[$key]->activities)) {
+                $parentsection->activities[$key]->activities = array_values($parentsection->activities[$key]->activities);
+                $parentsection->activities[$key]->isdelegatedsection = true;
+            }
+
+
+            unset($allsections[$key]);
+
+        }
+
+        $allsections = array_values($allsections);
+
+        // Remove null or unset activities
+        foreach ($allsections as &$singlesection) {
+            if (isset($singlesection->activities) && is_array($singlesection->activities)) {
+                // Use array_filter to safely remove null or unset activities
+                $singlesection->activities = array_values(
+                    array_filter(
+                        $singlesection->activities,
+                        function ($activity) {
+                            return isset($activity);
+                        }
+                    )
+                );
+            }
+        }
+        // Unset the reference to avoid unintended modifications
+        unset($singlesection);
+        // Create an ordered flat array of all activities.
+        $orderedactivities = [];
+        foreach ($allsections as $section) {
+            foreach ($section->activities as $activity) {
+                if (isset($activity->isdelegatedsection) && $activity->isdelegatedsection) {
+                    foreach ($activity->activities as $delegatedactivity) {
+                        $orderedactivities[] = $delegatedactivity;
+                    }
+                } else {
+                    $orderedactivities[] = $activity;
+                }
+            }
+        }
+
+        // Determine the previous, current, and next activities.
+        $previous = '';
+        $next = '';
+        $active = '';
+        foreach ($orderedactivities as $key => $activity) {
+            if ($activity->id == $coursemoduleid) {
+                $activity->active = 'active';
+                $active = $activity->name;
+
+                if (isset($orderedactivities[$key - 1])) {
+                    $previous = $orderedactivities[$key - 1]->url . '&forceview=1';
+                }
+                if (isset($orderedactivities[$key + 1])) {
+                    $next = $orderedactivities[$key + 1]->url . '&forceview=1';
+                }
+                break;
+            }
+        }
+
+        // If no active activity found, mark the first section as active.
+        if ($active == '' && count($allsections) > 0) {
             $allsections[0]->active = 'show';
             $allsections[count($allsections) - 1]->last = true;
         }
@@ -2002,6 +2113,14 @@ class utility {
         // Define course sorting options.
         $coursesortings = [
             [
+                'sortingoptions' => [
+                    [
+                        'value' => 'none',
+                        'text' => get_string('default', 'theme_remui'),
+                    ],
+                ],
+            ],
+            [
                 'sortinglabel' => get_string('date', 'theme_remui'),
                 'sortingoptions' => [
                     [
@@ -2110,6 +2229,86 @@ class utility {
         return $skilllevel;
     }
 
+    /**
+     * Retrieves user information feedback questions from a given URL.
+     *
+     * This function fetches the content from the provided URL, replaces a placeholder
+     * with the site's URL, and then decodes the JSON content. If the URL is empty or
+     * the content cannot be fetched or decoded, the function returns null.
+     *
+     * @param string $url The URL to fetch the user information feedback questions from.
+     * @return array|null The decoded JSON content, or null if the fetch or decoding fails.
+     */
+    public static function get_content_from_json($url) {
+        global $CFG;
+
+        if (!$url) {
+            return null;
+        }
+
+        // Use a timeout to prevent hanging on slow connections
+        $context = stream_context_create(['http' => ['timeout' => 5]]);
+        $jsoncontent = @file_get_contents($url, false, $context);
+
+        if ($jsoncontent === false) {
+            debugging('Unable to fetch whatsnew data', DEBUG_DEVELOPER);
+            return null;
+        }
+
+        $jsoncontent = str_replace('{{>siteurl}}', $CFG->wwwroot, $jsoncontent);
+
+        $jsoncontent = json_decode($jsoncontent, true);
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            debugging('Invalid JSON in whatsnew data', DEBUG_DEVELOPER);
+            return null;
+        }
+
+        return $jsoncontent;
+    }
+
+    public static function check_internet_connection() {
+        $hosts = ['www.google.com', 'www.cloudflare.com'];
+        $ports = [80, 443];
+        $timeout = 5;
+
+        foreach ($hosts as $host) {
+            foreach ($ports as $port) {
+                $connected = @fsockopen($host, $port, $errno, $errstr, $timeout);
+                if ($connected) {
+                    fclose($connected);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Enables the Accessibility Widget (AW) menu in the Remui theme.
+     *
+     * This function checks if the Accessibility Tools feature is enabled in the Remui theme settings.
+     * If enabled, it loads the necessary JavaScript strings and initializes the AW helper module.
+     * It also checks the user's ACS widget status and loads the AW JavaScript file if the widget is not disabled and the current page is not the Remui customizer page.
+     * If the current page is the Remui customizer page, it unsets the customizer_currenturl session variable.
+     */
+    public static function enable_edw_aw_menu() {
+        global $PAGE;
+
+        if (get_config('theme_remui', 'enableaccessibilitytools')) {
+            $PAGE->requires->strings_for_js(array(
+                'disable-aw-for-me',
+                'enable-aw-for-me',
+                'enable-aw-for-me-notice',
+                'disable-aw-for-me-notice',
+            ), 'theme_remui');
+            $PAGE->requires->js_call_amd('theme_remui/edw_aw_helper', 'init', ['issiteadmin' => is_siteadmin(), "feedbackstatus" => (get_user_preferences('acs-feedback-status') || !isloggedin() || isguestuser()), 'isloggedin' => isloggedin()]);
+            if (!get_user_preferences('acs-widget-status')) {
+                $PAGE->requires->js(new \moodle_url("/theme/remui/js/edw_aw.js"));
+            }
+
+        }
+    }
+
 
     public static function get_demonavbar_context(){
         global $CFG, $PAGE, $OUTPUT, $COURSE, $USER;
@@ -2166,47 +2365,95 @@ class utility {
         // check if user has switchable role
         if(count($availableroles) > 0 || is_role_switched($COURSE->id)) {
             $democontext["hasswitchablerolebtns"] = true;
-        } 
+        }
 
         $democontext["whatsnew"] = utility::get_whatsnew_data();
+
+        $democontext["offers"] = utility::get_offers_data();
 
         return $democontext;
     }
 
+    public static function get_offers_data() {
+        global $CFG;
+
+        // Return the static offer data
+        // return [
+        //     "hasoffer" => true,
+        //     "imagebtn" => "https://demo.tryremui.edwiser.org/backupcdn/images/imgbannerbtn.png",
+        //     "btnlink" => "#",
+        //     "subimagebtn" => false,
+        //     "hasimagebanner" => true,
+        //     "imagebanner" => "https://demo.tryremui.edwiser.org/backupcdn/images/imgbanner2.png",
+        //     "bannerlink" => "https://edwiser.org/moodle-christmas-sale/?utm_source=demo&utm_medium=demo_banner&utm_campaign=christmas_sale_2024"
+        // ];
+
+        // Get cache instance
+        $cache = \cache::make('theme_remui', 'offers');
+
+        // Check if data is already in cache
+        $offersContent = $cache->get('offersContent');
+        if ($offersContent !== false) {
+            return $offersContent;
+        }
+
+        $offers = 'https://demo.tryremui.edwiser.org/offers.json';
+
+        // Use a timeout to prevent hanging on slow connections
+        $context = stream_context_create(['http' => ['timeout' => 5]]);
+        $offersContent = @file_get_contents($offers, false, $context);
+
+        if ($offersContent === false) {
+            debugging('Unable to fetch offers data', DEBUG_DEVELOPER);
+            return null;
+        }
+
+        $offersContent = json_decode($offersContent, true);
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            debugging('Invalid JSON in offers data', DEBUG_DEVELOPER);
+            return null;
+        }
+
+        $cache->set('offersContent', $offersContent);
+
+        return $offersContent;
+    }
+
+
     public static function get_whatsnew_data() {
         global $CFG;
-    
+
         // Get cache instance
         $cache = \cache::make('theme_remui', 'whatsnew');
-    
+
         // Check if data is already in cache
         $whatsnewContent = $cache->get('whatsnewContent');
         if ($whatsnewContent !== false) {
             return $whatsnewContent;
         }
-    
+
         $whatsnew = 'https://demo.tryremui.edwiser.org/whatsnew.json';
-    
+
         // Use a timeout to prevent hanging on slow connections
         $context = stream_context_create(['http' => ['timeout' => 5]]);
         $whatsnewContent = @file_get_contents($whatsnew, false, $context);
-    
+
         if ($whatsnewContent === false) {
             debugging('Unable to fetch whatsnew data', DEBUG_DEVELOPER);
             return null;
         }
-    
+
         $siteUrl = $CFG->wwwroot;
         $whatsnewContent = str_replace('{{>siteurl}}', $siteUrl, $whatsnewContent);
-        
+
         $whatsnewContent = json_decode($whatsnewContent, true);
         if (json_last_error() !== JSON_ERROR_NONE) {
             debugging('Invalid JSON in whatsnew data', DEBUG_DEVELOPER);
             return null;
         }
-    
+
         $cache->set('whatsnewContent', $whatsnewContent);
-    
+
         return $whatsnewContent;
     }
 }

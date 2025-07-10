@@ -320,21 +320,69 @@ class theme_remui_coursehandler {
         // Focus Mode Code.
         $focusdata = [];
         if (($PAGE->pagelayout === 'course' || $PAGE->pagelayout === 'incourse') && $PAGE->pagetype !== "enrol-index") {
-            $focusdata['enabled'] = \theme_remui\toolbox::get_setting('enablefocusmode');
-            $focusdata['on'] = get_user_preferences('enable_focus_mode', false) && $focusdata['enabled'];
+
+            $userpreference = get_user_preferences('enable_focus_mode', null);
+            $focusmodpreference = $userpreference ? json_decode($userpreference, true) : null;
+            $focusmodesetting = \theme_remui\toolbox::get_setting('focusmode');
+
+
+
+            $focusdata['enabled'] = $focusmodesetting;
+
+            // Get course focus mode custom field value if exists
+            $coursefocusmodecustomfield = 0;
+            $metadata = get_course_metadata($COURSE->id);
+            if (isset($metadata["edwfocusmode"])) {
+                $coursefocusmodecustomfield = $metadata["edwfocusmode"];
+            }
+
+            // First check if focusmode setting is enabled
+            if ($focusmodesetting == 0 ||
+                ($focusmodesetting == 1 && $coursefocusmodecustomfield == 0)) {
+                $focusdata['on'] = false;
+            } else if ($focusmodesetting == 1 && $coursefocusmodecustomfield == 1 ||
+                      $focusmodesetting == 2) {
+                $focusdata['on'] = true;
+            }
+
+            $focusmodepreferencestatus = false;
+            if (!empty($focusmodpreference) && isset($focusmodpreference[$COURSE->id]) && ($focusmodesetting != 0)) {
+                $focusdata['on'] = (bool)$focusmodpreference[$COURSE->id];
+                $focusmodepreferencestatus = $focusdata['on'];
+            }
+
+            $coursecontext = context_course::instance($COURSE->id);
+
+            $roles = get_user_roles_in_course($USER->id, $COURSE->id);
+
+            if (
+                (is_siteadmin($USER) || preg_match('/\b(Teacher|Manager|coursecreator|Non-editing teacher)\b/', $roles)) &&
+                !$focusmodepreferencestatus
+            ) {
+                $focusdata['on'] = false;
+
+                // Currently this is not requre and in future be will remove this comment
+
+                // if ($PAGE->url->compare(new moodle_url('/course/view.php'), URL_MATCH_BASE)) {
+                //     $focusdata['admininfotext'] = get_string('focusmodeactiveadminmsg', 'theme_remui');
+                //     $focusdata['enableadmininfo'] = true;
+                // }
+            }
+            // $focusdata['on'] = get_user_preferences('enable_focus_mode', false) && $focusdata['enabled'];
             if ($focusdata['on']) {
                 $focusdata['btnbg'] = 'btn-danger';
-                $focusdata['btnicon'] = 'edw-icon edw-icon-Fullscreen-04';
+                $focusdata['btnicon'] = 'edw-icon edw-icon-Cancel';
+                $focusdata['btntext'] = get_string('focusmodeactivestatetext', 'theme_remui');
             } else {
                 $focusdata['btnbg'] = 'btn-primary';
                 $focusdata['btnicon'] = 'edw-icon edw-icon-Expand';
+                $focusdata['btntext'] = get_string('focusmodenormalstatetext', 'theme_remui');
             }
             $focusdata['coursename'] = format_text($COURSE->fullname, FORMAT_HTML);
             if ($PAGE->pagelayout === 'incourse') {
                 $focusdata['courseurl'] = $CFG->wwwroot . '/course/view.php?id=' . $COURSE->id;
             }
 
-            $coursecontext = context_course::instance($COURSE->id);
 
             if (is_enrolled($coursecontext, $USER->id)) {
                 $completion = new \completion_info($COURSE);
@@ -347,6 +395,7 @@ class theme_remui_coursehandler {
                 }
             }
         }
+
         return $focusdata;
     }
 
@@ -464,7 +513,7 @@ class theme_remui_coursehandler {
      * @return array The course statistics, including the number of completed, in-progress, and not-started courses.
      */
 
-    public function calculate_course_stats($course,$enrolledusers){
+    public function calculate_course_stats($course, $enrolledusers) {
 
         $stats = array();
         $coursepercentage = new \core_completion\progress();

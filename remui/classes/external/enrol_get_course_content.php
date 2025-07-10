@@ -78,6 +78,7 @@ trait enrol_get_course_content {
                     if ($sectioncount == 0) {
                         $contentdata['sections'][$sectionnum]['sectionactive'] = true;
                     }
+                    $contentdata['sections'][$sectionnum]['id'] = $section->__get('id');
                     $contentdata['sections'][$sectionnum]['index'] = $sectioncount;
                     $contentdata['sections'][$sectionnum]['name'] = get_section_name($courseid, $sectionnum);
                     $sectioncount += 1;
@@ -95,6 +96,10 @@ trait enrol_get_course_content {
                     $activity = [];
                     $activity['name'] = $cm->get_formatted_name();
                     $activity['icon'] = $cm->get_icon_url()->__toString();
+                    $activity['modtype'] = $cm->__get('modname');
+                    if($cm->__get('modname') == 'subsection'){
+                        $activity['delegatesectionid'] = $cm->__get('customdata')['sectionid'];
+                    }
                     $contentdata['sections'][$cm->__get('sectionnum')]['activities'][] = $activity;
 
                     $contentdata['sections'][$cm->__get('sectionnum')]['hasactivity'] = false;
@@ -104,7 +109,29 @@ trait enrol_get_course_content {
                 }
             }
         }
-        return $contentdata;
+        $contentarraymap = [];
+        foreach($contentdata['sections'] as $key => $section){
+
+            $contentarraymap[$section['id']] = $key;
+        }
+
+        foreach($contentdata['sections'] as &$section ){
+            if(isset($section['activities'])){
+                foreach($section['activities'] as &$activity){
+                    if(isset($activity['delegatesectionid'])){
+                        $delegatesection = $contentdata['sections'][$contentarraymap[$activity['delegatesectionid']]];
+                        if(isset($delegatesection['activities'])){
+                            $delegatesection['inneractivities'] = $delegatesection['activities'];
+                            unset($delegatesection['activities']);
+                        }
+                        $activity['delegatesection'] = $delegatesection;
+                        unset($contentdata['sections'][$contentarraymap[$activity['delegatesectionid']]]);
+                    }
+                }
+            }
+        }
+
+        return json_encode($contentdata);
     }
 
     /**
@@ -112,29 +139,6 @@ trait enrol_get_course_content {
      * @return external_value
      */
     public static function enrol_get_course_content_returns() {
-        return new external_single_structure(
-            array(
-                'sections' => new external_multiple_structure(
-                    new external_single_structure(
-                        array(
-                            'sectionactive' => new external_value(PARAM_INT, 'Active Section', VALUE_OPTIONAL),
-                            'index' => new external_value(PARAM_INT, 'Section Index'),
-                            'name' => new external_value(PARAM_TEXT, 'Section Name'),
-                            'hasactivity' => new external_value(PARAM_BOOL, 'Has Activities', VALUE_OPTIONAL),
-                            'activities' => new external_multiple_structure(
-                                new external_single_structure(
-                                    array(
-                                        'name' => new external_value(PARAM_TEXT, 'Activity name', VALUE_OPTIONAL),
-                                        'icon' => new external_value(PARAM_TEXT, 'Activity', VALUE_OPTIONAL)
-                                    )
-                                ),
-                                "Activities",
-                                VALUE_OPTIONAL
-                            ),
-                        )
-                    )
-                )
-            )
-        );
+        return new external_value(PARAM_RAW, 'course content data');
     }
 }

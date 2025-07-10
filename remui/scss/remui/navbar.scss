@@ -50,6 +50,7 @@ body.transparent-header:not(body.latest-frontpage.transparent-header){
 
 .navbar {
     background-color: $bg-header;
+    padding : 0px;
     @if $navbar-shadow != false {
         box-shadow: 0 $navbar-shadow-size $navbar-shadow-blur $navbar-shadow-color;
     }
@@ -74,6 +75,7 @@ body.transparent-header:not(body.latest-frontpage.transparent-header){
             min-width: 388px;
             .dropdown-item{
                 white-space: normal;
+                word-break: break-word;
             }
         }
     }
@@ -146,6 +148,14 @@ body.transparent-header:not(body.latest-frontpage.transparent-header){
         //     background: transparent;
         // }
         // }
+        // To fix positioning issue of moremenu dropdown
+        .moremenu.navigation {
+            .nav-item.dropdownmoremenu {
+               .dropdown-menu.dropdown-menu-start {
+                  top: 100%;
+               }
+            }
+        }
     }
     .primary-navigation,
     #usernavigation {
@@ -164,10 +174,19 @@ body.transparent-header:not(body.latest-frontpage.transparent-header){
     .custom-switch {
         .custom-control-label::before {
             background-color: $header-menu-element-bg-color;
-            border-color: $header-menu-divider-bg-color;
+            // border-color: $header-menu-divider-bg-color;
+            border-color: #b5bcc7;
         }
         .custom-control-label::after {
-            border-color: $header-menu-divider-bg-color;
+            // border-color: $header-menu-divider-bg-color;
+            border-color: #b5bcc7;
+        }
+        .custom-control-input {
+            &:checked {
+                & ~ .custom-control-label::before {
+                    background-color: #37be71;
+                }
+            }
         }
     }
     .edw-icon {
@@ -183,6 +202,8 @@ body.transparent-header:not(body.latest-frontpage.transparent-header){
     }
     /*This is to handle Profile dropdown icons.*/
     #user-action-menu {
+        // Quick fix for testing purpose only
+        top: 47px !important;
         #usermenu-carousel {
             .carousel-item {
                 transition: transform .1s ease-in-out;
@@ -366,4 +387,9 @@ body.transparent-header:not(body.latest-frontpage.transparent-header){
 }
 .navbar-brand {
     background-color: $navbar-logo-bg-color;
+}
+
+// Make navbar height available for non-sass use (in some place in core mustache file they have used --navbar-height.
+:root {
+    --navbar-height: #{$navbar-height};
 }

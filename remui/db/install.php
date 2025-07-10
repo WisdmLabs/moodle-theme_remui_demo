@@ -41,5 +41,7 @@ function xmldb_theme_remui_install() {
     $pnotification->init_history_config();
 
     import_user_tour();
+    set_config("setupinstallcheck", "showmodal","theme_remui");
+    set_config("dashboardpersonalizerinfo", "show","theme_remui");
     return true;
 }

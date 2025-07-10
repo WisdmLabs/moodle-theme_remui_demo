@@ -29,13 +29,36 @@
                 <span class="edw-icon edw-icon-Down-Arrow large"></span>
             </li>
             {{#hasactivity}}
-            <div id="collapse{{index}}" class="collapse {{#sectionactive}}show{{/sectionactive}}" aria-labelledby="heading{{index}}" data-parent="#courseContentAccordion">
+            <div id="collapse{{index}}" class="collapse {{#sectionactive}}show{{/sectionactive}} p-pl-2" aria-labelledby="heading{{index}}" data-parent="#courseContentAccordion">
                 <ul class="accordion-list-group">
                     {{#activities}}
-                    <li class="accordion-list-item d-flex flex-gap-2 justify-content-start">
-                        <img src="{{icon}}">
-                        {{name}}
-                    </li>
+                        {{^delegatesection}}
+                        <li class="accordion-list-item d-flex flex-gap-2 justify-content-start">
+                            <img src="{{icon}}">
+                            {{name}}
+                        </li>
+                        {{/delegatesection}}
+
+                        {{#delegatesection}}
+                        <div class="subsection-wrapper">
+                            <li class="accordion-list-item accordion-bb {{^sectionactive}}collapsed{{/sectionactive}}" id="heading{{index}}" data-toggle="collapse" data-target="#collapse{{index}}" aria-expanded="true" aria-controls="collapse{{index}}">
+                                {{name}}
+                                <span class="edw-icon edw-icon-Down-Arrow large"></span>
+                            </li>
+                            {{#hasactivity}}
+                            <div id="collapse{{index}}" class="collapse {{#sectionactive}}show{{/sectionactive}} p-pl-2" aria-labelledby="heading{{index}}" >
+                                <ul class="accordion-list-group">
+                                    {{#inneractivities}}
+                                    <li class="accordion-list-item d-flex flex-gap-2 justify-content-start">
+                                        <img src="{{icon}}">
+                                        {{name}}
+                                    </li>
+                                    {{/inneractivities}}
+                                </ul>
+                            </div>
+                            {{/hasactivity}}
+                        </div>
+                        {{/delegatesection}}
                     {{/activities}}
                 </ul>
             </div>

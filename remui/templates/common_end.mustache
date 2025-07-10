@@ -25,7 +25,7 @@
 
  {{#canaddbottomblocks}}
     <section id="region-bottom-blocks" class="has-blocks" aria-label="region bottom blocks">
-        <div role="main">
+        <div role="region-main">
             {{{addblockbuttonbottom}}}
             {{{ sidebottomblocks }}}
             {{#addblockbuttonbottom}}
@@ -43,7 +43,7 @@
     </div>
     {{#canaddfullwidthbottomblocks}}
     <section id="region-fullwidthbottom-blocks" class="has-blocks" aria-label="region top blocks">
-        <div role="main">
+        <div role="region-main">
             {{{addblockbuttonfullwidthbottom}}}
             {{{ sidefullwidthbottomblocks }}}
             {{#addblockbuttonfullwidthbottom}}
@@ -91,6 +91,9 @@ require(['theme_remui/dictionary'], function(dictionary) {
 {{/js}}
 {{/enabledictionary}}
 
+
+<div id="feedbackcollection"></div>
+
 <!--
 {{#sitenotification}}
 {{#js}}
@@ -109,3 +112,32 @@ require(['jquery'], function($){
 {{/js}}
 {{/sitenotification}}
 -->
+{{#js}}
+require(['jquery'], function($){
+    $(document).ready(function() {
+        // Iterate over each delegated-section
+        setTimeout(function(){
+                $('body:not(.editing) .courseindex .delegated-section').each(function() {
+                // Find the courseindex-sectioncontent inside the current section
+                const sectionContent = $(this).find('.courseindex-sectioncontent');
+
+                // Check if sectionContent is empty
+                if ($.trim(sectionContent.html()).length === 0 || sectionContent.children().length === 0) {
+                    // Hide the span with the expand icon class
+                    $(this).find('.collapsed-icon').hide();
+                    $(this).find('.expanded-icon').hide();
+                }
+
+            });
+            const $option = $('#id_customfield_edwskilllevel option[value="0"]');
+            if ($option.length) {
+                $option.text('None'); // Change the text content of the option
+            }
+            const $edwfocusoption = $('#id_customfield_edwfocusmode option[value="0"]');
+            if ($edwfocusoption.length) {
+                $edwfocusoption.text('Default'); // Change the text content of the option
+            }
+        },300);
+    });
+});
+{{/js}}

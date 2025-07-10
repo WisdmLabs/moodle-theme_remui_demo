@@ -34,7 +34,7 @@ $string['brandcolor'] = 'Cor da marca';
 $string['brandcolor_desc'] = 'A cor da marca.';
 $string['bootswatch'] = 'Bootswatch';
 $string['bootswatch_desc'] = 'Um bootswatch é um conjunto de variáveis e css do Bootstrap para estilizar o Bootstrap.';
-$string['choosereadme'] = 'Edwiser RemUI é um tema altamente personalizável e moderno. Este tema é destinado a ser usado diretamente ou como um tema pai ao criar novos temas utilizando o Bootstrap 4.';
+$string['choosereadme'] = 'Edwiser RemUI é um tema personalizável para Moodle, projetado para aprimorar sua experiência de eLearning, abordando desafios como personalização limitada e problemas de interface do usuário. Com seu design moderno e intuitivo e recursos abrangentes, você pode facilmente criar um site visualmente impressionante e personalizado que aumente o engajamento dos alunos e ofereça uma experiência que os alunos irão adorar!';
 $string['currentinparentheses'] = '(atual)';
 $string['configtitle'] = 'Edwiser RemUI';
 $string['generalsettings'] = 'básico';
@@ -205,8 +205,8 @@ $string['socialmedia'] = 'Mídias sociais';
 $string['socialmediadesc'] = 'Insira os links das suas redes sociais para o site.';
 $string['facebooksetting'] = 'Facebook';
 $string['facebooksettingdesc'] = 'Insira o link da página do Facebook do seu site. Por exemplo, https://www.facebook.com/nomedapagina';
-$string['twittersetting'] = 'Twitter';
-$string['twittersettingdesc'] = 'Insira o link da página do Twitter do seu site. Por exemplo, https://www.twitter.com/nomedapagina';
+$string['twittersetting'] = 'X (anteriormente Twitter)';
+$string['twittersettingdesc'] = 'Insira o link da página do X do seu site. Por exemplo, https://www.x.com/nomedapagina';
 $string['linkedinsetting'] = 'Linkedin';
 $string['linkedinsettingdesc'] = 'Insira o link da página do Linkedin do seu site. Por exemplo, https://www.linkedin.com/in/nomedapagina';
 $string['gplussetting'] = 'Google Plus';
@@ -331,7 +331,8 @@ $string['fullname'] = 'Nome Completo';
 $string['viewcourselow'] = "ver curso";
 
 $string['focusmodesettings'] = 'Configurações do Modo de Foco';
-$string['focusmode'] = 'Modo de Foco';
+$string['focusmodenormalstatetext'] = 'Foco: LIGADO';
+$string['focusmodeactivestatetext'] = 'Foco: DESLIGADO';
 $string['enablefocusmode'] = 'Habilitar Modo de Foco';
 $string['enablefocusmodedesc'] = 'Se habilitado, um botão para alternar para o aprendizado sem distrações aparecerá na página do curso.';
 $string['focusmodeenabled'] = 'Modo de Foco Habilitado';
@@ -645,6 +646,8 @@ $string['entervalidlicensekey'] = "Por favor, insira uma chave de licença corre
 $string['edwiserremuilicenseactivation'] = 'Ativação da Chave de Licença Edwiser RemUI';
 $string['enterlicensekey'] = "Insira a chave de licença...";
 $string['invalid'] = "Inválida";
+$string['licensemismatch'] = "Incompatibilidade de licença";
+$string['licensemismatchdesc'] = 'Ops! Parece que você usou uma chave de licença diferente para ativar o tema Edwiser RemUI. Por favor, use a chave correta da sua <a class="text-decoration-underline" href="https://edwiser.org/my-account/">página Minha Conta</a> para ativar o tema Edwiser RemUI.';
 
 $string['courseheaderdesign'] = 'Design do cabeçalho da página do curso';
 $string['courseheaderdesigndesc'] = 'Escolha o design do cabeçalho da página do curso';
@@ -926,7 +929,7 @@ $string['menuorientationdesc'] = 'Defina a orientação do menu. A orientação 
 $string['menuorientationvertical'] = 'Vertical';
 $string['menuorientationhorizontal'] = 'Horizontal';
 $string['footerfacebook'] = 'Facebook';
-$string['footertwitter'] = 'Twitter';
+$string['footertwitter'] = 'X (anteriormente Twitter)';
 $string['footerlinkedin'] = 'Linkedin';
 $string['footergplus'] = 'Google Plus';
 $string['footeryoutube'] = 'Youtube';
@@ -1163,7 +1166,7 @@ $string['socialiconspanel'] = "Painel de ícones sociais";
 $string['social-icons-info'] = "<p>Para exibir os ícones de redes sociais na parte inferior de qualquer coluna de conteúdo, vá em <b>Rodapé > Área principal do rodapé > Widget > Selecione o tipo = Conteúdo </b>e ative a opção para mostrar os ícones de mídia social.</p>";
 $string['social-icons-heading'] = "Ícones de redes sociais";
 $string["custommenulinktext"] = 'Itens de menu personalizados';
-$string["custommenulink"] = '<h6>Itens de menu personalizados</h6><p> Para adicionar / editar / excluir itens de menu personalizados, vá em Administração do site > Aparência > Configurações do tema > <a href="{$a}/admin/settings.php?section=themesettings#admin-custommenuitems" target ="_blank" class="text-decoration-none">Itens de menu personalizados</a> <p>';
+$string["custommenulink"] = '<h6>Itens de menu personalizados</h6><p> Para adicionar / editar / excluir itens de menu personalizados, vá em Administração do site > Aparência > Configurações do tema > <a href="{$a}/admin/settings.php?section=themesettingsadvanced#admin-custommenuitems" target ="_blank" class="text-decoration-none">Itens de menu personalizados</a> <p>';
 $string['note'] = 'Nota';
 $string['social-media-selection-note'] = "<p>Pressione Ctrl para selecionar/deselecionar a mídia</p>";
 
@@ -1184,7 +1187,7 @@ $string['socialiconspanel'] = "Painel de ícones sociais";
 $string['social-icons-info'] = "<p>Para exibir os ícones das redes sociais na parte inferior de qualquer coluna com conteúdo, vá para <b>Rodapé > Área principal do rodapé > Widget > Selecione o tipo = Conteúdo</b> e ative a configuração para mostrar os ícones das redes sociais.</p>";
 $string['social-icons-heading'] = "Ícones das redes sociais";
 $string["custommenulinktext"] = 'Itens de menu personalizados';
-$string["custommenulink"] = '<h6>Itens de menu personalizados</h6><p> Para adicionar/editar/excluir itens de menu personalizados, vá para Administração do site > Aparência > Configurações do tema > <a href="{$a}/admin/settings.php?section=themesettings#admin-custommenuitems" target ="_blank" class="text-decoration-none">Itens de menu personalizados</a> <p>';
+$string["custommenulink"] = '<h6>Itens de menu personalizados</h6><p> Para adicionar/editar/excluir itens de menu personalizados, vá para Administração do site > Aparência > Configurações do tema > <a href="{$a}/admin/settings.php?section=themesettingsadvanced#admin-custommenuitems" target ="_blank" class="text-decoration-none">Itens de menu personalizados</a> <p>';
 $string['note'] = 'Nota';
 $string['social-media-selection-note'] = "<p>Pressione Ctrl para selecionar/desselecionar as redes sociais</p>";
 
@@ -1498,8 +1501,8 @@ $string['customizerdarkmodedonotshowbtntext'] = 'Não mostrar novamente';
 $string['customizerdarkmodeok'] = 'Ok';
 $string['previewswitchon'] = 'Ativar';
 $string['previewswitchoff'] = 'Desativar';
-$string['darkmodepreview'] =  'Pré-visualização do Modo Escuro';
-$string['darkmodecustomizernote']='<li>No \'personalizador visual\', todas as alterações serão feitas no \'modo claro\' do site, e isso será automaticamente refletido no \'modo escuro\'.</li>
+$string['darkmodepreview'] = 'Pré-visualização do Modo Escuro';
+$string['darkmodecustomizernote'] = '<li>No \'personalizador visual\', todas as alterações serão feitas no \'modo claro\' do site, e isso será automaticamente refletido no \'modo escuro\'.</li>
 <li>As configurações do personalizador visual serão desativadas durante a pré-visualização no modo escuro.</li>';
 $string["switchtodm"] = "Modo Escuro";
 $string["switchtolm"] = "Modo Claro";
@@ -1551,3 +1554,51 @@ $string["row5"] = "Mostrar:5 linhas";
 $string["row6"] = "Mostrar:6 linhas";
 
 $string["filteremptymsg"] = "NOTA: Para visualizar os filtros, adicione propriedades de filtro, como Níveis, Preço, Avaliações e Idiomas ao curso.";
+
+$string['sectionaddmax'] = 'Você atingiu o número máximo de seções permitidas para um curso...';
+$string['prevsubsectionbuttontext'] = 'Subseção anterior';
+$string['nextsubsectionbuttontext'] = 'Próxima subseção';
+// Site sync strings
+$string['site_sync_button_title'] = 'Ir para a página de sincronização do site';
+$string['sitesyncplugintabtext'] = "Sincronização do site (novo)";
+
+
+$string['whatsappsetting'] = "WhatsApp";
+$string['whatsappsettingdesc'] = "Insira o link do WhatsApp do seu site. Por exemplo: https://wa.me/1XXXXXXXXXX";
+$string['footerwhatsapp'] = "WhatsApp";
+$string['telegramsetting'] = "Telegram";
+$string['telegramsettingdesc'] = "Insira o link do Telegram do seu site. Por exemplo: https://t.me/someusername";
+$string['footertelegram'] = "Telegram";
+
+
+$string['accessbilityfeatureshead'] = 'Configurações da ferramenta de acessibilidade';
+$string['accessbilityfeaturesheaddesc'] = 'Múltiplas configurações que ajudam usuários com deficiência';
+$string['enableaccessibilitytools'] = 'Ativar ferramenta de acessibilidade';
+$string['enableaccessibilitytoolsdesc'] = 'Se desativada, a ferramenta não será exibida em todo o site.';
+$string['disable-aw-for-me'] = 'Desativar ferramenta de acessibilidade para mim';
+$string['enable-aw-for-me'] = 'Ativar ferramenta de acessibilidade para mim';
+$string['disable-aw-for-me-notice'] = 'A ferramenta de acessibilidade está desativada.';
+$string['enable-aw-for-me-notice'] = 'A ferramenta de acessibilidade está ativada.';
+
+// Dark mode
+$string['darkmodelogo'] = 'Logotipo para o modo "Escuro"';
+$string['darkmodelogodesc'] = 'Se este campo estiver vazio, o logotipo enviado no campo "Logotipo" será exibido quando o "Modo Escuro" estiver ativado. Você pode adicionar o logotipo a ser exibido no cabeçalho. Nota: Altura recomendada é 50px. Caso deseje personalizar, pode fazê-lo na caixa de CSS personalizado.';
+$string['darkmodelogosize'] = 'A proporção esperada é 40:33';
+
+$string['darkmodelogomini'] = 'Logotipo Mini para o modo "Escuro"';
+$string['darkmodelogominidesc'] = 'Se este campo estiver vazio, o logotipo enviado no campo "Logotipo Mini" será exibido quando o "Modo Escuro" estiver ativado. Você pode adicionar o logotipo a ser exibido no cabeçalho. Nota: Altura recomendada é 50px. Caso deseje personalizar, pode fazê-lo na caixa de CSS personalizado.';
+$string['darkmodelogominisize'] = 'A proporção esperada é 40:33';
+
+$string['secondaryfooterlogodarkmode'] = 'Logotipo para o modo "Escuro"';
+$string['secondaryfooterlogodarkmode_help'] = 'Logotipo para o modo "Escuro"';
+
+// Focus Mode
+$string['focusmode'] = 'Modo Foco';
+$string['focusmodedesc'] = '<p class="m-0">Modo Foco ATIVADO: Um botão para alternar para o modo de aprendizado sem distrações aparecerá na página do curso.</p>
+<p class="m-0">Modo Foco DESATIVADO: O botão para modo sem distrações NÃO aparecerá na página do curso.</p>
+<p class="m-0">Forçar Modo Foco ATIVADO para todos os cursos: Todos os cursos serão exibidos no Modo Foco por padrão para todos os alunos. Os alunos poderão desativá-lo, se desejarem.</p>';
+$string['focusmodeon'] = 'Modo Foco ATIVADO';
+$string['focusmodeoff'] = 'Modo Foco DESATIVADO';
+$string['forcefocusmode'] = 'Forçar Modo Foco ATIVADO para todos os cursos';
+$string['focusmodeactiveadminmsg'] = 'Modo Foco está ativo para usuários do tipo aluno';
+$string['focusmodeactivenavinfo'] = 'Modo de foco ATIVADO. Clique em "X" no canto inferior direito para fechá-lo.';

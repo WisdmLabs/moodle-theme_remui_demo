@@ -25,10 +25,10 @@ import Templates from 'core/templates';
 import * as Aria from 'core/aria';
 import {dispatchEvent} from 'core/event_dispatcher';
 import {debounce} from 'core/utils';
+import {isSmall, isLarge} from 'core/pagehelpers';
 import Pending from 'core/pending';
-import * as UserRepository from 'core_user/repository';
-// The jQuery module is only used for interacting with boostrap 4. It can we removed when MDL-71979 is integrated.
-import jQuery from 'jquery';
+import {setUserPreference} from 'core_user/repository';
+import Tooltip from './bootstrap/tooltip';
 
 let backdropPromise = null;
 
@@ -40,8 +40,9 @@ const SELECTORS = {
     OPENBTN: '[data-toggler="drawers"][data-action="opendrawer"]',
     TOGGLEBTN: '[data-toggler="drawers"][data-action="toggle"]',
     DRAWERS: '[data-region="fixed-drawer"]',
-    CONTAINER: '#page.drawers',
     DRAWERCONTENT: '.drawercontent',
+    PAGECONTENT: '#page-content',
+    HEADERCONTENT: '.drawerheadercontent',
 };
 
 const CLASSES = {
@@ -51,47 +52,24 @@ const CLASSES = {
 };
 
 /**
- * Maximum sizes for breakpoints. This needs to correspond with Bootstrap
- * Breakpoints
+ * Pixel thresshold to auto-hide drawers.
  *
- * @private
+ * @type {Number}
  */
-const sizes = {
-    medium: 991,
-    large: 1400
-};
+const THRESHOLD = 20;
 
 /**
- * Get the current body width.
+ * Try to get the drawer z-index from the page content.
  *
- * @returns {number} the current body width.
+ * @returns {Number|null} the z-index of the drawer.
  * @private
  */
-const getCurrentWidth = () => {
-    const DomRect = document.body.getBoundingClientRect();
-    return DomRect.x + DomRect.width;
-};
-
-/**
- * Check if the user uses a small size browser.
- *
- * @returns {boolean} true if the body is smaller than sizes.medium max size.
- * @private
- */
-const isSmall = () => {
-    const browserWidth = getCurrentWidth();
-    return browserWidth < sizes.medium;
-};
-
-/**
- * Check if the user uses a large size browser.
- *
- * @returns {boolean} true if the body is smaller than sizes.large max size.
- * @private
- */
-const isLarge = () => {
-    const browserWidth = getCurrentWidth();
-    return browserWidth >= sizes.large;
+const getDrawerZIndex = () => {
+    const drawer = document.querySelector(SELECTORS.DRAWERS);
+    if (!drawer) {
+        return null;
+    }
+    return parseInt(window.getComputedStyle(drawer).zIndex, 10);
 };
 
 /**
@@ -105,6 +83,10 @@ const getBackdrop = () => {
         backdropPromise = Templates.render('core/modal_backdrop', {})
         .then(html => new ModalBackdrop(html))
         .then(modalBackdrop => {
+            const drawerZindex = getDrawerZIndex();
+            if (drawerZindex) {
+                modalBackdrop.setZIndex(getDrawerZIndex() - 1);
+            }
             modalBackdrop.getAttachmentPoint().get(0).addEventListener('click', e => {
                 e.preventDefault();
                 Drawers.closeAllDrawers();
@@ -159,12 +141,11 @@ const disableDrawerTooltips = (drawerNode) => {
  */
 const disableButtonTooltip = (button, enableOnBlur) => {
     if (button.hasAttribute('data-original-title')) {
-        // The jQuery is still used in boostrap 4. It can we removed when MDL-71979 is integrated.
-        jQuery(button).tooltip('disable');
+        Tooltip.getInstance(button).disable();
         button.setAttribute('title', button.dataset.originalTitle);
     } else {
         button.dataset.disabledToggle = button.dataset.toggle;
-        button.removeAttribute('data-toggle');
+        button.removeAttribute('data-bs-toggle');
     }
     if (enableOnBlur) {
         button.dataset.restoreTooltipOnBlur = true;
@@ -197,13 +178,12 @@ const enableDrawerTooltips = (drawerNode) => {
  * @private
  */
 const enableButtonTooltip = (button) => {
-    // The jQuery is still used in boostrap 4. It can we removed when MDL-71979 is integrated.
-    if (button.hasAttribute('data-original-title')) {
-        jQuery(button).tooltip('enable');
+    if (button.hasAttribute('data-bs-original-title')) {
+        Tooltip.getInstance(button).enable();
         button.removeAttribute('title');
     } else if (button.dataset.disabledToggle) {
         button.dataset.toggle = button.dataset.disabledToggle;
-        jQuery(button).tooltip();
+        new Tooltip(button);
     }
     delete button.dataset.restoreTooltipOnBlur;
 };
@@ -282,7 +262,18 @@ export default class Drawers {
      */
     drawerNode = null;
 
+    /**
+     * The drawer page bounding box dimensions.
+     * @var {DOMRect} boundingRect
+     */
+    boundingRect = null;
+
     constructor(drawerNode) {
+        // Some behat tests may use fake drawer divs to test components in drawers.
+        if (drawerNode.dataset.behatFakeDrawer !== undefined) {
+            return;
+        }
+
         this.drawerNode = drawerNode;
 
         if (isSmall()) {
@@ -290,10 +281,10 @@ export default class Drawers {
         }
 
         if (this.drawerNode.classList.contains(CLASSES.SHOW)) {
-            this.openDrawer({focusOnCloseButton: false});
+            this.openDrawer({focusOnCloseButton: false, setUserPref: false});
         } else if (this.drawerNode.dataset.forceopen == 1) {
             if (!isSmall()) {
-                this.openDrawer({focusOnCloseButton: false});
+                this.openDrawer({focusOnCloseButton: false, setUserPref: false});
             }
         } else {
             Aria.hide(this.drawerNode);
@@ -420,8 +411,9 @@ export default class Drawers {
      *
      * @param {object} args
      * @param {boolean} [args.focusOnCloseButton=true] Whether to alter page focus when opening the drawer
+     * @param {boolean} [args.setUserPref=true] Whether to store the opened drawer state as a user preference
      */
-    openDrawer({focusOnCloseButton = true} = {}) {
+    openDrawer({focusOnCloseButton = true, setUserPref = true} = {}) {
 
         const pendingPromise = new Pending('theme_remui/drawers:open');
         const showEvent = this.dispatchEvent(Drawers.eventTypes.drawerShow, true);
@@ -429,22 +421,23 @@ export default class Drawers {
             return;
         }
 
-        // Hide close button while the drawer is showing to prevent glitchy effects.
+        // Hide close button and header content while the drawer is showing to prevent glitchy effects.
         this.drawerNode.querySelector(SELECTORS.CLOSEBTN)?.classList.toggle('hidden', true);
+        this.drawerNode.querySelector(SELECTORS.HEADERCONTENT)?.classList.toggle('hidden', true);
+
 
         // Remove open tooltip if still visible.
         let openButton = getDrawerOpenButton(this.drawerNode.id);
         if (openButton && openButton.hasAttribute('data-original-title')) {
-            // The jQuery is still used in boostrap 4. It can we removed when MDL-71979 is integrated.
-            jQuery(openButton)?.tooltip('hide');
+            Tooltip.getInstance(openButton)?.hide();
         }
 
         Aria.unhide(this.drawerNode);
         this.drawerNode.classList.add(CLASSES.SHOW);
 
         const preference = this.drawerNode.dataset.preference;
-        if (preference && !isSmall() && (this.drawerNode.dataset.forceopen != 1)) {
-            UserRepository.setUserPreference(preference, true);
+        if (preference && !isSmall() && (this.drawerNode.dataset.forceopen != 1) && setUserPref) {
+            setUserPreference(preference, true);
         }
 
         const state = this.drawerNode.dataset.state;
@@ -452,6 +445,8 @@ export default class Drawers {
             const page = document.getElementById('page');
             page.classList.add(state);
         }
+
+        this.boundingRect = this.drawerNode.getBoundingClientRect();
 
         if (isSmall()) {
             getBackdrop().then(backdrop => {
@@ -464,13 +459,15 @@ export default class Drawers {
             .catch();
         }
 
-        // Show close button once the drawer is fully opened.
+        // Show close button and header content once the drawer is fully opened.
         const closeButton = this.drawerNode.querySelector(SELECTORS.CLOSEBTN);
+        const headerContent = this.drawerNode.querySelector(SELECTORS.HEADERCONTENT);
         if (focusOnCloseButton && closeButton) {
             disableButtonTooltip(closeButton, true);
         }
         setTimeout(() => {
             closeButton.classList.toggle('hidden', false);
+            headerContent.classList.toggle('hidden', false);
             if (focusOnCloseButton) {
                 closeButton.focus();
             }
@@ -496,18 +493,19 @@ export default class Drawers {
             return;
         }
 
-        // Hide close button while the drawer is hiding to prevent glitchy effects.
+        // Hide close button and header content while the drawer is hiding to prevent glitchy effects.
         const closeButton = this.drawerNode.querySelector(SELECTORS.CLOSEBTN);
         closeButton?.classList.toggle('hidden', true);
+        const headerContent = this.drawerNode.querySelector(SELECTORS.HEADERCONTENT);
+        headerContent?.classList.toggle('hidden', true);
         // Remove the close button tooltip if visible.
         if (closeButton.hasAttribute('data-original-title')) {
-            // The jQuery is still used in boostrap 4. It can we removed when MDL-71979 is integrated.
-            jQuery(closeButton)?.tooltip('hide');
+            Tooltip.getInstance(closeButton)?.hide();
         }
 
         const preference = this.drawerNode.dataset.preference;
         if (preference && updatePreferences && !isSmall()) {
-            UserRepository.setUserPreference(preference, false);
+            setUserPreference(preference, false);
         }
 
         const state = this.drawerNode.dataset.state;
@@ -524,7 +522,7 @@ export default class Drawers {
 
             if (isSmall()) {
                 const pageWrapper = document.getElementById('page');
-                pageWrapper.style.overflow = 'auto';
+                pageWrapper.style.overflow = 'visible';
             }
             return backdrop;
         })
@@ -557,6 +555,85 @@ export default class Drawers {
     }
 
     /**
+     * Displaces the drawer outsite the page.
+     *
+     * @param {Number} scrollPosition the page current scroll position
+     */
+    displace(scrollPosition) {
+        let displace = scrollPosition;
+        let openButton = getDrawerOpenButton(this.drawerNode.id);
+        if (scrollPosition === 0) {
+            this.drawerNode.style.transform = '';
+            if (openButton) {
+                openButton.style.transform = '';
+            }
+            return;
+        }
+        const state = this.drawerNode.dataset?.state;
+        const drawrWidth = this.drawerNode.offsetWidth;
+        let scrollThreshold = drawrWidth;
+        let direction = -1;
+        if (state === 'show-drawer-right') {
+            direction = 1;
+            scrollThreshold = THRESHOLD;
+        }
+        // LTR scroll is positive while RTL scroll is negative.
+        if (Math.abs(scrollPosition) > scrollThreshold) {
+            displace = Math.sign(scrollPosition) * (drawrWidth + THRESHOLD);
+        }
+        displace *= direction;
+        const transform = `translateX(${displace}px)`;
+        if (openButton) {
+            openButton.style.transform = transform;
+        }
+        this.drawerNode.style.transform = transform;
+    }
+
+    /**
+     * Prevent drawer from overlapping an element.
+     *
+     * @param {HTMLElement} currentFocus
+     */
+    preventOverlap(currentFocus) {
+        // Start position drawer (aka. left drawer) will never overlap with the page content.
+        if (!this.isOpen || this.drawerNode.dataset?.state === 'show-drawer-left') {
+            return;
+        }
+        const drawrWidth = this.drawerNode.offsetWidth;
+        const element = currentFocus.getBoundingClientRect();
+
+        // The this.boundingRect is calculated only once and it is reliable
+        // for horizontal overlapping (which is the most common). However,
+        // it is not reliable for vertical overlapping because the drawer
+        // height can be changed by other elements like sticky footer.
+        // To prevent recalculating the boundingRect on every
+        // focusin event, we use horizontal overlapping as first fast check.
+        let overlapping = (
+            (element.right + THRESHOLD) > this.boundingRect.left &&
+            (element.left - THRESHOLD) < this.boundingRect.right
+        );
+        if (overlapping) {
+            const currentBoundingRect = this.drawerNode.getBoundingClientRect();
+            overlapping = (
+                (element.bottom) > currentBoundingRect.top &&
+                (element.top) < currentBoundingRect.bottom
+            );
+        }
+
+        if (overlapping) {
+            // Force drawer to displace out of the page.
+            let displaceOut = drawrWidth + 1;
+            if (window.right_to_left()) {
+                displaceOut *= -1;
+            }
+            this.displace(displaceOut);
+        } else {
+            // Reset drawer displacement.
+            this.displace(window.scrollX);
+        }
+    }
+
+    /**
      * Close all drawers.
      */
     static closeAllDrawers() {
@@ -579,26 +656,34 @@ export default class Drawers {
             drawerInstance.closeDrawer();
         });
     }
-}
 
-/**
- * Activate the scroller helper for the drawer layout.
- *
- * @private
- */
-const scroller = () => {
-    const body = document.querySelector('body');
-    const drawerLayout = document.querySelector(SELECTORS.CONTAINER);
-    if (drawerLayout) {
-        drawerLayout.addEventListener("scroll", () => {
-            if (drawerLayout.scrollTop >= window.innerHeight) {
-                body.classList.add(CLASSES.SCROLLED);
-            } else {
-                body.classList.remove(CLASSES.SCROLLED);
-            }
+    /**
+     * Prevent drawers from covering the focused element.
+     */
+    static preventCoveringFocusedElement() {
+        const currentFocus = document.activeElement;
+        // Focus on page layout elements should be ignored.
+        const pagecontent = document.querySelector(SELECTORS.PAGECONTENT);
+        if (!currentFocus || !pagecontent?.contains(currentFocus)) {
+            Drawers.displaceDrawers(window.scrollX);
+            return;
+        }
+        drawerMap.forEach(drawerInstance => {
+            drawerInstance.preventOverlap(currentFocus);
         });
     }
-};
+
+    /**
+     * Prevent drawer from covering the content when the page content covers the full page.
+     *
+     * @param {Number} displace
+     */
+    static displaceDrawers(displace) {
+        drawerMap.forEach(drawerInstance => {
+            drawerInstance.displace(displace);
+        });
+    }
+}
 
 /**
  * Set the last used attribute for the last used toggle button for a drawer.
@@ -688,7 +773,10 @@ const registerListeners = () => {
             drawerMap.forEach(drawerInstance => {
                 disableDrawerTooltips(drawerInstance.drawerNode);
                 if (drawerInstance.isOpen) {
-                    if (drawerInstance.closeOnResize) {
+                    const currentFocus = document.activeElement;
+                    const drawerContent = drawerInstance.drawerNode.querySelector(SELECTORS.DRAWERCONTENT);
+                    const shouldClose = drawerInstance.closeOnResize && (!drawerContent || !drawerContent.contains(currentFocus));
+                    if (shouldClose) {
                         drawerInstance.closeDrawer();
                     } else {
                         anyOpen = true;
@@ -707,10 +795,31 @@ const registerListeners = () => {
         }
     };
 
-    window.addEventListener('resize', debounce(closeOnResizeListener, 400));
+    document.addEventListener('scroll', () => {
+        const currentFocus = document.activeElement;
+        const drawerContentElements = document.querySelectorAll(SELECTORS.DRAWERCONTENT);
+        // Check if the current focus is within any drawer content.
+        if (Array.from(drawerContentElements).some(drawer => drawer.contains(currentFocus))) {
+            return;
+        }
+        const body = document.querySelector('body');
+        if (window.scrollY >= window.innerHeight) {
+            body.classList.add(CLASSES.SCROLLED);
+        } else {
+            body.classList.remove(CLASSES.SCROLLED);
+        }
+        // Horizontal scroll listener to displace the drawers to prevent covering
+        // any possible sticky content.
+        Drawers.displaceDrawers(window.scrollX);
+    });
+
+    const preventOverlap = debounce(Drawers.preventCoveringFocusedElement, 100);
+    document.addEventListener('focusin', preventOverlap);
+    document.addEventListener('focusout', preventOverlap);
+
+    window.addEventListener('resize', debounce(closeOnResizeListener, 400, {pending: true}));
 };
 
-scroller();
 registerListeners();
 
 const drawers = document.querySelectorAll(SELECTORS.DRAWERS);

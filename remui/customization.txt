@@ -76,3 +76,6 @@ CHNAGES AFTER release remui 4.2.10
 # store whatsnew data to cache
     - added whatsnew cache Defination in db/caches.php
     - created separate function called 'get_whatsnew_data()' in utility.php file
+
+# AI Beacon
+    - AI beacon code added in templates/head.mustache

@@ -27,12 +27,20 @@
     <a href="{{{ config.homeurl }}}" class="navbar-brand d-none d-md-flex align-items-center m-0  aabtn" aria-label="{{ sitename }} - {{#str}}brandname, theme_remui{{/str}}">
         {{#output.get_branding_context}}
             {{#logourl}}
-                <img src="{{ logourl }}" class="navbar-brand-logo logo">
+                <img src="{{ logourl }}" class="navbar-brand-logo logo light-logo">
             {{/logourl}}
 
+            {{#darklogourl}}
+                <img src="{{ darklogourl }}" class="navbar-brand-logo logo dark-logo">
+            {{/darklogourl}}
+
             {{#logominiurl}}
-                <img src="{{ logominiurl }}" class="navbar-brand-logo logomini">
+                <img src="{{ logominiurl }}" class="navbar-brand-logo logomini light-logomini">
             {{/logominiurl}}
+
+            {{#darklogominiurl}}
+                <img src="{{ darklogominiurl }}" class="navbar-brand-logo logomini dark-logomini">
+            {{/darklogominiurl}}
 
             {{#icononly}}
                 <span class="navbar-brand-logo icononly" style="color: {{color}};">
@@ -49,7 +57,7 @@
         {{/output.get_branding_context}}
     </a>
     <div class="sub-nav courseheaderbar bg-white">
-    <ul class="navbar-nav h-100 m-0 p-0" id="wdm-courseheader">
+    <ul class="navbar-nav h-100 m-0" id="wdm-courseheader">
         <li class="nav-item w-100">
             <div class="nav-link d-block m-0 p-0">
                 <h5 class="title m-0" aria-label="Course - {{coursename}}"><a href="{{#courseurl}}{{courseurl}}{{/courseurl}} {{^courseurl}}javascript:void(0){{/courseurl}}">{{{coursename}}}</a></h5>
@@ -71,26 +79,27 @@
             </div>
         </li>
     </ul>
-    <ul class="nav navbar-nav h-100 activity-navigation justify-content-between m-0 p-0" aria-label="Activity Navigation">
+    <div class="focus-mode-active-info"><p class="small-info-semibold m-0 ellipsis ellipsis-2 fm-info-text">{{#str}}focusmodeactivenavinfo, theme_remui{{/str}}</p></div>
+    <ul class="nav navbar-nav h-100 activity-navigation align-items-center justify-content-between m-0 p-0" aria-label="Activity Navigation">
         <li class="nav-item m-0 p-0" id="coursePrevious">
             <a class="nav-link px-2 w-100 h-100 d-flex align-items-center justify-content-center {{^previous}}disabled{{/previous}}" href="{{#previous}}{{previous}}{{/previous}}{{^previous}}javascript:void(0){{/previous}}" {{^previous}}aria-disabled='true'{{/previous}}>
-            <i class="fa fa-angle-left mr-2"></i><span class="navigation-text d-md-none d-lg-block" aria-label="Previous Activity" >{{#str}}prev, theme_remui {{/str}}</span></a>
+            <i class="edw-icon edw-icon-Left-Arrow "></i><span class="navigation-text d-sm-none d-lg-block" aria-label="Previous Activity" >{{#str}}prev, theme_remui {{/str}}</span></a>
         </li>
-        <li class="nav-item m-0 p-0 focus-dropdown" id="courseActivities">
-            <a class="nav-link px-2 w-100 justify-content-center dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)" data-animation="scale-up" aria-expanded="false" aria-haspopup="listbox" role="button" aria-labelledby="accordionEx1" aria-label="Activity List">
-            <span>{{#active}}{{{active}}}{{/active}}{{^active}}{{#str}}coursedata, theme_remui{{/str}}{{/active}}</span>
+        <li class="nav-item m-0 p-0 focus-dropdown position-relative" id="courseActivities">
+            <a class="nav-link justify-content-between dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)" data-animation="scale-up" aria-expanded="false" aria-haspopup="listbox" role="button" aria-labelledby="accordionEx1" aria-label="Activity List">
+            <span class="text-link-regular">{{#active}}{{{active}}}{{/active}}{{^active}}{{#str}}coursedata, theme_remui{{/str}}{{/active}}</span>
             </a>
             <div class="focus-dropdown-menu dropdown-menu-right" role="menu">
                 <div class="accordion md-accordion" id="accordionEx1" role="tablist" aria-label="Activity List" aria-multiselectable="true">
                     {{#sections}}
                     <!-- Accordion card -->
-                      <div class="card border-bottom">
+                      <div class="card">
                         <!-- Card header -->
-                        <div class="card-header p-p-4" role="tab" id="heading{{sectionid}}">
+                        <div class="card-header border-0" role="tab" id="heading{{sectionid}}">
                           <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx1" href="#collapse{{sectionid}}"
                             aria-expanded="false" aria-controls="collapse{{sectionid}}">
-                            <h5 class="mb-0 d-flex justify-content-between">
-                              {{{name}}} {{#hasactivites}}<i class="fa fa-angle-down rotate-icon"></i>{{/hasactivites}}
+                            <h5 class="mb-0 d-flex justify-content-between text-link-semibold">
+                              {{{name}}} {{#hasactivites}}<i class="edw-icon edw-icon-UpArrow"></i>{{/hasactivites}}
                             </h5>
                           </a>
                         </div>
@@ -99,19 +108,68 @@
                         <div id="collapse{{sectionid}}" class="collapse {{active}}" role="tabpanel" aria-labelledby="heading{{sectionid}}"
                           data-parent="#accordionEx1">
                           <div class="card-body m-0 p-0">
-                            {{#activities}}
-                            <div class="card  ">
-                                <!-- Card header -->
-                                <div class="card-header d-flex activity-item" role="tab">
-                                  <a href="{{url}}" class="w-100 d-inline-flex justify-content-left align-items-center">
-                                    <img src="{{icon}}" class="iconlarge activityicon mr-2" alt="" role="presentation" aria-hidden="true">
-                                    <h5 class="mb-0">
-                                      {{name}}
-                                    </h5>
-                                  </a>
-                                </div>
-                            </div>
+                                {{#activities}}
+                                {{^isdelegatedsection}}
+                                    <div class="card  {{active}}">
+                                        <!-- Card header -->
+                                        <div class="card-header d-flex activity-item" role="tab">
+                                        <a href="{{url}}" class="w-100 d-inline-flex justify-content-left align-items-center">
+                                            {{#completionstate}}
+                                                <span class="activity-completion-indicator complete_icon icon fa fa-check"></span>
+                                            {{/completionstate}}
+                                            {{^completionstate}}
+                                                <img src="{{icon}}" class="iconlarge activityicon mr-2" alt="" role="presentation" aria-hidden="true">
+                                            {{/completionstate}}
+                                            <h5 class="mb-0 text-link-regular">
+                                            {{name}}
+                                            </h5>
+                                        </a>
+                                        </div>
+
+                                    </div>
+                                {{/isdelegatedsection}}
+                                {{#isdelegatedsection}}
+                                    <div class="fm-dropdown-subsections">
+                                        <div class="accordion md-accordion" id="accordionEx1_{{sectionid}}" role="tablist" aria-label="Activity List" aria-multiselectable="true">
+                                            <div className="card">
+                                                <div class="subsection-header border-0" role="tab" id="heading_subsection{{sectionid}}">
+                                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx1_{{sectionid}}" href="#collapse_subsection{{sectionid}}"
+                                                        aria-expanded="false" aria-controls="collapse_subsection{{sectionid}}">
+                                                        <h5 class="mb-0 d-flex justify-content-between text-link-semibold">
+                                                        {{{name}}} {{#hasactivites}}<i class="edw-icon edw-icon-UpArrow"></i>{{/hasactivites}}
+                                                        </h5>
+                                                    </a>
+                                                </div>
+
+                                                <div id="collapse_subsection{{sectionid}}" class="collapse {{active}}" role="tabpanel" aria-labelledby="heading_subsection{{sectionid}}"
+                                                    data-parent="#accordionEx1_{{sectionid}}">
+                                                    <div class="card-body m-0 p-0">
+                                                        {{#activities}}
+                                                        <div class="card  {{active}}">
+                                                            <!-- Card header -->
+                                                            <div class="card-header d-flex activity-item" role="tab">
+                                                            <a href="{{url}}" class="w-100 d-inline-flex justify-content-left align-items-center">
+                                                                {{#completionstate}}
+                                                                    <span class="activity-completion-indicator complete_icon icon fa fa-check"></span>
+                                                                {{/completionstate}}
+                                                                {{^completionstate}}
+                                                                    <img src="{{icon}}" class="iconlarge activityicon mr-2" alt="" role="presentation" aria-hidden="true">
+                                                                {{/completionstate}}
+                                                                <h5 class="mb-0 text-link-regular">
+                                                                {{name}}
+                                                                </h5>
+                                                            </a>
+                                                            </div>
+                                                        </div>
+                                                        {{/activities}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {{/isdelegatedsection}}
                             {{/activities}}
+
                           </div>
                         </div>
                         {{/hasactivites}}
@@ -125,7 +183,7 @@
             <a class="nav-link px-2 w-100 h-100 d-flex align-items-center justify-content-center {{^next}}disabled{{/next}}"
             href="{{#next}}{{next}}{{/next}}{{^next}}javascript:void(0){{/next}}"
             aria-label="Next Activity" role="button"
-            ><span class="navigation-text d-md-none d-lg-block" >{{#str}}next, theme_remui {{/str}}</span><i class="fa fa-angle-right ml-2"></i></a>
+            ><span class="navigation-text d-sm-none d-lg-block" >{{#str}}next, theme_remui {{/str}}</span><i class="edw-icon edw-icon-Right-Arrow "></i></a>
         </li>
         {{#canenabledm}}
             <div class="nav-darkmode nav-item d-flex align-items-center" data-dm="disabled">
@@ -148,7 +206,7 @@
 {{/focusdata}}
 
 {{#js}}
-require(['jquery'], function($) {
+require(['jquery', 'core/toast'], function($, Toast) {
     var scrolled = false;
     $('#courseActivities .dropdown-toggle').click(function() {
         var menu = $(this).parent().find('.focus-dropdown-menu');
@@ -161,5 +219,15 @@ require(['jquery'], function($) {
             }
         });
     });
+    {{#focusdata}}
+    {{#enableadmininfo}}
+        var notificationMessage = '{{#str}}focusmodeactiveadminmsg, theme_remui{{/str}}';
+        Toast.add(notificationMessage, {
+            delay: 5000,
+            closeButton: true,
+            type: 'warning'
+        });
+    {{/enableadmininfo}}
+    {{/focusdata}}
 });
 {{/js}}

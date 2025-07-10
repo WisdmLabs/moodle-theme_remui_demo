@@ -21,7 +21,7 @@
  */
 
 import * as View from './blockmyoverview/view';
-import * as ViewNav from './blockmyoverview/view_nav';
+import * as ViewNav from 'block_myoverview/view_nav';
 
 /**
  * Initialise all of the modules for the overview block.

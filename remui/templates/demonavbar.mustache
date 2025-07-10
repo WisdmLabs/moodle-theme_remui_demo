@@ -27,12 +27,12 @@
 
 {{#democontext}}
 
-<div class="fixed-top demo-navbar d-flex p-py-1d5 p-px-4"> 
+<div class="fixed-top demo-navbar {{#offers.hasoffer}}offer-available{{/offers.hasoffer}} d-flex p-py-1d5 p-px-4">
     <a href="{{{ config.homeurl }}}" class="demo-logo d-flex align-items-center m-0" aria-label="{{ sitename }} - {{#str}}brandname, theme_remui{{/str}}" title="{{ sitename }}">
         <img src="{{wwwroot}}/theme/remui/pix/demosite/demo-logo.png" class="">
-    </a>      
+    </a>
 
-    <nav class="navbar navbar-expand-lg">
+    <nav class="navbar {{#offers.hasoffer}}navbar-expand-xxl{{/offers.hasoffer}} {{^offers.hasoffer}}navbar-expand-xl{{/offers.hasoffer}}">
         <button class="navbar-toggler p-0 m-0" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <img class="hamburger-icon" src="{{wwwroot}}/theme/remui/pix/demosite/hamburger-icon.svg" class="hamburger">
             <img class="close-icon" src="{{wwwroot}}/theme/remui/pix/demosite/close-icon.svg" class="close">
@@ -41,8 +41,27 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="dropdown nav-item" role="none"  >
-                    <a class="dropdown-toggle underline nav-link  flex-gap-d5" id="drop-down-1" role="menuitem" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#" tabindex="-1" aria-label="Templates Courses Menu" title="Templates">
-                        Templates
+                    <a class="dropdown-toggle underline nav-link  flex-gap-d5" id="drop-down-5" role="menuitem" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#" tabindex="-1" aria-label="Templates Courses Menu" title="Templates">
+
+                        Homepages
+
+                    </a>
+                    <div class="dropdown-menu" role="menu" aria-labelledby="drop-down-5">
+                        <div class="demo-navbar-menu-container">
+                            <button class="btn-back flex-gap-1 align-items-center p-0 p-mb-12">
+                                <img src="{{wwwroot}}/theme/remui/pix/demosite/arrow-left.svg" class="close">
+                                <span>Back</span>
+                            </button>
+                            {{> theme_remui/demonavbar_legacy_templates }}
+                        </div>
+                    </div>
+                </li>
+
+                <li class="dropdown nav-item" role="none"  >
+                    <a class="dropdown-toggle underline nav-link  flex-gap-d5" id="drop-down-1" role="menuitem" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#" tabindex="-1" aria-label="Pro Templates Courses Menu" title="Pro Templates">
+
+                        Page Builder Templates <span class="pro-tag">PRO</span>
+
                     </a>
                     <div class="dropdown-menu" role="menu" aria-labelledby="drop-down-1">
                         <div class="demo-navbar-menu-container">
@@ -85,7 +104,7 @@
                     <a class="dropdown-toggle underline nav-link  flex-gap-d5" id="drop-down-4" role="menuitem" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#" tabindex="-1" aria-label="What’s new Menu" title="What’s new">
 
                     <span class="position-relative">What’s new <span class="heighlighted-circle"><span></span></span></span>
-                    
+
                     </a>
                     <div class="dropdown-menu" role="menu" aria-labelledby="drop-down-4">
                         <div class="demo-navbar-menu-container">
@@ -99,11 +118,40 @@
                 </li>
             </ul>
         </div>
+        {{#offers}}
+            {{#hasoffer}}
+            <div class="ml-4 h-100" id="BFCMnav">
+                <ul class="h-100 p-0 m-0">
+                    <li class="dropdown h-100 p-0 d-flex align-items-center" role="none">
+                        <a class="dropdown-toggle underline nav-link h-100 d-flex align-items-center p-0" role="menuitem" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="{{btnlink}}" tabindex="-1" aria-label="Templates Courses Menu" title="Templates">
+                            {{#subimagebtn}}
+                            <img class="bfcmwheel h-100 spin-360" src="{{subimagebtn}}" alt="SubImage btn">
+                            {{/subimagebtn}}
+                            {{#imagebtn}}
+                            <img class="h-100" src="{{imagebtn}}" alt="Offer button">
+                            {{/imagebtn}}
+                        </a>
+                        {{#hasimagebanner}}
+                        <div class="dropdown-menu" role="menu" aria-labelledby="drop-down-1">
+                            <div class="demo-navbar-menu-container p-0 d-flex justify-content-center">
+                                <a target="_blank" href="{{bannerlink}}">
+                                    {{#imagebanner}}
+                                    <img src="{{imagebanner}}" alt="Offer banner">
+                                    {{/imagebanner}}
+                                </a>
+                            </div>
+                        </div>
+                        {{/hasimagebanner}}
+                    </li>
+                </ul>
+            </div>
+            {{/hasoffer}}
+        {{/offers}}
     </nav>
 
     <ul class="ml-auto d-flex flex-gap-4 navbar-right">
         {{#hasswitchablerolebtns}}
-            <li class="dropdown nav-item" role="none"  >
+            <li class="dropdown nav-item role-switcher" role="none"  >
                 <a class="dropdown-toggle nav-link flex-gap-d5 p-px-2d5 p-py-1d5" id="drop-down-5" role="menuitem" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#" tabindex="-1" aria-label="Admin Menu" title="Admin">
 
                 {{#userrolename}}
@@ -112,11 +160,11 @@
                 {{^userrolename}}
                     {{#str}}switchroleto{{/str}}
                 {{/userrolename}}
-                
+
                 </a>
                 <div class="dropdown-menu users-menu-dropdown" role="menu" aria-labelledby="drop-down-5">
 
-                    {{#switchablerolebtns}} 
+                    {{#switchablerolebtns}}
                         <div class="switcher-role">
                             {{{.}}}
                         </div>

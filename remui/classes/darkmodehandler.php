@@ -73,6 +73,14 @@ class theme_remui_darkmodehandler {
             return false;
         }
 
+        if (!$this->status) {
+            $this->status = get_config('theme_remui', 'enabledarkmode');
+        }
+
+        if (!$this->status) {
+            $this->status = "allowonallpages";
+        }
+
         $functioncall = "trigger_dm_" . $this->status;
 
         return $this->$functioncall();

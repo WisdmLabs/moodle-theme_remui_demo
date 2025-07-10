@@ -1,0 +1,106 @@
+
+
+body.pagelayout-frontpage #page.drawers .main-inner .frontpage-sections {
+	max-width: unset;
+
+	#edwiser-carousel-old {
+		.carousel-caption {
+			.caption-heading {
+				color: #2F3847;
+			}
+
+			.caption-desc {
+				color: #4C5A73;
+			}
+		}
+
+		#banner-img-slider {
+			background-image: url("https://staticcdn.edwiser.org/theme_remuiassets/images/legacy_homepage/banner2.png") !important;
+		}
+
+		.carousel-control-prev-icon,
+		.carousel-control-next-icon {
+			color: #0051F9;
+		}
+
+		.carousel-indicators {
+			li {
+				background-color: #D9D9D9;
+			}
+			li.active {
+				background-color: #0051F9;
+			}
+		}
+	}
+
+
+	#edwiser-aboutus {
+
+		@media screen and (min-width: 1024px) {
+			.container {
+				display: flex;
+				gap: 60px;
+
+				.heading {
+					width: calc(40% - 30px);
+				}
+				.cards-deck {
+					width: calc(60% - 30px);
+					padding: 0;
+				}
+			}
+
+			.heading {
+				align-items: start !important;
+
+				.title {
+					text-align: left;
+				}
+
+				.desc {
+					text-align: left;
+				}
+			}
+		}
+
+
+		.legacy-page-1 {
+			display: none;
+		}
+
+		.feature-box__icon {
+			width: 60px;
+			height: 60px;
+			padding: 28px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			border-radius: 100%;
+			background-color: #fff;
+			color: #0051F9;
+		}
+
+		.cards-deck {
+
+			.feature-box {
+
+				border: 1px solid #D5DDEA;
+				background: #F5F8FF !important;
+			}
+		}
+	}
+
+	#edwiser-testimonials {
+		.carousel-item-wrapper {
+
+			div:first-child {
+
+				.avatar {
+					margin-bottom: 12px;
+				}
+			}
+		}
+	}
+
+}
+

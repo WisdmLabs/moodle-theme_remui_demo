@@ -22,6 +22,12 @@
     <div tabindex="-1">
         <div class="card-img dashboard-card-img p-p-4 edw-course-img-wrapper" style='background-image: url("{{{courseimage}}}");'>
             <a href="{{ courseurl }} " class="view-course-url"></a>
+
+            <div class="d-flex align-items-center justify-content-between">
+                {{#skillleveltag}}
+                    <p class="skilltag m-0 badge {{badge}}">{{{labeltag}}}</p>
+                {{/skillleveltag}}
+            </div>
         </div>
     </div>
     <div class="course-card-body-wrapper d-flex h-100">
@@ -46,7 +52,7 @@
                                 <h6 class="h-regular-6 course-instructors m-0 break-word ellipsis ellipsis-2" title="{{{name}}}">{{{name}}}</h6>
                             </a>
                         </div>
-                                
+
                         {{#instructorcount}}
                             <span class="small-info-semibold instructorscount d-flex align-items-center justify-content-center" title="{{#str}}instructorcounttitle,theme_remui{{/str}}">
                                 +{{instructorcount}}

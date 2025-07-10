@@ -178,7 +178,7 @@
                 <div class="p-py-2d5 d-flex flex-column flex-gap-d5 select-optgroup-wrapper">
                     {{#coursesortings}}
                     <div class="select-optgroup d-flex flex-column">
-                        <span class="optgroup-label small-info-semibold p-py-1d5" title="{{sortinglabel}}">{{{sortinglabel}}}</span>
+                        {{#sortinglabel}}<span class="optgroup-label small-info-semibold p-py-1d5" title="{{sortinglabel}}">{{{sortinglabel}}}</span>{{/sortinglabel}}
                         {{#sortingoptions}}
                             <p data-value="{{value}}" class="select-option m-0 text-link-regular" title="{{text}}">{{{text}}}</p>
                         {{/sortingoptions}}

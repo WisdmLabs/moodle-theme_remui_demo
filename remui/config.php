@@ -31,10 +31,11 @@ $THEME->name = 'remui';
 $THEME->editor_sheets = [];
 $THEME->editor_scss = ['editor'];
 // $THEME->usefallback = true;
-$THEME->scss = "./preset/remui";
-// $THEME->scss = function($theme) {
-//     return theme_remui_get_main_scss_content($theme);
-// };
+// $THEME->scss = "./preset/remui";
+
+$THEME->scss = function($theme) {
+    return theme_remui_get_main_scss_content($theme);
+};
 
 $THEME->layouts = [
     // Most backwards compatible layout without the blocks.

@@ -67,6 +67,7 @@ define([
                 args: {courseid: M.cfg.courseId}
             }]);
             autoservice[0].done(function(response) {
+                response = JSON.parse(response);
                 Templates.renderForPromise(templateName, response)
                     .then(({html, js}) => {
                         $(_thispane).find(tabpanearea).empty();
