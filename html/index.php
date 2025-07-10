@@ -4,6 +4,11 @@
         header("Location: https://demo.tryremui.edwiser.org/maintenance.html");
     }
 
+    // Get query parameters
+    $isPageBuilderDemo = isset($_GET['pagebuilderdemo']);
+    $isVideoFormatDemo = isset($_GET['videoformatdemo']);
+    $email = isset($_GET['e']) ? $_GET['e'] : '';
+
     // Include the JSONFileManager class
     require("JsonFileManager.php");
 ?>
@@ -29,8 +34,53 @@
         a.appendChild(r);
     })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
     </script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-X3YTNJ8CJ1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-X3YTNJ8CJ1');
+</script>
   </head>
   <body>
+
+   <!-- Page Builder and Video Format Demo -->
+    <?php if (($isPageBuilderDemo || $isVideoFormatDemo) && !empty($email)): ?>
+      <div class="bg-top-left"></div>
+      <div class="bg-bottom-right"></div>
+      <div class="loader-container" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 9999;">
+        <div class="loader" style="border: 5px solid #f3f3f3; border-top: 5px solid #3498db; border-radius: 50%; width: 50px; height: 50px; animation: spin 2s linear infinite;"></div>
+      </div>
+      <style>
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+      </style>
+      <form id="pageBuilderForm" action="createinstance.php" method="post" style="display: none;">
+          <input type="hidden" name="email" value="<?php echo htmlspecialchars($email); ?>">
+          <input type="hidden" name="layoutName" value="<?php echo $isPageBuilderDemo ? 'page-builder-demo' : 'videoformatdemo'; ?>">
+          <input type="hidden" name="tagid" value="<?php echo $isPageBuilderDemo ? '32' : '43'; ?>">
+      </form>
+      <script>
+          document.addEventListener('DOMContentLoaded', function() {
+              setTimeout(function() {
+                  const form = document.getElementById('pageBuilderForm');
+                  if (form) {
+                      console.log('Submitting form...');
+                      form.submit();
+                  } else {
+                      console.error('Page builder form not found');
+                      $urlparams = 'email=<?php echo urlencode($email); ?>&layoutName=<?php echo $isPageBuilderDemo ? 'page-builder-demo' : 'videoformatdemo'; ?>&tagid=<?php echo $isPageBuilderDemo ? '32' : '43'; ?>';
+                      window.location.href = 'createinstance.php?' . $urlparams;
+                  }
+              }, 100);
+          });
+      </script>
+    <?php else: ?>
+
     <div class="bg-top-left"></div>
     <div class="bg-bottom-right"></div>
     <div class="main-container stack-top">
@@ -55,6 +105,7 @@
               <div class="layout-options">
 
                 <?php
+
                   // Create a JSONFileManager object
                   $json_file_manager = new JSONFileManager("./data/demo_categories.json");
 
@@ -103,6 +154,8 @@
         </div>
       </div>
     </div>
+
+    <?php endif; ?>
 
   </body>
 
@@ -187,6 +240,26 @@
 
   </script>
 
+<?php if (($isPageBuilderDemo || $isVideoFormatDemo) && !empty($email)): ?>
+		<script>
+		    // Use a single event listener for DOMContentLoaded
+		    document.addEventListener('DOMContentLoaded', function() {
+		        // Add a small delay to ensure everything is ready
+		        setTimeout(function() {
+		            const form = document.getElementById('pageBuilderForm');
+		            if (form) {
+		                console.log('Submitting form...');
+		                form.submit();
+		            } else {
+		                console.error('Page builder form not found');
+		                // Fallback: Redirect with GET parameters if form submission fails
+                    $urlparams = 'email=<?php echo urlencode($email); ?>&layoutName=<?php echo $isPageBuilderDemo ? 'page-builder-demo' : 'videoformatdemo'; ?>&tagid=<?php echo $isPageBuilderDemo ? '32' : '43'; ?>';
+		                window.location.href = 'createinstance.php?' . $urlparams;
+		            }
+		        }, 100); // 100ms delay
+		    });
+		</script>
+<?php endif; ?>
 
   <!--<script type="text/javascript" src="https://cdn.neverbounce.com/widget/dist/NeverBounce.js"></script>-->
   <!--EMAIL VALIDATOR -->

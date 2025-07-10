@@ -1,16 +1,23 @@
 <?php
 define('WEB_SCRIPT', true);
 
+$email = "xyz@gmail.com";
 if (!isset($_POST) || empty($_POST)) {
-  // Redirect to demo.tryremui.edwiser.org if $_POST is not set
-  header("Location: https://demo.tryremui.edwiser.org");
-  exit;
+  // Check if we have GET parameters for page builder demo
+  if (isset($_GET['email']) && isset($_GET['layoutName']) && isset($_GET['tagid'])) {
+    $email = $_GET['email'];
+    $demotype = $_GET['layoutName'];
+    $tagid = $_GET['tagid'];
+  } else {
+    // Redirect to demo.tryremui.edwiser.org if no valid parameters are set
+    header("Location: https://demo.tryremui.edwiser.org");
+    exit;
+  }
 }
 
 require_once("./InstanceManager.php");
 
 $im = new InstanceManager();
-$email = "xyz@gmail.com";
 
 if (isset($_POST) && isset($_POST['email'])) {
     $email = $_POST['email'];
@@ -19,11 +26,15 @@ if (isset($_POST) && isset($_POST['email'])) {
 $demotype = "classic";
 if (isset($_POST) && isset($_POST['layoutName'])) {
   $demotype = $_POST['layoutName'];
+} else if (isset($_GET['layoutName'])) {
+  $demotype = $_GET['layoutName'];
 }
 
 $tagid = -1;
 if (isset($_POST) && isset($_POST['tagid'])) {
   $tagid = $_POST['tagid'];
+} else if (isset($_GET['tagid'])) {
+  $tagid = $_GET['tagid'];
 }
 
 if (5 <= round(disk_free_space("/") / 1024 / 1024 / 1024)) {
@@ -52,7 +63,7 @@ if (5 <= round(disk_free_space("/") / 1024 / 1024 / 1024)) {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./styles.css">
-    <meta http-equiv="refresh" content="2;URL=https://<?php echo $demoinstance['instanceurl']?>">
+    <meta http-equiv="refresh" content="2;URL=https://<?php echo $demoinstance['instanceurl'] . ($tagid == 32 ? '/login/index.php?switchtheme=edwboost' : '') ?>">
   </head>
   <body>
   <div class="bg-top-left"></div>
@@ -78,7 +89,7 @@ if (5 <= round(disk_free_space("/") / 1024 / 1024 / 1024)) {
           </h1>
           <?php if (!isset($demoinstance['invalid'])) { ?>
             <p class="sub-text italic d-flex align-items-center">
-              <span>If not redirected in</span> <img class="hourglass" src="./images/hourglass.gif" alt="Timer Image" width="30"><span id="redirecttimer">30 seconds</span>,&nbsp;<a href="https://<?php echo $demoinstance['instanceurl']?>" title="Demo Instance link">Click here</a>
+              <span>If not redirected in</span> <img class="hourglass" src="./images/hourglass.gif" alt="Timer Image" width="30"><span id="redirecttimer">30 seconds</span>,&nbsp;<a href="https://<?php echo $demoinstance['instanceurl'] . ($tagid == 32 ? '/login/index.php?switchtheme=edwboost' : '') ?>" title="Demo Instance link">Click here</a>
             </p>
           <?php }?>
         </div>
