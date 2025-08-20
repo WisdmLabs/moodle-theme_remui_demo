@@ -178,7 +178,7 @@ if [ "$action" == "create" ]; then
 	#echo " With"
 	#echo $newdomain
 
-	/usr/bin/php8.0 ${rootDir}/admin/cli/purge_caches.php > /dev/null
+	/usr/bin/php8.3 ${rootDir}/admin/cli/purge_caches.php > /dev/null
 	echo "Sleeping for 1 seconds"
 	sleep 1
 	### show the finished message
