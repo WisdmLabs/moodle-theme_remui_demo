@@ -63,7 +63,7 @@ class InstanceManager {
      * @return void
      */
     function existing($ip) {
-	//    return false;
+	// return false;
         if ($ip == 'CLI') {
             return false;
         }
@@ -142,12 +142,24 @@ class InstanceManager {
                 'Content-Type: application/x-www-form-urlencoded',
             ]);
 
+            // Set timeout options to prevent blocking
+            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10); // 10 seconds connection timeout
+            curl_setopt($ch, CURLOPT_TIMEOUT, 30); // 30 seconds total timeout
+            curl_setopt($ch, CURLOPT_NOSIGNAL, 1); // Ignore signals to prevent blocking
+
             // Execute the POST request
             $response = curl_exec($ch);
 
             // Check for cURL errors
             if ($response === false) {
-                echo 'cURL Error: ' . curl_error($ch);
+		$curlError = curl_error($ch);
+                $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+                // Log the error but don't block the flow
+                error_log("cURL Error for existing instance {$existingdata['instanceurl']}: $curlError (HTTP Code: $httpCode)");
+
+                // Set a default response to continue flow
+                $response = null;
             }
 
             // Close cURL session
@@ -209,12 +221,25 @@ class InstanceManager {
                 'Content-Type: application/x-www-form-urlencoded',
             ]);
 
+            // Set timeout options to prevent blocking
+            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10); // 10 seconds connection timeout
+            curl_setopt($ch, CURLOPT_TIMEOUT, 30); // 30 seconds total timeout
+            curl_setopt($ch, CURLOPT_NOSIGNAL, 1); // Ignore signals to prevent blocking
+
+
             // Execute the POST request
             $response = curl_exec($ch);
 
             // Check for cURL errors
             if ($response === false) {
-                echo 'cURL Error: ' . curl_error($ch);
+                $curlError = curl_error($ch);
+                $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+                // Log the error but don't block the flow
+                error_log("cURL Error for new instance {$existingdata['instanceurl']}: $curlError (HTTP Code: $httpCode)");
+
+                // Set a default response to continue flow
+                $response = null;
             }
 
             // Close cURL session

@@ -46,7 +46,6 @@
   </head>
   <body>
 
-   <!-- Page Builder and Video Format Demo -->
     <?php if (($isPageBuilderDemo || $isVideoFormatDemo) && !empty($email)): ?>
       <div class="bg-top-left"></div>
       <div class="bg-bottom-right"></div>
