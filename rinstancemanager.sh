@@ -163,7 +163,7 @@ if [ "$action" == "create" ]; then
 	#echo $newdomain
 
 
-	/usr/bin/php7.4 ${rootDir}/admin/cli/purge_caches.php > /dev/null
+	/usr/bin/php8.3 ${rootDir}/admin/cli/purge_caches.php > /dev/null
 
 	### show the finished message
 	echo -e $"Complete! \nYou now have a new Virtual Host \nYour new host is: https://$newdomain \nAnd its located at $rootDir"

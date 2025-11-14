@@ -1,0 +1,14 @@
+{
+    "hasfixes": false,
+    "fixes": [
+        ""
+    ],
+    "hastweaks": true,
+    "tweaks" : [
+        "UI improvements have been made on the Login page and Course page."
+    ],
+    "hasfeatures": true,
+    "features": [
+        "WhatsApp and Telegram social media fields have been added to the footer settings."
+    ]
+}

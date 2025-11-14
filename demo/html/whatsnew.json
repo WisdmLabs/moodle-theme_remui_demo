@@ -1,0 +1,20 @@
+{
+    "hasfixes": false,
+    "fixes": [
+        ""
+    ],
+    "hastweaks": true,
+    "tweaks" : [
+        "Added a default sorting option in  course archive page filters.",
+        "Minor improvements in the setup wizard."
+    ],
+    "hasfeatures": true,
+    "features": [
+        "Accessibility widgets and its settings have been added. The following accessibility widgets are now available:",
+        "1) Content adjustment widgets",
+        "2) Color adjustment widgets",
+        "3) Reading guide tool",
+        "4) Stop animation tool",
+        "5) Big cursor tool"
+    ]
+}

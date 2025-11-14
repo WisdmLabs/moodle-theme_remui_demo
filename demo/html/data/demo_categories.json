@@ -1,0 +1,22 @@
+[
+    {
+        "id": "corporate",
+        "name": "Corporate Training"
+    },
+    {
+        "id": "school",
+        "name": "Online School"
+    },
+    {
+        "id": "university",
+        "name": "Online University"
+    },
+    {
+        "id": "training",
+        "name": "Personal Training"
+    },
+    {
+        "id": "classic",
+        "name": "Other"
+    }
+]

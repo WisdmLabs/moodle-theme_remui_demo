@@ -88,6 +88,8 @@ if [ "$action" == "create" ]; then
 
 	# copy moodle files and import database to trial site
 	unzip -q $userDir/$fileszip -d $rootDir
+	echo "Sleeping for 0.1 seconds"
+	sleep 0.1
 
 	mv $rootDir/$files/* $rootDir
 	rm -r $rootDir/$files
@@ -95,6 +97,9 @@ if [ "$action" == "create" ]; then
 	unzip -q $userDir/$datazip -d $rootDir/moodledata
 	mv $rootDir/moodledata/$data/* $rootDir/moodledata
 	rm -r $rootDir/moodledata/$data
+	
+	echo "Sleeping for 0.1 seconds"
+	sleep 0.1
 
 	#Create database.
 	query="create database ${dbname}"
@@ -104,14 +109,24 @@ if [ "$action" == "create" ]; then
 
 	#Store the database backup.
 	cp $userDir/$dbsqlfile $userDir/$dbname.sql
+
+	# Sleep for 1 seconds
+	echo "Sleeping for 1 seconds"
+	sleep 1
+
 	#sed -i "s:/tryremui.edwiser.org/:/$newdomain/:g" $userDir/$dbname.sql
 	sed -ie  "s:$olddomain:$newdomain:g" $userDir/$dbname.sql
 	sed -ie  "s:$olddomainregx:$newdomainregx:g" $userDir/$dbname.sql
-	
+	echo "Sleeping for 1 seconds"
+	sleep 1
+
 	# sed -i "s,\\/\\/tryremui.edwiser.org\,//$newdomain/,g" $userDir/$dbname.sql
 	sed -ie "s:/remui.edwiser.org/schoolv2/:/$newdomain/:g" $userDir/$dbname.sql
 
 	mysql --defaults-extra-file=$mysqlClient $dbname < $userDir/$dbname.sql
+	echo "Sleeping for 1 seconds"
+	sleep 1
+
 	rm $userDir/$dbname.sql
 	rm $userDir/${dbname}.sqle
 	# sudo mysql --login-path=$loginpath $dbname < $userDir/$dbsqlfile
@@ -148,6 +163,9 @@ if [ "$action" == "create" ]; then
 		chmod -R 777 $rootDir/moodledata
 		chown -R www-data:www-data $rootDir/moodledata
 	fi
+	
+	echo "Sleeping for 0.1 seconds"
+	sleep 0.1
 
 	#Update config file
 	sed -ie "s:$olddomain:$newdomainregx:g" ${rootDir}/config.php
@@ -160,9 +178,9 @@ if [ "$action" == "create" ]; then
 	#echo " With"
 	#echo $newdomain
 
-
-	/usr/bin/php7.4 ${rootDir}/admin/cli/purge_caches.php > /dev/null
-
+	/usr/bin/php8.3 ${rootDir}/admin/cli/purge_caches.php > /dev/null
+	echo "Sleeping for 1 seconds"
+	sleep 1
 	### show the finished message
 	echo -e $"Complete! \nYou now have a new Virtual Host \nYour new host is: https://$newdomain \nAnd its located at $rootDir"
 	exit 1;
@@ -181,8 +199,15 @@ elif [ "$action" == "delete" ]; then
 	if [ -d $rootDir ]; then
 		rm -rf $rootDir
 	fi
+	echo "Sleeping for 1 seconds"
+	sleep 1
+
 	# echo "drop database $dbname" | mysql --defaults-extra-file=$mysqlClient
 	echo "DROP DATABASE $dbname" | mysql --defaults-extra-file=$mysqlClient
+
+	echo "Sleeping for 1 seconds"
+	sleep 1
+
 	### show the finished message
 	### restart nginx
 	# service nginx reload

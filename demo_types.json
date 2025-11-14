@@ -1,0 +1,64 @@
+{
+    "remui": {
+        "name": "RemUI Theme",
+        "description": "Edwiser RemUI demo sandbox",
+        "base_url": "tryremui.edwiser.org/main",
+        "base_url_regex": "tryremui.edwiser.org\/main",
+        "database_name": "tryremuimain",
+        "data_root": "/var/www/tryremui/mdmain",
+        "token": "bce244d53b327b127e1996a6063903bc",
+        "files": {
+            "db_sql": "tr_db.sql",
+            "files_zip": "tr_files.zip",
+            "data_zip": "tr_data.zip",
+            "files_dir": "tr_files",
+            "data_dir": "tr_data"
+        },
+        "layout_tags": {
+            "default": 21,
+            "classic": 21,
+            "school": 22,
+            "university": 24,
+            "corporate": 23,
+            "training": 30
+        }
+    },
+    "pagebuilderdemo": {
+        "name": "Edwiser Page Builder",
+        "description": "Edwiser Page Builder demo sandbox",
+        "base_url": "tryremui.edwiser.org/main",
+        "base_url_regex": "tryremui.edwiser.org\/main",
+        "database_name": "tryremuimain",
+        "data_root": "/var/www/tryremui/mdmain",
+        "token": "bce244d53b327b127e1996a6063903bc",
+        "files": {
+            "db_sql": "tr_db.sql",
+            "files_zip": "tr_files.zip",
+            "data_zip": "tr_data.zip",
+            "files_dir": "tr_files",
+            "data_dir": "tr_data"
+        },
+        "layout_tags": {
+            "default": 32
+        }
+    },
+    "videoformatdemo": {
+        "name": "Video Course Format",
+        "description": "Edwiser Video Format demo sandbox",
+        "base_url": "tryremui.edwiser.org/vcfmain",
+        "base_url_regex": "tryremui.edwiser.org\/vcfmain",
+        "database_name": "tryremuivcfmain",
+        "data_root": "/var/www/tryremui/mdvcfmain",
+        "token": "5a3a70addef7fe8fe0bbeabca79a8da6",
+        "files": {
+            "db_sql": "vcf_db.sql",
+            "files_zip": "vcf_files.zip",
+            "data_zip": "vcf_data.zip",
+            "files_dir": "tr_files",
+            "data_dir": "tr_data"
+        },
+        "layout_tags": {
+            "default": 43
+        }
+    }
+}
