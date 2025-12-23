@@ -36,7 +36,6 @@ $PAGE->requires->css('/theme/remui/style/customizer.css');
 $PAGE->requires->css('/theme/remui/style/devices.css');
 $PAGE->requires->css('/theme/remui/style/color-picker.css');
 
-// $PAGE->requires->css( '/local/edwiserpagebuilder/styles/editor.css' );
 $strings = get_string_manager()->load_component_strings('theme_remui', 'en');
 $PAGE->requires->strings_for_js(array_keys($strings), 'theme_remui');
 $PAGE->requires->strings_for_js(array(
@@ -51,9 +50,8 @@ $templatecontext = new stdClass;
 
 $templatecontext->panels = $customizer->accordion();
 $templatecontext->url = $url;
-// $templatecontext->loader = new moodle_url('/theme/remui/pix/siteloader.gif');
 
-if(get_config('theme_remui','enablesiteloader')){
+if (get_config('theme_remui', 'enablesiteloader')) {
     $templatecontext->loader = \theme_remui\utility::get_site_loader();
 }
 $templatecontext->sitename = $COURSE->shortname;

@@ -34,7 +34,7 @@ if (!is_guest($coursecontext, $USER) &&
     $PAGE->pagelayout == 'mydashboard' && $PAGE->pagetype == 'my-index') {
     $templatecontext['isdashboardstatsshow'] = true;
     $setupstatus = get_config("theme_remui","setupstatus");
-    if(get_config("theme_remui","dashboardpersonalizerinfo") == "show" && ( $setupstatus == "final" || $setupstatus == 'finished' )) {
+    if(get_config("theme_remui","dashboardpersonalizerinfo") == "show" && ( $setupstatus == "final" || $setupstatus == 'finished' ) && is_siteadmin($USER)) {
         $templatecontext['showpersonlizerinfo'] = true;
     }
 }

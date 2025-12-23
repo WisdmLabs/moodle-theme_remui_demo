@@ -1563,3 +1563,12 @@ $string['focusmodeoff'] = 'Fokusmodus AUS';
 $string['forcefocusmode'] = 'Fokusmodus für alle Kurse erzwingen';
 $string['focusmodeactiveadminmsg'] = 'Der Fokusmodus ist für Studierende aktiv';
 $string['focusmodeactivenavinfo'] = 'Fokusmodus ist AKTIV. Klicken Sie unten rechts auf „X“, um ihn zu schließen.';
+
+$string['moredetails'] = "Weitere Details";
+$string['templatesloading_de'] = 'Vorlagen werden geladen — kann 5–10 Minuten dauern.';
+$string['expandall'] = 'Alle erweitern';
+$string['collapseall'] = 'Alle einklappen';
+
+$string["setupwizardsettingpagehead"] = "Einrichtungsassistent";
+$string["setupwizardsettingpagedesc"] = "Die Einrichtung wurde unterbrochen. Bitte klicken Sie auf die Schaltfläche unten, um fortzufahren.";
+$string["setupwizarddesc"] = '<a id="resume-setup" data-action="{$a->setupstep}" class="btn btn-secondary" href="'.$CFG->wwwroot.'/theme/remui/setup.php'.'"> Einrichtung fortsetzen</a>';

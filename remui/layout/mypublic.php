@@ -142,7 +142,7 @@ if (user_can_view_profile($userobject, null, $context)) {
     $templatecontext['user']->badgedsettingstatus = $CFG->enablebadges;
     $templatecontext['user']->blogsettingstatus = $CFG->enableblogs;
 
-    $templatecontext['countryname'] = isset($countries[$templatecontext['user']->country]) ? $countries[$templatecontext['user']->country] : '-';
+    $templatecontext['countryname'] = isset($countries[$templatecontext['user']->country]) ? $countries[$templatecontext['user']->country] : '';
     if (isset( $templatecontext['user']->city)) {
         $templatecontext['user']->city  = format_text($templatecontext['user']->city, FORMAT_HTML);
     }

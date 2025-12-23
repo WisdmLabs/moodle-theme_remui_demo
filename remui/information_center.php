@@ -41,7 +41,6 @@ $templatecontext = array();
 $licensecontroller = new \theme_remui\controller\LicenseController();
 $templatecontext['license'] = $licensecontroller->get_remui_license_template_context();
 
-// $templatecontext['announcements'] = \theme_remui\controller\RemUIController::get_remui_announcements();
 require_once($CFG->dirroot.'/theme/remui/lib.php');
 $templatecontext['remuithemeversion'] = get_string('themeversionforinfo', 'theme_remui', get_theme_release_info());
 echo $OUTPUT->render_from_template('theme_remui/information_center', $templatecontext);

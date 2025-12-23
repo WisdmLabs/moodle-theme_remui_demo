@@ -311,102 +311,102 @@ define(['jquery', 'theme_remui/feedbackcollection', 'https://elevenlabs.io/conva
     }
 
 
-    // AI Beacon start
-    window.conversationStart = false;
+    // ******AI Beacon start*****
+    // window.conversationStart = false;
 
-    function shouldShowAnimation() {
-        if (window.conversationStart) {
-            return false;
-        }
-        return true;
-    }
+    // function shouldShowAnimation() {
+    //     if (window.conversationStart) {
+    //         return false;
+    //     }
+    //     return true;
+    // }
 
-    function playBeepSound() {
-        return;
-        const beepSound = document.getElementById('beep-sound');
-        if (beepSound) {
-            beepSound.play();
-        }
-    }
+    // function playBeepSound() {
+    //     return;
+    //     const beepSound = document.getElementById('beep-sound');
+    //     if (beepSound) {
+    //         beepSound.play();
+    //     }
+    // }
 
-    function triggerHelloAnimation() {
-        if (window.conversationStart) {
-            return;
-        }
+    // function triggerHelloAnimation() {
+    //     if (window.conversationStart) {
+    //         return;
+    //     }
 
-        const chatbot = document.querySelector('elevenlabs-convai');
-        if (chatbot) {
-            playBeepSound();
-            chatbot.classList.add('elevenlabs-animate-hello');
-            localStorage.setItem('helloAnimationLastShown', Date.now().toString());
+    //     const chatbot = document.querySelector('elevenlabs-convai');
+    //     if (chatbot) {
+    //         playBeepSound();
+    //         chatbot.classList.add('elevenlabs-animate-hello');
+    //         localStorage.setItem('helloAnimationLastShown', Date.now().toString());
 
-            const bubble = document.getElementById('hello-bubble');
-            const botRect = chatbot.getBoundingClientRect();
+    //         const bubble = document.getElementById('hello-bubble');
+    //         const botRect = chatbot.getBoundingClientRect();
 
-            bubble.style.position = 'absolute';
-            bubble.style.top = `${botRect.top + 6 + window.scrollY}px`;
-            bubble.style.left = `${botRect.right - 170 + window.scrollX}px`;
-            bubble.style.display = 'block';
+    //         bubble.style.position = 'absolute';
+    //         bubble.style.top = `${botRect.top + 6 + window.scrollY}px`;
+    //         bubble.style.left = `${botRect.right - 170 + window.scrollX}px`;
+    //         bubble.style.display = 'block';
 
-            setTimeout(() => {
-                bubble.style.display = 'none';
-                chatbot.classList.remove('elevenlabs-animate-hello');
-            }, 4000);
-        }
-    }
+    //         setTimeout(() => {
+    //             bubble.style.display = 'none';
+    //             chatbot.classList.remove('elevenlabs-animate-hello');
+    //         }, 4000);
+    //     }
+    // }
 
-    function getQueryParam(param) {
-        const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get(param);
-    }
+    // function getQueryParam(param) {
+    //     const urlParams = new URLSearchParams(window.location.search);
+    //     return urlParams.get(param);
+    // }
 
-    // Set cookie if email query param exists
-    const ai_email = getQueryParam('email');
-    if (ai_email) {
-        const expiryDays = 7;
-        const d = new Date();
-        d.setTime(d.getTime() + (expiryDays * 24 * 60 * 60 * 1000));
-        const expires = "expires=" + d.toUTCString();
-        document.cookie = "remui_user_email=" + encodeURIComponent(ai_email) + ";" + expires + ";path=/";
-    }
+    // // Set cookie if email query param exists
+    // const ai_email = getQueryParam('email');
+    // if (ai_email) {
+    //     const expiryDays = 7;
+    //     const d = new Date();
+    //     d.setTime(d.getTime() + (expiryDays * 24 * 60 * 60 * 1000));
+    //     const expires = "expires=" + d.toUTCString();
+    //     document.cookie = "remui_user_email=" + encodeURIComponent(ai_email) + ";" + expires + ";path=/";
+    // }
 
-    function getDemoCookie(name) {
-        const decodedCookies = decodeURIComponent(document.cookie);
-        const cookies = decodedCookies.split(';');
-        for (let cookie of cookies) {
-        cookie = cookie.trim();
-        if (cookie.startsWith(name + '=')) {
-            return cookie.substring(name.length + 1);
-        }
-        }
-        return null;
-    }
+    // function getDemoCookie(name) {
+    //     const decodedCookies = decodeURIComponent(document.cookie);
+    //     const cookies = decodedCookies.split(';');
+    //     for (let cookie of cookies) {
+    //     cookie = cookie.trim();
+    //     if (cookie.startsWith(name + '=')) {
+    //         return cookie.substring(name.length + 1);
+    //     }
+    //     }
+    //     return null;
+    // }
 
-    function setWidgetAttributes(attempt = 1) {
-        const widget = document.querySelector('elevenlabs-convai');
+    // function setWidgetAttributes(attempt = 1) {
+    //     const widget = document.querySelector('elevenlabs-convai');
 
-        if (widget) {
-        const userEmail = getDemoCookie('remui_user_email');
+    //     if (widget) {
+    //     const userEmail = getDemoCookie('remui_user_email');
 
-        if (userEmail) {
-            const browserDetails = {
-            url: window.location.href,
-            OS: navigator.platform,
-            email_id: userEmail
-            };
+    //     if (userEmail) {
+    //         const browserDetails = {
+    //         url: window.location.href,
+    //         OS: navigator.platform,
+    //         email_id: userEmail
+    //         };
 
-            const browserDetailsJSON = JSON.stringify(browserDetails);
-            widget.setAttribute('dynamic-variables', browserDetailsJSON);
+    //         const browserDetailsJSON = JSON.stringify(browserDetails);
+    //         widget.setAttribute('dynamic-variables', browserDetailsJSON);
 
-            if (shouldShowAnimation()) {
-            setTimeout(triggerHelloAnimation, 10000);
-            }
-        }
-        } else if (attempt < 4) {
-        setTimeout(() => setWidgetAttributes(attempt + 1), 2000);
-        }
-    }
-    // AI Beacon end
+    //         if (shouldShowAnimation()) {
+    //         setTimeout(triggerHelloAnimation, 10000);
+    //         }
+    //     }
+    //     } else if (attempt < 4) {
+    //     setTimeout(() => setWidgetAttributes(attempt + 1), 2000);
+    //     }
+    // }
+    // ******AI Beacon end*****
 
     return {
         init: function () {
@@ -421,9 +421,9 @@ define(['jquery', 'theme_remui/feedbackcollection', 'https://elevenlabs.io/conva
             });
 
             // AI Beacon start
-            $(document).ready(function() {
-                setWidgetAttributes();
-            });
+            // $(document).ready(function() {
+            //     setWidgetAttributes();
+            // });
             // AI Beacon end
 
             // Enable Category Search filter in header.

@@ -1602,3 +1602,12 @@ $string['focusmodeoff'] = 'Modo Foco DESATIVADO';
 $string['forcefocusmode'] = 'Forçar Modo Foco ATIVADO para todos os cursos';
 $string['focusmodeactiveadminmsg'] = 'Modo Foco está ativo para usuários do tipo aluno';
 $string['focusmodeactivenavinfo'] = 'Modo de foco ATIVADO. Clique em "X" no canto inferior direito para fechá-lo.';
+
+$string['moredetails'] = "Mais Detalhes";
+$string['templatesloading_pt_br'] = 'Os modelos estão sendo carregados — pode levar de 5 a 10 minutos.';
+$string['expandall'] = 'Expandir tudo';
+$string['collapseall'] = 'Recolher tudo';
+
+$string["setupwizardsettingpagehead"] = "Assistente de configuração";
+$string["setupwizardsettingpagedesc"] = "A configuração foi interrompida. Por favor, clique no botão abaixo para continuar.";
+$string["setupwizarddesc"] = '<a id="resume-setup" data-action="{$a->setupstep}" class="btn btn-secondary" href="'.$CFG->wwwroot.'/theme/remui/setup.php'.'"> Retomar configuração</a>';

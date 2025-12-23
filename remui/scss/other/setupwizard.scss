@@ -360,6 +360,20 @@
     }
   }
 
+  .installation-setup-info-wrapper {
+    padding: 4px 8px;
+    border-radius: 20px;
+    background: #FFEDB8;
+
+    .installation-setup-info {
+      color: #343A40;
+      font-size: 12px;
+      font-style: italic;
+      font-weight: 400;
+      line-height: normal;
+    }
+  }
+
 
   .installable-plugins-wrapper {
     width: fit-content;

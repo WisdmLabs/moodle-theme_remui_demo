@@ -678,6 +678,12 @@ class theme_remui_coursehandler {
 
         $statsjson = json_decode(get_config('theme_remui',"edwdashboardstats"),true);
 
+        // Ensure $statsjson is always an array to avoid errors in array_diff_key().
+        // This handles cases where the config is missing or empty, so we safely proceed with an empty array.
+        if (!is_array($statsjson)) {
+            $statsjson = [];
+        }
+
         // Remove keys from $statsjson where values are present in $courseuserids
         $statsjson = array_diff_key($statsjson, $courseuserids);
 

@@ -361,7 +361,13 @@ function resetAllSettingHandler() {
                 });
         }
         root.on('click', '[data-action="reset-all"]', () => {
-            reset([]);
+            let preservedSettings = [
+                {
+                    name: 'siteicon',
+                    value: 'graduation-cap'
+                }
+            ];
+            reset(preservedSettings);
         });
         root.on('click', '[data-action="reset-some"]', () => {
             reset(preserveResetSettings());

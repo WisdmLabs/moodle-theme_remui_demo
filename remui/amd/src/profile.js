@@ -37,6 +37,14 @@ define([
         CANCELICON: '.about-me-edit-icon-wrapper .edw-icon-Cancel',
         EDITPROFILEDETAILSWRAPPER: '.edit-profile-details-wrapper',
     };
+    function toggleProfileField(selector, value) {
+        var $col = $(selector).closest('.profile-item-col');
+        if (!value || value.trim() === '' || value.trim() == 'Select a country...') {
+            $col.addClass('d-none');
+        } else {
+            $col.removeClass('d-none');
+        }
+    }
     $('#editprofile .form-horizontal #btn-save-changes').click(function () {
         $(SELECTORS.ERROR).show();
         $(SELECTORS.ERROR).removeClass(SELECTORS.DANGER).addClass(SELECTORS.SUCCESS);
@@ -135,15 +143,21 @@ define([
                 $(SELECTORS.CANCELICON).toggleClass('d-none');
                 $('.profile-user').text(fname + " " + lname);
                 $('.usermenu a span.usertext').text(fname + " " + lname);
-                $('#user-description').text(profileData.description);
+                $('#user-description').html(profileData.description);
                 $('.prof-user-firstname').text(fname);
                 $('.prof-user-lastname').text(lname);
                 $('.prof-user-phone').text(phonenumber);
+                toggleProfileField('.prof-user-phone', phonenumber);
                 $('.prof-user-department').text(profileData.department);
-                $('.prof-user-desc').text(profileData.description);
+                toggleProfileField('.prof-user-department', profileData.department);
+                $('.prof-user-desc').html(profileData.description);
+                toggleProfileField('.prof-user-desc', profileData.description);
                 $('.prof-user-country').text(countryname);
+                toggleProfileField('.prof-user-country', countryname);
                 $('.prof-user-city').text(profileData.city);
+                toggleProfileField('.prof-user-city', profileData.city);
                 $('.prof-user-address').text(profileData.address);
+                toggleProfileField('.prof-user-address', profileData.address);
             }, 1000);
 
         })

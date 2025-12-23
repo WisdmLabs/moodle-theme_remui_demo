@@ -111,34 +111,11 @@ function theme_remui_get_main_scss_content($theme) {
     global $CFG;
 
     $scss = '';
-    // $filename = !empty($theme->settings->preset) ? $theme->settings->preset : null;
-    // $fs = get_file_storage();
-
-    // $context = context_system::instance();
-    // if ($filename == 'default.scss') {
-    //     $scss .= file_get_contents($CFG->dirroot . '/theme/remui/scss/preset/default.scss');
-    // } else if ($filename == 'plain.scss') {
-    //     $scss .= file_get_contents($CFG->dirroot . '/theme/remui/scss/preset/plain.scss');
-    // } else if ($filename && ($presetfile = $fs->get_file($context->id, 'theme_remui', 'preset', 0, '/', $filename))) {
-    //     $scss .= $presetfile->get_content();
-    // } else {
-    //     // Safety fallback - maybe new installs etc.
-    //     $scss .= file_get_contents($CFG->dirroot . '/theme/remui/scss/preset/default.scss');
-    // }
 
     $branch = get_moodle_release_version_branch();
 
     $scss .= file_get_contents($CFG->dirroot . '/theme/remui/scss/preset/remui.scss');
 
-    // if($branch  >= '405') {
-    //     $scss .= file_get_contents($CFG->dirroot . '/theme/remui/scss/m45/m45.scss');
-    // }elseif($branch  == '404') {
-    //     $scss .= file_get_contents($CFG->dirroot . '/theme/remui/scss/m44/m44.scss');
-    // }elseif($branch  == '403') {
-    //     $scss .= file_get_contents($CFG->dirroot . '/theme/remui/scss/m43/m43.scss');
-    // }else{
-    //     $scss .= file_get_contents($CFG->dirroot . '/theme/remui/scss/m42/m42.scss');
-    // }
     $scss .= file_get_contents($CFG->dirroot . '/theme/remui/scss/remui.scss');
 
     return $scss;
@@ -189,7 +166,7 @@ function theme_remui_get_pre_scss($theme) {
 
     $variables = $customizer->process();
 
-    // variables used in theme
+    // Variables used in theme.
     $variables['hideheadercontent'] = get_config('theme_remui', 'hideheadercontent') ? 'none' : 'block';
     $variables['hideactivitysection'] = get_config('theme_remui', 'hideactivitysection') ? 'none' : 'block';
     $variablesscss = "\n";
@@ -197,7 +174,6 @@ function theme_remui_get_pre_scss($theme) {
         $variablesscss .= '$' . $variable . ': ' . $value . ";\n";
     }
 
-    // $scss .= $variablesscss. file_get_contents($CFG->dirroot . '/theme/remui/scss/remui/pluginsupport/remuiblck.scss');
     $scss .= $variablesscss;
 
     if (is_plugin_available('block_remuiblck')) {
@@ -325,37 +301,36 @@ function get_all_remui_course_metadata($courseid) {
 
             $context = $data->get_context();
 
-            $processed = file_rewrite_pluginfile_urls($data->get_value(), 'pluginfile.php', $context->id, 'customfield_textarea', 'value', $dataid);
+            $processed = file_rewrite_pluginfile_urls($data->get_value(), 'pluginfile.php', $context->id,
+            'customfield_textarea', 'value', $dataid);
 
             $value = format_text($processed, $data->get('valueformat'), ['context' => $context]);
 
-
-            if($data->get_field()->get('type') == 'checkbox'){
-                if($data->get_value()){
+            if ($data->get_field()->get('type') == 'checkbox') {
+                if ($data->get_value()) {
                     $value = get_string('true', 'theme_remui');
-                }else{
+                } else {
                     $value = get_string('false', 'theme_remui');
                 }
             }
 
-
-            if($data->get_field()->get('type') == 'date'){
+            if ($data->get_field()->get('type') == 'date') {
 
                 $machineformat = '%d %B %Y';
                 $value = userdate($data->get_value(), $machineformat, 99, false, false);
 
             }
-            if($data->get_field()->get('type') == 'select'){
-                $options = explode("\n",$data->get_field()->get('configdata')['options']);
-                $value = $options[$data->get_value()-1];
+            if ($data->get_field()->get('type') == 'select') {
+                $options = explode("\n", $data->get_field()->get('configdata')['options']);
+                $value = $options[$data->get_value() - 1];
             }
             $remuicustomfieldarray[$data->get_field()->get('shortname')] = array(
-                "categoryid" =>$data->get_field()->get_category()->get('id'),
-                "shortname"=>$data->get_field()->get('shortname'),
-                "name"=>$data->get_field()->get('name'),
-                "text"=>$value,
+                "categoryid" => $data->get_field()->get_category()->get('id'),
+                "shortname" => $data->get_field()->get('shortname'),
+                "name" => $data->get_field()->get('name'),
+                "text" => $value,
             );
-        }else{
+        } else {
             continue;
         }
     }
@@ -408,8 +383,8 @@ function get_customfield_data($categoryid, $fieldname, $fieldtype, $options = []
     $data = new \stdClass;
 
     $data->name = $fieldname;
-    $data->description = $description;  // Add description field
-    $data->descriptionformat = FORMAT_HTML;  // Add description format (typically HTML)
+    $data->description = $description;  // Add description field.
+    $data->descriptionformat = FORMAT_HTML;  // Add description format (typically HTML).
 
     $replacefor = [' ', '(', ')'];
     $replacewith = ['', '', ''];
@@ -475,7 +450,7 @@ function theme_remui_get_unused_itemid($filearea) {
 
     if (isguestuser() || !isloggedin()) {
         // Guests and not-logged-in users can not be allowed to upload anything!!!!!!
-        print_error('noguest');
+        throw new \moodle_exception('noguest');
     }
 
     $contextid = context_system::instance()->id;
@@ -531,15 +506,6 @@ function import_user_tour() {
             'name' => 'What\'s New',
             'url' => $staticcdn . '/json/tour/functional_blocks_tour.json'
         ],
-        // [
-        // 'name' => 'Edwiser RemUI Theme Customizer',
-        // 'url' => $staticcdn. '/json/tour/usertour_customizer.json'
-        // ],
-        // [
-        // 'name' => 'Edwiser RemUI Theme Customizer Start',
-        // 'url' => $staticcdn . '/json/tour/usertour_customizer_start.json',
-        // 'delete' => true
-        // ]
     ];
 
     foreach ($tours as $key => $tour) {
@@ -559,7 +525,8 @@ function import_user_tour() {
                     $tour = \tool_usertours\manager::import_tour_from_json($content);
                 }
             } catch (Exception $ex) {
-                // skipping the tour updation
+                // Skipping the tour updation.
+                echo '';
             }
         }
     }
@@ -603,7 +570,7 @@ function get_theme_req_plugin_release_info($pluginname) {
 }
 
 
-// add block move top and move bottom buttons
+// Add block move top and move bottom buttons.
 function get_block_move_buttons($instanceid) {
     global $OUTPUT;
     $templatecontext = [
@@ -630,19 +597,20 @@ function adv_block_customizer_button($instanceid) {
     if (!$PAGE->user_is_editing()) {
         return "";
     }
-    if(!\theme_remui\utility::check_user_admin_cap()) {
+    if (!\theme_remui\utility::check_user_admin_cap()) {
         return "";
     }
 
     $url = $CFG->wwwroot . "/local/edwiserpagebuilder/editor.php?bui_edit=" . $instanceid;
     $url .= "&returl=". urlencode($PAGE->url);
 
-    // export button
-    $customizerbutton = "<button class='btn btn-secondary d-flex justify-content-end block_exporter_btn' data-blockid='.$instanceid.'>";
+    // Export button.
+    $customizerbutton = "<button class='btn btn-secondary d-flex justify-content-end block_exporter_btn' " .
+    "data-blockid='$instanceid'>";
     $customizerbutton .= "<i class='fa fa-pencil'></i> ".get_string("exportblock", "theme_remui")."</a>";
     $customizerbutton .= "</button>";
 
-    // live customizer button
+    // Live customizer button.
     $customizerbutton .= "<div class='d-flex justify-content-end live-customizer-btn'>";
     $customizerbutton .= "<a class='btn btn-primary' href='".$url."'";
     $customizerbutton .= "role='button'>";
@@ -689,7 +657,7 @@ function edw_reposition_block($bi, $newregion, $newweight, $contexid, $pagetype,
  *
  * @return string The current Moodle release version branch.
  */
-function get_moodle_release_version_branch(){
+function get_moodle_release_version_branch() {
     global $CFG;
     $branch = $CFG->branch;
     return $branch;
@@ -701,9 +669,9 @@ function get_moodle_release_version_branch(){
  * @return bool True if the current Moodle release version branch is greater than '402', false otherwise.
  */
 
-function apply_latest_user_pref(){
+function apply_latest_user_pref() {
     $branch = get_moodle_release_version_branch();
-    if($branch > '402'){
+    if ($branch > '402') {
         return true;
     }
     return false;
@@ -825,8 +793,8 @@ function theme_remui_extend_navigation_user_settings(navigation_node $useraccoun
         }
         $parent = $useraccount->parent->find('useraccount', navigation_node::TYPE_CONTAINER);
         $parent->add($text,
-        new moodle_url($url), // URL (keep as '#' if non-clickable)
-        navigation_node::TYPE_SETTING,  // Type of navigation item
+        new moodle_url($url), // URL (keep as '#' if non-clickable).
+        navigation_node::TYPE_SETTING,  // Type of navigation item.
         null,
         'custom-preference');
     }

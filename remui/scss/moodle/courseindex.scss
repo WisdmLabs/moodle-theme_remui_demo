@@ -35,11 +35,12 @@ $courseindex-item-current: $primary !default;
         }
         &.pageitem,
         .pageitem {
-            background-color: darken($courseindex-item-page-bg, 7.5%);
+            background-color: rgba($brand-primary, 7%);
             color: darken($courseindex-link-color-selected, 10%);
             .courseindex-link,
             .courseindex-chevron {
                 color: darken($courseindex-link-color-selected, 10%);
+                font-weight: 700;
                 a {
                     color: darken($courseindex-link-color-selected, 10%);
                 }

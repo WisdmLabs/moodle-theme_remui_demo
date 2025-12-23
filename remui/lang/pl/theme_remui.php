@@ -1578,3 +1578,12 @@ $string['focusmodeoff'] = 'Tryb skupienia WYŁĄCZONY';
 $string['forcefocusmode'] = 'Wymuś tryb skupienia dla wszystkich kursów';
 $string['focusmodeactiveadminmsg'] = 'Tryb skupienia jest aktywny dla użytkowników z rolą studenta';
 $string['focusmodeactivenavinfo'] = 'Tryb skupienia jest WŁĄCZONY. Kliknij „X” w prawym dolnym rogu, aby go zamknąć.';
+
+$string['moredetails'] = "Więcej szczegółów";
+$string['templatesloading_pl'] = 'Szablony są ładowane — może to potrwać 5–10 minut.';
+$string['expandall'] = 'Rozwiń wszystko';
+$string['collapseall'] = 'Zwiń wszystko';
+
+$string["setupwizardsettingpagehead"] = "Kreator konfiguracji";
+$string["setupwizardsettingpagedesc"] = "Konfiguracja została przerwana. Kliknij przycisk poniżej, aby kontynuować.";
+$string["setupwizarddesc"] = '<a id="resume-setup" data-action="{$a->setupstep}" class="btn btn-secondary" href="'.$CFG->wwwroot.'/theme/remui/setup.php'.'"> Wznów konfigurację</a>';

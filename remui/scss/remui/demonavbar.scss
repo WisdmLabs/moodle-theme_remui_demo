@@ -167,6 +167,10 @@ body.edwembeded {
     .navbar-nav {
         gap: 0 map-get($gapspace, 10);
         margin-left: 0;
+
+        @media screen and (min-width: 1200px) and (max-width: 1400px) {
+            gap: 0 map-get($gapspace, 5);
+        }
     }
 
     .navbar-nav,
@@ -236,8 +240,8 @@ body.edwembeded {
 
     .navbar-right {
         gap: map-get($gapspace, 4);
-        ;
         height: fit-content;
+        padding-left: 0 !important;
 
         .nav-item {
             border-radius: 4px;
@@ -248,7 +252,8 @@ body.edwembeded {
             display: none;
         }
 
-        @include media-breakpoint-up(sm) {
+        // @include media-breakpoint-up(lg) {
+        @media screen and (min-width: 1400px) {
             .active-lang-big {
                 display: inline;
             }
@@ -258,7 +263,7 @@ body.edwembeded {
             }
         }
 
-        @media screen and (max-width: 1300px) and (min-width: 1200px) {
+        @media screen and (max-width: 1400px) and (min-width: 1200px) {
             .active-lang-big {
                 display: none;
             }
@@ -690,6 +695,30 @@ body.edwembeded {
     @media screen and (max-width: 1440px) {
         @include navbar-nav-responsive-handling();
     }
+    
+        .navbar-right {
+    
+            // @include media-breakpoint-up(lg) {
+            @media screen and (min-width: 1550px) {
+                .active-lang-big {
+                    display: inline;
+                }
+    
+                .active-lang-short {
+                    display: none;
+                }
+            }
+    
+            @media screen and (max-width: 1550px) and (min-width: 1200px) {
+                .active-lang-big {
+                    display: none;
+                }
+    
+                .active-lang-short {
+                    display: inline;
+                }
+            }
+        }
 }
 
 
@@ -750,4 +779,14 @@ body.edwembeded {
 .navbar-toggler,
 #BFCMnav {
     order: 1;
+}
+
+.navbar-brand{
+    &.logo,.navbar-brand-logo {
+        height: calc(#{$navbar-height} - #{$navbar-vertical-padding} - #{$navbar-vertical-padding} - 12px);
+    }
+}
+
+.pagelayout-login .logo-area .logo, .pagelayout-login .logo-area .logomini {
+    height: 36px;
 }

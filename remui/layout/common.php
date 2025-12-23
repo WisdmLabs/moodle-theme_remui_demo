@@ -26,11 +26,6 @@ use theme_remui\utility;
 
 defined('MOODLE_INTERNAL') || die();
 
-$switchtheme = optional_param('switchtheme', null, PARAM_TEXT);
-if ($switchtheme) {
-    set_config("switchtheme", $switchtheme, "theme_remui");
-}
-
 require_once($CFG->libdir . '/behat/lib.php');
 require_once($CFG->dirroot . '/course/lib.php');
 
@@ -48,10 +43,10 @@ $addblockbutton = $OUTPUT->addblockbutton();
 
 // CUSTOMIZATION - START
 $demoblocklayouts = [
-    "corporate" => $CFG->wwwroot. '/mod/page/view.php?id=292',
-    "school" => $CFG->wwwroot. '/mod/page/view.php?id=288',
-    "university" => $CFG->wwwroot. '/mod/page/view.php?id=290',
-    "classic" => $CFG->wwwroot. '/mod/page/view.php?id=287',
+    "corporate" => $CFG->wwwroot. '/local/edwiserpagebuilder/page.php?id=21',
+    "school" => $CFG->wwwroot. '/local/edwiserpagebuilder/page.php?id=25',
+    "university" => $CFG->wwwroot. '/local/edwiserpagebuilder/page.php?id=23',
+    "classic" => $CFG->wwwroot. '/local/edwiserpagebuilder/page.php?id=27',
     "training" => $CFG->wwwroot. '/local/edwiserpagebuilder/page.php?id=17',
     "videoformatdemo" => $CFG->wwwroot. '/course/view.php?id=26',
 ];
@@ -91,18 +86,14 @@ if (get_config("theme_remui", "edw_external_data")) {
 
     if ($redirectUrl) {
         redirect($redirectUrl);
+        unset_config('edwiserdemoredirecturl', 'theme_remui');    
     }
 }
 
-if (isloggedin()) {
-    $switchtheme = get_config("theme_remui", "switchtheme");
-
-    if ($switchtheme) {
-        unset_config("switchtheme", "theme_remui");
-        $theme = \theme_config::load($switchtheme);
-        set_config('theme', $theme->name);
-        redirect($CFG->wwwroot . "/my");
-    }
+if (get_config("theme_remui", "edwiserdemoredirecturl")) {
+    $redirectUrl = get_config("theme_remui", "edwiserdemoredirecturl");
+    unset_config('edwiserdemoredirecturl', 'theme_remui');
+    redirect($redirectUrl);
 }
 
 // CUSTOMIZATION - END

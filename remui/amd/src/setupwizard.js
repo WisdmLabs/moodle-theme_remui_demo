@@ -410,6 +410,35 @@ define(['jquery', 'core/templates', 'core/ajax', 'core/notification', 'core/str'
         }])[0];
     }
 
+    function install_builder_advanced_blocks(retryCount = 1) {
+        return new Promise((resolve, reject) => {
+            Ajax.call([{
+                methodname: 'theme_remui_do_setup_action',
+                args: {
+                    action: "install_builder_advanced_blocks",
+                    config: JSON.stringify({})
+                },
+                done: function(updateResponse) {
+                    resolve(updateResponse);
+                },
+                fail: function(ex) {
+                    if (ex.errorcode === "upgraderunning" && retryCount < 6) {
+                        setTimeout(() => {
+                            install_builder_advanced_blocks(retryCount + 1).then(resolve).catch(reject);
+                        },240000 * retryCount); // Wait 360 seconds before retrying
+                    }
+                    else if (retryCount < 4) {
+                        setTimeout(() => {
+                            install_builder_advanced_blocks(retryCount + 1).then(resolve).catch(reject);
+                        }, 240000 * retryCount); // Wait 360 seconds before retrying
+                    } else {
+                        resolve([]);
+                    }
+                },
+            }]);
+        });
+    }
+
 
     function downloadPlugins(retryCount = 1) {
         return new Promise((resolve, reject) => {
@@ -547,6 +576,7 @@ define(['jquery', 'core/templates', 'core/ajax', 'core/notification', 'core/str'
      * @returns {Promise<any>} - A Promise that resolves with the installation response data.
      */
     function handlePluginInstallation(plugin, url) {
+        epb_blocks_setup_info_handler(plugin);
         return new Promise((resolve, reject) => {
             Ajax.call([{
                 methodname: 'theme_remui_do_setup_action',
@@ -559,6 +589,10 @@ define(['jquery', 'core/templates', 'core/ajax', 'core/notification', 'core/str'
 
                     if (response.success) {
                         await updateDatabase(plugin);
+                        if(plugin === "local_edwiserpagebuilder") {
+                            let responseblock = await install_builder_advanced_blocks();
+                        }
+                        epb_blocks_setup_info_handler(plugin, true);
                     } else if (response.error || response.info) {
                         append_template(
                             SELECTORS.INSTALLABLE_PLUGINS_WRAPPER + " #" + plugin + " .installation-status",
@@ -573,6 +607,7 @@ define(['jquery', 'core/templates', 'core/ajax', 'core/notification', 'core/str'
 
                     if(response.error) {
                         $(SELECTORS.INSTALLABLE_PLUGINS_WRAPPER + " #" + plugin + " .inprogress").remove();
+                        epb_blocks_setup_info_handler(plugin, true);
                     }
 
                     if (response.info) {
@@ -581,6 +616,7 @@ define(['jquery', 'core/templates', 'core/ajax', 'core/notification', 'core/str'
                             $(SELECTORS.INSTALLABLE_PLUGINS_WRAPPER + " #" + plugin + " .inprogress .inprogress-value").text(generateRandomNumber(45, 55));
                         }
                         installedPluginList.push(plugin);
+                        epb_blocks_setup_info_handler(plugin, true);
                     }
 
                     resolve(response);
@@ -649,6 +685,18 @@ define(['jquery', 'core/templates', 'core/ajax', 'core/notification', 'core/str'
         }
     }
 
+    function epb_blocks_setup_info_handler(plugin, shouldremove = false) {
+        const epb_blocks_setup_info = $(SELECTORS.INSTALLABLE_PLUGINS_WRAPPER + " ." + plugin + "_setup-info");
+        console.log({epb_blocks_setup_info});
+        if(epb_blocks_setup_info.length) {
+            if (shouldremove) {
+                epb_blocks_setup_info.addClass("d-none");
+            } else {
+                epb_blocks_setup_info.removeClass("d-none");
+            }
+        }
+    }
+
     /**
      * Handles the installation of plugins for the setup wizard.
      *
@@ -676,6 +724,8 @@ define(['jquery', 'core/templates', 'core/ajax', 'core/notification', 'core/str'
                                 message: LANGS[1]
                             }
                         );
+
+
                     } else {
                         await append_template(
                             SELECTORS.INSTALLABLE_PLUGINS_WRAPPER + " #" + plugin + " .installation-status",

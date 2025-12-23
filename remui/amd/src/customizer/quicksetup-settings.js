@@ -79,7 +79,7 @@ var SECONDARY = [
 
     // Header colors.
     {key: 'headerbg', target: '[name="logo-bg-color"]'},
-    {key: 'headertext', target: '[name="sitenamecolor"]'},
+    {key: 'primary', target: '[name="sitenamecolor"]'},
     {key: 'headerbg', target: '[name="header-menu-background-color"]'},
     {key: 'headertext', target: '[name="header-menu-text-color"]'},
     {key: 'headertexthover', target: '[name="header-menu-text-hover-color"]'},

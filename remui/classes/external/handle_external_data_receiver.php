@@ -80,6 +80,12 @@ trait handle_external_data_receiver
             // Store the entire data array as JSON in the config
             $saveresult = set_config('edw_external_data', json_encode($data), 'theme_remui');
 
+            
+	    if (isset($data["blocklayout"]) && $data["blocklayout"] == "pagebuilderdemo") {
+                $theme = \theme_config::load("edwboost");
+                set_config('theme', $theme->name);
+            }
+
             if ($saveresult) {
                 $result['status'] = true;
                 $result['message'] = 'Data successfully stored';

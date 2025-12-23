@@ -37,10 +37,19 @@
                         <div class="installation-status">
                         </div>
 
-                        <div class="inprogress">
-                            <img style="margin-right: 4px;" src="{{config.wwwroot}}/theme/remui/pix/siteinnerloader.svg" width="16" height="16" >
-                            <span class="inprogress-value">{{#str}}inprogress, theme_remui{{/str}}</span>
-                            <span class="percentage-icon d-none">%</span>
+                        <div class="d-flex align-items-center">
+                            <div class="inprogress">
+                                <img style="margin-right: 4px;" src="{{config.wwwroot}}/theme/remui/pix/siteinnerloader.svg" width="16" height="16" >
+                                <span class="inprogress-value">{{#str}}inprogress, theme_remui{{/str}}</span>
+                                <span class="percentage-icon d-none">%</span>
+                            </div>
+
+                            {{! It will visible during plugin installation }}
+                            {{#local_edwiserpagebuilder}}
+                                <div class="p-ml-2 installation-setup-info-wrapper {{id}}_setup-info d-none">
+                                    <span class="installation-setup-info">{{#str}}templatesloading, theme_remui{{/str}}</span>
+                                </div>
+                            {{/local_edwiserpagebuilder}}
                         </div>
 
                     </div>
@@ -66,3 +75,18 @@
     </div>
 </div>
 
+<style>
+  .installation-setup-info-wrapper {
+    padding: 0px 8px;
+    margin-top: 8px;
+    border-radius: 20px;
+    background: #FFEDB8;
+  }
+  .installation-setup-info {
+      color: #343A40;
+      font-size: 12px;
+      font-style: italic;
+      font-weight: 400;
+      line-height: normal;
+    }
+</style>

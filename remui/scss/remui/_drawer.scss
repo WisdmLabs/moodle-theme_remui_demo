@@ -310,6 +310,24 @@ $courseindex-section-title-border: 1px solid rgba($brand-primary, 30%);
                                 //         }
                                 //     }
                                 // }
+
+                                .courseindex-item:has(.courseindex-section.delegated-section) {
+                                    &:hover {
+                                        .courseindex-item-content {
+                                            .courseindex-link {
+                                                color: var(--bs-secondary-color);
+                                            }
+                                        }
+                                    }
+
+                                    .courseindex-item-content {
+                                        .courseindex-item:hover {
+                                            .courseindex-link {
+                                                color: $black;
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }

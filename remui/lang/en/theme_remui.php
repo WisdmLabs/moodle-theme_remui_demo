@@ -1556,14 +1556,17 @@ $string['checkingdone'] = 'Checking done.';
 $string['moodleversion'] = 'Moodle version';
 $string['writepermissioncheck'] = 'Server write permission to install the plugins';
 $string['internetconnectincheck'] = 'Internet connection to install the plugins';
+$string['allowurlfopencheck'] = '\'allow_url_fopen\' (PHP configuration directive) to download plugins from remote server.';
 
 $string['setupwizard:warning1'] = 'It seems that you’re using older Moodle version. Use ‘4.2’ or above Moodle version';
 $string['setupwizard:warning2'] = 'It seems that you don\'t have write permissions for the following Moodle folders: {$a->nonwriteablestr}. Please check with the server administrator.';
 $string['setupwizard:warning3'] = 'You are not connected to suitable internet connection.';
+$string['setupwizard:warning4'] = '\'allow_url_fopen\' is disabled in your PHP settings. Please enable it to continue.';
 
 $string['setupwizard:success1'] = 'You’re using the correct Moodle version.';
 $string['setupwizard:success2'] = "You’ve write permission on the server.";
 $string['setupwizard:success3'] = 'You’re connected to the internet.';
+$string['setupwizard:success4'] = '\'allow_url_fopen\' is enabled';
 
 $string['setupwizard:info1'] = 'Please take a moment to share a few details . This will help us configure the setup to match your needs and streamline your experience.';
 $string['setupwizard:info5'] = 'Relax, while your site is getting ready!';
@@ -1679,3 +1682,8 @@ $string['focusmodeoff'] = 'Focus Mode OFF';
 $string['forcefocusmode'] = 'Force Focus Mode ON for all courses';
 $string['focusmodeactiveadminmsg'] = 'Focus mode is active for student users';
 $string['focusmodeactivenavinfo'] = 'Focus Mode is ON. Click ‘X’ at right bottom to close it.';
+
+$string['moredetails'] = "More Details";
+$string['templatesloading'] = 'Templates are loading — may take 5–10 mins.';
+$string['expandall'] = 'Expand all';
+$string['collapseall'] = 'Collapse all';

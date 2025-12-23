@@ -1,10 +1,26 @@
 Release
 =======
 
+Version 5.0.4
+=============
+Tweak - Added an Accordion view to the RemUI Theme Settings page.
+Fix - Site name and icon colors now sync with the text color instead of the primary color.
+Fix - Resolved an issue where the site icon was not visible after applying "Reset All."
+
+Version  5.0.3
+===========
+Tweak - Further UI/UX improvements.
+Tweak - Minor changes in feedback collection flow.
+Tweak - Minor improvements in setup wizard.
+Tweak - Hide empty fields on profile page.
+Tweak - Renamed the "Settings" tab in profile settings to "More Details".
+Fix - API documentation page now loads correctly without getting stuck on the loader screen
+Fix - Error when installing RemUI theme, activating it, or adding an activity to a course.
+
 Version 5.0.2
 =============
 Tweak - Minor improvements in left sidebar.
-Twweak - Css support added for Edwiser video format plugin
+Tweak - Css support added for Edwiser video format plugin
 
 Version 5.0.1
 =============

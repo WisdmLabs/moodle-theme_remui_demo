@@ -45,12 +45,15 @@ class feedbackcollection {
     }
 
     public function question_lists() {
-        global $CFG;
-
-        $questionlists = \theme_remui\utility::get_content_from_json(
-            'https://staticcdn.edwiser.org/json/setupwizard_json_files/information_feedback_questions.json'
-        )["feedbackquestionlists"];
-
+        // Use Moodle's cache API to cache the feedback questions for 1 hour (site-wide).
+        $cache = \cache::make('theme_remui', 'feedback_questions');
+        $questionlists = $cache->get('feedbackquestionlists');
+        if ($questionlists === false) {
+            $questionlists = \theme_remui\utility::get_content_from_json(
+                'https://staticcdn.edwiser.org/json/setupwizard_json_files/information_feedback_questions.json'
+            )["feedbackquestionlists"];
+            $cache->set('feedbackquestionlists', $questionlists);
+        }
         return $questionlists;
     }
 

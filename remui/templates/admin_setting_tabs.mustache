@@ -55,6 +55,10 @@
 <div class="tab-content mt-3">
     {{#tabs}}
         <div class="tab-pane {{#active}}active{{/active}}" id="{{name}}" role="tabpanel">
+            <div class="remui-setting-tabs-action btn btn-link p-0 border-0  d-flex justify-content-end">
+                <a class=" text-decoration-none expandall" href="#"> {{#str}} expandall, theme_remui {{/str}}</a>
+                <a class=" text-decoration-none collapseall d-none" href="#">{{#str}} collapseall, theme_remui {{/str}}</a>
+            </div>
             {{{html}}}
         </div>
     {{/tabs}}

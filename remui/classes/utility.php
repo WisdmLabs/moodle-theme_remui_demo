@@ -1087,8 +1087,8 @@ class utility {
             curl_setopt($conn, CURLOPT_FRESH_CONNECT, true);
             curl_setopt($conn, CURLOPT_RETURNTRANSFER, 1);
             curl_setopt($conn, CURLOPT_TIMEOUT, 3);
-            curl_setopt($curl, CURLOPT_USERAGENT, \core_useragent::get_user_agent_string());
-            curl_setopt($curl, CURLOPT_REFERER, $CFG->wwwroot);
+            curl_setopt($conn, CURLOPT_USERAGENT, \core_useragent::get_user_agent_string());
+            curl_setopt($conn, CURLOPT_REFERER, $CFG->wwwroot);
             if (defined('CURLOPT_IPRESOLVE') && defined('CURL_IPRESOLVE_V4')) {
                 curl_setopt($conn, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
             }

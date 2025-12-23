@@ -38,6 +38,10 @@ $definitions = array(
         'mode' => cache_store::MODE_APPLICATION,
         'ttl' => 10080 // 7 days.
     ),
+    'feedback_questions' => array(
+        'mode' => cache_store::MODE_APPLICATION,
+        'ttl' => 3600 // 1 hour.
+    ),
     'whatsnew' => array(
         'mode' => cache_store::MODE_APPLICATION,
         'ttl' => 3600 // 1 hours.

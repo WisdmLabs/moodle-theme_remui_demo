@@ -167,6 +167,7 @@ class setupwizard {
             'moodleversioncheck' => true,
             'writeaccesscheck' => true,
             'internetconnectioncheck' => \theme_remui\utility::check_internet_connection(),
+            'allowurlfopencheck' => ini_get('allow_url_fopen'),
         ];
 
         // Check Moodle version
@@ -206,6 +207,10 @@ class setupwizard {
         }
 
         if (!$requirechecks['internetconnectioncheck']) {
+            $result["allchecks"] = false;
+        }
+
+        if (!$requirechecks['allowurlfopencheck']) {
             $result["allchecks"] = false;
         }
 
@@ -321,6 +326,7 @@ class setupwizard {
                 $structuredpluginlist[$category]['plugins'][] = [
                     "id" => $plugin,
                     "name" => "$name ($plugin)",
+                    $plugin => true,
                 ];
             }
         }
@@ -364,8 +370,14 @@ class setupwizard {
         $finalfeedbackquestion = $feedbackcollection->question_lists()["setupexperience_question"];
         $finalfeedbackquestion["questionname"] = "setupexperience_question";
 
+        $questionsgenerated = true;
+        if (!$questions) {
+            $questionsgenerated = false;
+        }
+
         return [
             "questions" => $questions,
+            "questionsgenerated" => $questionsgenerated,
             "resumestep" => $this->get_setup_status(),
             "manualsetupplugins" => $manualsetupplugins,
             "layouts" => $layouts,
@@ -870,6 +882,22 @@ class setupwizard {
         if ($config->purgecache) {
             purge_all_caches();
         }
+
+        return true;
+    }
+
+    public function action_install_builder_advanced_blocks($config) {
+        global $CFG;
+        $libpath = $CFG->dirroot . '/local/edwiserpagebuilder/lib.php';
+        if (!file_exists($libpath)) {
+            return false;
+        }
+
+        require_once($libpath);
+
+        // Update the block content and set the fetch status to true.
+        local_edwiserpagebuilder_update_block_content();
+        set_config('edwadvancedblockfatchstatus', true, 'local_edwiserpagebuilder');
 
         return true;
     }

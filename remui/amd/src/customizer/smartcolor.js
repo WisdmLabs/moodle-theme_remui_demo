@@ -93,6 +93,9 @@ function apply() {
         target: 'button-primary-border-color',
         source: 'primary'
     }, {
+        target: 'sitenamecolor',
+        source: 'primary'
+    }, {
         target: 'button-primary-border-color-hover',
         source: 'primary',
         shift: {
@@ -189,7 +192,6 @@ function apply() {
     }, {
         target: [
             'header-menu-text-color', // Header menu item color.
-            'sitenamecolor'
         ],
         source:  'text',
         shift: {

@@ -23,10 +23,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$switchtheme = optional_param('switchtheme', null, PARAM_TEXT);
-if ($switchtheme) {
-    set_config("switchtheme", $switchtheme, "theme_remui");
-}
+global $CFG;
 
 $extraclasses = array();
 
@@ -53,13 +50,16 @@ if (get_config("theme_remui", "edw_external_data")) {
     }
 
     // Set login background URL if a layout type was found
-    if ($layouttype && $layouttype != "videoformatdemo") {
-        $loginbgurl = "https://staticcdn.edwiser.org/theme_remuiassets/images/demolayouts/{$layouttype}.jpg";
-    } else if ($layouttype && $layouttype == "videoformatdemo") {
-        $loginbgurl = "https://staticcdn.edwiser.org/theme_remuiassets/images/demolayouts/classic.jpg";
+    if ($layouttype) {
+        if ($layouttype == "videoformatdemo") {
+            set_config("edwiserdemoredirecturl", $CFG->wwwroot. '/course/view.php?id=26', 'theme_remui');    
+        } else if ($layouttype == "pagebuilderdemo") {
+            $loginbgurl = "https://staticcdn.edwiser.org/theme_remuiassets/images/demolayouts/classic.jpg";
+        } else  {
+            $loginbgurl = "https://staticcdn.edwiser.org/theme_remuiassets/images/demolayouts/{$layouttype}.jpg";
+        }
     }
 }
-
 
 $templatecontext = [
     'loginbgurl' => $loginbgurl,

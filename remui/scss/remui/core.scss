@@ -288,11 +288,173 @@ body.transparent-header{
             display: none !important;
          }
       }
+      .remui-setting-tabs-action{
+         width: fit-content;
+         margin-left: auto;
+         position: relative;
+
+         // Expand/Collapse all buttons styling
+         .expandall,
+         .collapseall {
+            transition: all 0.2s ease;
+            color: $brand-primary;
+
+            &:hover {
+               color: darken($brand-primary, 10%);
+               text-decoration: none;
+            }
+         }
+      }
+      .remui-setting-heading{
+            position: relative;
+            margin-top: 20px;
+            cursor: pointer;
+
+         // Default collapsed state
+         &.collapsed {
+            .admin-panel-content {
+               max-height: 0;
+               overflow: hidden;
+               opacity: 0;
+               transform: translateY(-10px);
+            }
+
+            .remui-setting-toggle {
+               .expand-icon {
+                  transform: rotate(0deg);
+               }
+            }
+         }
+
+         // Expanded state
+         &.expanded {
+            .admin-panel-content {
+               max-height: 1000px; // Adjust based on content
+               opacity: 1;
+               transform: translateY(0);
+            }
+
+            .remui-setting-toggle {
+               .expand-icon {
+                  transform: rotate(180deg);
+               }
+            }
+         }
+         .box.generalbox.formsettingheading {
+            p{
+               width: 95%;
+            }
+         }
+
+         // Accordion header styling
+         .remui-setting-toggle {
+            cursor: pointer;
+            transition: all 0.3s ease;
+
+            &.active {
+               color: $brand-primary;
+               font-weight: 600;
+            }
+
+            // Icon rotation animation
+            .expand-icon {
+               transition: transform 0.3s ease;
+               display: inline-block;
+            }
+         }
+
+         // Content animation
+         .admin-panel-content {
+            transition: all 0.3s ease;
+            overflow: hidden;
+
+            &.hidden {
+               max-height: 0;
+               opacity: 0;
+               transform: translateY(-10px);
+            }
+
+            &.visible {
+               max-height: 1000px; // Adjust based on content
+               opacity: 1;
+               transform: translateY(0);
+            }
+         }
+
+         // Dynamic border behavior
+         &.collapsed {
+            .box.generalbox.formsettingheading {
+               p {
+                  margin-bottom: 0px;
+                  padding-bottom: 10px;
+                  border-bottom: 1px solid $medium-border;
+               }
+            }
+         }
+
+         &.expanded {
+            // Target the admin-panel-content that comes after this heading
+            & ~ .admin-panel-content {
+               // Target the last visible element within the content
+               // .form-item:last-child,
+               // .box:last-child,
+               // .form-description:last-child,
+               &.visible{
+                  border-bottom: 1px solid $medium-border;
+                  padding-bottom: 10px;
+                  margin-bottom: 0px;
+                  margin-left: 20px;
+               }
+
+               // Alternative: add border to the content container itself
+            }
+         }
+
+         .remui-setting-heading-action{
+            .setting-action{
+               position: absolute;
+               // width: 100% ;
+               height: 100%;
+               display: flex;
+               justify-content: flex-end;
+               align-items: center;
+               top: 0;
+               z-index: 1;
+               transition: all 0.2s ease;
+
+               &:hover {
+                  opacity: 0.8;
+               }
+               .edw-icon{
+                  font-size: $edw-icon-size-large;
+                  color: $ic-default;
+                  // &:focus-visible,
+                  // &:active{
+                  //    outline: 0;
+                  //    box-shadow: 0 0 0 .2rem rgb(0 81 249 / .25);
+                  // }
+               }
+            }
+         }
+      }
+
+      .settingsform{
+         button[type="submit"]{
+            margin-top: 20px;
+         }
+      }
+
+      #theme_remui_edwiserpersonalizer,
+      #epbsitepages,
+      #edwisersiteimporter,
+      #informationcenter,
+      #theme_remui_sitesync{
+         .remui-setting-tabs-action{
+            display: none !important;
+         }
+      }
    }
 }
-
-
-
 
 hr {
    border-top: $hr-border-width solid $medium-border;
@@ -1259,6 +1421,12 @@ body {
          }
       }
    }
+   .drawer-right-toggle {
+		display: none;
+	}
+	#add-block-float-menu {
+		display: none;
+	}
 }
 
 // Applied primary color to the read more and read less buttons

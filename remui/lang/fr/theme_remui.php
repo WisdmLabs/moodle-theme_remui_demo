@@ -1559,3 +1559,12 @@ $string['focusmodeoff'] = 'Mode Concentration Désactivé';
 $string['forcefocusmode'] = 'Forcer le Mode Concentration pour tous les cours';
 $string['focusmodeactiveadminmsg'] = 'Le mode concentration est actif pour les utilisateurs étudiants';
 $string['focusmodeactivenavinfo'] = 'Le mode focus est ACTIVÉ. Cliquez sur « X » en bas à droite pour le fermer.';
+
+$string['moredetails'] = "Plus de Détails";
+$string['templatesloading_fr'] = 'Les modèles sont en cours de chargement — cela peut prendre 5 à 10 minutes.';
+$string['expandall'] = 'Tout développer';
+$string['collapseall'] = 'Tout réduire';
+
+$string["setupwizardsettingpagehead"] = "Assistant de configuration";
+$string["setupwizardsettingpagedesc"] = "La configuration a été interrompue. Veuillez cliquer sur le bouton ci-dessous pour continuer.";
+$string["setupwizarddesc"] = '<a id="resume-setup" data-action="{$a->setupstep}" class="btn btn-secondary" href="'.$CFG->wwwroot.'/theme/remui/setup.php'.'"> Reprendre la configuration</a>';

@@ -349,6 +349,11 @@ $sec-footer-screen : lg;
                 color:$ft-link-color;
                 &:hover{
                     color: $ft-link-hover-color;
+                    text-decoration: underline;
+                }
+                &:focus {
+                    background-color: unset;
+				    box-shadow: unset;
                 }
             }
         }

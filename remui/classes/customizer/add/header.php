@@ -590,7 +590,7 @@ trait header {
             $panel,
             [
                 'help' => get_string('sitenamecolordesc', 'theme_remui'),
-                'default' => $this->get_default_color('headericons')
+                'default' => $this->get_default_color('primary')
             ]
         );
 

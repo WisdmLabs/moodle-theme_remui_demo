@@ -1562,3 +1562,12 @@ $string['focusmodeoff'] = 'إيقاف وضع التركيز';
 $string['forcefocusmode'] = 'فرض تشغيل وضع التركيز لجميع المقررات';
 $string['focusmodeactiveadminmsg'] = 'وضع التركيز مفعل للمستخدمين الطلاب';
 $string['focusmodeactivenavinfo'] = 'وضع التركيز مفعل. انقر على "X" في الأسفل إلى اليمين لإغلاقه.';
+
+$string['moredetails'] = "مزيد من التفاصيل";
+$string['templatesloading_ar'] = 'يتم تحميل القوالب — قد يستغرق ذلك من 5 إلى 10 دقائق.';
+$string['expandall'] = 'توسيع الكل';
+$string['collapseall'] = 'طي الكل';
+
+$string["setupwizardsettingpagehead"] = "معالج الإعداد";
+$string["setupwizardsettingpagedesc"] = "تم مقاطعة الإعداد. الرجاء النقر على الزر أدناه للمتابعة.";
+$string["setupwizarddesc"] = '<a id="resume-setup" data-action="{$a->setupstep}" class="btn btn-secondary" href="'.$CFG->wwwroot.'/theme/remui/setup.php'.'"> استئناف الإعداد</a>';

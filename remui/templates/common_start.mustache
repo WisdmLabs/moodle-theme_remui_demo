@@ -29,7 +29,11 @@
     {{#loaderimage}}<img src='{{{loaderimage}}}' alt='loader image' style='width: 50px;height: 50px;'>{{/loaderimage}}
 </div>
 <script>
-    window.addEventListener('load', function (){document.querySelector('#page-loader-wrapper').style.display = 'none';}, false);
+    document.addEventListener('DOMContentLoaded', function () {
+        setTimeout(function() {
+            document.querySelector('#page-loader-wrapper').style.display = 'none';
+        }, 100);
+    });
     if (localStorage.getItem("nighteyewState") == "1") {
         document.querySelector("#page-loader-wrapper").style.background = "#090909";
     }
