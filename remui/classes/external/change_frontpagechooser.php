@@ -15,7 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package   local_edwiserpagebuilder
+ * Change frontpage chooser external API.
+ *
+ * @package   theme_remui
  * @copyright (c) 2022 WisdmLabs (https://wisdmlabs.com/) <support@wisdmlabs.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @author Gourav Govande
@@ -23,12 +25,16 @@
 
  namespace theme_remui\external;
 
- defined('MOODLE_INTERNAL') || die;
-
 use external_function_parameters;
 use external_value;
 use context_system;
 use context_user;
+
+/**
+ * Change frontpage chooser trait.
+ *
+ * Provides external API functions for changing frontpage chooser settings.
+ */
 trait change_frontpagechooser {
     /**
      * Describes the parameters for add_new_page
@@ -36,7 +42,7 @@ trait change_frontpagechooser {
      */
     public static function change_frontpagechooser_parameters() {
         return new external_function_parameters(
-            array ()
+            []
         );
     }
 
@@ -47,18 +53,27 @@ trait change_frontpagechooser {
      */
     public static function change_frontpagechooser() {
         global $PAGE;
-        $PAGE->set_context(context_system::instance());
+        // Validate sesskey to prevent CSRF attacks.
+        confirm_sesskey();
+
+        // Validate context and admin permission.
+        /** @var \context $context */
+        $context = context_system::instance();
+        self::validate_context($context);
+        require_capability('moodle/site:config', $context);
+
+        $PAGE->set_context($context);
 
         $ishomepageselected = get_config('theme_remui', 'frontpagechooser') == 1;
-        if($ishomepageselected) {
-            if(is_plugin_available('local_edwiserpagebuilder')) {
+        if ($ishomepageselected) {
+            if (is_plugin_available('local_edwiserpagebuilder')) {
                 set_config('frontpagechooser', 3, 'theme_remui');
             } else {
                 set_config('frontpagechooser', 0, 'theme_remui');
             }
         }
 
-        return array('success' => true);
+        return ['success' => true];
     }
 
     /**
@@ -67,10 +82,9 @@ trait change_frontpagechooser {
      */
     public static function change_frontpagechooser_returns() {
         return new external_function_parameters(
-            array(
-                'success' => new external_value(PARAM_BOOL, 'Updation success - true/false')
-            )
+            [
+                'success' => new external_value(PARAM_BOOL, 'Updation success - true/false'),
+            ]
         );
     }
 }
-

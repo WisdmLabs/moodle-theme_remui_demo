@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Theme customizer class
  *
@@ -31,7 +32,6 @@ use theme_remui\customizer\color;
  * Customizer class
  */
 class customizer {
-
     // Add settings methods.
     use add\typography;
     use add\colors;
@@ -41,7 +41,6 @@ class customizer {
     use add\login;
     use add\quicksetup;
     use add\layout;
-    // use add\icondesign;
 
     // Add processing methods.
     use process\body;
@@ -51,6 +50,8 @@ class customizer {
     use process\header;
     use process\footer;
     use process\login;
+    use process\radius;
+    use process\iconset;
 
     /**
      * Instance for singletone
@@ -89,6 +90,8 @@ class customizer {
 
     /**
      * Settings key value array.
+     *
+     * @var array
      */
     private $settings = [];
 
@@ -99,7 +102,7 @@ class customizer {
      */
     private $devices = [
         'tablet' => 768,
-        'mobile' => 480
+        'mobile' => 480,
     ];
 
     /**
@@ -118,6 +121,8 @@ class customizer {
 
     /**
      * Additional options.
+     *
+     * @var mixed
      */
     private static $options = null;
 
@@ -160,104 +165,11 @@ class customizer {
             "none" => get_string("none", "theme_remui"),
             "capitalize" => get_string("capitalize", "theme_remui"),
             "uppercase" => get_string("uppercase", "theme_remui"),
-            "lowercase" => get_string("lowercase", "theme_remui")
+            "lowercase" => get_string("lowercase", "theme_remui"),
         ];
 
         // Calcualate colors.
-        $p = '#0051F9';
-        $s = '#37BE71';
-        $t = '#4C5A73';
-        $b = '#D5DDEA';
-        $w = '#FFFFFF';
-        $color = [
-            'primary' => $p,
-            'secondary' => $s,
-            'text' => $t,
-            'border' => $b,
-            'white' => $w
-        ];
-        // Background Colors.
-        $color['ascentbg'] = Color::shade($p, 60); // Ascent BG P Shade 60%.
-        $color['bg'] = Color::tint($p, 96); // Body BG P Shade 96%.
-        $color['elementbg'] = Color::tint($b, 58); // Small UI element Bg B Tint 58% #EDF1F6.
-        $color['blockbg'] = $w; // Block BG White.
-        $color['headerbg'] = $w; // Header BG  White.
-        $color['headerelementbg'] = Color::tint($p, 94); // Header Element BG P Tint 94% #F0F5FF.
-        $color['footerbg'] = Color::shade($p, 90); // Footer BG P Shade 90% #000819.
-
-        // Border Colors.
-        $color['lightborder'] = Color::tint($b, 58); // Light Border  B Tint 58% #EDF1F6.
-        $color['mediumborder'] = $b; // Element color: Medium borders B.
-
-        // Divider Colors.
-        $color['headerdividercolordark'] = Color::shade($b, 15); // Header divider color Dark B Shade 15% #B5BCC7.
-        // Header divider color Light (Depend on Header dark color)
-        // This color is 30% opaque of "Header divider Dark color (#7590C6)".
-        $color['footerdivider'] = Color::shade($p, 70); // Footer divider P Shade 70% #00184B.
-
-        // Button - Primary.
-        $color['primarybuttonbg'] = $p; // Primary Button BG: Default P.
-        $color['primarybuttonbghover'] = Color::shade($p, 20); // Primary Button BG: Hover P Shade 20% #0041C7.
-        $color['primarybuttonbgactive'] = Color::shade($p, 41); // Primary Button BG: Active P Shade 41% #003093.
-        $color['primarybuttonborder'] = $p; // Primary Border: Default P.
-        $color['primarybuttonborderhover'] = Color::shade($p, 20); // Primary Border: Hover P Shade 20% #0041C7.
-        $color['primarybuttonborderactive'] = Color::shade($p, 41); // Primary Border: Active P Shade 41% #003093.
-        $color['primarybuttontext'] = $w; // Primary Button Text: Default White.
-        $color['primarybuttontexthover'] = $w; // Primary Button Text: Hover White.
-        $color['primarybuttontextactive'] = $w; // Primary Button Text: Active White.
-        $color['primarybuttonicon'] = $w; // Primary Button Icon: Default White.
-        $color['primarybuttoniconhover'] = $w; // Primary Button Icon: Hover White.
-        $color['primarybuttoniconactive'] = $w; // Primary Button Icon: Active White.
-
-        // Button - Secondary.
-        $color['secondarybuttontext'] = $p; // Secondary Button Text: Default P.
-        $color['secondarybuttontexthover'] = Color::shade($p, 20); // Secondary Button Text: Hover P Shade 20% #0041C7.
-        $color['secondarybuttontextactive'] = Color::shade($p, 41); // Secondary Button Text: Active P Shade 41% #003093.
-        $color['secondarybuttonborder'] = $p; // Secondary Button Border: Default P.
-        $color['secondarybuttonborderhover'] = Color::shade($p, 20); // Secondary Button Border: Hover P Shade 20% #0041C7.
-        $color['secondarybuttonborderactive'] = Color::shade($p, 41); // Secondary Button Border: Active P Shade 41% #003093.
-        $color['secondarybuttonicon'] = $p; // Secondary Button Icon: Default P.
-        $color['secondarybuttoniconhover'] = Color::shade($p, 20); // Secondary Button Icon: Hover P Shade 20% #0041C7.
-        $color['secondarybuttoniconactive'] = Color::shade($p, 41); // Secondary Button Icon: Active P Shade 41% #003093.
-        $color['secondarybuttonbg'] = $w; // Secondary Button Bg: Default White / Transparent?.
-        $color['secondarybuttonbghover'] = $w; // Secondary Button Bg: Hover White / Transparent?.
-        $color['secondarybuttonbgactive'] = $w; // Secondary Button Bg: Active White / Transparent?.
-
-        // Text (Font).
-        $color['headingstext'] = Color::shade($t, 38); // Headings T Shade 38% #2F3847.
-        $color['osinfotext'] = Color::tint($t, 15); // Overline/Small Info text T Tint 15% #677388.
-        $color['link'] = $p; // Link  P.
-        $color['linkhover'] = Color::shade($p, 20); // Link hover P Shade 20% #0041C7.
-        $color['headertext'] = Color::tint($t, 12);// Header Text Default (Header links) T Tint 12% #616E84.
-        $color['headertexthover'] = $p; // Header Text Hover P.
-        $color['headertextactive'] = $p; // Header Text Active P.
-        $color['footertext'] = $w; // Footer Text White.
-        $color['footerlinktext'] = Color::tint($t, 70); // Footer link text T Tint 70% #C9CDD5.
-        $color['footerbg'] = Color::shade($p, 90); // Footer background color shade 90%.
-        $color['footerdivider'] = Color::shade($p, 70); // Footer divider color shade 70%.
-
-        // Icon - Single Color.
-        // $color['singlecoloricon'] = Color::tint($t, 9); // Single Color Icon: Default T Tint 9% #5C6980.
-        // $color['singlecoloriconhover'] = Color::shade($t, 15); // Single Color Icon: Hover T Shade 15% #414C62.
-        // $color['singlecoloriconactive'] = $p; // Single Color Icon: Active P.
-        
-        $color['headericons'] = Color::tint($t, 9); // Header icons: Default T Tint 9% #5C6980.
-        
-        $color['headericonshover'] = Color::shade($t, 11); // Header icons: Hover T Shade 11% #445066.
-        $color['headericonsactive'] = $p; // Header icons: Active P.
-        $color['footericons'] = Color::tint($t, 40); // Footer icons: Default T Tint 40% #949CAB.
-        $color['footericonshover'] = $p; // Footer icons: Hover (Currently Primary) Primary.
-
-        // Static icon.
-        // $color['singlecoloriconactive'] = $s; // Single Color Icon: Active 2 S.
-
-        // Icon - Dual Color.
-        // $color['icon'] = $w; // Icon (Currently White) white.
-        // $color['dualcoloricon'] = $p; // Dual Color Icon: Default BG P.
-        // $color['dualcoloriconactivebg'] = Color::shade($p, 41); // Dual Color Icon: Active_Bg P Shade 41% #003093.
-        // $color['dualcoloriconhoverbg'] = Color::shade($p, 20); // Dual Color Icon: Hover_Bg P Shade 20% #0041C7.
-
-        $this->color = $color;
+        $this->color = self::build_color_map('#0051F9', '#37BE71', '#4C5A73', '#D5DDEA');
         $this->add_main_settings();
     }
 
@@ -270,6 +182,100 @@ class customizer {
      */
     public function get_default_color($type) {
         return isset($this->color[$type]) ? $this->color[$type] : '';
+    }
+
+    /**
+     * Build a full color map from the four main brand colors using the same
+     * derivation formulas as the constructor and smartcolor.js.
+     *
+     * @param string $p Primary color (hex)
+     * @param string $s Secondary color (hex)
+     * @param string $t Text color (hex)
+     * @param string $b Border color (hex)
+     * @return array Full color map
+     */
+    public static function build_color_map(string $p, string $s, string $t, string $b): array {
+        $w = '#FFFFFF';
+        $color = [
+            'primary'   => $p,
+            'secondary' => $s,
+            'text'      => $t,
+            'border'    => $b,
+            'white'     => $w,
+        ];
+
+        // Background Colors.
+        $color['ascentbg']      = Color::shade($p, 60);
+        $color['bg']            = Color::tint($p, 96);
+        $color['elementbg']     = Color::tint($b, 58);
+        $color['blockbg']       = $w;
+        $color['headerbg']      = $w;
+        $color['headerelementbg'] = Color::tint($p, 94);
+        $color['footerbg']      = Color::shade($p, 90);
+
+        // Border Colors.
+        $color['lightborder']   = Color::tint($b, 58);
+        $color['mediumborder']  = $b;
+
+        // Divider Colors.
+        $color['headerdividercolordark'] = Color::shade($b, 15);
+        $color['footerdivider'] = Color::shade($p, 70);
+
+        // Button - Primary.
+        $color['primarybuttonbg']           = $p;
+        $color['primarybuttonbghover']      = Color::shade($p, 20);
+        $color['primarybuttonbgactive']     = Color::shade($p, 41);
+        $color['primarybuttonborder']       = $p;
+        $color['primarybuttonborderhover']  = Color::shade($p, 20);
+        $color['primarybuttonborderactive'] = Color::shade($p, 41);
+        $color['primarybuttontext']         = $w;
+        $color['primarybuttontexthover']    = $w;
+        $color['primarybuttontextactive']   = $w;
+        $color['primarybuttonicon']         = $w;
+        $color['primarybuttoniconhover']    = $w;
+        $color['primarybuttoniconactive']   = $w;
+
+        // Button - Secondary.
+        $color['secondarybuttontext']         = $p;
+        $color['secondarybuttontexthover']    = Color::shade($p, 20);
+        $color['secondarybuttontextactive']   = Color::shade($p, 41);
+        $color['secondarybuttonborder']       = $p;
+        $color['secondarybuttonborderhover']  = Color::shade($p, 20);
+        $color['secondarybuttonborderactive'] = Color::shade($p, 41);
+        $color['secondarybuttonicon']         = $p;
+        $color['secondarybuttoniconhover']    = Color::shade($p, 20);
+        $color['secondarybuttoniconactive']   = Color::shade($p, 41);
+        $color['secondarybuttonbg']           = $w;
+        $color['secondarybuttonbghover']      = $w;
+        $color['secondarybuttonbgactive']     = $w;
+
+        // Text (Font).
+        $color['headingstext']    = Color::shade($t, 38);
+        $color['osinfotext']      = Color::tint($t, 15);
+        $color['link']            = $p;
+        $color['linkhover']       = Color::shade($p, 20);
+        $color['headertext']      = Color::tint($t, 12);
+        $color['headertexthover'] = $p;
+        $color['headertextactive'] = $p;
+        $color['footertext']      = $w;
+        $color['footerlinktext']  = Color::tint($t, 70);
+
+        // Icons.
+        $color['headericons']      = Color::tint($t, 9);
+        $color['headericonshover'] = Color::shade($t, 11);
+        $color['headericonsactive'] = $p;
+        $color['footericons']      = Color::tint($t, 40);
+        $color['footericonshover'] = $p;
+
+        // Login.
+        $color['loginbg']                  = Color::tint($p, 96);
+        $color['loginpaneltextcolor']      = Color::shade($t, 38);
+        $color['loginpanelcontentcolor']   = $t;
+        $color['loginpanellinkcolor']      = $p;
+        $color['loginpanellinkhovercolor'] = Color::shade($p, 20);
+        $color['loginpagebackgroundcolor'] = $t;
+
+        return $color;
     }
 
     /**
@@ -294,7 +300,7 @@ class customizer {
         $this->quicksetup_settings();
         $this->global_settings();
         $this->header_settings();
-        // $this->icondesign_settings();
+        // Icon design settings (commented out for future use).
         $this->footer_settings();
         $this->add_login_settings();
         $this->additional_css_settings();
@@ -334,13 +340,13 @@ class customizer {
         $label,
         $panel,
         $type,
-        \theme_remui\customizer\elements\base $setting = null
-        ) {
+        ?\theme_remui\customizer\elements\base $setting = null
+    ) {
         if ($panel == 'root') {
             $object = (object) [
                 'name' => $name,
                 'label' => $label,
-                'type' => $type
+                'type' => $type,
             ];
             if ($type == 'panel') {
                 $object->children = [];
@@ -356,7 +362,7 @@ class customizer {
                 $object = (object) [
                     'name' => $name,
                     'label' => $label,
-                    'type' => $type
+                    'type' => $type,
                 ];
                 if ($type == 'panel') {
                     $object->children = [];
@@ -416,7 +422,7 @@ class customizer {
      * @param \theme_remui\customizer\base $setting   Setting object
      * @return void
      */
-    public function add_panel($name, $label, $parent, \theme_remui\customizer\elements\base $setting = null) {
+    public function add_panel($name, $label, $parent, ?\theme_remui\customizer\elements\base $setting = null) {
         $this->insert_setting($this->panels, $name, $label, $parent, 'panel', $setting);
     }
 
@@ -459,14 +465,18 @@ class customizer {
                 'options' => [
                     'subdirs' => 0,
                     'maxfiles' => 1,
-                    'accepted_types' => array('web_image')
-                ]
+                    'accepted_types' => ['web_image'],
+                ],
             ]
         );
 
         $this->add_theme_colors();
 
         $this->add_global_typography();
+
+        $this->add_global_radius_settings();
+
+        $this->add_global_icon_settings();
 
         $this->add_global_layout();
 
@@ -488,8 +498,8 @@ class customizer {
                 'default' => '',
                 'help' => get_string('customcssdesc', 'theme_remui'),
                 'options' => [
-                    'rows' => 10
-                ]
+                    'rows' => 10,
+                ],
             ]
         );
     }
@@ -503,7 +513,7 @@ class customizer {
     private function prepare_accordion($panel, $parent) {
         $object = (object)[
             'name' => $panel->name,
-            'label' => $panel->label
+            'label' => $panel->label,
         ];
         if ($panel->type == 'panel') {
             $object->panel = true;
@@ -520,7 +530,7 @@ class customizer {
                 'name' => $panel->name,
                 'label' => $label,
                 'parent' => $parent,
-                'children' => []
+                'children' => [],
             ];
             if (isset($panel->children)) {
                 foreach ($panel->children as $setting) {
@@ -545,9 +555,9 @@ class customizer {
             'label' => 'Root',
             'current' => true,
             'root' => [
-                'label' => $SITE->shortname
+                'label' => $SITE->shortname,
             ],
-            'children' => []
+            'children' => [],
         ];
         foreach ($panels as $panel) {
             $this->prepare_accordion($panel, 'root');
@@ -573,11 +583,26 @@ class customizer {
             }
             $formsettings[$setting['name']][] = $setting['value'];
         }
-        $response = array(
+        // Error handling on theme color because its settings has been called twice.
+        $normalizeonly = [
+            'sitecolorhex',
+            'secondarycolor',
+            'themecolors-textcolor',
+            'themecolors-bordercolor',
+            'quicksetup-card-radius',
+            'quicksetup-btn-radius',
+            'quicksetup-iconset',
+        ];
+        foreach ($formsettings as $name => $value) {
+            if (in_array($name, $normalizeonly, true) && is_array($value)) {
+                $formsettings[$name] = end($value);
+            }
+        }
+        $response = [
             'status' => true,
             'errors' => json_encode([]),
-            'message' => get_string('savesuccess', 'theme_remui')
-        );
+            'message' => get_string('savesuccess', 'theme_remui'),
+        ];
         $errors = [];
         foreach ($this->settings as $setting) {
             if ($setting->do_not_save()) {
@@ -585,6 +610,7 @@ class customizer {
             }
             $setting->process_form_save($formsettings, $errors);
         }
+        $this->sync_header_settings_to_core();
         $this->clear_cache();
         return $response;
     }
@@ -644,7 +670,7 @@ class customizer {
             "Apple Color Emoji",
             "Segoe UI Emoji",
             "Segoe UI Symbol",
-            "Noto Color Emoji"
+            "Noto Color Emoji",
         ]);
     }
 
@@ -698,6 +724,8 @@ class customizer {
         $this->process_global_heading($variables);
         $this->process_global_colors($variables);
         $this->process_global_buttons($variables);
+        $this->process_radius($variables);
+        $this->process_iconset($variables);
         $this->process_header($variables);
         $this->process_login($variables);
         $this->process_footer($variables);

@@ -63,6 +63,9 @@
                 {{/iconwithsitename}}
             {{/output.get_branding_context}}
         </a>
+        <div class="drawerheadercontent hidden">
+            {{$drawerheadercontent}}{{/drawerheadercontent}}
+        </div>
         <button
             class="btn drawertoggle icon-no-margin hidden d-flex"
             data-toggler="drawers"
@@ -74,9 +77,6 @@
         >
             <span class="edw-icon edw-icon-Cancel"></span>
         </button>
-        <div class="drawerheadercontent hidden ml-auto">
-            {{$drawerheadercontent}}{{/drawerheadercontent}}
-        </div>
     </div>
     <div class="drawercontent drag-container" data-usertour="scroller">
         {{$drawercontent}}{{/drawercontent}}

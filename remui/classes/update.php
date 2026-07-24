@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Edwiser RemUI
  *
@@ -25,8 +26,7 @@ namespace theme_remui;
 
 defined('MOODLE_INTERNAL') || die();
 
-// require_once($CFG->libdir . '/markdown/MarkdownInterface.php');
-// require_once($CFG->libdir . '/markdown/Markdown.php');
+// Markdown library is loaded via composer autoloader.
 require_once($CFG->dirroot . '/theme/remui/classes/controller/LicenseController.php');
 
 define('REMUI_PLUGINS_LIST', "https://edwiser.org/edwiserupdates.json");
@@ -49,7 +49,6 @@ use curl;
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class update {
-
     /**
      * Edwiser plugins list
      * @var array
@@ -64,7 +63,7 @@ class update {
 
     /**
      * Refresh update cache
-     * @var boolean
+     * @var bool
      */
     public $refresh = false;
 
@@ -142,7 +141,7 @@ class update {
         if (self::$cache == null) {
             self::$cache = unserialize(file_get_contents(self::$cacheurl));
             if (self::$cache == false) {
-                self::$cache = new stdClass;
+                self::$cache = new stdClass();
             }
         }
 
@@ -163,13 +162,12 @@ class update {
         $plugins = $this->cache_get('plugins');
         if (!$plugins) {
             try {
-
-                $arrcontextoptions = array(
-                    "ssl" => array(
+                $arrcontextoptions = [
+                    "ssl" => [
                         "verify_peer" => false,
                         "verify_peer_name" => false,
-                    ),
-                );
+                    ],
+                ];
 
                 $plugins = file_get_contents(
                     REMUI_PLUGINS_LIST,
@@ -183,7 +181,6 @@ class update {
                     $this->errors[] = get_string('invalidjsonfile', 'theme_remui');
                     return false;
                 }
-
             } catch (Exception $ex) {
                 return false;
             }
@@ -221,7 +218,6 @@ class update {
         $plugininfo = $pluginman->get_plugins();
 
         foreach ($plugins as $component => $plugin) {
-
             // Fetch only plugin if $plug is set.
             if (!is_null($plug) && $component != $plug) {
                 continue;
@@ -232,7 +228,7 @@ class update {
                 continue;
             }
 
-            list($plugintype, $pluginname) = core_component::normalize_component($component);
+            [$plugintype, $pluginname] = core_component::normalize_component($component);
 
             // Check whether plugin is installed or not.
             if (isset($plugininfo[$plugintype][$pluginname])) {
@@ -240,12 +236,12 @@ class update {
                 if ($component == 'theme_remui') {
                     $name = PLUGINNAME;
                 }
-                $options = array(
+                $options = [
                     'component'   => $component,
                     'name' => $name,
                     'version' => $plugininfo[$plugintype][$pluginname]->versiondb,
-                    'release' => $plugininfo[$plugintype][$pluginname]->release
-                );
+                    'release' => $plugininfo[$plugintype][$pluginname]->release,
+                ];
                 // Edwiser plugin which comes along with product.
                 if (!isset($plugin->purchaseurl)) {
                     if (isset($plugin->parent)) {
@@ -260,7 +256,7 @@ class update {
                             FROM {config_plugins}
                             WHERE plugin = ?
                             AND name LIKE '%license_key%'";
-                $license = $DB->get_field_sql($sql, array($component), IGNORE_MULTIPLE);
+                $license = $DB->get_field_sql($sql, [$component], IGNORE_MULTIPLE);
 
                 $options['url'] = $plugin->purchaseurl;
                 if ($license == false) {
@@ -322,8 +318,10 @@ class update {
 
         if ($response) {
             $response = json_decode($response, true);
-            if ((isset($response['data']) && $response['data']['status'] == 404) ||
-                (isset($response['error']) && $response['error'] == true)) {
+            if (
+                (isset($response['data']) && $response['data']['status'] == 404) ||
+                (isset($response['error']) && $response['error'] == true)
+            ) {
                 $this->errors[] = get_string('errorfetching', 'theme_remui', $response['message']);
                 return false;
             }
@@ -362,24 +360,24 @@ class update {
         }
 
         // Sanitize and validate the URL.
-        $url = str_replace(array("\r", "\n"), '', $url);
+        $url = str_replace(["\r", "\n"], '', $url);
 
         if (!preg_match('|^https?://|i', $url)) {
-            $this->errors[] = 'Error fetching plugin ZIP: unsupported transport protocol: '.$url;
+            $this->errors[] = 'Error fetching plugin ZIP: unsupported transport protocol: ' . $url;
             return false;
         }
 
-        $pluginman->zipdirectory = make_temp_directory('core_plugin/code_manager').'/distfiles/';
+        $pluginman->zipdirectory = make_temp_directory('core_plugin/code_manager') . '/distfiles/';
 
         // The cache location for the file.
-        $distfile = $pluginman->zipdirectory.$name.'.zip';
+        $distfile = $pluginman->zipdirectory . $name . '.zip';
         if (file_exists($distfile)) {
             return $distfile;
         }
 
         // Download the file into a temporary location.
         $tempdir = make_request_directory();
-        $tempfile = $tempdir.'/plugin.zip';
+        $tempfile = $tempdir . '/plugin.zip';
         $result = $this->download_plugin_zip_file($url, $tempfile);
 
         if (!$result) {
@@ -419,7 +417,7 @@ class update {
         $root = current(array_keys($zipcontents));
         $file = $root . 'version.php';
         if (isset($zipcontents[$file]) && $zipcontents[$file] == 1 && file_exists($path . '/' . $file)) {
-            $plugin = new stdClass;
+            $plugin = new stdClass();
             require_once($path . '/' . $file);
             return $plugin;
         }
@@ -571,7 +569,7 @@ class update {
                     $za = new ZipArchive();
                     $za->open($path);
                     for ($i = 0; $i < $za->numFiles; $i++) {
-                        $stat = $za->statIndex( $i );
+                        $stat = $za->statIndex($i);
                         if (strcasecmp(basename($stat['name']), 'CHANGES.txt') == 0) {
                             $markdown = new MarkDown();
                             $changelog = $za->getFromIndex($i);
@@ -579,7 +577,7 @@ class update {
                             $changelog = html_writer::tag(
                                 'div',
                                 $markdown->transform($changelog),
-                                array('class' => 'remui-changelog')
+                                ['class' => 'remui-changelog']
                             );
                             $newplugin->changelog = $changelog;
                         }
@@ -587,7 +585,6 @@ class update {
                 }
                 $plugins[$component] = $newplugin;
             }
-
         }
         return $plugins;
     }
@@ -603,14 +600,14 @@ class update {
     private function get_plugin_object($pluginfo, $updateinfo) {
         global $PAGE, $OUTPUT, $CFG;
 
-        $plugin = new stdClass;
+        $plugin = new stdClass();
         $plugin->type = $pluginfo->type;
         $plugin->name = $pluginfo->name;
         $plugin->component = $pluginfo->type . '_' . $pluginfo->name;
         $plugin->class = 'type-' . $plugin->type . ' name-' . $plugin->component;
         $status = $pluginfo->get_status();
         if ($PAGE->theme->resolve_image_location('icon', $plugin->component, null)) {
-            $plugin->icon = $OUTPUT->pix_icon('icon', '', $plugin->component, array('class' => 'icon pluginicon'));
+            $plugin->icon = $OUTPUT->pix_icon('icon', '', $plugin->component, ['class' => 'icon pluginicon']);
         }
 
         $plugin->displayname = $pluginfo->displayname;
@@ -651,14 +648,14 @@ class update {
         }
 
         if (empty($updateinfo->msg)) {
-            $button = html_writer::start_tag('a', array(
+            $button = html_writer::start_tag('a', [
                 'class' => 'btn btn-secondary bg-gray',
                 'target' => '_blank',
-                'href' => new moodle_url($CFG->wwwroot . '/theme/remui/install_update.php', array(
+                'href' => new moodle_url($CFG->wwwroot . '/theme/remui/install_update.php', [
                     'installupdate' => $updateinfo->component,
-                    'sesskey' => sesskey()
-                )),
-            ));
+                    'sesskey' => sesskey(),
+                ]),
+            ]);
             $button .= get_string('updateavailableinstall', 'core_admin');
             $button .= html_writer::end_tag('a');
             $plugin->install = $button;
@@ -686,7 +683,7 @@ class update {
 
         if (isset($pluginlist['code']) && $pluginlist['code'] == 'rest_no_route') {
             $errors[] = get_string('updatedown', 'theme_remui', $pluginlist['message']);
-            return array($plugins, $errors);
+            return [$plugins, $errors];
         }
         $pluginman = core_plugin_manager::instance();
         $plugininfo = $pluginman->get_plugins();
@@ -736,10 +733,10 @@ class update {
 
                 $response = $curl->post(
                     PLUGIN_UPDATE . '/check-update',
-                    array(
+                    [
                         'plugins' => json_encode($this->plugins),
-                        'url' => urlencode($CFG->wwwroot)
-                    )
+                        'url' => urlencode($CFG->wwwroot),
+                    ]
                 );
 
                 $plugins = json_decode($response, true);
@@ -778,7 +775,7 @@ class update {
         }
 
         // Fetch update details.
-        list($plugins, $errors) = $this->fetch_plugins_update();
+        [$plugins, $errors] = $this->fetch_plugins_update();
 
         // Return false if there is error in updates.
         if ($errors !== false || (is_array($errors) && count($errors) > 0)) {
@@ -831,16 +828,16 @@ class update {
      */
     public function get_update_details() {
         global $PAGE;
-        list($plugins, $errors, $lastcheck) = $this->fetch_plugins_update();
-        list($plugins, $errors) = $this->generate_template_context($plugins, $errors);
+        [$plugins, $errors, $lastcheck] = $this->fetch_plugins_update();
+        [$plugins, $errors] = $this->generate_template_context($plugins, $errors);
         return [
-            'refresh-update' => new moodle_url($PAGE->url, array(
+            'refresh-update' => new moodle_url($PAGE->url, [
                 'activetab' => 'informationcenter',
-                'refresh-update' => 1
-            )),
+                'refresh-update' => 1,
+            ]),
             'errors' => $errors,
             'list' => $plugins,
-            'lastcheck' => $lastcheck
+            'lastcheck' => $lastcheck,
         ];
     }
 
@@ -859,16 +856,16 @@ class update {
 
         $ok = get_string('ok', 'core');
 
-        $silent or mtrace(get_string('packagesvalidating', 'core_plugin', $plugin->component), ' ... ');
+        $silent || mtrace(get_string('packagesvalidating', 'core_plugin', $plugin->component), ' ... ');
 
-        list($plugintype, $pluginname) = core_component::normalize_component($plugin->component);
+        [$plugintype, $pluginname] = core_component::normalize_component($plugin->component);
 
         $tmp = make_request_directory();
         $zipcontents = $this->unzip_plugin_file($pluginman, $zipfile, $tmp, $pluginname);
 
         if (empty($zipcontents)) {
-            $silent or mtrace(get_string('error'));
-            $silent or mtrace(get_string('unabletounzip', 'theme_remui', $zipfile));
+            $silent || mtrace(get_string('error'));
+            $silent || mtrace(get_string('unabletounzip', 'theme_remui', $zipfile));
             return false;
         }
 
@@ -878,32 +875,32 @@ class update {
 
         // TODO Check for missing dependencies during validation.
         $result = $validator->execute();
-        $result ? ($silent or mtrace($ok)) : ($silent or mtrace(get_string('error')));
+        $result ? ($silent || mtrace($ok)) : ($silent || mtrace(get_string('error')));
 
         if (!$silent) {
             foreach ($validator->get_messages() as $message) {
-                if ($message->level === $validator::WARNING || $message->level === $validator::ERROR and !CLI_SCRIPT) {
-                    mtrace('  <strong>['.$validator->message_level_name($message->level).']</strong>', ' ');
+                if ($message->level === $validator::WARNING || ($message->level === $validator::ERROR && !CLI_SCRIPT)) {
+                    mtrace('  <strong>[' . $validator->message_level_name($message->level) . ']</strong>', ' ');
                 } else {
-                    mtrace('  ['.$validator->message_level_name($message->level).']', ' ');
+                    mtrace('  [' . $validator->message_level_name($message->level) . ']', ' ');
                 }
 
                 mtrace($validator->message_code_name($message->msgcode), ' ');
 
                 $info = $validator->message_code_info($message->msgcode, $message->addinfo);
                 if ($info) {
-                    mtrace('['.s($info).']', ' ');
+                    mtrace('[' . s($info) . ']', ' ');
                 } else if (is_string($message->addinfo)) {
-                    mtrace('['.s($message->addinfo, true).']', ' ');
+                    mtrace('[' . s($message->addinfo, true) . ']', ' ');
                 } else {
-                    mtrace('['.s(json_encode($message->addinfo, true)).']', ' ');
+                    mtrace('[' . s(json_encode($message->addinfo, true)) . ']', ' ');
                 }
 
                 if ($icon = $validator->message_help_icon($message->msgcode)) {
                     if (CLI_SCRIPT) {
                         mtrace(
-                            PHP_EOL.'  ^^^ '.get_string('help').': '. get_string(
-                                $icon->identifier.'_help',
+                            PHP_EOL . '  ^^^ ' . get_string('help') . ': ' . get_string(
+                                $icon->identifier . '_help',
                                 $icon->component
                             ),
                             ''
@@ -916,9 +913,9 @@ class update {
             }
         }
         if (!$result) {
-            $silent or mtrace(get_string('packagesvalidatingfailed', 'core_plugin'));
+            $silent || mtrace(get_string('packagesvalidatingfailed', 'core_plugin'));
         }
-        $silent or mtrace(PHP_EOL, '');
+        $silent || mtrace(PHP_EOL, '');
         return $result;
     }
 
@@ -954,12 +951,12 @@ class update {
         $ok = get_string('ok', 'core');
 
         // Let admins know they can expect more verbose output.
-        $silent or mtrace(get_string('packagesdebug', 'core_plugin'), PHP_EOL);
+        $silent || mtrace(get_string('packagesdebug', 'core_plugin'), PHP_EOL);
 
         // Download all ZIP packages if we do not have them yet.
-        $zip = array();
+        $zip = [];
 
-        $silent or mtrace(get_string('packagesdownloading', 'core_plugin', $plugin->component), ' ... ');
+        $silent || mtrace(get_string('packagesdownloading', 'core_plugin', $plugin->component), ' ... ');
 
         if (!isset($plugin->version->package) || trim($plugin->version->package) == '') {
             $zip = false;
@@ -972,7 +969,7 @@ class update {
                 }
                 $errormsg .= html_writer::end_tag($tag);
             }
-            $silent or mtrace(PHP_EOL.' <- '. $errormsg . ' ->', '');
+            $silent || mtrace(PHP_EOL . ' <- ' . $errormsg . ' ->', '');
         } else {
             $url = PLUGIN_UPDATE . '/download/' . $plugin->version->package;
             $zip = $this->get_remote_plugin_zip(
@@ -982,17 +979,17 @@ class update {
             );
         }
         if (!$zip) {
-            $silent or mtrace(get_string('errorfetching', 'theme_remui', ''));
+            $silent || mtrace(get_string('errorfetching', 'theme_remui', ''));
             return false;
         }
-        $silent or mtrace($ok);
+        $silent || mtrace($ok);
 
         $temp = make_request_directory();
         $zips = $this->verify_zip($pluginman, $zip, $temp, $plugin->component);
         $zipfile = $zip;
 
         if (!$zips) {
-            $silent or mtrace(get_string('unabletounzip', 'theme_remui', $zipfile), PHP_EOL);
+            $silent || mtrace(get_string('unabletounzip', 'theme_remui', $zipfile), PHP_EOL);
             return false;
         }
         if (count($zips) == 1) {
@@ -1026,17 +1023,17 @@ class update {
 
         foreach ($zips as $zipfile => $plugin) {
             // Extract all ZIP packs do the dirroot.
-            $silent or mtrace(get_string('packagesextracting', 'core_plugin', $plugin->component), ' ... ');
-            list($plugintype, $pluginname) = core_component::normalize_component($plugin->component);
+            $silent || mtrace(get_string('packagesextracting', 'core_plugin', $plugin->component), ' ... ');
+            [$plugintype, $pluginname] = core_component::normalize_component($plugin->component);
 
             $target = $pluginman->get_plugintype_root($plugintype);
             $plugininfo = $pluginman->get_plugin_info($plugin->component);
-            if (file_exists($target.'/'.$pluginname) && $plugininfo) {
+            if (file_exists($target . '/' . $pluginname) && $plugininfo) {
                 $pluginman->remove_plugin_folder($plugininfo);
             }
             if (!$this->unzip_plugin_file($pluginman, $zipfile, $target, $pluginname)) {
-                $silent or mtrace(get_string('error'));
-                $silent or mtrace(get_string('unabletounzip', 'theme_remui', $zipfile), PHP_EOL);
+                $silent || mtrace(get_string('error'));
+                $silent || mtrace(get_string('unabletounzip', 'theme_remui', $zipfile), PHP_EOL);
                 if (function_exists('opcache_reset')) {
                     opcache_reset();
                 }
@@ -1044,7 +1041,7 @@ class update {
             }
         }
 
-        $silent or mtrace($ok);
+        $silent || mtrace($ok);
         if (function_exists('opcache_reset')) {
             opcache_reset();
         }
@@ -1060,20 +1057,20 @@ class update {
      * @return string HTML
      */
     public function plugins_management_confirm_buttons(
-        moodle_url $continue = null,
-        moodle_url $download = null,
-        moodle_url $cancel = null
+        ?moodle_url $continue = null,
+        ?moodle_url $download = null,
+        ?moodle_url $cancel = null
     ) {
         global $OUTPUT;
 
         $out = html_writer::start_div('plugins-management-confirm-buttons');
 
         if (!empty($continue)) {
-            $out .= $OUTPUT->single_button($continue, get_string('continue'), 'post', array('class' => 'continue'));
+            $out .= $OUTPUT->single_button($continue, get_string('continue'), 'post', ['class' => 'continue']);
         }
 
         if (!empty($download)) {
-            $out .= $OUTPUT->single_button($download, get_string('download'), 'post', array('class' => 'download'));
+            $out .= $OUTPUT->single_button($download, get_string('download'), 'post', ['class' => 'download']);
         }
 
         if (empty($cancel)) {
@@ -1100,7 +1097,7 @@ class update {
     public function upgrade_install_plugin(
         \core\update\remote_info $installable,
         $confirmed,
-        $heading='',
+        $heading = '',
         $continue = null,
         $download = null,
         $return = null
@@ -1129,20 +1126,19 @@ class update {
             // Do not throw away the existing $PAGE->url parameters such as.
             // confirmupgrade or confirmrelease if $PAGE->url is a superset of the.
             // URL we must go to.
-            $mustgoto = new moodle_url('/admin/index.php', array('cache' => 0, 'confirmplugincheck' => 0));
+            $mustgoto = new moodle_url('/admin/index.php', ['cache' => 0, 'confirmplugincheck' => 0]);
             if ($mustgoto->compare($PAGE->url, URL_MATCH_PARAMS)) {
                 redirect($PAGE->url);
             } else {
                 redirect($mustgoto);
             }
-
         } else {
             $output = $PAGE->get_renderer('core', 'admin');
             echo $output->header();
             if ($heading) {
                 echo $output->heading($heading, 3);
             }
-            echo html_writer::start_tag('pre', array('class' => 'plugin-install-console'));
+            echo html_writer::start_tag('pre', ['class' => 'plugin-install-console']);
             $validated = $this->install_plugin($installable, false, false);
             echo html_writer::end_tag('pre');
             if ($validated) {
@@ -1173,7 +1169,7 @@ class update {
                 }
                 $errormsg .= html_writer::end_tag($tag);
             }
-            mtrace(PHP_EOL.' <- '. $errormsg . ' ->', '');
+            mtrace(PHP_EOL . ' <- ' . $errormsg . ' ->', '');
         } else {
             $url = PLUGIN_UPDATE . '/download/' . $plugin->package;
             $zip = $this->get_remote_plugin_zip(
@@ -1211,7 +1207,7 @@ class update {
                 continue;
             }
             // Force download.
-            send_file($zipfile, $plugin->component . '.zip', null , 0, false, true);
+            send_file($zipfile, $plugin->component . '.zip', null, 0, false, true);
         }
     }
 
@@ -1222,7 +1218,7 @@ class update {
      */
     public function get_plugin_update($params) {
         $component = $params['installupdate'];
-        list($plugins, $errors) = $this->fetch_plugins_update();
+        [$plugins, $errors] = $this->fetch_plugins_update();
 
         if (!isset($plugins[$component])) {
             return false;

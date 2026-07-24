@@ -44,9 +44,9 @@ trait enrol_get_course_instructors {
      */
     public static function enrol_get_course_instructors_parameters() {
         return new external_function_parameters(
-            array (
+            [
                 'courseid' => new external_value(PARAM_INT, 'Course Id'),
-            )
+             ]
         );
     }
 
@@ -56,7 +56,7 @@ trait enrol_get_course_instructors {
      * @return boolean       true
      */
     public static function enrol_get_course_instructors($courseid) {
-        global $PAGE, $OUTPUT,$CFG, $USER;
+        global $PAGE, $OUTPUT, $CFG, $USER;
         // Validation for context is needed.
         $systemcontext = \context_system::instance();
         self::validate_context($systemcontext);
@@ -89,12 +89,20 @@ trait enrol_get_course_instructors {
             $instructor = [];
             $instructor['id'] = $teacher->id;
             $instructor['fullname'] = fullname($teacher, true);
-            $instructor['avatar'] = $OUTPUT->user_picture($teacher,array('size' => 116));
+            $instructor['avatar'] = $OUTPUT->user_picture($teacher, ['size' => 116]);
             $instructor['totalstudents'] = $totalstudents;
             $instructor['totalcourses'] = $totalcourses;
-            $instructor['profileurl'] = $CFG->wwwroot.'/user/profile.php?id='.$teacher->id;
-            $instructor['email'] =  $teacher->email;
-            $instructor['description'] =  format_text(file_rewrite_pluginfile_urls($teacher->description, 'pluginfile.php', $context->id, 'user', 'profile', $teacher->id),FORMAT_HTML);
+            $instructor['profileurl'] = $CFG->wwwroot . '/user/profile.php?id=' . $teacher->id;
+            $instructor['email'] = $teacher->email;
+            $description = file_rewrite_pluginfile_urls(
+                $teacher->description,
+                'pluginfile.php',
+                $context->id,
+                'user',
+                'profile',
+                $teacher->id
+            );
+            $instructor['description'] = format_text($description, FORMAT_HTML);
             if (isset($hiddenfields['email']) || $teacher->maildisplay == 0) {
                 $instructor['email'] = false;
             }
@@ -103,20 +111,13 @@ trait enrol_get_course_instructors {
                 $instructor['description'] = false;
             }
 
-            $instructor['allowedmessaging'] =  false;
-            // if(isloggedin()){
-            //     $instructor['allowedmessaging'] = false;
-            //     if (user_can_view_profile($USER, $course)) {
-            //         if (!empty($CFG->messaging) && has_capability('moodle/site:sendmessage', $context)) {
-            //             $instructor['allowedmessaging'] = true;
-            //         }
-            //     }
-            // }
+            $instructor['allowedmessaging'] = false;
+            // Messaging permission check (commented out for future use).
 
             $instructors[] = $instructor;
         }
 
-        return json_encode(array("instructors" => $instructors));
+        return json_encode(["instructors" => $instructors]);
     }
 
     /**

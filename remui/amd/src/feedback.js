@@ -15,8 +15,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Feedback module for RemUI theme.
+ * Handles user feedback submission with screenshot capabilities.
+ *
  * @module     theme_remui/feedback
- * @copyright (c) 2023 WisdmLabs (https://wisdmlabs.com/)
+ * @copyright  (c) 2023 WisdmLabs (https://wisdmlabs.com/) <support@wisdmlabs.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 

@@ -24,85 +24,89 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-$observers = array(
-    array(
+$observers = [
+    [
         'eventname'   => '\core\event\user_enrolment_created',
         'callback'    => 'theme_remui\controller\EventsController::user_enrollment_event',
-    ),
-    array(
+    ],
+    [
         'eventname'   => '\core\event\user_enrolment_deleted',
         'callback'    => 'theme_remui\controller\EventsController::user_enrollment_event',
-    ),
-    array(
+    ],
+    [
         'eventname'   => '\core\event\course_updated',
         'callback'    => 'theme_remui\controller\EventsController::course_updation_event',
-    ),
-    array(
+    ],
+    [
         'eventname'   => '\core\event\role_assigned',
         'callback'    => 'theme_remui\controller\EventsController::course_updation_event',
-    ),
-    array(
+    ],
+    [
         'eventname'   => '\core\event\role_unassigned',
         'callback'    => 'theme_remui\controller\EventsController::course_updation_event',
-    ),
-    array(
+    ],
+    [
         'eventname'   => '\core\event\role_capabilities_updated',
         'callback'    => 'theme_remui\controller\EventsController::course_updation_event',
-    ),
-    array(
+    ],
+    [
         'eventname'   => '\core\event\capability_assigned',
         'callback'    => 'theme_remui\controller\EventsController::course_updation_event',
-    ),
-    array(
+    ],
+    [
         'eventname'   => '\core\event\capability_unassigned',
         'callback'    => 'theme_remui\controller\EventsController::course_updation_event',
-    ),
-    array(
+    ],
+    [
         'eventname'   => '\core\event\user_loggedin',
         'callback'    => 'theme_remui\controller\EventsController::user_loggedin_event',
-    ),
-    array(
+    ],
+    [
         'eventname'   => '\core\event\course_module_created',
         'callback'    => 'theme_remui\controller\EventsController::updation_on_create_delete_activity',
-    ),
-    array(
+    ],
+    [
         'eventname'   => '\core\event\course_module_deleted',
         'callback'    => 'theme_remui\controller\EventsController::course_updation_event',
-    ),
-    array(
+    ],
+    [
         'eventname'   => '\core\event\course_module_updated',
         'callback'    => 'theme_remui\controller\EventsController::updation_on_create_delete_activity',
-    ),
-    array(
+    ],
+    [
         'eventname'   => '\core\event\course_module_completion_updated',
         'callback'    => 'theme_remui\controller\EventsController::course_updation_event',
-    ),
-    array(
+    ],
+    [
         'eventname'   => '\core\event\completion_defaults_updated',
         'callback'    => 'theme_remui\controller\EventsController::course_updation_event',
-    ),
-    array(
+    ],
+    [
         'eventname'   => '\core\event\course_completion_updated',
         'callback'    => 'theme_remui\controller\EventsController::course_updation_event',
-    ),
-    array(
+    ],
+    [
         'eventname'   => '\core\event\course_started',
         'callback'    => 'theme_remui\controller\EventsController::course_updation_event',
-    ),
-    array(
+    ],
+    [
         'eventname'   => '\core\event\course_deleted',
         'callback'    => 'theme_remui\controller\EventsController::course_deletion_event',
-    ),
-    array(
+    ],
+    [
         'eventname'   => '\mod_assign\event\assessable_submitted',
         'callback'    => 'theme_remui\controller\EventsController::course_updation_event',
-    ),
-    array(
+    ],
+    [
         'eventname'   => '\core\event\course_completed',
         'callback'    => 'theme_remui\controller\EventsController::course_updation_event',
-    ),
-    array(
+    ],
+    [
         'eventname'   => '\core\event\group_updated',
         'callback'    => 'theme_remui\controller\EventsController::course_updation_event',
-    )
-);
+    ],
+    [
+        'eventname'   => '\core_customfield\event\field_updated',
+        'callback'    => 'theme_remui\controller\EventsController::customfield_updated',
+    ],
+];

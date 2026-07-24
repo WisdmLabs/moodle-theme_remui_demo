@@ -202,7 +202,11 @@ $courseindex-section-title-border: 1px solid rgba($brand-primary, 30%);
                             padding: $l-sidebar-padding-y $l-sidebar-padding-x;
                             color: $courseindex-section-title-color;
                             background-color: $courseindex-section-title-bg;
-                            border-radius: 0px;
+                            border-radius: 8px;
+
+                            &:not(:has(.collapsed)) {
+                                border-radius: 8px 8px 0px 0px;
+                            }
                             // border-bottom: 1px solid $medium-border;
                             justify-content: space-between;
 
@@ -373,6 +377,41 @@ body.edw-m403 {
                     margin-right: unset;
                 }
             }
+        }
+    }
+}
+
+[id^="message-drawer"] .content-message-container [data-region="contact-request-sent-message-container"] {
+    position: static !important;
+    margin-bottom: 20px !important;
+}
+
+.edw-m502 {
+    .drawer-toggles {
+        .newcourseindexicon-toggle,
+        .newrightsidebaricon-toggle {
+            margin: auto 16px;
+            height: 40px;
+            border-radius: 0.5rem;
+        }
+
+        .newrightsidebaricon-toggle {
+            margin-left: 0;
+            .dir-rtl-hide {
+                .edw-icon-side-bar {
+                    display: inline-block;
+                    transform: rotate(180deg);
+                }
+            }
+        }
+    }
+    .drawerheadercontent {
+        min-width: 0px;        
+    }
+    .drawer-left {
+        .drawerheadercontent > div:first-child {
+            justify-content: space-between;
+            min-width: 300px;
         }
     }
 }

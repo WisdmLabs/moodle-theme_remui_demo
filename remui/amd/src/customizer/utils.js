@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -14,20 +13,22 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 /**
- * Theme customizer utils js
- * @copyright (c) 2023 WisdmLabs (https://wisdmlabs.com/) <support@wisdmlabs.com>
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @author    Yogesh Shirsath
+ * Theme customizer utilities module.
+ * Provides utility functions for the customizer including iframe manipulation, file handling, and style injection.
+ *
+ * @module     theme_remui/customizer/utils
+ * @copyright  (c) 2023 WisdmLabs (https://wisdmlabs.com/) <support@wisdmlabs.com>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @author     Yogesh Shirsath
  */
 
 
 import $ from 'jquery';
 import Ajax from 'core/ajax';
 import Notification from 'core/notification';
-import ModalFactory from 'core/modal_factory';
+import ModalSaveCancel from 'core/modal_save_cancel';
 import ModalEvents from 'core/modal_events';
 import Fragment from 'core/fragment';
-import 'core/modal_save_cancel';
 
 /**
  * Selectors
@@ -193,13 +194,12 @@ function hideLoader() {
 function htmlEditorExpand(name) {
     $(`#fitem_id_${name} .icon-expand`).on('click', function() {
         let content = $(`#id_${name}`).val();
-        ModalFactory.create({
+        ModalSaveCancel.create({
             title: $(`#fitem_id_${name} ${SELECTOR.FORMLABEL}`).text(),
             body: Fragment.loadFragment(SELECTOR.COMPONENT, SELECTOR.HMTLEDITOR, 1, {
                 content: content
             }),
-            type: ModalFactory.types.SAVE_CANCEL
-        }, $('#create')).done(function(modal) {
+        }).then(function(modal) {
             modal.show();
             $(modal.getModal()).addClass('modal-lg');
             var root = modal.getRoot();
@@ -215,7 +215,8 @@ function htmlEditorExpand(name) {
             root.on(ModalEvents.hidden, function() {
                 modal.destroy();
             });
-        });
+            return modal;
+        }).catch(Notification.exception);
     });
 }
 

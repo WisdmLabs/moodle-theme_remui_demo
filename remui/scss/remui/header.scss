@@ -23,6 +23,11 @@ $input-field-padding-x :map-get($spacerspx, '4');
                         }
                     }
                 }
+                .completion-status.text-success {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                }
             }
         }
     }

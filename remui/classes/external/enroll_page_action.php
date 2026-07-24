@@ -15,7 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package   local_edwiserpagebuilder
+ * Enroll page action external API.
+ *
+ * @package   theme_remui
  * @copyright (c) 2022 WisdmLabs (https://wisdmlabs.com/) <support@wisdmlabs.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @author Gourav Govande
@@ -23,12 +25,16 @@
 
  namespace theme_remui\external;
 
- defined('MOODLE_INTERNAL') || die;
-
 use external_function_parameters;
 use external_value;
 use context_system;
 use context_user;
+
+/**
+ * Enroll page action trait.
+ *
+ * Provides external API functions for enrollment page actions.
+ */
 trait enroll_page_action {
     /**
      * Describes the parameters for add_new_page
@@ -36,10 +42,10 @@ trait enroll_page_action {
      */
     public static function enroll_page_action_parameters() {
         return new external_function_parameters(
-            array(
+            [
                 'action' => new external_value(PARAM_TEXT, 'Action Type'),
-                'config' => new external_value(PARAM_RAW, 'Page data')
-            )
+                'config' => new external_value(PARAM_RAW, 'Page data'),
+            ]
         );
     }
 
@@ -50,7 +56,17 @@ trait enroll_page_action {
      */
     public static function enroll_page_action($action, $config) {
         global $PAGE;
-        $PAGE->set_context(context_system::instance());
+
+        // Validate sesskey to prevent CSRF attacks.
+        confirm_sesskey();
+
+        // Validate context and admin permission.
+        // All enrollment page actions modify theme configuration (set_config).
+        $context = context_system::instance();
+        self::validate_context($context);
+        require_capability('moodle/site:config', $context);
+
+        $PAGE->set_context($context);
         $pagehandler = new \theme_remui\EnrolmentPageHandler();
 
         $return = $pagehandler->perform_action($action, $config);
@@ -66,4 +82,3 @@ trait enroll_page_action {
         return new external_value(PARAM_RAW, 'Page');
     }
 }
-

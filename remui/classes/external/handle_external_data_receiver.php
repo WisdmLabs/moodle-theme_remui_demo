@@ -86,6 +86,18 @@ trait handle_external_data_receiver
                 set_config('theme', $theme->name);
             }
 
+            $footerdesigns = [
+                "classic" => "footer-design-1",
+                "school" => "footer-design-2",
+                "university" => "footer-design-3",
+                "corporate" => "footer-design-4",
+                "training" => "footer-design-5",
+            ];
+
+            // if (isset($data["blocklayout"]) && isset($footerdesigns[$data["blocklayout"]])) {
+            //     self::set_footerdesign($footerdesigns[$data["blocklayout"]]);
+            // }
+
             if ($saveresult) {
                 $result['status'] = true;
                 $result['message'] = 'Data successfully stored';
@@ -102,6 +114,60 @@ trait handle_external_data_receiver
         return false;
     }
 
+    public static function set_footerdesign($footerdesign)
+    {
+        $baseurl = 'https://staticcdn.edwiser.org/theme_remuiassets//footerassets/';
+        $offset  = str_replace("-", "", $footerdesign);
+        // Update config.
+        set_config('footer-design-selector', $footerdesign, 'theme_remui');
+
+        $url = $baseurl . $offset . ".json";
+
+        $jsondata = download_file_content($url);
+
+        if ($jsondata) {
+            $data = json_decode($jsondata, true);
+
+            if (json_last_error() === JSON_ERROR_NONE && is_array($data)) {
+
+                // 1. Skip footertop and htmlcontent
+                unset($data['footertop'], $data['htmlcontent']);
+
+                // 2. Handle footerbottom (flatten keys)
+                if (! empty($data['footerbottom']) && is_array($data['footerbottom'])) {
+                    foreach ($data['footerbottom'] as $key => $value) {
+                        set_config($key, $value, 'theme_remui');
+                    }
+                    unset($data['footerbottom']);
+                }
+
+                // 3. Handle configData (array of column configs)
+                if (! empty($data['configData']) && is_array($data['configData'])) {
+                    foreach ($data['configData'] as $configrow) {
+                        foreach ($configrow as $key => $value) {
+                            set_config($key, $value, 'theme_remui');
+                        }
+                    }
+                    unset($data['configData']);
+                }
+
+                // 4. Handle footercolors (flatten keys)
+                if (! empty($data['footercolors']) && is_array($data['footercolors'])) {
+                    foreach ($data['footercolors'] as $key => $value) {
+                        set_config($key, $value, 'theme_remui');
+                    }
+                    unset($data['footercolors']);
+                }
+
+            } else {
+                debugging('Invalid JSON structure in remui footer config');
+            }
+        } else {
+            debugging('Failed to fetch remui footer config JSON');
+        }
+
+        theme_reset_all_caches();
+    }
 
     /**
      * Describes the set_demo_layouttype_returns value

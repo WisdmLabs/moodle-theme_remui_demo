@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Theme customizer buttons trait
  *
@@ -24,8 +25,12 @@
 
 namespace theme_remui\customizer\add;
 
+/**
+ * Buttons trait.
+ *
+ * Provides functionality for adding button-related customizer settings.
+ */
 trait buttons {
-
     /**
      * Add global buttons
      */
@@ -37,7 +42,7 @@ trait buttons {
             'font-weight' => 600,
             'text-transform' => 'Inherit',
             'line-height' => 1.214,
-            'letter-spacing' => 0
+            'letter-spacing' => 0,
         ];
         $padding = [
             'top' => 0.857,
@@ -50,10 +55,10 @@ trait buttons {
         $this->add_common_button_settings('common', [
             'border' => [
                 'width' => 1.136,
-                'radius' => 5
+                'radius' => 5,
             ],
             'text' => $text,
-            'padding' => $padding
+            'padding' => $padding,
         ]);
         $this->add_color_settings();
     }
@@ -69,7 +74,6 @@ trait buttons {
         $this->add_panel($name, get_string($type, 'theme_remui'), 'buttoncolorsettings');
         $panel = get_string($type, 'theme_remui') . ' ' . get_string('buttons', 'theme_remui');
         if (isset($options['color'])) {
-
             // Text color.
             $label = get_string('text-color', 'theme_remui');
             $this->add_setting(
@@ -79,7 +83,7 @@ trait buttons {
                 $name,
                 [
                     'help' => get_string('text-color_help', 'theme_remui', $panel),
-                    'default' => $options['color']['text']
+                    'default' => $options['color']['text'],
                 ]
             );
 
@@ -92,7 +96,7 @@ trait buttons {
                 $name,
                 [
                     'help' => get_string('text-color_help', 'theme_remui', $panel),
-                    'default' => $options['color']['texthover']
+                    'default' => $options['color']['texthover'],
                 ]
             );
 
@@ -106,7 +110,7 @@ trait buttons {
                     'content' => '
                         <div class="p-1">
                         </div>
-                    '
+                    ',
                 ]
             );
 
@@ -119,7 +123,7 @@ trait buttons {
                 $name,
                 [
                     'help' => get_string('icon-color_help', 'theme_remui', $panel),
-                    'default' => $options['color']['icon']
+                    'default' => $options['color']['icon'],
                 ]
             );
 
@@ -132,7 +136,7 @@ trait buttons {
                 $name,
                 [
                     'help' => get_string('icon-color_help', 'theme_remui', $panel),
-                    'default' => $options['color']['iconhover']
+                    'default' => $options['color']['iconhover'],
                 ]
             );
 
@@ -146,7 +150,7 @@ trait buttons {
                     'content' => '
                         <div class="p-1">
                         </div>
-                    '
+                    ',
                 ]
             );
 
@@ -159,7 +163,7 @@ trait buttons {
                 $name,
                 [
                     'help' => get_string('background-color_help', 'theme_remui', $panel),
-                    'default' => $options['color']['background']
+                    'default' => $options['color']['background'],
                 ]
             );
 
@@ -172,7 +176,7 @@ trait buttons {
                 $name,
                 [
                     'help' => get_string('background-color_help', 'theme_remui', $panel),
-                    'default' => $options['color']['backgroundhover']
+                    'default' => $options['color']['backgroundhover'],
                 ]
             );
         }
@@ -188,7 +192,7 @@ trait buttons {
                     'content' => '
                         <div class="p-1">
                         </div>
-                    '
+                    ',
                 ]
             );
             if (isset($options['border']['color'])) {
@@ -201,7 +205,7 @@ trait buttons {
                     $name,
                     [
                         'help' => get_string('border-color_help', 'theme_remui', $panel),
-                        'default' => $options['border']['color']
+                        'default' => $options['border']['color'],
                     ]
                 );
 
@@ -214,7 +218,7 @@ trait buttons {
                     $name,
                     [
                         'help' => get_string('border-color_help', 'theme_remui', $panel),
-                        'default' => $options['border']['colorhover']
+                        'default' => $options['border']['colorhover'],
                     ]
                 );
             }
@@ -242,8 +246,8 @@ trait buttons {
                     'default' => $options['text']['font-size'],
                     'options' => [
                         'min' => 0,
-                        'step' => 0.01
-                    ]
+                        'step' => 0.01,
+                    ],
                 ]
             );
 
@@ -268,8 +272,8 @@ trait buttons {
                         '600' => get_string('weight-600', 'theme_remui'),
                         '700' => get_string('weight-700', 'theme_remui'),
                         '800' => get_string('weight-800', 'theme_remui'),
-                        '900' => get_string('weight-900', 'theme_remui')
-                    ]
+                        '900' => get_string('weight-900', 'theme_remui'),
+                    ],
                 ]
             );
 
@@ -286,8 +290,8 @@ trait buttons {
                     'options' => [
                         'min' => 1,
                         'max' => 5,
-                        'step' => 0.01
-                    ]
+                        'step' => 0.01,
+                    ],
                 ]
             );
 
@@ -323,8 +327,8 @@ trait buttons {
                     'default' => $options['padding']['top'],
                     'options' => [
                         'min' => 0,
-                        'step' => 0.01
-                    ]
+                        'step' => 0.01,
+                    ],
                 ]
             );
 
@@ -340,8 +344,8 @@ trait buttons {
                     'default' => $options['padding']['right'],
                     'options' => [
                         'min' => 0,
-                        'step' => 0.01
-                    ]
+                        'step' => 0.01,
+                    ],
                 ]
             );
 
@@ -357,8 +361,8 @@ trait buttons {
                     'default' => $options['padding']['bottom'],
                     'options' => [
                         'min' => 0,
-                        'step' => 0.01
-                    ]
+                        'step' => 0.01,
+                    ],
                 ]
             );
 
@@ -374,8 +378,8 @@ trait buttons {
                     'default' => $options['padding']['left'],
                     'options' => [
                         'min' => 0,
-                        'step' => 0.01
-                    ]
+                        'step' => 0.01,
+                    ],
                 ]
             );
 
@@ -388,7 +392,6 @@ trait buttons {
                 $name
             );
         }
-
     }
 
 
@@ -405,7 +408,6 @@ trait buttons {
         $this->add_panel($panel, get_string('commonbuttonsettings', 'theme_remui'), 'buttons');
         $this->add_common_font_settings($panel, $name, $options);
         $this->add_button_size_settings();
-
     }
 
 
@@ -434,8 +436,8 @@ trait buttons {
                 'width' => 0.071,
                 'color' => $this->get_default_color('primarybuttonborder'),
                 'colorhover' => $this->get_default_color('primarybuttonborderhover'),
-                'radius' => 0.357
-            ]
+                'radius' => 0.357,
+            ],
         ]);
         // Secondary.
         $this->add_global_buttons_type('secondary', [
@@ -451,8 +453,8 @@ trait buttons {
                 'width' => 0.071,
                 'color' => $this->get_default_color('secondarybuttonborder'),
                 'colorhover' => $this->get_default_color('secondarybuttonborderhover'),
-                'radius' => 0.357
-            ]
+                'radius' => 0.357,
+            ],
         ]);
     }
 
@@ -469,7 +471,7 @@ trait buttons {
             // Font family.
             $fonts = $this->get_fonts([
                 'default' => get_string('default', 'theme_remui'),
-                'Inherit' => get_string('inherit', 'theme_remui')
+                'Inherit' => get_string('inherit', 'theme_remui'),
             ]);
             $label = get_string('button-font-family', 'theme_remui');
             $this->add_setting(
@@ -480,7 +482,7 @@ trait buttons {
                 [
                     'help' => get_string('button-font-family_help', 'theme_remui'),
                     'default' => $options['text']['font-family'],
-                    'options' => $fonts
+                    'options' => $fonts,
                 ]
             );
 
@@ -494,7 +496,7 @@ trait buttons {
                 [
                     'help' => get_string('button-text-transform_help', 'theme_remui', $panel),
                     'default' => $options['text']['text-transform'],
-                    'options' => $this->texttransform
+                    'options' => $this->texttransform,
                 ]
             );
     }
@@ -510,19 +512,19 @@ trait buttons {
         $buttonheading = [
             'sm' => 'Small Button',
             'md' => 'Medium Button',
-            'lg' => 'Large Button'
+            'lg' => 'Large Button',
         ];
-        $name = 'button-'.$type.'-settings';
+        $name = 'button-' . $type . '-settings';
         $this->add_panel($name, get_string('buttonsizesettingshead', 'theme_remui', $buttonheading[$type]), 'buttonsizes');
         $panel = 'data';
         if (isset($options['text'])) {
             // Text heading start.
             $label = get_string('text', 'theme_remui');
             $this->add_setting(
-            'heading_start',
-            $name . '-text',
-            $label,
-            $name
+                'heading_start',
+                $name . '-text',
+                $label,
+                $name
             );
 
             // Font size.
@@ -537,8 +539,8 @@ trait buttons {
                     'default' => $options['text']['font-size'],
                     'options' => [
                         'min' => 0,
-                        'step' => 0.01
-                    ]
+                        'step' => 0.01,
+                    ],
                 ]
             );
 
@@ -563,8 +565,8 @@ trait buttons {
                         '600' => get_string('weight-600', 'theme_remui'),
                         '700' => get_string('weight-700', 'theme_remui'),
                         '800' => get_string('weight-800', 'theme_remui'),
-                        '900' => get_string('weight-900', 'theme_remui')
-                    ]
+                        '900' => get_string('weight-900', 'theme_remui'),
+                    ],
                 ]
             );
 
@@ -581,8 +583,8 @@ trait buttons {
                     'options' => [
                         'min' => 1,
                         'max' => 5,
-                        'step' => 0.01
-                    ]
+                        'step' => 0.01,
+                    ],
                 ]
             );
 
@@ -598,45 +600,44 @@ trait buttons {
                     'default' => $options['text']['letter-spacing'],
                     'options' => [
                         'min' => 0,
-                        'step' => 0.01
-                    ]
+                        'step' => 0.01,
+                    ],
                 ]
             );
 
             // Text heading end.
             $label = get_string('text', 'theme_remui');
             $this->add_setting(
-            'heading_end',
-            $name . '-text-end',
-            $label,
-            $name
+                'heading_end',
+                $name . '-text-end',
+                $label,
+                $name
             );
         }
         if (isset($options['border'])) {
-
             $label = get_string('border', 'theme_remui');
             $this->add_setting(
-            'heading_start',
-            $name . '-text',
-            $label,
-            $name
+                'heading_start',
+                $name . '-text',
+                $label,
+                $name
             );
 
             // Border width.
             $label = get_string('border-width', 'theme_remui');
             $this->add_setting(
-            'number',
-            $name . '-border-width',
-            $label . '(px)',
-            $name,
-            [
+                'number',
+                $name . '-border-width',
+                $label . '(px)',
+                $name,
+                [
                 'help' => get_string('border-width_help', 'theme_remui', $buttonheading[$type]),
                 'default' => $options['border']['width'],
                 'options' => [
                     'min' => 0,
-                    'step' => 0.01
+                    'step' => 0.01,
+                ],
                 ]
-            ]
             );
 
             // Border radius.
@@ -651,17 +652,17 @@ trait buttons {
                     'default' => $options['border']['radius'],
                     'options' => [
                         'min' => 0,
-                        'step' => 0.01
-                    ]
+                        'step' => 0.01,
+                    ],
                 ]
             );
 
             $label = get_string('border', 'theme_remui');
             $this->add_setting(
-            'heading_end',
-            $name . '-text-end',
-            $label,
-            $name
+                'heading_end',
+                $name . '-text-end',
+                $label,
+                $name
             );
         }
 
@@ -669,10 +670,10 @@ trait buttons {
             // Padding start.
             $label = get_string('padding', 'theme_remui');
             $this->add_setting(
-            'heading_start',
-            $name . '-padding',
-            $label,
-            $name
+                'heading_start',
+                $name . '-padding',
+                $label,
+                $name
             );
 
             // Padding top.
@@ -687,8 +688,8 @@ trait buttons {
                     'default' => $options['padding']['top'],
                     'options' => [
                         'min' => 0,
-                        'step' => 0.01
-                    ]
+                        'step' => 0.01,
+                    ],
                 ]
             );
 
@@ -704,8 +705,8 @@ trait buttons {
                     'default' => $options['padding']['right'],
                     'options' => [
                         'min' => 0,
-                        'step' => 0.01
-                    ]
+                        'step' => 0.01,
+                    ],
                 ]
             );
 
@@ -721,8 +722,8 @@ trait buttons {
                     'default' => $options['padding']['bottom'],
                     'options' => [
                         'min' => 0,
-                        'step' => 0.01
-                    ]
+                        'step' => 0.01,
+                    ],
                 ]
             );
 
@@ -738,18 +739,18 @@ trait buttons {
                     'default' => $options['padding']['left'],
                     'options' => [
                         'min' => 0,
-                        'step' => 0.01
-                    ]
+                        'step' => 0.01,
+                    ],
                 ]
             );
 
             // Padding end.
             $label = get_string('padding', 'theme_remui');
             $this->add_setting(
-            'heading_end',
-            $name . '-padding-end',
-            $label,
-            $name
+                'heading_end',
+                $name . '-padding-end',
+                $label,
+                $name
             );
         }
     }
@@ -770,7 +771,7 @@ trait buttons {
             'font-weight' => 600,
             'text-transform' => 'Inherit',
             'line-height' => 0.938,
-            'letter-spacing' => 0
+            'letter-spacing' => 0,
         ];
         $padding = [
             'top' => 0.531,
@@ -781,10 +782,10 @@ trait buttons {
         $this->add_button_size_all_settings('sm', [
             'border' => [
                 'width' => 1.136,
-                'radius' => 5
+                'radius' => 5,
             ],
             'text' => $text,
-            'padding' => $padding
+            'padding' => $padding,
         ]);
         $text = [
             'font-size' => 0.875,
@@ -792,7 +793,7 @@ trait buttons {
             'font-weight' => 600,
             'text-transform' => 'Inherit',
             'line-height' => 1.063,
-            'letter-spacing' => 0
+            'letter-spacing' => 0,
         ];
         $padding = [
             'top' => 0.719,
@@ -803,10 +804,10 @@ trait buttons {
         $this->add_button_size_all_settings('md', [
             'border' => [
                 'width' => 1.136,
-                'radius' => 5
+                'radius' => 5,
             ],
             'text' => $text,
-            'padding' => $padding
+            'padding' => $padding,
         ]);
         $padding = [
             'top' => 0.906,
@@ -817,10 +818,10 @@ trait buttons {
         $this->add_button_size_all_settings('lg', [
             'border' => [
                 'width' => 1.136,
-                'radius' => 5
+                'radius' => 5,
             ],
             'text' => $text,
-            'padding' => $padding
+            'padding' => $padding,
         ]);
     }
 }

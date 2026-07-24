@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-console*/
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -22,10 +20,7 @@
  * @copyright  2016 Damyon Wiese <damyon@moodle.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-import { get_string as getString } from 'core/str';
-import Ajax from 'core/ajax';
 import $ from 'jquery';
-import { exception as displayException } from 'core/notification';
 
 const SELECTORS = {
     ADD_BLOCK: '[data-key="addblock"]',
@@ -38,20 +33,12 @@ let activeclassview = 'grid-view';
 let notactiveclassview = 'list-view';
 let userprefclass = SELECTORS.ADDBLOCKGRIDVIEW;
 let usernotprefclass = SELECTORS.ADDBLOCKLISTVIEW;
-let templatefile = 'theme_remui/add_block_body_cards';
-let csscontent = '';
-let prefview = 'card';
-let tabpref = 'edwadvancedblocks';
-let edwiseradvancedblocktab = '.edwiseradvancedblocktab';
-let moodleblockstab = '.moodleblockstab';
-let activeadvancedtab = true;
 /**
  * Initialize events
  */
 function init() {
     document.addEventListener('click', e => {
         const selecteditem = e.target.closest('.add-block-grid-view');
-        templatefile = 'theme_remui/add_block_body_cards';
         if (selecteditem) {
             activeclassview = 'grid-view';
             notactiveclassview = 'list-view';
@@ -79,7 +66,6 @@ function init() {
     document.addEventListener('click', e => {
         const selecteditem = e.target.closest('.edwiseradvancedblocktab');
         if (selecteditem) {
-            activeadvancedtab = true;
             $('.moodleblock').addClass('d-none');
             $('.advanceblockblocks').removeClass('d-none');
             $('.advancedblocktab').addClass('active show');
@@ -91,7 +77,6 @@ function init() {
     document.addEventListener('click', e => {
         const selecteditem = e.target.closest('.edwmoodleblockstab');
         if (selecteditem) {
-            activeadvancedtab = false;
             $('.moodleblock').removeClass('d-none');
             $('.advanceblockblocks').addClass('d-none');
             $('.moodleblocktab').addClass('active show');

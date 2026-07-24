@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -14,16 +13,18 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 /**
- * Theme customizer color utils js. Provide functionality to manupulate colors.
+ * Theme customizer smart color module.
+ * Provides intelligent color manipulation and smart color selection functionality.
  *
- * @copyright (c) 2023 WisdmLabs (https://wisdmlabs.com/) <support@wisdmlabs.com>
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @author    Yogesh Shirsath
+ * @module     theme_remui/customizer/smartcolor
+ * @copyright  (c) 2023 WisdmLabs (https://wisdmlabs.com/) <support@wisdmlabs.com>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @author     Yogesh Shirsath
  */
 
 import $ from "jquery";
 import ColorUtils from "theme_remui/customizer/color-utils";
-import ModalFactory from "core/modal_factory";
+import ModalAlert from "core/local/modal/alert";
 
 // Main colors selectors.
 var MAIN_COLORS = {
@@ -325,14 +326,13 @@ function apply() {
         });
     });
 
-    let obj = {
-        type: ModalFactory.types.ALERT,
-    };
-    obj.title = M.util.get_string("success", "moodle");
-    obj.body = "Smart color applied successfully";
-    ModalFactory.create(obj, $("#create")).done(modal => {
+    ModalAlert.create({
+        title: M.util.get_string("success", "moodle"),
+        body: "Smart color applied successfully",
+    }).then(modal => {
         modal.show();
-    });
+        return modal;
+    }).catch(window.console.error);
 }
 
 export default {

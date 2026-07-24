@@ -123,3 +123,15 @@ body#page-course-view-edwiservideoformat {
     }
   }
 }
+
+body#page-course-view-edwiservideoformat.edw-m501, 
+body#page-course-view-edwiservideoformat.edw-m502 {
+    .modal-dialog.modchooser {
+      .modchoosercontainer {
+        a.nav-link.active {
+          color: white !important;
+          background-color: $brand-primary !important;
+        }
+      }
+    }
+}

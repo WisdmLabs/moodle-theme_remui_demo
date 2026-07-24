@@ -41,6 +41,7 @@
             "homeurl": "/my/"
         },
         "sitename": "Moodle Site",
+        "moodle_version_gte502": false,
         "mobileprimarynav": [
             {
                 "text": "Dashboard",
@@ -115,47 +116,104 @@
         <!-- </ul> -->
 
         <div id="usernavigation" class="navbar-nav ml-auto">
-            {{#edwisermenu}}
-                <div class="edwiser-navigation">
-                    {{> core/moremenu}}
-                </div>
-            {{/edwisermenu}}
-            {{# output.edw_search_box }}
-                {{{ output.edw_search_box }}}
-            {{/output.edw_search_box}}
-            {{#langmenu}}
-                {{> theme_remui/language_menu }}
-            {{/langmenu}}
-            {{{ output.navbar_plugin_output }}}
+            {{#moodle_version_gte502}} 
+                {{#edwisermenu}}
+                    <div class="edwiser-navigation">
+                        {{> core/moremenu}}
+                    </div>
+                {{/edwisermenu}}
+                <div class="preset-nav-group d-flex align-items-center gap-4">
+                    {{# output.edw_search_box }}
+                        {{{ output.edw_search_box }}}
+                    {{/output.edw_search_box}}
+                    {{#langmenu}}
+                        {{> theme_remui/language_menu }}
+                    {{/langmenu}}
+                    {{{ output.navbar_plugin_output }}}
 
-            {{#usermenu}}
-            <div class="d-flex usermenu-wrapper">
-                <div class="divider  h-75 align-self-center"></div>
-                <div class="d-flex align-items-stretch usermenu-container" data-region="usermenu">
-                    {{> core/user_menu }}
                 </div>
-                {{#isloggedin}}
-                <div class="divider  h-75 align-self-center"></div>
-                {{/isloggedin}}
-            </div>
-            {{/usermenu}}
 
-            {{#canenabledm}}
-                <div class="nav-darkmode nav-item d-flex align-items-center" data-dm="disabled">
-                    <a class="dm-toggle text-decoration-none">
-                        {{^dmanimate}}
-                        <span class="edw-icon edw-icon-Dark-mode darkmodeicon"  title="{{#str}}darkmodetitilestring, theme_remui{{/str}}"></span>
-                        <span class="edw-icon edw-icon-Light-mode lightmodeicon"  title="{{#str}}lightmodetitlestring, theme_remui{{/str}}"></span>
-                        {{/dmanimate}}
+                {{#has_dm_or_edit}}
+                    <div class="divider align-self-center" style="height: 36px;"></div>
+                    <div class="preset-nav-group d-flex align-items-center gap-4">
+                        {{#canenabledm}}
+                        <div class="nav-darkmode nav-item d-flex align-items-center" data-dm="disabled">
+                            <a class="dm-toggle text-decoration-none">
+                                {{^dmanimate}}
+                                <span class="edw-icon edw-icon-Dark-mode darkmodeicon"  title="{{#str}}darkmodetitilestring, theme_remui{{/str}}"></span>
+                                <span class="edw-icon edw-icon-Light-mode lightmodeicon"  title="{{#str}}lightmodetitlestring, theme_remui{{/str}}"></span>
+                                {{/dmanimate}}
 
-                        {{#dmanimate}}
-                        <img src="{{config.wwwroot}}/theme/remui/pix/darkmode.gif" style="width:50px;height:50px;"/>
-                        <span class="edw-icon edw-icon-Light-mode lightmodeicon"  title="{{#str}}lightmodetitlestring, theme_remui{{/str}}"></span>
-                        {{/dmanimate}}
-                    </a>
+                                {{#dmanimate}}
+                                <img src="{{config.wwwroot}}/theme/remui/pix/darkmode.gif" style="width:50px;height:50px;"/>
+                                <span class="edw-icon edw-icon-Light-mode lightmodeicon"  title="{{#str}}lightmodetitlestring, theme_remui{{/str}}"></span>
+                                {{/dmanimate}}
+                            </a>
+                        </div>
+                        {{/canenabledm}}
+                        {{{ output.edit_switch }}}
+                    </div>
+                {{/has_dm_or_edit}}
+                {{#usermenu}}
+                <div class="d-flex usermenu-wrapper">
+                    <div class="divider h-75 align-self-center"></div>
+                    <div class="d-flex align-items-stretch usermenu-container" data-region="usermenu">
+                        {{> core/user_menu }}
+                    </div>
                 </div>
-            {{/canenabledm}}
-            {{{ output.edit_switch }}}
+                {{/usermenu}}
+
+            {{/moodle_version_gte502}}
+            {{^moodle_version_gte502}}
+                {{#edwisermenu}}
+                    <div class="edwiser-navigation">
+                        {{> core/moremenu}}
+                    </div>
+                {{/edwisermenu}}
+                
+                {{# output.edw_search_box }}
+                    {{{ output.edw_search_box }}}
+                {{/output.edw_search_box}}
+                {{#langmenu}}
+                    {{> theme_remui/language_menu }}
+                {{/langmenu}}
+                <div class="preset-nav-group d-flex align-items-center gap-4">
+                    {{{ output.navbar_plugin_output }}}
+
+                    {{#usermenu}}
+                    <div class="d-flex usermenu-wrapper">
+                        <div class="divider h-75 align-self-center"></div>
+                        <div class="d-flex align-items-stretch usermenu-container" data-region="usermenu">
+                            {{> core/user_menu }}
+                        </div>
+                        {{#isloggedin}}
+                        <div class="divider h-75 align-self-center"></div>
+                        {{/isloggedin}}
+                    </div>
+                    {{/usermenu}}
+                </div>
+
+                {{#has_dm_or_edit}}
+                <div class="preset-nav-group d-flex align-items-center gap-4">
+                    {{#canenabledm}}
+                        <div class="nav-darkmode nav-item d-flex align-items-center" data-dm="disabled">
+                            <a class="dm-toggle text-decoration-none">
+                                {{^dmanimate}}
+                                <span class="edw-icon edw-icon-Dark-mode darkmodeicon"  title="{{#str}}darkmodetitilestring, theme_remui{{/str}}"></span>
+                                <span class="edw-icon edw-icon-Light-mode lightmodeicon"  title="{{#str}}lightmodetitlestring, theme_remui{{/str}}"></span>
+                                {{/dmanimate}}
+
+                                {{#dmanimate}}
+                                <img src="{{config.wwwroot}}/theme/remui/pix/darkmode.gif" style="width:50px;height:50px;"/>
+                                <span class="edw-icon edw-icon-Light-mode lightmodeicon"  title="{{#str}}lightmodetitlestring, theme_remui{{/str}}"></span>
+                                {{/dmanimate}}
+                            </a>
+                        </div>
+                    {{/canenabledm}}
+                    {{{ output.edit_switch }}}
+                </div>
+                {{/has_dm_or_edit}}
+            {{/moodle_version_gte502}}   
         </div>
     </div>
 

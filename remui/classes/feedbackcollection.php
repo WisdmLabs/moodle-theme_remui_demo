@@ -30,20 +30,25 @@ class feedbackcollection {
      * @param string $action The action to perform.
      * @param mixed $config The configuration data required for the action.
      * @return mixed The result of the action, or an error message if the action function does not exist.
-    */
+     */
     public function perform_action($action, $config) {
-        $functionname = "action_".$action;
+        $functionname = "action_" . $action;
 
         // Check if the function exists before calling it.
         if (method_exists($this, $functionname)) {
             // Call the function dynamically.
-            return call_user_func(array($this, $functionname), $config);
+            return call_user_func([$this, $functionname], $config);
         } else {
             // Handle the case when the function doesn't exist.
             return "Function $functionname does not exist.";
         }
     }
 
+    /**
+     * Get feedback question lists from cache or remote source.
+     *
+     * @return array|false Question lists array or false on failure
+     */
     public function question_lists() {
         // Use Moodle's cache API to cache the feedback questions for 1 hour (site-wide).
         $cache = \cache::make('theme_remui', 'feedback_questions');
@@ -57,7 +62,12 @@ class feedbackcollection {
         return $questionlists;
     }
 
-
+    /**
+     * Get feedback context for a specific question.
+     *
+     * @param string $config JSON-encoded configuration with question name
+     * @return array|false Feedback context array or false if not available
+     */
     public function action_get_feedback_context($config) {
         $config = json_decode($config);
 
@@ -94,6 +104,12 @@ class feedbackcollection {
         return $questioncontext;
     }
 
+    /**
+     * Submit user feedback.
+     *
+     * @param string $config JSON-encoded configuration with feedback data
+     * @return bool True on success, false on failure
+     */
     public function action_submit_feedback($config) {
         $config = json_decode($config);
 
@@ -112,6 +128,13 @@ class feedbackcollection {
         $userfeedbackcontroller->send_user_feedback($userfeedbackdata);
         return true;
     }
+
+    /**
+     * Update accessibility widget feedback.
+     *
+     * @param string $config JSON-encoded configuration with feedback data
+     * @return string JSON-encoded feedback data
+     */
     public function action_update_aw_feedback($config) {
         global $USER;
         $config = json_decode($config);
@@ -121,11 +144,11 @@ class feedbackcollection {
 
         if (!is_array($awfeedbacks)) {
             $awfeedbacks = [
-                'counts' => [ // Store Easy & Hard counts separately
+                'counts' => [ // Store Easy & Hard counts separately.
                     'Easy' => 0,
-                    'Hard' => 0
+                    'Hard' => 0,
                 ],
-                'accessibilityfeedbacks' => [] // Separate array for user feedbacks
+                'accessibilityfeedbacks' => [], // Separate array for user feedbacks.
             ];
         }
 
@@ -137,12 +160,12 @@ class feedbackcollection {
             }
         }
 
-        // Ensure accessibilityfeedbacks is always an array
+        // Ensure accessibilityfeedbacks is always an array.
         if (!isset($awfeedbacks['accessibilityfeedbacks']) || !is_array($awfeedbacks['accessibilityfeedbacks'])) {
             $awfeedbacks['accessibilityfeedbacks'] = [];
         }
 
-        // Only store feedback if usercomment is not empty
+        // Only store feedback if usercomment is not empty.
         if (!empty(trim($config->feedback->usercomment))) {
             $awfeedbacks['accessibilityfeedbacks']['user_' . $USER->id] = [
                 'answer' => $config->feedback->answer,
@@ -155,24 +178,20 @@ class feedbackcollection {
         return json_encode($awfeedbacks);
     }
 
+    /**
+     * Get current feedback question name based on page context.
+     *
+     * @return string|false Question name or false if not applicable
+     */
     public static function get_current_feedback_questionname() {
-
-
         $submitedfeedbacks = json_decode(get_config("theme_remui", "submited_feedbacks"), true);
         if (!$submitedfeedbacks) {
             $submitedfeedbacks = [];
         }
 
-        // ***********************
-        // Replace true to actual condition where we Identified which page is right now. and accrodingly return the question name.
-        // ***********************
-        // if (true) {
-        //     if (!array_key_exists("homepage_question", $submitedfeedbacks)) {
-        //         return "homepage_question";
-        //     }
-        // }
+        // Replace true to actual condition where we identified which page is right now.
+        // And accordingly return the question name.
 
         return false;
     }
-
 }

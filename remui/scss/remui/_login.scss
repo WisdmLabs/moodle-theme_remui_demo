@@ -13,6 +13,7 @@ $login-link-hover-color:$loginpanellinkhovercolor;
         @include media-breakpoint-down(sm) {
             width: 90vw;
             margin-right: -50%;
+            right: -70px !important;
         }
         .login-form{
             label{
@@ -346,7 +347,7 @@ $login-link-hover-color:$loginpanellinkhovercolor;
         .login-container{
             order: 2;
             max-width: unset;
-            width: unset;
+            width: calc(100% - 64px);
         }
     }
 }
@@ -362,4 +363,67 @@ $login-link-hover-color:$loginpanellinkhovercolor;
       margin-left: unset;
       margin-right: unset;
   }
+}
+
+// For fixing the position of language dropdown on login page
+body.path-login.logincenter {
+    .login-container .loginform .login-languagemenu{    
+        .dropdown-menu-right {
+            transform: translate3d(-87px, -226px, 0px) !important;
+        }
+    }
+}
+
+body.notloggedin {
+    .navbar #usernavigation {
+      .usermenu-wrapper .usermenu:has(.signup) {
+        gap: 17px;
+      }
+    }
+}
+body.isguest {
+    #usernavigation .usermenu-wrapper .usermenu-container {
+        .usermenu {
+            > .divider {
+                margin-left: 5px;
+            }
+            .signup {
+                margin-left: 8px;
+            }
+        }
+    }
+}
+
+#page-admin-tool-mfa-auth {
+    .tool-mfa-verify-container {
+        #fitem_id_verificationcode {
+            .col-form-label {
+                align-content: center;
+            }
+        }
+
+        .login-separator {
+            display: flex;
+            justify-content: center;
+            margin: 0 auto !important;
+        }
+
+        .form-container {
+            display: flex;
+            justify-content: center;
+
+            .tool-mfa-site-support {
+                display: flex;
+            }
+        }
+    }
+
+}
+
+@media screen and (max-width: 500px){
+    .notloggedin {
+        .navbar .dropdown-menu.dropdown-menu-right#lang-action-menu {
+            left: 0;
+        }
+    }
 }

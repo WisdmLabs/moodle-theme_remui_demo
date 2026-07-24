@@ -33,7 +33,7 @@
         padding: map-get($spacerspx, '6');
         background-color: $white;
         border: 1px solid $light-border;
-        border-radius: 8px;
+        border-radius: $card-border-radius;
         position: relative;
 
         &:not(:last-of-type) {
@@ -546,9 +546,16 @@ html:not([nighteyeplgn="active"]){
             th.header.user:has(.dropdown.show) {
                z-index: 3 !important;
             }
+            .grade_type_value {
+                .moodle-actionmenu.grader{
+                    .dropdown-menu.show {
+                        z-index: 5;
+                    }
+                }
+            }
          }
       }
-   }  
+   }
 }
 
 // To fix missing right arrow icon issue in group mode button in activity actions
@@ -568,4 +575,95 @@ html:not([nighteyeplgn="active"]){
          }
       }
    }
+}
+
+// Course 'add section' button.
+body.edw-m501,
+body.edw-m502 {
+    #course-addsection {
+        .btn.btn-add-content {
+            @include border-radius($activity-border-radius);
+            border: $divider-width dashed $border-color;
+            color: $primary;
+            font-size: $font-size-sm;
+            font-weight: bold;
+            &:hover,
+            &:focus {
+                background-color: $primary-light-background;
+                border: $divider-width solid $primary;
+                color: $primary;
+            }
+        }
+    }  
+}
+
+#page-course-edit.edw-m501, 
+#page-course-edit.edw-m502 {
+    #id_courseformathdrcontainer {
+        #fitem_id_format,
+        #fitem_id_hiddensections {
+            .form-select.dropdown-toggle {
+                background-image: none !important;
+                padding-right: 10px !important;
+            }
+        }
+    }
+}
+
+#page-admin-setting-aiplacement {
+    #container-admin-toggle-courseassist,
+    #container-admin-toggle-editor {
+        .form-check.form-switch {
+            position: relative;
+            z-index: 1;
+            display: block;
+            min-height: 1.571rem;
+            print-color-adjust: exact;
+            padding-left: 2.45rem;
+        }
+    }
+}
+
+
+.header-extras-container .activity-dates {
+    padding-top: .5rem;
+    padding-bottom: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .5rem 1.5rem;
+}
+
+body.edw-m500,
+body.edw-m501 {
+    .drawer.drawer-left#theme_remui-drawers-courseindex .drawerheader {
+        justify-content: space-between;
+        flex-direction: row-reverse;
+        
+        .btn.drawertoggle {
+            margin-right: 0;
+        }
+    }
+}
+
+.pagelayout-course.editing {
+    .bulkEnable {
+        color: #5CA3FF !important;
+
+        .icon {
+            color: #5CA3FF !important;
+        }
+    }
+}
+
+.single-section-page .course-content .section-list .section,
+.section-list .section .section-item {
+    border-radius: $card-border-radius !important;
+}
+
+body#page-course-view-remuiformat {
+    .card-section-rightnav, 
+    .card-section-leftnav {
+        background-color: transparent;
+    }
+    
 }

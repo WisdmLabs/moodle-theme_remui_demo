@@ -48,7 +48,7 @@ function remui_clear_cache() {
  * @param array $options
  * @return bool
  */
-function theme_remui_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options = array()) {
+function theme_remui_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options = []) {
     if ($context->contextlevel != CONTEXT_SYSTEM) {
         send_file_not_found();
     }
@@ -78,7 +78,9 @@ function theme_remui_pluginfile($course, $cm, $context, $filearea, $args, $force
         'secondaryfooterlogodarkmode',
         'loaderimage',
         'darkmodelogo',
-        'darkmodelogomini'
+        'darkmodelogomini',
+        'footerwidgetlogo',
+        'backgroundimgurl',
     ];
     if (in_array($filearea, $settings)) {
         $theme = theme_config::load('remui');
@@ -152,7 +154,7 @@ function theme_remui_get_pre_scss($theme) {
         if (empty($value)) {
             continue;
         }
-        array_map(function($target) use (&$scss, $value) {
+        array_map(function ($target) use (&$scss, $value) {
             $scss .= '$' . $target . ': ' . $value . ";\n";
         }, (array) $targets);
     }
@@ -199,14 +201,14 @@ function get_theme_release_info() {
 
 
 /**
- * This function check  plugin is available or not.
+ * Check if a plugin is available.
  *
- * @return boolean
+ * @param string $component The component name (e.g., 'block_remuiblck').
+ * @return bool True if plugin is available, false otherwise.
  */
-
 function is_plugin_available($component) {
 
-    list($type, $name) = core_component::normalize_component($component);
+    [$type, $name] = core_component::normalize_component($component);
 
     $dir = \core_component::get_plugin_directory($type, $name);
     if (!file_exists($dir ?? '')) {
@@ -290,19 +292,24 @@ function get_all_remui_course_metadata($courseid) {
 
     $datas = $handler->get_instance_data($courseid);
 
-    $remuicustomfieldarray = array();
+    $remuicustomfieldarray = [];
     foreach ($datas as $data) {
         if (!($data->get_field()->get('type') == 'checkbox') && empty($data->get_value())) {
             continue;
         }
         if ($data->get_field()->get_category()->get('name') == "RemUI Custom Fields") {
-
             $dataid = $data->get('id');
 
             $context = $data->get_context();
 
-            $processed = file_rewrite_pluginfile_urls($data->get_value(), 'pluginfile.php', $context->id,
-            'customfield_textarea', 'value', $dataid);
+            $processed = file_rewrite_pluginfile_urls(
+                $data->get_value(),
+                'pluginfile.php',
+                $context->id,
+                'customfield_textarea',
+                'value',
+                $dataid
+            );
 
             $value = format_text($processed, $data->get('valueformat'), ['context' => $context]);
 
@@ -315,21 +322,19 @@ function get_all_remui_course_metadata($courseid) {
             }
 
             if ($data->get_field()->get('type') == 'date') {
-
                 $machineformat = '%d %B %Y';
                 $value = userdate($data->get_value(), $machineformat, 99, false, false);
-
             }
             if ($data->get_field()->get('type') == 'select') {
                 $options = explode("\n", $data->get_field()->get('configdata')['options']);
                 $value = $options[$data->get_value() - 1];
             }
-            $remuicustomfieldarray[$data->get_field()->get('shortname')] = array(
+            $remuicustomfieldarray[$data->get_field()->get('shortname')] = [
                 "categoryid" => $data->get_field()->get_category()->get('id'),
                 "shortname" => $data->get_field()->get('shortname'),
                 "name" => $data->get_field()->get('name'),
                 "text" => $value,
-            );
+            ];
         } else {
             continue;
         }
@@ -347,7 +352,6 @@ function get_all_remui_course_metadata($courseid) {
  */
 function theme_remui_create_custom_field($categoryid, $fieldname, $fieldtype, $options = [], $description = "") {
     try {
-
         $configdata = get_customfield_data($categoryid, $fieldname, $fieldtype, $options, $description);
 
         $category = \core_customfield\category_controller::create($categoryid);
@@ -357,13 +361,27 @@ function theme_remui_create_custom_field($categoryid, $fieldname, $fieldtype, $o
 
         $fieldid = $handler->save_field_configuration($field, $configdata);
     } catch (Exception $e) {
-        error_log($e);
+        // Handle exception based on context: CLI scripts need error output, web requests should fail silently.
+        if (CLI_SCRIPT) {
+            // In CLI context, output error and exit.
+            cli_error("Error: Custom field creation failed: " . $e->getMessage());
+        }
+        // In web context, silently ignore to prevent errors from being displayed to users.
+        // The function will simply return without creating the field.
     }
 }
 
+/**
+ * Check and update custom field empty status.
+ *
+ * @param int $customfieldid The custom field ID.
+ * @param object $customfield The custom field object.
+ * @param string $shortname The shortname of the custom field.
+ * @return void
+ */
 function theme_remui_check_customfield_empty_status($customfieldid, $customfield, $shortname) {
     global $DB;
-    $customfieldrecords = $DB->get_records('customfield_field', array('shortname' => $shortname), $sort = '', $fields = '*');
+    $customfieldrecords = $DB->get_records('customfield_field', ['shortname' => $shortname], $sort = '', $fields = '*');
     foreach ($customfieldrecords as $customfieldrecord) {
         if (empty($customfieldrecord->description)) {
             $customfieldrecord->description = ' ';
@@ -379,8 +397,8 @@ function theme_remui_check_customfield_empty_status($customfieldid, $customfield
  * @param  string $options default [] (Optional) Extra data to create the field, $key => value
  * @return data  array[] of custom field configuration
  */
-function get_customfield_data($categoryid, $fieldname, $fieldtype, $options = [], $description = "" ) {
-    $data = new \stdClass;
+function get_customfield_data($categoryid, $fieldname, $fieldtype, $options = [], $description = "") {
+    $data = new \stdClass();
 
     $data->name = $fieldname;
     $data->description = $description;  // Add description field.
@@ -424,7 +442,7 @@ function get_customfield_data($categoryid, $fieldname, $fieldtype, $options = []
             $configdata["ispassword"] = 0;
             break;
         case 'textarea':
-            $configdata['defaultvalue_editor'] = array();
+            $configdata['defaultvalue_editor'] = [];
             break;
         default:
             throw new Exception("No such type of field");
@@ -486,7 +504,8 @@ function get_file_img_url($itemid, $component, $filearea) {
                 $file->get_itemid(),
                 $file->get_filepath(),
                 $file->get_filename(),
-                false)->out();
+                false
+            )->out();
         }
     }
     return "";
@@ -504,12 +523,12 @@ function import_user_tour() {
     $tours = [
         [
             'name' => 'What\'s New',
-            'url' => $staticcdn . '/json/tour/functional_blocks_tour.json'
+            'url' => $staticcdn . '/json/tour/functional_blocks_tour.json',
         ],
     ];
 
     foreach ($tours as $key => $tour) {
-        $record = $DB->get_record('tool_usertours_tours', array('name' => $tour['name']));
+        $record = $DB->get_record('tool_usertours_tours', ['name' => $tour['name']]);
 
         if (isset($tour['delete']) && $tour['delete']) {
             if ($record) {
@@ -549,10 +568,10 @@ function theme_remui_output_fragment_customizer_htmleditor($args) {
 
     $editor = editors_get_preferred_editor(FORMAT_HTML);
     $editor->set_text($content);
-    $editor->use_editor($id, array('autosave' => false));
+    $editor->use_editor($id, ['autosave' => false]);
 
-    $o = html_writer::start_tag('div', array('class' => 'p-5'));
-    $o .= html_writer::tag('textarea', $content, array('id' => $id, 'rows' => 10));
+    $o = html_writer::start_tag('div', ['class' => 'p-5']);
+    $o .= html_writer::tag('textarea', $content, ['id' => $id, 'rows' => 10]);
     $o .= html_writer::end_tag('div');
 
     return $o;
@@ -569,29 +588,38 @@ function get_theme_req_plugin_release_info($pluginname) {
     return $plugininfo;
 }
 
-
-// Add block move top and move bottom buttons.
+/**
+ * Get block move buttons (move up and move down).
+ *
+ * @param int $instanceid The block instance ID.
+ * @return string Rendered HTML for move buttons.
+ */
 function get_block_move_buttons($instanceid) {
     global $OUTPUT;
     $templatecontext = [
         'blockid'       => $instanceid,
-        'movebuttons'  => array(
-            0 => array(
+        'movebuttons'  => [
+            0 => [
                 'wrapperclass' => 'move-top',
                 'title' => 'Move up',
-                'iconclass' => 'edw-icon edw-icon-Up'
-            ),
-            1 => array(
+                'iconclass' => 'edw-icon edw-icon-Up',
+            ],
+            1 => [
                 'wrapperclass' => 'move-bottom',
                 'title' => 'Move down',
-                'iconclass' => 'edw-icon edw-icon-Down'
-            ),
-        ),
+                'iconclass' => 'edw-icon edw-icon-Down',
+            ],
+        ],
     ];
     return $OUTPUT->render_from_template('theme_remui/adv_move_buttons', $templatecontext);
 }
 
-// Add the customizer button on each block.
+/**
+ * Add the customizer button on each block.
+ *
+ * @param int $instanceid The block instance ID.
+ * @return string Rendered HTML for customizer buttons or empty string if not applicable.
+ */
 function adv_block_customizer_button($instanceid) {
     global $PAGE, $CFG;
     if (!$PAGE->user_is_editing()) {
@@ -602,35 +630,46 @@ function adv_block_customizer_button($instanceid) {
     }
 
     $url = $CFG->wwwroot . "/local/edwiserpagebuilder/editor.php?bui_edit=" . $instanceid;
-    $url .= "&returl=". urlencode($PAGE->url);
+    $url .= "&returl=" . urlencode($PAGE->url);
 
     // Export button.
     $customizerbutton = "<button class='btn btn-secondary d-flex justify-content-end block_exporter_btn' " .
     "data-blockid='$instanceid'>";
-    $customizerbutton .= "<i class='fa fa-pencil'></i> ".get_string("exportblock", "theme_remui")."</a>";
+    $customizerbutton .= "<i class='fa fa-pencil'></i> " . get_string("exportblock", "theme_remui") . "</a>";
     $customizerbutton .= "</button>";
 
     // Live customizer button.
     $customizerbutton .= "<div class='d-flex justify-content-end live-customizer-btn'>";
-    $customizerbutton .= "<a class='btn btn-primary' href='".$url."'";
+    $customizerbutton .= "<a class='btn btn-primary' href='" . $url . "'";
     $customizerbutton .= "role='button'>";
-    $customizerbutton .= "<i class='fa fa-pencil'></i> ".get_string("livecustomizer", "theme_remui")."</a>";
+    $customizerbutton .= "<i class='fa fa-pencil'></i> " . get_string("livecustomizer", "theme_remui") . "</a>";
     $customizerbutton .= "</div>";
 
     return $customizerbutton;
 }
 
+/**
+ * Reposition a block to a new region and weight.
+ *
+ * @param object $bi The block instance object.
+ * @param string $newregion The new region name.
+ * @param int $newweight The new weight value.
+ * @param int $contexid The context ID.
+ * @param string $pagetype The page type.
+ * @param string $subpage The subpage identifier.
+ * @return void
+ */
 function edw_reposition_block($bi, $newregion, $newweight, $contexid, $pagetype, $subpage) {
     global $DB;
-    $newbi = new stdClass;
+    $newbi = new stdClass();
     $newbi->id = $bi->id;
     $newbi->defaultregion = $newregion;
     $newbi->defaultweight = $newweight;
     $newbi->timemodified = time();
     $DB->update_record('block_instances', $newbi);
-    $recordexist = $DB->record_exists('block_positions', array('blockinstanceid' => $bi->id));
+    $recordexist = $DB->record_exists('block_positions', ['blockinstanceid' => $bi->id]);
     if ($recordexist) {
-        $blockpositioninstance = $DB->get_record('block_positions', array('blockinstanceid' => $bi->id));
+        $blockpositioninstance = $DB->get_record('block_positions', ['blockinstanceid' => $bi->id]);
         $blockpositioninstance->region = $newregion;
         $blockpositioninstance->weight = $newweight;
         $DB->update_record('block_positions', $blockpositioninstance);
@@ -666,9 +705,11 @@ function get_moodle_release_version_branch() {
 /**
  * Checks if the current Moodle release version branch is greater than '402'.
  *
+ * This function determines whether to apply the latest user preference settings
+ * based on the Moodle version branch.
+ *
  * @return bool True if the current Moodle release version branch is greater than '402', false otherwise.
  */
-
 function apply_latest_user_pref() {
     $branch = get_moodle_release_version_branch();
     if ($branch > '402') {
@@ -792,16 +833,24 @@ function theme_remui_extend_navigation_user_settings(navigation_node $useraccoun
             $url = "#enable_aw";
         }
         $parent = $useraccount->parent->find('useraccount', navigation_node::TYPE_CONTAINER);
-        $parent->add($text,
-        new moodle_url($url), // URL (keep as '#' if non-clickable).
-        navigation_node::TYPE_SETTING,  // Type of navigation item.
-        null,
-        'custom-preference');
+        $parent->add(
+            $text,
+            new moodle_url($url), // URL (keep as '#' if non-clickable).
+            navigation_node::TYPE_SETTING, // Type of navigation item.
+            null,
+            'custom-preference'
+        );
     }
 
 }
 
 function theme_remui_set_dynamic_settings() {
+    $edwisedemotype = get_config("theme_remui", "edwisedemotype");
+
+    if ($edwisedemotype == "videoformatdemo") {
+        return;
+    }
+    
     global $CFG;
 
     require_once($CFG->libdir . "/filelib.php");

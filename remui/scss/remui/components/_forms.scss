@@ -169,3 +169,33 @@ div[data-plugin='aiplacement_courseassist'] {
     }
   }
 }
+
+#page-admin-setting-messageinbound_mailsettings #id_s__messageinbound_hostssl {
+  width: 100% !important;
+}
+
+#page-admin-setting-themesettingremui #id_s_theme_remui_coursedatevisibility {
+  width: 100% !important;
+}
+
+#page-course-management.edw-m501 {
+  #menumovecategoriesto,
+  #menumovecoursesto {
+    width: 100% !important;
+  }
+}
+
+body.format-site.path-admin.admin .form-duration.defaultsnext {
+  width: auto !important;
+  input.form-control {
+    width: auto !important;
+    max-width: 100%;
+  }
+}
+body.format-site.path-admin.admin .defaultsnext {
+  width: auto !important;
+}
+
+#page-admin-search .form-checkbox.defaultsnext {
+  width: auto !important;
+}

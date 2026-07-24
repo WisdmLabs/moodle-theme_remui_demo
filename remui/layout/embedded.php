@@ -24,7 +24,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$fakeblockshtml = $OUTPUT->blocks('side-pre', array(), 'aside', true);
+$fakeblockshtml = $OUTPUT->blocks('side-pre', [], 'aside', true);
 $hasfakeblocks = strpos($fakeblockshtml, 'data-block="_fake"') !== false;
 $renderer = $PAGE->get_renderer('core');
 

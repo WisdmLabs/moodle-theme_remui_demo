@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Theme customizer text element class
  *
@@ -28,7 +29,6 @@ namespace theme_remui\customizer\elements;
  * Text element.
  */
 class button extends base {
-
     /**
      * Prepare the output for the setting
      *
@@ -44,7 +44,7 @@ class button extends base {
             'name' => $this->name,
             'label' => $label,
             'type' => 'button',
-            'options' => $this->process_options()
+            'options' => $this->process_options(),
         ];
         return $OUTPUT->render_from_template($this->component . '/customizer/elements/button', $templatecontext);
     }

@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Theme customizer htmleditor element class
  *
@@ -38,7 +39,6 @@ use moodle_url;
  * Editor element class.
  */
 class htmleditor extends base {
-
     /**
      * Prepare the output for the setting
      *
@@ -53,14 +53,14 @@ class htmleditor extends base {
 
         $editor = editors_get_preferred_editor(FORMAT_HTML);
         $editor->set_text($default);
-        $editor->use_editor('id_' . $this->name, array('autosave' => false));
+        $editor->use_editor('id_' . $this->name, ['autosave' => false]);
 
         return $OUTPUT->render_from_template($this->component . '/customizer/elements/htmleditor', [
             'name' => $this->name,
             'label' => $label,
             'default' => $default,
             'help' => $this->get_help(),
-            'options' => $this->process_options()
+            'options' => $this->process_options(),
         ]);
     }
 }

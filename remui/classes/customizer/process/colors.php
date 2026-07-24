@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Theme customizer colors process trait
  *
@@ -26,6 +27,11 @@ namespace theme_remui\customizer\process;
 
 use theme_remui\customizer\color;
 
+/**
+ * Colors processing trait.
+ *
+ * Provides functionality for processing color-related customizer settings.
+ */
 trait colors {
     /**
      * Process global colors

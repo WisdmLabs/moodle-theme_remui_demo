@@ -1,6 +1,6 @@
-[class^="edw-icon-"], [class*=" edw-icon-"] {
+[class^="edw-icon-"], [class*="edw-icon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: 'Remui' !important;
+  font-family: #{$remui-icon-font-family} !important;
   speak: never;
   font-style: normal;
   font-weight: normal;
@@ -13,6 +13,30 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.edw-icon-cart:before {
+  content: "\e943";
+}
+.edw-icon-coupon:before {
+  content: "\e944";
+}
+.edw-icon-credit-card_24:before {
+  content: "\e945";
+}
+.edw-icon-license:before {
+  content: "\e946";
+}
+.edw-icon-menu-2:before {
+  content: "\e94a";
+}
+.edw-icon-shopping-bag:before {
+  content: "\e94b";
+}
+.edw-icon-side-bar:before {
+  content: "\e94c";
+}
+.edw-icon-sort-2:before {
+  content: "\e94d";
+}
 .edw-icon-Monochrome:before {
   content: "\e942";
 }

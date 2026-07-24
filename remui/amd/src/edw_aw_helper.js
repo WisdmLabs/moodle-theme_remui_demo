@@ -1,10 +1,3 @@
-/* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-console */
-/* eslint-disable jsdoc/require-jsdoc*/
-/* eslint-disable jsdoc/require-jsdoc*/
-/* eslint-disable jsdoc/require-jsdoc*/
-/* eslint-disable no-restricted-globals */
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -21,8 +14,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Accessibility widget helper module for RemUI theme.
+ * Provides helper functions for accessibility widget functionality.
+ *
  * @module     theme_remui/edw_aw_helper
- * @copyright (c) 2020 WisdmLabs (https://wisdmlabs.com/)
+ * @copyright  (c) 2023 WisdmLabs (https://wisdmlabs.com/) <support@wisdmlabs.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -42,7 +38,7 @@ define(['jquery', 'core/ajax', 'core/str', 'core/toast', 'theme_remui/feedbackco
         ASWCONTAINER: '.asw-container',
     };
 
-    const registerCommonEvents = (issiteadmin, feedbackstatus, isloggedin) => {
+    const registerCommonEvents = (issiteadmin, feedbackstatus) => {
 
         $(document).on("click", SELECTOR.ENABLEAW + "," + SELECTOR.DISABLEAW, function (e) {
             e.preventDefault(); // Prevent default anchor behavior
@@ -75,7 +71,7 @@ define(['jquery', 'core/ajax', 'core/str', 'core/toast', 'theme_remui/feedbackco
             }, 200);
         });
 
-        $(document).on("click", `${SELECTOR.ASWCONTAINER},${SELECTOR.ASWMENUSETTINGDROPDOWNBTN}`, function (e) {
+        $(document).on("click", `${SELECTOR.ASWCONTAINER},${SELECTOR.ASWMENUSETTINGDROPDOWNBTN}`, function () {
 
             var siteadminurl = M.cfg.wwwroot + "/admin/settings.php?section=themesettingremui#admin-enableaccessibilitytools";
             var prefurl = M.cfg.wwwroot + "/user/preferences.php";
@@ -98,7 +94,7 @@ define(['jquery', 'core/ajax', 'core/str', 'core/toast', 'theme_remui/feedbackco
             }
         });
 
-        $(document).on("click", '#aw_feedbackcollection-form .aw-feedback-close', async function(e) {
+        $(document).on("click", '#aw_feedbackcollection-form .aw-feedback-close', async function() {
             removeFeedbackOption();
         });
 

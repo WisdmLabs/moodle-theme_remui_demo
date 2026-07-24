@@ -52,6 +52,7 @@ class api extends external_api {
     use change_frontpagechooser;
     use do_setup_action;
     use do_feedbackcollection_action;
+    use do_personalization_action;
     use set_demo_layouttype;
     use handle_external_data_receiver;
 }

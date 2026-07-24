@@ -42,9 +42,9 @@ trait get_course_stats {
      */
     public static function get_course_stats_parameters() {
         return new external_function_parameters(
-            array (
+            [
                 'courseid' => new external_value(PARAM_INT, 'Course Id'),
-            )
+             ]
         );
     }
 
@@ -70,12 +70,12 @@ trait get_course_stats {
      */
     public static function get_course_stats_returns() {
         return new \external_single_structure(
-            array (
+            [
                 'enrolledusers' => new external_value(PARAM_INT, 'Enrolled Users'),
                 'completed' => new external_value(PARAM_INT, 'Students Completed'),
                 'inprogress' => new external_value(PARAM_INT, 'Students Inprogress'),
-                'notstarted' => new external_value(PARAM_INT, 'Students Not Started')
-            )
+                'notstarted' => new external_value(PARAM_INT, 'Students Not Started'),
+             ]
         );
     }
 }

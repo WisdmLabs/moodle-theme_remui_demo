@@ -62,17 +62,17 @@
         <span class="login">
             {{#guest}}
                 {{#str}} loggedinasguest, core {{/str}}
-                <div class="divider border-left h-75 align-self-center mx-2"></div>
+                <div class="divider h-75 align-self-center mx-2"></div>
             {{/guest}}
             {{#url}}
-                <a href="{{url}}">{{#str}} login, core {{/str}}</a>
+                <a href="{{url}}" class="d-flex"><span class="edw-icon edw-icon-User" style="font-size: 21px;"></span>{{#str}} login, core {{/str}}</a>
             {{/url}}
 
             {{#loginpopup}}
             <div class="dropdown">
                 <a href="#" role="button" id="user-menu-toggle" data-toggle="dropdown" aria-label="{{#str}}usermenu{{/str}}" aria-haspopup="true" aria-controls="user-action-menu" class="nav-link p-0" title="Login {{#str}}usermenu{{/str}}">
                     <div class="remuiicon">
-                        <i class="icon fa fa-user"></i>
+                        <span class="edw-icon edw-icon-User p-1" style="font-size: 21px;"></span>
                     </div>
                     {{#str}} login, core {{/str}}
                 </a>
@@ -150,6 +150,15 @@
             </div>
             {{/loginpopup}}
         </span>
+
+        {{#signupurl}}
+            <div class="divider  h-75 align-self-center"></div>
+            <span class="signup">
+                <a href="{{signupurl}}" role="button" aria-label="usermenu" class="signup-link d-flex {{#loginpopup}}nav-link{{/loginpopup}}" title="{{#str}} signup, theme_remui {{/str}}">
+                    <span class="edw-icon edw-icon-Adduser" style="font-size: 21px;"></span>{{#str}} signup, theme_remui {{/str}}
+                </a>
+            </span>
+        {{/signupurl}}
     {{/unauthenticateduser}}
     {{^unauthenticateduser}}
         <div class="dropdown show">

@@ -47,7 +47,7 @@ trait save_settings {
         return new external_function_parameters(
             [
                 'settings' => new external_value(PARAM_RAW, 'Customizer settings'),
-                'options' => new external_value(PARAM_RAW, 'Additional options', VALUE_DEFAULT, "")
+                'options' => new external_value(PARAM_RAW, 'Additional options', VALUE_DEFAULT, ""),
             ]
         );
     }
@@ -59,7 +59,14 @@ trait save_settings {
      */
     public static function save_settings($settings, $options) {
         global $PAGE;
-        $PAGE->set_url(new \moodle_url('/theme/remui/customizer.php', array()));
+        // Validate sesskey to prevent CSRF attacks.
+        confirm_sesskey();
+
+        // Validate admin permission before saving settings.
+        $context = \context_system::instance();
+        self::validate_context($context);
+        require_capability('moodle/site:config', $context);
+        $PAGE->set_url(new \moodle_url('/theme/remui/customizer.php', []));
 
         $settings = json_decode($settings, true);
         $options = json_decode($options, true);
@@ -74,11 +81,11 @@ trait save_settings {
      */
     public static function save_settings_returns() {
         return new external_single_structure(
-            array (
+            [
                 'status' => new external_value(PARAM_BOOL, 'Save status'),
                 'errors' => new external_value(PARAM_RAW, 'Errors found'),
                 'message' => new external_value(PARAM_TEXT, 'Error messages'),
-            )
+             ]
         );
     }
 }

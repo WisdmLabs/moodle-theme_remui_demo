@@ -29,18 +29,37 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+/**
+ * Dark mode handler class.
+ *
+ * @package   theme_remui
+ * @copyright (c) 2023 WisdmLabs (https://wisdmlabs.com/) <support@wisdmlabs.com>
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class theme_remui_darkmodehandler {
-
+    /** @var bool Dark mode status */
     private $status = false;
+    /** @var moodle_url Dark mode library URL */
     private $dmlibrary;
+    /** @var bool Whether to allow JS loading */
     private $allowjsloading = true;
 
+    /**
+     * Constructor.
+     *
+     * @param bool $loadjs Whether to allow JS loading
+     */
     public function __construct($loadjs = false) {
         $this->allowjsloading = $loadjs;
         $this->status = get_config('theme_remui', 'enabledarkmode');
         $this->dmlibrary = new moodle_url("/theme/remui/js/bundle.js");
     }
 
+    /**
+     * Get dark mode status.
+     *
+     * @return bool Dark mode status
+     */
     public function get_status() {
         return $this->status;
     }
@@ -86,16 +105,31 @@ class theme_remui_darkmodehandler {
         return $this->$functioncall();
     }
 
+    /**
+     * Trigger dark mode disable.
+     *
+     * @return bool Always returns false
+     */
     private function trigger_dm_disable() {
         return false;
     }
 
+    /**
+     * Trigger dark mode on all pages.
+     *
+     * @return bool True if JS loaded successfully
+     */
     private function trigger_dm_allowonallpages() {
         global $PAGE;
 
         return $this->load_dm_js();
     }
 
+    /**
+     * Trigger dark mode with page exclusions.
+     *
+     * @return bool True if JS loaded, false if page is excluded
+     */
     private function trigger_dm_excludepages() {
         global $PAGE, $CFG;
 
@@ -116,7 +150,6 @@ class theme_remui_darkmodehandler {
         $pages = explode(',', $pages);
 
         foreach ($pages as $key => $page) {
-
             $page = trim(str_replace(trim($CFG->wwwroot), "", $page));
 
             if ($page == "/my/" && $PAGE->pagelayout == "mydashboard") {
@@ -130,6 +163,11 @@ class theme_remui_darkmodehandler {
         return $this->load_dm_js();
     }
 
+    /**
+     * Trigger dark mode with page inclusions.
+     *
+     * @return bool True if JS loaded, false if page is not included
+     */
     private function trigger_dm_includepages() {
         global $PAGE, $CFG;
 
@@ -154,7 +192,6 @@ class theme_remui_darkmodehandler {
         $pages = explode(',', $pages);
 
         foreach ($pages as $key => $page) {
-
             $page = trim(str_replace(trim($CFG->wwwroot), "", $page));
 
             // Custom check. Had no other option but to use strict url here for dashboard.
@@ -171,6 +208,11 @@ class theme_remui_darkmodehandler {
         return false;
     }
 
+    /**
+     * Load dark mode JavaScript.
+     *
+     * @return bool True if JS loaded or loading is allowed
+     */
     private function load_dm_js() {
         global $PAGE;
 
@@ -181,7 +223,13 @@ class theme_remui_darkmodehandler {
         return true;
     }
 
-    // This method will check the user url and current page url is same or not.
+    /**
+     * Check if page URL matches the pattern.
+     *
+     * @param string $pagepattern URL pattern to match
+     * @param \moodle_url $targetmatch Target URL to check
+     * @return bool True if URL matches pattern
+     */
     public function get_matching_url($pagepattern, \moodle_url $targetmatch) {
         $target = $targetmatch->out_as_local_url();
 
@@ -201,7 +249,11 @@ class theme_remui_darkmodehandler {
         return !!preg_match("@{$pattern}@", $target);
     }
 
-
+    /**
+     * Check if dark mode icon animation should be shown.
+     *
+     * @return bool True if animation should be shown
+     */
     public function show_icon_animation() {
 
         if (get_user_preferences("animate_dm_icon")) {

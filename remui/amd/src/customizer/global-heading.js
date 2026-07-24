@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -14,10 +13,13 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 /**
- * Theme customizer global-heading js
- * @copyright (c) 2023 WisdmLabs (https://wisdmlabs.com/) <support@wisdmlabs.com>
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @author    Yogesh Shirsath
+ * Theme customizer global heading typography module.
+ * Handles global heading typography settings for all heading levels (h1-h6).
+ *
+ * @module     theme_remui/customizer/global-heading
+ * @copyright  (c) 2023 WisdmLabs (https://wisdmlabs.com/) <support@wisdmlabs.com>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @author     Yogesh Shirsath
  */
 
 import $ from 'jquery';
@@ -43,8 +45,6 @@ var SELECTOR = {
     DNONE: "d-none",
 
 };
-
-let iframeDocument = Utils.getDocument();
 
 // Add heading in selector.
 headings.forEach(function(heading) {

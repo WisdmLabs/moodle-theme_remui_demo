@@ -218,10 +218,10 @@ fieldset.collapsible {
 //     }
 // }
 
-// Fullscreen TinyMCE editor fix
-#page-course-edit:has(.tox-tinymce) div[role="main"],
-#page-course-editcategory:has(.tox-tinymce) [role="main"],
-.main-area-bg:not(.pagelayout-login):has(.tox-tinymce) div[role="main"] {
+// Unset filter on course edit pages so position:fixed sticky footer works regardless of editor
+#page-course-edit div[role="main"],
+#page-course-editcategory [role="main"],
+.main-area-bg:not(.pagelayout-login) div[role="main"] {
    filter: unset !important;
 }
 
@@ -233,3 +233,14 @@ fieldset.collapsible {
     bottom: -100px;
     max-height: unset;
 }
+
+body:has(.tox-fullscreen) {
+    .modal-content {
+      top: unset;
+      bottom: unset;
+  
+      .modal-header {
+        padding: 1.5rem 1.5rem;
+      }
+    }
+  }

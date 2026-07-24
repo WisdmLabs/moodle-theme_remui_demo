@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Theme customizer heading process trait
  *
@@ -24,8 +25,12 @@
 
 namespace theme_remui\customizer\process;
 
+/**
+ * Heading processing trait.
+ *
+ * Provides functionality for processing heading-related customizer settings.
+ */
 trait heading {
-
     /**
      * Get heading font to load on page.
      *
@@ -71,12 +76,7 @@ trait heading {
         // Font size tablet.
         $variables["heading-{$heading}-fontsize-tablet"] = $fontsize['tablet'];
 
-        // Font weight.
-        // $fontweight = $this->get_config("typography-heading-{$heading}-fontweight");
-        // if (strtolower($fontweight) == 'inherit') {
-        // $fontweight = $this->get_config("typography-heading-all-fontweight");
-        // }
-        // $variables["heading-{$heading}-fontweight"] = $fontweight;
+        // Font weight (commented out for future use).
 
         // Line height.
         $lineheight = $this->get_config("typography-heading-{$heading}-lineheight");

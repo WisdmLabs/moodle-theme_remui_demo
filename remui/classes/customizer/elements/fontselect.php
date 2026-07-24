@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Theme customizer fontselect element class
  *
@@ -42,7 +43,8 @@ class fontselect extends base {
         }
         if (isset($this->options['default']) && $this->options['default'] != '') {
             $help = '';
-            if ($withdefault &&
+            if (
+                $withdefault &&
                 (!isset($this->options['withdefault']) ||
                 (!isset($this->options['withdefault']) && $this->options['withdefault'])) &&
                 isset($this->options['default'])
@@ -57,7 +59,7 @@ class fontselect extends base {
                 $help .= '<strong>' . get_string('default', 'moodle') . ': ' . $value . '</strong><br>';
             }
             $help .= $this->options['help'];
-            $data = new stdClass;
+            $data = new stdClass();
             $data->ltr = !right_to_left();
             $data->text = $help;
             return $OUTPUT->render_from_template('theme_remui/customizer/help_icon', $data);
@@ -78,7 +80,7 @@ class fontselect extends base {
         foreach ($options as $key => $value) {
             $option = [
                 'key' => $key,
-                'value' => $value
+                'value' => $value,
             ];
             if ($key == $default) {
                 $option['selected'] = 'selected';
@@ -107,7 +109,7 @@ class fontselect extends base {
             'label' => $label,
             'help' => $this->get_help(),
             'default' => $default,
-            'options' => $selectoptions
+            'options' => $selectoptions,
         ]);
     }
 }

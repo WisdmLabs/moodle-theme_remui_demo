@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Theme customizer footer process trait
  *
@@ -24,6 +25,11 @@
 
 namespace theme_remui\customizer\process;
 
+/**
+ * Footer processing trait.
+ *
+ * Provides functionality for processing footer-related customizer settings.
+ */
 trait footer {
     /**
      * Process footer settings
@@ -52,12 +58,29 @@ trait footer {
         // Footer icon default color.
         $variables['footer-icon-color'] = $this->get_config('footer-icon-color');
 
+        // Footer icon default background color.
+        $variables['footer-icon-bg-color'] = $this->get_config('footer-icon-bg-color');
         // Footer icon hover color.
         $variables['footer-icon-hover-color'] = $this->get_config('footer-icon-hover-color');
 
         // Footer logo color.
         $variables['footerlogocolor'] = $this->get_config('footer-logo-color');
 
+        // New footer area background colors.
+        $variables['main-footer-area-background-color'] = $this->get_config('main-footer-area-background-color');
+        $variables['bottom-footer-area-background-color'] = $this->get_config('bottom-footer-area-background-color');
+
+        // New footer area text colors.
+        $variables['main-footer-area-text-color'] = $this->get_config('main-footer-area-text-color');
+        $variables['bottom-footer-area-text-color'] = $this->get_config('bottom-footer-area-text-color');
+
+        // Email subscribe color settings for footer top area (column 0).
+        $variables['emailinputbordercolor0'] = $this->get_config('emailinputbordercolor0');
+        $variables['focusedemailinputoutlinecolor0'] = $this->get_config('focusedemailinputoutlinecolor0');
+        $variables['subscribebuttontextcolor0'] = $this->get_config('subscribebuttontextcolor0');
+        $variables['subscribebuttontexthovercolor0'] = $this->get_config('subscribebuttontexthovercolor0');
+        $variables['subscribebtnbgcolor0'] = $this->get_config('subscribebtnbgcolor0');
+        $variables['subscribebtnbghovercolor0'] = $this->get_config('subscribebtnbghovercolor0');
         // Footer font settings.
         $footerfontfamily = $this->get_config('footerfontfamily');
         $footerfontsize = $this->get_config('footerfontsize');
@@ -74,7 +97,7 @@ trait footer {
             }
         }
         $variables['footerfontfamily'] = $footerfontfamily;
-        $footerfontsize = $this->get_config('footerfontsize').'rem';
+        $footerfontsize = $this->get_config('footerfontsize') . 'rem';
         if ($footerfontsize == '' || $footerfontsize == null) {
             $footerfontsize == 'null';
         }
@@ -86,7 +109,7 @@ trait footer {
         $footerfonttextransform = $this->get_config('footerfonttext-transform');
         $variables['footerfonttextransform'] = $footerfonttextransform;
 
-        $footerfontlineheight = $this->get_config('footerfontlineheight').'rem';
+        $footerfontlineheight = $this->get_config('footerfontlineheight') . 'rem';
         if ($footerfontlineheight == '') {
             $footerfontlineheight = 'null';
         }
@@ -146,14 +169,45 @@ trait footer {
         $variables['footer-section-2-width'] = $footercolumnsize[1];
         $variables['footer-section-3-width'] = $footercolumnsize[2];
         $variables['footer-section-4-width'] = $footercolumnsize[3];
+        // Footer background image settings.
+        $variables['backgroundimgurl'] = $this->get_config('backgroundimgurl');
+        $variables['backgroundimg-position'] = $this->get_config('backgroundimg-position');
+        $variables['backgroundimg-repeat'] = $this->get_config('backgroundimg-repeat');
+        $variables['backgroundimg-size'] = $this->get_config('backgroundimg-size');
+        $variables['backgroundimg-opacity'] = $this->get_config('backgroundimg-opacity');
+
+        // Email subscribe color settings for columns 1-5.
+        for ($i = 1; $i <= 5; $i++) {
+            $variables["emailinputbordercolor{$i}"] = $this->get_config("emailinputbordercolor{$i}");
+            $variables["focusedemailinputoutlinecolor{$i}"] = $this->get_config("focusedemailinputoutlinecolor{$i}");
+            $variables["subscribebuttontextcolor{$i}"] = $this->get_config("subscribebuttontextcolor{$i}");
+            $variables["subscribebuttontexthovercolor{$i}"] = $this->get_config("subscribebuttontexthovercolor{$i}");
+            $variables["subscribebtnbgcolor{$i}"] = $this->get_config("subscribebtnbgcolor{$i}");
+            $variables["subscribebtnbghovercolor{$i}"] = $this->get_config("subscribebtnbghovercolor{$i}");
+        }
+
+        $footerselectedtemplate = $this->get_config('footer-design-selector');
+        $footerbackgroundimg = \theme_remui\toolbox::setting_file_url('backgroundimgurl', 'backgroundimgurl');
+        if ($footerselectedtemplate === 'footer-design-1' && empty($footerbackgroundimg)) {
+            $footerbackgroundimg = "https://qastaticcdn.edwiser.org/theme_remuiassets/footerassets/images/FooterDesignBg1.svg";
+        } else if ($footerselectedtemplate === 'footer-design-2' && empty($footerbackgroundimg)) {
+            $footerbackgroundimg = "https://qastaticcdn.edwiser.org/theme_remuiassets/footerassets/images/FooterDesignBg2.svg";
+        } else if ($footerselectedtemplate === 'footer-design-3' && empty($footerbackgroundimg)) {
+            $footerbackgroundimg = "https://qastaticcdn.edwiser.org/theme_remuiassets/footerassets/images/FooterDesignBg3.svg";
+        } else if ($footerselectedtemplate === 'footer-design-4' && empty($footerbackgroundimg)) {
+            $footerbackgroundimg = "https://qastaticcdn.edwiser.org/theme_remuiassets/footerassets/images/FooterDesignBg4.svg";
+        } else if ($footerselectedtemplate === 'footer-design-6' && empty($footerbackgroundimg)) {
+            $footerbackgroundimg = "https://qastaticcdn.edwiser.org/theme_remuiassets/footerassets/images/FooterDesignBg6.svg";
+        }
+        $variables["footerbackgroundimg"] = "url('$footerbackgroundimg')";
     }
 
     /**
-     * Course purchase details.
-     * @param fonts
+     * Get footer fonts to load on page.
+     *
+     * @param array $fonts Font list.
      * @return void
      */
-
     private function get_footer_fonts(&$fonts) {
         $footercolumntitlefontfamily = $this->get_config('footer-columntitle-fontfamily');
         if (strtolower($footercolumntitlefontfamily) != 'inherit') {

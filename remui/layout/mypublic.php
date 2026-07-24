@@ -35,32 +35,32 @@ $courseid = optional_param('course', SITEID, PARAM_INT); // Course id (defaults 
 
 $id = $id ? $id : $USER->id;
 
-$user = $DB->get_record('user', array('id' => $id), '*', MUST_EXIST);
-$course = $DB->get_record('course', array('id' => $courseid), '*', MUST_EXIST);
+$user = $DB->get_record('user', ['id' => $id], '*', MUST_EXIST);
+$course = $DB->get_record('course', ['id' => $courseid], '*', MUST_EXIST);
 
-use theme_remui\usercontroller as usercontroller;
+use theme_remui\usercontroller;
 
 // Get user's object from page url.
-$userobject = $DB->get_record('user', array('id' => $id));
+$userobject = $DB->get_record('user', ['id' => $id]);
 
 $context = context_user::instance($id, MUST_EXIST);
 if (user_can_view_profile($userobject, null, $context)) {
     $countries = get_string_manager()->get_list_of_countries();
     // Get the list of all country.
     if (!empty($userobject->country)) { // Country field in user object is empty.
-        $temparray[] = array("keyName" => $userobject->country, "valName" => $countries[$userobject->country]);
-        $temparray[] = array("keyName" => '', "valName" => get_string('selectcountrystring', 'theme_remui'));
+        $temparray[] = ["keyName" => $userobject->country, "valName" => $countries[$userobject->country]];
+        $temparray[] = ["keyName" => '', "valName" => get_string('selectcountrystring', 'theme_remui')];
     } else {
-        $temparray[] = array("keyName" => '', "valName" => get_string('selectcountrystring', 'theme_remui'));
+        $temparray[] = ["keyName" => '', "valName" => get_string('selectcountrystring', 'theme_remui')];
     }
 
     foreach ($countries as $key => $value) {
-        $temparray[] = array("keyName" => $key, "valName" => $value);
+        $temparray[] = ["keyName" => $key, "valName" => $value];
     }
 
     $templatecontext['usercanmanage'] = \theme_remui\utility::check_user_admin_cap($userobject);
     $systemcontext = \context_system::instance();
-    if ( has_capability('moodle/user:editownprofile', $systemcontext) ) {
+    if (has_capability('moodle/user:editownprofile', $systemcontext)) {
         $templatecontext["haseditpermission"] = true;
     }
     $templatecontext['notcurrentuser'] = ($userobject->id != $USER->id) ? true : false;
@@ -75,7 +75,7 @@ if (user_can_view_profile($userobject, null, $context)) {
     $country = '';
 
     $userauth = get_auth_plugin($userobject->auth);
-    $lockfields = array('field_lock_firstname', 'field_lock_lastname', 'field_lock_city', 'field_lock_country');
+    $lockfields = ['field_lock_firstname', 'field_lock_lastname', 'field_lock_city', 'field_lock_country'];
     foreach ($userauth->config as $key => $lockfield) {
         if ($lockfield == 'locked') {
             if (in_array($key, $lockfields)) {
@@ -90,13 +90,20 @@ if (user_can_view_profile($userobject, null, $context)) {
         }
     }
     $templatecontext['user'] = $userobject;
-    $templatecontext['user']->profilepicture = $OUTPUT->user_picture($userobject, array('size' => 116));
+    $templatecontext['user']->profilepicture = $OUTPUT->user_picture($userobject, ['size' => 116]);
     $templatecontext['user']->forumpostcount = usercontroller::get_user_forum_post_count($userobject);
     $templatecontext['user']->blogpostcount  = usercontroller::get_user_blog_post_count($userobject);
     $templatecontext['user']->contactscount  = usercontroller::get_user_contacts_count($userobject);
-    // $templatecontext['user']->description  = format_text($userobject->description,FORMAT_HTML);
     $usercontext = context_user::instance($userobject->id, MUST_EXIST);
-    $templatecontext['user']->description = format_text(file_rewrite_pluginfile_urls($user->description, 'pluginfile.php', $usercontext->id, 'user','profile', null), $user->descriptionformat);
+    $description = file_rewrite_pluginfile_urls(
+        $user->description,
+        'pluginfile.php',
+        $usercontext->id,
+        'user',
+        'profile',
+        null
+    );
+    $templatecontext['user']->description = format_text($description, $user->descriptionformat);
 
     // About me tab data.
     $interests = \core_tag_tag::get_item_tags('core', 'user', $userobject->id);
@@ -142,8 +149,9 @@ if (user_can_view_profile($userobject, null, $context)) {
     $templatecontext['user']->badgedsettingstatus = $CFG->enablebadges;
     $templatecontext['user']->blogsettingstatus = $CFG->enableblogs;
 
-    $templatecontext['countryname'] = isset($countries[$templatecontext['user']->country]) ? $countries[$templatecontext['user']->country] : '';
-    if (isset( $templatecontext['user']->city)) {
+    $usercountry = $templatecontext['user']->country;
+    $templatecontext['countryname'] = isset($countries[$usercountry]) ? $countries[$usercountry] : '';
+    if (isset($templatecontext['user']->city)) {
         $templatecontext['user']->city  = format_text($templatecontext['user']->city, FORMAT_HTML);
     }
     $templatecontext['user']->usercourses = true;
@@ -160,7 +168,7 @@ if (user_can_view_profile($userobject, null, $context)) {
     // Contact details.
 
     if (has_capability('moodle/user:viewhiddendetails', $courseorusercontext)) {
-        $hiddenfields = array();
+        $hiddenfields = [];
     } else {
         $temparray = explode(',', $CFG->hiddenuserfields);
         $hiddenfields = [];
@@ -176,7 +184,7 @@ if (user_can_view_profile($userobject, null, $context)) {
             $identityfields[$value] = $value;
         }
     } else {
-        $identityfields = array();
+        $identityfields = [];
     }
 
     $templatecontext['user']->location = "";
@@ -187,7 +195,7 @@ if (user_can_view_profile($userobject, null, $context)) {
     if (isset($identityfields['address']) && $user->address) {
         $templatecontext['user']->location .= format_text($user->address, FORMAT_HTML);
     }
-    if($user->address) {
+    if ($user->address) {
         $templatecontext['user']->address = format_text($user->address, FORMAT_HTML);
     }
 
@@ -248,16 +256,16 @@ if (user_can_view_profile($userobject, null, $context)) {
 // This will ease us to add body classes directly to the array.
 require_once($CFG->dirroot . '/theme/remui/layout/common_end.php');
 
-$PAGE->requires->strings_for_js(array(
+$PAGE->requires->strings_for_js([
     'detailssavedsuccessfully',
     'actioncouldnotbeperformed',
     'enterfirstname',
     'enterlastname',
     'entervalidphoneno',
     'enterproperemailid',
-    'enteremailid'
+    'enteremailid',
 
 
-), 'theme_remui');
+], 'theme_remui');
 
 echo $OUTPUT->render_from_template('theme_remui/mypublic', $templatecontext);

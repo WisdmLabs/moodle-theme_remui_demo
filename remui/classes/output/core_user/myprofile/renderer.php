@@ -17,7 +17,7 @@
 /**
  * myprofile renderer.
  *
- * @package    core_user
+ * @package    theme_remui
  * @copyright  2015 onwards Ankit Agarwal <ankit.agrr@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -28,6 +28,13 @@ use core_user\output\myprofile\tree;
 use core_user\output\myprofile\category;
 use core_user\output\myprofile\node;
 
+/**
+ * My profile renderer class.
+ *
+ * @package   theme_remui
+ * @copyright (c) 2023 WisdmLabs (https://wisdmlabs.com/) <support@wisdmlabs.com>
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class renderer extends \core_user\output\myprofile\renderer {
     /**
      * Render a category.
@@ -39,15 +46,19 @@ class renderer extends \core_user\output\myprofile\renderer {
     public function render_category(\core_user\output\myprofile\category $category) {
         $classes = $category->classes;
         if (empty($classes)) {
-            $return = \html_writer::start_tag('section',
-                array('class' => 'node_category card d-inline-block w-100 mb-3'.' '.$category->name));
-            $return .= \html_writer::start_tag('div', array('class' => 'card-body'));
+            $return = \html_writer::start_tag(
+                'section',
+                ['class' => 'node_category card d-inline-block w-100 mb-3' . ' ' . $category->name]
+            );
+            $return .= \html_writer::start_tag('div', ['class' => 'card-body']);
         } else {
-            $return = \html_writer::start_tag('section',
-                array('class' => 'node_category card d-inline-block w-100 mb-3' . $classes.' '.$category->name));
-            $return .= \html_writer::start_tag('div', array('class' => 'card-body'));
+            $return = \html_writer::start_tag(
+                'section',
+                ['class' => 'node_category card d-inline-block w-100 mb-3' . $classes . ' ' . $category->name]
+            );
+            $return .= \html_writer::start_tag('div', ['class' => 'card-body']);
         }
-        $return .= \html_writer::tag('h3', $category->title, array('class' => 'lead h-semibold-4'));
+        $return .= \html_writer::tag('h3', $category->title, ['class' => 'lead h-semibold-4']);
         $nodes = $category->nodes;
         if (empty($nodes)) {
             // No nodes, nothing to render.

@@ -21,9 +21,9 @@
     @template theme_remui/footer_sections
 }}
 
-<div class="footerdata">
+<div class="footerdata section-footer-design-1">
     {{#sections}}
-    <div id="footer-column-{{coulumnid}}" class="footer-section-wrapper {{#classes}}{{classes}}{{/classes}}" style="">
+    <div id="footer-column-{{coulumnid}}" class="footer-section-wrapper {{#classes}}{{classes}}{{/classes}} {{#isempty}}d-none{{/isempty}}" style="">
         <div class="footer-menu menu-{{orientation}} {{#customhtml}}d-none{{/customhtml}}">
             <h6 class="h-semibold-6 mb-0 ftr-column-title" >{{{ title }}}</h6>
             <hr class="d-sm-block d-md-none my-0 ">

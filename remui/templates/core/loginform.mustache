@@ -222,13 +222,24 @@
     </div>
     {{/hasidentityproviders}}
     <div>
-        {{#hasinstructions}}
-        <div class="login-instructions">
-            <h2 class="login-heading text-link-semibold form-label-color">{{#str}}firsttime, theme_remui{{/str}}</h2>
-	    <!-- DEMO CUSTOMIZATION -->
-            <!--{{{instructions}}}-->
-        </div>
-        {{/hasinstructions}}
+        {{#moodle_version_gte502}}
+            {{#instructions}}
+                <div class="login-instructions">
+                    <!-- DEMO CUSTOMIZATION -->
+                    <!--{{{instructions}}}-->
+                </div>
+            {{/instructions}}
+        {{/moodle_version_gte502}}
+
+        {{^moodle_version_gte502}}
+            {{#hasinstructions}}
+                <div class="login-instructions">
+                    <h2 class="login-heading text-link-semibold form-label-color">{{#str}}firsttime, theme_remui{{/str}}</h2>
+                    <!-- DEMO CUSTOMIZATION -->
+                    <!--{{{instructions}}}-->
+                </div>
+            {{/hasinstructions}}
+        {{/moodle_version_gte502}}
         {{#cansignup}}
         <div class="login-signup">
             <a class="btn btn-secondary btn-block" href="{{signupurl}}">{{#str}}startsignup{{/str}}</a>

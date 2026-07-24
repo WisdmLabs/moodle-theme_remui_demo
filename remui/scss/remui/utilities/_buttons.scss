@@ -11,7 +11,8 @@ $floating-button-margin: 14px;
     flex-direction: column;
     @include transition($layout-transition-effects);
 
-    > .btn-floating {
+    > .btn-floating,
+    a.asw-menu-btn.btn-floating {
         width: $btn-floating-size;
         height: $btn-floating-size;
         border-radius: 50%;
@@ -234,21 +235,21 @@ $floating-button-margin: 14px;
 }
 
 //Fix of Action button hover color was incorrect on the assignment submission page
-.container-fluid {
-    .navitem {
-        .action-menu{
-            .menubar {
-                .action-menu-trigger{
-                    .dropdown{
-                        .btn-outline-primary:hover{
-                            color: $button-secondary-color-texthover !important;
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
+// .container-fluid {
+//     .navitem {
+//         .action-menu{
+//             .menubar {
+//                 .action-menu-trigger{
+//                     .dropdown{
+//                         .btn-outline-primary:hover{
+//                             color: $button-secondary-color-texthover !important;
+//                         }
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// }
 
 // To fix color sync issue in Add a block button (Right side Bar)
 .drawer-right {
@@ -273,5 +274,11 @@ body.bulkenabled.hasstickyfooter {
                 }
             }
         }
+    }
+}
+
+#dropdownFiltersButton:hover {
+    .icon.fa-filter {
+        color: $white;
     }
 }

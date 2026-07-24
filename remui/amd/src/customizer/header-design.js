@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-console*/
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -15,10 +13,13 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 /**
- * Theme customizer header-site-identity js
- * @copyright (c) 2023 WisdmLabs (https://wisdmlabs.com/) <support@wisdmlabs.com>
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @author    Yogesh Shirsath
+ * Theme customizer header design module.
+ * Handles header design customization settings including layout and styling options.
+ *
+ * @module     theme_remui/customizer/header-design
+ * @copyright  (c) 2023 WisdmLabs (https://wisdmlabs.com/) <support@wisdmlabs.com>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @author     Yogesh Shirsath
  */
 
 import $ from 'jquery';
@@ -206,7 +207,8 @@ function handleMenuItemColors() {
     }
     .navbar .primary-navigation .nav-link:hover,
     .navbar #usernavigation .nav-link:hover,
-    .navbar .usermenu-wrapper .usermenu-container .usermenu #user-menu-toggle:hover {
+    .navbar .usermenu-wrapper .usermenu-container .usermenu #user-menu-toggle:hover,
+    .navbar .primary-navigation .category-wrapper .category-link:hover {
         color: ${hoverColor} !important;
     }
     .navbar .primary-navigation .nav-link.active {
@@ -220,6 +222,81 @@ function handleMenuItemColors() {
 }
 
 /**
+ * Config map for nav items that Moodle may omit from the DOM when disabled at site level.
+ */
+var SYNTHETIC_NAV_ITEMS = {
+    home: {
+        label: 'Home',
+        href: (wwwroot) => wwwroot + '/?redirect=0',
+        insertBefore: (navList) => navList.querySelector('[data-key="myhome"]'),
+    },
+    mycourses: {
+        label: 'My courses',
+        href: (wwwroot) => wwwroot + '/my/courses.php',
+        insertBefore: (navList) => {
+            const myhome = navList.querySelector('[data-key="myhome"]');
+            return myhome ? myhome.nextElementSibling : null;
+        },
+    },
+};
+
+/**
+ * Ensure a nav item is present in the iframe DOM for customizer preview.
+ * When the nav item was removed by Moodle at the site level it won't be in the
+ * DOM at all, so toggling its visibility via CSS has no effect. This function
+ * creates a synthetic placeholder when the user wants to show it.
+ *
+ * @param {string}  key      data-key value ('home' or 'mycourses')
+ * @param {boolean} isHidden Whether the toggle is currently checked (hidden)
+ */
+function ensureNavItem(key, isHidden) {
+    const config = SYNTHETIC_NAV_ITEMS[key];
+    if (!config) {
+        return;
+    }
+
+    const iframeDoc = Utils.getDocument();
+    const navList = iframeDoc.querySelector('ul.more-nav.navbar-nav');
+    if (!navList) {
+        return;
+    }
+
+    const existing = navList.querySelector(`[data-key="${key}"]`);
+
+    if (isHidden) {
+        // Remove the synthetic element if present so the DOM state matches Moodle's.
+        if (existing && existing.dataset.synthetic) {
+            existing.remove();
+        }
+        return;
+    }
+
+    // Showing — create the element if it doesn't exist in the DOM at all.
+    if (!existing) {
+        const wwwroot = Utils.getWindow().M.cfg.wwwroot;
+        const {label} = config;
+
+        const li = iframeDoc.createElement('li');
+        li.setAttribute('data-key', key);
+        li.setAttribute('data-synthetic', 'true');
+        li.setAttribute('role', 'none');
+        li.setAttribute('data-forceintomoremenu', 'false');
+        li.setAttribute('title', label);
+        li.className = 'nav-item';
+
+        const a = iframeDoc.createElement('a');
+        a.setAttribute('role', 'menuitem');
+        a.setAttribute('tabindex', '-1');
+        a.className = 'nav-link';
+        a.href = config.href(wwwroot);
+        a.textContent = label;
+
+        li.appendChild(a);
+        navList.insertBefore(li, config.insertBefore(navList));
+    }
+}
+
+/**
  * Handle nodes.
  */
 function handleNodes() {
@@ -227,12 +304,17 @@ function handleNodes() {
     `;
     SELECTORS.CHECKS.forEach(function(checkbox) {
         checkbox = $(checkbox);
+        const key = checkbox.data('target');
+        const isHidden = checkbox.is(':checked');
         content += `
-            .navbar [data-key="${checkbox.data('target')}"],
-            .drawer.drawer-left .drawercontent .list-group-item.${checkbox.data('target')} {
-                display: ${checkbox.is(':checked') ? 'none' : 'block'};
+            .navbar [data-key="${key}"],
+            .drawer.drawer-left .drawercontent .list-group-item.${key} {
+                display: ${isHidden ? 'none' : 'block'};
             }
         `;
+        if (key === 'home' || key === 'mycourses') {
+            ensureNavItem(key, isHidden);
+        }
     });
 
     Utils.putStyle('header-handle-nodes', content);

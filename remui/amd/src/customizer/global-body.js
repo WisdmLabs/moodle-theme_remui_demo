@@ -1,4 +1,3 @@
-/* eslint-disable no-console, no-unused-vars */
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -14,10 +13,13 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 /**
- * Theme customizer global-body js
- * @copyright (c) 2023 WisdmLabs (https://wisdmlabs.com/) <support@wisdmlabs.com>
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @author    Yogesh Shirsath
+ * Theme customizer global body typography module.
+ * Handles global body typography settings including font family, size, weight, and line height.
+ *
+ * @module     theme_remui/customizer/global-body
+ * @copyright  (c) 2023 WisdmLabs (https://wisdmlabs.com/) <support@wisdmlabs.com>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @author     Yogesh Shirsath
  */
 
 import $ from 'jquery';
@@ -68,16 +70,14 @@ function getGlobalFont() {
         fontFamily = 'Inter';
     }
     if (fontFamily.toLocaleLowerCase() == 'inherit') {
-        // eslint-disable-next-line no-undef
-        if (remuiFontSelect == 1) {
+        // RemuiFontSelect and remuiFontName come from PHP data_for_js.
+        if (window.remuiFontSelect == 1) {
             return 'Inter';
         }
-        // eslint-disable-next-line no-undef
-        if (remuiFontName == '') {
+        if (window.remuiFontName == '') {
             return 'Inter';
         }
-        // eslint-disable-next-line no-undef
-        return remuiFontName;
+        return window.remuiFontName;
     }
     return fontFamily;
 }

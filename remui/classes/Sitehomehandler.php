@@ -23,8 +23,17 @@
  */
 namespace theme_remui;
 
-use theme_remui\toolbox as toolbox;
+use theme_remui\toolbox;
 
+/**
+ * Site home handler class.
+ *
+ * Handles data for site home page sections including testimonials and about us.
+ *
+ * @package   theme_remui
+ * @copyright (c) 2023 WisdmLabs (https://wisdmlabs.com/) <support@wisdmlabs.com>
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class Sitehomehandler {
     /**
      * This function is used to get the data for testimonials in about us section.
@@ -39,34 +48,34 @@ class Sitehomehandler {
             return false;
         }
 
-        $testimonialdata = array(
+        $testimonialdata = [
             'both' => false,
             'about' => false,
-            'test' => false
-        );
+            'test' => false,
+        ];
         $testimonialcount = toolbox::get_setting('testimonialcount');
 
         if ($testimonialcount >= 1) {
             $testimonialdata['test'] = true;
 
             for ($count = 1; $count <= $testimonialcount; $count++) {
-                $testimonialimageurl = toolbox::setting_file_url('testimonialimage'.$count, 'testimonialimage'.$count);
+                $testimonialimageurl = toolbox::setting_file_url('testimonialimage' . $count, 'testimonialimage' . $count);
 
-                $testimonialname = toolbox::get_setting('testimonialname'.$count);
-                $testimonialdesignation = toolbox::get_setting('testimonialdesignation'.$count);
-                $testimonialtext = toolbox::get_setting('testimonialtext'.$count);
+                $testimonialname = toolbox::get_setting('testimonialname' . $count);
+                $testimonialdesignation = toolbox::get_setting('testimonialdesignation' . $count);
+                $testimonialtext = toolbox::get_setting('testimonialtext' . $count);
                 if ($count == 1) {
                     $active = true;
                 } else {
                     $active = false;
                 }
-                $testimonialdata['testimonials'][] = array(
+                $testimonialdata['testimonials'][] = [
                 'image' => @$testimonialimageurl,
                 'name' => $testimonialname,
                 'designation' => $testimonialdesignation,
                 'text' => $testimonialtext,
                 'active' => $active,
-                'count' => $count - 1);
+                'count' => $count - 1];
             }
         }
 
@@ -92,7 +101,7 @@ class Sitehomehandler {
     public static function get_slider_data() {
         global $PAGE, $OUTPUT;
 
-        $sliderdata = array();
+        $sliderdata = [];
         $sliderdata['isslider'] = false;
         $sliderdata['isimage']  = false;
         $sliderdata['isvideo']  = false;
@@ -111,25 +120,25 @@ class Sitehomehandler {
             $sliderdata['isslider'] = true;
             if ($numberofslides >= 1) {
                 for ($count = 1; $count <= $numberofslides; $count++) {
-                    $sliderimageurl = toolbox::setting_file_url('slideimage'.$count, 'slideimage'.$count);
+                    $sliderimageurl = toolbox::setting_file_url('slideimage' . $count, 'slideimage' . $count);
                     if ($sliderimageurl == "" || $sliderimageurl == null) {
                         $sliderimageurl = toolbox::image_url('slide', 'theme');
                     }
-                    $sliderimagetext = format_text(toolbox::get_setting('slidertext'.$count));
-                    $sliderimagelink = toolbox::get_setting('sliderurl'.$count);
-                    $sliderbuttontext = toolbox::get_setting('sliderbuttontext'.$count);
+                    $sliderimagetext = format_text(toolbox::get_setting('slidertext' . $count));
+                    $sliderimagelink = toolbox::get_setting('sliderurl' . $count);
+                    $sliderbuttontext = toolbox::get_setting('sliderbuttontext' . $count);
                     if ($count == 1) {
                         $active = true;
                     } else {
                         $active = false;
                     }
-                    $sliderdata['slides'][] = array(
+                    $sliderdata['slides'][] = [
                     'img' => $sliderimageurl,
                     'img_txt' => $sliderimagetext,
                     'btn_link' => $sliderimagelink,
                     'btn_txt' => $sliderbuttontext,
                     'active' => $active,
-                    'count' => $count - 1);
+                    'count' => $count - 1];
                 }
             }
         } else if (!$frontpagecontenttype) { // Static data.
@@ -167,25 +176,30 @@ class Sitehomehandler {
     public static function get_recent_blogs($start = 0, $blogcount = 10) {
         global $CFG;
 
-        require_once($CFG->dirroot.'/blog/locallib.php');
+        require_once($CFG->dirroot . '/blog/locallib.php');
         $bloglisting = new \blog_listing();
 
         $blogentries = $bloglisting->get_entries($start, $blogcount);
 
         foreach ($blogentries as $blogentry) {
             $blogsummary = strip_tags($blogentry->summary);
-            $summarystring = strlen($blogsummary) > 150 ? substr($blogsummary, 0, 150)."..." : $blogsummary;
+            $summarystring = strlen($blogsummary) > 150 ? substr($blogsummary, 0, 150) . "..." : $blogsummary;
             $blogentry->summary = $summarystring;
 
             // Created at.
             $blogentry->createdat = date('d M, Y', $blogentry->created);
 
             // Link.
-            $blogentry->link = $CFG->wwwroot.'/blog/index.php?entryid='.$blogentry->id;
+            $blogentry->link = $CFG->wwwroot . '/blog/index.php?entryid=' . $blogentry->id;
         }
         return $blogentries;
     }
 
+    /**
+     * Get about us section data.
+     *
+     * @return array|false About us context data or false if disabled
+     */
     public static function get_aboutus_data() {
         $displayaboutus = \theme_remui\toolbox::get_setting('frontpageblockdisplay');
 
@@ -202,16 +216,18 @@ class Sitehomehandler {
         $context['aboutus_spots'] = [];
 
         for ($i = 1; $i <= 4; $i++) {
+            $sectionheading = \theme_remui\toolbox::get_setting('frontpageblocksection' . $i);
+            $sectiondescription = \theme_remui\toolbox::get_setting('frontpageblockdescriptionsection' . $i);
             $section = [
-                'heading' => format_text(\theme_remui\toolbox::get_setting('frontpageblocksection'. $i)),
-                'description' => strip_tags(format_text(\theme_remui\toolbox::get_setting('frontpageblockdescriptionsection'. $i))),
-                'icon' => \theme_remui\toolbox::get_setting('frontpageblockiconsection'. $i),
-                'image' => \theme_remui\toolbox::setting_file_url('frontpageblockimage'. $i, 'frontpageblockimage'. $i)
+                'heading' => format_text($sectionheading),
+                'description' => strip_tags(format_text($sectiondescription)),
+                'icon' => \theme_remui\toolbox::get_setting('frontpageblockiconsection' . $i),
+                'image' => \theme_remui\toolbox::setting_file_url('frontpageblockimage' . $i, 'frontpageblockimage' . $i),
             ];
 
             if ($enablesectionbutton) {
-                $section['button'] = \theme_remui\toolbox::get_setting('sectionbuttontext'. $i);
-                $section['link']   = \theme_remui\toolbox::get_setting('sectionbuttonlink'. $i);
+                $section['button'] = \theme_remui\toolbox::get_setting('sectionbuttontext' . $i);
+                $section['link']   = \theme_remui\toolbox::get_setting('sectionbuttonlink' . $i);
             }
 
             $context['aboutus_spots'][] = $section;

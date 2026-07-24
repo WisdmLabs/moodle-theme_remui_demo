@@ -1,4 +1,3 @@
-/* eslint-disable no-undef*/
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -15,10 +14,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Contain the logic for a drawer.
+ * Drawer module for RemUI theme.
+ * Contains the logic for managing drawer functionality including toggle and state management.
  *
- * @module theme_remui/drawer
- * @copyright  2016 Damyon Wiese
+ * @module     theme_remui/drawer
+ * @copyright  (c) 2023 WisdmLabs (https://wisdmlabs.com/) <support@wisdmlabs.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 define(['jquery', 'core/custom_interaction_events', 'core/log', 'core/pubsub', 'core/aria', 'core_user/repository'],

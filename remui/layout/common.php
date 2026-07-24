@@ -33,7 +33,7 @@ global $PAGE;
 theme_remui_set_dynamic_settings();
 
 $loaderimage = false;
-if (get_config('theme_remui','enablesiteloader')) {
+if (get_config('theme_remui', 'enablesiteloader')) {
     // Adding loader image before everything else.
     $loaderimage = \theme_remui\utility::get_site_loader();
 }
@@ -42,14 +42,21 @@ if (get_config('theme_remui','enablesiteloader')) {
 $addblockbutton = $OUTPUT->addblockbutton();
 
 // CUSTOMIZATION - START
+$edwisedemotype = get_config("theme_remui", "edwisedemotype");
+
 $demoblocklayouts = [
     "corporate" => $CFG->wwwroot. '/local/edwiserpagebuilder/page.php?id=21',
     "school" => $CFG->wwwroot. '/local/edwiserpagebuilder/page.php?id=25',
     "university" => $CFG->wwwroot. '/local/edwiserpagebuilder/page.php?id=23',
     "classic" => $CFG->wwwroot. '/local/edwiserpagebuilder/page.php?id=27',
     "training" => $CFG->wwwroot. '/local/edwiserpagebuilder/page.php?id=17',
-    "videoformatdemo" => $CFG->wwwroot. '/course/view.php?id=26',
 ];
+
+if ($edwisedemotype == "videoformatdemo") {
+    $demoblocklayouts['videoformatdemo'] = $CFG->wwwroot. '/course/view.php?id=2';
+} else if ( $edwisedemotype == "tryremuidemo" ) {
+    $demoblocklayouts['videoformatdemo'] = $CFG->wwwroot. '/course/view.php?id=26';
+}
 
 // if (get_config("theme_remui", "redirecttodemoblocklayout")) {
 //     $redirectUrl = $demoblocklayouts[get_config("theme_remui", "redirecttodemoblocklayout")];
@@ -102,7 +109,7 @@ if (isloggedin()) {
     $courseindexopen = (get_user_preferences('drawer-open-index', true) == true);
     $blockdraweropen = (get_user_preferences('drawer-open-block') == true);
     // Always pinned for quiz and book activity.
-    $activities = array("book", "quiz");
+    $activities = ["book", "quiz"];
     if (isset($PAGE->cm->id) && in_array($PAGE->cm->modname, $activities)) {
         $blockdraweropen = true;
     }
@@ -134,6 +141,13 @@ if (!$courseindex) {
 }
 
 $extraclasses[] = \theme_remui\utility::get_main_bg_class();
+
+// Add theme preset body class if modern preset is selected (skip on the customizer page itself).
+$themepresetselection = get_config('theme_remui', 'radio_themepreset');
+$iscustomizerpage = strpos($PAGE->url->get_path(), '/theme/remui/customizer.php') !== false;
+if ($themepresetselection === 'preset-modern' && !$iscustomizerpage) {
+    $extraclasses[] = 'modern-preset';
+}
 
 // Focus data.
 $coursehandler = new \theme_remui_coursehandler();
@@ -195,17 +209,23 @@ $headercontent = $header->export_for_template($renderer);
 $lcontroller = new \theme_remui\controller\LicenseController();
 
 $democontext = \theme_remui\utility::get_demonavbar_context();
-if ($isvideoformatdemo) {
-    $extraclasses[] = 'videoformatdemo';
-    $democontext['isvideoformatdemo'] = true;
+if ($democontext['isdemonavbarhidden'] || $isvideoformatdemo) {
+    $democontext["isdemonavbarhidden"] = true;
+    $extraclasses[] = 'demonavbarhidden';
 }
+
+// Prepare demo floating button modal data.
+$democontext['demomodaldatajson'] = json_encode(\theme_remui\utility::get_demo_modal_data());
 
 $templatecontext = [
     'sitename' => format_string($SITE->shortname, true, ['context' => context_course::instance(SITEID), "escape" => false]),
+    'coursename' => ($PAGE->course && $PAGE->course->id != SITEID) ? format_string($PAGE->course->fullname) : '',
+    'courseurl' => ($PAGE->course && $PAGE->course->id != SITEID) ? (new moodle_url('/course/view.php', ['id' => $PAGE->course->id]))->out(false) : '',
     'fonts' => $fonts,
     'output' => $OUTPUT,
     'sidepreblocks' => $blockshtml,
     'hasblocks' => $hasblocks,
+    'moodle_version_gte501' => ((int)$CFG->branch > 501) ? true : false,
     'show_license_notice' => \theme_remui\utility::show_license_notice(),
     'courseindexopen' => $courseindexopen,
     'blockdraweropen' => $blockdraweropen,
@@ -249,4 +269,8 @@ if (\theme_remui\toolbox::get_setting('enabledictionary') && !$PAGE->user_is_edi
 
 if ("admin-setting-themesettingremui" == $PAGE->pagetype) {
     $templatecontext['enablebeacon'] = true;
+}
+
+if ($CFG->registerauth == 'email' && \theme_remui\toolbox::get_setting('enablesignup')) {
+    $templatecontext['signupurl'] = new moodle_url('/login/signup.php');
 }

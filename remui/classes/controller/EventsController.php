@@ -27,27 +27,35 @@ namespace theme_remui\controller;
  * Class EventsController will handle the events triggered by Moodle.
  */
 class EventsController {
-
-    public static function remui_stats_common($userid, $courseid, $deleteActivity = false, $coursedeleted=false) {
+    /**
+     * Common function to handle stats updates for users and courses.
+     *
+     * @param int|string $userid User ID
+     * @param int|string $courseid Course ID
+     * @param bool $deleteactivity Whether activity is being deleted
+     * @param bool $coursedeleted Whether course is being deleted
+     * @return void
+     */
+    public static function remui_stats_common($userid, $courseid, $deleteactivity = false, $coursedeleted = false) {
 
         $coursehandler = new \theme_remui_coursehandler();
 
         if ($userid) {
-            if (get_config( "theme_remui", "enabledashboardcoursestats")) {
+            if (get_config("theme_remui", "enabledashboardcoursestats")) {
                 $coursehandler->set_dashboard_stats($userid);
             } else {
                 set_config("edwdashboardstats", "", "theme_remui");
             }
         }
         if ($courseid) {
-            if (get_config( "theme_remui", "enablecoursestats")) {
+            if (get_config("theme_remui", "enablecoursestats")) {
                 if (!$coursedeleted) {
                     $course = get_course($courseid);
                     $coursehandler->set_course_stats($course, true);
                 }
 
-                if ($deleteActivity) {
-                    if (get_config( "theme_remui", "enabledashboardcoursestats")) {
+                if ($deleteactivity) {
+                    if (get_config("theme_remui", "enabledashboardcoursestats")) {
                         $coursehandler->reset_dashboard_stats_for_users_incourse($course);
                     } else {
                         set_config("edwdashboardstats", "", "theme_remui");
@@ -58,13 +66,20 @@ class EventsController {
             }
         }
     }
+
+    /**
+     * Handle user enrollment event.
+     *
+     * @param object $eventdata Event data object
+     * @return void
+     */
     public static function user_enrollment_event($eventdata) {
 
         $data = $eventdata->get_data();
 
         $userid = $data['relateduserid'];
 
-        EventsController::remui_stats_common($userid, $eventdata->courseid);
+        self::remui_stats_common($userid, $eventdata->courseid);
 
         set_user_preference('course_cache_reset', true, $userid);
 
@@ -73,6 +88,12 @@ class EventsController {
         $pnotification->update_enrollment_history();
     }
 
+    /**
+     * Handle course update event.
+     *
+     * @param object $eventdata Event data object
+     * @return void
+     */
     public static function course_updation_event($eventdata) {
         // Set Global Config to acknowledge to reset the cache.
         // Can reset order is not just for enrolled students.
@@ -80,11 +101,17 @@ class EventsController {
 
         $data = $eventdata->get_data();
 
-        EventsController::remui_stats_common($data['relateduserid'], $eventdata->courseid);
+        self::remui_stats_common($data['relateduserid'], $eventdata->courseid);
 
         set_config('cache_reset_time', time(), 'theme_remui');
     }
 
+    /**
+     * Handle course deletion event.
+     *
+     * @param object $eventdata Event data object
+     * @return void
+     */
     public static function course_deletion_event($eventdata) {
         // Set Global Config to acknowledge to reset the cache.
         // Can reset order is not just for enrolled students.
@@ -92,27 +119,112 @@ class EventsController {
 
         $data = $eventdata->get_data();
 
-        EventsController::remui_stats_common($data['relateduserid'], $eventdata->courseid, false, true);
+        self::remui_stats_common($data['relateduserid'], $eventdata->courseid, false, true);
 
         set_config('cache_reset_time', time(), 'theme_remui');
     }
 
+    /**
+     * Handle activity creation/deletion event.
+     *
+     * @param object $eventdata Event data object
+     * @return void
+     */
     public static function updation_on_create_delete_activity($eventdata) {
         // Set Global Config to acknowledge to reset the cache.
         // Can reset order is not just for enrolled students.
         // Need to reset the cache of all users as that course get displayed in All Courses Tab.
 
-        EventsController::remui_stats_common("", $eventdata->courseid, true);
+        self::remui_stats_common("", $eventdata->courseid, true);
 
         set_config('cache_reset_time', time(), 'theme_remui');
     }
 
-
+    /**
+     * Handle user login event.
+     *
+     * @param object $eventdata Event data object
+     * @return void
+     */
     public static function user_loggedin_event($eventdata) {
         global $USER;
         set_user_preference('enable_focus_mode', null, $USER->id);
 
         set_user_preference('animate_dm_icon', true, $USER->id);
+    }
 
+    /**
+     * Handle custom field update event.
+     *
+     * @param object $eventdata Event data object
+     * @return void
+     */
+    public static function customfield_updated($eventdata) {
+        global $DB;
+        $data = $eventdata->get_data();
+        $fieldid = $data['objectid'] ?? null;
+
+        if (empty($fieldid)) {
+            return;
+        }
+
+        // Only handle the skill-level field for courses.
+        $field = $DB->get_record('customfield_field', ['id' => $fieldid], 'id, shortname, configdata');
+        if (!$field || $field->shortname !== 'edwskilllevel') {
+            return;
+        }
+
+        $config = json_decode($field->configdata);
+        // Keep options as stored (1-based alignment with intvalue).
+        $options = preg_split('/\r\n|\n|\r/', $config->options ?? '');
+        $defaultindex = 0;
+
+        // Current distribution of intvalues for this field.
+        $sql = "SELECT cd.intvalue, COUNT(cd.intvalue) AS count
+                FROM {customfield_field} cf
+                INNER JOIN {customfield_data} cd
+                ON cf.id = cd.fieldid
+                WHERE cf.id = :fieldid
+                GROUP BY cd.intvalue
+                ORDER BY cd.intvalue";
+
+        $result = $DB->get_records_sql($sql, ['fieldid' => $fieldid]);
+
+        // Find intvalues that no longer map to an existing option (excluding 0).
+        $invalidskillvalues = [];
+        foreach ($result as $leveldata) {
+            if ($leveldata->intvalue != 0 && !isset($options[$leveldata->intvalue - 1])) {
+                $invalidskillvalues[] = (int)$leveldata->intvalue;
+            }
+        }
+
+        if (empty($invalidskillvalues)) {
+            return;
+        }
+
+        // Move affected courses to the default index (0) to avoid invalid lookups.
+        foreach ($invalidskillvalues as $invalidvalue) {
+            $affectedcourseids = \theme_remui\utility::get_skilllevel_filtered_courseids([$invalidvalue]);
+            if (empty($affectedcourseids)) {
+                continue;
+            }
+
+            [$courseinsql, $courseinparams] = $DB->get_in_or_equal($affectedcourseids, SQL_PARAMS_NAMED);
+
+            $updateparams = array_merge(
+                [
+                    'fieldid' => $fieldid,
+                    'newintvalue' => $defaultindex,
+                ],
+                $courseinparams
+            );
+
+            $updatesql = "UPDATE {customfield_data}
+                          SET intvalue = :newintvalue
+                          WHERE fieldid = :fieldid
+                            AND instanceid $courseinsql";
+
+            $DB->execute($updatesql, $updateparams);
+        }
     }
 }

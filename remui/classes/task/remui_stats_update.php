@@ -24,8 +24,12 @@
 
 namespace theme_remui\task;
 
+/**
+ * RemUI stats update scheduled task.
+ *
+ * Updates dashboard and course statistics for the RemUI theme.
+ */
 class remui_stats_update extends \core\task\scheduled_task {
-
     /**
      * Return the task's name as shown in admin screens.
      *
@@ -50,7 +54,7 @@ class remui_stats_update extends \core\task\scheduled_task {
             $userids = $this->get_user_ids();
             foreach ($userids as $userid) {
                 $coursehandler->set_dashboard_stats($userid);
-                // Free up memory
+                // Free up memory.
                 \core_php_time_limit::raise(30);
                 gc_collect_cycles();
             }
@@ -64,7 +68,7 @@ class remui_stats_update extends \core\task\scheduled_task {
             foreach ($courseids as $courseid) {
                 $course = get_course($courseid);
                 $coursehandler->set_course_stats($course, true);
-                // Free up memory
+                // Free up memory.
                 \core_php_time_limit::raise(30);
                 gc_collect_cycles();
             }

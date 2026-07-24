@@ -65,7 +65,26 @@ define(["jquery"], function ($) {
     });
   };
 
+  /**
+   * Initialise logic for the demo modal → customizer flow.
+   * Runs custom JS after the Visual Personalizer finishes loading
+   * when the user arrived via the demo modal "Preset" button.
+   */
+  const initDemoCustomizer = () => {
+    const isFromDemoModal = window.location.search.includes("from_demo_modal=1");
+    if (!isFromDemoModal) {
+      return;
+    }
+
+    // The customizer fires this event once the iframe loads and settings apply.
+    $(document).one("edwiser.customizer.apply", () => {
+      $("#root").removeClass("current");
+      $("#quicksetup").addClass("current");
+    });
+  };
+
   return {
     init: init,
+    initDemoCustomizer: initDemoCustomizer,
   };
 });

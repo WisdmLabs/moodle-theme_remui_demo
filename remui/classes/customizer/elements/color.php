@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Theme customizer color element class
  *
@@ -28,7 +29,6 @@ namespace theme_remui\customizer\elements;
  * Color picker element class.
  */
 class color extends base {
-
     /**
      * Validate color value. For hex color validation only.
      *
@@ -115,7 +115,7 @@ class color extends base {
             'help' => $this->get_help(),
             'default' => $default,
             'change' => $change,
-            'options' => isset($options['options']) ? $options['options'] : []
+            'options' => isset($options['options']) ? $options['options'] : [],
         ]);
     }
 }

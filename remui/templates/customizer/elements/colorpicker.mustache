@@ -35,7 +35,7 @@
     </div>
     <div class="color-input" data-fieldtype="color">
         <input type='hidden' id='id_{{name}}'
-        name='{{name}}' class='site-colorpicker d-none'
+        name='{{name}}' class='site-colorpicker d-none spectrum-not-initialized'
         hidden style='display:none;'
         value='{{default}}'>
         <div class="form-control-feedback invalid-feedback" id="id_error_{{name}}">
@@ -44,35 +44,63 @@
 </div>
 {{#js}}
     require(['jquery', 'theme_remui/color-picker'], function($) {
-        $('#id_{{name}}').spectrum({
-            color: '{{default}}',
-            cancelText: '{{#str}} cancel {{/str}}',
-            chooseText: '{{#str}} choose {{/str}}',
-            clickoutFiresChange: true,
-            showInput: true,
-            allowEmpty: {{#allowempty}}true{{/allowempty}}{{^allowempty}}false{{/allowempty}},
-            containerClassName: 'border-secondary',
-            replacerClassName: 'site-colorpicker-custom w-full bg-white border-0',
-            showPalette: true,
-            palette: [
-                ['#0051F9', '#0FC8BC', '#F26440'],
-                [ '#37BE71', '#EAC2B8', '#7766A7'],
-                ['#28A745', '#DC3545', '#FFC107'],
-                ['#9432b9', '#724242', '#17A2B8'],
-                ['#FF7272', '3aa99e', '#343A40']
-            ],
-            {{#options}}
-                {{key}}: {{{value}}},
-            {{/options}}
-            change: function(color) {
-                $('#id_{{name}}').trigger('color.changed', color);
-            },
-            move: function(color) {
-                $('#id_{{name}}').trigger('color.changed', color);
-            },
-            hide: function() {
-                $('#id_{{name}}').trigger('color.changed');
+        // Helper function to sync all matching color pickers
+        function syncMatchingElements($element, color) {
+            if ($element.data('syncing')) {
+                return;
             }
+            var colorValue = color ? color.toString() : $element.spectrum('get').toString();
+            $('[name="{{name}}"]').each(function() {
+                var $otherElement = $(this);
+                if ($otherElement[0] !== $element[0] && $otherElement.data('spectrum.id')) {
+                    var currentValue = $otherElement.spectrum('get');
+                    if (!currentValue || currentValue.toString() !== colorValue) {
+                        $otherElement.data('syncing', true);
+                        $otherElement.spectrum('set', colorValue);
+                        $otherElement.removeData('syncing');
+                    }
+                }
+            });
+            $('[name="{{name}}"]').trigger('color.changed', color);
+        }
+
+        // Initialize spectrum on uninitialized elements with this name
+        $('[name="{{name}}"].spectrum-not-initialized').each(function() {
+            var $element = $(this);
+            var defaultColor = $element.val() || '{{default}}';
+
+            $element.spectrum({
+                color: defaultColor,
+                cancelText: '{{#str}} cancel {{/str}}',
+                chooseText: '{{#str}} choose {{/str}}',
+                clickoutFiresChange: true,
+                showInput: true,
+                allowEmpty: {{#allowempty}}true{{/allowempty}}{{^allowempty}}false{{/allowempty}},
+                containerClassName: 'border-secondary',
+                replacerClassName: 'site-colorpicker-custom w-full bg-white border-0',
+                showPalette: true,
+                palette: [
+                    ['#0051F9', '#0FC8BC', '#F26440'],
+                    [ '#37BE71', '#EAC2B8', '#7766A7'],
+                    ['#28A745', '#DC3545', '#FFC107'],
+                    ['#9432b9', '#724242', '#17A2B8'],
+                    ['#FF7272', '3aa99e', '#343A40']
+                ],
+                {{#options}}
+                    {{key}}: {{{value}}},
+                {{/options}}
+                change: function(color) {
+                    syncMatchingElements($element, color);
+                },
+                move: function(color) {
+                    syncMatchingElements($element, color);
+                },
+                hide: function() {
+                    syncMatchingElements($element);
+                }
+            });
+
+            $element.removeClass('spectrum-not-initialized');
         });
     });
 {{/js}}

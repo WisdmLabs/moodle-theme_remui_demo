@@ -1,10 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable jsdoc/require-jsdoc*/
-/* eslint-disable jsdoc/require-jsdoc*/
-/* eslint-disable jsdoc/require-jsdoc*/
-/* eslint-disable no-loop-func*/
-/* eslint-disable no-unused-vars */
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -21,10 +14,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * TODO describe module feedbackcollection
+ * Feedback collection module for RemUI theme.
+ * Handles user feedback submission and collection functionality.
  *
  * @module     theme_remui/feedbackcollection
- * @copyright  2024 YOUR NAME <your@email.com>
+ * @copyright  (c) 2023 WisdmLabs (https://wisdmlabs.com/) <support@wisdmlabs.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -194,11 +188,11 @@ define(['jquery', 'core/ajax', 'core/notification', 'core/templates'], function(
             $(document).on("click", SELECTORS.FEEDBACKCOLLECTION + " .skip-btn", close_modal);
 
             $(document).on("submit", SELECTORS.FEEDBACKCOLLECTION_FORM, submit_feedback_handler);
-            $(document).on("submit", "#page-admin-setting-themesettingremui #adminsettings", function(e) {
+            $(document).on("submit", "#page-admin-setting-themesettingremui #adminsettings", function() {
                 localStorage.setItem("remui_settings_feedback_visited", "true");
             });
 
-            $(document).on("click", "#page-site-index .advanceblockblocks .blockurl", function(e) {
+            $(document).on("click", "#page-site-index .advanceblockblocks .blockurl", function() {
                 let feedbackTime = Date.now(); // Add 24 hours to current time
                 localStorage.setItem('frontpage_feedback_timestamp', feedbackTime);
             });

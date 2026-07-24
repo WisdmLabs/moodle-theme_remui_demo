@@ -22,7 +22,7 @@
  */
 defined('MOODLE_INTERNAL') || die();
 
-use \theme_remui\toolbox;
+use theme_remui\toolbox;
 
 // User Login is must.
 require_login();
@@ -36,12 +36,12 @@ if (!is_siteadmin()) {
     exit('go away sir...');
 }
 
-$templatecontext = array();
+$templatecontext = [];
 
 $licensecontroller = new \theme_remui\controller\LicenseController();
 $templatecontext['license'] = $licensecontroller->get_remui_license_template_context();
 
-require_once($CFG->dirroot.'/theme/remui/lib.php');
+require_once($CFG->dirroot . '/theme/remui/lib.php');
 $templatecontext['remuithemeversion'] = get_string('themeversionforinfo', 'theme_remui', get_theme_release_info());
 echo $OUTPUT->render_from_template('theme_remui/information_center', $templatecontext);
 

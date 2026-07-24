@@ -1,5 +1,3 @@
-/* eslint-disable no-console*/
-/* eslint-disable no-undef*/
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -16,8 +14,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Focus mode module for RemUI theme.
+ * Handles enabling and disabling focus mode for improved user concentration.
+ *
  * @module     theme_remui/focusmode
- * @copyright (c) 2023 WisdmLabs (https://wisdmlabs.com/)
+ * @copyright  (c) 2023 WisdmLabs (https://wisdmlabs.com/) <support@wisdmlabs.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -106,7 +107,7 @@ define(['jquery', 'theme_remui/notice', 'core/str','theme_remui/user/repository'
                 $(SELECTORS.BODY).addClass(SELECTORS.FOCUS_MODE_CLASS);
                 $(SELECTORS.FM_BUTTON).addClass('btn-danger').removeClass('btn-primary');
                 $(SELECTORS.FM_BUTTON).attr('aria-pressed', 'true');
-                $(SELECTORS.FM_BUTTON_ICON).removeClass().addClass('edw-icon edw-icon-Cancel');
+                $(SELECTORS.FM_BUTTON_ICON).removeClass().addClass('edw-icon edw-icon-Collapse');
                 $(SELECTORS.FOCUS_MODE_TEXT).text(M.util.get_string("focusmodeactivestatetext", "theme_remui"));
             }
             if (action === "deactivate") {
@@ -136,9 +137,7 @@ define(['jquery', 'theme_remui/notice', 'core/str','theme_remui/user/repository'
             _obj.changeFMButtonClasses(action);
 
             _obj.fmstatus = status;
-            $oldprefences = await UserRepository.getUserPreferences('enable_focus_mode');
-            // console.log(_obj.fmstatus);
-            // console.log($oldprefences.preferences[0]);
+            const $oldprefences = await UserRepository.getUserPreferences('enable_focus_mode');
             let userfocusmodepref = {};
             const courseid = M.cfg.courseId;
 

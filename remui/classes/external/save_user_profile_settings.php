@@ -39,7 +39,7 @@ trait save_user_profile_settings {
      */
     public static function save_user_profile_settings_parameters() {
         return new external_function_parameters(
-            array(
+            [
                 'fname' => new external_value(PARAM_TEXT, 'Firstname'),
                 'lname' => new external_value(PARAM_TEXT, 'Lastname'),
                 'description' => new external_value(PARAM_RAW, 'Description'),
@@ -47,8 +47,8 @@ trait save_user_profile_settings {
                 'country' => new external_value(PARAM_ALPHAEXT, 'Country'),
                 'phonenumber' => new external_value(PARAM_TEXT, 'Phonenumber'),
                 'department' => new external_value(PARAM_TEXT, 'Department'),
-                'address' => new external_value(PARAM_RAW, 'Address')
-            )
+                'address' => new external_value(PARAM_RAW, 'Address'),
+            ]
         );
     }
 
@@ -61,8 +61,21 @@ trait save_user_profile_settings {
      * @param  string $country     Country
      * @return mixxed              Result
      */
-    public static function save_user_profile_settings($fname, $lname, $description, $city, $country, $phonenumber, $department, $address) {
+    public static function save_user_profile_settings(
+        $fname,
+        $lname,
+        $description,
+        $city,
+        $country,
+        $phonenumber,
+        $department,
+        $address
+    ) {
         global $USER;
+
+        // Validate sesskey to prevent CSRF attacks.
+        confirm_sesskey();
+
         // Validation for context is needed.
         $context = context_user::instance($USER->id);
         self::validate_context($context);
@@ -75,20 +88,21 @@ trait save_user_profile_settings {
             $country,
             $phonenumber,
             $department,
-            $address);
+            $address
+        );
 
-        if($result) {
-            $updatedProfileData = array(
+        if ($result) {
+            $updatedprofiledata = [
                 'description' => format_text($description, FORMAT_HTML),
                 'city' => format_text($city, FORMAT_HTML),
                 'department' => format_text($department, FORMAT_HTML),
-                'address' => format_text($address, FORMAT_HTML)
-            );
+                'address' => format_text($address, FORMAT_HTML),
+            ];
         } else {
-            $updatedProfileData = [];
+            $updatedprofiledata = [];
         }
 
-        return json_encode($updatedProfileData);
+        return json_encode($updatedprofiledata);
     }
 
     /**
@@ -96,6 +110,6 @@ trait save_user_profile_settings {
      * @return external_value
      */
     public static function save_user_profile_settings_returns() {
-        return new external_value(PARAM_RAW, 'updatedProfileData');
+        return new external_value(PARAM_RAW, 'Updated profile data');
     }
 }

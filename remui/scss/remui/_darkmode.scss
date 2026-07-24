@@ -89,6 +89,23 @@ html[nighteyeplgn="active"] {
    .dark-logomini {
        display: flex !important;
    }
+
+   .alert-info{
+      --bs-alert-bg-night-eye: #1a4d56;
+      border-color: #206069;
+   }
+   .alert-success{
+      --bs-alert-bg-night-eye: #214f2c;
+      border-color: #296136;
+   }
+    .alert-warning{
+        --bs-alert-bg-night-eye: #664b00;
+        border-color: #664b00;
+    }
+    .alert-danger{
+        --bs-alert-bg-night-eye: #4e1318;
+        border-color: #4e1318;
+    }
  }
 
  html:not([nighteyeplgn="active"]){

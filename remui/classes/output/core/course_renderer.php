@@ -33,7 +33,7 @@ use context_system;
 use html_writer;
 use core_text;
 use pix_icon;
-use theme_remui\utility as utility;
+use theme_remui\utility;
 require_once($CFG->dirroot . '/course/renderer.php');
 
 /**
@@ -65,8 +65,6 @@ class course_renderer extends \core_course_renderer {
             }
 
             $actionbar = new \core_course\output\category_action_bar($this->page, $coursecat);
-
-            // $output = $this->render_from_template('core_course/category_actionbar', $actionbar->export_for_template($this));
 
             $actionbardata = $actionbar->export_for_template($this);
             $output = $actionbardata["additionaloptions"];
@@ -102,7 +100,7 @@ class course_renderer extends \core_course_renderer {
             'inputname' => 'q',
             'searchstring' => get_string('searchcourses'),
             'hiddenfields' => (object) ['name' => 'areaids', 'value' => 'core_course-course'],
-            'query' => $value
+            'query' => $value,
         ];
         return $this->render_from_template('theme_remui/course_archive_search_input', $data);
     }
@@ -116,20 +114,20 @@ class course_renderer extends \core_course_renderer {
         global $CFG, $DB;
         $contenthtml = '';
         $chelper = new coursecat_helper();
-        $chelper->set_show_courses(self::COURSECAT_SHOW_COURSES_EXPANDED)->set_courses_display_options(array(
+        $chelper->set_show_courses(self::COURSECAT_SHOW_COURSES_EXPANDED)->set_courses_display_options([
                     'recursive' => true,
                     'limit' => $CFG->frontpagecourselimit,
                     'viewmoreurl' => new moodle_url('/course/index.php'),
-                    'viewmoretext' => new lang_string('fulllistofcourses')));
+                    'viewmoretext' => new lang_string('fulllistofcourses')]);
 
-        $chelper->set_attributes(array('class' => 'frontpage-course-list-all'));
-        // $courses = core_course_category::get(0)->get_courses($chelper->get_courses_display_options());
+        $chelper->set_attributes(['class' => 'frontpage-course-list-all']);
 
         $courselength = $CFG->frontpagecourselimit;
         $totalcount = core_course_category::get(0)->get_courses_count($chelper->get_courses_display_options());
-        if (!$totalcount &&
-        !$this->page->user_is_editing() &&
-        has_capability('moodle/course:create', \context_system::instance())
+        if (
+            !$totalcount &&
+            !$this->page->user_is_editing() &&
+            has_capability('moodle/course:create', \context_system::instance())
         ) {
             // Print link to create a new course, for the 1st available category.
             return $this->add_new_course_button();
@@ -148,7 +146,6 @@ class course_renderer extends \core_course_renderer {
         );
 
         if (!empty($courses)) {
-            // $coursehtml = '<div class="card-deck slick-course-slider slick-slider d-none">';
             $contenthtml .= "<div class='slick-slide-container'>";
             foreach ($courses as $course) {
                 $contenthtml .= $this->render_from_template("theme_remui/frontpage_available_course", $course);
@@ -163,9 +160,11 @@ class course_renderer extends \core_course_renderer {
                             </button>
                             </div>";
 
+            $viewallurl = $CFG->wwwroot . '/course/index.php';
+            $viewalltext = get_string('viewallcourses', 'core');
             $contenthtml .= "<div class='row'>
                             <div class='col-12 text-right'>
-                             <a href='{$CFG->wwwroot}/course/index.php' class='btn btn-primary mt-2'>" . get_string('viewallcourses', 'core')."</a>
+                             <a href='{$viewallurl}' class='btn btn-primary mt-2'>" . $viewalltext . "</a>
                             </div>
                             </div>";
         }

@@ -1,0 +1,81 @@
+# Changes in Existing Files
+    layout/common.php: 
+        $democontext = \theme_remui\utility::get_demonavbar_context(); added
+        get_demonavbar_context() added in Utility file class and  in this function we handled all the requirment for demonavbar
+
+        on top of common.php file Redirection code added when demolayout is added during instance creation
+
+    common_start.mustacke: demonavbar.mustache included
+
+        # The demonavbar.mustache file is included in the common_start.mustache file, which is responsible for rendering the demo navigation bar on the site.
+
+# New Files Created
+    In pix directory, separate folder 'demosite' created for demonavbar images
+
+    demonavbar.scss: created for styling and included into scss/remui.scss
+
+                        # demonavbar.scss has been created to hold the styling rules for the demo navigation bar. This file is included in the scss/remui.scss file, which is the main SCSS file for the Remui theme.
+
+    customizationvariables.scss
+    customizationfordemo.scss created for customizing layout (existing navbar, sidebar) accordingly. and it's included into scss/remui.scss
+
+    5 mustache files created for demonavbar:
+        demonavbar.mustache (included into common_start.mustache)
+
+                        # The main demonavbar.mustache file is responsible for rendering the demo navigation bar. It is included in the common_start.mustache file.
+
+        and other mustache files include into demonavbar.mustache
+        demonavbar_templates.mustache
+        demonavbar_features.mustache
+        demonavbar_theme_pages.mustache
+        demonavbar_whatsnew.mustache
+
+# These four additional mustache files are included in the demonavbar.mustache file and provide content for different sections of the demo navigation bar, such as templates, features, theme pages, and what's new.
+
+
+# Login page profiles
+    Have few customizations on core/loginform.mustache
+    Added comments for customizations, didn't add it separatly
+    Also have four profile pictures in pix folder - admin.png, manager.png, student.png, teacher.png
+
+# Save settings as per our requirement 
+    lib.php 
+        Function => theme_remui_set_dynamic_settings()
+        Call for the function is in common.php layout file
+
+# theme_remui_set_demo_layouttype service created in theme remui for storing layout type
+    It involves the following files:
+        db/service.php
+        classes/external/api.php
+        classes/external/set_demo_layouttype.php
+
+# loginbgurl added
+    This feature adds the ability to set a background image for the login page according to selected layout type.
+    layout/login.php - Added a new variable $loginbgurl to store the URL of the background image.
+    templates/login.mustache - Utilizes the $loginbgurl variable to display the background image on the login page.
+
+# Js code changes in edwiserpagebuilder 
+    pageslistsettings.js 
+    existing code will add the subheader on both navbar big-nav and moodle nav 
+    removed the existing line $("#page-wrapper nav.navbar").after(pagesubheader);
+    added $($("#page-wrapper nav.navbar")[1]).after(pagesubheader); this line in the function setHeaderOnTop 
+
+# Js code added on remuiloader.js file to handling Site Announcement position in all pages and different screensizes
+	The js code is added inside handleSiteAnnouncementPosition() function
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+CHNAGES AFTER release remui 4.2.10
+
+# Highlighted simbole added on "what's new" tab
+
+# "Pricing page" added on corporate and clasic tab
+
+# New tab "Single instructor" added on Templates section with two layout "Moodle Expert" and "Language Instructor"
+
+# store whatsnew data to cache
+    - added whatsnew cache Defination in db/caches.php
+    - created separate function called 'get_whatsnew_data()' in utility.php file
+
+# AI Beacon
+    - AI beacon code added in templates/head.mustache

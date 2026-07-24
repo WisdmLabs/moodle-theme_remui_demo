@@ -120,6 +120,18 @@ body.transparent-header:not(body.latest-frontpage.transparent-header){
         .popover-region .nav-link:hover{
             color: $hds-icon-hover-color;;
         }
+
+        #nav-notification-popover-container:not(.collapsed) .nav-link .edw-icon-Notification {
+            color: $hds-icon-active-color;
+        }
+
+        // #nav-message-popover-container:not(.collapsed) .nav-link .edw-icon-Comment-03 {
+        //     color: $brand-primary;
+        // }
+
+        #nav-message-popover-container .nav-link:focus .edw-icon-Comment-03{
+            color: unset;
+        }
     }
     .sub-nav {
         .primary-navigation,
@@ -297,6 +309,19 @@ body.transparent-header:not(body.latest-frontpage.transparent-header){
         }
     }
 }
+
+.dropdown-toggle{
+    display: flex !important;
+    align-items: center;       
+    
+    &::after {
+        font-family: #{$remui-icon-font-family};
+        content: "\55";
+        font-size: 17px;
+        margin-left: 0;
+    }
+}
+
 .dropdownmoremenu {
     &:not(.d-none) {
         display: flex;
@@ -392,4 +417,26 @@ body.transparent-header:not(body.latest-frontpage.transparent-header){
 // Make navbar height available for non-sass use (in some place in core mustache file they have used --navbar-height.
 :root {
     --navbar-height: #{$navbar-height};
+}
+
+body:has(.drawer:not(.hidden) .message-app) {
+    #usernavigation #nav-message-popover-container .nav-link .edw-icon-Comment-03 {
+        color: $hds-icon-active-color;
+    }
+}
+
+.edw-m502 {
+  .navbar {
+    .usermenu-wrapper {
+      .usermenu-container {
+        .usermenu {
+          #user-menu-toggle {
+            &::after {
+              content: unset;
+            }
+          }
+        }
+      }
+    }
+  }
 }

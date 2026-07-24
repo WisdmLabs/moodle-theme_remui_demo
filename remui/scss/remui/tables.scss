@@ -305,3 +305,19 @@ html[nighteyeplgn="active"] {
       --bs-table-bg-state: unset;
    }
 }
+
+//Column sort order table UI issue
+#page-admin-question-bank-columnsortorder-sortcolumns #question_table{
+    #categoryquestions{
+        table-layout: auto;
+    }
+}
+
+#page-course-overview{
+    .course-overview-table {
+        td[data-mdl-overview-item="duedate"],
+        td[data-mdl-overview-item="submissions"] {
+            padding-top: 15px !important;
+        }
+    }
+}

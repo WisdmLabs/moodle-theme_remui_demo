@@ -46,9 +46,9 @@ trait get_file_from_setting {
      */
     public static function get_file_from_setting_parameters() {
         return new external_function_parameters(
-            array (
-                'itemid' => new external_value(PARAM_RAW, 'File itemid'),
-            )
+            [
+                'itemid' => new external_value(PARAM_INT, 'File item ID'),
+             ]
         );
     }
 

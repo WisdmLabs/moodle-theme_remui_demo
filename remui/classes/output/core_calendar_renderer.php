@@ -19,7 +19,7 @@
  *
  * @copyright 2010 Sam Hemelryk
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @package calendar
+ * @package theme_remui
  */
 namespace theme_remui\output;
 
@@ -36,7 +36,7 @@ class core_calendar_renderer extends \core_calendar_renderer {
      * @param int|null $calinstid The instance ID of the calendar we're generating this course filter for.
      * @return string
      */
-    public function course_filter_selector(\moodle_url $returnurl, $label = null, $courseid = null, int $calinstid = null) {
+    public function course_filter_selector(\moodle_url $returnurl, $label = null, $courseid = null, ?int $calinstid = null) {
         global $CFG, $DB;
 
         if (!isloggedin() || isguestuser()) {
@@ -54,10 +54,10 @@ class core_calendar_renderer extends \core_calendar_renderer {
             // quite a bit if a user has access to a large number of courses (e.g. admin).
             // So in order to avoid hitting the DB for each context as we loop below we
             // can load all of the context records and add them to the cache just in time.
-            $courseids = array_map(function($c) {
+            $courseids = array_map(function ($c) {
                 return $c->id;
             }, $courses);
-            list($insql, $params) = $DB->get_in_or_equal($courseids);
+            [$insql, $params] = $DB->get_in_or_equal($courseids);
             $contextsql = "SELECT ctx.instanceid, " . \context_helper::get_preload_record_columns_sql('ctx') .
                           " FROM {context} ctx WHERE ctx.contextlevel = ? AND ctx.instanceid $insql";
             array_unshift($params, CONTEXT_COURSE);
@@ -66,14 +66,14 @@ class core_calendar_renderer extends \core_calendar_renderer {
 
         unset($courses[SITEID]);
 
-        $courseoptions = array();
+        $courseoptions = [];
         $courseoptions[SITEID] = get_string('fulllistofcourses');
         foreach ($courses as $course) {
             if (isset($contextrecords[$course->id])) {
                 \context_helper::preload_from_record($contextrecords[$course->id]);
             }
             $coursecontext = \context_course::instance($course->id);
-            $courseoptions[$course->id] = format_string($course->shortname, true, array('context' => $coursecontext));
+            $courseoptions[$course->id] = format_string($course->shortname, true, ['context' => $coursecontext]);
         }
 
         if ($courseid) {
@@ -97,8 +97,13 @@ class core_calendar_renderer extends \core_calendar_renderer {
             $filterid .= "-$calinstid";
         }
         $select = \html_writer::label($label, $filterid, false, $labelattributes);
-        $select .= \html_writer::select($courseoptions, 'course', $selected, false,
-                ['class' => 'cal_courses_flt bg-transparent', 'id' => $filterid]);
+        $select .= \html_writer::select(
+            $courseoptions,
+            'course',
+            $selected,
+            false,
+            ['class' => 'cal_courses_flt bg-transparent', 'id' => $filterid]
+        );
 
         return $select;
     }

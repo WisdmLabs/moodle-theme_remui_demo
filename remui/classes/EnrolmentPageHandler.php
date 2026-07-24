@@ -22,25 +22,31 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 namespace theme_remui;
-    /**
-     * Enrolment Page Handler
-     */
 
+/**
+ * Enrolment Page Handler
+ *
+ * Handles the enrollment page context generation and related functionality.
+ *
+ * @package   theme_remui
+ * @copyright (c) 2023 WisdmLabs (https://wisdmlabs.com/) <support@wisdmlabs.com>
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class EnrolmentPageHandler {
     /**
      * Generate data for enrollment page.
-     * @param incourse page context
-     * @return context
+     *
+     * @param array $templatecontext The template context array
+     * @return array The enrollment page context data
      */
-
     public function generate_enrolment_page_context($templatecontext) {
         global $COURSE, $DB, $USER, $PAGE, $CFG, $OUTPUT;
 
         $cid = (int)$COURSE->id;
 
-        $context = array();
+        $context = [];
 
-        $temp = array();
+        $temp = [];
         $temp['id'] = $COURSE->id;
         $temp['coursename'] = format_text($COURSE->fullname);
         $temp['category'] = format_text($COURSE->category);
@@ -55,9 +61,9 @@ class EnrolmentPageHandler {
             0,
             null,
             null,
-            array(
-                0=>$COURSE
-            ),
+            [
+                0 => $COURSE,
+            ],
             false
         );
         $coursedata = $coursedataarray[0];
@@ -72,7 +78,7 @@ class EnrolmentPageHandler {
         }
 
         $coursecontext = \context_course::instance($cid);
-        $roles =   array_flip(get_default_enrol_roles($coursecontext));
+        $roles = array_flip(get_default_enrol_roles($coursecontext));
         $enrolledstudents = $coursedata['enrolleduserscount'];
         $temp['enrolledstudents'] = $enrolledstudents;
 
@@ -82,7 +88,6 @@ class EnrolmentPageHandler {
             $profilecount = 0;
             $frontlineteacher = false;
             foreach ($teachers as $key => $teacher) {
-
                 if ($frontlineteacher == false) {
                     $temp['instructor']['name'] = fullname($teacher, true);
                     if (count($teachers) > 1) {
@@ -92,7 +97,7 @@ class EnrolmentPageHandler {
 
                 $temp['instructor']['avatars'][] = [
                     'avatars' => $OUTPUT->user_picture($teacher),
-                    'teacherprofileurl' => $CFG->wwwroot.'/user/profile.php?id='.$teacher->id
+                    'teacherprofileurl' => $CFG->wwwroot . '/user/profile.php?id=' . $teacher->id,
                 ];
                 $profilecount++;
 
@@ -100,7 +105,7 @@ class EnrolmentPageHandler {
                     break;
                 }
             }
-            if(count($teachers)>1){
+            if (count($teachers) > 1) {
                 $temp['instructorcount'] = (count($teachers) - 1);
             }
         }
@@ -112,13 +117,13 @@ class EnrolmentPageHandler {
             ], 'block_edwiserratingreview');
             // Get Ratings and Review Context.
             $rnrreviewfull = $rnr->generate_enrolpage_block($cid);
-            $rnrshortdesignarray = utility:: get_ernr_coursecard_design($COURSE);
+            $rnrshortdesignarray = utility::get_ernr_coursecard_design($COURSE);
             $temp['rnrreviewdesign'] = $rnrshortdesignarray['rnrshortdesign'];
-            if($rnrshortdesignarray['rnrshortratingvalue'] == 0 && (!$PAGE->user_is_editing())){
+            if ($rnrshortdesignarray['rnrshortratingvalue'] == 0 && (!$PAGE->user_is_editing())) {
                 $temp['rnrreviewdesign'] = false;
                 $rnrreviewfull = false;
             }
-            if($rnrshortdesignarray['rnrshortratingvalue'] == 0 && $PAGE->user_is_editing()){
+            if ($rnrshortdesignarray['rnrshortratingvalue'] == 0 && $PAGE->user_is_editing()) {
                 $context['noratingfound'] = true;
                 $rnrreviewfull = true;
             }
@@ -135,9 +140,17 @@ class EnrolmentPageHandler {
         // Header section Context.
         $context['headersection'] = $temp;
 
-        $temp = array();
+        $temp = [];
 
-        $temp['coursesummary'] = format_text(file_rewrite_pluginfile_urls($COURSE->summary, 'pluginfile.php', $coursecontext->id, 'course', 'summary', NULL),FORMAT_HTML,array("noclean"=> true));
+        $coursesummary = file_rewrite_pluginfile_urls(
+            $COURSE->summary,
+            'pluginfile.php',
+            $coursecontext->id,
+            'course',
+            'summary',
+            null
+        );
+        $temp['coursesummary'] = format_text($coursesummary, FORMAT_HTML, ["noclean" => true]);
 
         if (isset($rnrreviewfull)) {
             $temp['rnrreviewfull'] = $rnrreviewfull;
@@ -146,7 +159,7 @@ class EnrolmentPageHandler {
         $context['courseoverview'] = $temp;
 
         // Enrollment Data - Pricing Section.
-        $temp = array();
+        $temp = [];
         $temp = $this->get_course_purchase_details($COURSE->id);
         $temp['enrolledstudents'] = $enrolledstudents;
         $temp['enrolledusertitletext'] = $coursedata['enrolledusertitletext'];
@@ -156,7 +169,18 @@ class EnrolmentPageHandler {
         }
 
         if (isset($customfielddata['edwskilllevel']) && Utility::get_skilllevel_by_courseid($COURSE->id)) {
-            $temp['skilllevel'] = get_string('skill' . $customfielddata['edwskilllevel'], 'theme_remui');
+            // Fetch the field data with join.
+            $sql1 = "SELECT f.configdata FROM {customfield_field} f WHERE f.shortname = :shortname";
+            $params1 = [
+                'shortname'  => 'edwskilllevel',
+            ];
+            $record = $DB->get_record_sql($sql1, $params1);
+            $config = json_decode($record->configdata);
+            $options = preg_split('/\r\n|\n|\r/', $config->options);
+
+            $skilllevelindex = $customfielddata['edwskilllevel'] - 1;
+            $skilllevelvalue = isset($options[$skilllevelindex]) ? $options[$skilllevelindex] : null;
+            $temp['skilllevel'] = format_text($skilllevelvalue, FORMAT_HTML);
         }
 
         $temp['totallessons'] = $coursedata['lessoncount'];
@@ -175,79 +199,81 @@ class EnrolmentPageHandler {
 
         $context['pricingsection'] = $temp;
         $customfieldsarray = array_values(get_all_remui_course_metadata($COURSE->id));
-        $customfieldcatgory_id = "";
-        if(empty(!$customfieldsarray)){
-            $customfieldcatgory_id = $customfieldsarray[0]['categoryid'];
+        $customfieldcatgoryid = "";
+        if (empty(!$customfieldsarray)) {
+            $customfieldcatgoryid = $customfieldsarray[0]['categoryid'];
         }
         $context['ismanager'] = utility::check_user_admin_cap($USER);
         $context['courseimage'] = $coursedata['courseimage'];
-        $context['relatedcourses'] = $this->get_related_courses ();
-        $context['coursearcivecaturl'] = $CFG->wwwroot."/course/index.php?categoryid=".$COURSE->category;
+        $context['relatedcourses'] = $this->get_related_courses();
+        $context['coursearcivecaturl'] = $CFG->wwwroot . "/course/index.php?categoryid=" . $COURSE->category;
         $context['latestcourses'] = $this->get_latest_courses();
-        $context['courseurl'] = $CFG->wwwroot."/course/view.php?id=".$COURSE->id;
+        $context['courseurl'] = $CFG->wwwroot . "/course/view.php?id=" . $COURSE->id;
         $context['hasrelatedcourses'] = get_config("theme_remui", 'showrelatedcourse');
         $context['haslatestcourses'] = get_config("theme_remui", 'showlatestcourse');
         $context['showrelatedcoursesblock'] = true;
         $context['showlatestcoursesblock'] = true;
 
-        if(!$context['relatedcourses']){
+        if (!$context['relatedcourses']) {
             $context['showrelatedcoursesblock'] = false;
         }
-        if(!$context['latestcourses']){
+        if (!$context['latestcourses']) {
             $context['showlatestcoursesblock'] = false;
         }
 
         $hasintstructors = true;
-        if(count($teachers) == 0){
+        if (count($teachers) == 0) {
             $hasintstructors = false;
         }
         $context['hasintstructors']  = $hasintstructors;
 
         $context['hasnarrowidth']   = (get_config("theme_remui", "pagewidth") == 'fullwidth') ? false : true;
         $context['editing'] = $PAGE->user_is_editing();
-        $context['editcoursetitle'] = $CFG->wwwroot.'/course/edit.php?id='.$COURSE->id.'#id_fullname';
-        $context['editcategorylink'] = $CFG->wwwroot.'/course/edit.php?id='.$COURSE->id.'#id_category';
-        $context['editcategorylink'] = $CFG->wwwroot.'/course/edit.php?id='.$COURSE->id.'#id_category';
-        $context['editinstructorspageurl'] = $CFG->wwwroot.'/user/index.php?id='.$COURSE->id;
-        $context['editapprovalpageurl'] = $CFG->wwwroot.'/blocks/edwiserratingreview/admin.php';
-        $context['editcourseintorvideourllink'] = $CFG->wwwroot.'/course/edit.php?id='.$COURSE->id.'#id_category_'.$customfieldcatgory_id;;
-        $context['enrolloptionshidden']  = get_config('theme_remui', "enrolloptionshidden".$COURSE->id);
-        $context['editcourseimglink'] = $CFG->wwwroot.'/course/edit.php?id='.$COURSE->id.'#fitem_id_overviewfiles_filemanager';
-        $context['editenrolmethodspagelink'] = $CFG->wwwroot.'/enrol/instances.php?id='.$COURSE->id;
-        $context['editaddremuicustomfieldlink'] = $CFG->wwwroot.'/course/customfield.php'.'#category-'.$customfieldcatgory_id;
-        $context['editcoursecustomfields'] = $CFG->wwwroot.'/course/edit.php?id='.$COURSE->id.'#id_category_'.$customfieldcatgory_id;
-        $context['editcoursedesclink'] = $CFG->wwwroot.'/course/edit.php?id='.$COURSE->id.'#id_descriptionhdrcontainer';
-        $context['editcourseinforsettinglink'] = $CFG->wwwroot.'/admin/settings.php?section=themesettingremui#theme_remui_course';
-        $context['editfreelabelsettinglink'] = $CFG->wwwroot.'/admin/settings.php?section=themesettingremui&settingsectionname=admin-enrolment_payment#theme_remui_course';
-        $context['editreletedlatestsettinglink'] = $CFG->wwwroot.'/admin/settings.php?section=themesettingremui&settingsectionname=admin-showrelatedcourse#theme_remui_course';
+        $context['editcoursetitle'] = $CFG->wwwroot . '/course/edit.php?id=' . $COURSE->id . '#id_fullname';
+        $context['editcategorylink'] = $CFG->wwwroot . '/course/edit.php?id=' . $COURSE->id . '#id_category';
+        $context['editinstructorspageurl'] = $CFG->wwwroot . '/user/index.php?id=' . $COURSE->id;
+        $context['editapprovalpageurl'] = $CFG->wwwroot . '/blocks/edwiserratingreview/admin.php';
+        $context['editcourseintorvideourllink'] = $CFG->wwwroot . '/course/edit.php?id=' . $COURSE->id
+            . '#id_category_' . $customfieldcatgoryid;
+        $context['enrolloptionshidden'] = get_config('theme_remui', "enrolloptionshidden" . $COURSE->id);
+        $context['editcourseimglink'] = $CFG->wwwroot . '/course/edit.php?id=' . $COURSE->id
+            . '#fitem_id_overviewfiles_filemanager';
+        $context['editenrolmethodspagelink'] = $CFG->wwwroot . '/enrol/instances.php?id=' . $COURSE->id;
+        $context['editaddremuicustomfieldlink'] = $CFG->wwwroot . '/course/customfield.php' . '#category-'
+            . $customfieldcatgoryid;
+        $context['editcoursecustomfields'] = $CFG->wwwroot . '/course/edit.php?id=' . $COURSE->id
+            . '#id_category_' . $customfieldcatgoryid;
+        $context['editcoursedesclink'] = $CFG->wwwroot . '/course/edit.php?id=' . $COURSE->id . '#id_descriptionhdrcontainer';
+        $context['editcourseinforsettinglink'] = $CFG->wwwroot
+            . '/admin/settings.php?section=themesettingremui#theme_remui_course';
+        $context['editfreelabelsettinglink'] = $CFG->wwwroot
+            . '/admin/settings.php?section=themesettingremui&settingsectionname=admin-enrolment_payment#theme_remui_course';
+        $context['editreletedlatestsettinglink'] = $CFG->wwwroot
+            . '/admin/settings.php?section=themesettingremui&settingsectionname=admin-showrelatedcourse#theme_remui_course';
         $context['playiconurl'] = $OUTPUT->image_url("play", "theme_remui");
         $context['csstohidemainarearemuifields'] = $this->get_css_to_hide_custom_metadata_inmainwarpper($COURSE->id);
         return $context;
     }
 
     /**
-     * Course purchase details.
-     * @param courseid
-     * @return context
+     * Get course purchase details including pricing and enrollment button information.
+     *
+     * @param int $courseid The course ID
+     * @return array Course purchase details including price, cost status, and button information
      */
-
     public function get_course_purchase_details($courseid) {
         global $PAGE;
         // Default data.
-        $enroldata = array('courseprice' => '', 'hascost' => 0);
-        $buttontext = get_string('enrolnow', 'theme_remui',get_string('enrol', 'enrol'));
-	 $buttontextinput = $buttontext;
+        $enroldata = ['courseprice' => '', 'hascost' => 0];
+        $buttontext = get_string('enrolnow', 'theme_remui', get_string('enrol', 'enrol'));
+        $buttontextinput = $buttontext;
 
-        $buttonurl  = '#maincontent';
+        $buttonurl = '#maincontent';
         $textforbtnlinkinput = '#';
         // Return No cost if theme setting does not allow for each course.
         if (isset($PAGE->theme->settings->showcoursepricing) && $PAGE->theme->settings->showcoursepricing == 1) {
             $enroldata = $this->get_payment_details($courseid);
         }
-        // Button text will be "Buy & Enrol now", if payment is active. Otherwise only 'Enrol Now'.
-        // if ($enroldata['hascost'] == 1 && $enroldata['courseprice'] != get_string('course_free', 'theme_remui')) {
-        //     $buttontext = get_string('buyand', 'theme_remui') . $buttontext;
-        // }
 
         $contextdata = [];
         if ($enroldata['hascost'] == 1) {
@@ -255,24 +281,24 @@ class EnrolmentPageHandler {
             $contextdata['courseprice'] = $enroldata['courseprice'];
             $contextdata['currency'] = $enroldata['currency'];
         }
-        $variable1 = "enrollnowbtntext".$courseid;
-        $variable2 = "enrollnowbtnlink".$courseid;
+        $variable1 = "enrollnowbtntext" . $courseid;
+        $variable2 = "enrollnowbtnlink" . $courseid;
 
-        if(get_config('theme_remui', $variable1)){
-            $buttontextinput = get_config('theme_remui',$variable1);
+        if (get_config('theme_remui', $variable1)) {
+            $buttontextinput = get_config('theme_remui', $variable1);
             $buttontext = format_text($buttontextinput, FORMAT_HTML);
         }
 
-        if(get_config('theme_remui',$variable2) && ((get_config('theme_remui',$variable2)!='#'))){
-            $buttonurl = get_config('theme_remui',$variable2);
+        if (get_config('theme_remui', $variable2) && ((get_config('theme_remui', $variable2) != '#'))) {
+            $buttonurl = get_config('theme_remui', $variable2);
             $textforbtnlinkinput = $buttonurl;
         }
-        if($PAGE->user_is_editing()){
+        if ($PAGE->user_is_editing()) {
             $buttonurl = '#';
         }
-        $custompricetext = "custompricetext".$courseid;
+        $custompricetext = "custompricetext" . $courseid;
 
-        if(get_config('theme_remui', $custompricetext)) {
+        if (get_config('theme_remui', $custompricetext)) {
             $customcoursepriceinput = get_config('theme_remui', $custompricetext);
             $customcourseprice = format_text($customcoursepriceinput, FORMAT_HTML);
         } else {
@@ -290,17 +316,18 @@ class EnrolmentPageHandler {
     }
 
     /**
-     * Generate payment details.
-     * @param courseid
-     * @return Array
+    /**
+     * Generate payment details for a course.
+     *
+     * @param int $courseid The course ID
+     * @return array Payment details including course price, cost status, and currency
      */
-
     public function get_payment_details($courseid) {
         global $PAGE;
 
         $enrolinstances = enrol_get_instances($courseid, true);
-        $wdmenrolmentcosts = array();
-        $wdmarrayofcosts = array();
+        $wdmenrolmentcosts = [];
+        $wdmarrayofcosts = [];
 
         foreach ($enrolinstances as $key => $instance) {
             if (!empty($instance->cost)) {
@@ -311,7 +338,7 @@ class EnrolmentPageHandler {
                 $wdmenrolmentcosts[$wdmcost] = new \stdClass();
 
                 if (strpos($wdmcost, '.')) {
-                    $wdmenrolmentcosts[$wdmcost]->cost = number_format($wdmcost, 2, '.', '' );
+                    $wdmenrolmentcosts[$wdmcost]->cost = number_format($wdmcost, 2, '.', '');
                 } else {
                     $wdmenrolmentcosts[$wdmcost]->cost = $wdmcost;
                 }
@@ -333,7 +360,7 @@ class EnrolmentPageHandler {
                 $thecurrency = !empty($cost->currency) ? $cost->currency : get_string('currency', 'theme_edumy');
                 if (class_exists('NumberFormatter')) {
                     /* Extended currency symbol */
-                    $formatmagic = new \NumberFormatter($thelocale."@currency=$thecurrency", \NumberFormatter::CURRENCY);
+                    $formatmagic = new \NumberFormatter($thelocale . "@currency=$thecurrency", \NumberFormatter::CURRENCY);
                     $wdmextendedcurrencysymbol = $formatmagic->getSymbol(\NumberFormatter::CURRENCY_SYMBOL);
                     /* Short currency symbol */
                     $formatter = new \NumberFormatter($thelocale, \NumberFormatter::CURRENCY);
@@ -345,7 +372,6 @@ class EnrolmentPageHandler {
 
                     $wdmenrolmentcosts[$key]->extendedCurrencySymbol = $wdmextendedcurrencysymbol;
                     $wdmenrolmentcosts[$key]->currencySymbol = $wdmextendedcurrencysymbol;
-
                 } else {
                     $wdmenrolmentcosts[$key]->extendedCurrencySymbol = $thecurrency;
                     $wdmenrolmentcosts[$key]->currencySymbol = get_string('currency_symbol', 'theme_remui');
@@ -354,31 +380,41 @@ class EnrolmentPageHandler {
                 if ($i > 1) {
                     $wdmstring = " / ";
                 }
-                $pricinghtml = '<span class="pricing--price h-bold-2">'.$wdmstring.$wdmenrolmentcosts[$key]->extendedCurrencySymbol.$wdmenrolmentcosts[$key]->cost .'</span>';
-                $currencyhtml = '<span class="pricing--currency h-semibold-4">'.$thecurrency.'</span>';
-                $wdmcoursepricedisplay .=  $pricinghtml;
-                // $wdmcoursepricedisplay .=  $pricinghtml.$currencyhtml;
-
-                // $wdmcoursepricedisplay .= $wdmstring.$wdmenrolmentcosts[$key]->extendedCurrencySymbol . $wdmenrolmentcosts[$key]->cost;
-
-                // $wdmcurrencydisplay .= $wdmstring.$thecurrency;
+                $pricinghtml = '<span class="pricing--price h-bold-2">' . $wdmstring
+                    . $wdmenrolmentcosts[$key]->extendedCurrencySymbol
+                    . $wdmenrolmentcosts[$key]->cost . '</span>';
+                $currencyhtml = '<span class="pricing--currency h-semibold-4">' . $thecurrency . '</span>';
+                $wdmcoursepricedisplay .= $pricinghtml;
             }
-
         } else if (isset($PAGE->theme->settings->enrolment_payment) && ($PAGE->theme->settings->enrolment_payment == 1)) {
-            $wdmcoursepricedisplay = '<span class="pricing--price h-bold-2">'.get_string('course_free', 'theme_remui').'</span>';
+            $wdmcoursepricedisplay = '<span class="pricing--price h-bold-2">'
+                . get_string('course_free', 'theme_remui') . '</span>';
             $wdmcoursehascost = 1;
-        } else if (isset($PAGE->theme->settings->enrolment_payment) && ($PAGE->theme->settings->enrolment_payment == 0) && $PAGE->user_is_editing()) {
-            $wdmcoursepricedisplay = '<span class="pricing--price h-bold-2" style="opacity: 0.2;">'.get_string('course_free', 'theme_remui').'</span>';
+        } else if (
+            isset($PAGE->theme->settings->enrolment_payment)
+            && ($PAGE->theme->settings->enrolment_payment == 0) && $PAGE->user_is_editing()
+        ) {
+            $wdmcoursepricedisplay = '<span class="pricing--price h-bold-2" style="opacity: 0.2;">'
+                . get_string('course_free', 'theme_remui') . '</span>';
             $wdmcoursehascost = 1;
         } else {
             $wdmcoursepricedisplay = '';
             $wdmcoursehascost = 0;
         }
 
-        return array('courseprice' => $wdmcoursepricedisplay, 'hascost' => $wdmcoursehascost, 'currency' => $wdmcurrencydisplay);
+        return [
+            'courseprice' => $wdmcoursepricedisplay,
+            'hascost' => $wdmcoursehascost,
+            'currency' => $wdmcurrencydisplay,
+        ];
     }
 
-    public function get_related_courses () {
+    /**
+     * Get related courses for the current course.
+     *
+     * @return string|false Rendered template HTML or false if no related courses
+     */
+    public function get_related_courses() {
         global $COURSE, $OUTPUT;
         $hasnarrowidth = (get_config("theme_remui", "pagewidth") == 'fullwidth') ? false : true;
         $totalcount = false;
@@ -391,19 +427,33 @@ class EnrolmentPageHandler {
         $courses = [];
         $filtermodified = true;
         $recentcoursecardsdata = [
-            "coursecards" => $this->get_enrolpage_courses($totalcount, $search, $category, $limitfrom, $limitto, $mycourses, $categorysort, $courses, $filtermodified)
+            "coursecards" => $this->get_enrolpage_courses(
+                $totalcount,
+                $search,
+                $category,
+                $limitfrom,
+                $limitto,
+                $mycourses,
+                $categorysort,
+                $courses,
+                $filtermodified
+            ),
         ];
         array_splice($recentcoursecardsdata['coursecards'], 4);
         if ($hasnarrowidth) {
             array_splice($recentcoursecardsdata['coursecards'], 3);
         }
-        if(empty($recentcoursecardsdata['coursecards'])){
+        if (empty($recentcoursecardsdata['coursecards'])) {
             return false;
         }
         return $OUTPUT->render_from_template('theme_remui/enrol_page_coursecards', $recentcoursecardsdata);
-
     }
 
+    /**
+     * Get latest courses for display on enrollment page.
+     *
+     * @return string|false Rendered template HTML or false if no latest courses
+     */
     public function get_latest_courses() {
         global $COURSE, $OUTPUT, $DB;
         $datacourse = $DB->get_records('course', null, $sort = 'id DESC', $fields = '*', $limitfrom = 0, $limitnum = 20);
@@ -417,7 +467,17 @@ class EnrolmentPageHandler {
         $courses = $datacourse;
         $filtermodified = true;
         $latestcoursecardsdata = [
-            "coursecards" => $this->get_enrolpage_courses($totalcount, $search, $category, $limitfrom, $limitto, $mycourses, $categorysort, $courses, $filtermodified)
+            "coursecards" => $this->get_enrolpage_courses(
+                $totalcount,
+                $search,
+                $category,
+                $limitfrom,
+                $limitto,
+                $mycourses,
+                $categorysort,
+                $courses,
+                $filtermodified
+            ),
         ];
         $defaultcardlimit = 12;
         $cardsmaxlimit = 20;
@@ -429,14 +489,38 @@ class EnrolmentPageHandler {
             $defaultcardlimit = $cardsmaxlimit;
         }
         array_splice($latestcoursecardsdata['coursecards'], $defaultcardlimit);
-        if(empty($latestcoursecardsdata['coursecards'])){
+        if (empty($latestcoursecardsdata['coursecards'])) {
             return false;
         }
         return $OUTPUT->render_from_template('theme_remui/enrol_page_coursecards', $latestcoursecardsdata);
     }
 
-    public function get_enrolpage_courses($totalcount, $search, $category, $limitfrom, $limitto, $mycourses, $categorysort, $courses, $filtermodified) {
-        global  $COURSE;
+    /**
+     * Get courses for enrollment page display.
+     *
+     * @param bool $totalcount Whether to return total count
+     * @param string|null $search Search term
+     * @param int|null $category Category ID
+     * @param int $limitfrom Limit from
+     * @param int $limitto Limit to
+     * @param array|null $mycourses My courses array
+     * @param string|null $categorysort Category sort order
+     * @param array $courses Courses array
+     * @param bool $filtermodified Whether to filter modified courses
+     * @return array Course data array
+     */
+    public function get_enrolpage_courses(
+        $totalcount,
+        $search,
+        $category,
+        $limitfrom,
+        $limitto,
+        $mycourses,
+        $categorysort,
+        $courses,
+        $filtermodified
+    ) {
+        global $COURSE;
         $coursehandler = new \theme_remui_coursehandler();
         $coursedata = $coursehandler->get_courses(
             $totalcount,
@@ -459,28 +543,41 @@ class EnrolmentPageHandler {
         return $allcourses;
     }
 
+    /**
+     * Perform an action dynamically by function name.
+     *
+     * @param string $action The action name
+     * @param mixed $config Configuration data for the action
+     * @return mixed Action result or error message
+     */
     public function perform_action($action, $config) {
-        $functionname = "action_".$action;
+        $functionname = "action_" . $action;
 
         // Check if the function exists before calling it.
         if (method_exists($this, $functionname)) {
             // Call the function dynamically.
-            return call_user_func(array($this, $functionname), $config);
+            return call_user_func([$this, $functionname], $config);
         } else {
             // Handle the case when the function doesn't exist.
             return "Function $functionname does not exist.";
         }
     }
 
-    public function action_update_enroll_now_btn($config){
+    /**
+     * Update enrollment button text and link for a course.
+     *
+     * @param string $config JSON-encoded configuration object
+     * @return object Updated button data
+     */
+    public function action_update_enroll_now_btn($config) {
         $config = json_decode($config);
-        $variable1 = "enrollnowbtntext".$config->courseid;
-        $variable2 = "enrollnowbtnlink".$config->courseid;
-        $variable3 = "custompricetext".$config->courseid;
+        $variable1 = "enrollnowbtntext" . $config->courseid;
+        $variable2 = "enrollnowbtnlink" . $config->courseid;
+        $variable3 = "custompricetext" . $config->courseid;
 
-        set_config($variable1,$config->title,"theme_remui");
-        set_config($variable2,$config->link,"theme_remui");
-        set_config($variable3,$config->customprice,"theme_remui");
+        set_config($variable1, $config->title, "theme_remui");
+        set_config($variable2, $config->link, "theme_remui");
+        set_config($variable3, $config->customprice, "theme_remui");
 
         $data = new \stdClass();
         $data->buttontext = format_text(get_config('theme_remui', $variable1), FORMAT_HTML);
@@ -496,13 +593,19 @@ class EnrolmentPageHandler {
      * @param string $config A JSON-encoded configuration object containing the course ID and the new custom price text.
      * @return object An object containing the updated custom price text.
      */
-    public function action_clear_ustomprice_and_link($config){
+    /**
+     * Clear custom price and link for a course.
+     *
+     * @param string $config JSON-encoded configuration object
+     * @return object Updated data with cleared custom price and link
+     */
+    public function action_clear_ustomprice_and_link($config) {
         $config = json_decode($config);
-        $variable2 = "enrollnowbtnlink".$config->courseid;
-        $variable3 = "custompricetext".$config->courseid;
+        $variable2 = "enrollnowbtnlink" . $config->courseid;
+        $variable3 = "custompricetext" . $config->courseid;
 
-        set_config($variable2,"","theme_remui");
-        set_config($variable3,"","theme_remui");
+        set_config($variable2, "", "theme_remui");
+        set_config($variable3, "", "theme_remui");
 
         $data = new \stdClass();
         $data->buttonlink = "#";
@@ -511,34 +614,41 @@ class EnrolmentPageHandler {
         return $data;
     }
 
-    public function action_update_enroll_option($config){
+    /**
+     * Update enrollment option visibility for a course.
+     *
+     * @param string $config JSON-encoded configuration object
+     * @return object Updated enrollment option data
+     */
+    public function action_update_enroll_option($config) {
         $config = json_decode($config);
-        $variable1 = "enrolloptionshidden".$config->courseid;
-        set_config($variable1,$config->enrolloptionshidden,"theme_remui");
+        $variable1 = "enrolloptionshidden" . $config->courseid;
+        set_config($variable1, $config->enrolloptionshidden, "theme_remui");
         $data = new \stdClass();
         $data->enrolloptionshidden = false;
-        if(get_config('theme_remui', $variable1)){
+        if (get_config('theme_remui', $variable1)) {
             $data->enrolloptionshidden = true;
         }
         return $data;
     }
     /**
      * Function to fetch the customfield data.
-     * @param  int $courseid  Course ID
-     * @return Custom field data.
+     *
+     * @param int $courseid Course ID
+     * @return string Custom field HTML content
      */
-    function get_additional_custom_metadata_html($courseid) {
+    public function get_additional_custom_metadata_html($courseid) {
         global $OUTPUT;
         $remuicustomfieldarray = get_all_remui_course_metadata($courseid);
 
         $customfielddata = get_course_metadata($courseid);
 
         $content = "";
-        if(isset($customfielddata['edwskilllevel'])){
+        if (isset($customfielddata['edwskilllevel'])) {
             unset($remuicustomfieldarray['edwskilllevel']);
         }
 
-        if(isset($customfielddata['edwcourseduration'])){
+        if (isset($customfielddata['edwcourseduration'])) {
             unset($remuicustomfieldarray['edwcourseduration']);
         }
 
@@ -546,7 +656,7 @@ class EnrolmentPageHandler {
             unset($remuicustomfieldarray['edwcourseintrovideourlembedded']);
         }
         $remuicustomfieldarray = array_values($remuicustomfieldarray);
-        foreach($remuicustomfieldarray as $singlecustomfield){
+        foreach ($remuicustomfieldarray as $singlecustomfield) {
             $singlecustomfield["name"] = format_text($singlecustomfield["name"], FORMAT_HTML);
             $templatecontext['customfield'] = $singlecustomfield;
             $content .= $OUTPUT->render_from_template("theme_remui/enrol_singlecustomfield", $templatecontext);
@@ -555,22 +665,23 @@ class EnrolmentPageHandler {
     }
 
     /**
-     * Function to generate the css which will hide the  the customfield data in main wrapper.
-     * @param  int $courseid  Course ID
-     * @return Custom field data.
+     * Function to generate the css which will hide the customfield data in main wrapper.
+     *
+     * @param int $courseid Course ID
+     * @return string CSS style string to hide custom fields
      */
-    function get_css_to_hide_custom_metadata_inmainwarpper($courseid) {
+    public function get_css_to_hide_custom_metadata_inmainwarpper($courseid) {
         global $OUTPUT;
         $remuicustomfieldarray = get_all_remui_course_metadata($courseid);
 
         $customfielddata = get_course_metadata($courseid);
 
         $content = "";
-        if(isset($customfielddata['edwskilllevel'])){
+        if (isset($customfielddata['edwskilllevel'])) {
             unset($remuicustomfieldarray['edwskilllevel']);
         }
 
-        if(isset($customfielddata['edwcourseduration'])){
+        if (isset($customfielddata['edwcourseduration'])) {
             unset($remuicustomfieldarray['edwcourseduration']);
         }
 
@@ -579,17 +690,17 @@ class EnrolmentPageHandler {
         }
         $remuicustomfieldarray = array_values($remuicustomfieldarray);
 
-        // Prefix each shortname with "id_"
-        $shortnames = array_map(function($item) {
+        // Prefix each shortname with "id_".
+        $shortnames = array_map(function ($item) {
             return '.customfields-container .customfield_' . $item['shortname'];
         }, $remuicustomfieldarray);
 
-        // Join shortnames with comma
-        $shortnamesString = implode(',', $shortnames);
+        // Join shortnames with comma.
+        $shortnamesstring = implode(',', $shortnames);
 
-        // Create the final string
-        $resultString = "<style>"."$shortnamesString{display:none}"."</style>";
+        // Create the final string.
+        $resultstring = "<style>" . "$shortnamesstring{display:none}" . "</style>";
 
-        return $resultString;
+        return $resultstring;
     }
 }

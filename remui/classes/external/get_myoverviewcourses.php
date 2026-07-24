@@ -34,25 +34,48 @@ use context_course;
 use context_user;
 use external_value;
 
-use theme_remui\utility as utility;
+use theme_remui\utility;
 
 require_once("$CFG->libdir/externallib.php");
-require_once($CFG->dirroot. "/course/lib.php");
+require_once($CFG->dirroot . "/course/lib.php");
+
+/**
+ * Get my overview courses trait.
+ *
+ * Provides external API functions for retrieving user's course overview.
+ */
 trait get_myoverviewcourses {
+    /**
+     * Describes the parameters for get_myoverviewcourses.
+     *
+     * @return external_function_parameters
+     */
     public static function get_myoverviewcourses_parameters() {
         return new external_function_parameters(
-            array(
+            [
                 'classification' => new external_value(PARAM_ALPHA, 'future, inprogress, or past'),
                 'limit' => new external_value(PARAM_INT, 'Result set limit', VALUE_DEFAULT, 0),
                 'offset' => new external_value(PARAM_INT, 'Result set offset', VALUE_DEFAULT, 0),
                 'sort' => new external_value(PARAM_TEXT, 'Sort string', VALUE_DEFAULT, null),
-                'customfieldname' => new external_value(PARAM_ALPHANUMEXT, 'Used when classification = customfield',
-                    VALUE_DEFAULT, null),
-                'customfieldvalue' => new external_value(PARAM_RAW, 'Used when classification = customfield',
-                    VALUE_DEFAULT, null),
-                'searchvalue' => new external_value(PARAM_RAW, 'The value a user wishes to search against',
-                    VALUE_DEFAULT, null),
-            )
+                'customfieldname' => new external_value(
+                    PARAM_ALPHANUMEXT,
+                    'Used when classification = customfield',
+                    VALUE_DEFAULT,
+                    null
+                ),
+                'customfieldvalue' => new external_value(
+                    PARAM_RAW,
+                    'Used when classification = customfield',
+                    VALUE_DEFAULT,
+                    null
+                ),
+                'searchvalue' => new external_value(
+                    PARAM_RAW,
+                    'The value a user wishes to search against',
+                    VALUE_DEFAULT,
+                    null
+                ),
+            ]
         );
     }
 
@@ -84,23 +107,24 @@ trait get_myoverviewcourses {
         string $classification,
         int $limit = 0,
         int $offset = 0,
-        string $sort = null,
-        string $customfieldname = null,
-        string $customfieldvalue = null,
-        string $searchvalue = null
+        ?string $sort = null,
+        ?string $customfieldname = null,
+        ?string $customfieldvalue = null,
+        ?string $searchvalue = null
     ) {
         global $CFG, $PAGE, $USER, $DB;
         require_once($CFG->dirroot . '/course/lib.php');
 
-        $params = self::validate_parameters(self::get_myoverviewcourses_parameters(),
-            array(
+        $params = self::validate_parameters(
+            self::get_myoverviewcourses_parameters(),
+            [
                 'classification' => $classification,
                 'limit' => $limit,
                 'offset' => $offset,
                 'sort' => $sort,
                 'customfieldvalue' => $customfieldvalue,
                 'searchvalue' => $searchvalue,
-            )
+            ]
         );
 
         $classification = $params['classification'];
@@ -110,7 +134,7 @@ trait get_myoverviewcourses {
         $customfieldvalue = $params['customfieldvalue'];
         $searchvalue = clean_param($params['searchvalue'], PARAM_TEXT);
 
-        switch($classification) {
+        switch ($classification) {
             case COURSE_TIMELINE_ALLINCLUDINGHIDDEN:
                 break;
             case COURSE_TIMELINE_ALL:
@@ -146,8 +170,14 @@ trait get_myoverviewcourses {
 
             // Otherwise if the timeline requires the hidden courses then restrict the result to only $hiddencourses.
         } else if ($classification == COURSE_TIMELINE_HIDDEN) {
-            $courses = course_get_enrolled_courses_for_logged_in_user(0, $offset, $sort, $fields,
-                COURSE_DB_QUERY_LIMIT, $hiddencourses);
+            $courses = course_get_enrolled_courses_for_logged_in_user(
+                0,
+                $offset,
+                $sort,
+                $fields,
+                COURSE_DB_QUERY_LIMIT,
+                $hiddencourses
+            );
 
             // Otherwise get the requested courses and exclude the hidden courses.
         } else if ($classification == COURSE_TIMELINE_SEARCH) {
@@ -164,8 +194,15 @@ trait get_myoverviewcourses {
                 $options
             );
         } else {
-            $courses = course_get_enrolled_courses_for_logged_in_user(0, $offset, $sort, $fields,
-                COURSE_DB_QUERY_LIMIT, [], $hiddencourses);
+            $courses = course_get_enrolled_courses_for_logged_in_user(
+                0,
+                $offset,
+                $sort,
+                $fields,
+                COURSE_DB_QUERY_LIMIT,
+                [],
+                $hiddencourses
+            );
         }
 
         $favouritecourseids = [];
@@ -174,26 +211,28 @@ trait get_myoverviewcourses {
 
         if ($favourites) {
             $favouritecourseids = array_map(
-                function($favourite) {
+                function ($favourite) {
                     return $favourite->itemid;
-                }, $favourites);
+                },
+                $favourites
+            );
         }
 
         if ($classification == COURSE_FAVOURITES) {
-            list($filteredcourses, $processedcount) = course_filter_courses_by_favourites(
+            [$filteredcourses, $processedcount] = course_filter_courses_by_favourites(
                 $courses,
                 $favouritecourseids,
                 $limit
             );
         } else if ($classification == COURSE_CUSTOMFIELD) {
-            list($filteredcourses, $processedcount) = course_filter_courses_by_customfield(
+            [$filteredcourses, $processedcount] = course_filter_courses_by_customfield(
                 $courses,
                 $customfieldname,
                 $customfieldvalue,
                 $limit
             );
         } else {
-            list($filteredcourses, $processedcount) = course_filter_courses_by_timeline_classification(
+            [$filteredcourses, $processedcount] = course_filter_courses_by_timeline_classification(
                 $courses,
                 $classification,
                 $limit
@@ -201,7 +240,7 @@ trait get_myoverviewcourses {
         }
 
         $renderer = $PAGE->get_renderer('core');
-        $formattedcourses = array_map(function($course) use ($renderer, $favouritecourseids) {
+        $formattedcourses = array_map(function ($course) use ($renderer, $favouritecourseids) {
             if ($course == null) {
                 return;
             }
@@ -215,7 +254,7 @@ trait get_myoverviewcourses {
             return $exporter->export($renderer);
         }, $filteredcourses);
 
-        $formattedcourses = array_filter($formattedcourses, function($course) {
+        $formattedcourses = array_filter($formattedcourses, function ($course) {
             if ($course != null) {
                 return $course;
             }
@@ -232,12 +271,15 @@ trait get_myoverviewcourses {
             if ($allactivites < 1) {
                 $activitydata = get_string('noactivity', 'theme_remui');
             } else {
-
                 foreach ($modules as $module) {
                     $data = $completioninfo->get_data($module, true, $USER->id);
                     $completedactivites += $data->completionstate == COMPLETION_INCOMPLETE ? 0 : 1;
                 }
-                $activitydata = get_string('activitydata', 'theme_remui', ['complete' => $completedactivites, 'total' => $allactivites]);
+                $activitydata = get_string(
+                    'activitydata',
+                    'theme_remui',
+                    ['complete' => $completedactivites, 'total' => $allactivites]
+                );
             }
             $formatecourse->activitydata = $activitydata;
             $corecourselistelement = new \core_course_list_element($formatecourse);
@@ -245,19 +287,19 @@ trait get_myoverviewcourses {
             $formatecourse->instructor = "";
             $formatecourse->instructorcount = (count($instructors) > 1) ? count($instructors) - 1 : "";
             foreach ($instructors as $key => $instructor) {
-                $pictureurl = utility::get_user_picture($DB->get_record('user', array('id' => $key)));
-                $formatecourse->instructor = json_encode(array(
+                $pictureurl = utility::get_user_picture($DB->get_record('user', ['id' => $key]));
+                $formatecourse->instructor = json_encode([
                     'name' => $instructor['username'],
-                    'url'  => $CFG->wwwroot.'/user/profile.php?id='.$key,
-                    'picture' => $pictureurl->__toString()
-                ));
+                    'url'  => $CFG->wwwroot . '/user/profile.php?id=' . $key,
+                    'picture' => $pictureurl->__toString(),
+                ]);
             }
             $formatecourse->hasrating = false;
             $resultcourses[] = $formatecourse;
         }
         return [
             'courses' => $resultcourses,
-            'nextoffset' => $offset + $processedcount
+            'nextoffset' => $offset + $processedcount,
             ];
     }
     /**
@@ -268,15 +310,15 @@ trait get_myoverviewcourses {
     public static function get_myoverviewcourses_returns() {
         $testvar = course_summary_exporter::get_read_structure();
         $testvar->keys['instructor'] = new external_value(PARAM_RAW, 'instructor data');
-        // $testvar->keys['rnrshortdesign'] = new external_value(PARAM_RAW, 'ERNR short design', VALUE_OPTIONAL);
+        // RNR short design setting (commented out for future use).
         $testvar->keys['hasrating'] = new external_value(PARAM_RAW, 'ERNR flag', VALUE_OPTIONAL);
         $testvar->keys['instructorcount'] = new external_value(PARAM_RAW, 'ERNR flag', VALUE_OPTIONAL);
         $testvar->keys['activitydata'] = new external_value(PARAM_RAW, 'ERNR flag', VALUE_OPTIONAL);
         return new external_single_structure(
-            array(
+            [
                 'courses' => new external_multiple_structure($testvar),
-                'nextoffset' => new external_value(PARAM_INT, 'Offset for the next request')
-            )
+                'nextoffset' => new external_value(PARAM_INT, 'Offset for the next request'),
+            ]
         );
     }
 }

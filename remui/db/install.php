@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Theme remui upgrade hook
  * @package   theme_remui
@@ -24,7 +25,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot . '/theme/remui/db/upgrade.php');
-require_once($CFG->dirroot .'/theme/remui/lib.php');
+require_once($CFG->dirroot . '/theme/remui/lib.php');
 
 /**
  * upgrade this edwiserform plugin database
@@ -41,7 +42,7 @@ function xmldb_theme_remui_install() {
     $pnotification->init_history_config();
 
     import_user_tour();
-    set_config("setupinstallcheck", "showmodal","theme_remui");
-    set_config("dashboardpersonalizerinfo", "show","theme_remui");
+    set_config("setupinstallcheck", "showmodal", "theme_remui");
+    set_config("dashboardpersonalizerinfo", "show", "theme_remui");
     return true;
 }

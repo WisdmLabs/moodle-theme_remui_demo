@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable no-unused-vars */
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -15,10 +13,13 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 /**
- * Theme customizer global-colors js
- * @copyright (c) 2023 WisdmLabs (https://wisdmlabs.com/) <support@wisdmlabs.com>
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @author    Yogesh Shirsath
+ * Theme customizer global colors module.
+ * Handles global color scheme settings including primary, secondary, and accent colors.
+ *
+ * @module     theme_remui/customizer/global-colors
+ * @copyright  (c) 2023 WisdmLabs (https://wisdmlabs.com/) <support@wisdmlabs.com>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @author     Yogesh Shirsath
  */
 
 import $ from 'jquery';
@@ -48,11 +49,34 @@ var SELECTOR = {
     BACKGROUNDIMAGEATTACHMENT: '[name="global-colors-pagebackgroundimageattachment"]'
 };
 
+// Guard to prevent recursive sync when mirroring primary color across duplicate controls.
+let syncingPrimaryColor = false;
 /**
  * Set primary color.
  */
 function setPrimaryColor() {
+    // Avoid re-entrance when we propagate value to sibling controls.
+    if (syncingPrimaryColor) {
+        return;
+    }
+
+    // Read current color from the picker that fired the event.
     let color = $(SELECTOR.SITECOLOR).spectrum('get').toString();
+    // Keep the duplicated primary color controls (Quick setup vs Colors panel) in sync.
+    // There can be multiple inputs with the same name; propagate the chosen value to all.
+    syncingPrimaryColor = true;
+    try {
+        $(SELECTOR.SITECOLOR)
+            .not(this)
+            .each((_, el) => {
+                const $el = $(el);
+                if ($el.spectrum('get').toString() !== color) {
+                    $el.spectrum('set', color).trigger('color.changed');
+                }
+            });
+    } finally {
+        syncingPrimaryColor = false;
+    }
 
     // Default color.
     let content = `.bg-primary,
@@ -545,7 +569,7 @@ function handleSmallementColor() {
         .dropdown-item[aria-current="true"],
         .dropdown-item.active,
         .dropdown-item:hover,
-        .badge-light,
+        .badge-light:not(.skilltag),
         section#region-main .maincalendar th, aside:not(#block-region-side-pre) .maincalendar th,
         div.editor_atto_toolbar,
         table thead th,

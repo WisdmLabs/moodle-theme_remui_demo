@@ -24,7 +24,19 @@
 
 namespace theme_remui\output;
 
+/**
+ * Icon system fontawesome class.
+ *
+ * @package   theme_remui
+ * @copyright (c) 2023 WisdmLabs (https://wisdmlabs.com/) <support@wisdmlabs.com>
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class icon_system_fontawesome extends \core\output\icon_system_fontawesome {
+    /**
+     * Get core icon map with overrides.
+     *
+     * @return array Icon map array
+     */
     public function get_core_icon_map() {
 
         $iconmap = parent::get_core_icon_map();
@@ -32,7 +44,7 @@ class icon_system_fontawesome extends \core\output\icon_system_fontawesome {
         global $PAGE;
         $settings = $PAGE->theme->settings;
 
-        $overrides = array(
+        $overrides = [
             'core:t/message' => 'edw-icon edw-icon-Comment-03',
             'core:message' => 'edw-icon edw-icon-Comment-03',
             'core:i/notifications' => 'edw-icon edw-icon-Notification',
@@ -60,7 +72,6 @@ class icon_system_fontawesome extends \core\output\icon_system_fontawesome {
             'block_accessreview:f/form' => 'edw-icon edw-icon-Delete-Course',
             'enrol_lti:platformdetails' => 'edw-icon edw-icon-Delete-Course',
             'core:e/special_character' => 'edw-icon edw-icon-Delete-Course',
-            'core:i/permissions' => 'edw-icon edw-icon-Permission-1',
             'mod_scorm:incomplete' => 'edw-icon edw-icon-Delete-Course',
             'theme:fp/view_icon_active' => 'edw-icon edw-icon-Card-View',
             'theme:fp/view_list_active' => 'edw-icon edw-icon-List-View-08',
@@ -68,7 +79,6 @@ class icon_system_fontawesome extends \core\output\icon_system_fontawesome {
             'core:a/refresh' => 'edw-icon edw-icon-Refresh',
             'core:a/logout' => 'edw-icon edw-icon-Logout',
             'core:a/setting' => 'edw-icon edw-icon-Setting',
-            'core:a/help' => 'edw-icon edw-icon-Help',
             'core:t/index_drawer' => 'edw-icon edw-icon-List-View-08',
             'core:t/expandedchevron' => 'edw-icon edw-icon-Down-Arrow',
             'core:t/collapsedchevron' => 'edw-icon edw-icon-Right-Arrow',
@@ -81,7 +91,7 @@ class icon_system_fontawesome extends \core\output\icon_system_fontawesome {
             'core:addcontact' => 'edw-icon edw-icon-User-Event',
             'core:t/removecontact' => 'fa fa-user-times fa-fw',
             'core:removecontact' => 'fa fa-user-times fa-fw',
-        );
+        ];
 
         $merged = array_merge($iconmap, $overrides);
 

@@ -53,13 +53,13 @@ class utility {
         global $DB, $USER;
 
         $systemcontext = context_system::instance();
-        $categories = $DB->get_records('course_categories',array('visible'=>1));
+        $categories = $DB->get_records('course_categories', ['visible' => 1]);
 
-        if(utility::check_user_admin_cap() || has_capability('moodle/category:viewhiddencategories', $systemcontext, $USER->id)){
+        if (self::check_user_admin_cap() || has_capability('moodle/category:viewhiddencategories', $systemcontext, $USER->id)) {
             $categories = $DB->get_records('course_categories');
         }
 
-        $filteredcategories = array();
+        $filteredcategories = [];
         foreach ($categories as $category) {
             $categorycontext = context_coursecat::instance($category->id);
             if (has_capability('moodle/category:viewcourselist', $categorycontext)) {
@@ -70,23 +70,26 @@ class utility {
         return $filteredcategories;
     }
 
-    /*
+    /**
      * Returns course categories menu array context.
-     * @param $contextmenu -> $primarymenu['moremenu']
+     *
+     * @param array $contextmenu Primary menu context array
+     * @return array Updated context menu with course categories
      */
     public static function get_coursecategory_menu($contextmenu) {
-        $categories = utility::get_categories_list();
+        $categories = self::get_categories_list();
 
         $mainarr = [];
         $coursecategorytext = get_config('theme_remui', 'coursecategoriestext');
-        $mainarr['text'] = $coursecategorytext == "" ? get_string('coursecategories', 'theme_remui') : format_text($coursecategorytext, FORMAT_HTML);
+        $coursecategorydefault = get_string('coursecategories', 'theme_remui');
+        $mainarr['text'] = $coursecategorytext == "" ? $coursecategorydefault : format_text($coursecategorytext, FORMAT_HTML);
         $mainarr['key'] = 'coursecat';
         $mainarr['url'] = "#";
         $mainarr['children'] = [];
         $mainarr['classes'] = "catselector-menu";
         $mainarr['sort'] = "catselector-menu";
 
-        $html = utility::generateCategoryStructure($categories);
+        $html = self::generatecategorystructure($categories);
 
         $mainarr['haschildren'] = true;
         $mainarr['children'] = false;
@@ -102,34 +105,48 @@ class utility {
         return $contextmenu;
     }
 
-    public static function generateCategoryStructure($categories)
-    {
+    /**
+     * Generate category structure HTML.
+     *
+     * @param array $categories Array of category objects
+     * @return string HTML structure for categories
+     */
+    public static function generatecategorystructure($categories) {
         global $CFG;
-        // sort by sortorder
+        // Sort by sortorder.
         usort($categories, function ($a, $b) {
             return $a->sortorder - $b->sortorder;
         });
 
-        $categoryTree = utility::buildCategoryTree($categories, 0);
+        $categorytree = self::buildcategorytree($categories, 0);
         $html = '<div class="category-wrapper container d-flex flex-column">';
+        $allcoursestext = get_string('allcourescattext', 'theme_remui');
+        $allcoursesurl = $CFG->wwwroot . '/course/index.php?categoryid=all';
         $html .= '<div class="menu-wrapper">
                         <ul class="m-0 p-pl-5">
-                            <li><a href="'.$CFG->wwwroot.'/course/index.php?categoryid=all" data-cat-id="0" class="category-link ellipsis">'.get_string('allcourescattext', 'theme_remui').'</a></li>
+                            <li><a href="' . $allcoursesurl . '" data-cat-id="0" ';
+        $html .= 'class="category-link ellipsis">' . $allcoursestext . '</a></li>
                         </ul>
                   </div>';
-        $html .= utility::generateHTML($categoryTree);
+        $html .= self::generatehtml($categorytree);
         $html .= '</div>';
 
         return $html;
     }
 
-    public static function buildCategoryTree($categories, $parentId)
-    {
-        $tree = array();
+    /**
+     * Build category tree structure.
+     *
+     * @param array $categories Array of category objects
+     * @param int $parentid Parent category ID
+     * @return array Tree structure of categories
+     */
+    public static function buildcategorytree($categories, $parentid) {
+        $tree = [];
 
         foreach ($categories as $category) {
-            if ($category->parent == $parentId) {
-                $subcategory = utility::buildCategoryTree($categories, $category->id);
+            if ($category->parent == $parentid) {
+                $subcategory = self::buildcategorytree($categories, $category->id);
                 if (!empty($subcategory)) {
                     $category->children = $subcategory;
                 }
@@ -140,36 +157,55 @@ class utility {
         return $tree;
     }
 
-    public static function generateHTML($categoryTree, $html = '')
-    {
+    /**
+     * Generate HTML for category tree.
+     *
+     * @param array $categorytree Category tree structure
+     * @param string $html Existing HTML string
+     * @return string Generated HTML
+     */
+    public static function generatehtml($categorytree, $html = '') {
         global $CFG;
-        foreach ($categoryTree as $category) {
+        foreach ($categorytree as $category) {
             $uniquenumber = hexdec(uniqid());
-            $hasChildren = !empty($category->children);
+            $haschildren = !empty($category->children);
             $html .= '<div class="menu-wrapper">';
 
-            if ($hasChildren) {
+            if ($haschildren) {
+                $categoryurl = $CFG->wwwroot . '/course/index.php?categoryid=' . $category->id;
+                $categorylink = '<a href="' . $categoryurl . '" data-cat-id="' . $category->id
+                    . '" class="category-link ellipsis catvisibility-' . $category->visible . ' ">'
+                    . format_text($category->name, FORMAT_HTML) . '</a>';
+                $hiddenicon = '<i class="hidden-label edw-icon edw-icon-Hide p-mt-0d5 catvisibility-'
+                    . $category->visible . '" aria-hidden="true"></i>';
                 $html .= '<div class="menu-heading d-flex flex-gap-2 w-100">
-                            <div class="toggle-btn d-flex justify-content-center align-items-center collapsed" data-toggle="collapse" data-target="#collapse' . $uniquenumber . '" aria-controls="collapseTwo">
+                            <div class="toggle-btn d-flex justify-content-center align-items-center collapsed"
+                                data-toggle="collapse" data-target="#collapse' . $uniquenumber . '" aria-controls="collapseTwo">
                                 <span class="expande-icon edw-icon edw-icon-Down-Arrow" title=""></span>
                                 <span class="collaps-icon edw-icon edw-icon-UpArrow" title=""></span>
                             </div>
-                            <a href="'.$CFG->wwwroot.'/course/index.php?categoryid='.$category->id.'" data-cat-id="'.$category->id.'" class="category-link ellipsis catvisibility-'.$category->visible.' ">'.format_text($category->name, FORMAT_HTML).'</a>
-                            <i class="hidden-label edw-icon edw-icon-Hide p-mt-0d5 catvisibility-'.$category->visible.'" aria-hidden="true"></i>
+                            ' . $categorylink . '
+                            ' . $hiddenicon . '
                         </div>';
-                $html .= '<div id="collapse' .$uniquenumber. '" class="collapse">
+                $html .= '<div id="collapse' . $uniquenumber . '" class="collapse">
                             <div class="menu-body">';
             } else {
+                $categoryurl = $CFG->wwwroot . '/course/index.php?categoryid=' . $category->id;
+                $categorylink = '<a href="' . $categoryurl . '" data-cat-id="' . $category->id
+                    . '" class="category-link ellipsis catvisibility-' . $category->visible . ' ">'
+                    . format_text($category->name, FORMAT_HTML) . '</a>';
+                $hiddenicon = '<i class="hidden-label edw-icon edw-icon-Hide p-mt-0d5 catvisibility-'
+                    . $category->visible . '" aria-hidden="true"></i>';
                 $html .= '<ul class="m-0 p-pl-5">
                                 <li><div class="d-flex flex-gap-2 w-100">
-                                <a href="'.$CFG->wwwroot.'/course/index.php?categoryid='.$category->id.'" data-cat-id="'.$category->id.'" class="category-link ellipsis catvisibility-'.$category->visible.' ">'.format_text($category->name, FORMAT_HTML).'</a>
-                                <i class="hidden-label edw-icon edw-icon-Hide p-mt-0d5 catvisibility-'.$category->visible.'" aria-hidden="true"></i>
+                                ' . $categorylink . '
+                                ' . $hiddenicon . '
                                 </div></li>
                             </ul>';
             }
 
-            if ($hasChildren) {
-                $html .= utility::generateHTML($category->children);
+            if ($haschildren) {
+                $html .= self::generatehtml($category->children);
                 $html .= '</div>';
                 $html .= '</div>';
             }
@@ -177,14 +213,14 @@ class utility {
             $html .= '</div>';
         }
 
-        // $html .= '</div>';
-
         return $html;
     }
 
-    /*
-     * To add menu in header bar for recently accessed cources.
-     * @param $contextmenu -> $primarymenu['moremenu']
+    /**
+     * Add menu in header bar for recently accessed courses.
+     *
+     * @param array $contextmenu Primary menu context array
+     * @return array Updated context menu with recent courses
      */
     public static function get_recent_courses_menu($contextmenu) {
 
@@ -197,15 +233,14 @@ class utility {
         $mainarr['url'] = "#";
         $mainarr['children'] = [];
         foreach ($courses as $key => $course) {
-
             $mainarr['haschildren'] = true;
 
             $obj = [];
 
             $obj['text'] = format_text($course->fullname);
-            $obj['url'] = new moodle_url('/course/view.php?id=', array(
-                'id' => $course->courseid
-            ));
+            $obj['url'] = new moodle_url('/course/view.php?id=', [
+                'id' => $course->courseid,
+            ]);
             $obj['title'] = format_text($course->fullname);
             $mainarr['children'][] = $obj;
         }
@@ -225,6 +260,12 @@ class utility {
 
         return $contextmenu;
     }
+    /**
+     * Get login menu data for primary menu.
+     *
+     * @param array $primarymenu Primary menu context array
+     * @return array Updated primary menu with login data
+     */
     public static function get_login_menu_data($primarymenu) {
         global $PAGE, $CFG;
 
@@ -236,7 +277,7 @@ class utility {
 
         $authsequence = get_enabled_auth_plugins(true); // Get all auths, in sequence.
 
-        $idps = array();
+        $idps = [];
         foreach ($authsequence as $authname) {
             $authplugin = get_auth_plugin($authname);
             $idps = array_merge($idps, $authplugin->loginpage_idp_list($PAGE->url->out(false)));
@@ -271,22 +312,27 @@ class utility {
 
 
     /**
-     * This function is used to get the sections for footer section.
+     * Get the sections for footer section.
      *
-     * @return array which contains the column values
+     * @return array Array containing the column values
      */
-
     public static function get_sections() {
         $sectionvalue = 0;
         $allsections = [];
-        $noofwidgests = get_config('theme_remui', 'footercolumn');
-        for ($i = 1; $i <= $noofwidgests; $i++) {
-            $allsections[] = $i;
-
+        $footerdesign = get_config('theme_remui', 'footer-design-selector');
+        if ($footerdesign == 'footer-design-2') {
+            $noofwidgets = get_config('theme_remui', 'footercolumn5');
+            $padcount = 5;
+        } else {
+            $noofwidgets = get_config('theme_remui', 'footercolumn');
+            $padcount = 4;
         }
-        if (count($allsections) < 4) {
-            $allsections = array_pad($allsections, 4, 0);
-        };
+        for ($i = 1; $i <= $noofwidgets; $i++) {
+            $allsections[] = $i;
+        }
+        if (count($allsections) < $padcount) {
+            $allsections = array_pad($allsections, $padcount, value: 0);
+        }
         return $allsections;
     }
     /**
@@ -294,78 +340,76 @@ class utility {
      *
      * @return array Footer  data
      */
+    private static function is_modern_preset(): bool {
+        return customizer::instance()->get_config('radio_themepreset') === 'preset-modern';
+    }
+
     public static function get_footer_data() {
         global $OUTPUT, $SITE;
         $customizer = customizer::instance();
-        $footer = array();
+        $footer = [];
         $colcount = self::get_sections();
 
         $colsize = 100 / count($colcount);
         $emptyfootersection = count(array_keys($colcount, 0));
         $footer['sections'] = [];
-        $footer['sectionisnotempty'] = $emptyfootersection != 4;
+        $footer['sectionisnotempty'] = $emptyfootersection != count($colcount);
         $sociallist = [
             'facebook' => [
                 'class' => "social-facebook",
                 'icon' => "icon edw-icon edw-icon-Facebook",
                 'link' => $customizer->get_config('facebooksetting'),
-                'title' => get_string('follometext', 'theme_remui', 'facebook')
+                'title' => get_string('follometext', 'theme_remui', 'facebook'),
             ],
             'twitter' => [
                 'class' => "social-twitter",
                 'icon' => "icon edw-icon edw-icon-Twitter",
                 'link' => $customizer->get_config('twittersetting'),
-                'title' => get_string('follometext', 'theme_remui', 'twitter')
+                'title' => get_string('follometext', 'theme_remui', 'twitter'),
 
             ],
             'linkedin' => [
                 'class' => "social-linkedin",
                 'icon' => "icon edw-icon edw-icon-Linkedin",
                 'link' => $customizer->get_config('linkedinsetting'),
-                'title' => get_string('follometext', 'theme_remui', 'linkedin')
-            ],
-            'gplus' => [
-                'class' => "social-google-plus",
-                'icon' => "icon edw-icon edw-icon-Gplus",
-                'link' => $customizer->get_config('gplussetting'),
-                'title' => get_string('follometext', 'theme_remui', 'gplus')
+                'title' => get_string('follometext', 'theme_remui', 'linkedin'),
             ],
             'youtube' => [
                 'class' => "social-youtube",
                 'icon' => "icon fa fa-youtube",
                 'link' => $customizer->get_config('youtubesetting'),
-                'title' => get_string('follometext', 'theme_remui', 'youtube')
+                'title' => get_string('follometext', 'theme_remui', 'youtube'),
             ],
             'instagram' => [
                 'class' => "social-instagram",
                 'icon' => "icon fa fa-instagram",
                 'link' => $customizer->get_config('instagramsetting'),
-                'title' => get_string('follometext', 'theme_remui', 'instagram')
+                'title' => get_string('follometext', 'theme_remui', 'instagram'),
             ],
             'pinterest' => [
                 'class' => "social-pinterest",
                 'icon' => "icon fa fa-pinterest",
                 'link' => $customizer->get_config('pinterestsetting'),
-                'title' => get_string('follometext', 'theme_remui', 'pinterest')
+                'title' => get_string('follometext', 'theme_remui', 'pinterest'),
             ],
             'quora' => [
                 'class' => "social-quora",
                 'icon' => "icon fa fa-quora",
                 'link' => $customizer->get_config('quorasetting'),
-                'title' => get_string('follometext', 'theme_remui', 'quore')
+                'title' => get_string('follometext', 'theme_remui', 'quore'),
             ],
             'whatsapp' => [
                 'class' => "social-whatsapp",
                 'icon' => "icon fa fa-whatsapp",
                 'link' => $customizer->get_config('whatsappsetting'),
-                'title' => get_string('follometext', 'theme_remui', 'WhatsApp')
+                'title' => get_string('follometext', 'theme_remui', 'WhatsApp'),
             ],
             'telegram' => [
                 'class' => "social-telegram",
                 'icon' => "icon fa fa-telegram",
                 'link' => $customizer->get_config('telegramsetting'),
-                'title' => get_string('follometext', 'theme_remui', 'Telegram')
-            ]
+                'title' => get_string('follometext', 'theme_remui', 'Telegram'),
+            ],
         ];
 
         foreach ($sociallist as $key => $value) {
@@ -374,48 +418,114 @@ class utility {
             }
         }
 
+        // Social media context for footer bottom area.
+        $footer['social'] = array_values($sociallist);
+        $footer['showfootersocialmediaicons'] = $customizer->get_config('footersocialmediaicons');
         $colid = 0;
         foreach ($colcount as $i) {
             $colid++;
             $footerarr = [];
             $footerarr['width'] = $colsize;
             $footerarr['coulumnid'] = $colid;
-            $footerarr['customhtml'] = $customizer->get_config( 'footercolumn'.$i.'type') == 'customhtml';
-            $footerarr['menu'] = $customizer->get_config( 'footercolumn'.$i.'type') == 'menu';
-            $footerarr['title'] = format_text($customizer->get_config('footercolumn'.$i.'title'), FORMAT_HTML,array("noclean"=> true));
+            $footerarr['columnindex'] = $i; // Add column index for template logic.
+            $footerarr['is_column_1'] = ($colid == 1); // Boolean flag for column 1.
+            $footerarr['is_column_4'] = ($colid == 4);
+            $footerarr['customhtml'] = $customizer->get_config('footercolumn' . $colid . 'type') == 'customhtml';
+            $footerarr['menu'] = $customizer->get_config('footercolumn' . $colid . 'type') == 'menu';
+            $footercolumntitle = $customizer->get_config('footercolumn' . $colid . 'title');
+            $footerarr['title'] = format_text($footercolumntitle, FORMAT_HTML, ["noclean" => true]);
             $footerarr['classes'] = ($i) == 0 ? "empty" : '';
+            $footerarr['isempty'] = ($i) == 0;
 
-            $footerarr['hascontenthtml'] = array(
-                'title' => format_text($customizer->get_config('footercolumn'.$i.'title'), FORMAT_HTML,array("noclean"=> true)),
-                "content" => format_text($customizer->get_config('footercolumn'.$i.'customhtml'), FORMAT_HTML,array("noclean"=> true)),
-            );
-            $footerarr['hassocial'] = $customizer->get_config('socialmediaiconcol' . $i) && $footerarr['customhtml'];
+            $footercolumncustomhtml = $customizer->get_config('footercolumn' . $colid . 'customhtml');
+            $footerarr['hascontenthtml'] = [
+                'title' => format_text($footercolumntitle, FORMAT_HTML, ["noclean" => true]),
+                "content" => format_text($footercolumncustomhtml, FORMAT_HTML, ["noclean" => true]),
+            ];
+            $footerarr['hassocial'] = $customizer->get_config('socialmediaiconcol' . $colid) && $footerarr['customhtml'];
             $footerarr['socialiconvisibility'] = $footerarr['hassocial'];
-            if (!($customizer->get_config('footercolumn'.$i.'social')) || !$selectedsocial = json_decode($customizer->get_config('footercolumn'.$i.'social'), true)) {
-                $selectedsocial = [];
-            }
+            $footerarr['subscribetargetlink'] = $customizer->get_config('subscribetargetlink' . $colid);
 
-            $tempsocial = $sociallist;
+            $sociallistwidget = [
+                'facebook' => [
+                    'class' => "social-facebook",
+                    'icon' => "icon edw-icon edw-icon-Facebook",
+                    'link' => $customizer->get_config('facebooksetting' . $i),
+                    'title' => get_string('follometext', 'theme_remui', 'facebook'),
+                ],
+                'twitter' => [
+                    'class' => "social-twitter",
+                    'icon' => "icon edw-icon edw-icon-Twitter",
+                    'link' => $customizer->get_config('twittersetting' . $i),
+                    'title' => get_string('follometext', 'theme_remui', 'twitter'),
 
-            foreach ($tempsocial as $key => $value) {
-                if (!in_array($key, $selectedsocial)) {
-                    unset($tempsocial[$key]);
+                ],
+                'linkedin' => [
+                    'class' => "social-linkedin",
+                    'icon' => "icon edw-icon edw-icon-Linkedin",
+                    'link' => $customizer->get_config('linkedinsetting' . $i),
+                    'title' => get_string('follometext', 'theme_remui', 'linkedin'),
+                ],
+                'youtube' => [
+                    'class' => "social-youtube",
+                    'icon' => "icon fa fa-youtube",
+                    'link' => $customizer->get_config('youtubesetting' . $i),
+                    'title' => get_string('follometext', 'theme_remui', 'youtube'),
+                ],
+                'instagram' => [
+                    'class' => "social-instagram",
+                    'icon' => "icon fa fa-instagram",
+                    'link' => $customizer->get_config('instagramsetting' . $i),
+                    'title' => get_string('follometext', 'theme_remui', 'instagram'),
+                ],
+                'pinterest' => [
+                    'class' => "social-pinterest",
+                    'icon' => "icon fa fa-pinterest",
+                    'link' => $customizer->get_config('pinterestsetting' . $i),
+                    'title' => get_string('follometext', 'theme_remui', 'pinterest'),
+                ],
+                'quora' => [
+                    'class' => "social-quora",
+                    'icon' => "icon fa fa-quora",
+                    'link' => $customizer->get_config('quorasetting' . $i),
+                    'title' => get_string('follometext', 'theme_remui', 'quore'),
+                ],
+                'whatsapp' => [
+                    'class' => "social-whatsapp",
+                    'icon' => "icon fa fa-whatsapp",
+                    'link' => $customizer->get_config('whatsappsetting' . $i),
+                    'title' => get_string('follometext', 'theme_remui', 'WhatsApp'),
+                ],
+                'telegram' => [
+                    'class' => "social-telegram",
+                    'icon' => "icon fa fa-telegram",
+                    'link' => $customizer->get_config('telegramsetting' . $i),
+                    'title' => get_string('follometext', 'theme_remui', 'Telegram'),
+                ],
+            ];
+
+            foreach ($sociallistwidget as $key => $value) {
+                if (empty($value['link'])) {
+                    unset($sociallistwidget[$key]);
                 }
             }
-            $footerarr['hassocial'] = array(
-                'social' => array_values($tempsocial)
-            );
+            // Social media context for main footer area.
+            $footerarr['hassocial'] = [
+                'social' => array_values($sociallistwidget),
+            ];
 
-            $footerarr['menu'] = $customizer->get_config('footercolumn'.$i.'menu');
+            $footerarr['menu'] = $customizer->get_config('footercolumn' . $colid . 'menu');
             if (!empty($footerarr['menu'])) {
                 foreach ($footerarr['menu'] as $key => $item) {
-                    $footerarr['menu'][$key]['text'] = format_text($item['text'], FORMAT_HTML,array("noclean"=> true));
+                    $footerarr['menu'][$key]['text'] = format_text($item['text'], FORMAT_HTML, ["noclean" => true]);
                 }
             }
             $footer['sections'][] = $footerarr;
         }
-        $footer['bottomtext'] = format_text(\theme_remui\toolbox::get_setting('footerbottomtext'),FORMAT_HTML,array("noclean"=> true));
-        $footer['bottomlink'] = strip_tags(format_text(\theme_remui\toolbox::get_setting('footerbottomlink')));
+        $footerbottomtext = \theme_remui\toolbox::get_setting('footerbottomtext');
+        $footer['bottomtext'] = format_text($footerbottomtext, FORMAT_HTML, ["noclean" => true]);
+        $footerbottomlink = \theme_remui\toolbox::get_setting('footerbottomlink');
+        $footer['bottomlink'] = strip_tags(format_text($footerbottomlink));
 
         if (\theme_remui\toolbox::get_setting('poweredbyedwiser')) {
             $footer['poweredby']  = true;
@@ -429,7 +539,10 @@ class utility {
         $secondaryfooterlogo = '';
         if (!$footer['useheaderlogo']) {
             $secondaryfooterlogo = \theme_remui\toolbox::setting_file_url('secondaryfooterlogo', 'secondaryfooterlogo');
-            $secondaryfooterlogodarkmode = \theme_remui\toolbox::setting_file_url('secondaryfooterlogodarkmode', 'secondaryfooterlogodarkmode');
+            $secondaryfooterlogodarkmode = \theme_remui\toolbox::setting_file_url(
+                'secondaryfooterlogodarkmode',
+                'secondaryfooterlogodarkmode'
+            );
             if (empty($secondaryfooterlogo)) {
                 $secondaryfooterlogo = \theme_remui\toolbox::image_url('logo', 'theme_remui');
             }
@@ -463,19 +576,75 @@ class utility {
             'footercopyrightsshow' => $customizer->get_config('footercopyrightsshow'),
             'content' => strip_tags(format_text($copyrights)),
             'attributes' => [
-                'data-site="' . $SITE->fullname . '"'
-            ]
+                'data-site="' . $SITE->fullname . '"',
+            ],
         ];
+
+        // Selected footer design from config.
+        $footerselectedtemplate = $customizer->get_config('footer-design-selector');
+
+        // Initialize all designs as false.
+        for ($i = 1; $i <= 7; $i++) {
+            $footer['footerdesign' . $i] = false;
+        }
+
+        // Map config values to footerdesign index.
+        $mapping = [
+            'footer-design-0' => 1,
+            'footer-design-1' => 2,
+            'footer-design-2' => 3,
+            'footer-design-3' => 4,
+            'footer-design-4' => 5,
+            'footer-design-5' => 6,
+            'footer-design-6' => 7,
+        ];
+
+        // Pick design index from mapping or default to 1.
+        $designindex = $mapping[$footerselectedtemplate] ?? 1;
+
+        // Set the chosen design to true.
+        $footer['footerdesign' . $designindex] = true;
+
+        $footerwidgetlogo = \theme_remui\toolbox::setting_file_url('footerwidgetlogo', 'footerwidgetlogo');
+        if(empty($footerwidgetlogo)) {
+            if ($designindex === 2) {
+                $footerwidgetlogo = "https://qastaticcdn.edwiser.org/theme_remuiassets/footerassets/images/option1.png";
+            } else if ($designindex === 3) {
+                $footerwidgetlogo = "https://qastaticcdn.edwiser.org/theme_remuiassets/footerassets/images/option2.png";
+            } else if ($designindex === 4) {
+                $footerwidgetlogo = "https://qastaticcdn.edwiser.org/theme_remuiassets/footerassets/images/option3.png";
+            } else if ($designindex === 5) {
+                $footerwidgetlogo = "https://qastaticcdn.edwiser.org/theme_remuiassets/footerassets/images/option4.png";
+            } else if ($designindex === 7) {
+                $footerwidgetlogo = "https://qastaticcdn.edwiser.org/theme_remuiassets/footerassets/images/option6.svg";
+            }
+
+            // if(self::is_modern_preset()) {
+            //     $footerwidgetlogo = preg_replace('/(\.[^.]+)$/', '-modernpreset$1', $footerwidgetlogo);
+            // }
+        }
+
+        $footer['footerwidgetlogo'] = $footerwidgetlogo;
+        $footer['showfooterwidgetlogo'] = $customizer->get_config('showfooterwidgetlogo');
+        $footer['subscribetargetlink0'] = $customizer->get_config('subscribetargetlink0');
+
+        // Email form visibility context.
+        $footer['toggle_email_subscribe_settings0'] = $customizer->get_config('toggle_email_subscribe_settings0');
+        $footer['toggle_email_subscribe_settings1'] = $customizer->get_config('toggle_email_subscribe_settings1');
+        $footer['toggle_email_subscribe_settings4'] = $customizer->get_config('toggle_email_subscribe_settings4');
+
+        $footer['top-area-header-text'] = strip_tags(format_text($customizer->get_config('top-area-header-text')));
 
         return $footer;
     }
-    /*
-     * To add icons to profile menu dropdown in header.
-     * @param $primarymenu
-     * @return $primarymenu
+    /**
+     * Add icons to profile menu dropdown in header.
+     *
+     * @param array $primarymenu Primary menu array
+     * @return array Updated primary menu with icons
      */
     public static function add_profile_dropdown_icons($primarymenu) {
-        $customicons = array(
+        $customicons = [
             "profile,moodle" => "edw-icon-User",
             "grades,grades" => "edw-icon-Grade",
             "calendar,core_calendar" => "edw-icon-Calendar",
@@ -485,14 +654,19 @@ class utility {
             "switchroleto,moodle" => "edw-icon-Grade",
             "language" => "edw-icon-Language",
             "logout,moodle" => "edw-icon-Logout",
-        );
+        ];
         foreach ($primarymenu['user']['items'] as $key => $user) {
             $item = $primarymenu['user']['items'][$key];
-            if ($item->itemtype == "submenu-link" && !isset($item->titleidentifier) ) {
+            if ($item->itemtype == "submenu-link" && !isset($item->titleidentifier)) {
                 $item->titleidentifier = 'language';
             }
-            if (($item->itemtype == "link" || $item->itemtype == "submenu-link") && isset($item->titleidentifier) && isset($customicons[$item->titleidentifier])) {
-                $item->profileicon = $customicons[$item->titleidentifier];
+            $islink = ($item->itemtype == "link" || $item->itemtype == "submenu-link");
+            $hastitleidentifier = isset($item->titleidentifier);
+            if ($islink && $hastitleidentifier) {
+                $titleidentifier = $item->titleidentifier;
+                if (isset($customicons[$titleidentifier])) {
+                    $item->profileicon = $customicons[$titleidentifier];
+                }
             }
 
             $primarymenu['user']['items'][$key] = $item;
@@ -522,8 +696,8 @@ class utility {
         $courses = enrol_get_my_courses();
         $courseids = array_keys($courses);
         $courseids[] = SITEID;
-        list($coursesql, $params) = $DB->get_in_or_equal($courseids);
-        $coursesql = 'AND gi.courseid '.$coursesql;
+        [$coursesql, $params] = $DB->get_in_or_equal($courseids);
+        $coursesql = 'AND gi.courseid ' . $coursesql;
 
         $onemonthago = time() - (DAYSECS * 31);
         $showfrom = $onemonthago;
@@ -544,7 +718,7 @@ class utility {
         $params = array_merge($params, [$USER->id, $showfrom, $showfrom]);
         $grades = $DB->get_records_sql($sql, $params, 0, 5);
 
-        $eventdata = array();
+        $eventdata = [];
         foreach ($grades as $grade) {
             $eventdata[] = $grade;
         }
@@ -583,7 +757,7 @@ class utility {
      */
     public static function get_focus_mode_sections(stdClass $course, $coursemoduleid = false) {
         global $CFG, $USER;
-        require_once($CFG->dirroot.'/course/lib.php');
+        require_once($CFG->dirroot . '/course/lib.php');
 
         $modinfo = get_fast_modinfo($course);
         $sections = $modinfo->get_section_info_all();
@@ -594,7 +768,7 @@ class utility {
             $sections = array_slice($sections, 0, $courseformatoptions['numsections'] + 1, true);
         }
 
-        $allsections = array();
+        $allsections = [];
         $active = '';
         $previous = '';
         $current = '';
@@ -602,8 +776,8 @@ class utility {
 
         $sectiondelegatedsectionmap = [];
         foreach ($sections as $sectiondata) {
-            $section = new stdClass;
-            $section->sectionid = 'Section-'.$sectiondata->id;
+            $section = new stdClass();
+            $section->sectionid = 'Section-' . $sectiondata->id;
             $section->id = $sectiondata->id;
             $section->section = $sectiondata->section;
             $section->name = get_section_name($course, $sectiondata->section);
@@ -616,7 +790,7 @@ class utility {
 
             foreach ($modinfo->sections[$sectiondata->section] as $cmid) {
                 $cm = $modinfo->cms[$cmid];
-                $activity = new stdClass;
+                $activity = new stdClass();
 
                 if ($cm->modname == 'subsection') {
                     $activity->delegatesectionid = $cm->__get('customdata')['sectionid'];
@@ -671,14 +845,14 @@ class utility {
             }
             $allsections[$sectiondata->id] = $section;
         }
-        // Add the delegated sections to the parent section
+        // Add the delegated sections to the parent section.
         foreach ($sectiondelegatedsectionmap as $key => $singlesection) {
-            // Reference to the parent section in the allsections array
+            // Reference to the parent section in the allsections array.
             $parentsection = &$allsections[$singlesection];
 
-            // Add the referenced section to the delegatedsections array
+            // Add the referenced section to the delegatedsections array.
             $parentsection->activities[$key] = &$allsections[$key];
-            // Check if activities exist and is an array before calling array_values
+            // Check if activities exist and is an array before calling array_values.
             if (isset($allsections[$key]->active) && ($allsections[$key]->active == 'show')) {
                 $parentsection->active = 'show';
             }
@@ -687,17 +861,15 @@ class utility {
                 $parentsection->activities[$key]->isdelegatedsection = true;
             }
 
-
             unset($allsections[$key]);
-
         }
 
         $allsections = array_values($allsections);
 
-        // Remove null or unset activities
+        // Remove null or unset activities.
         foreach ($allsections as &$singlesection) {
             if (isset($singlesection->activities) && is_array($singlesection->activities)) {
-                // Use array_filter to safely remove null or unset activities
+                // Use array_filter to safely remove null or unset activities.
                 $singlesection->activities = array_values(
                     array_filter(
                         $singlesection->activities,
@@ -708,7 +880,7 @@ class utility {
                 );
             }
         }
-        // Unset the reference to avoid unintended modifications
+        // Unset the reference to avoid unintended modifications.
         unset($singlesection);
         // Create an ordered flat array of all activities.
         $orderedactivities = [];
@@ -788,13 +960,13 @@ class utility {
             return;
         }
 
-        $bodyclasses = array(
+        $bodyclasses = [
             'pagelayout-mydashboard',
             'pagelayout-mycourses',
             'pagelayout-frontpage',
             'path-calendar',
-            'pagelayout-course'
-        );
+            'pagelayout-course',
+        ];
 
         foreach ($bodyclasses as $key => $needle) {
             if (in_array($needle, $haystack)) {
@@ -815,10 +987,12 @@ class utility {
         global $CFG, $OUTPUT;
 
         // Resultant Array.
-        $result = array();
+        $result = [];
         $result['view'] = get_user_preferences('course_view_state');
 
-        if ((isset($wdmdata->view) && $wdmdata->view == 'grid') || (!isset($wdmdata->view) && ($result['view'] == 'grid' || !$result['view'] ))) {
+        $isgridview = isset($wdmdata->view) && $wdmdata->view == 'grid';
+        $isdefaultgrid = !isset($wdmdata->view) && ($result['view'] == 'grid' || !$result['view']);
+        if ($isgridview || $isdefaultgrid) {
             $courseperpage = self::get_rowperpage_on_coursearchive($wdmdata->courserowperpage, $wdmdata->courseperrow);
         } else {
             $courseperpage = \theme_remui\toolbox::get_setting('courseperpage');
@@ -852,7 +1026,7 @@ class utility {
         // Pagination Context creation.
         if ($wdmdata->pagination) {
             // First paremeter true means get_courses function will return count of the result and if false, returns actual data.
-            list($totalcourses, $courses)  = self::get_courses(
+            [$totalcourses, $courses]  = self::get_courses(
                 2,
                 $search,
                 $category,
@@ -887,11 +1061,9 @@ class utility {
         }
 
         // Courses Data.
-        $coursecontext = array();
+        $coursecontext = [];
         foreach ($courses as $key => $course) {
-
-
-            $coursedata = array();
+            $coursedata = [];
             $coursedata['id'] = $course['courseid'];
             $coursedata['grader']    = $course['grader'];
             $coursedata['shortname'] = strip_tags(format_text($course['shortname']));
@@ -917,7 +1089,6 @@ class utility {
             }
             $coursedata['coursesummary'] = $course['coursesummary'];
 
-
             // Context creation for all courses.
             if (isset($course['usercanmanage']) && $allowfull) {
                 $coursedata["usercanmanage"] = $course['usercanmanage'];
@@ -926,18 +1097,18 @@ class utility {
             if (isset($course['enrollmenticons']) && $allowfull) {
                 $coursedata["enrollmenticons"] = $course['enrollmenticons'];
             }
-            if(isset($course["enrollmenticonsremainig"])) {
+            if (isset($course["enrollmenticonsremainig"])) {
                 $coursedata["enrollmenticonsremainig"] = $course["enrollmenticonsremainig"];
             }
 
-            if(isset($course["enrolleduserscount"])){
+            if (isset($course["enrolleduserscount"])) {
                 $coursedata["enrolleduserscount"] = $course["enrolleduserscount"];
             }
 
             $coursedata["showselecteddatesetting"] = $course["showselecteddatesetting"];
 
             if (isset($course['instructors']) && $allowfull) {
-                $instructors = array();
+                $instructors = [];
                 foreach ($course['instructors'] as $key2 => $instructor) {
                     $instructordetail['name'] = $instructor['name'];
                     $instructordetail['url'] = $instructor['url'];
@@ -949,13 +1120,11 @@ class utility {
 
             $coursedata['instructorcount'] = $course['instructorcount'];
             $coursedata['lessoncount'] = $course['lessoncount'];
-            // $pagelayout = get_config('theme_remui', 'categorypagelayout');
 
             $coursedata['animation'] = \theme_remui\toolbox::get_setting('courseanimation');
             $coursecontext[] = $coursedata;
         }
         $result['courses'] = $coursecontext;
-
 
         return $result;
     }
@@ -1026,7 +1195,6 @@ class utility {
             $filteredcourseids,
             $isfilterapplied
         );
-
     }
     /**
      * Return HTML for site announcement.
@@ -1040,7 +1208,7 @@ class utility {
         $html = '';
 
         $type = \theme_remui\toolbox::get_setting('announcementtype');
-        $message = format_text(\theme_remui\toolbox::get_setting('announcementtext'),FORMAT_HTML,array("noclean" => true));
+        $message = format_text(\theme_remui\toolbox::get_setting('announcementtext'), FORMAT_HTML, ["noclean" => true]);
 
         if (\theme_remui\toolbox::get_setting('enabledismissannouncement')) {
             $html .= '<button id="dismiss_announcement" type="button" class="close" data-dismiss="alert" aria-label="Close">';
@@ -1063,19 +1231,19 @@ class utility {
      * @param string $url
      * @return array
      */
-    public static function url_get_contents ($url) {
+    public static function url_get_contents($url) {
         global $CFG;
-        $urlgetcontentsdata = array();
+        $urlgetcontentsdata = [];
 
         if (class_exists('curl')) {
             $curl = new \curl();
-            $curl->setopt(array(
+            $curl->setopt([
                 'CURLOPT_SSL_VERIFYPEER' => false,
                 'CURLOPT_FRESH_CONNECT' => true,
                 'CURLOPT_RETURNTRANSFER' => 1,
                 'CURLOPT_TIMEOUT' => 3,
-                'CURLOPT_USERAGENT' => $_SERVER['HTTP_USER_AGENT'] . ' - ' . $CFG->wwwroot,
-            ));
+                'CURLOPT_USERAGENT' => \core_useragent::get_user_agent_string() . ' - ' . $CFG->wwwroot,
+            ]);
             $urlgetcontentsdata = $curl->get($url);
 
             if ($curl->get_errno() !== 0) {
@@ -1095,7 +1263,7 @@ class utility {
             $urlgetcontentsdata = (curl_exec($conn));
             if (curl_errno($conn)) {
                 $errormsg = curl_error($conn);
-                $urlgetcontentsdata = array();
+                $urlgetcontentsdata = [];
             }
             curl_close($conn);
         } else if (function_exists('file_get_contents')) {
@@ -1104,7 +1272,7 @@ class utility {
             $handle = fopen($url, "r");
             $urlgetcontentsdata = stream_get_contents($handle);
         } else {
-            $urlgetcontentsdata = array();
+            $urlgetcontentsdata = [];
         }
         return $urlgetcontentsdata;
     }
@@ -1121,9 +1289,14 @@ class utility {
         throw new Exception(json_encode(['error' => true, 'msg' => $error . " : " . $code]), $code);
     }
 
+    /**
+     * Get in-product notification data.
+     *
+     * @return array|false Notification data array or false if not available
+     */
     public static function get_inproduct_notification() {
         global $OUTPUT;
-        // Init product notification configuration
+        // Init product notification configuration.
         $notification = get_user_preferences('edwiser_inproduct_notification');
 
         if ($notification == null || $notification == "false" || $notification == false) {
@@ -1136,7 +1309,7 @@ class utility {
             "msg" => $notification->msg,
             "imgclass" => $notification->img,
             "edwiserlogo" => $OUTPUT->image_url('edwiser-logo', 'theme_remui')->__toString(),
-            "mainimg" => $OUTPUT->image_url($notification->img, 'theme_remui')->__toString()
+            "mainimg" => $OUTPUT->image_url($notification->img, 'theme_remui')->__toString(),
         ];
     }
 
@@ -1146,19 +1319,23 @@ class utility {
          * @return HTML for license notice.
          */
     public static function show_license_notice() {
+        global $CFG;
         // Get license data from license controller.
         $lcontroller = new \theme_remui\controller\LicenseController();
         $getlidatafromdb = $lcontroller->get_data_from_db();
         if (isloggedin() && !isguestuser()) {
             $content = '';
 
-            $classes = ['alert', 'text-center', 'license-notice', ' alert-dismissible', 'site-announcement' , 'mb-0'];
+            $classes = ['alert', 'text-center', 'license-notice', ' alert-dismissible', 'site-announcement', 'mb-0'];
             if ('available' != $getlidatafromdb) {
                 $classes[] = 'alert-danger';
                 if (is_siteadmin()) {
-                    $content .= '<strong>'.get_string('licensenotactiveadmin', 'theme_remui').'</strong>';
-                } else {
-                    $content .= get_string('licensenotactive', 'theme_remui');
+                    $licensenotactiveadmin = get_string(
+                        'licensenotactiveadmin',
+                        'theme_remui',
+                        ['wwwroot' => $CFG->wwwroot]
+                    );
+                    $content .= '<strong>' . $licensenotactiveadmin . '</strong>';
                 }
             } else if ('available' == $getlidatafromdb) {
                 $licensekeyactivate = \theme_remui\toolbox::get_setting(EDD_LICENSE_ACTION);
@@ -1173,26 +1350,35 @@ class utility {
                         $classes[] = 'update-nag bg-info moodle-has-zindex';
                         $url = new moodle_url(
                             '/admin/settings.php',
-                            array(
+                            [
                                 'section' => 'themesettingremui',
-                                'activetab' => 'informationcenter'
-                            )
+                                'activetab' => 'informationcenter',
+                            ]
                         );
-                        $content .= get_string('newupdatemessage', 'theme_remui', $url->out());
+                        $updatemessage = get_string('newupdatemessage', 'theme_remui', $url->out());
+                        $content .= $updatemessage;
                     }
                 }
             }
             if ($content != '') {
-                $content .= '<button type="button" id="dismiss_announcement" class="close" data-dismiss="alert" aria-hidden="true"><span class="edw-icon edw-icon-Cancel  large"></span></button>';
-                return html_writer::tag('div', $content, array('class' => implode(' ', $classes)));
+                $dismissbutton = '<button type="button" id="dismiss_announcement" class="close" ';
+                $dismissbutton .= 'data-dismiss="alert" aria-hidden="true">';
+                $dismissbutton .= '<span class="edw-icon edw-icon-Cancel  large"></span></button>';
+                $content .= $dismissbutton;
+                return html_writer::tag('div', $content, ['class' => implode(' ', $classes)]);
             }
         }
         return '';
     }
+    /**
+     * Remove announcement preferences from database.
+     *
+     * @return void
+     */
     public static function remove_announcement_preferences() {
         global $DB;
         // Delete from DB.
-        $DB->delete_records('user_preferences', array('name' => 'remui_dismised_announcement'));
+        $DB->delete_records('user_preferences', ['name' => 'remui_dismised_announcement']);
     }
 
     /**
@@ -1216,7 +1402,7 @@ class utility {
 
         $roleid1 = $DB->get_field('role', 'id', ['shortname' => 'teacher']);
         $noniseditingteacheranywhere = $DB->record_exists('role_assignments', ['userid' => $USER->id, 'roleid' => $roleid1]);
-        if(!is_siteadmin($USER)){
+        if (!is_siteadmin($USER)) {
             if (empty($roles) && !$iseditingteacheranywhere && !$noniseditingteacheranywhere) {
                 return false;
             }
@@ -1227,23 +1413,23 @@ class utility {
         $categories = $DB->get_records('course_categories', null, '', 'id');
         if (!empty($categories)) {
             $firstcategory = reset($categories);
-            $createcourselink = $CFG->wwwroot. '/course/edit.php?category='.$firstcategory->id;
+            $createcourselink = $CFG->wwwroot . '/course/edit.php?category=' . $firstcategory->id;
         }
 
-        $menudata = array (
+        $menudata = [
             'coursearchivepage' => [
-                'url' => $CFG->wwwroot.'/course/index.php',
+                'url' => $CFG->wwwroot . '/course/index.php',
                 'iconclass' => 'edw-icon edw-icon-Glossary',
-                'title' => get_string('coursearchivepage', 'theme_remui')
-            ]
-        );
+                'title' => get_string('coursearchivepage', 'theme_remui'),
+            ],
+        ];
 
         // Return menus for course creator.
         if (is_siteadmin($USER) || has_capability('moodle/course:create', $context)) {
             $menudata['createanewcourse'] = [
                 'url' => $createcourselink,
                 'iconclass' => 'edw-icon edw-icon-File_Activity',
-                'title' => get_string('createanewcourse', 'theme_remui')
+                'title' => get_string('createanewcourse', 'theme_remui'),
             ];
         }
 
@@ -1252,7 +1438,7 @@ class utility {
             $menudata['userlist'] = [
                 'url' => "{$CFG->wwwroot}/{$CFG->admin}/user.php",
                 'iconclass' => 'edw-icon edw-icon-Group-user',
-                'title' => get_string('userlist')
+                'title' => get_string('userlist'),
             ];
         }
 
@@ -1261,7 +1447,7 @@ class utility {
             $menudata['customizer'] = [
                 'url' => $CFG->wwwroot . "/theme/remui/customizer.php?url=" . urlencode($PAGE->url->out()),
                 'iconclass' => 'edw-icon edw-icon-brush customizer-editing-icon',
-                'title' => get_string('customizer', 'theme_remui')
+                'title' => get_string('customizer', 'theme_remui'),
             ];
         }
 
@@ -1271,7 +1457,7 @@ class utility {
             $menudata['addnewpage'] = [
                 'url' => '#',
                 'iconclass' => 'edw-icon edw-icon-Add-Page epb-addnewpage',
-                'title' => get_string('addnewpage', 'theme_remui')
+                'title' => get_string('addnewcustompage', 'theme_remui'),
             ];
         }
 
@@ -1280,7 +1466,7 @@ class utility {
             $menudata['importer'] = [
                 'url' => "{$CFG->wwwroot}/{$CFG->admin}/settings.php?section=themesettingremui&activetab=edwisersiteimporter",
                 'iconclass' => 'edw-icon edw-icon-Download',
-                'title' => get_string('importer', 'theme_remui')
+                'title' => get_string('importer', 'theme_remui'),
             ];
         }
 
@@ -1289,7 +1475,7 @@ class utility {
             $menudata['remuisettings'] = [
                 'url' => "{$CFG->wwwroot}/{$CFG->admin}/settings.php?section=themesettingremui",
                 'iconclass' => 'edw-icon edw-icon-Preferences',
-                'title' => get_string('remuisettings', 'theme_remui')
+                'title' => get_string('remuisettings', 'theme_remui'),
             ];
         }
 
@@ -1301,6 +1487,11 @@ class utility {
     }
 
 
+    /**
+     * Add block float menu context.
+     *
+     * @return string Rendered template HTML
+     */
     public static function addblockfloatmenu() {
         global $OUTPUT, $CFG, $PAGE;
         $regionsid = [
@@ -1311,11 +1502,11 @@ class utility {
             "full-width-top" => '#region-fullwidthtop-blocks',
             "full-bottom" => '#region-fullwidthbottom-blocks',
         ];
-        $sortingarray = ['full-width-top', 'side-top', 'content', 'side-bottom',  'full-bottom', 'side-pre'];
+        $sortingarray = ['full-width-top', 'side-top', 'content', 'side-bottom', 'full-bottom', 'side-pre'];
 
         $addblockmodalcontext = [
             'editing' => $PAGE->user_is_editing(),
-            'regiondata' => array()
+            'regiondata' => [],
         ];
         $regionsarray = $PAGE->blocks->get_regions();
         usort($regionsarray, function ($a, $b) use ($sortingarray) {
@@ -1328,13 +1519,13 @@ class utility {
             if (empty($OUTPUT->addblockbutton($region))) {
                 continue;
             }
-            $singleregiondata = array(
+            $singleregiondata = [
                 'region' => $region,
                 'regionname' => get_string($region, 'theme_remui'),
                 'regionid' => $regionsid[$region],
                 'regionaddblockbutton' => $OUTPUT->addblockbutton($region),
-                'pageurl' => $PAGE->url
-            );
+                'pageurl' => $PAGE->url,
+            ];
             $addblockmodalcontext['regiondata'][] = $singleregiondata;
         }
         $PAGE->requires->data_for_js('blocksectiondata', $addblockmodalcontext['regiondata']);
@@ -1381,7 +1572,13 @@ class utility {
         return false;
     }
 
-    public static function get_ernr_coursecard_design($course){
+    /**
+     * Get Edwiser Rating Review course card design.
+     *
+     * @param object $course Course object
+     * @return array Rating design array
+     */
+    public static function get_ernr_coursecard_design($course) {
         global $CFG;
         $rnrshortdesign = '';
         if (is_plugin_available("block_edwiserratingreview")) {
@@ -1391,11 +1588,15 @@ class utility {
             $data->averagerating  = number_format($data->averagerating, 1);
             $data->totalcount = $dbhandler->get_recordcount($course->id);
             $data->avergeratingstar = '<div class="stars d-flex"><i aria-hidden="true" class="fa fa-star"></i></div>';
-            $rnrshortdesign .= '<div class="d-flex align-items-center justify-content-left rating-short-design" style="color:orange;">';
+            $ratingdesignclass = 'd-flex align-items-center justify-content-left rating-short-design';
+            $rnrshortdesign .= '<div class="' . $ratingdesignclass . '" style="color:orange;">';
             $rnrshortdesign .= "<div class='d-flex align-items-center'>";
-            $rnrshortdesign .= "<span class='avgrating small-info-semibold d-flex'>$data->averagerating</span>" . $data->avergeratingstar . "</div>";
-            $rnrshortdesign .= "<a class='rnr-link d-flex' href='". $CFG->wwwroot ."/course/view.php?id=".$course->id."#reviewarea'>";
-            $rnrshortdesign .= "<span class=' small-info-semibold d-flex p-pl-0d5'>({$data->totalcount})</span></a></div>";
+            $avgratingtext = "<span class='avgrating small-info-semibold d-flex'>$data->averagerating</span>";
+            $rnrshortdesign .= $avgratingtext . $data->avergeratingstar . "</div>";
+            $reviewurl = $CFG->wwwroot . "/course/view.php?id=" . $course->id . "#reviewarea";
+            $rnrshortdesign .= "<a class='rnr-link d-flex' href='" . $reviewurl . "'>";
+            $totalcounttext = "<span class=' small-info-semibold d-flex p-pl-0d5'>({$data->totalcount})</span>";
+            $rnrshortdesign .= $totalcounttext . "</a></div>";
         }
         $rnrshortdesingnarray = [];
         $rnrshortdesingnarray['rnrshortdesign'] = $rnrshortdesign;
@@ -1403,11 +1604,16 @@ class utility {
         return $rnrshortdesingnarray;
     }
 
-    public static function get_site_loader(){
+    /**
+     * Get site loader image URL.
+     *
+     * @return string Loader image URL
+     */
+    public static function get_site_loader() {
         global $CFG;
         $loaderimage = \theme_remui\toolbox::setting_file_url('loaderimage', 'loaderimage');
         if (empty($loaderimage)) {
-            $loaderimage   = $CFG->wwwroot.'/theme/remui/pix/siteloader.svg';
+            $loaderimage   = $CFG->wwwroot . '/theme/remui/pix/siteloader.svg';
         }
         return $loaderimage;
     }
@@ -1415,9 +1621,11 @@ class utility {
     /**
      * Get a list of course IDs that match the specified filters.
      *
-     * This function takes an array of filters (price, rating, skill level, language) and returns an array of course IDs that match those filters.
+     * This function takes an array of filters (price, rating, skill level, language) and returns
+     * an array of course IDs that match those filters.
      *
-     * @param array $selectedfilters An associative array of filters, where the keys are the filter types and the values are the filter values.
+     * @param array $selectedfilters An associative array of filters, where the keys are the filter
+     *                               types and the values are the filter values.
      * @return array An array of course IDs that match the specified filters.
      */
     public static function get_all_filtered_courseids($selectedfilters) {
@@ -1440,13 +1648,13 @@ class utility {
                     $ratingcourseids = self::get_rating_filtered_courseids($filters);
                     break;
                 case 'skilllevel':
-                    $skillvalues = array_map(function($skill) {
+                    $skillvalues = array_map(function ($skill) {
                         return $skill->value;
                     }, $filters);
                     $skilllevelcourseids = self::get_skilllevel_filtered_courseids($skillvalues);
                     break;
                 case 'language':
-                    $languagecodes = array_map(function($lang) {
+                    $languagecodes = array_map(function ($lang) {
                         return $lang->value;
                     }, $filters);
                     $languagecourseids = self::get_language_filtered_courseids($languagecodes);
@@ -1462,7 +1670,7 @@ class utility {
         ];
 
         // Filter out empty arrays.
-        $nonemptyarrays = array_filter($arrays, function($arr) {
+        $nonemptyarrays = array_filter($arrays, function ($arr) {
             return !empty($arr);
         });
 
@@ -1530,7 +1738,7 @@ class utility {
     public static function get_skilllevel_filtered_courseids($skillvalues) {
         global $DB;
 
-        list($insql, $inparams) = $DB->get_in_or_equal($skillvalues, SQL_PARAMS_NAMED, 'param', true);
+        [$insql, $inparams] = $DB->get_in_or_equal($skillvalues, SQL_PARAMS_NAMED, 'param', true);
 
         $sql = "SELECT DISTINCT cd.instanceid AS courseid
                 FROM {customfield_field} cf
@@ -1563,7 +1771,7 @@ class utility {
     public static function get_language_filtered_courseids($languagecodes) {
         global $DB;
 
-        list($insql, $params) = $DB->get_in_or_equal($languagecodes, SQL_PARAMS_NAMED);
+        [$insql, $params] = $DB->get_in_or_equal($languagecodes, SQL_PARAMS_NAMED);
 
         $sql = "SELECT id
                 FROM {course}
@@ -1572,7 +1780,7 @@ class utility {
         $records = $DB->get_records_sql($sql, $params);
 
         $nolangsetcourseids = [];
-        if(in_array('en', $languagecodes)) {
+        if (in_array('en', $languagecodes)) {
             $nolangsetcourseids = self::get_nolangset_coursesids();
         }
 
@@ -1626,7 +1834,7 @@ class utility {
 
         $cpsetcourseids = $DB->get_fieldset_sql($sql, $params);
 
-        $cpsetcourseids = array_map(function($item) {
+        $cpsetcourseids = array_map(function ($item) {
             return (int) str_replace('custompricetext', '', $item);
         }, $cpsetcourseids);
 
@@ -1650,7 +1858,8 @@ class utility {
             FROM (
                 SELECT
                     courseid,
-                    MAX(CASE WHEN COALESCE(CAST({$DB->sql_cast_char2real('cost')} AS DECIMAL(10,2)), 0) > 0 THEN 1 ELSE 0 END) AS is_paid
+                    MAX(CASE WHEN COALESCE(CAST({$DB->sql_cast_char2real('cost')} AS DECIMAL(10,2)), 0) > 0
+                        THEN 1 ELSE 0 END) AS is_paid
                 FROM {enrol}
                 GROUP BY courseid
             ) course_status
@@ -1725,8 +1934,10 @@ class utility {
     /**
      * Get a list of course IDs based on a minimum rating threshold.
      *
-     * This function retrieves a list of course IDs where the average rating for the course is greater than or equal to the specified threshold.
-     * It uses the `block_edwiserratingreview` table to fetch the approved ratings for each course, and then groups the results by course ID to calculate the average rating.
+     * This function retrieves a list of course IDs where the average rating for the course is
+     * greater than or equal to the specified threshold. It uses the `block_edwiserratingreview`
+     * table to fetch the approved ratings for each course, and then groups the results by course
+     * ID to calculate the average rating.
      *
      * @param int $rating The minimum rating threshold to filter courses by.
      * @return array An array of course IDs that meet the rating threshold.
@@ -1747,7 +1958,8 @@ class utility {
     /**
      * Checks if any course has a rating.
      *
-     * This function checks if the Edwiser Rating Review plugin is available and if there are any approved ratings for courses in the system.
+     * This function checks if the Edwiser Rating Review plugin is available and if there are any
+     * approved ratings for courses in the system.
      *
      * @return bool True if there are any approved course ratings, false otherwise.
      */
@@ -1827,6 +2039,11 @@ class utility {
             : null;
     }
 
+    /**
+     * Get course IDs without skill level set.
+     *
+     * @return array Array of course IDs
+     */
     public static function get_noskill_level_couresid() {
         global $DB;
 
@@ -1877,7 +2094,7 @@ class utility {
         $params = ['shortname' => 'edwskilllevel'];
 
         if (!empty($courseids)) {
-            list($insql, $inparams) = $DB->get_in_or_equal($courseids, SQL_PARAMS_NAMED);
+            [$insql, $inparams] = $DB->get_in_or_equal($courseids, SQL_PARAMS_NAMED);
             $where .= " AND cd.instanceid $insql";
             $params = $params + $inparams;
         }
@@ -1904,7 +2121,7 @@ class utility {
 
         if ($key !== false) {
             $result[$key]->count += $noskilllevelcount;
-        } else if ($noskilllevelcount != 0) {
+        } else if ($noskilllevelcount != 0) { // No skill level count is not zero.
             $result[] = (object)[
                 'intvalue' => 0,
                 'count' => $noskilllevelcount,
@@ -1912,6 +2129,15 @@ class utility {
         }
 
         $levelfilter = null;
+
+        // Fetch the field data with join.
+        $sql1 = "SELECT f.id, f.configdata FROM {customfield_field} f WHERE f.shortname = :shortname";
+        $params1 = [
+            'shortname'  => 'edwskilllevel',
+        ];
+        $record = $DB->get_record_sql($sql1, $params1);
+        $config = json_decode($record->configdata);
+        $options = preg_split('/\r\n|\n|\r/', $config->options);
 
         if (count($result) >= 2) {
             $levelfilter = [
@@ -1921,12 +2147,12 @@ class utility {
             ];
 
             foreach ($result as $key => $leveldata) {
-                $levelname = get_string('skill'.$leveldata->intvalue, 'theme_remui');
-
+                $levelindex = $leveldata->intvalue - 1;
+                $levelname = isset($options[$levelindex]) ? $options[$levelindex] : get_string('skill0', 'theme_remui');
                 $levelfilter['filteroptions'][] = [
-                    'name' => "skill" . $leveldata->intvalue,
+                    'name' => format_text($levelname, FORMAT_HTML),
                     'value' => $leveldata->intvalue,
-                    'text' => $levelname,
+                    'text' => format_text($levelname, FORMAT_HTML),
                     'count' => $leveldata->count,
                 ];
             }
@@ -1935,6 +2161,11 @@ class utility {
         return $levelfilter;
     }
 
+    /**
+     * Get course IDs without language set.
+     *
+     * @return array Array of course IDs
+     */
     public static function get_nolangset_coursesids() {
         global $DB;
 
@@ -1944,7 +2175,7 @@ class utility {
 
         $params = [
             'siteid' => SITEID,
-            'emptylang' => ''
+            'emptylang' => '',
         ];
 
         $emptylangcourses = $DB->get_records_sql($sql, $params);
@@ -1971,7 +2202,7 @@ class utility {
         $params = ['siteid' => SITEID];
 
         if (!empty($courseids)) {
-            list($insql, $inparams) = $DB->get_in_or_equal($courseids, SQL_PARAMS_NAMED);
+            [$insql, $inparams] = $DB->get_in_or_equal($courseids, SQL_PARAMS_NAMED);
             $where .= " AND id $insql";
             $params = array_merge($params, $inparams);
         }
@@ -2011,14 +2242,14 @@ class utility {
 
             $uninstalledlanguages = 0;
             foreach ($result as $langcode => $langdata) {
-                if ( !isset($installedlanguages[$langcode]) ) {
+                if (!isset($installedlanguages[$langcode])) {
                     $uninstalledlanguages++;
                     continue;
                 }
                 $languagename = isset($installedlanguages[$langcode]) ? $installedlanguages[$langcode] : $langcode;
 
                 $languagefilter['filteroptions'][] = [
-                    'name' => "lang".$langcode,
+                    'name' => "lang" . $langcode,
                     'value' => $langcode,
                     'text' => $languagename,
                     'count' => $langdata->count,
@@ -2050,9 +2281,9 @@ class utility {
         $systemcontext = context_system::instance();
         $canviewhiddencourses = has_capability('moodle/course:viewhiddencourses', $systemcontext);
 
-        $params = array('canviewhidden' => $canviewhiddencourses);
+        $params = ['canviewhidden' => $canviewhiddencourses];
 
-        list($insql, $inparams) = $DB->get_in_or_equal($categoryids, SQL_PARAMS_NAMED);
+        [$insql, $inparams] = $DB->get_in_or_equal($categoryids, SQL_PARAMS_NAMED);
         $params = array_merge($params, $inparams);
 
         $sql = "SELECT id
@@ -2173,7 +2404,7 @@ class utility {
             'limitlabel' => get_string('row' . ( $courseperpage / 3 ), 'theme_remui'),
             'limitdefaultvalue' => $courseperpage,
             'limitlist' => [
-                ['text' => get_string('row2', 'theme_remui'),  'value' => 2, 'isactive' => $courseperpage == 6],
+                ['text' => get_string('row2', 'theme_remui'), 'value' => 2, 'isactive' => $courseperpage == 6],
                 ['text' => get_string('row3', 'theme_remui'), 'value' => 3, 'isactive' => $courseperpage == 9],
                 ['text' => get_string('row4', 'theme_remui'), 'value' => 4, 'isactive' => $courseperpage == 12],
                 ['text' => get_string('row5', 'theme_remui'), 'value' => 5, 'isactive' => $courseperpage == 16],
@@ -2205,6 +2436,12 @@ class utility {
         ];
     }
 
+    /**
+     * Get skill level for a course by course ID.
+     *
+     * @param int $courseid Course ID
+     * @return int|false Skill level value or false if not set
+     */
     public static function get_skilllevel_by_courseid($courseid) {
         global $DB;
         $select = "cf.shortname = :shortname AND cd.instanceid = :courseid";
@@ -2246,7 +2483,7 @@ class utility {
             return null;
         }
 
-        // Use a timeout to prevent hanging on slow connections
+        // Use a timeout to prevent hanging on slow connections.
         $context = stream_context_create(['http' => ['timeout' => 5]]);
         $jsoncontent = @file_get_contents($url, false, $context);
 
@@ -2266,6 +2503,11 @@ class utility {
         return $jsoncontent;
     }
 
+    /**
+     * Check internet connection by attempting to connect to known hosts.
+     *
+     * @return bool True if connection successful, false otherwise
+     */
     public static function check_internet_connection() {
         $hosts = ['www.google.com', 'www.cloudflare.com'];
         $ports = [80, 443];
@@ -2288,24 +2530,32 @@ class utility {
      *
      * This function checks if the Accessibility Tools feature is enabled in the Remui theme settings.
      * If enabled, it loads the necessary JavaScript strings and initializes the AW helper module.
-     * It also checks the user's ACS widget status and loads the AW JavaScript file if the widget is not disabled and the current page is not the Remui customizer page.
+     * It also checks the user's ACS widget status and loads the AW JavaScript file if the widget
+     * is not disabled and the current page is not the Remui customizer page.
      * If the current page is the Remui customizer page, it unsets the customizer_currenturl session variable.
      */
     public static function enable_edw_aw_menu() {
         global $PAGE;
 
         if (get_config('theme_remui', 'enableaccessibilitytools')) {
-            $PAGE->requires->strings_for_js(array(
+            $PAGE->requires->strings_for_js([
                 'disable-aw-for-me',
                 'enable-aw-for-me',
                 'enable-aw-for-me-notice',
                 'disable-aw-for-me-notice',
-            ), 'theme_remui');
-            $PAGE->requires->js_call_amd('theme_remui/edw_aw_helper', 'init', ['issiteadmin' => is_siteadmin(), "feedbackstatus" => (get_user_preferences('acs-feedback-status') || !isloggedin() || isguestuser()), 'isloggedin' => isloggedin()]);
+            ], 'theme_remui');
+            $issiteadmin = is_siteadmin();
+            $feedbackstatus = (get_user_preferences('acs-feedback-status') || !isloggedin() || isguestuser());
+            $isloggedin = isloggedin();
+            $initparams = [
+                'issiteadmin' => $issiteadmin,
+                "feedbackstatus" => $feedbackstatus,
+                'isloggedin' => $isloggedin,
+            ];
+            $PAGE->requires->js_call_amd('theme_remui/edw_aw_helper', 'init', $initparams);
             if (!get_user_preferences('acs-widget-status')) {
                 $PAGE->requires->js(new \moodle_url("/theme/remui/js/edw_aw.js"));
             }
-
         }
     }
 
@@ -2315,6 +2565,11 @@ class utility {
         require_once($CFG->dirroot . '/user/lib.php');
 
         $democontext = [];
+
+        $democontext["isdemonavbarhidden"] = get_config('theme_remui', 'isdemonavbarhidden');
+        if ($democontext["isdemonavbarhidden"]) {
+            return $democontext;
+        }
 
         if(!isloggedin()) {
             return $democontext;
@@ -2455,5 +2710,275 @@ class utility {
         $cache->set('whatsnewContent', $whatsnewContent);
 
         return $whatsnewContent;
+    }
+
+    /**
+     * Get demo modal data for the floating button modal tabs.
+     *
+     * Returns structured data for Homepages, Page Builder Templates, and Layouts tabs.
+     * Each tab contains sections with card grids.
+     *
+     * @return array Demo modal tab data
+     */
+    public static function get_demo_modal_data() {
+        global $CFG;
+
+        $placeholderimg = $CFG->wwwroot . '/theme/remui/pix/demosite/demo-logo.png';
+
+        return [
+            'tabs' => [
+            [
+                'key' => 'pagebuilder',
+                'label' => 'Page Builder Templates',
+                'active' => true,
+                'hasprobadge' => true,
+                'sections' => [
+                    [
+                        'title' => 'Corporate',
+                        'cards' => [
+                            [
+                                'name' => 'Homepage 1',
+                                'image' => 'https://staticcdn.edwiser.org/demoimporter/homepage/corporate.jpeg',
+                                'url' => $CFG->wwwroot . '/local/edwiserpagebuilder/page.php?id=21',
+                            ],
+                            [
+                                'name' => 'Homepage 2',
+                                'image' => 'https://staticcdn.edwiser.org/demoimporter/homepage/corporate2.jpeg',
+                                'url' => $CFG->wwwroot . '/local/edwiserpagebuilder/page.php?id=22',
+                            ],
+                            [
+                                'name' => 'About us',
+                                'image' => 'https://staticcdn.edwiser.org/CDN/blocklayout8/thumbnail.png',
+                                'url' => $CFG->wwwroot . '/local/edwiserpagebuilder/page.php?id=9',
+                            ],
+                            [
+                                'name' => 'FAQ',
+                                'image' => 'https://staticcdn.edwiser.org/CDN/blocklayout14/thumbnail.png',
+                                'url' => $CFG->wwwroot . '/local/edwiserpagebuilder/page.php?id=15',
+                            ],
+                            [
+                                'name' => 'Pricing page',
+                                'image' => 'https://staticcdn.edwiser.org/demoimporter/homepage/pricing-page-2.png',
+                                'url' => $CFG->wwwroot . '/local/edwiserpagebuilder/page.php?id=27',
+                            ],
+                        ],
+                    ],
+                    [
+                        'title' => 'University',
+                        'cards' => [
+                            [
+                                'name' => 'Homepage 1',
+                                'image' => 'https://staticcdn.edwiser.org/demoimporter/homepage/university.jpeg',
+                                'url' => $CFG->wwwroot . '/local/edwiserpagebuilder/page.php?id=23',
+                            ],
+                            [
+                                'name' => 'Homepage 2',
+                                'image' => 'https://staticcdn.edwiser.org/demoimporter/homepage/university2.jpeg',
+                                'url' => $CFG->wwwroot . '/local/edwiserpagebuilder/page.php?id=24',
+                            ],
+                            [
+                                'name' => 'About us',
+                                'image' => 'https://staticcdn.edwiser.org/CDN/blocklayout9/thumbnail.png',
+                                'url' => $CFG->wwwroot . '/local/edwiserpagebuilder/page.php?id=17',
+                            ],
+                            [
+                                'name' => 'FAQ',
+                                'image' => 'https://staticcdn.edwiser.org/CDN/blocklayout13/thumbnail.png',
+                                'url' => $CFG->wwwroot . '/local/edwiserpagebuilder/page.php?id=18',
+                            ],
+                        ],
+                    ],
+                    [
+                        'title' => 'School',
+                        'cards' => [
+                            [
+                                'name' => 'Homepage 1',
+                                'image' => 'https://staticcdn.edwiser.org/demoimporter/homepage/school.jpeg',
+                                'url' => $CFG->wwwroot . '/local/edwiserpagebuilder/page.php?id=25',
+                            ],
+                            [
+                                'name' => 'Homepage 2',
+                                'image' => 'https://staticcdn.edwiser.org/demoimporter/homepage/school2.jpeg',
+                                'url' => $CFG->wwwroot . '/local/edwiserpagebuilder/page.php?id=26',
+                            ],
+                            [
+                                'name' => 'About us',
+                                'image' => 'https://staticcdn.edwiser.org/CDN/blocklayout10/thumbnail.png',
+                                'url' => $CFG->wwwroot . '/local/edwiserpagebuilder/page.php?id=21',
+                            ],
+                            [
+                                'name' => 'FAQ',
+                                'image' => 'https://staticcdn.edwiser.org/CDN/blocklayout15/thumbnail.png',
+                                'url' => $CFG->wwwroot . '/local/edwiserpagebuilder/page.php?id=22',
+                            ],
+                        ],
+                    ],
+                    [
+                        'title' => 'Classic',
+                        'cards' => [
+                            [
+                                'name' => 'Homepage 1',
+                                'image' => 'https://staticcdn.edwiser.org/demoimporter/homepage/classic.jpeg',
+                                'url' => $CFG->wwwroot . '/local/edwiserpagebuilder/page.php?id=27',
+                            ],
+                            [
+                                'name' => 'About us',
+                                'image' => 'https://staticcdn.edwiser.org/CDN/blocklayout11/thumbnail.png',
+                                'url' => $CFG->wwwroot . '/local/edwiserpagebuilder/page.php?id=23',
+                            ],
+                            [
+                                'name' => 'FAQ',
+                                'image' => 'https://staticcdn.edwiser.org/CDN/blocklayout12/thumbnail.png',
+                                'url' => $CFG->wwwroot . '/local/edwiserpagebuilder/page.php?id=24',
+                            ],
+                            [
+                                'name' => 'Pricing page',
+                                'image' => 'https://staticcdn.edwiser.org/demoimporter/homepage/pricing-page-1.png',
+                                'url' => $CFG->wwwroot . '/local/edwiserpagebuilder/page.php?id=28',
+                            ],
+                        ],
+                    ],
+                    [
+                        'title' => 'Individual instructor',
+                        'cards' => [
+                            [
+                                'name' => 'Homepage 1',
+                                'image' => 'https://staticcdn.edwiser.org/demoimporter/homepage/moodle-expert.png',
+                                'url' => $CFG->wwwroot . '/local/edwiserpagebuilder/page.php?id=26',
+                            ],
+                            [
+                                'name' => 'Homepage 2',
+                                'image' => 'https://staticcdn.edwiser.org/demoimporter/homepage/language-instructor.png',
+                                'url' => $CFG->wwwroot . '/local/edwiserpagebuilder/page.php?id=25',
+                            ],
+                        ],
+                    ],
+                ],
+            ],    
+            [
+                    'key' => 'homepages',
+                    'label' => 'Homepages',
+                    'active' => false,
+                    'sections' => [
+                        [
+                            'cards' => [
+                                [
+                                    'name' => 'Home page 1',
+                                    'image' => 'https://staticcdn.edwiser.org/theme_remuiassets/images/legacy_homepage/legacyhomepage1.png',
+                                    'url' => $CFG->wwwroot . '?legacypage=1&utm_source=demo&utm_medium=demo-home-page-starter&utm_campaign=homepage-remui-starter',
+                                ],
+                                [
+                                    'name' => 'Home page 2',
+                                    'image' => 'https://staticcdn.edwiser.org/theme_remuiassets/images/legacy_homepage/legacyhomepage2.png',
+                                    'url' => $CFG->wwwroot . '?legacypage=2&utm_source=demo&utm_medium=demo-home-page-starter&utm_campaign=homepage-remui-starter',
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+                
+                [
+                    'key' => 'layouts',
+                    'label' => 'Layouts',
+                    'active' => false,
+                    'sections' => [
+                        [
+                            'title' => 'Course Pages',
+                            'cards' => [
+                                [
+                                    'name' => 'Course enrollment',
+                                    'image' => $CFG->wwwroot . '/theme/remui/pix/demosite/course-enrollment-page.png',
+                                    'url' => $CFG->wwwroot . '/enrol/index.php?id=14',
+                                ],
+                                [
+                                    'name' => 'My course page',
+                                    'image' => $CFG->wwwroot . '/theme/remui/pix/demosite/my-courses-page.png',
+                                    'url' => $CFG->wwwroot . '/my/courses.php',
+                                ],
+                                [
+                                    'name' => 'Course card view',
+                                    'image' => $CFG->wwwroot . '/theme/remui/pix/demosite/course-card-view.png',
+                                    'url' => $CFG->wwwroot . '/course/view.php?id=13',
+                                ],
+                                [
+                                    'name' => 'Course list view',
+                                    'image' => $CFG->wwwroot . '/theme/remui/pix/demosite/course-card-list-view.png',
+                                    'url' => $CFG->wwwroot . '/course/view.php?id=11',
+                                ],
+                            ],
+                        ],
+                        [
+                            'title' => 'Custom pages',
+                            'cards' => [
+                                [
+                                    'name' => 'About us',
+                                    'image' => $CFG->wwwroot . '/theme/remui/pix/demosite/about-us.png',
+                                    'url' => $CFG->wwwroot . '/local/edwiserpagebuilder/page.php?id=1',
+                                ],
+                                [
+                                    'name' => 'Contact us',
+                                    'image' => $CFG->wwwroot . '/theme/remui/pix/demosite/contact-us.png',
+                                    'url' => $CFG->wwwroot . '/local/edwiserpagebuilder/page.php?id=2',
+                                ],
+                                [
+                                    'name' => 'FAQ',
+                                    'image' => $CFG->wwwroot . '/theme/remui/pix/demosite/faq.png',
+                                    'url' => $CFG->wwwroot . '/local/edwiserpagebuilder/page.php?id=3',
+                                ],
+                            ],
+                        ],
+                        [
+                            'title' => 'Customization pages',
+                            'cards' => [
+                                [
+                                    'name' => 'RemUI setting page',
+                                    'image' => $CFG->wwwroot . '/theme/remui/pix/demosite/remui-settings.png',
+                                    'url' => $CFG->wwwroot . '/admin/settings.php?section=themesettingremui',
+                                ],
+                                [
+                                    'name' => 'Course enrollment setting page',
+                                    'image' => $CFG->wwwroot . '/theme/remui/pix/demosite/course-enrollment-settings-page.png',
+                                    'url' => $CFG->wwwroot . '/enrol/index.php?id=14',
+                                ],
+                            ],
+                        ],
+                        [
+                            'title' => 'Other pages',
+                            'cards' => [
+                                [
+                                    'name' => 'Login page',
+                                    'image' => $CFG->wwwroot . '/theme/remui/pix/demosite/login-page.png',
+                                    'url' => $CFG->wwwroot . '/login/index.php',
+                                ],
+                                [
+                                    'name' => 'Instructor profile page',
+                                    'image' => $CFG->wwwroot . '/theme/remui/pix/demosite/instructor-profile-page.png',
+                                    'url' => $CFG->wwwroot . '/user/view.php?id=3&course=13',
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+
+                [
+                    'key' => 'presets',
+                    'label' => 'Presets',
+                    'active' => false,
+                    'sections' => [
+                        [
+                            'title' => 'Preset',
+                            'cards' => [
+                                [
+                                    'name' => 'Standard',
+                                    'image' => $CFG->wwwroot . '/theme/remui/pix/demosite/theme-preset.png',
+                                    'url' => $CFG->wwwroot . '/theme/remui/customizer.php?url=' . urlencode($CFG->wwwroot . '/') . '&from_demo_modal=1',
+                                ],
+                            ],
+                        ],
+                        
+                    ],
+                ],
+            ],
+        ];
     }
 }

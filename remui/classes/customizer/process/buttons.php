@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Theme customizer buttons process trait
  *
@@ -26,6 +27,11 @@ namespace theme_remui\customizer\process;
 
 use theme_remui\customizer\color;
 
+/**
+ * Buttons processing trait.
+ *
+ * Provides functionality for processing button-related customizer settings.
+ */
 trait buttons {
     /**
      * Get heading font to load on page.
@@ -40,10 +46,7 @@ trait buttons {
         $font = strtolower($font) == 'default' ? 'Inter' : $font;
         $fonts[$font] = true;
 
-        // // Secondary Font family.
-        // $font = $this->get_config('button-secondary-fontfamily');
-        // $font = strtolower($font) == 'default' ? 'Inter' : $font;
-        // $fonts[$font] = true;
+        // Secondary font family (commented out for future use).
     }
 
     /**
@@ -84,7 +87,6 @@ trait buttons {
         $variables['button-secondary-border-color'] = $this->get_config('button-secondary-border-color');
         $variables['button-secondary-border-colorhover'] = $this->get_config('button-secondary-border-color-hover');
         $variables['button-secondary-border-coloractive'] = Color::shade($variables['button-secondary-border-color'], 41);
-
     }
 
     /**
@@ -93,13 +95,10 @@ trait buttons {
      * @return array $variables Variables array
      */
     private function process_common_button_properties(&$variables) {
-        // $variables['button-common-border-width'] = $this->get_config('button-common-border-width');
-        // $variables['button-common-border-radius'] = $this->get_config('button-common-border-radius');
+        // Button border and letter spacing settings (commented out for future use).
         $variables['button-common-fontfamily'] = $this->get_config('button-common-fontfamily');
         $variables['button-common-text-transform'] = $this->get_config('button-common-text-transform');
-        // $variables['button-common-letterspacing'] = $this->get_config('button-common-letterspacing');
-        // $variables['button-common-letterspacing'] = $variables['button-common-letterspacing'] == '' ?
-        // 'normal' : $variables['button-common-letterspacing'] . 'rem';
+
         // Font family.
         if (strtolower($variables['button-common-fontfamily']) == 'default') {
             $variables['button-common-fontfamily'] = 'Inter';
@@ -198,7 +197,6 @@ trait buttons {
         $variables['button-lg-letterspacing'] = $this->get_config('button-lg-settings-letterspacing');
         $variables['button-lg-letterspacing'] = $variables['button-lg-letterspacing'] == '' ?
         'normal' : $variables['button-lg-letterspacing'] . 'rem';
-
     }
 
     /**
@@ -208,12 +206,11 @@ trait buttons {
      */
     private function process_global_buttons(&$variables) {
         $this->process_common_button_properties($variables);
-        // default styling on buttons
+        // Default styling on buttons.
         $this->process_sm_properties($variables);
         $this->process_md_properties($variables);
         $this->process_lg_properties($variables);
         $this->process_global_buttons_primary($variables);
         $this->process_global_buttons_secondary($variables);
-
     }
 }

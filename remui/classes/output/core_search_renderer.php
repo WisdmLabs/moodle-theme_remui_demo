@@ -17,14 +17,12 @@
 /**
  * Search renderer.
  *
- * @package    core_search
+ * @package    theme_remui
  * @copyright  2015 David Monllao {@link http://www.davidmonllao.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 namespace theme_remui\output;
-
-defined('MOODLE_INTERNAL') || die();
 
 /**
  * Search renderer.
@@ -69,15 +67,17 @@ class core_search_renderer extends \core_search\output\renderer {
         $content .= $this->output->paging_bar($totalcount, $page, $perpage, $url);
 
         // Results.
-        $resultshtml = array();
+        $resultshtml = [];
         foreach ($results as $hit) {
             $resultshtml[] = $this->render_result($hit);
         }
         if (empty($resultshtml)) {
-            $resultshtml[] = '</hr>'.get_string('noresultfoundmg', 'theme_remui');
+            $resultshtml[] = '</hr>' . get_string('noresultfoundmg', 'theme_remui');
         }
-        $content .= \html_writer::tag('div', implode('<hr/>', $resultshtml), array('class' => 'search-results'));
-        $totalcounthtml = "<div class = 'search-result-count p-mb-4 d-none small-info-semibold'>".get_string('searchtotalcount', 'theme_remui', count($results))."</div>";
+        $content .= \html_writer::tag('div', implode('<hr/>', $resultshtml), ['class' => 'search-results']);
+        $resultcount = count($results);
+        $totalcounthtml = "<div class = 'search-result-count p-mb-4 d-none small-info-semibold'>" .
+            get_string('searchtotalcount', 'theme_remui', $resultcount) . "</div>";
         $content .= $totalcounthtml;
 
         // Paging bar.

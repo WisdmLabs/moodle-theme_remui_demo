@@ -23,7 +23,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-global $PAGE, $OUTPUT;
+global $PAGE, $OUTPUT, $CFG;
 
 // License activation and deactivation handling.
 if (optional_param('section', '', PARAM_TEXT) == 'themesettingremui') {
@@ -93,12 +93,35 @@ if ($ADMIN->fulltree) {
 
         $name = 'theme_remui/setupwizard';
         $title = new lang_string('setupwizard', 'theme_remui');
-        $description = new lang_string('setupwizarddesc', 'theme_remui');
+        $description = new lang_string('setupwizarddesc', 'theme_remui', ['wwwroot' => $CFG->wwwroot]);
         $default = false;
         $setting = new admin_setting_configcheckbox($name, $title, $description, $default, true, false);
         $setting->set_updatedcallback('theme_reset_all_caches');
         $page->add($setting);
     }
+
+    // Top navigation menu.
+    $page->add(new admin_setting_heading(
+        'theme_remui_topnavigationmenu',
+        new lang_string('topnavigationmenuheading', 'theme_remui'),
+        format_text(new lang_string('topnavigationmenuheadingdesc', 'theme_remui'), FORMAT_MARKDOWN)
+    ));
+
+    $name = 'theme_remui/enablesignup';
+    $title = new lang_string('enablesignup', 'theme_remui');
+    $description = get_string('enablesignupdesc', 'theme_remui');
+    if ($CFG->registerauth != 'email') {
+        $authurl = (new moodle_url('/admin/settings.php', ['section' => 'manageauths']))->out(false);
+        $description = format_text(
+            $description . "\n" . get_string('enablesignupdescnotice', 'theme_remui', $authurl),
+            FORMAT_HTML
+        );
+    }
+    $default = false;
+    $setting = new admin_setting_configcheckbox($name, $title, $description, $default, true, false);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
     // General Page site announcement Settings.
     $page->add(new admin_setting_heading(
         'theme_remui_general',
@@ -148,12 +171,12 @@ if ($ADMIN->fulltree) {
         $title,
         $description,
         'success',
-        array(
+        [
             'info'    => new lang_string('typeinfo', 'theme_remui'),
             'success' => new lang_string('typesuccess', 'theme_remui'),
             'warning' => new lang_string('typewarning', 'theme_remui'),
-            'danger'  => new lang_string('typedanger', 'theme_remui')
-        )
+            'danger'  => new lang_string('typedanger', 'theme_remui'),
+        ]
     );
     $page->add($setting);
 
@@ -173,7 +196,7 @@ if ($ADMIN->fulltree) {
         $description,
         'faviconurl',
         0,
-        array('subdirs' => 0, 'accepted_types' => 'web_image')
+        ['subdirs' => 0, 'accepted_types' => 'web_image']
     );
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
@@ -187,12 +210,12 @@ if ($ADMIN->fulltree) {
         $title,
         $description,
         $default,
-        array(
+        [
             'logo' => new lang_string('onlylogo', 'theme_remui'),
             'logomini' => new lang_string('logomini', 'theme_remui'),
             'icononly' => new lang_string('icononly', 'theme_remui'),
-            'iconsitename' => new lang_string('iconsitename', 'theme_remui')
-        )
+            'iconsitename' => new lang_string('iconsitename', 'theme_remui'),
+        ]
     );
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
@@ -201,20 +224,20 @@ if ($ADMIN->fulltree) {
         [
             'value'  => 'logo',
             'show' => ['logo', 'darkmodelogo'],
-            'hide' => ['logomini', 'siteicon', 'darkmodelogomini']
+            'hide' => ['logomini', 'siteicon', 'darkmodelogomini'],
         ], [
             'value'  => 'logomini',
             'show' => ['logomini', 'darkmodelogomini'],
-            'hide' => ['logo', 'siteicon', 'darkmodelogo']
+            'hide' => ['logo', 'siteicon', 'darkmodelogo'],
         ], [
             'value'  => 'icononly',
             'show' => ['siteicon'],
-            'hide' => ['logo', 'logomini', 'darkmodelogo', 'darkmodelogomini']
+            'hide' => ['logo', 'logomini', 'darkmodelogo', 'darkmodelogomini'],
         ], [
             'value'  => 'iconsitename',
             'show' => ['siteicon'],
-            'hide' => ['logo', 'logomini', 'darkmodelogo', 'darkmodelogomini']
-        ]
+            'hide' => ['logo', 'logomini', 'darkmodelogo', 'darkmodelogomini'],
+        ],
     ];
 
     // Logo file setting.
@@ -227,11 +250,10 @@ if ($ADMIN->fulltree) {
         $description,
         'logo',
         0,
-        array('subdirs' => 0, 'accepted_types' => 'web_image')
+        ['subdirs' => 0, 'accepted_types' => 'web_image']
     );
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
-
     // Logo file setting in dark mode.
     $name = 'theme_remui/darkmodelogo';
     $title = new lang_string('darkmodelogo', 'theme_remui');
@@ -242,11 +264,10 @@ if ($ADMIN->fulltree) {
         $description,
         'darkmodelogo',
         0,
-        array('subdirs' => 0, 'accepted_types' => 'web_image')
+        ['subdirs' => 0, 'accepted_types' => 'web_image']
     );
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
-
 
     // LogoMini file setting.
     $name = 'theme_remui/logomini';
@@ -258,7 +279,7 @@ if ($ADMIN->fulltree) {
         $description,
         'logomini',
         0,
-        array('subdirs' => 0, 'accepted_types' => 'web_image')
+        ['subdirs' => 0, 'accepted_types' => 'web_image']
     );
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
@@ -274,7 +295,7 @@ if ($ADMIN->fulltree) {
         $description,
         'darkmodelogomini',
         0,
-        array('subdirs' => 0, 'accepted_types' => 'web_image')
+        ['subdirs' => 0, 'accepted_types' => 'web_image']
     );
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
@@ -315,20 +336,20 @@ if ($ADMIN->fulltree) {
     $title = new lang_string('fontselect', 'theme_remui');
     $description = new lang_string('fontselectdesc', 'theme_remui');
     $default = 1;
-    $choices = array(
+    $choices = [
         1 => new lang_string('fonttypestandard', 'theme_remui'),
         2 => new lang_string('fonttypegoogle', 'theme_remui'),
-    );
+    ];
     $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
     $remuisettings['fontselect'] = [[
         'value'  => '1',
-        'hide' => ['fontname']
+        'hide' => ['fontname'],
     ], [
         'value'  => '2',
-        'show' => ['fontname']
+        'show' => ['fontname'],
     ]];
 
 
@@ -350,10 +371,10 @@ if ($ADMIN->fulltree) {
         $title,
         $description,
         'success',
-        array(
+        [
             'default'   => new lang_string('defaultpermoodle', 'theme_remui'),
-            'fullwidth' => new lang_string('fullwidthlayout', 'theme_remui')
-        )
+            'fullwidth' => new lang_string('fullwidthlayout', 'theme_remui'),
+        ]
     );
 
     $page->add($setting);
@@ -386,7 +407,7 @@ if ($ADMIN->fulltree) {
         $description,
         'loaderimage',
         0,
-        array('subdirs' => 0, 'accepted_types' => 'web_image')
+        ['subdirs' => 0, 'accepted_types' => 'web_image']
     );
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
@@ -414,12 +435,12 @@ if ($ADMIN->fulltree) {
         $title,
         $description,
         $default,
-        array(
+        [
             'disable' => new lang_string('dmoption_disable', 'theme_remui'),
             'allowonallpages' => new lang_string('dmoption_allowonallpages', 'theme_remui'),
             'excludepages' => new lang_string('dmoption_excludepages', 'theme_remui'),
-            'includepages' => new lang_string('dmoption_includepages', 'theme_remui')
-        )
+            'includepages' => new lang_string('dmoption_includepages', 'theme_remui'),
+        ]
     );
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
@@ -444,20 +465,20 @@ if ($ADMIN->fulltree) {
         [
             'value'  => 'disable',
             'show' => [],
-            'hide' => ['darkmodeincludepages', 'darkmodeexcludepages']
+            'hide' => ['darkmodeincludepages', 'darkmodeexcludepages'],
         ], [
             'value'  => 'allowonallpages',
             'show' => [],
-            'hide' => ['darkmodeincludepages', 'darkmodeexcludepages']
+            'hide' => ['darkmodeincludepages', 'darkmodeexcludepages'],
         ], [
             'value'  => 'excludepages',
             'show' => ['darkmodeexcludepages'],
-            'hide' => ['darkmodeincludepages']
+            'hide' => ['darkmodeincludepages'],
         ], [
             'value'  => 'includepages',
             'show' => ['darkmodeincludepages'],
-            'hide' => ['darkmodeexcludepages']
-        ]
+            'hide' => ['darkmodeexcludepages'],
+        ],
     ];
 
     // Accessibility widgets settings.
@@ -555,10 +576,10 @@ if ($ADMIN->fulltree) {
 
     $edwpagebuilderavailable = is_plugin_available('local_edwiserpagebuilder');
     if ($edwpagebuilderavailable) {
-        $options = array(
+        $options = [
             0 => new lang_string('frontpagedesignold', 'theme_remui'),
-            3 => new lang_string('homepageedwpagebuilderoption', 'theme_remui')
-        );
+            3 => new lang_string('homepageedwpagebuilderoption', 'theme_remui'),
+        ];
         $page->add(new admin_setting_heading(
             'theme_remui_frontpagedesign',
             new lang_string('frontpagedesign', 'theme_remui'),
@@ -580,7 +601,6 @@ if ($ADMIN->fulltree) {
         set_config('frontpagechooser', 0, 'theme_remui');
     }
     if ($activehomepage == 0) {
-
         if (class_exists('admin_setting_heading')) {
             $page->add(new admin_setting_heading(
                 'theme_remui_upsection',
@@ -596,10 +616,10 @@ if ($ADMIN->fulltree) {
             $title,
             $description,
             1,
-            array(
+            [
                 0 => new lang_string('staticcontent', 'theme_remui'),
                 1 => new lang_string('slidercontent', 'theme_remui'),
-            )
+            ]
         );
         $page->add($setting);
 
@@ -611,10 +631,10 @@ if ($ADMIN->fulltree) {
             $title,
             $description,
             0,
-            array(
+            [
                 0 => new lang_string('videourl', 'theme_remui'),
                 1 => new lang_string('image', 'theme_remui'),
-            )
+            ]
         );
         $setting->set_updatedcallback('theme_reset_all_caches');
         $page->add($setting);
@@ -638,9 +658,9 @@ if ($ADMIN->fulltree) {
         $name = 'theme_remui/staticimage';
         $title = new lang_string('uploadimage', 'theme_remui');
         $description = new lang_string('uploadimagedesc', 'theme_remui');
-        $setting = new admin_setting_configstoredfile($name, $title, $description, 'staticimage', 0, array(
-            'subdirs' => 0, 'accepted_types' => 'web_image'
-        ));
+        $setting = new admin_setting_configstoredfile($name, $title, $description, 'staticimage', 0, [
+            'subdirs' => 0, 'accepted_types' => 'web_image',
+        ]);
         $setting->set_updatedcallback('theme_reset_all_caches');
         $page->add($setting);
 
@@ -660,10 +680,10 @@ if ($ADMIN->fulltree) {
             $title,
             $description,
             1,
-            array(
+            [
                 1 => new lang_string('true', 'theme_remui'),
                 2 => new lang_string('false', 'theme_remui'),
-            )
+            ]
         );
         $page->add($setting);
 
@@ -675,13 +695,13 @@ if ($ADMIN->fulltree) {
             $title,
             $description,
             1,
-            array(
+            [
                 1 => new lang_string('one', 'theme_remui'),
                 2 => new lang_string('two', 'theme_remui'),
                 3 => new lang_string('three', 'theme_remui'),
                 4 => new lang_string('four', 'theme_remui'),
                 5 => new lang_string('five', 'theme_remui'),
-            )
+            ]
         );
         $page->add($setting);
         $remuisettings['slidercount'] = [];
@@ -689,7 +709,7 @@ if ($ADMIN->fulltree) {
             $slidervisibility = [
                 'value' => $slidecounts,
                 'show' => [],
-                'hide' => []
+                'hide' => [],
             ];
             for ($i = 1; $i <= $slidecounts; $i++) {
                 $slidervisibility['show'][] = 'slideimage' . $i;
@@ -708,9 +728,9 @@ if ($ADMIN->fulltree) {
             $title = new lang_string('slideimage', 'theme_remui');
 
             $description = new lang_string('slideimagedesc', 'theme_remui');
-            $setting = new admin_setting_configstoredfile($name, $title, $description, 'slideimage' . $slidecounts, 0, array(
-                'subdirs' => 0, 'accepted_types' => 'web_image'
-            ));
+            $setting = new admin_setting_configstoredfile($name, $title, $description, 'slideimage' . $slidecounts, 0, [
+                'subdirs' => 0, 'accepted_types' => 'web_image',
+            ]);
             $setting->set_updatedcallback('theme_reset_all_caches');
             $page->add($setting);
 
@@ -741,11 +761,11 @@ if ($ADMIN->fulltree) {
         $remuisettings['contenttype'] = [[
             'value' => 0,
             'show' => ['video'],
-            'hide' => ['addtext', 'staticimage']
+            'hide' => ['addtext', 'staticimage'],
         ], [
             'value' => 1,
             'show' => ['addtext', 'staticimage'],
-            'hide' => ['video']
+            'hide' => ['video'],
         ]];
         $remuisettings['frontpageimagecontent'] = [[
             'value' => 0,
@@ -753,16 +773,16 @@ if ($ADMIN->fulltree) {
             'hide' => [
                 'slideinterval',
                 'sliderautoplay',
-                'slidercount'
-            ]
+                'slidercount',
+            ],
         ], [
             'value' => 1,
             'show' => [
                 'slideinterval',
                 'sliderautoplay',
-                'slidercount'
+                'slidercount',
             ],
-            'hide' => ['contenttype']
+            'hide' => ['contenttype'],
         ]];
         $setting->set_updatedcallback('theme_reset_all_caches');
         $page->add($setting);
@@ -782,11 +802,11 @@ if ($ADMIN->fulltree) {
             $title,
             $description,
             1,
-            array(
+            [
                 1 => new lang_string('donotshowaboutus', 'theme_remui'),
                 2 => new lang_string('showaboutusinrow', 'theme_remui'),
                 3 => new lang_string('showaboutusingridblock', 'theme_remui'),
-            )
+            ]
         );
 
 
@@ -823,7 +843,7 @@ if ($ADMIN->fulltree) {
         $targets = [
             'frontpageblockheading',
             'frontpageblockdesc',
-            'enablesectionbutton'
+            'enablesectionbutton',
         ];
         for ($blockcount = 1; $blockcount <= 4; $blockcount++) {
             $targets = array_merge($targets, [
@@ -831,7 +851,7 @@ if ($ADMIN->fulltree) {
                 'sectionbuttontext' . $blockcount,
                 'frontpageblockdescriptionsection' . $blockcount,
                 'frontpageblockiconsection' . $blockcount,
-                'frontpageblockimage' . $blockcount
+                'frontpageblockimage' . $blockcount,
             ]);
 
             /*block section*/
@@ -884,14 +904,14 @@ if ($ADMIN->fulltree) {
                 $description,
                 'frontpageblockimage' . $blockcount,
                 0,
-                array('subdirs' => 0, 'accepted_types' => 'web_image')
+                ['subdirs' => 0, 'accepted_types' => 'web_image']
             );
             $setting->set_updatedcallback('theme_reset_all_caches');
             $page->add($setting);
         }
         $visibility = [
             'value' => 1,
-            'hide' => $targets
+            'hide' => $targets,
         ];
         $remuisettings['frontpageblockdisplay'][] = $visibility;
         $visibility['value'] = 2;
@@ -907,16 +927,16 @@ if ($ADMIN->fulltree) {
                 'sectionbuttonlink1',
                 'sectionbuttonlink2',
                 'sectionbuttonlink3',
-                'sectionbuttonlink4'
-            ]
+                'sectionbuttonlink4',
+            ],
         ], [
             'value' => false,
             'hide' => [
                 'sectionbuttonlink1',
                 'sectionbuttonlink2',
                 'sectionbuttonlink3',
-                'sectionbuttonlink4'
-            ]
+                'sectionbuttonlink4',
+            ],
         ]];
 
         // Frontpage Aboutus settings.
@@ -948,7 +968,8 @@ if ($ADMIN->fulltree) {
         $name = 'theme_remui/frontpageaboutustext';
         $title = new lang_string('frontpageaboutustext', 'theme_remui');
         $description = new lang_string('frontpageaboutustextdesc', 'theme_remui');
-        $default = new lang_string('frontpageaboutusdefault', 'theme_remui');;
+        $default = new lang_string('frontpageaboutusdefault', 'theme_remui');
+        ;
         $setting = new admin_setting_confightmleditor($name, $title, $description, $default);
         $setting->set_updatedcallback('theme_reset_all_caches');
         $page->add($setting);
@@ -962,11 +983,11 @@ if ($ADMIN->fulltree) {
             $title,
             $description,
             1,
-            array(
+            [
                 1 => new lang_string('one', 'theme_remui'),
                 2 => new lang_string('two', 'theme_remui'),
-                3 => new lang_string('three', 'theme_remui')
-            )
+                3 => new lang_string('three', 'theme_remui'),
+            ]
         );
         $page->add($setting);
 
@@ -975,7 +996,7 @@ if ($ADMIN->fulltree) {
             $testivisibility = [
                 'value' => $testimonialcount,
                 'show' => [],
-                'hide' => []
+                'hide' => [],
             ];
             for ($i = 1; $i <= $testimonialcount; $i++) {
                 $testivisibility['show'][] = 'testimonialimage' . $i;
@@ -1000,7 +1021,7 @@ if ($ADMIN->fulltree) {
                 $description,
                 'testimonialimage' . $testimonialcount,
                 0,
-                array('subdirs' => 0, 'accepted_types' => 'web_image')
+                ['subdirs' => 0, 'accepted_types' => 'web_image']
             );
             $setting->set_updatedcallback('theme_reset_all_caches');
             $page->add($setting);
@@ -1037,15 +1058,15 @@ if ($ADMIN->fulltree) {
             'show' => [
                 'frontpageaboutusheading',
                 'frontpageaboutustext',
-                'testimonialcount'
-            ]
+                'testimonialcount',
+            ],
         ], [
             'value' => false,
             'hide' => [
                 'frontpageaboutusheading',
                 'frontpageaboutustext',
-                'testimonialcount'
-            ]
+                'testimonialcount',
+            ],
         ]];
     }
     if ($activehomepage != 1) {
@@ -1055,7 +1076,6 @@ if ($ADMIN->fulltree) {
             format_text(new lang_string('transparentheaderheaderdesc', 'theme_remui'), FORMAT_MARKDOWN)
         ));
         $defaultvalue = false;
-
         $name = 'theme_remui/homepagetransparentheader';
         $title = new lang_string('homepagetransparentheadertitle', 'theme_remui');
         $description = new lang_string('homepagetransparentheaderdesc', 'theme_remui');
@@ -1123,12 +1143,12 @@ if ($ADMIN->fulltree) {
         $title,
         $description,
         "showupdatedate",
-        array(
+        [
             "hidedate" => new lang_string('hidedate', 'theme_remui'),
             "showstartdate" => new lang_string('showstartdate', 'theme_remui'),
             "showupdatedate" => new lang_string('showupdatedate', 'theme_remui'),
-            "showstartwhenend" => new lang_string('showstartwhenend', 'theme_remui')
-        )
+            "showstartwhenend" => new lang_string('showstartwhenend', 'theme_remui'),
+        ]
     );
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
@@ -1151,10 +1171,10 @@ if ($ADMIN->fulltree) {
 
     $remuisettings['enrolleduserscountvisibility'] = [[
         'value' => 0,
-        'hide' => ['showenrolledtextinput']
+        'hide' => ['showenrolledtextinput'],
     ], [
         'value' => 1,
-        'show' => ['showenrolledtextinput']
+        'show' => ['showenrolledtextinput'],
     ]];
 
     $name = 'theme_remui/lessonsvisiblityoncoursecard';
@@ -1164,6 +1184,7 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configcheckbox($name, $title, $description, $default, true, false);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
+
 
     $name = 'theme_remui/showlessontextinput';
     $title = new lang_string('showlessontextinputhead', 'theme_remui');
@@ -1175,10 +1196,10 @@ if ($ADMIN->fulltree) {
 
     $remuisettings['lessonsvisiblityoncoursecard'] = [[
         'value' => 0,
-        'hide' => ['showlessontextinput']
+        'hide' => ['showlessontextinput'],
     ], [
         'value' => 1,
-        'show' => ['showlessontextinput']
+        'show' => ['showlessontextinput'],
     ]];
     // Enrolment Page settings.
     $page->add(new admin_setting_heading(
@@ -1186,6 +1207,8 @@ if ($ADMIN->fulltree) {
         new lang_string('coursepagesettings', 'theme_remui'),
         format_text(new lang_string('coursepagesettingsdesc', 'theme_remui'), FORMAT_MARKDOWN)
     ));
+
+
 
     // Setting for enabling course stats visibility in course page.
     $name = 'theme_remui/enablecoursestats';
@@ -1200,14 +1223,16 @@ if ($ADMIN->fulltree) {
     $title = new lang_string('focusmode', 'theme_remui');
     $description = new lang_string('focusmodedesc', 'theme_remui');
     $default = 1; // Default to 'Focus mode on'.
-    $options = array(
+    $options = [
         1 => new lang_string('focusmodeon', 'theme_remui'),
         0 => new lang_string('focusmodeoff', 'theme_remui'),
         2 => new lang_string('forcefocusmode', 'theme_remui'),
-    );
+    ];
     $setting = new admin_setting_configselect($name, $title, $description, $default, $options);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
+
+
 
     // Setting for next and previous button in activity.
     $name = 'theme_remui/activitynextpreviousbutton';
@@ -1218,11 +1243,11 @@ if ($ADMIN->fulltree) {
         $title,
         $description,
         1,
-        array(
+        [
             0 => new lang_string('disablenextprevious', 'theme_remui'),
             1 => new lang_string('enablenextprevious', 'theme_remui'),
-            2 => new lang_string('enablenextpreviouswithname', 'theme_remui')
-        )
+            2 => new lang_string('enablenextpreviouswithname', 'theme_remui'),
+        ]
     );
     $page->add($setting);
 
@@ -1235,20 +1260,20 @@ if ($ADMIN->fulltree) {
         $title,
         $description,
         1,
-        array(
+        [
             0 => new lang_string('default', 'theme_remui'),
             1 => new lang_string('headerdesign', 'theme_remui', 1),
-        )
+        ]
     );
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
     $remuisettings['courseheaderdesign'] = [[
         'value' => 0,
-        'hide' => ['headeroverlayopacity']
+        'hide' => ['headeroverlayopacity'],
     ], [
         'value' => 1,
-        'show' => ['headeroverlayopacity']
+        'show' => ['headeroverlayopacity'],
     ]];
     $name = 'theme_remui/headeroverlayopacity';
     $title = new lang_string('headeroverlayopacityhead', 'theme_remui');
@@ -1273,11 +1298,11 @@ if ($ADMIN->fulltree) {
             $title,
             $description,
             12,
-            array(
+            [
                 12 => new lang_string('twelve', 'theme_remui'),
                 9 => new lang_string('nine', 'theme_remui'),
                 6 => new lang_string('six', 'theme_remui'),
-            )
+            ]
         );
         $setting->set_updatedcallback('theme_reset_all_caches');
         $page->add($setting);
@@ -1292,7 +1317,7 @@ if ($ADMIN->fulltree) {
             $title,
             $description,
             'none',
-            array(
+            [
                 'none' => new lang_string('none', 'theme_remui'),
                 'fade' => new lang_string('fade', 'theme_remui'),
                 'slide-top' => new lang_string('slide-top', 'theme_remui'),
@@ -1300,7 +1325,7 @@ if ($ADMIN->fulltree) {
                 'slide-right'   => new lang_string('slide-right', 'theme_remui'),
                 'scale-up'      => new lang_string('scale-up', 'theme_remui'),
                 'scale-down'    => new lang_string('scale-down', 'theme_remui'),
-            )
+            ]
         );
         $setting->set_updatedcallback('theme_reset_all_caches');
         $page->add($setting);
@@ -1315,18 +1340,18 @@ if ($ADMIN->fulltree) {
 
     $remuisettings['enrolment_page_layout'] = [[
         'value' => 0,
-        'hide' => ['showcoursepricing']
+        'hide' => ['showcoursepricing'],
     ], [
         'value' => 1,
-        'show' => ['showcoursepricing']
+        'show' => ['showcoursepricing'],
     ]];
 
     $remuisettings['showcoursepricing'] = [[
         'value' => 0,
-        'hide' => ['enrolment_payment']
+        'hide' => ['enrolment_payment'],
     ], [
         'value' => 1,
-        'show' => ['enrolment_payment']
+        'show' => ['enrolment_payment'],
     ]];
 
     // Full Page background Settings.
@@ -1335,10 +1360,10 @@ if ($ADMIN->fulltree) {
         new lang_string('enrolment_layout', 'theme_remui'),
         new lang_string('enrolment_layout_desc', 'theme_remui'),
         0,
-        array(
+        [
             '0' => new lang_string('defaultlayout', 'theme_remui'),
-            '1' => new lang_string('enable_layout1', 'theme_remui')
-        )
+            '1' => new lang_string('enable_layout1', 'theme_remui'),
+        ]
     );
     $page->add($setting);
 
@@ -1357,10 +1382,10 @@ if ($ADMIN->fulltree) {
         new lang_string('enrolment_payment', 'theme_remui'),
         new lang_string('enrolment_payment_desc', 'theme_remui'),
         0,
-        array(
+        [
             '0' => new lang_string('allrequirepayment', 'theme_remui'),
-            '1' => new lang_string('somearefree', 'theme_remui')
-        )
+            '1' => new lang_string('somearefree', 'theme_remui'),
+        ]
     );
     $page->add($setting);
 
@@ -1392,13 +1417,13 @@ if ($ADMIN->fulltree) {
         $title,
         $description,
         12,
-        array(
+        [
             '4' => new lang_string('four', 'theme_remui'),
             '8' => new lang_string('eight', 'theme_remui'),
             '12' => new lang_string('twelve', 'theme_remui'),
             '16' => new lang_string('sixteen', 'theme_remui'),
             '20' => new lang_string('twenty', 'theme_remui'),
-        )
+        ]
     );
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
@@ -1407,504 +1432,15 @@ if ($ADMIN->fulltree) {
     $remuisettings['showlatestcourse'] = [
             [
             'value' => false,
-            'hide' => ['latestcoursecount']
+            'hide' => ['latestcoursecount'],
             ],
             [
             'value' => true,
-            'show' => ['latestcoursecount']
-            ]
+            'show' => ['latestcoursecount'],
+            ],
         ];
 
-    // Footer Settings.
-    $page = new admin_settingpage('theme_remui_footer', new lang_string('footersettings', 'theme_remui'));
-
-    // Footer Settings.
-    // Setting to add no of cols in footer.
-
-        // Footer Column 1.
-    $page->add(new admin_setting_heading(
-        'theme_remui_mainfooterarea',
-        new lang_string('mainfooterareahead', 'theme_remui'),
-        format_text(new lang_string('mainfooterareaheaddesc', 'theme_remui'), FORMAT_MARKDOWN)
-    ));
-
-    $name = 'theme_remui/footercolumn';
-    $title = new lang_string('footercolumnsize', 'theme_remui');
-    $description = new lang_string('footercolumndesc', 'theme_remui');
-    $setting = new admin_setting_configselect(
-        $name,
-        $title,
-        $description,
-        '4',
-        array(
-            '1' => new lang_string('one', 'theme_remui'),
-            '2' => new lang_string('two', 'theme_remui'),
-            '3' => new lang_string('three', 'theme_remui'),
-            '4' => new lang_string('four', 'theme_remui'),
-        )
-    );
-    $page->add($setting);
-
-
-    $remuisettings['footercolumn'] = [[
-        'value'  => '1',
-        'show' => ['footercolumn1title', 'footercolumn1customhtml', 'footercolumn1type'],
-        'hide' => [
-            'footercolumn2title', 'footercolumn2customhtml', 'footercolumn2type',
-            'footercolumn3title', 'footercolumn3customhtml', 'footercolumn3type',
-            'footercolumn4title', 'footercolumn4customhtml', 'footercolumn4type'
-        ]
-    ], [
-        'value'  => '2',
-        'show' => [
-            'footercolumn1title', 'footercolumn1customhtml', 'footercolumn1type',
-            'footercolumn2title', 'footercolumn2customhtml', 'footercolumn2type'
-        ],
-        'hide' => [
-            'footercolumn3title', 'footercolumn3customhtml', 'footercolumn3type',
-            'footercolumn4title', 'footercolumn4customhtml', 'footercolumn4type'
-        ]
-    ], [
-        'value'  => '3',
-        'show' => [
-            'footercolumn1title', 'footercolumn1customhtml', 'footercolumn1type',
-            'footercolumn2title', 'footercolumn2customhtml', 'footercolumn2type',
-            'footercolumn3title', 'footercolumn3customhtml', 'footercolumn3type'
-        ],
-        'hide' => ['footercolumn4title', 'footercolumn4customhtml', 'footercolumn4type']
-    ], [
-        'value'  => '4',
-        'show' => [
-            'footercolumn1title', 'footercolumn1customhtml', 'footercolumn1type',
-            'footercolumn2title', 'footercolumn2customhtml', 'footercolumn2type',
-            'footercolumn3title', 'footercolumn3customhtml', 'footercolumn3type',
-            'footercolumn4title', 'footercolumn4customhtml', 'footercolumn4type'
-        ],
-        'hide' => []
-    ]];
-
-    // Footer Column 1.
-    $page->add(new admin_setting_heading(
-        'theme_remui_footercolumn1',
-        new lang_string('footercolumn1heading', 'theme_remui'),
-        format_text(new lang_string('footercolumn1headingdesc', 'theme_remui'), FORMAT_MARKDOWN)
-    ));
-
-    $name = 'theme_remui/footercolumn1type';
-    $title = new lang_string('footercolumntype', 'theme_remui');
-    $description = new lang_string('footercolumntypedesc', 'theme_remui');
-    $setting = new admin_setting_configselect(
-        $name,
-        $title,
-        $description,
-        'customhtml',
-        array(
-            'customhtml' => new lang_string('footercolumncustomhtml', 'theme_remui'),
-            'menu' => new lang_string('menu', 'theme_remui'),
-        )
-    );
-    $page->add($setting);
-
-    $name = 'theme_remui/footercolumn1title';
-    $title = new lang_string('footercolumn1title', 'theme_remui');
-    $description = new lang_string('footercolumn1titledesc', 'theme_remui');
-    $default = '';
-    $setting = new admin_setting_configtext($name, $title, $description, null);
-    $setting->set_updatedcallback('theme_reset_all_caches');
-    $page->add($setting);
-
-    $name = 'theme_remui/footercolumn1customhtml';
-    $title = new lang_string('footercolumncustomhtml', 'theme_remui');
-    $description = new lang_string('footercolumn1customhtmldesc', 'theme_remui');
-    $default = '';
-    $setting = new admin_setting_confightmleditor($name, $title, $description, $default);
-    $setting->set_updatedcallback('theme_reset_all_caches');
-    $page->add($setting);
-
-    $name = 'theme_remui/footercolumn1menu';
-    $title = new lang_string('footercolumncustommmenu', 'theme_remui');
-    $description = new lang_string('footercolumncustommenudesc', 'theme_remui');
-    $default = '';
-    $setting = new admin_setting_configtextarea($name, $title, $description, $default);
-    $setting->set_updatedcallback('theme_reset_all_caches');
-    $page->add($setting);
-
-    $remuisettings['footercolumn1type'] = [[
-        'value'  => 'customhtml',
-        'show' => ['footercolumn1customhtml'],
-        'hide' => ['footercolumn1menu']
-    ], [
-        'value'  => 'menu',
-        'show' => ['footercolumn1menu'],
-        'hide' => ['footercolumn1customhtml'],
-    ]];
-
-    // Footer Column 2.
-    $page->add(new admin_setting_heading(
-        'theme_remui_footercolumn2',
-        new lang_string('footercolumn2heading', 'theme_remui'),
-        format_text(new lang_string('footercolumn2headingdesc', 'theme_remui'), FORMAT_MARKDOWN)
-    ));
-
-    $name = 'theme_remui/footercolumn2type';
-    $title = new lang_string('footercolumntype', 'theme_remui');
-    $description = new lang_string('footercolumntypedesc', 'theme_remui');
-    $setting = new admin_setting_configselect(
-        $name,
-        $title,
-        $description,
-        'customhtml',
-        array(
-            'customhtml' => new lang_string('footercolumncustomhtml', 'theme_remui'),
-            'menu' => new lang_string('menu', 'theme_remui'),
-        )
-    );
-    $page->add($setting);
-
-    $name = 'theme_remui/footercolumn2title';
-    $title = new lang_string('footercolumn2title', 'theme_remui');
-    $description = new lang_string('footercolumn2titledesc', 'theme_remui');
-    $default = '';
-    $setting = new admin_setting_configtext($name, $title, $description, null);
-    $setting->set_updatedcallback('theme_reset_all_caches');
-    $page->add($setting);
-
-    $name = 'theme_remui/footercolumn2customhtml';
-    $title = new lang_string('footercolumncustomhtml', 'theme_remui');
-    $description = new lang_string('footercolumn2customhtmldesc', 'theme_remui');
-    $default = '';
-    $setting = new admin_setting_confightmleditor($name, $title, $description, $default);
-    $setting->set_updatedcallback('theme_reset_all_caches');
-    $page->add($setting);
-
-    $name = 'theme_remui/footercolumn2menu';
-    $title = new lang_string('footercolumncustommmenu', 'theme_remui');
-    $description = new lang_string('footercolumncustommenudesc', 'theme_remui');
-    $default = '';
-    $setting = new admin_setting_configtextarea($name, $title, $description, $default);
-    $setting->set_updatedcallback('theme_reset_all_caches');
-    $page->add($setting);
-
-
-    $remuisettings['footercolumn2type'] = [[
-        'value'  => 'customhtml',
-        'show' => ['footercolumn2customhtml'],
-        'hide' => ['footercolumn2menu']
-    ], [
-        'value'  => 'menu',
-        'show' => ['footercolumn2menu'],
-        'hide' => ['footercolumn2customhtml'],
-    ]];
-
-    // Footer Column 3.
-    $page->add(new admin_setting_heading(
-        'theme_remui_footercolumn3',
-        new lang_string('footercolumn3heading', 'theme_remui'),
-        format_text(new lang_string('footercolumn3headingdesc', 'theme_remui'), FORMAT_MARKDOWN)
-    ));
-
-    $name = 'theme_remui/footercolumn3type';
-    $title = new lang_string('footercolumntype', 'theme_remui');
-    $description = new lang_string('footercolumntypedesc', 'theme_remui');
-    $setting = new admin_setting_configselect(
-        $name,
-        $title,
-        $description,
-        'customhtml',
-        array(
-            'customhtml' => new lang_string('footercolumncustomhtml', 'theme_remui'),
-            'menu' => new lang_string('menu', 'theme_remui'),
-        )
-    );
-    $page->add($setting);
-
-    $name = 'theme_remui/footercolumn3title';
-    $title = new lang_string('footercolumn3title', 'theme_remui');
-    $description = new lang_string('footercolumn3titledesc', 'theme_remui');
-    $default = '';
-    $setting = new admin_setting_configtext($name, $title, $description, null);
-    $setting->set_updatedcallback('theme_reset_all_caches');
-    $page->add($setting);
-
-    $name = 'theme_remui/footercolumn3customhtml';
-    $title = new lang_string('footercolumncustomhtml', 'theme_remui');
-    $description = new lang_string('footercolumn3customhtmldesc', 'theme_remui');
-    $default = '';
-    $setting = new admin_setting_confightmleditor($name, $title, $description, $default);
-    $setting->set_updatedcallback('theme_reset_all_caches');
-    $page->add($setting);
-
-    $name = 'theme_remui/footercolumn3menu';
-    $title = new lang_string('footercolumncustommmenu', 'theme_remui');
-    $description = new lang_string('footercolumncustommenudesc', 'theme_remui');
-    $default = '';
-    $setting = new admin_setting_configtextarea($name, $title, $description, $default);
-    $setting->set_updatedcallback('theme_reset_all_caches');
-    $page->add($setting);
-
-    $remuisettings['footercolumn3type'] = [[
-        'value'  => 'customhtml',
-        'show' => ['footercolumn3customhtml'],
-        'hide' => ['footercolumn3menu']
-    ], [
-        'value'  => 'menu',
-        'show' => ['footercolumn3menu'],
-        'hide' => ['footercolumn3customhtml'],
-    ]];
-
-    // Footer Column 4.
-    $page->add(new admin_setting_heading(
-        'theme_remui_footercolumn4',
-        new lang_string('footercolumn4heading', 'theme_remui'),
-        format_text(new lang_string('footercolumn4headingdesc', 'theme_remui'), FORMAT_MARKDOWN)
-    ));
-
-    $name = 'theme_remui/footercolumn4type';
-    $title = new lang_string('footercolumntype', 'theme_remui');
-    $description = new lang_string('footercolumntypedesc', 'theme_remui');
-    $setting = new admin_setting_configselect(
-        $name,
-        $title,
-        $description,
-        'customhtml',
-        array(
-            'customhtml' => new lang_string('footercolumncustomhtml', 'theme_remui'),
-            'menu' => new lang_string('menu', 'theme_remui'),
-        )
-    );
-    $page->add($setting);
-
-    $name = 'theme_remui/footercolumn4title';
-    $title = new lang_string('footercolumn4title', 'theme_remui');
-    $description = new lang_string('footercolumn4titledesc', 'theme_remui');
-    $default = '';
-    $setting = new admin_setting_configtext($name, $title, $description, null);
-    $setting->set_updatedcallback('theme_reset_all_caches');
-    $page->add($setting);
-
-    $name = 'theme_remui/footercolumn4customhtml';
-    $title = new lang_string('footercolumncustomhtml', 'theme_remui');
-    $description = new lang_string('footercolumn4customhtmldesc', 'theme_remui');
-    $default = '';
-    $setting = new admin_setting_confightmleditor($name, $title, $description, $default);
-    $setting->set_updatedcallback('theme_reset_all_caches');
-    $page->add($setting);
-
-    $name = 'theme_remui/footercolumn4menu';
-    $title = new lang_string('footercolumncustommmenu', 'theme_remui');
-    $description = new lang_string('footercolumncustommenudesc', 'theme_remui');
-    $default = '';
-    $setting = new admin_setting_configtextarea($name, $title, $description, $default);
-    $setting->set_updatedcallback('theme_reset_all_caches');
-    $page->add($setting);
-
-    $remuisettings['footercolumn4type'] = [[
-        'value'  => 'customhtml',
-        'show' => ['footercolumn4customhtml'],
-        'hide' => ['footercolumn4menu']
-    ], [
-        'value'  => 'menu',
-        'show' => ['footercolumn4menu'],
-        'hide' => ['footercolumn4customhtml'],
-    ]];
-
-    // Footer Bottom-Right Section.
-    $page->add(new admin_setting_heading(
-        'theme_remui_footerbottom',
-        new lang_string('footerbottomheading', 'theme_remui'),
-        format_text(new lang_string('footerbottomdesc', 'theme_remui'), FORMAT_MARKDOWN)
-    ));
-
-    $name = 'theme_remui/footerbottomtext';
-    $title = new lang_string('footerbottomtext', 'theme_remui');
-    $description = new lang_string('footerbottomtextdesc', 'theme_remui');
-    $default = '';
-    $setting = new admin_setting_configtext($name, $title, $description, $default);
-    $setting->set_updatedcallback('theme_reset_all_caches');
-    $page->add($setting);
-
-    $name = 'theme_remui/footerbottomlink';
-    $title = new lang_string('footerbottomlink', 'theme_remui');
-    $description = new lang_string('footerbottomlinkdesc', 'theme_remui');
-    $default = '';
-    $setting = new admin_setting_configtext($name, $title, $description, $default);
-    $setting->set_updatedcallback('theme_reset_all_caches');
-    $page->add($setting);
-
-    $name = 'theme_remui/footercopyrightsshow';
-    $title = new lang_string('footercopyright', 'theme_remui');
-    $description = new lang_string('footercopyrightsdesc', 'theme_remui');
-    $default = false;
-    $setting = new admin_setting_configcheckbox($name, $title, $description, $default, true, false);
-    $page->add($setting);
-
-
-    $remuisettings['footercopyrightsshow'] = [[
-        'value'  => false,
-        'hide' => ['footercopyrights']
-    ], [
-        'value'  => true,
-        'show' => ['footercopyrights']
-    ]];
-
-    $name = 'theme_remui/footercopyrights';
-    $title = new lang_string('copyrighttextarea', 'theme_remui');
-    $description = new lang_string('footercopyrightstags', 'theme_remui');
-    $default = new lang_string('footercopyrights', 'theme_remui');
-    $setting = new admin_setting_configtextarea($name, $title, $description, $default);
-    $setting->set_updatedcallback('theme_reset_all_caches');
-    $page->add($setting);
-
-    $name = 'theme_remui/footershowlogo';
-    $title = new lang_string('footershowlogo', 'theme_remui');
-    $description = new lang_string('footershowlogodesc', 'theme_remui');
-    $default = false;
-    $setting = new admin_setting_configcheckbox($name, $title, $description, $default, true, false);
-    $page->add($setting);
-
-    $name = 'theme_remui/footertermsandconditionsshow';
-    $title = new lang_string('footertermsandconditionsshow', 'theme_remui');
-    $description = new lang_string('footertermsandconditionsshowdesc', 'theme_remui');
-    $default = false;
-    $setting = new admin_setting_configcheckbox($name, $title, $description, $default, true, false);
-    $page->add($setting);
-
-    $name = 'theme_remui/footertermsandconditions';
-    $title = new lang_string('footertermsandconditions', 'theme_remui');
-    $description = new lang_string('footertermsandconditionsdesc', 'theme_remui');
-    $default = "#";
-    $setting = new admin_setting_configtext($name, $title, $description, $default);
-    $setting->set_updatedcallback('theme_reset_all_caches');
-    $page->add($setting);
-
-    $remuisettings['footertermsandconditionsshow'] = [[
-        'value'  => false,
-        'hide' => ['footertermsandconditions']
-    ], [
-        'value'  => true,
-        'show' => ['footertermsandconditions']
-    ]];
-
-    $name = 'theme_remui/footerprivacypolicyshow';
-    $title = new lang_string('footerprivacypolicyshow', 'theme_remui');
-    $description = new lang_string('footerprivacypolicyshowdesc', 'theme_remui');
-    $default = true;
-    $setting = new admin_setting_configcheckbox($name, $title, $description, $default, true, false);
-    $page->add($setting);
-
-
-    $name = 'theme_remui/footerprivacypolicy';
-    $title = new lang_string('footerprivacypolicy', 'theme_remui');
-    $description = new lang_string('footerprivacypolicydesc', 'theme_remui');
-    $default = "#";
-    $setting = new admin_setting_configtext($name, $title, $description, $default);
-    $setting->set_updatedcallback('theme_reset_all_caches');
-    $page->add($setting);
-
-    $remuisettings['footerprivacypolicyshow'] = [[
-        'value'  => false,
-        'hide' => ['footerprivacypolicy']
-    ], [
-        'value'  => true,
-        'show' => ['footerprivacypolicy']
-    ]];
-
-    $name = 'theme_remui/poweredbyedwiser';
-    $title = new lang_string('poweredbyedwiser', 'theme_remui');
-    $description = new lang_string('poweredbyedwiserdesc', 'theme_remui');
-    $default = true;
-    $setting = new admin_setting_configcheckbox($name, $title, $description, $default, true, false);
-    $page->add($setting);
-
-    // Social media settings.
-    $page->add(new admin_setting_heading(
-    'theme_remui_socialmedia',
-    new lang_string('socialmedia', 'theme_remui'),
-    format_text(new lang_string('socialmediadesc', 'theme_remui'), FORMAT_MARKDOWN)
-    ));
-
-    // Facebook.
-    $name = 'theme_remui/facebooksetting';
-    $title = new lang_string('facebooksetting', 'theme_remui');
-    $description = new lang_string('facebooksettingdesc', 'theme_remui');
-    $default = '';
-    $setting = new admin_setting_configtext($name, $title, $description, $default);
-    $page->add($setting);
-
-    // Twitter.
-    $name = 'theme_remui/twittersetting';
-    $title = new lang_string('twittersetting', 'theme_remui');
-    $description = new lang_string('twittersettingdesc', 'theme_remui');
-    $default = '';
-    $setting = new admin_setting_configtext($name, $title, $description, $default);
-    $page->add($setting);
-
-    // Linkedin.
-    $name = 'theme_remui/linkedinsetting';
-    $title = new lang_string('linkedinsetting', 'theme_remui');
-    $description = new lang_string('linkedinsettingdesc', 'theme_remui');
-    $default = '';
-    $setting = new admin_setting_configtext($name, $title, $description, $default);
-    $page->add($setting);
-
-    // Gplus.
-    $name = 'theme_remui/gplussetting';
-    $title = new lang_string('gplussetting', 'theme_remui');
-    $description = new lang_string('gplussettingdesc', 'theme_remui');
-    $default = '';
-    $setting = new admin_setting_configtext($name, $title, $description, $default);
-    $page->add($setting);
-
-    // Youtube.
-    $name = 'theme_remui/youtubesetting';
-    $title = new lang_string('youtubesetting', 'theme_remui');
-    $description = new lang_string('youtubesettingdesc', 'theme_remui');
-    $default = '';
-    $setting = new admin_setting_configtext($name, $title, $description, $default);
-    $page->add($setting);
-
-    // Instagram.
-    $name = 'theme_remui/instagramsetting';
-    $title = new lang_string('instagramsetting', 'theme_remui');
-    $description = new lang_string('instagramsettingdesc', 'theme_remui');
-    $default = '';
-    $setting = new admin_setting_configtext($name, $title, $description, $default);
-    $page->add($setting);
-
-    // Pinterest.
-    $name = 'theme_remui/pinterestsetting';
-    $title = new lang_string('pinterestsetting', 'theme_remui');
-    $description = new lang_string('pinterestsettingdesc', 'theme_remui');
-    $default = '';
-    $setting = new admin_setting_configtext($name, $title, $description, $default);
-    $page->add($setting);
-
-    // Quora.
-    $name = 'theme_remui/quorasetting';
-    $title = new lang_string('quorasetting', 'theme_remui');
-    $description = new lang_string('quorasettingdesc', 'theme_remui');
-    $default = '';
-    $setting = new admin_setting_configtext($name, $title, $description, $default);
-    $page->add($setting);
-
-
-    // Whatsapp.
-    $name = 'theme_remui/whatsappsetting';
-    $title = new lang_string('whatsappsetting', 'theme_remui');
-    $description = new lang_string('whatsappsettingdesc', 'theme_remui');
-    $default = '';
-    $setting = new admin_setting_configtext($name, $title, $description, $default);
-    $page->add($setting);
-
-
-    // Telegram.
-    $name = 'theme_remui/telegramsetting';
-    $title = new lang_string('telegramsetting', 'theme_remui');
-    $description = new lang_string('telegramsettingdesc', 'theme_remui');
-    $default = '';
-    $setting = new admin_setting_configtext($name, $title, $description, $default);
-    $page->add($setting);
-    $settings->add($page);
+    // Footer Settings (commented out for future use).
 
     // Login Page Settings.
     $page = new admin_settingpage('theme_remui_login', new lang_string('loginsettings', 'theme_remui'));
@@ -1925,18 +1461,18 @@ if ($ADMIN->fulltree) {
     $name = 'theme_remui/loginpanellogo';
     $title = new lang_string('loginpanellogo', 'theme_remui');
     $description = new lang_string('loginpanellogodesc', 'theme_remui');
-    $setting = new admin_setting_configstoredfile($name, $title, $description, 'loginpanellogo', 0, array(
-        'subdirs' => 0, 'accepted_types' => 'web_image'
-    ));
+    $setting = new admin_setting_configstoredfile($name, $title, $description, 'loginpanellogo', 0, [
+        'subdirs' => 0, 'accepted_types' => 'web_image',
+    ]);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
     $name = 'theme_remui/loginsettingpic';
     $title = new lang_string('loginsettingpic', 'theme_remui');
     $description = new lang_string('loginsettingpicdesc', 'theme_remui');
-    $setting = new admin_setting_configstoredfile($name, $title, $description, 'loginsettingpic', 0, array(
-        'subdirs' => 0, 'accepted_types' => 'web_image'
-    ));
+    $setting = new admin_setting_configstoredfile($name, $title, $description, 'loginsettingpic', 0, [
+        'subdirs' => 0, 'accepted_types' => 'web_image',
+    ]);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
@@ -1950,11 +1486,11 @@ if ($ADMIN->fulltree) {
         $title,
         $description,
         1,
-        array(
+        [
             0 => new lang_string('hiddenlogo', 'theme_remui'),
             1 => new lang_string('sidebarregionlogo', 'theme_remui'),
-            2 => new lang_string('maincontentregionlogo', 'theme_remui')
-        )
+            2 => new lang_string('maincontentregionlogo', 'theme_remui'),
+        ]
     );
 
     $page->add($setting);
@@ -1968,11 +1504,11 @@ if ($ADMIN->fulltree) {
         $title,
         $description,
         'loginright',
-        array(
+        [
             'logincenter' => new lang_string('logincenter', 'theme_remui'),
             'loginleft' => new lang_string('loginleft', 'theme_remui'),
-            'loginright' => new lang_string('loginright', 'theme_remui')
-        )
+            'loginright' => new lang_string('loginright', 'theme_remui'),
+        ]
     );
     $page->add($setting);
 
@@ -1998,15 +1534,15 @@ if ($ADMIN->fulltree) {
     $remuisettings['loginpagelayout'] = [[
         'value'  => 'logincenter',
         'show' => [],
-        'hide' => ['brandlogotext', 'signuptextcolor']
+        'hide' => ['brandlogotext', 'signuptextcolor'],
     ], [
         'value'  => 'loginleft',
         'show' => ['brandlogopos', 'brandlogotext', 'signuptextcolor'],
-        'hide' => []
+        'hide' => [],
     ], [
         'value'  => 'loginright',
         'show' => ['brandlogopos', 'brandlogotext', 'signuptextcolor'],
-        'hide' => []
+        'hide' => [],
     ]];
 }
 global $PAGE;

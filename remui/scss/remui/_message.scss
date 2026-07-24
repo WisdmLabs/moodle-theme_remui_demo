@@ -102,10 +102,7 @@ body#page-course-view-remuiformat .nav-item .edw-msg-panel-badge {
 
 .message-app {
 
-    [data-region="contact-request-sent-message-container"]{
-        background-color: $white;
-        position: absolute !important;
-    }
+    border-radius: $card-border-radius;
     &.main{
         [data-region="contact-request-sent-message-container"]{
             width: 100%;
@@ -623,4 +620,10 @@ body#page-course-view-remuiformat .nav-item .edw-msg-panel-badge {
 }
 .edw-header-color{
     color: $heading-color;
+}
+
+[id^="message-drawer"] {
+    [data-region="confirm-dialogue-container"] [data-region="delete-messages-for-all-users-toggle-container"].form-check {
+        display: none;
+    }
 }

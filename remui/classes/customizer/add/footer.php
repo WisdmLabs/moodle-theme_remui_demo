@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Theme customizer footer trait
  *
@@ -24,6 +25,11 @@
 
 namespace theme_remui\customizer\add;
 
+/**
+ * Footer trait.
+ *
+ * Provides functionality for adding footer-related customizer settings.
+ */
 trait footer {
     /**
      * Add footer settings
@@ -33,18 +39,234 @@ trait footer {
         $panel = get_string('footer', 'theme_remui');
         $this->add_panel('footer', $panel, 'root');
 
+        $this->add_footer_selection_settings();
+
         // Footer design.
         $this->add_footer_basic_settings();
 
-        // Social Media links.
-        $this->add_footer_socialall_settings();
+        // Social Media links (commented out for future use).
 
-        // Advance.
+        // Footer Top (design 6).
+        $this->add_footer_toparea_settings();
+
+        // Advance settings.
         $this->add_footer_advance_settings();
 
-        // Secondary.
+        // Secondary settings.
         $this->add_footer_secondary_settings();
+
+        // Main Footer Area Background Image.
+        $this->add_main_footer_area_background_img();
     }
+
+    /**
+     * Add main footer area background image settings.
+     *
+     * @return void
+     */
+    private function add_main_footer_area_background_img() {
+        $panel = 'footer-template-background-image';
+        $panellabel = get_string('mainfooterareabackgroundimage', 'theme_remui');
+        $this->add_panel($panel, $panellabel, 'footer-template-selection');
+
+        // Footer Background Image.
+        $label = get_string('addabackgroundimage', 'theme_remui');
+        $name = 'backgroundimgurl';
+        $this->add_setting(
+            'file',
+            $name,
+            $label,
+            $panel,
+            [
+                'help' => get_string('uploadimagefooterhelp', 'theme_remui'),
+                'options' => [
+                    'subdirs' => 0,
+                    'maxfiles' => 1,
+                    'accepted_types' => ['web_image'],
+                ],
+            ]
+        );
+
+        $this->add_setting(
+            'select',
+            'backgroundimg-position',
+            get_string('backgroundimageposition', 'theme_remui'),
+            $panel,
+            [
+                'help' => get_string('choosebackgroundposition', 'theme_remui'),
+                'default' => 'top left',
+                'options' => [
+                    'top left' => "Top Left",
+                    'top center' => "Top Center",
+                    'top right' => "Top Right",
+                    'center left' => "Center Left",
+                    'center' => "Center",
+                    'center right' => "Center Right",
+                    'bottom left' => "Bottom Left",
+                    'bottom center' => "Bottom Center",
+                    'bottom right' => "Bottom Right",
+                ],
+            ]
+        );
+
+        $this->add_setting(
+            'select',
+            'backgroundimg-repeat',
+            get_string('backgroundimagerepeat', 'theme_remui'),
+            $panel,
+            [
+                'help' => get_string('choosebackgroundrepeat', 'theme_remui'),
+                'default' => 'no-repeat',
+                'options' => [
+                    'no-repeat' => "No Repeat",
+                    'repeat-x' => "Repeat-x (horizontal only)",
+                    'repeat-y' => "Repeat-y (vertical only)",
+                    'repeat' => "Repeat",
+                    'space'  => "Space",
+                    'round' => "Round",
+                ],
+            ]
+        );
+
+        $this->add_setting(
+            'select',
+            'backgroundimg-size',
+            get_string('backgroundimagesize', 'theme_remui'),
+            $panel,
+            [
+                'help' => get_string('choosebackgroundsize', 'theme_remui'),
+                'default' => 'cover',
+                'options' => [
+                    'cover' => "Cover",
+                    'contain' => "Contain",
+                    'auto' => "Auto",
+                ],
+            ]
+        );
+
+        // Backround opacity.
+        $this->add_setting(
+            'range',
+            'backgroundimg-opacity',
+            get_string('backgroundimageopacity', 'theme_remui'),
+            $panel,
+            [
+                'help' => get_string('applyoverlayfooter', 'theme_remui'),
+                'default' => 0.7,
+                'options' => [
+                    'min' => 0,
+                    'max' => 1,
+                    'step' => 0.01,
+                ],
+            ]
+        );
+    }
+
+    /**
+     * Add footer selection settings.
+     *
+     * @return void
+     */
+    private function add_footer_selection_settings() {
+        $panel = 'footer-template-selection';
+        $panellabel = get_string('footerselection', 'theme_remui');
+        $this->add_panel($panel, $panellabel, 'footer');
+
+        global $CFG;
+        $logo = $CFG->wwwroot . '/theme/remui/pix/customizer/warning.svg';
+        $this->add_setting(
+            'html',
+            'select-footer-panel',
+            get_string('important', 'theme_remui'),
+            'footer',
+            [
+                'content' => '
+                    <div class="select-footer-panel">
+                        <div class="d-flex header">
+                            <img src=' . $logo . ' alt="important"/>
+                            <h6 class="h-bold-6 mb-0 pl-2">' . get_string('important', 'theme_remui') . '</h6>
+                        </div>
+                        <div class="notice small-info-regular">
+                            ' . "<ul><li>" . get_string('importantnote1', 'theme_remui') .
+                            "</li><li>" . get_string('importantnote2', 'theme_remui') . "</li></ul>" .
+                        '</div>
+                    </div>
+
+                ',
+            ]
+        );
+
+        $footerdesigns = [[
+            'label' => get_string('footerdesign1', 'theme_remui'),
+            'image' => $CFG->wwwroot . '/theme/remui/pix/customizer/footer_design_1.svg',
+        ], [
+            'label' => get_string('footerdesign2', 'theme_remui'),
+            'image' => $CFG->wwwroot . '/theme/remui/pix/customizer/footer_design_2.svg',
+        ], [
+            'label' => get_string('footerdesign3', 'theme_remui'),
+            'image' => $CFG->wwwroot . '/theme/remui/pix/customizer/footer_design_3.svg',
+        ], [
+            'label' => get_string('footerdesign4', 'theme_remui'),
+            'image' => $CFG->wwwroot . '/theme/remui/pix/customizer/footer_design_4.svg',
+        ], [
+            'label' => get_string('footerdesign5', 'theme_remui'),
+            'image' => $CFG->wwwroot . '/theme/remui/pix/customizer/footer_design_5.svg',
+        ], [
+            'label' => get_string('footerdesign6', 'theme_remui'),
+            'image' => $CFG->wwwroot . '/theme/remui/pix/customizer/footer_design_6.svg',
+        ], [
+            'label' => get_string('footerdesign7', 'theme_remui'),
+            'image' => $CFG->wwwroot . '/theme/remui/pix/customizer/footer_design_7.svg',
+        ], ];
+
+        $options = [];
+
+        foreach ($footerdesigns as $index => $footerdesign) {
+            $num = $index;
+            $option = [
+                'name' => 'footer-design-' . $num,
+                'class' => 'footer-design-options',
+                'label' => $footerdesign['label'],
+                'content' => "",
+                'data' => [[
+                    'key' => 'flayout',
+                    'value' => 'footerdesign' . $num,
+                ]],
+            ];
+            $content = "<div class='footerdesignselector'>";
+            $content .= "<img class='footer-design-image' src=" . $footerdesign['image'] . ">";
+            // Add a button below each design.
+            $downloadbtn = '<button type="button" name="footer-template-download-' . $num .
+                '" id="id_footer-template-download-btn" class="btn btn-secondary btn-sm footer-template-download-button">' .
+                ' <span class="edw-icon edw-icon-Setting"></span>' . get_string('download', 'theme_remui') . '</button>';
+            $editbtnclass = 'btn btn-secondary btn-sm footer-template-edit-button ms-auto';
+            $editbtnattr = 'sidebar-panel-link data-panel-id="footer-template-selection" style="position: unset !important;"';
+            $editbtn = '<button type="button" name="footer-template-next-btn-' . $num .
+                '" id="id_footer-template-next-btn-' . $num .
+                '" class="' . $editbtnclass . '" ' . $editbtnattr . '>' .
+                ' <span class="edw-icon edw-icon-Edit"></span>' . get_string('edit', 'theme_remui') . '</button>';
+            $content .= '<div class="footerdesign-next-btn d-flex justify-content-between w-100 p-1 ms-auto">' .
+                $downloadbtn . $editbtn .
+                '</div>';
+            $content .= '</div>';
+            $option['content'] = $content;
+            $options[] = $option;
+            $num = $index + 1;
+        }
+
+        $this->add_setting(
+            'radio_modified',
+            'footer-design-selector',
+            get_string('footerdesignselector', 'theme_remui'),
+            'footer',
+            [
+                'default' => 'footer-design-0',
+                'options' => $options,
+            ]
+        );
+    }
+
+
 
     /**
      * Add footer design or settings
@@ -54,7 +276,7 @@ trait footer {
     private function add_footer_basic_settings() {
         $panel = 'footer-basic';
         $panellabel = get_string('basic', 'theme_remui');
-        $this->add_panel($panel, $panellabel, 'footer');
+        $this->add_panel($panel, $panellabel, 'footer-template-selection');
 
         // Add footer colors settings.
         $this->add_footer_colors_settings($panel);
@@ -71,43 +293,27 @@ trait footer {
      *
      * @return void
      */
-    private function add_footer_socialall_settings() {
-        $panel = 'footer-social';
-        $panellabel = get_string('socialall', 'theme_remui');
+    private function add_footer_socialall_settings($panel, $colno = '') {
+        // Footer social settings (commented out for future use).
+        // <h6 class="h-bold-6 mb-2">' . get_string('social-icons-heading', 'theme_remui') . '</h6>
+        // <div class="notice small-info-regular">
+        // ' . get_string('social-icons-info', 'theme_remui') . '
+        // </div>
+        // Footer social settings HTML (commented out for future use).
 
-        // Add footer social settigs.
-        $this->add_panel($panel, $panellabel, 'footer');
-
-        $this->add_setting(
-            'html',
-            'social-icons-panel',
-            get_string('socialiconspanel', 'theme_remui'),
-            $panel,
-            [
-                'content' => '
-                    <div class="social-icons-panel p-3">
-                        <h6 class="h-bold-6 mb-2">' . get_string('social-icons-heading', 'theme_remui') . '</h6>
-                        <div class="notice small-info-regular">
-                            ' . get_string('social-icons-info', 'theme_remui') . '
-                        </div>
-                    </div>
-                '
-            ]
-        );
-
-        $socials = ['facebook', 'twitter', 'linkedin', 'gplus', 'youtube', 'instagram', 'pinterest', 'quora', 'whatsapp', 'telegram'];
+        $socials = ['facebook', 'twitter', 'linkedin', 'youtube', 'instagram', 'pinterest', 'quora', 'whatsapp', 'telegram'];
 
         // Footer social settings.
         foreach ($socials as $social) {
             $label = get_string("{$social}setting", 'theme_remui');
-            $name = "{$social}setting";
+            $name = "{$social}setting{$colno}";
             $this->add_setting(
                 'text',
                 $name,
                 $label,
                 $panel,
                 [
-                    'help' => get_string("{$social}settingdesc", 'theme_remui')
+                    'help' => get_string("{$social}settingdesc", 'theme_remui'),
                 ]
             );
         }
@@ -132,7 +338,7 @@ trait footer {
             get_string('footer-color-heading1', 'theme_remui'),
             $panel,
             [
-                'collapsed' => true
+                'collapsed' => true,
             ]
         );
 
@@ -146,10 +352,37 @@ trait footer {
             $panel,
             [
                 'help' => get_string('background-color_help', 'theme_remui', $footerlabel),
-                'default' => $this->get_default_color('footerbg')
+                'default' => $this->get_default_color('footerbg'),
             ]
         );
 
+        // Main area background color.
+        $label = get_string('mainareabackgroundcolor', 'theme_remui');
+        $name = 'main-footer-area-background-color';
+        $this->add_setting(
+            'color',
+            $name,
+            $label,
+            $panel,
+            [
+                'help' => get_string('setbackgroundcolormain', 'theme_remui'),
+                'default' => $this->get_default_color('footerbg'),
+            ]
+        );
+
+        // Bottom area background color.
+        $label = get_string('bottomareabackgroundcolor', 'theme_remui');
+        $name = 'bottom-footer-area-background-color';
+        $this->add_setting(
+            'color',
+            $name,
+            $label,
+            $panel,
+            [
+                'help' => get_string('setbackgroundcolorbottom', 'theme_remui'),
+                'default' => $this->get_default_color('footerbg'),
+            ]
+        );
         // Text color.
         $label = get_string('text-color', 'theme_remui');
         $name = 'footer-text-color';
@@ -160,7 +393,35 @@ trait footer {
             $panel,
             [
                 'help' => get_string('text-color_help', 'theme_remui', $footerlabel),
-                'default' => $this->get_default_color('white')
+                'default' => $this->get_default_color('white'),
+            ]
+        );
+
+        // Main area text color.
+        $label = get_string('mainareatextcolor', 'theme_remui');
+        $name = 'main-footer-area-text-color';
+        $this->add_setting(
+            'color',
+            $name,
+            $label,
+            $panel,
+            [
+                'help' => get_string('settextcolormain', 'theme_remui'),
+                'default' => $this->get_default_color('white'),
+            ]
+        );
+
+        // Bottom area text color.
+        $label = get_string('bottomareatextcolor', 'theme_remui');
+        $name = 'bottom-footer-area-text-color';
+        $this->add_setting(
+            'color',
+            $name,
+            $label,
+            $panel,
+            [
+                'help' => get_string('settextcolorbottom', 'theme_remui'),
+                'default' => $this->get_default_color('white'),
             ]
         );
 
@@ -174,7 +435,7 @@ trait footer {
             $panel,
             [
                 'help' => get_string('divider-color_help', 'theme_remui', $footerlabel),
-                'default' => $this->get_default_color('footerdivider')
+                'default' => $this->get_default_color('footerdivider'),
             ]
         );
 
@@ -193,7 +454,7 @@ trait footer {
             get_string('footer-color-heading2', 'theme_remui'),
             $panel,
             [
-                'collapsed' => true
+                'collapsed' => true,
             ]
         );
 
@@ -207,7 +468,7 @@ trait footer {
             $panel,
             [
                 'help' => get_string('link-text_help', 'theme_remui', $footerlabel),
-                'default' => $this->get_default_color('bg')
+                'default' => $this->get_default_color('bg'),
             ]
         );
 
@@ -221,7 +482,7 @@ trait footer {
             $panel,
             [
                 'help' => get_string('link-hover-text_help', 'theme_remui', $footerlabel),
-                'default' => $this->get_default_color('bg')
+                'default' => $this->get_default_color('bg'),
             ]
         );
 
@@ -240,7 +501,7 @@ trait footer {
             get_string('footer-color-heading3', 'theme_remui'),
             $panel,
             [
-                'collapsed' => true
+                'collapsed' => true,
             ]
         );
 
@@ -254,11 +515,25 @@ trait footer {
             $panel,
             [
                 'help' => get_string('icon-default-color_help', 'theme_remui', $footerlabel),
-                'default' => $this->get_default_color('footericons')
+                'default' => $this->get_default_color('footericons'),
             ]
         );
 
-        // Icon default color.
+        // Icon default background color.
+        $label = get_string('footericonbackgroundcolor', 'theme_remui');
+        $name = 'footer-icon-bg-color';
+        $this->add_setting(
+            'color',
+            $name,
+            $label,
+            $panel,
+            [
+                'help' => get_string('icon-default-color_help', 'theme_remui', $footerlabel),
+                'default' => "#3e86f5",
+            ]
+        );
+
+        // Icon default background color.
         $label = get_string('icon-hover-color', 'theme_remui');
         $name = 'footer-icon-hover-color';
         $this->add_setting(
@@ -268,7 +543,7 @@ trait footer {
             $panel,
             [
                 'help' => get_string('icon-hover-color_help', 'theme_remui', $footerlabel),
-                'default' => $this->get_default_color('footericonshover')
+                'default' => $this->get_default_color('footericonshover'),
             ]
         );
         // Heading end.
@@ -302,7 +577,7 @@ trait footer {
             [
                 'help' => get_string('font-family_help', 'theme_remui', get_string('footer', 'theme_remui')),
                 'default' => 'Inherit',
-                'options' => $fonts
+                'options' => $fonts,
             ]
         );
 
@@ -319,8 +594,8 @@ trait footer {
                 'options' => [
                     'min' => 1,
                     'max' => 5,
-                    'step' => 0.01
-                ]
+                    'step' => 0.01,
+                ],
             ]
         );
         // Font weight.
@@ -343,8 +618,8 @@ trait footer {
                     '600' => get_string('weight-600', 'theme_remui'),
                     '700' => get_string('weight-700', 'theme_remui'),
                     '800' => get_string('weight-800', 'theme_remui'),
-                    '900' => get_string('weight-900', 'theme_remui')
-                ]
+                    '900' => get_string('weight-900', 'theme_remui'),
+                ],
             ]
         );
 
@@ -358,7 +633,7 @@ trait footer {
             [
                 'help' => get_string('text-transform_help', 'theme_remui', get_string('footer', 'theme_remui')),
                 'default' => 'inherit',
-                'options' => $this->texttransform
+                'options' => $this->texttransform,
             ]
         );
 
@@ -375,8 +650,8 @@ trait footer {
                 'options' => [
                     'min' => 1,
                     'max' => 5,
-                    'step' => 0.01
-                ]
+                    'step' => 0.01,
+                ],
             ]
         );
 
@@ -393,8 +668,8 @@ trait footer {
                 'options' => [
                     'min' => 1,
                     'max' => 5,
-                    'step' => 0.01
-                ]
+                    'step' => 0.01,
+                ],
             ]
         );
     }
@@ -422,7 +697,7 @@ trait footer {
             [
                 'help' => get_string('font-family_help', 'theme_remui', get_string('footer-columns', 'theme_remui')),
                 'default' => 'Inherit',
-                'options' => $fonts
+                'options' => $fonts,
             ]
         );
 
@@ -439,8 +714,8 @@ trait footer {
                 'options' => [
                     'min' => 1,
                     'max' => 5,
-                    'step' => 0.01
-                ]
+                    'step' => 0.01,
+                ],
             ]
         );
         // Font weight.
@@ -463,8 +738,8 @@ trait footer {
                     '600' => get_string('weight-600', 'theme_remui'),
                     '700' => get_string('weight-700', 'theme_remui'),
                     '800' => get_string('weight-800', 'theme_remui'),
-                    '900' => get_string('weight-900', 'theme_remui')
-                ]
+                    '900' => get_string('weight-900', 'theme_remui'),
+                ],
             ]
         );
 
@@ -478,7 +753,7 @@ trait footer {
             [
                 'help' => get_string('text-transform_help', 'theme_remui', get_string('footer-columns', 'theme_remui')),
                 'default' => 'inherit',
-                'options' => $this->texttransform
+                'options' => $this->texttransform,
             ]
         );
 
@@ -495,8 +770,8 @@ trait footer {
                 'options' => [
                     'min' => 1,
                     'max' => 5,
-                    'step' => 0.01
-                ]
+                    'step' => 0.01,
+                ],
             ]
         );
 
@@ -513,8 +788,8 @@ trait footer {
                 'options' => [
                     'min' => 1,
                     'max' => 5,
-                    'step' => 0.01
-                ]
+                    'step' => 0.01,
+                ],
             ]
         );
 
@@ -528,9 +803,31 @@ trait footer {
             $panel,
             [
                 'help' => get_string('footer-columntitle-color_help', 'theme_remui', get_string('footer-columns', 'theme_remui')),
-                'default' => $this->get_default_color('bg')
+                'default' => $this->get_default_color('bg'),
             ]
         );
+    }
+
+    /**
+     * Add top footer area settings
+     *
+     * @return void
+     */
+    private function add_footer_toparea_settings() {
+        $panel = 'footer-top-area';
+        $panellabel = get_string('topfooterarea', 'theme_remui');
+        $this->add_panel($panel, $panellabel, 'footer-template-selection');
+
+        $this->add_setting(
+            'text',
+            'top-area-header-text',
+            get_string('topareaheadertext', 'theme_remui'),
+            $panel,
+            [
+                'help' => get_string('topareaheadertextdesc', 'theme_remui'),
+            ]
+        );
+        $this->add_footer_email_subscribe_settings($panel, '#006455', '#FFF', '#FFF', '#010B14', '#006455', '#5CFF85', 0);
     }
 
     /**
@@ -542,7 +839,7 @@ trait footer {
 
         $panellabel = get_string('advance', 'theme_remui');
         $panel = 'footer-advance';
-        $this->add_panel($panel, $panellabel, 'footer');
+        $this->add_panel($panel, $panellabel, 'footer-template-selection');
 
         // Footer column type.
         $this->add_setting(
@@ -555,8 +852,24 @@ trait footer {
                 'default' => 4,
                 'options' => [
                     'min' => 1,
-                    'max' => 4
-                ]
+                    'max' => 4,
+                ],
+            ]
+        );
+
+        // Footer column type.
+        $this->add_setting(
+            'range',
+            'footercolumn5',
+            get_string('footercolumnwidgetno', 'theme_remui'),
+            $panel,
+            [
+                'help' => get_string('footercolumndesc', 'theme_remui'),
+                'default' => 5,
+                'options' => [
+                    'min' => 1,
+                    'max' => 5,
+                ],
             ]
         );
 
@@ -569,15 +882,15 @@ trait footer {
             [
                 'help' => get_string('footercolumnsizedesc', 'theme_remui'),
                 'withdefault' => false,
-                'default' => '25,25,25,25'
+                'default' => '25,25,25,25',
             ]
         );
 
         // Default types for column.
-        $defaulttypes = ['customhtml', 'customhtml', 'customhtml', 'customhtml'];
+        $defaulttypes = ['customhtml', 'customhtml', 'customhtml', 'customhtml', 'customhtml'];
 
         // Default social link selection.
-        $socials = ['facebook', 'twitter', 'linkedin', 'gplus', 'youtube', 'instagram', 'pinterest', 'quora', 'whatsapp', 'telegram'];
+        $socials = ['facebook', 'twitter', 'linkedin', 'youtube', 'instagram', 'pinterest', 'quora', 'whatsapp', 'telegram'];
 
         // Generating select input options for social link selection.
         $socialoptions = [];
@@ -585,7 +898,7 @@ trait footer {
             $socialoptions[$social] = get_string('footer' . $social, 'theme_remui');
         }
 
-        for ($i = 1; $i <= 4; $i++) {
+        for ($i = 1; $i <= 5; $i++) {
             // Footer column heading.
             $this->add_setting(
                 'heading_start',
@@ -593,7 +906,7 @@ trait footer {
                 get_string('footercolumn', 'theme_remui') . ' ' . $i,
                 'footer-advance',
                 [
-                    'collapsed' => true
+                    'collapsed' => true,
                 ]
             );
 
@@ -607,9 +920,9 @@ trait footer {
                     'help' => get_string('footercolumntypedesc', 'theme_remui'),
                     'options' => [
                         'customhtml' => get_string('footercolumncustomhtml', 'theme_remui'),
-                        'menu' => get_string('footermenu', 'theme_remui')
+                        'menu' => get_string('footermenu', 'theme_remui'),
                     ],
-                    'default' => $defaulttypes[$i - 1]
+                    'default' => $defaulttypes[$i - 1],
                 ]
             );
 
@@ -620,9 +933,40 @@ trait footer {
                 get_string('footercolumntitle', 'theme_remui'),
                 $panel,
                 [
-                    'help' => get_string('footercolumntitledesc', 'theme_remui')
+                    'help' => get_string('footercolumntitledesc', 'theme_remui'),
                 ]
             );
+
+            // Logo settings for widget 1.
+            if ($i === 1) {
+                $label = get_string('showlogo', 'theme_remui');
+                $this->add_setting(
+                    'checkbox',
+                    'showfooterwidgetlogo',
+                    $label,
+                    $panel,
+                    [
+                        'help' => get_string('enablelogofirstcolumn', 'theme_remui'),
+                    ]
+                );
+                // Favicon.
+                $label = get_string('secondaryfooterlogo', 'theme_remui');
+                $name  = 'footerwidgetlogo';
+                $this->add_setting(
+                    'file',
+                    $name,
+                    $label,
+                    $panel,
+                    [
+                        'help'        => get_string('secondaryfooterlogo', 'theme_remui'),
+                        'options'     => [
+                            'subdirs'        => 0,
+                            'maxfiles'       => 1,
+                            'accepted_types' => ['web_image'],
+                        ],
+                    ]
+                );
+            }
 
             // Footer content.
             $this->add_setting(
@@ -632,52 +976,9 @@ trait footer {
                 'footer-advance',
                 [
                     'options' => [
-                        'rows' => 10
+                        'rows' => 10,
                     ],
-                    'help' => get_string('footercolumncustomhtmldesc', 'theme_remui')
-                ]
-            );
-
-            // Show site logo in the footer.
-            $label = get_string('showsocialmediaicon', 'theme_remui');
-            $this->add_setting(
-                'checkbox',
-                'socialmediaiconcol' . $i,
-                $label,
-                $panel,
-                [
-                    'help' => get_string('socialmediaicondesc', 'theme_remui')
-                ]
-            );
-
-            // Footer social links selection.
-            $this->add_setting(
-                'select',
-                'footercolumn' . $i . 'social',
-                get_string('footercolumnsocial', 'theme_remui'),
-                'footer-advance',
-                [
-                    'help' => get_string('footercolumnsocialdesc', 'theme_remui'),
-                    'options' => $socialoptions,
-                    'multiple' => true,
-                    'default' => json_encode($socials)
-                ]
-            );
-
-            $this->add_setting(
-                'html',
-                'social-media-selection-note',
-                '',
-                $panel,
-                [
-                    'content' => '
-                        <div class="footercolumn' . $i . 'social-note">
-                            <p class="notice small-info-regular p-0 m-0">
-                                <span class="h-bold-6 mb-2">' . get_string('note', 'theme_remui') . ':</span>
-                                ' . get_string('social-media-selection-note', 'theme_remui') . '
-                            </p>
-                        </div>
-                    '
+                    'help' => get_string('footercolumncustomhtmldesc', 'theme_remui'),
                 ]
             );
 
@@ -689,9 +990,46 @@ trait footer {
                 'footer-advance',
                 [
                     'default' => '[]',
-                    'help' => get_string('footermenudesc', 'theme_remui')
+                    'help' => get_string('footermenudesc', 'theme_remui'),
                 ]
             );
+
+            // Footer social links selection (commented out for future use).
+
+            // Social media selection note (commented out for future use).
+
+            // Email subscribe toggle setting (commented out for future use).
+
+            // Email Subscribe Setting.
+            $inputbordercolor = '#3E86F5';
+            $inputoutlinecolor = '#3E86F5';
+            $btntextcolor = '#FFFFFF';
+            $btntexthovercolor = '#FFFFFF';
+            $btnbgcolor = '#3E86F5';
+            $btnbghovercolor = '#0656f9';
+            $this->add_footer_email_subscribe_settings(
+                $panel,
+                $inputbordercolor,
+                $inputoutlinecolor,
+                $btntextcolor,
+                $btntexthovercolor,
+                $btnbgcolor,
+                $btnbghovercolor,
+                $i
+            );
+            // Show site logo in the footer.
+            $label = get_string('showsocialmediaicon', 'theme_remui');
+            $this->add_setting(
+                'checkbox',
+                'socialmediaiconcol' . $i,
+                $label,
+                $panel,
+                [
+                    'help' => get_string('socialmediaicondesc', 'theme_remui'),
+                ]
+            );
+
+            $this->add_footer_socialall_settings($panel, $i);
 
             // Footer column heading end.
             $this->add_setting(
@@ -711,7 +1049,7 @@ trait footer {
     private function add_footer_secondary_settings() {
         $panel = 'footer-secondary';
         $panellabel = get_string('footersecondary', 'theme_remui');
-        $this->add_panel($panel, $panellabel, 'footer');
+        $this->add_panel($panel, $panellabel, 'footer-template-selection');
 
         // Show site logo in the footer.
         $label = get_string('footershowlogo', 'theme_remui');
@@ -721,7 +1059,7 @@ trait footer {
             $label,
             $panel,
             [
-                'help' => get_string('footershowlogodesc', 'theme_remui')
+                'help' => get_string('footershowlogodesc', 'theme_remui'),
             ]
         );
 
@@ -744,7 +1082,7 @@ trait footer {
             $panel,
             [
                 'help' => get_string('text-color_help', 'theme_remui'),
-                'default' => $this->get_default_color('white')
+                'default' => $this->get_default_color('white'),
             ]
         );
 
@@ -762,12 +1100,12 @@ trait footer {
                 'options' => [
                     'subdirs' => 0,
                     'maxfiles' => 1,
-                    'accepted_types' => array('web_image')
-                ]
+                    'accepted_types' => ['web_image'],
+                ],
             ]
         );
 
-        // secondaryfooterlogodarkmode.
+        // Secondary footer logo dark mode.
         $label = get_string('secondaryfooterlogodarkmode', 'theme_remui');
         $name = 'secondaryfooterlogodarkmode';
         $this->add_setting(
@@ -781,8 +1119,8 @@ trait footer {
                 'options' => [
                     'subdirs' => 0,
                     'maxfiles' => 1,
-                    'accepted_types' => array('web_image')
-                ]
+                    'accepted_types' => ['web_image'],
+                ],
             ]
         );
         // Show privacy policy the footer.
@@ -793,7 +1131,7 @@ trait footer {
             $label,
             $panel,
             [
-                'default' => true
+                'default' => true,
             ]
         );
 
@@ -804,7 +1142,7 @@ trait footer {
             get_string('footerprivacypolicy', 'theme_remui'),
             $panel,
             [
-                'help' => get_string('footerprivacypolicydesc', 'theme_remui')
+                'help' => get_string('footerprivacypolicydesc', 'theme_remui'),
             ]
         );
 
@@ -833,7 +1171,7 @@ trait footer {
             get_string('footertermsandconditions', 'theme_remui'),
             $panel,
             [
-                'help' => get_string('footertermsandconditionsdesc', 'theme_remui')
+                'help' => get_string('footertermsandconditionsdesc', 'theme_remui'),
             ]
         );
         // Terms and conditon open in new tab.
@@ -860,7 +1198,7 @@ trait footer {
             $panel,
             [
                 'help' => get_string('footercopyrightsdesc', 'theme_remui'),
-                'default' => '[site] © [year]. All rights reserved.'
+                'default' => '[site] © [year]. All rights reserved.',
             ]
         );
 
@@ -872,7 +1210,152 @@ trait footer {
             $panel,
             [
 
-                'default' => true
+                'default' => true,
+            ]
+        );
+
+        // Setting for social media icons.
+        $label = get_string('showsocialmediaicon', 'theme_remui');
+        $this->add_setting(
+            'checkbox',
+            'footersocialmediaicons',
+            $label,
+            $panel,
+            [
+                'help' => get_string('socialmediaicondesc', 'theme_remui'),
+                'default' => true,
+            ]
+        );
+
+        // Secondary footer social settings (commented out for future use).
+        $this->add_footer_socialall_settings($panel);
+        $this->add_setting(
+            'text',
+            'footerbottomtext',
+            get_string('footerbottomtext', 'theme_remui'),
+            $panel,
+            [
+                'help' => get_string('footerbottomtextdesc', 'theme_remui'),
+            ]
+        );
+
+        $this->add_setting(
+            'text',
+            'footerbottomlink',
+            get_string('footerbottomlink', 'theme_remui'),
+            $panel,
+            [
+                'help' => get_string('footerbottomlinkdesc', 'theme_remui'),
+            ]
+        );
+    }
+
+    /**
+     * Add footer email subscribe settings.
+     *
+     * @param string $panel Panel name.
+     * @param string $inputbordercolor Input border color.
+     * @param string $inputoutlinecolor Input outline color.
+     * @param string $btntextcolor Button text color.
+     * @param string $btntexthovercolor Button text hover color.
+     * @param string $btnbgcolor Button background color.
+     * @param string $btnbghovercolor Button background hover color.
+     * @param int $i Column number.
+     * @return void
+     */
+    private function add_footer_email_subscribe_settings(
+        $panel,
+        $inputbordercolor,
+        $inputoutlinecolor,
+        $btntextcolor,
+        $btntexthovercolor,
+        $btnbgcolor,
+        $btnbghovercolor,
+        $i
+    ) {
+        $label = get_string('displayemailsubscribenewsletter', 'theme_remui');
+        $this->add_setting(
+            'checkbox',
+            'toggle_email_subscribe_settings' . $i,
+            $label,
+            $panel,
+            [
+                'help' => get_string('enableemailettersite', 'theme_remui'),
+            ]
+        );
+        $this->add_setting(
+            'text',
+            'subscribetargetlink' . $i,
+            get_string('subscribebuttontargetlink', 'theme_remui'),
+            $panel,
+            [
+                'help' => get_string('addtargetlinksubscribe', 'theme_remui'),
+            ]
+        );
+
+        $this->add_setting(
+            'color',
+            'emailinputbordercolor' . $i,
+            get_string('emailinputbordercolor', 'theme_remui'),
+            $panel,
+            [
+                'help' => get_string('addbordercoloremail', 'theme_remui'),
+                'default' => $inputbordercolor,
+            ]
+        );
+
+        $this->add_setting(
+            'color',
+            'focusedemailinputoutlinecolor' . $i,
+            get_string('focusedinputoutlinecolor', 'theme_remui'),
+            $panel,
+            [
+                'help' => get_string('addoutlinecolorfocused', 'theme_remui'),
+                'default' => $inputoutlinecolor,
+            ]
+        );
+
+        $this->add_setting(
+            'color',
+            'subscribebuttontextcolor' . $i,
+            get_string('subscribebuttontextcolor', 'theme_remui'),
+            $panel,
+            [
+                'help' => get_string('addtextcolorsubscribe', 'theme_remui'),
+                'default' => $btntextcolor,
+            ]
+        );
+
+        $this->add_setting(
+            'color',
+            'subscribebuttontexthovercolor' . $i,
+            get_string('subscribebuttontexthovercolor', 'theme_remui'),
+            $panel,
+            [
+                'help' => get_string('addtexthovercolorsubscribe', 'theme_remui'),
+                'default' => $btntexthovercolor,
+            ]
+        );
+
+        $this->add_setting(
+            'color',
+            'subscribebtnbgcolor' . $i,
+            get_string('subscribebtnbgcolor', 'theme_remui'),
+            $panel,
+            [
+                'help' => get_string('addbackgroundcolorsubscribe', 'theme_remui'),
+                'default' => $btnbgcolor,
+            ]
+        );
+
+        $this->add_setting(
+            'color',
+            'subscribebtnbghovercolor' . $i,
+            get_string('subscribebtnbghovercolor', 'theme_remui'),
+            $panel,
+            [
+                'help' => get_string('addhoverbackgroundcolorsubscribe', 'theme_remui'),
+                'default' => $btnbghovercolor,
             ]
         );
     }

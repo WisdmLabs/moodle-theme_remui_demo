@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Theme customizer body process trait
  *
@@ -24,8 +25,12 @@
 
 namespace theme_remui\customizer\process;
 
+/**
+ * Body processing trait.
+ *
+ * Provides functionality for processing body-related customizer settings.
+ */
 trait body {
-
     /**
      * Get global font name.
      * @param array fonts Fonts list.
@@ -95,7 +100,7 @@ trait body {
             'fontweight' => $this->get_config('global-typography-body-fontweight'),
             'lineheight' => $this->get_config('global-typography-body-lineheight'),
             'texttransform' => $this->get_config('global-typography-body-text-transform'),
-            'letterspacing' => $letterspacing
+            'letterspacing' => $letterspacing,
         ];
     }
 
@@ -154,7 +159,7 @@ trait body {
                 'fontsize' => [
                     'default' => $global['fontsize']['default'] - $difference,
                     'tablet' => $global['fontsize']['tablet'] - $difference,
-                    'mobile' => $global['fontsize']['mobile'] - $difference
+                    'mobile' => $global['fontsize']['mobile'] - $difference,
                 ],
                 'fontfamily' => 'Inherit',
                 'lineheight' => $global['lineheight'],
@@ -217,18 +222,17 @@ trait body {
         $variables['smallpara-letterspacing'] = $settings['letterspacing'] . 'rem';
 
         if ($this->get_config("smallpara-adv-setting")) {
-            // Para-regular-1
+            // Para-regular-1.
             $variables['smallpara-regular-weight'] = $settings['regularweight'];
 
-            // Para-semibold-1
+            // Para-semibold-1.
             $variables['smallpara-semibold-weight'] = $settings['semiboldweight'];
         } else {
             $variables['smallpara-regular-weight'] = 400;
 
-            // Para-semibold-1
+            // Para-semibold-1.
             $variables['smallpara-semibold-weight'] = 600;
         }
-
     }
 
     /**
@@ -251,14 +255,14 @@ trait body {
                 'fontsize' => [
                     'default' => $global['fontsize']['default'] - $difference,
                     'tablet' => $global['fontsize']['tablet'] - $difference,
-                    'mobile' => $global['fontsize']['mobile'] - $difference
+                    'mobile' => $global['fontsize']['mobile'] - $difference,
                 ],
                 'fontfamily' => 'Inherit',
                 'lineheight' => $global['lineheight'],
                 'texttransform' => 'Inherit',
                 'letterspacing' => $global['letterspacing'],
                 'regularweight' => $global['fontweight'],
-                'semiboldweight' => $semiboldfontweight ,
+                'semiboldweight' => $semiboldfontweight,
 
             ];
         } else {
@@ -314,19 +318,18 @@ trait body {
         $variables['smallinfo-letterspacing'] = $settings['letterspacing'] . 'rem';
 
         if ($this->get_config("smallinfo-adv-setting")) {
-            // Para-regular-1
+            // Para-regular-1.
             $variables['smallinfo-regular-weight'] = $settings['regularweight'];
 
-            // Para-semibold-1
+            // Para-semibold-1.
             $variables['smallinfo-semibold-weight'] = $settings['semiboldweight'];
         } else {
-            // Para-regular-1
+            // Para-regular-1.
             $variables['smallinfo-regular-weight'] = $settings['regularweight'];
 
-            // Para-semibold-1
+            // Para-semibold-1.
             $variables['smallinfo-semibold-weight'] = $settings['semiboldweight'];
         }
-
     }
 
     /**

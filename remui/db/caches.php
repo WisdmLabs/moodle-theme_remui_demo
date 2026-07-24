@@ -25,29 +25,29 @@
 // This line protects the file from being accessed by a URL directly.
 defined('MOODLE_INTERNAL') || die();
 
-$definitions = array(
-    'courses' => array(
+$definitions = [
+    'courses' => [
         'mode' => cache_store::MODE_SESSION,
         'ttl' => 600, // Ten minutes.
-    ),
-    'guestcourses' => array(
+    ],
+    'guestcourses' => [
         'mode' => cache_store::MODE_APPLICATION,
         'ttl' => 600, // Ten minutes.
-    ),
-    'updates' => array(
+    ],
+    'updates' => [
         'mode' => cache_store::MODE_APPLICATION,
-        'ttl' => 10080 // 7 days.
-    ),
-    'feedback_questions' => array(
+        'ttl' => 10080, // 7 days.
+    ],
+    'feedback_questions' => [
         'mode' => cache_store::MODE_APPLICATION,
-        'ttl' => 3600 // 1 hour.
-    ),
-    'whatsnew' => array(
-        'mode' => cache_store::MODE_APPLICATION,
-        'ttl' => 3600 // 1 hours.
-    ),
-    'offers' => array(
+        'ttl' => 3600, // 1 hour.
+    ],
+    'whatsnew' => [
         'mode' => cache_store::MODE_APPLICATION,
         'ttl' => 3600 // 1 hours.
-    )
-);
+    ],
+    'offers' => [
+        'mode' => cache_store::MODE_APPLICATION,
+        'ttl' => 3600 // 1 hours.
+    ]
+];

@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Theme customizer login trait
  *
@@ -24,8 +25,12 @@
 
 namespace theme_remui\customizer\add;
 
+/**
+ * Login trait.
+ *
+ * Provides functionality for adding login page customizer settings.
+ */
 trait login {
-
     /**
      * Add login  settings
      * @return void
@@ -41,10 +46,10 @@ trait login {
                 'content' => '
                     <div class="login-page-info-panel p-3 mt-4">
                         <div class="notice small-info-regular">
-                            '.get_string('login-page-info', 'theme_remui').'
+                            ' . get_string('login-page-info', 'theme_remui') . '
                         </div>
                     </div>
-                '
+                ',
             ]
         );
 
@@ -53,13 +58,6 @@ trait login {
         $this->add_login_form_settings();
 
         $this->add_login_page_settings();
-
-        // $this->add_setting(
-        //     'info',
-        //     'login-panel',
-        //     get_string('login-page-info', 'theme_remui'),
-        //     'login'
-        // );
     }
 
     /**
@@ -75,7 +73,7 @@ trait login {
             get_string('logosettings', 'theme_remui'),
             'login',
             [
-                'collapsed' => true
+                'collapsed' => true,
             ]
         );
         // Login panel position.
@@ -91,8 +89,8 @@ trait login {
                 'options' => [
                     0 => get_string('hiddenlogo', 'theme_remui'),
                     1 => get_string('sidebarregionlogo', 'theme_remui'),
-                    2 => get_string('maincontentregionlogo', 'theme_remui')
-                ]
+                    2 => get_string('maincontentregionlogo', 'theme_remui'),
+                ],
             ]
         );
 
@@ -105,13 +103,13 @@ trait login {
             $label,
             'login',
             [
-                'help' => '<div>Default:' . get_string('loginpanellogodesc', 'theme_remui'). '</div>',
+                'help' => '<div>Default:' . get_string('loginpanellogodesc', 'theme_remui') . '</div>',
                 'get_url' => true,
                 'options' => [
                     'subdirs' => 0,
                     'maxfiles' => 1,
-                    'accepted_types' => array('web_image')
-                ]
+                    'accepted_types' => ['web_image'],
+                ],
             ]
         );
 
@@ -137,7 +135,7 @@ trait login {
             get_string('loginformsettings', 'theme_remui'),
             'login',
             [
-                'collapsed' => true
+                'collapsed' => true,
             ]
         );
 
@@ -154,8 +152,8 @@ trait login {
                 'options' => [
                     'logincenter' => get_string('logincenter', 'theme_remui'),
                     'loginleft' => get_string('loginleft', 'theme_remui'),
-                    'loginright' => get_string('loginright', 'theme_remui')
-                ]
+                    'loginright' => get_string('loginright', 'theme_remui'),
+                ],
             ]
         );
 
@@ -168,7 +166,7 @@ trait login {
             'login',
             [
                 'help' => get_string('loginpaneltextcolor_help', 'theme_remui'),
-                'default' => $this->get_default_color('headingstext')
+                'default' => $this->get_default_color('headingstext'),
             ]
         );
 
@@ -181,7 +179,7 @@ trait login {
             'login',
             [
                 'help' => get_string('loginpanelcontentcolor_help', 'theme_remui'),
-                'default' => $this->get_default_color('text')
+                'default' => $this->get_default_color('text'),
             ]
         );
 
@@ -194,7 +192,7 @@ trait login {
             'login',
             [
                 'help' => get_string('loginpanellinkcolor_help', 'theme_remui'),
-                'default' => $this->get_default_color('link')
+                'default' => $this->get_default_color('link'),
             ]
         );
 
@@ -207,7 +205,7 @@ trait login {
             'login',
             [
                 'help' => get_string('loginpanellinkhovercolor_help', 'theme_remui'),
-                'default' => $this->get_default_color('linkhover')
+                'default' => $this->get_default_color('linkhover'),
             ]
         );
 
@@ -220,7 +218,7 @@ trait login {
             'login',
             [
                 'help' => get_string('loginpanelbackgroundcolor_help', 'theme_remui'),
-                'default' => $this->get_default_color('white')
+                'default' => $this->get_default_color('white'),
             ]
         );
 
@@ -233,10 +231,10 @@ trait login {
     }
 
     /**
-     * Add login page settings
+     * Add login page settings.
+     *
      * @return void
      */
-
     private function add_login_page_settings() {
 
         $this->add_setting(
@@ -245,7 +243,7 @@ trait login {
             get_string('loginpagesettings', 'theme_remui'),
             'login',
             [
-                'collapsed' => true
+                'collapsed' => true,
             ]
         );
 
@@ -262,8 +260,8 @@ trait login {
                 'options' => [
                     'image' => get_string('image', 'theme_remui'),
                     'color' => get_string('color', 'theme_remui'),
-                    'gradient' => get_string('gradient', 'theme_remui')
-                ]
+                    'gradient' => get_string('gradient', 'theme_remui'),
+                ],
             ]
         );
 
@@ -276,7 +274,7 @@ trait login {
             'login',
             [
                 'help' => get_string('loginpagebackgroundcolor_help', 'theme_remui'),
-                'default' => $this->get_default_color('bg')
+                'default' => $this->get_default_color('bg'),
             ]
         );
 
@@ -294,8 +292,8 @@ trait login {
                 'options' => [
                     'subdirs' => 0,
                     'maxfiles' => 1,
-                    'accepted_types' => array('web_image')
-                ]
+                    'accepted_types' => ['web_image'],
+                ],
             ]
         );
 
@@ -313,8 +311,8 @@ trait login {
                 'options' => [
                     'min' => 0,
                     'max' => 1,
-                    'step' => 0.01
-                ]
+                    'step' => 0.01,
+                ],
             ]
         );
 
@@ -327,7 +325,7 @@ trait login {
             'login',
             [
                 'help' => get_string('gradient-color1_help', 'theme_remui'),
-                'default' => $this->get_default_color('bg')
+                'default' => $this->get_default_color('bg'),
             ]
         );
 
@@ -340,7 +338,7 @@ trait login {
             'login',
             [
                 'help' => get_string('gradient-color1_help', 'theme_remui'),
-                'default' => $this->get_default_color('white')
+                'default' => $this->get_default_color('white'),
             ]
         );
 
@@ -354,8 +352,8 @@ trait login {
             'login',
             [
                 'options' => [
-                    'rows' => 10
-                ]
+                    'rows' => 10,
+                ],
             ]
         );
 
@@ -368,7 +366,7 @@ trait login {
             'login',
             [
                 'help' => get_string('signuptextcolordesc', 'theme_remui'),
-                'default' => $this->get_default_color('text')
+                'default' => $this->get_default_color('text'),
             ]
         );
 

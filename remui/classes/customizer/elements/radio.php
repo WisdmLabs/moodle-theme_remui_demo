@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Theme customizer radio element class
  *
@@ -30,7 +31,6 @@ use stdClass;
  * radio element.
  */
 class radio extends base {
-
     /**
      * Process form save
      *
@@ -73,7 +73,8 @@ class radio extends base {
         }
         if (isset($this->options['default']) && $this->options['default'] != '') {
             $help = '';
-            if ($withdefault &&
+            if (
+                $withdefault &&
                 (!isset($this->options['withdefault']) ||
                 (!isset($this->options['withdefault']) && $this->options['withdefault'])) &&
                 isset($this->options['default'])
@@ -81,10 +82,10 @@ class radio extends base {
                 $radiooptions = $this->options['options'];
 
                 $value = $this->options['options'][0];
-                $help .= '<strong>' . get_string('default', 'moodle') . ': ' . $value['name']. '</strong><br>';
+                $help .= '<strong>' . get_string('default', 'moodle') . ': ' . $value['name'] . '</strong><br>';
             }
             $help .= $this->options['help'];
-            $data = new stdClass;
+            $data = new stdClass();
             $data->ltr = !right_to_left();
             $data->text = $help;
             return $OUTPUT->render_from_template('theme_remui/customizer/help_icon', $data);
@@ -131,7 +132,7 @@ class radio extends base {
         foreach ($options as $key => $value) {
             $option = [
                 'key' => $key,
-                'value' => $value
+                'value' => $value,
             ];
             if (array_search($key, $default) !== false) {
                 $option['selected'] = 'selected';
@@ -167,7 +168,7 @@ class radio extends base {
             'hasselect' => $hasselect,
             'default' => $default,
             'multiple' => $this->is_multiple(),
-            'options' => $radiooptions
+            'options' => $radiooptions,
         ]);
     }
 }

@@ -15,7 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package   local_edwiserpagebuilder
+ * Do setup action external API.
+ *
+ * @package   theme_remui
  * @copyright (c) 2022 WisdmLabs (https://wisdmlabs.com/) <support@wisdmlabs.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @author Abhishek Kushwah
@@ -23,12 +25,16 @@
 
  namespace theme_remui\external;
 
- defined('MOODLE_INTERNAL') || die;
-
 use external_function_parameters;
 use external_value;
 use context_system;
 use context_user;
+
+/**
+ * Do setup action trait.
+ *
+ * Provides external API functions for setup actions.
+ */
 trait do_setup_action {
     /**
      * Describes the parameters for add_new_page
@@ -36,10 +42,10 @@ trait do_setup_action {
      */
     public static function do_setup_action_parameters() {
         return new external_function_parameters(
-            array(
+            [
                 'action' => new external_value(PARAM_TEXT, 'Action Type'),
-                'config' => new external_value(PARAM_RAW, 'setup data')
-            )
+                'config' => new external_value(PARAM_RAW, 'setup data'),
+            ]
         );
     }
 
@@ -50,11 +56,21 @@ trait do_setup_action {
      */
     public static function do_setup_action($action, $config) {
         global $PAGE;
-        $PAGE->set_context(context_system::instance());
+
+        // Validate sesskey to prevent CSRF attacks.
+        confirm_sesskey();
+
+        // Validate context and admin permission.
+        /** @var \context $context */
+        $context = context_system::instance();
+        self::validate_context($context);
+        require_capability('moodle/site:config', $context);
+
+        $PAGE->set_context($context);
 
         $setupwizard = new \theme_remui\setupwizard();
 
-        $return  = $setupwizard ->perform_action($action, $config);
+        $return  = $setupwizard->perform_action($action, $config);
 
         return json_encode($return);
     }
@@ -67,4 +83,3 @@ trait do_setup_action {
         return new external_value(PARAM_RAW, 'Json');
     }
 }
-

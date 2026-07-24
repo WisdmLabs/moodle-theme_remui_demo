@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable no-undef */
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -16,8 +14,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Theme customizer main module.
+ * Main entry point for the RemUI theme customizer, coordinating all customization panels and settings.
+ *
  * @module     theme_remui/customizer
- * @copyright  (c) 2023 WisdmLabs (https://wisdmlabs.com/)
+ * @copyright  (c) 2023 WisdmLabs (https://wisdmlabs.com/) <support@wisdmlabs.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @author     Yogesh Shirsath
  */
@@ -25,8 +26,7 @@
 import $ from "jquery";
 import Ajax from "core/ajax";
 import Notification from "core/notification";
-import ModalFactory from "core/modal_factory";
-import "core/modal_save_cancel";
+import ModalSaveCancel from "core/modal_save_cancel";
 import ModalEvents from "core/modal_events";
 import Utils from "theme_remui/customizer/utils";
 import globalSite from "theme_remui/customizer/global-site";
@@ -124,6 +124,8 @@ var CONSTANTS = {
     CURRNIGHTEYESTATE: 'currnighteyewState'
 };
 
+// Flag to track if footer settings have been downloaded
+window.footerSettingsDownloaded = false;
 /**
  * Apply settings on iframe load.
  */
@@ -149,8 +151,15 @@ function resetHandlers() {
     // Color reset.
     $(SELECTOR.COLOR_RESET).on("click", function() {
         let color = $(this).data("default");
-        $(this).closest('.form-group').find("input").spectrum("set", color);
-        $(this).closest('.form-group').find("input").trigger("color.changed", color);
+        let inputname = $(this).closest('.form-group').find("input").attr('name');
+
+        // Update all inputs with the same name (works for both quicksetup and themecolors panels).
+        $('input[name="' + inputname + '"]').each(function() {
+            if ($(this).data('spectrum.id')) {
+                $(this).spectrum("set", color);
+                $(this).trigger("color.changed", color);
+            }
+        });
     });
 
     // Checkbox reset.
@@ -244,7 +253,6 @@ function iframeHandler() {
     setTimeout(() => {
         // Iframe on unload event.
         contentWindow.onbeforeunload = function() {
-            console.log('Iframe navigated.');
             Utils.showLoader();
         };
     }, 2000);
@@ -262,7 +270,6 @@ function preserveResetSettings() {
         'facebooksetting',
         'twittersetting',
         'linkedinsetting',
-        'gplussetting',
         'youtubesetting',
         'instagramsetting',
         'pinterestsetting',
@@ -277,14 +284,26 @@ function preserveResetSettings() {
         'poweredbyedwiser',
         'footerprivacypolicyshow'
     ];
-    for (let i = 1; i <= 4; i++) {
+    for (let i = 1; i <= 5; i++) {
         ids.push('footercolumn' + i + 'type');
         ids.push('footercolumn' + i + 'title');
         ids.push('footercolumn' + i + 'customhtml');
         ids.push('socialmediaiconcol' + i);
-        ids.push('footercolumn' + i + 'social');
+
+        // Add social media settings for each column
+        let socials = ['facebook', 'twitter', 'linkedin', 'youtube', 'instagram', 'pinterest', 'quora', 'whatsapp', 'telegram'];
+        socials.forEach(social => {
+            ids.push(social + 'setting' + i);
+        });
+
         ids.push('footercolumn' + i + 'menu');
     }
+
+    // Add footer-secondary social media settings
+    let socials = ['facebook', 'twitter', 'linkedin', 'youtube', 'instagram', 'pinterest', 'quora', 'whatsapp', 'telegram'];
+    socials.forEach(social => {
+        ids.push(social + 'settingsecondary');
+    });
     ids.forEach(id => {
         element = $('[name="' + id + '"]');
         element.closest('.fitem').find('.reset-button').trigger('click');
@@ -308,6 +327,13 @@ function preserveResetSettings() {
         }
 
     });
+    // let selectedFooterDesign = $('input[name="footer-design-selector"]:checked').val();
+    // if (selectedFooterDesign) {
+    //     settings.push({
+    //         name: 'footer-design-selector',
+    //         value: selectedFooterDesign
+    //     });
+    // }
     return settings;
 }
 
@@ -330,13 +356,11 @@ function resetAllSettingHandler() {
     });
 
     body += '</ul>';
-    ModalFactory.create({
+    ModalSaveCancel.create({
             title: M.util.get_string("reset", "moodle"),
             body: body,
-            type: ModalFactory.types.SAVE_CANCEL,
-        },
-        $("#create-modal")
-    ).done(modal => {
+        }
+    ).then(modal => {
         modal.show();
         var root = modal.getRoot();
         root.find('[data-region="footer"]').html(`
@@ -370,8 +394,110 @@ function resetAllSettingHandler() {
             reset(preservedSettings);
         });
         root.on('click', '[data-action="reset-some"]', () => {
-            reset(preserveResetSettings());
+            $('[data-action="reset-some"]').prop('disabled', true).html('<i class="fa fa-spinner fa-spin"></i> Resetting...');
+            setTimeout(() => {
+                reset(preserveResetSettings());
+            }, 1);
         });
+        return modal;
+    }).catch(Notification.exception);
+}
+
+/**
+ * Show download confirmation modal before publishing changes
+ */
+function showDownloadConfirmationModal() {
+    const body = M.util.get_string("downloadalerttext", "theme_remui");
+
+    ModalSaveCancel.create({
+        title: "Confirm",
+        body: body,
+    }).then(modal => {
+        modal.show();
+        const root = modal.getRoot();
+        root.find('[data-region="footer"]').html(`
+            <button type="button" class="btn btn-outline-primary" data-action="continue-without-download">
+                ${M.util.get_string("skipdownload", "theme_remui")}
+            </button>
+            <button type="button" class="btn btn-primary" data-action="download-and-continue">
+                ${M.util.get_string("downloadandcontinue", "theme_remui")}
+            </button>
+        `);
+
+        // Handle continue without download
+        root.on('click', '[data-action="continue-without-download"]', () => {
+            modal.destroy();
+            publishChanges();
+        });
+
+        // Handle download and continue
+        root.on('click', '[data-action="download-and-continue"]', () => {
+            modal.destroy();
+            // Trigger download first, then publish
+            triggerDownloadAndPublish();
+        });
+        return modal;
+    }).catch(Notification.exception);
+}
+
+/**
+ * Trigger download and then publish changes
+ */
+function triggerDownloadAndPublish() {
+    // Get the current footer design (flayout)
+    const footerDesignSelector = $('input[name="footer-design-selector"].saveddesign');
+    const flayout = footerDesignSelector.length ? footerDesignSelector.data('flayout') : null;
+
+    if (!flayout) {
+        publishChanges();
+        return;
+    }
+
+    // Show loading state
+    $(SELECTOR.PUBLISH).prop('disabled', true).html('<i class="fa fa-spinner fa-spin"></i> Downloading...');
+
+    // Make AJAX call to fetch footer settings
+    Ajax.call([{
+        methodname: "theme_remui_do_personalization_action",
+        args: {
+            action: "get_footer_settings",
+            config: JSON.stringify({
+                flayout: flayout
+            })
+        }
+    }])[0].done(function(response) {
+        // Parse response if it's a string
+        if (typeof response === 'string') {
+            response = JSON.parse(response);
+        }
+
+        if (response.success) {
+            // Create and download JSON file
+            const blob = new Blob([JSON.stringify(response.settings, null, 2)], { type: 'application/json' });
+            const filename = 'footer-settings.json';
+
+            // Create a link element to download the file
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = filename;
+
+            // Trigger the download
+            document.body.appendChild(link);
+            link.click();
+
+            // Clean up
+            document.body.removeChild(link);
+            URL.revokeObjectURL(link.href);
+
+            // Set flag to indicate download was successful
+            window.footerSettingsDownloaded = true;
+        }
+    }).fail(function() {
+        // Error handled silently
+    }).always(function() {
+        // Reset button state and proceed with publish
+        $(SELECTOR.PUBLISH).prop('disabled', false).html('Publish');
+        publishChanges();
     });
 }
 
@@ -379,7 +505,6 @@ function resetAllSettingHandler() {
  * Publish changes to server.
  */
 function publishChanges() {
-    console.log('Saving setting to site.');
     $(SELECTOR.MAIN_OVERLAY).removeClass("d-none");
     let settings = $(SELECTOR.CONTROLS).serializeArray();
     settings.forEach((element, index) => {
@@ -401,7 +526,6 @@ function publishChanges() {
                 obj.body = response.message;
                 $(SELECTOR.CONTROLS).data("unsaved", false);
             }
-            console.log('Settings saved.');
             location.reload();
             // $(SELECTOR.SETTINGS_SAVE_MODAL).modal('show');
             // $(SELECTOR.SETTINGS_SAVE_MODAL).find('[data-region="title"]').text(obj.title);
@@ -409,7 +533,6 @@ function publishChanges() {
             // $(SELECTOR.MAIN_OVERLAY).addClass("d-none");
         })
         .fail(function(ex) {
-            console.log('Error:' + ex.message);
             Notification.exception(ex);
             $(SELECTOR.MAIN_OVERLAY).addClass("d-none");
         });
@@ -425,16 +548,14 @@ function closeCustomizer(event) {
         return true;
     }
     event.preventDefault();
-    ModalFactory.create({
+    ModalSaveCancel.create({
             title: M.util.get_string("customizer-close-heading", "theme_remui"),
             body: M.util.get_string(
                 "customizer-close-description",
                 "theme_remui"
             ),
-            type: ModalFactory.types.SAVE_CANCEL,
-        },
-        $("#create")
-    ).done(modal => {
+        }
+    ).then(modal => {
         modal.show();
         modal.setSaveButtonText(M.util.get_string("yes", "moodle"));
         var root = modal.getRoot();
@@ -455,12 +576,12 @@ function closeCustomizer(event) {
                         window.location = $(SELECTOR.CLOSE_CUSTOMIZER).attr("href");
                     });
                 });
-                console.log("inside feedback collection");
             }else{
                 window.location = $(SELECTOR.CLOSE_CUSTOMIZER).attr("href");
             }
         });
-    });
+        return modal;
+    }).catch(Notification.exception);
 
     // Setting DM status back to saved preference of user.
     localStorage.setItem(CONSTANTS.NIGHTEYESTATE, localStorage.getItem(CONSTANTS.CURRNIGHTEYESTATE));
@@ -560,7 +681,14 @@ function init() {
         );
 
         // Submit settings to database.
-        $(SELECTOR.PUBLISH).on("click", publishChanges);
+        $(SELECTOR.PUBLISH).on("click", function() {
+            // Check if footer settings have been downloaded
+            if (!window.footerSettingsDownloaded) {
+                showDownloadConfirmationModal();
+            } else {
+                publishChanges();
+            }
+        });
 
         // Handle customizer close event.
         $(SELECTOR.CLOSE_CUSTOMIZER).on("click", closeCustomizer);
@@ -606,6 +734,67 @@ function init() {
             $(".previewswitchoff").addClass('d-none');
             $(".previewswitchon").removeClass('d-none');
             $(".customizer-panels").css("overflow-y", "auto");
+        });
+
+        // Download footer settings button handler
+        $(document).on("click", ".footer-template-download-button", function() {
+            // Show loading state
+            $(this).prop('disabled', true).html('<i class="fa fa-spinner fa-spin"></i> Downloading...');
+
+            // Get the current footer design (flayout)
+            const footerDesignSelector = $('input[name="footer-design-selector"].saveddesign');
+            const flayout = footerDesignSelector.length ? footerDesignSelector.data('flayout') : null;
+            if (!flayout) {
+                return;
+            }
+
+            // Make AJAX call to fetch footer settings
+            Ajax.call([{
+                methodname: "theme_remui_do_personalization_action",
+                args: {
+                    action: "get_footer_settings",
+                    config: JSON.stringify({
+                        flayout: flayout
+                    })
+                }
+            }])[0].done(function(response) {
+                // Parse response if it's a string (like in the working example)
+                if (typeof response === 'string') {
+                    response = JSON.parse(response);
+                }
+
+                // Check for errors in the response
+                if (response.error) {
+                    return;
+                }
+
+                if (response.success) {
+                    // Create and download JSON file (following the working pattern)
+                    const blob = new Blob([JSON.stringify(response.settings, null, 2)], { type: 'application/json' });
+                    const filename = 'footer-settings.json';
+
+                    // Create a link element to download the file
+                    const link = document.createElement('a');
+                    link.href = URL.createObjectURL(blob);
+                    link.download = filename;
+
+                    // Trigger the download
+                    document.body.appendChild(link);
+                    link.click();
+
+                    // Clean up
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(link.href);
+
+                    // Set flag to indicate download was successful
+                    window.footerSettingsDownloaded = true;
+                }
+            }).fail(function() {
+                // Error handled silently
+            }).always(function() {
+                // Reset button state
+                $(".footer-template-download-button").prop('disabled', false).html('Download');
+            });
         });
     });
 }

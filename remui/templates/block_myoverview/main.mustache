@@ -30,6 +30,18 @@
 
 <div id="block-myoverview-{{uniqid}}" class="block-myoverview block-cards" data-region="myoverview" role="navigation">
 
+    {{#moodle_version_gte501}}
+    {{#hascourseactions}}
+    <div id="block-myoverview-{{uniqid}}-actions" class="d-none flex-wrap gap-2">
+        {{#courseactionurls}}
+        <form action="{{url}}" method="post">
+            <button type="submit" class="{{class}} btn-sm">{{label}}</button>
+        </form>
+        {{/courseactionurls}}
+    </div>
+    {{/hascourseactions}}
+    {{/moodle_version_gte501}}
+
     <div data-region="filter" class="d-flex flex-column p-mb-6"
         aria-label="{{#str}} aria:controls, block_myoverview {{/str}}">
         <div class="nav-grouping-selector">

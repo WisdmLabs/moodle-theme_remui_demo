@@ -39,7 +39,7 @@
 
 <footer id="page-footer" class="footer-popover ">
     <div class="footer-container container">
-        <div class="floating-buttons-wrapper">
+        <div class="floating-buttons-wrapper closed px-3">
             <button id="gotop" class="btn btn-primary btn-floating d-none" aria-label="{{#str}}gotop, theme_remui{{/str}}" role="button" title="{{#str}}gotop, theme_remui{{/str}}">
                 <span class="edw-icon edw-icon-UpArrow"></span>
                 <span class="btn-floating-text">{{#str}}gotop, theme_remui{{/str}}</span>
@@ -50,7 +50,7 @@
                 </button>
             {{/output.has_communication_links}}
             {{#focusdata.enabled}}
-                <button id="focusmodebutton" type="button" class="btn {{focusdata.btnbg}} {{#focusdata.on}}open{{/focusdata.on}} btn-floating align-items-center justify-content-center d-flex" data-toggle="tooltip" data-placement="left" data-trigger="hover" aria-label="{{#str}}togglefocusmode, theme_remui{{/str}}" role="Button" aria-pressed="false" >
+                <button id="focusmodebutton" type="button" class="btn {{#focusdata.on}}open{{/focusdata.on}} btn-floating align-items-center justify-content-center d-flex" data-toggle="tooltip" data-placement="left" data-trigger="hover" aria-label="{{#str}}togglefocusmode, theme_remui{{/str}}" role="Button" aria-pressed="false" >
                     <i class="{{focusdata.btnicon}}" aria-hidden="true"></i>
                     <span class="btn-floating-text">{{focusdata.btntext}}</span>
                 </button>
@@ -60,25 +60,30 @@
             {{/floating_buttons}}
 
             {{#output.edw_feedback_and_support}}
-            <button class="btn btn-floating d-none d-md-flex send-remui-feedback" aria-label="{{#str}}sendfeedback, theme_remui{{/str}}" title="{{#str}}sendfeedback, theme_remui{{/str}}" style="background: #EE8E4A;color: white;">
+            <button class="btn btn-floating d-none d-md-flex send-remui-feedback" aria-label="{{#str}}sendfeedback, theme_remui{{/str}}" title="{{#str}}sendfeedback, theme_remui{{/str}}">
                 <span class="edw-icon edw-icon-Feedback"></span>
                 <span class="btn-floating-text">{{#str}}edwiserfeedback, theme_remui{{/str}}</span>
             </button>
             {{/output.edw_feedback_and_support}}
 
-            <button class="btn btn-primary btn-floating d-none d-md-flex moodlehelpbtn" data-action="footer-popover" aria-label="{{#str}}showfooter, theme_remui{{/str}}" data-region="footer-container-popover" >
+            <button class="btn btn-floating d-none d-md-flex moodlehelpbtn" data-action="footer-popover" aria-label="{{#str}}showfooter, theme_remui{{/str}}" data-region="footer-container-popover" >
                 <span class="edw-icon edw-icon-Cancel"></span>
                 <span class="edw-icon edw-icon-Help"></span>
                 <span class="btn-floating-text">{{#str}}edwiserhelp, theme_remui{{/str}}</span>
             </button>
 
             {{#enablebeacon}}
-            <button class="btn btn-primary btn-floating d-none d-md-flex beaconbtn open" onclick="Beacon('toggle')" >
+            <button class="btn btn-floating d-none d-md-flex beaconbtn open" onclick="Beacon('toggle')" >
                 <span class="edw-icon edw-icon-Comment-03"></span>
                 <span class="edw-icon edw-icon-Cancel"></span>
                 <span class="btn-floating-text">{{#str}}edwisersupport, theme_remui{{/str}}</span>
             </button>
             {{/enablebeacon}}
+
+            <button id="menu-btn" class="btn btn-floating button closed">
+                <span class="edw-icon edw-icon-menu-2"></span>
+                <span class="edw-icon edw-icon-Cancel large"></span>
+            </button>
         </div>
         <div class="footer-content-popover container" data-region="footer-content-popover">
             {{# output.has_popover_links }}
@@ -141,69 +146,54 @@
                 {{/output.moodle_release}}
             </div>
         </div>
+        {{#footerdata.footerdesign7}}
+            {{> theme_remui/footer_top_area_section_7}}
+        {{/footerdata.footerdesign7}}
         <div class="footer-mainsection-wrapper">
+           {{#footerdata.footerdesign1}}
             {{> theme_remui/footer_sections}}
+           {{/footerdata.footerdesign1}}
+           {{#footerdata.footerdesign2}}
+            {{> theme_remui/footer_sections_2}}
+           {{/footerdata.footerdesign2}}
+           {{#footerdata.footerdesign3}}
+            {{> theme_remui/footer_sections_3}}
+           {{/footerdata.footerdesign3}}
+           {{#footerdata.footerdesign4}}
+            {{> theme_remui/footer_sections_4}}
+           {{/footerdata.footerdesign4}}
+           {{#footerdata.footerdesign5}}
+            {{> theme_remui/footer_sections_5}}
+           {{/footerdata.footerdesign5}}
+           {{#footerdata.footerdesign6}}
+            {{> theme_remui/footer_sections_6}}
+           {{/footerdata.footerdesign6}}
+           {{#footerdata.footerdesign7}}
+            {{> theme_remui/footer_sections_7}}
+           {{/footerdata.footerdesign7}}
         </div>
         <div class="footer-secondarysection-wrapper">
-            {{#footerdata.footercopyrights}}
-            <div class="footer-copyright-wrapper " {{#attributes}} {{{.}}} {{/attributes}}>
-                <div class="{{^footerdata.footershowlogo}}d-none{{/footerdata.footershowlogo}} secondary-footer-logo">
-                    <div class="navbar-logo-footer-wrapper {{^footerdata.useheaderlogo}}d-none{{/footerdata.useheaderlogo}}">
-                        <a href="{{{ config.homeurl }}}"
-                        class="navbar-brand d-flex  m-0 p-0 aabtn footer-logo"
-                        aria-label="{{ sitename }} - {{#str}}brandname, theme_remui{{/str}}">
-                        {{#output.get_branding_context}}
-                            {{#logourl}}
-                                <img src="{{ logourl }}" class="navbar-brand-logo logo light-logo">
-                            {{/logourl}}
-
-                            {{#darklogourl}}
-                                <img src="{{ darklogourl }}" class="navbar-brand-logo logo dark-logo">
-                            {{/darklogourl}}
-
-                            {{#logominiurl}}
-                                <img src="{{ logominiurl }}" class="navbar-brand-logo logomini light-logomini">
-                            {{/logominiurl}}
-
-                            {{#darklogominiurl}}
-                                <img src="{{ darklogominiurl }}" class="navbar-brand-logo logomini dark-logomini">
-                            {{/darklogominiurl}}
-
-                            {{#icononly}}
-                                <span class="navbar-brand-logo icononly" style="color: {{color}};">
-                                    <i class="fa fa-{{siteicon}}"></i>
-                                </span>
-                            {{/icononly}}
-
-                            {{#iconwithsitename}}
-                                <span class="navbar-brand-logo iconsitename" style="color: {{color}};">
-                                    <i class="fa fa-{{siteicon}}"></i>&nbsp;
-                                    {{{ sitename }}}
-                                </span>
-                            {{/iconwithsitename}}
-                        {{/output.get_branding_context}}
-                    </a>
-                    </div>
-
-                    <div class="footer-diff-logo {{^footerdata.secondaryfooterlogo}}d-none{{/footerdata.secondaryfooterlogo}}">
-                        <a href="{{{ config.homeurl }}}"
-                        class="navbar-brand d-flex m-0 p-0 aabtn footer-logo"
-                        aria-label="{{ sitename }} - {{#str}}brandname, theme_remui{{/str}}">
-                        <img src="{{footerdata.secondaryfooterlogo}}" class="navbar-brand-logo logomini light-logo">
-                        <img src="{{footerdata.secondaryfooterlogodarkmode}}" class="navbar-brand-logo logomini dark-logo">
-                    </a>
-                    </div>
-                </div>
-                <div class="footer-content-debugging footer-dark">
-                    <div class="footer-content-debugging-wrapper footer-dark-inner ">
-                        {{> theme_remui/footer_legal}}
-                    </div>
-                </div>
-                <div class="copyright-content secondary-footer-copyright {{^footercopyrightsshow}}d-none{{/footercopyrightsshow}}" {{#attributes}} {{{.}}} {{/attributes}}>
-                    <p class=" mb-0">{{{content}}}</p>
-                </div>
-            </div>
-            {{/footerdata.footercopyrights}}
+           {{#footerdata.footerdesign1}}
+            {{> theme_remui/footer_secondary_sections}}
+           {{/footerdata.footerdesign1}}
+           {{#footerdata.footerdesign2}}
+            {{> theme_remui/footer_secondary_sections_2}}
+           {{/footerdata.footerdesign2}}
+           {{#footerdata.footerdesign3}}
+            {{> theme_remui/footer_secondary_sections_3}}
+           {{/footerdata.footerdesign3}}
+           {{#footerdata.footerdesign4}}
+            {{> theme_remui/footer_secondary_sections_4}}
+           {{/footerdata.footerdesign4}}
+           {{#footerdata.footerdesign5}}
+            {{> theme_remui/footer_secondary_sections_5}}
+           {{/footerdata.footerdesign5}}
+           {{#footerdata.footerdesign6}}
+            {{> theme_remui/footer_secondary_sections_6}}
+           {{/footerdata.footerdesign6}}
+           {{#footerdata.footerdesign7}}
+            {{> theme_remui/footer_secondary_sections_7}}
+           {{/footerdata.footerdesign7}}
         </div>
         {{{ output.debug_footer_html }}}
     </div>
@@ -211,11 +201,213 @@
 {{#js}}
 require(['jquery', 'theme_remui/footer-popover'], function($, FooterPopover) {
     FooterPopover.init();
-
+    let storedata = JSON.parse(localStorage.getItem("remuiFloatingMenu"));
     $(document).ready(function() {
         setTimeout(function(){
             $(".btn-floating.open").removeClass('open');
         }, 2000);
+
+        var $wrapper = $('.floating-buttons-wrapper');
+        var $menuBtn = $('#menu-btn');
+        var autoOpenTimeout = null;
+        var fadeTimeout = null;
+        var autoCloseTimeout = null;
+        var scrollStart = null;
+        var scrollThreshold = 250; // 250px; 
+        var isSmallViewport = function() {
+            return window.innerWidth <= 1024; //1024px
+        };
+        var $beaconbtn = $('.btn-floating.beaconbtn');
+
+        if ($wrapper.length && $menuBtn.length) {
+            function resetScrollWatcher() {
+                scrollStart = $(window).scrollTop();
+            }
+
+            // Helpers to open / close the floating menu.
+            function openMenu() {
+                $wrapper.removeClass('closed').addClass('open');
+                $menuBtn.addClass('is-active');
+                $wrapper.removeClass('dimmed');
+                resetScrollWatcher();
+                startInactivityTimers();
+            }
+
+            function closeMenu() {
+                $wrapper.removeClass('open').addClass('closed');
+                $menuBtn.removeClass('is-active');
+                $wrapper.removeClass('dimmed');
+                clearInactivityTimers();
+                scrollStart = null;
+            }
+
+            function cancelTimers() {
+                if (autoOpenTimeout) {
+                    clearTimeout(autoOpenTimeout);
+                    autoOpenTimeout = null;
+                }
+                clearInactivityTimers();
+            }
+
+            function clearInactivityTimers() {
+                if (fadeTimeout) {
+                    clearTimeout(fadeTimeout);
+                    fadeTimeout = null;
+                }
+                if (autoCloseTimeout) {
+                    clearTimeout(autoCloseTimeout);
+                    autoCloseTimeout = null;
+                }
+            }
+
+            function startInactivityTimers() {
+                clearInactivityTimers();
+                // If wrapper is actively hovered/engaged, don't schedule dim/collapse.
+                if ($wrapper.hasClass('edwactive')) {
+                    return;
+                }
+                // For small viewports (tablet / mobile) collapse after 15s.
+                if (isSmallViewport()) {
+                    fadeTimeout = setTimeout(function() {
+                        if ($wrapper.hasClass('open') && !$wrapper.hasClass('edwactive')) {
+                            closeMenu();
+                        }
+                    }, 15000);
+                    return;
+                }
+                // Desktop: dim after 15s of no interaction.
+                fadeTimeout = setTimeout(function() {
+                    if ($wrapper.hasClass('open') && !$wrapper.hasClass('edwactive')) {
+                        $wrapper.addClass('dimmed');
+                    }
+                }, 15000);
+                // Auto close after 60s of no interaction.
+                autoCloseTimeout = setTimeout(function() {
+                    if ($wrapper.hasClass('open') && !$wrapper.hasClass('edwactive')) {
+                        closeMenu();
+                    }
+                }, 60000);
+            }
+
+            // Hovering the floating area marks as active, resets dim and timers.
+            $wrapper
+                .on('mouseover', function() {
+                    if ($wrapper.hasClass('open')) {
+                        $wrapper.addClass('edwactive');
+                        $wrapper.removeClass('dimmed');
+                        startInactivityTimers();
+                    }
+                })
+                .on('mouseleave', function() {
+                    // On leaving, clear active state and restart inactivity timers.
+                    $wrapper.removeClass('edwactive');
+                    if ($wrapper.hasClass('open')) {
+                        startInactivityTimers();
+                    }
+                });
+
+            // Click toggle API used by the menu button.
+            var toggleMenu = function() {
+                cancelTimers();
+                $wrapper.hasClass('open') ? closeMenu() : openMenu();
+            };
+            window.menu = toggleMenu;
+            $menuBtn.on('click', toggleMenu);
+
+            // Close the floating menu when the user scrolls beyond a threshold.
+            $(window).on('scroll.footerMenu', function() {
+                if (!$wrapper.hasClass('open')) {
+                    return;
+                }
+
+                if ($beaconbtn.hasClass('show')) {
+                    return;
+                }
+
+                if (scrollStart === null) {
+                    resetScrollWatcher();
+                    return;
+                }
+
+                var delta = Math.abs($(window).scrollTop() - scrollStart);
+                if (delta >= scrollThreshold) {
+                    cancelTimers();
+                    closeMenu();
+                }
+            });
+
+            // Automatically expand the menu once and collapse again. 
+
+            const storageKey = 'remuiFloatingMenu';
+            const isGuestHomepage = $('body').hasClass('notloggedin');
+
+            function getStoredData() {
+                try {
+                    return JSON.parse(localStorage.getItem(storageKey)) || {};
+                } catch (e) {
+                    return {};
+                }
+            }
+
+            function setStoredData(data) {
+                try {
+                    localStorage.setItem(storageKey, JSON.stringify(data));
+                } catch (e) {
+                    // Ignore storage errors (e.g., private mode).
+                }
+            }
+
+            const getIconCount = () => $wrapper.find('.btn-floating').length;
+
+            function triggerAutoOpen() {
+                openMenu();
+                setTimeout(function() {
+                    if ($wrapper.hasClass('open')) {
+                        closeMenu();
+                    }
+                }, 2500);
+            }
+
+            if(storedata === null){
+                storedata = { meta: { guestOpened: false, loggedInOpened: false, maxCount: 0 } };
+            }
+            const stored = storedata;
+            const currentCount = getIconCount();
+            let shouldAutoOpen = false;
+            let shouldPersist = false;
+
+            // Guest (logged-out) page: open once.
+            if (isGuestHomepage && !stored.meta.guestOpened) {
+                shouldAutoOpen = true;
+                stored.meta.guestOpened = true;
+                shouldPersist = true;
+            }
+
+            // Logged-in (any page) first time: open once.
+            if (!isGuestHomepage && !stored.meta.loggedInOpened) {
+                shouldAutoOpen = true;
+                stored.meta.loggedInOpened = true;
+                shouldPersist = true;
+            }
+
+            // If current icons exceed recorded max, open.
+            if (!shouldAutoOpen && currentCount > (stored.meta.maxCount || 0)) {
+                shouldAutoOpen = true;
+                shouldPersist = true;
+            }
+
+            if (shouldAutoOpen) {
+                triggerAutoOpen();
+            }
+
+            // Update the global max count.
+            if (currentCount > (stored.meta.maxCount || 0)) {
+                stored.meta.maxCount = currentCount;
+                shouldPersist = true;
+            }
+
+            setStoredData(stored);
+        }
     });
 });
 
@@ -280,3 +472,128 @@ require(['jquery', 'theme_remui/feedback'], function($) {
     });
     {{/js}}
 {{/enablebeacon}}
+{{#js}}
+require(['jquery', 'core/ajax', 'core/toast'], function($, Ajax, Toast) {
+    $(document).ready(function() {
+        // Helper to ensure class is only removed when no toasts are visible
+        function cleanupFooterToastClass() {
+            setTimeout(function() {
+                if ($('.toast-wrapper .toast.show').length === 0) {
+                    $('.toast-wrapper').removeClass('footer-bottom-toast');
+                }
+            }, 50); // slight delay to allow for DOM update
+        }
+
+        // Handle subscribe form submission
+        $(document).on('submit', '.email-subscribe-form', function(e) {
+            e.preventDefault(); // Prevent default form submission
+
+            var $form = $(this);
+            var $emailInput = $form.find('input[type="email"]');
+            var $submitBtn = $form.find('.subscribe-btn');
+            var email = $emailInput.val().trim();
+
+            // Basic email validation
+            if (!email || !isValidEmail(email)) {
+                Toast.add('Please enter a valid email address', {
+                    delay: 3000,
+                    closeButton: true,
+                    type: 'error'
+                });
+                setTimeout(function() {
+                    $('.toast-wrapper').addClass('footer-bottom-toast');
+                }, 10);
+                return;
+            }
+
+            // Disable submit button to prevent multiple submissions
+            $submitBtn.prop('disabled', true).text('Subscribing...');
+
+            // Get the action URL from the subscribe button href
+            var actionUrl = $submitBtn.attr('href');
+            if (!actionUrl) {
+                Toast.add('Subscribe URL not configured. Please contact administrator.', {
+                    delay: 3000,
+                    closeButton: true,
+                    type: 'error'
+                });
+                setTimeout(function() {
+                    $('.toast-wrapper').addClass('footer-bottom-toast');
+                }, 10);
+                $submitBtn.prop('disabled', false).text('Subscribe');
+                return;
+            }
+
+            // Prepare form data
+            var formData = {
+                email: email
+            };
+
+            // Make AJAX request to the form URL
+            $.ajax({
+                url: actionUrl,
+                type: 'POST',
+                data: formData,
+                dataType: 'json',
+                success: function(response) {
+                    console.log('Subscribe response:', response);
+
+                    if (response && response.success) {
+                        // Success
+                        Toast.add(response.message || 'Form submitted successfully! Thank you for subscribing.', {
+                            delay: 4000,
+                            closeButton: true,
+                            type: 'success'
+                        });
+                        setTimeout(function() {
+                            $('.toast-wrapper').addClass('footer-bottom-toast');
+                        }, 10);
+
+                        // Clear the form
+                        $emailInput.val('');
+                    } else {
+                        // Handle success: false response
+                        Toast.add(response.message || 'There was an issue with your subscription.', {
+                            delay: 3000,
+                            closeButton: true,
+                            type: 'error'
+                        });
+                        setTimeout(function() {
+                            $('.toast-wrapper').addClass('footer-bottom-toast');
+                        }, 10);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // Error handling
+                    console.error('Subscribe error:', error);
+                    console.error('Response text:', xhr.responseText);
+
+                    Toast.add('Sorry, there was an error submitting your subscription. Please try again.', {
+                        delay: 3000,
+                        closeButton: true,
+                        type: 'error'
+                    });
+                    setTimeout(function() {
+                        $('.toast-wrapper').addClass('footer-bottom-toast');
+                    }, 10);
+                },
+                complete: function() {
+                    // Re-enable submit button
+                    $submitBtn.prop('disabled', false).text('Subscribe');
+                }
+            });
+        });
+
+        // Listen for toast hidden event to clean up the class
+        $(document).on('hidden.bs.toast', '.toast', function() {
+            cleanupFooterToastClass();
+        });
+
+        // Email validation function
+        function isValidEmail(email) {
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+    });
+});
+{{/js}}

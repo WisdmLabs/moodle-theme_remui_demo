@@ -27,6 +27,7 @@ use external_function_parameters;
 use context_system;
 use external_value;
 use curl;
+use core_useragent;
 
 /**
  * Web service - Send feedback report.
@@ -40,9 +41,9 @@ trait handle_bug_feedback_report {
      */
     public static function handle_bug_feedback_report_parameters() {
         return new external_function_parameters(
-            array (
+            [
                 'feedbackdata' => new external_value(PARAM_RAW, 'Received feedback data from feedback JS'),
-            )
+             ]
         );
     }
     /**
@@ -90,11 +91,11 @@ trait handle_bug_feedback_report {
             'CURLOPT_URL' => $url,
             'CURLOPT_CUSTOMREQUEST' => "POST",
             'CURLOPT_RETURNTRANSFER' => true,
-            'CURLOPT_HTTPHEADER' => array(
+            'CURLOPT_HTTPHEADER' => [
                 'Content-Type: application/json',
-                'Content-Length: ' . strlen($feedbackdatajson)
-            ),
-            'CURLOPT_USERAGENT' => $_SERVER['HTTP_USER_AGENT'] . ' - ' . $CFG->wwwroot
+                'Content-Length: ' . strlen($feedbackdatajson),
+            ],
+            'CURLOPT_USERAGENT' => core_useragent::get_user_agent_string() . ' - ' . $CFG->wwwroot,
         ]);
 
         $result = $curl->post($url, $feedbackdatajson);

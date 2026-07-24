@@ -24,8 +24,12 @@
 
 namespace theme_remui\task;
 
+/**
+ * Usage data tracker scheduled task.
+ *
+ * Tracks and reports usage data for the RemUI theme.
+ */
 class usage_data_tracker extends \core\task\scheduled_task {
-
     /**
      * Return the task's name as shown in admin screens.
      *

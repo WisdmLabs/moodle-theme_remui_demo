@@ -108,7 +108,7 @@ $category-wrapper-max-height :  300px;
                     padding: 0px;
 
                     &:hover {
-                        color: $blue;
+                        color: $brand-primary;
                     }
                 }
             }
@@ -706,6 +706,7 @@ $category-wrapper-max-height :  300px;
             gap: map-get($gapspace , 1);
             margin: 0px;
             padding: 0px;
+            border-radius: $border-radius;
 
             li.badge-primary {
                 background-color: $ascent-bg-color;

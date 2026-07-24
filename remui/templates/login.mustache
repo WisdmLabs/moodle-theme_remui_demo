@@ -124,7 +124,7 @@
 </html>
 {{#js}}
 M.util.js_pending('theme_remui/loader');
-require(['theme_remui/loader'], function() {
+require(['jquery', 'theme_remui/loader'], function($) {
   M.util.js_complete('theme_remui/loader');
     var summaryheight = $('.login-description-content').height();
 

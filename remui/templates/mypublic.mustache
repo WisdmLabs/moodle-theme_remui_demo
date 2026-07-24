@@ -132,7 +132,7 @@
 {{> theme_remui/common_end}}
 
 {{#js}}
-require(['jquery', 'theme_remui/profile'], function(){
+require(['jquery', 'theme_remui/profile'], function($){
 $(document).ready(function(){
 $('.header-button-group').removeClass('btn-group').appendTo(".extra-buttons-container");
 $('#message-user-button').addClass('btn-primary btn-lg');

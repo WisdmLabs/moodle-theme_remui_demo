@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Theme customizer typography trait
  *
@@ -24,6 +25,11 @@
 
 namespace theme_remui\customizer\add;
 
+/**
+ * Typography trait.
+ *
+ * Provides functionality for adding typography-related customizer settings.
+ */
 trait typography {
     /**
      * Add typography body setting.
@@ -49,21 +55,20 @@ trait typography {
             $panel,
             [
                 'help' => get_string('bodysettingslinking_help', 'theme_remui'),
-                'default' => true
+                'default' => true,
             ]
         );
 
         $this->add_small_para_font_settings($panel);
 
         $this->add_small_info_font_settings($panel);
-
     }
 
     /**
-     * Add global typography settings
+     * Add global typography text link settings.
+     *
      * @return void
      */
-
     private function add_global_typography_textlink() {
 
         // Link color.
@@ -75,7 +80,7 @@ trait typography {
             'text-link-panel',
             [
                 'help' => get_string('link-color_help', 'theme_remui', get_string('site')),
-                'default' => $this->get_default_color('link')
+                'default' => $this->get_default_color('link'),
             ]
         );
 
@@ -88,7 +93,7 @@ trait typography {
             'text-link-panel',
             [
                 'help' => get_string('link-hover-color_help', 'theme_remui', get_string('site')),
-                'default' => $this->get_default_color('linkhover')
+                'default' => $this->get_default_color('linkhover'),
             ]
         );
     }
@@ -105,12 +110,12 @@ trait typography {
             get_string('smallinfo-font', 'theme_remui'),
             $panel,
             [
-                'collapsed' => true
+                'collapsed' => true,
             ]
         );
         $fonts = $this->get_fonts([
             'inherit' => get_string('inherit', 'theme_remui'),
-            'Standard' => 'Standard'
+            'Standard' => 'Standard',
         ]);
         // Font family.
         $label = get_string('font-family', 'theme_remui');
@@ -122,7 +127,7 @@ trait typography {
             [
                 'help' => get_string('body-font-family_desc', 'theme_remui'),
                 'default' => 'inherit',
-                'options' => $fonts
+                'options' => $fonts,
             ]
         );
 
@@ -136,7 +141,7 @@ trait typography {
             [
                 'help' => get_string('body-font-size_desc', 'theme_remui'),
                 'default' => '12',
-                "responsive" => true
+                "responsive" => true,
             ]
         );
 
@@ -150,16 +155,16 @@ trait typography {
             $panel,
             [
 
-                'default' => false
+                'default' => false,
             ]
         );
             // Font weight.
         foreach ($weightkeys as $weight) {
-            $weightstring = 'heading-'.$weight.'-fontweight';
+            $weightstring = 'heading-' . $weight . '-fontweight';
             $label = get_string($weightstring, 'theme_remui');
             $this->add_setting(
                 'select',
-                'smallinfo-'.$weight.'-fontweight',
+                'smallinfo-' . $weight . '-fontweight',
                 $label,
                 $panel,
                 [
@@ -175,8 +180,8 @@ trait typography {
                         '600' => get_string('weight-600', 'theme_remui'),
                         '700' => get_string('weight-700', 'theme_remui'),
                         '800' => get_string('weight-800', 'theme_remui'),
-                        '900' => get_string('weight-900', 'theme_remui')
-                    ]
+                        '900' => get_string('weight-900', 'theme_remui'),
+                    ],
                 ]
             );
         }
@@ -189,7 +194,7 @@ trait typography {
             [
                 'content' => '
                     <hr class="w-50 smallinfo-weight-divider">
-                '
+                ',
             ]
         );
 
@@ -206,8 +211,8 @@ trait typography {
                 'options' => [
                     'min' => 1,
                     'max' => 5,
-                    'step' => 0.01
-                ]
+                    'step' => 0.01,
+                ],
             ]
         );
 
@@ -221,7 +226,7 @@ trait typography {
             [
                 'help' => get_string('body-text-transform_desc', 'theme_remui'),
                 'default' => 'inherit',
-                'options' => $this->texttransform
+                'options' => $this->texttransform,
             ]
         );
 
@@ -237,8 +242,8 @@ trait typography {
                 'default' => 0,
                 'options' => [
                     'min' => 0,
-                    'step' => 0.01
-                ]
+                    'step' => 0.01,
+                ],
             ]
         );
 
@@ -262,14 +267,14 @@ trait typography {
             get_string('smallpara-font', 'theme_remui'),
             $panel,
             [
-                'collapsed' => true
+                'collapsed' => true,
             ]
         );
 
         // Font family.
         $fonts = $this->get_fonts([
             'inherit' => get_string('inherit', 'theme_remui'),
-            'Standard' => 'Standard'
+            'Standard' => 'Standard',
         ]);
         $label = get_string('font-family', 'theme_remui');
         $this->add_setting(
@@ -280,7 +285,7 @@ trait typography {
             [
                 'help' => get_string('body-font-family_desc', 'theme_remui'),
                 'default' => 'inherit',
-                'options' => $fonts
+                'options' => $fonts,
             ]
         );
 
@@ -294,7 +299,7 @@ trait typography {
             [
                 'help' => get_string('body-font-size_desc', 'theme_remui'),
                 'default' => '14',
-                "responsive" => true
+                "responsive" => true,
             ]
         );
 
@@ -308,16 +313,16 @@ trait typography {
             $panel,
             [
 
-                'default' => false
+                'default' => false,
             ]
         );
             // Font weight.
         foreach ($weightkeys as $weight) {
-            $weightstring = 'heading-'.$weight.'-fontweight';
+            $weightstring = 'heading-' . $weight . '-fontweight';
             $label = get_string($weightstring, 'theme_remui');
             $this->add_setting(
                 'select',
-                'smallpara-'.$weight.'-fontweight',
+                'smallpara-' . $weight . '-fontweight',
                 $label,
                 $panel,
                 [
@@ -333,8 +338,8 @@ trait typography {
                         '600' => get_string('weight-600', 'theme_remui'),
                         '700' => get_string('weight-700', 'theme_remui'),
                         '800' => get_string('weight-800', 'theme_remui'),
-                        '900' => get_string('weight-900', 'theme_remui')
-                    ]
+                        '900' => get_string('weight-900', 'theme_remui'),
+                    ],
                 ]
             );
         }
@@ -347,7 +352,7 @@ trait typography {
             [
                 'content' => '
                     <hr class="w-50 smallpara-weight-divider">
-                '
+                ',
             ]
         );
 
@@ -364,8 +369,8 @@ trait typography {
                 'options' => [
                     'min' => 1,
                     'max' => 5,
-                    'step' => 0.01
-                ]
+                    'step' => 0.01,
+                ],
             ]
         );
 
@@ -379,7 +384,7 @@ trait typography {
             [
                 'help' => get_string('body-text-transform_desc', 'theme_remui'),
                 'default' => 'inherit',
-                'options' => $this->texttransform
+                'options' => $this->texttransform,
             ]
         );
 
@@ -395,8 +400,8 @@ trait typography {
                 'default' => 0,
                 'options' => [
                     'min' => 0,
-                    'step' => 0.01
-                ]
+                    'step' => 0.01,
+                ],
             ]
         );
 
@@ -416,7 +421,7 @@ trait typography {
     private function add_root_typography_settings($panel) {
         $fonts = $this->get_fonts([
             'inherit' => get_string('inherit', 'theme_remui'),
-            'Standard' => 'Standard'
+            'Standard' => 'Standard',
         ]);
 
         // Font family.
@@ -429,7 +434,7 @@ trait typography {
             [
                 'help' => get_string('body-font-family_desc', 'theme_remui'),
                 'default' => 'Standard',
-                'options' => $fonts
+                'options' => $fonts,
             ]
         );
 
@@ -443,7 +448,7 @@ trait typography {
             [
                 'help' => get_string('body-font-size_desc', 'theme_remui'),
                 'default' => '16',
-                "responsive" => true
+                "responsive" => true,
             ]
         );
 
@@ -467,8 +472,8 @@ trait typography {
                     '600' => get_string('weight-600', 'theme_remui'),
                     '700' => get_string('weight-700', 'theme_remui'),
                     '800' => get_string('weight-800', 'theme_remui'),
-                    '900' => get_string('weight-900', 'theme_remui')
-                ]
+                    '900' => get_string('weight-900', 'theme_remui'),
+                ],
             ]
         );
 
@@ -482,7 +487,7 @@ trait typography {
             [
                 'help' => get_string('body-text-transform_desc', 'theme_remui'),
                 'default' => 'inherit',
-                'options' => $this->texttransform
+                'options' => $this->texttransform,
             ]
         );
 
@@ -499,8 +504,8 @@ trait typography {
                 'options' => [
                     'min' => 1,
                     'max' => 5,
-                    'step' => 0.01
-                ]
+                    'step' => 0.01,
+                ],
             ]
         );
 
@@ -516,8 +521,8 @@ trait typography {
                 'default' => 0,
                 'options' => [
                     'min' => 0,
-                    'step' => 0.01
-                ]
+                    'step' => 0.01,
+                ],
             ]
         );
     }
@@ -538,7 +543,7 @@ trait typography {
             get_string($name . '-heading', 'theme_remui'),
             $parent,
             [
-                'collapsed' => $name != 'typography-heading-all'
+                'collapsed' => $name != 'typography-heading-all',
             ]
         );
         $heading = get_string($name . '-heading', 'theme_remui');
@@ -554,7 +559,7 @@ trait typography {
             [
                 'help' => get_string('font-family_help', 'theme_remui', $heading),
                 'default' => 'inherit',
-                'options' => $fonts
+                'options' => $fonts,
             ]
         );
 
@@ -569,16 +574,16 @@ trait typography {
                 $parent,
                 [
 
-                    'default' => false
+                    'default' => false,
                 ]
             );
                 // Font weight.
             foreach ($weightkeys as $weight) {
-                $weightstring = 'heading-'.$weight.'-fontweight';
+                $weightstring = 'heading-' . $weight . '-fontweight';
                 $label = get_string($weightstring, 'theme_remui');
                 $this->add_setting(
                     'select',
-                    'heading-'.$weight.'-fontweight',
+                    'heading-' . $weight . '-fontweight',
                     $label,
                     $parent,
                     [
@@ -594,8 +599,8 @@ trait typography {
                             '600' => get_string('weight-600', 'theme_remui'),
                             '700' => get_string('weight-700', 'theme_remui'),
                             '800' => get_string('weight-800', 'theme_remui'),
-                            '900' => get_string('weight-900', 'theme_remui')
-                        ]
+                            '900' => get_string('weight-900', 'theme_remui'),
+                        ],
                     ]
                 );
             }
@@ -607,7 +612,7 @@ trait typography {
                 [
                     'content' => '
                         <hr class="w-50 heading-weight-divider">
-                    '
+                    ',
                 ]
             );
         }
@@ -625,8 +630,8 @@ trait typography {
                     'responsive' => ['tablet' => $config['font-size-tablet'] / 16],
                     'options' => [
                         'min' => 0,
-                        'step' => 0.01
-                    ]
+                        'step' => 0.01,
+                    ],
                 ]
             );
         }
@@ -641,7 +646,7 @@ trait typography {
             [
                 'help' => get_string('text-transform_help', 'theme_remui', $heading),
                 'default' => 'inherit',
-                'options' => $this->texttransform
+                'options' => $this->texttransform,
             ]
         );
 
@@ -659,8 +664,8 @@ trait typography {
                     'options' => [
                         'min' => 1,
                         'max' => 5,
-                        'step' => 0.01
-                    ]
+                        'step' => 0.01,
+                    ],
                 ]
             );
         }
@@ -674,7 +679,7 @@ trait typography {
                 $label,
                 $parent,
                 [
-                    'help' => get_string('use-custom-color_help', 'theme_remui', $heading)
+                    'help' => get_string('use-custom-color_help', 'theme_remui', $heading),
                 ]
             );
         }
@@ -688,7 +693,7 @@ trait typography {
             $parent,
             [
                 'help' => get_string('text-color_help', 'theme_remui', $heading),
-                'default' => $this->get_default_color('headingstext')
+                'default' => $this->get_default_color('headingstext'),
             ]
         );
 
@@ -723,7 +728,7 @@ trait typography {
             'h3' => ['font-size' => 24, 'font-size-tablet' => 20],
             'h4' => ['font-size' => 20, 'font-size-tablet' => 16],
             'h5' => ['font-size' => 16, 'font-size-tablet' => 14],
-            'h6' => ['font-size' => 14, 'font-size-tablet' => 12]
+            'h6' => ['font-size' => 14, 'font-size-tablet' => 12],
         ];
         foreach ($headings as $heading => $config) {
             $this->add_global_typography_heading(

@@ -162,10 +162,11 @@ body.transparent-header{
       align-items: center;
    }
 
-   .tertiary-navigation .row:has(.simplesearchform ) .navitem {
+   .tertiary-navigation:has(.simplesearchform) .navitem {
       .btn {
          display: flex;
          align-items: center;
+         align-content: center;
       }
    }
 }
@@ -198,6 +199,9 @@ body.transparent-header{
             p{
                // margin-bottom: 0px;
             }
+         }
+         #id_s_moodlecourse_coursedurationv {
+            width: auto;
          }
 
          // .colourdialogue {
@@ -293,6 +297,7 @@ body.transparent-header{
          margin-left: auto;
          position: relative;
 
+         display: flex;
          // Expand/Collapse all buttons styling
          .expandall,
          .collapseall {
@@ -340,9 +345,11 @@ body.transparent-header{
                }
             }
          }
-         .box.generalbox.formsettingheading {
-            p{
-               width: 95%;
+         @media screen and (max-width:360px){
+            .box.generalbox.formsettingheading {
+               p{
+                  width: 95%;
+               }
             }
          }
 
@@ -403,7 +410,7 @@ body.transparent-header{
                   border-bottom: 1px solid $medium-border;
                   padding-bottom: 10px;
                   margin-bottom: 0px;
-                  margin-left: 20px;
+                  padding-left: 20px;
                }
 
                // Alternative: add border to the content container itself
@@ -448,7 +455,8 @@ body.transparent-header{
       #epbsitepages,
       #edwisersiteimporter,
       #informationcenter,
-      #theme_remui_sitesync{
+      #theme_remui_sitesync,
+      #theme_remui_footersettings{
          .remui-setting-tabs-action{
             display: none !important;
          }
@@ -582,28 +590,29 @@ hr {
 
 
 #sticky-footer{
-   div.form-check{
-      align-items: center;
-   }
-   @include media-breakpoint-down(md){
-      white-space: nowrap;
-      overflow: auto;
-      .actions.nav{
-         flex-wrap: nowrap;
-      }
-   }
-   // height: unset;
    min-height: 60px;
-   padding-top: 5px !important;
-   padding-bottom: 5px !important;
-   .col,.col-auto{
-      label{
-         margin-bottom: 0px;
+   .sticky-footer-content {
+      padding-top: 5px !important;
+      padding-bottom: 5px !important;
+      div.form-check{
+         align-items: center;
+      }
+      @include media-breakpoint-down(md){
+         white-space: nowrap;
+         overflow: auto;
+         .actions.nav{
+            flex-wrap: nowrap;
+         }
+      }
+      .col,.col-auto{
+         label{
+            margin-bottom: 0px;
+         }
       }
    }
 }
 
-.pagelayout-course .course-content #sticky-footer {
+.pagelayout-course .course-content #sticky-footer .sticky-footer-content {
    justify-content: unset !important;
 }
 
@@ -668,9 +677,9 @@ hr {
    .inplaceeditable-text{
    text-align: left;
    }
-  .slotnumber{
-   overflow: auto;
-  }
+//   .slotnumber{
+//    overflow: auto;
+//   }
   .page-add-actions{
    .dropdown-menu{
       z-index: 9;
@@ -1184,8 +1193,8 @@ body {
 
   &:not(:has(input[type="radio"]:checked)) {
     .feedback-submitbtn {
-      background-color: #b9bcc1;
-      border-color: #b9bcc1;
+      background-color: #b9bcc1 !important;
+      border-color: #b9bcc1 !important;
       pointer-events: none;
       touch-action: none;
     }
@@ -1430,8 +1439,11 @@ body {
 }
 
 // Applied primary color to the read more and read less buttons
-#readmorebtn, #readlessbtn{
-   color: $brand-primary !important;
+#readmorebtn, #readlessbtn, .showactivitywrapper .showactivity{
+   color: $link-color !important;
+   &:hover {
+      color: $link-hover-color !important;
+   }
 }
 
 //Fix of width of enabledarkmode and pagewidth dropdown in the theme remui settings page
@@ -1442,8 +1454,39 @@ body {
 // Fix of dropdown positioning issue on cohorts settings page
 #page-admin-cohort-index {
    .reportbuilder-report {
-      .filters-dropdown.dropdown-menu.dropdown-menu-end {
-         transform: translate3d(799px, 40px, 0px) !important;
+      .filters-dropdown.dropdown-menu {
+         margin: 0.5rem 0 0;
+         z-index: 1000;
+      }
+
+      .table-responsive {
+         min-height: 300px;
+      }
+
+      table.reportbuilder-table {
+         margin-bottom: 1rem;
+      }
+   }
+}
+
+body.admin .reportbuilder-report .filters-dropdown.dropdown-menu {
+   margin: 0.5rem 0 0;
+   z-index: 1000;
+}
+
+#usernavigation{
+   .simplesearchform{
+      .searchform-navbar{
+         .input-group {
+            max-width: 100%;
+         }
+      }
+   }
+}
+
+#page-admin-reportbuilder-index {
+   .reportbuilder-report {
+      table.reportbuilder-table tbody .action-menu-trigger .dropdown-menu-right {
          margin: 0.5rem 0 0;
       }
 
@@ -1457,12 +1500,115 @@ body {
    }
 }
 
-#usernavigation{
-   .simplesearchform{
-      .searchform-navbar{
-         .input-group {
-            max-width: 100%;
+#page-grade-report-grader-index.editing .gradereport-grader-table {
+   .grade_type_value {
+      .action-menu.moodle-actionmenu.grader {
+         .dropdown .dropdown-menu .dropdown-item {
+               padding: 10px !important;
          }
       }
    }
+}
+.format-site.admin.path-admin:not(#page-admin-setting-themesettingremui) {
+	.remui-setting-heading-action {
+		display: none !important;
+	}
+}
+
+.emoji-picker {
+   .btn-outline-secondary.category-button:hover {
+        i {
+            color: white;
+        }
+    }
+}
+
+// Text not visible properly on Feedback Files message on grader page.
+#id_gradeheadercontainer{
+   #fitem_id_files_3_filemanager{
+      .filemanager{
+         .dndupload-message{
+            font-size: 14px !important;
+         }
+      }
+   }
+}
+
+#page-report-competency-index {
+   #region-main-box .clearfix .page-context-header{
+      flex-wrap: wrap;
+      margin-bottom: 0.5rem !important;
+   }
+}
+
+@media screen and (max-width: 576px) {
+   #page-report-competency-index {
+      #region-main-box .clearfix {
+         .float-end{
+            width: 100%;
+         }
+         .form-autocomplete-input input{
+            min-width: 100% !important;
+         }
+         .page-context-header {
+            width: 0;
+         }
+
+      } 
+   }
+}
+
+#page-notes-index #page-content .page-context-header {
+   display: flex;
+}
+
+#edwisersiteimporter #importer-courses .course-templates .template {
+   border-radius: $card-border-radius;
+}
+
+#topofscroll {
+   #region-main {
+      .content-bank-container {
+          .cb-toolbar-container > div:first-child {
+              display: flex;
+              align-items: center;
+          }
+          .cb-toolbar-container {
+              .btn-group {
+                  button {
+                      display: flex;
+                      align-items: center;
+                  }
+              }
+              a {
+                  display: flex;
+                  align-items: center;
+              }
+              .ms-2 {
+                  margin-right: 0.5rem;
+              }
+          } 
+          .border {
+              border-radius: 16px;
+          }
+         .cb-navbar {                    
+            border-top-left-radius: 16px;
+            border-top-right-radius: 16px;
+         }
+      }
+   }
+}
+.dataformatselector > div {
+      align-items: center !important;
+}
+#page-report-log-index {
+   .logselecform {
+        margin-bottom: 10px;
+   }
+   .activity-header {
+      margin-bottom: 10px;
+   }
+}
+.activityiconcontainer {
+   padding: 0px !important;
 }

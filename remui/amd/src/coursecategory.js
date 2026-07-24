@@ -1,12 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable no-unused-vars */
-/* eslint-disable jsdoc/require-jsdoc */
-/* eslint-disable no-unused-vars */
-/* eslint-disable babel/semi */
-/* eslint-disable no-trailing-spaces*/
-/* eslint-disable promise/catch-or-return*/
-
-/* eslint-disable no-undef*/
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -21,8 +12,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Course category module for RemUI theme.
+ * Handles course category display, filtering, and navigation functionality.
+ *
  * @module     theme_remui/coursecategory
- * @copyright (c) 2023 WisdmLabs (https://wisdmlabs.com/)
+ * @copyright  (c) 2023 WisdmLabs (https://wisdmlabs.com/) <support@wisdmlabs.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -557,7 +551,7 @@ define([
         updatePage();
     });
 
-    $('#switch-label1, #switch-label2').on('change.bootstrapSwitch', function(e, data) {
+    $('#switch-label1, #switch-label2').on('change.bootstrapSwitch', function(e) {
         filterobj.tab = e.target.checked;
         updatePage();
         populate_tags();
@@ -627,7 +621,7 @@ define([
         updatePage();
     }
 
-    function shortingSelectOption(e) {
+    function shortingSelectOption() {
         $(SELECTORS.COURSE_SORTING + ' .dropdown-toggle .toggle-text').text($(this).text());
         $(SELECTORS.COURSE_SORTING + ' .select-option').removeClass('active');
         $(this).addClass('active');
@@ -639,7 +633,7 @@ define([
         courseFilterCommon();
     }
 
-    function maxCourseSelectOption(e) {
+    function maxCourseSelectOption() {
         $(SELECTORS.MAX_COURSE_SHOWN + ' .dropdown-toggle .toggle-text').text($(this).text());
         $(SELECTORS.MAX_COURSE_SHOWN + ' .select-option').removeClass('active');
         $(this).addClass('active');
@@ -668,7 +662,7 @@ define([
         courseFilterCommon();
     }
 
-    function courseFilterFormClear(e) {
+    function courseFilterFormClear() {
         $(SELECTORS.COURSE_FILTER_FORM).find('input[type="checkbox"]').each(function() {
             $(this).prop('checked', false);
         });

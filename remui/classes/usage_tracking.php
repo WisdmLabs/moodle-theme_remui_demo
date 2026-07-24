@@ -26,12 +26,14 @@
 
 namespace theme_remui;
 
-defined('MOODLE_INTERNAL') || die();
-
 use curl;
 
+/**
+ * Usage tracking class.
+ *
+ * Handles sending anonymous usage analytics to Edwiser.
+ */
 class usage_tracking {
-
     /**
      * Send usage analytics to Edwiser, only anonymous data is sent.
      *
@@ -40,20 +42,17 @@ class usage_tracking {
     public function send_usage_analytics() {
 
         global $DB, $CFG;
-        
+
         // Execute code only if current user is site admin.
         // Reduces calls to DB.
         if (is_siteadmin()) {
-
             // Check consent to send tracking data.
             $consent = get_config('theme_remui', 'enableusagetracking');
 
             if ($consent) {
-
                 $lastsentdata = isset($CFG->usage_data_last_sent_theme_remui) ? $CFG->usage_data_last_sent_theme_remui : false;
                 // If current time is greater then saved time, send data again.
                 if (!$lastsentdata || time() > $lastsentdata) {
-                    
                     $resultarr = [];
                     $analyticsdata = json_encode($this->prepare_usage_analytics());
                     $url = "https://edwiser.org/wp-json/edwiser_customizations/send_usage_data";
@@ -65,10 +64,10 @@ class usage_tracking {
                         'CURLOPT_URL' => $url,
                         'CURLOPT_CUSTOMREQUEST' => "POST",
                         'CURLOPT_RETURNTRANSFER' => true,
-                        'CURLOPT_HTTPHEADER' => array(
+                        'CURLOPT_HTTPHEADER' => [
                             'Content-Type: application/json',
-                            'Content-Length: ' . strlen($analyticsdata)
-                        )
+                            'Content-Length: ' . strlen($analyticsdata),
+                        ],
                     ]);
 
                     // Execute post.
@@ -77,7 +76,7 @@ class usage_tracking {
                         $resultarr = json_decode($result, 1);
                     } else {
                         $resultarr = [
-                            'success' => false
+                            'success' => false,
                         ];
                     }
 
@@ -90,6 +89,11 @@ class usage_tracking {
         }
     }
 
+    /**
+     * Get site data for bug feedback report.
+     *
+     * @return array Site data array
+     */
     public function get_sitedata_bug_feedback_report() {
         return $this->prepare_usage_analytics();
     }
@@ -102,7 +106,7 @@ class usage_tracking {
         global $CFG, $DB;
 
         // Suppressing all the errors here, just in case the setting does not exists, to avoid many if statements.
-        $analyticsdata = array(
+        $analyticsdata = [
             'siteurl' => preg_replace('#^https?://#', '', rtrim(@$CFG->wwwroot, '/')), // Replace protocol and trailing slash.
             'product_name' => "Edwiser RemUI",
             'product_settings' => $this->get_plugin_settings('theme_remui'),
@@ -110,11 +114,11 @@ class usage_tracking {
             'active_theme' => @$CFG->theme,
             'total_courses' => $DB->count_records('course'), // Including hidden courses.
             'total_categories' => $DB->count_records('course_categories'), // Includes hidden categories.
-            'total_users' => $DB->count_records('user', array('deleted' => 0)), // Exclude deleted.
+            'total_users' => $DB->count_records('user', ['deleted' => 0]), // Exclude deleted.
             'installed_plugins' => $this->get_user_installed_plugins(), // Along with versions.
             'system_version' => @$CFG->release, // Moodle version.
             'system_lang' => @$CFG->lang,
-            'system_settings' => array(
+            'system_settings' => [
                 'blog_active' => @$CFG->enableblogs,
                 'cachejs_active' => @$CFG->cachejs,
                 'messaging_active' => @$CFG->messaging,
@@ -125,20 +129,19 @@ class usage_tracking {
                 'moodle_memory_limit' => @$CFG->extramemorylimit,
                 'moodle_maxexec_time_limit' => @$CFG->maxtimelimit,
                 'moodle_curlcache_ttl' => @$CFG->curlcache,
-            ),
+            ],
             'server_os' => @$CFG->os,
-            'server_ip' => @$_SERVER['REMOTE_ADDR'],
-            'web_server' => @$_SERVER['SERVER_SOFTWARE'],
+            'server_ip' => getremoteaddr('Unknown'),
+            'web_server' => isset($_SERVER['SERVER_SOFTWARE']) ? clean_param($_SERVER['SERVER_SOFTWARE'], PARAM_TEXT) : 'Unknown',
             'databasename' => @$CFG->dbtype,
             'php_version' => phpversion(),
-            'php_settings' => array(
+            'php_settings' => [
                 'memory_limit' => ini_get("memory_limit"),
                 'max_execution_time' => ini_get("max_execution_time"),
                 'post_max_size' => ini_get("post_max_size"),
                 'upload_max_filesize' => ini_get("upload_max_filesize"),
-                'memory_limit' => ini_get("memory_limit")
-            ),
-        );
+            ],
+        ];
 
         return $analyticsdata;
     }
@@ -149,7 +152,7 @@ class usage_tracking {
      */
     private function get_user_installed_plugins() {
         // All plugins - "external/installed by user".
-        $allplugins = array();
+        $allplugins = [];
 
         $pluginman = \core_plugin_manager::instance();
         $plugininfos = $pluginman->get_plugins();
@@ -158,13 +161,12 @@ class usage_tracking {
             foreach ($modtype as $key => $plug) {
                 if (!$plug->is_standard() && !$plug->is_subplugin()) {
                     // Each plugin data, // can be different structuer in case of wordpress product.
-                    $allplugins[] = array(
+                    $allplugins[] = [
                         'name' => $plug->displayname,
                         'versiondisk' => $plug->versiondisk,
                         'versiondb' => $plug->versiondb,
-                        'versiondisk' => $plug->versiondisk,
-                        'release' => $plug->release
-                    );
+                        'release' => $plug->release,
+                    ];
                 }
             }
         }
@@ -180,7 +182,7 @@ class usage_tracking {
     private function get_plugin_settings($plugin) {
         // Get complete config.
         $pluginconfig = get_config($plugin);
-        
+
         $filteredpluginconfig = (array)$pluginconfig;
 
         $homepageinstalled = \core_plugin_manager::instance()->get_plugin_info('local_remuihomepage');
@@ -194,8 +196,7 @@ class usage_tracking {
         if ($dashboardblocksinstalled != null) {
             $filteredpluginconfig['dashboard_blocks_installed'] = 1;
         }
-        
+
         return $filteredpluginconfig;
     }
-
 }

@@ -13,6 +13,15 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+/**
+ * Setup wizard page.
+ *
+ * @package   theme_remui
+ * @copyright (c) 2022 WisdmLabs (https://wisdmlabs.com/) <support@wisdmlabs.com>
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 require_once("../../config.php");
 
 require_login();
@@ -22,7 +31,7 @@ if (!is_siteadmin()) {
 }
 
 $setupstatus = get_config('theme_remui', 'setupstatus');
-if ( $setupstatus === 'finished' || !get_config('theme_remui', 'setupinstallcheck') ) {
+if ($setupstatus === 'finished' || !get_config('theme_remui', 'setupinstallcheck')) {
     throw new moodle_exception(get_string('onlyfornewsites', 'theme_remui'));
 }
 

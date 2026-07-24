@@ -39,9 +39,9 @@ trait get_tags {
      */
     public static function get_tags_parameters() {
         return new external_function_parameters(
-            array (
-                'data' => new external_value(PARAM_RAW, 'Courses Params in json.')
-            )
+            [
+                'data' => new external_value(PARAM_RAW, 'Courses Params in json.'),
+             ]
         );
     }
 
@@ -77,7 +77,6 @@ trait get_tags {
                 $html .= '<button class="left-scroll btn btn-sm btn-light px-1 py-3 mr-1 d-none">&#10094;</button>';
                 $html .= "<ul class='noliststyle tag_list'>";
                 foreach ($tagspercourse as $key => $tagslist) {
-
                     if (!empty($tagslist)) {
                         $alertflag = false;
 
@@ -89,12 +88,12 @@ trait get_tags {
                             $tagurl = $tagobject->get_view_url(0, 0, 0, 1)->__toString();
 
                             $html .= '<li class="list-inline-item badge badge-primary py-1 px-2">';
-                            $html .= '<a href="'.$tagurl.'" class=" s20 text-white" title="'.$tagname.'">'.$tagname.'</a>';
+                            $html .= '<a href="' . $tagurl . '" class=" s20 text-white" title="' .
+                                $tagname . '">' . $tagname . '</a>';
                             $html .= '</li>';
 
                             $tagexist[] = $tagobject->__get('id');
                         }
-
                     } else {
                         $alertmsg = get_string('notags', 'theme_remui');
                     }

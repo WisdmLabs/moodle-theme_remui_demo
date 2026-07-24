@@ -196,7 +196,7 @@
         }
     }
     @include media-breakpoint-down(sm){
-        #sticky-footer{
+        #sticky-footer .sticky-footer-content {
         	flex-wrap: wrap;
         	& > div {
         		width: 100% !important;
@@ -476,11 +476,11 @@
     @extend .btn-secondary;
 }
 
-#managecoursesform .btn-outline-primary {
-    &:hover {
-        color: $button-secondary-color-texthover !important;
-    }
-}
+// #managecoursesform .btn-outline-primary {
+//     &:hover {
+//         color: $button-secondary-color-texthover !important;
+//     }
+// }
 
 #page-admin-roles-admins {
     table.generaltable tbody td {
@@ -490,4 +490,13 @@
 
 #page-mod-quiz-edit .question-bank-table .questionnametext{
     width: 60% important;
+}
+
+#page-mod-assign-mod {
+    #id_modstandardgrade #fitem_id_multimarkmethod .form-select.dropdown-toggle::after {
+        content: unset;
+    }
+    #id_modstandardgradecontainer #fitem_id_multimarkrounding .form-select.dropdown-toggle::after {
+        content: unset;
+    }
 }

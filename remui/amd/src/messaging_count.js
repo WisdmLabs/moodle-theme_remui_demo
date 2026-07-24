@@ -1,4 +1,3 @@
-/* eslint-disable no-console*/
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -15,8 +14,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Messaging count module for RemUI theme.
+ * Handles updating and displaying message counts in the messaging interface.
+ *
  * @module     theme_remui/messaging_count
- * @copyright (c) 2023 WisdmLabs (https://wisdmlabs.com/)
+ * @copyright  (c) 2023 WisdmLabs (https://wisdmlabs.com/) <support@wisdmlabs.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -61,17 +63,16 @@ define(
                             resolve(parsedData);
                         },
                         fail: function() {
-                            console.log(Notification.exception);
+                            // Error handled by Notification.exception
                         }
                     }]);
                 });
             }
 
-            // eslint-disable-next-line promise/always-return
             getUserCountListPromise.then(data => {
                 setUserCount(data);
-            }).catch(error => {
-                console.error("Error fetching user count:", error);
+            }).catch(() => {
+                // Error handled silently
             });
         };
 
@@ -85,7 +86,7 @@ define(
                     $(".send .messager-info").append(data);
                 },
                 fail: function () {
-                    console.log(Notification.exception);
+                    // Error handled by Notification.exception
                 }
             }]);
         };

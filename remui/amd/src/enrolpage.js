@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable no-unused-vars */
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -16,8 +14,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Enrollment page module for RemUI theme.
+ * Handles course enrollment page functionality and user interactions.
+ *
  * @module     theme_remui/enrolpage
- * @copyright (c) 2023 WisdmLabs (https://wisdmlabs.com/)
+ * @copyright  (c) 2023 WisdmLabs (https://wisdmlabs.com/) <support@wisdmlabs.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -37,7 +38,6 @@ define([
     Messageuserbutton,
     CustomEvents,
     MessageDrawerHelper) {
-    const linkcoursecontent = '#linkcoursecontent';
     // Const activeloading = ".loading.active";
     const activeloadingpane = ".tab-pane.active.loading";
     const loadingnavlink = ".nav-link.loading";
@@ -55,7 +55,7 @@ define([
     const custompricebox = '#custom-price-box';
     const enrolbtnurl = '#enrolbtnurl';
     const displayException = (ex) => {
-        console.error(ex);
+        Notification.exception(ex);
     };
 
     const activateContentLoading = (_thispane) => {
@@ -124,8 +124,7 @@ define([
                 })
             },
             done: function(response) {
-                var data = JSON.parse(response);
-                console.log(data);
+                JSON.parse(response);
                 $(custompricebox).addClass("d-none");
                 $(custompricebox + " .pricing--price").text("");
                 $(defaultpricing).removeClass("disabled");
@@ -172,7 +171,7 @@ define([
     };
 
     const registerCommonEvents = () =>{
-        $(enrolinstructorscount).click(function(e){
+        $(enrolinstructorscount).click(function(){
             $('a[href="#linkinstructors"]').tab('show');
         });
         $(enrollnowbtnform).submit(function(event) {
@@ -216,7 +215,7 @@ define([
           });
 
         // Handle messagin feature in instructor tab.
-        $(document).on('click','.enrol-instructor-msg-btn',  function (e) {
+        $(document).on('click','.enrol-instructor-msg-btn',  function () {
             var element = $(this);
             if($(this).hasClass('active')){
                 MessageDrawerHelper.hide();

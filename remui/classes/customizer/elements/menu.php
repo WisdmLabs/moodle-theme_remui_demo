@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Theme customizer menu element class
  *
@@ -30,7 +31,6 @@ use stdClass;
  * Link menu element.
  */
 class menu extends base {
-
     /**
      * Get config of setting.
      *
@@ -58,7 +58,8 @@ class menu extends base {
         global $OUTPUT;
         if (isset($this->options['help'])) {
             $help = $this->options['help'];
-            if ($withdefault &&
+            if (
+                $withdefault &&
                 (!isset($this->options['withdefault']) ||
                 (!isset($this->options['withdefault']) && $this->options['withdefault'])) &&
                 isset($this->options['default'])
@@ -66,7 +67,7 @@ class menu extends base {
                 $default = empty($this->options['default']) ? $this->options['default'] : get_string('emptysettingvalue', 'admin');
                 $help = '<strong>' . get_string('default', 'moodle') . ': ' . $default . '</strong><br>' . $help;
             }
-            $data = new stdClass;
+            $data = new stdClass();
             $data->ltr = !right_to_left();
             $data->text = $help;
             return $OUTPUT->render_from_template('theme_remui/customizer/help_icon', $data);
@@ -90,7 +91,7 @@ class menu extends base {
             'name' => $this->name,
             'help' => $this->get_help(),
             'default' => json_encode($default),
-            'menu' => $default
+            'menu' => $default,
         ]);
     }
 }

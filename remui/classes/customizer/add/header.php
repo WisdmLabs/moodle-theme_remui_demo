@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Theme customizer header trait
  *
@@ -24,6 +25,11 @@
 
 namespace theme_remui\customizer\add;
 
+/**
+ * Header trait.
+ *
+ * Provides functionality for adding header-related customizer settings.
+ */
 trait header {
     /**
      * Add header settings
@@ -61,8 +67,8 @@ trait header {
                 'default' => 'left',
                 'options' => [
                     'left' => get_string('header-left', 'theme_remui'),
-                    'right' => get_string('header-right', 'theme_remui')
-                ]
+                    'right' => get_string('header-right', 'theme_remui'),
+                ],
             ]
         );
 
@@ -73,7 +79,7 @@ trait header {
             get_string('headercolors', 'theme_remui'),
             $panel,
             [
-                'collapsed' => true
+                'collapsed' => true,
             ]
         );
 
@@ -85,7 +91,7 @@ trait header {
             $label,
             $panel,
             [
-                'help' => get_string('applynavbarcolor_help', 'theme_remui')
+                'help' => get_string('applynavbarcolor_help', 'theme_remui'),
             ]
         );
 
@@ -101,8 +107,8 @@ trait header {
                 'help' => get_string('header-background-color_help', 'theme_remui'),
                 'default' => $this->get_default_color('headerbg'),
                 'options' => [
-                    ['key' => 'showAlpha', 'value' => 'true']
-                ]
+                    ['key' => 'showAlpha', 'value' => 'true'],
+                ],
             ]
         );
         // Header menu color.
@@ -113,7 +119,7 @@ trait header {
             $panel,
             [
                 'help' => get_string('hds-menu-color_desc', 'theme_remui'),
-                'default' => $this->get_default_color('headertext')
+                'default' => $this->get_default_color('headertext'),
             ]
         );
 
@@ -125,7 +131,7 @@ trait header {
             $panel,
             [
                 'help' => get_string('hds-menu-hover-color_desc', 'theme_remui'),
-                'default' => $this->get_default_color('headertexthover')
+                'default' => $this->get_default_color('headertexthover'),
             ]
         );
 
@@ -137,7 +143,7 @@ trait header {
             $panel,
             [
                 'help' => get_string('hds-menu-active-color_desc', 'theme_remui'),
-                'default' => $this->get_default_color('headertextactive')
+                'default' => $this->get_default_color('headertextactive'),
             ]
         );
         // Element Background color.
@@ -152,8 +158,8 @@ trait header {
                 'help' => get_string('header-menu-element-bg-color_help', 'theme_remui', $panel),
                 'default' => $this->get_default_color('elementbg'),
                 'options' => [
-                    ['key' => 'showAlpha', 'value' => 'true']
-                ]
+                    ['key' => 'showAlpha', 'value' => 'true'],
+                ],
             ]
         );
 
@@ -169,8 +175,8 @@ trait header {
                 'help' => get_string('header-menu-divider-bg-color_help', 'theme_remui', $panel),
                 'default' => $this->get_default_color('headerdividercolordark'),
                 'options' => [
-                    ['key' => 'showAlpha', 'value' => 'true']
-                ]
+                    ['key' => 'showAlpha', 'value' => 'true'],
+                ],
             ]
         );
 
@@ -188,7 +194,7 @@ trait header {
             get_string('hds-iconcolor', 'theme_remui'),
             $panel,
             [
-                'collapsed' => true
+                'collapsed' => true,
             ]
         );
 
@@ -201,7 +207,7 @@ trait header {
             $panel,
             [
                 'help' => get_string('hds-icon-color_help', 'theme_remui', $panel),
-                'default' => $this->get_default_color('headericons')
+                'default' => $this->get_default_color('headericons'),
             ]
         );
 
@@ -214,7 +220,7 @@ trait header {
             $panel,
             [
                 'help' => get_string('hds-icon-hover-color_help', 'theme_remui', $panel),
-                'default' => $this->get_default_color('headericonshover')
+                'default' => $this->get_default_color('headericonshover'),
             ]
         );
 
@@ -227,7 +233,7 @@ trait header {
             $panel,
             [
                 'help' => get_string('hds-icon-active-color_help', 'theme_remui', $panel),
-                'default' => $this->get_default_color('headericonsactive')
+                'default' => $this->get_default_color('headericonsactive'),
             ]
         );
 
@@ -245,7 +251,7 @@ trait header {
             get_string('hds-boxshadow', 'theme_remui'),
             $panel,
             [
-                'collapsed' => true
+                'collapsed' => true,
             ]
         );
 
@@ -257,7 +263,7 @@ trait header {
             $label,
             $panel,
             [
-                'default' => true
+                'default' => true,
             ]
         );
 
@@ -272,8 +278,8 @@ trait header {
                 'help' => get_string('box-shadow-size_help', 'theme_remui'),
                 'default' => '0.563',
                 'options' => [
-                    'step' => 0.01
-                ]
+                    'step' => 0.01,
+                ],
             ]
         );
 
@@ -289,8 +295,8 @@ trait header {
                 'default' => '1.125',
                 'options' => [
                     'min' => 0,
-                    'step' => 0.01
-                ]
+                    'step' => 0.01,
+                ],
             ]
         );
 
@@ -307,8 +313,8 @@ trait header {
                 'default' => 'rgba(92, 107, 121, 0.1)',
                 'options' => [
                     ['key' => 'preferredFormat', 'value' => '\'rgb\''],
-                    ['key' => 'showAlpha', 'value' => 'true']
-                ]
+                    ['key' => 'showAlpha', 'value' => 'true'],
+                ],
             ]
         );
 
@@ -326,7 +332,7 @@ trait header {
             get_string('headertypography', 'theme_remui'),
             $panel,
             [
-                'collapsed' => true
+                'collapsed' => true,
             ]
         );
 
@@ -341,7 +347,7 @@ trait header {
             [
                 'help' => get_string('font-family_help', 'theme_remui', get_string('hds-menuitems', 'theme_remui')),
                 'default' => 'Inherit',
-                'options' => $fonts
+                'options' => $fonts,
             ]
         );
 
@@ -354,7 +360,7 @@ trait header {
             $panel,
             [
                 'help' => get_string('hds-menu-fontsize_desc', 'theme_remui'),
-                'default' => '14'
+                'default' => '14',
             ]
         );
 
@@ -378,8 +384,8 @@ trait header {
                     '600' => get_string('weight-600', 'theme_remui'),
                     '700' => get_string('weight-700', 'theme_remui'),
                     '800' => get_string('weight-800', 'theme_remui'),
-                    '900' => get_string('weight-900', 'theme_remui')
-                ]
+                    '900' => get_string('weight-900', 'theme_remui'),
+                ],
             ]
         );
 
@@ -393,7 +399,7 @@ trait header {
             [
                 'help' => get_string('text-transform_help', 'theme_remui', get_string('hds-menuitems', 'theme_remui')),
                 'default' => 'inherit',
-                'options' => $this->texttransform
+                'options' => $this->texttransform,
             ]
         );
 
@@ -409,8 +415,8 @@ trait header {
                 'default' => 0,
                 'options' => [
                     'min' => 0,
-                    'step' => 0.01
-                ]
+                    'step' => 0.01,
+                ],
             ]
         );
 
@@ -441,7 +447,7 @@ trait header {
             $panel,
             [
                 'help' => get_string('logo-bg-color_help', 'theme_remui'),
-                'default' => $this->get_default_color('headerbg')
+                'default' => $this->get_default_color('headerbg'),
             ]
         );
 
@@ -460,8 +466,8 @@ trait header {
                     'logo' => get_string('onlylogo', 'theme_remui'),
                     'logomini' => get_string('logomini', 'theme_remui'),
                     'icononly' => get_string('icononly', 'theme_remui'),
-                    'iconsitename' => get_string('iconsitename', 'theme_remui')
-                ]
+                    'iconsitename' => get_string('iconsitename', 'theme_remui'),
+                ],
             ]
         );
 
@@ -481,8 +487,8 @@ trait header {
                 'options' => [
                     'subdirs' => 0,
                     'maxfiles' => 1,
-                    'accepted_types' => array('web_image')
-                ]
+                    'accepted_types' => ['web_image'],
+                ],
             ]
         );
 
@@ -502,12 +508,12 @@ trait header {
                 'options' => [
                     'subdirs' => 0,
                     'maxfiles' => 1,
-                    'accepted_types' => array('web_image')
-                ]
+                    'accepted_types' => ['web_image'],
+                ],
             ]
         );
 
-        //dark mode logo 
+        // Dark mode logo.
         $label = get_string('darkmodelogo', 'theme_remui');
         $name = 'darkmodelogo';
         $this->add_setting(
@@ -522,12 +528,12 @@ trait header {
                 'options' => [
                     'subdirs' => 0,
                     'maxfiles' => 1,
-                    'accepted_types' => array('web_image')
-                ]
+                    'accepted_types' => ['web_image'],
+                ],
             ]
         );
 
-        //dark mode logo Mini
+        // Dark mode logo Mini.
         $label = get_string('darkmodelogomini', 'theme_remui');
         $name = 'darkmodelogomini';
         $this->add_setting(
@@ -542,11 +548,10 @@ trait header {
                 'options' => [
                     'subdirs' => 0,
                     'maxfiles' => 1,
-                    'accepted_types' => array('web_image')
-                ]
+                    'accepted_types' => ['web_image'],
+                ],
             ]
         );
-
 
         // Icon.
         $label = get_string('siteicon', 'theme_remui');
@@ -557,7 +562,7 @@ trait header {
             $panel,
             [
                 'help' => get_string('siteicondesc', 'theme_remui'),
-                'default' => 'graduation-cap'
+                'default' => 'graduation-cap',
             ]
         );
 
@@ -572,12 +577,12 @@ trait header {
                 'help' => get_string('font-size_help', 'theme_remui', get_string('header', 'theme_remui')),
                 'default' => 1.171,
                 "responsive" => [
-                    'tablet' => 1.171
+                    'tablet' => 1.171,
                 ],
                 'options' => [
                     'min' => 0,
-                    'step' => 0.01
-                ]
+                    'step' => 0.01,
+                ],
             ]
         );
 
@@ -590,12 +595,16 @@ trait header {
             $panel,
             [
                 'help' => get_string('sitenamecolordesc', 'theme_remui'),
-                'default' => $this->get_default_color('primary')
+                'default' => $this->get_default_color('primary'),
             ]
         );
-
     }
 
+    /**
+     * Add header hide/show settings.
+     *
+     * @return void
+     */
     private function add_header_hide_show_settings() {
         global $CFG;
         $panel = 'hide-show-menu-item';
@@ -605,23 +614,30 @@ trait header {
             'hide-dashboard' => 'myhome',
             'hide-home' => 'home',
             'hide-my-courses' => 'mycourses',
-            'hide-site-admin' => 'siteadminnode'
+            'hide-site-admin' => 'siteadminnode',
         ];
 
         foreach ($settings as $name => $target) {
+            $params = [
+                'help' => get_string($name . '_help', 'theme_remui'),
+                'options' => [
+                    'data-target' => $target,
+                ],
+            ];
+
+            if (in_array($name, ['hide-home', 'hide-my-courses']) && $CFG->branch > 501) {
+                if ($name === 'hide-home') {
+                    $enablemyhome = get_config('core', 'enablemyhome');
+                    set_config('hide-home', ($enablemyhome == 1) ? false : true, 'theme_remui');
+                }
+                if ($name === 'hide-my-courses') {
+                    $enablemycourses = get_config('core', 'enablemycourses');
+                    set_config('hide-my-courses', ($enablemycourses == 1) ? false : true, 'theme_remui');
+                }
+            }
+
             $label = get_string($name, 'theme_remui');
-            $this->add_setting(
-                'checkbox',
-                $name,
-                $label,
-                $panel,
-                [
-                    'help' => get_string($name . '_help', 'theme_remui'),
-                    'options' => [
-                        'data-target' => $target
-                    ]
-                ]
-            );
+            $this->add_setting('checkbox', $name, $label, $panel, $params);
         }
 
         $label = get_string('enablerecentcourses', 'theme_remui');
@@ -632,7 +648,7 @@ trait header {
             $panel,
             [
                 'help' => get_string('enablerecentcoursesdesc', 'theme_remui'),
-                'default' => true
+                'default' => true,
             ]
         );
 
@@ -644,7 +660,7 @@ trait header {
             $panel,
             [
                 'help' => get_string('enablecoursecategorymenudesc', 'theme_remui'),
-                'default' => true
+                'default' => true,
             ]
         );
 
@@ -657,7 +673,7 @@ trait header {
             $panel,
             [
                 'help' => get_string("coursecategoriestextdesc", 'theme_remui'),
-                'default' => get_string('coursecategories', 'theme_remui')
+                'default' => get_string('coursecategories', 'theme_remui'),
             ]
         );
 
@@ -670,12 +686,11 @@ trait header {
                 'content' => '
                     <div class="apply-smart-color-panel p-3">
                         <div class="notice small-info-regular">
-                            '.get_string('custommenulink', 'theme_remui', $CFG->wwwroot).'
+                            ' . get_string('custommenulink', 'theme_remui', $CFG->wwwroot) . '
                         </div>
                     </div>
-                '
+                ',
             ]
         );
-
     }
 }

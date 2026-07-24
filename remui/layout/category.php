@@ -60,7 +60,7 @@ $templatecontext['defaultcat'] = $categoryid;
 // This will ease us to add body classes directly to the array.
 require_once($CFG->dirroot . '/theme/remui/layout/common_end.php');
 
-// It will handle the view buttons synchronization with myoverview settings
+// It will handle the view buttons synchronization with myoverview settings.
 $viewarray = get_config('block_myoverview', 'layouts');
 $viewarray = explode(',', $viewarray);
 $viewarray = array_combine($viewarray, $viewarray);
@@ -75,7 +75,7 @@ if (count($templatecontext['viewoptions']) == 1) {
 }
 
 $categories = utility::get_categories_list();
-$caegoryfilterhtml = utility::generateCategoryStructure($categories);
+$caegoryfilterhtml = utility::generatecategorystructure($categories);
 $templatecontext['caegoryfilterhtml'] = $caegoryfilterhtml;
 
 $filterssortingsdata = utility::generate_filters_and_sorting_data($categoryid);

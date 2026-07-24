@@ -30,10 +30,10 @@ global $CFG, $COURSE;
 require_once($CFG->dirroot . '/theme/remui/layout/common.php');
 
 if (isset($templatecontext['focusdata']['enabled']) && $templatecontext['focusdata']['enabled']) {
-    list(
+    [
         $templatecontext['focusdata']['sections'],
         $templatecontext['focusdata']['active']
-    ) = \theme_remui\utility::get_focus_mode_sections($COURSE);
+    ] = \theme_remui\utility::get_focus_mode_sections($COURSE);
 }
 $coursecontext = context_course::instance($COURSE->id);
 if (!is_guest($coursecontext, $USER) && \theme_remui\toolbox::get_setting('enablecoursestats')) {
@@ -50,6 +50,8 @@ if ($key === false || is_siteadmin()) {
 }
 
 $templatecontext['courseid'] = $COURSE->id;
+
+$templatecontext['moodle_version_gte501'] = ((int)$CFG->branch > 501) ? true : false;
 
 // Must be called before rendering the template.
 // This will ease us to add body classes directly to the array.

@@ -23,7 +23,7 @@
     {
     }
 }}
-<div id="courseindexdrawercontrols" class="dropdown">
+<div id="courseindexdrawercontrols" class="dropdown {{#moodle_version_gte502}}pr-1{{/moodle_version_gte502}}">
     <button class="btn btn-icon rounded-circle"
             type="button"
             data-toggle="dropdown"
@@ -31,7 +31,12 @@
             aria-expanded="false"
             title="{{#str}}courseindexoptions, theme_remui{{/str}}"
     >
+    {{#moodle_version_gte502}}
+        <i class="icon fa fa-angles-down fa-fw m-0" aria-hidden="true"></i>
+    {{/moodle_version_gte502}}
+    {{^moodle_version_gte502}}
         <i class="icon fa fa-ellipsis-v fa-fw m-0" aria-hidden="true"></i>
+    {{/moodle_version_gte502}}
     </button>
     <div class="dropdown-menu dropdown-menu-right">
         <a class="dropdown-item"

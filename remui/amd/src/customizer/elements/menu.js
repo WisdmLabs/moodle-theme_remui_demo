@@ -13,20 +13,22 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 /**
- * Theme customizer menu js
- * @copyright (c) 2023 WisdmLabs (https://wisdmlabs.com/) <support@wisdmlabs.com>
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @author    Yogesh Shirsath
+ * Theme customizer menu element module.
+ * Handles menu element customization in the footer customizer including menu creation and editing.
+ *
+ * @module     theme_remui/customizer/elements/menu
+ * @copyright  (c) 2023 WisdmLabs (https://wisdmlabs.com/) <support@wisdmlabs.com>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @author     Yogesh Shirsath
  */
 
 define('theme_remui/customizer/elements/menu', [
     'jquery',
     'core/notification',
     'core/templates',
-    'core/modal_factory',
+    'core/modal_save_cancel',
     'core/modal_events',
-    'core/modal_save_cancel'
-], function($, Notification, Templates, ModalFactory, ModalEvents) {
+], function($, Notification, Templates, ModalSaveCancel, ModalEvents) {
 
     /**
      * Selectors.
@@ -108,12 +110,10 @@ define('theme_remui/customizer/elements/menu', [
                 'address': $(item).data('address')
             };
         }
-        ModalFactory.create({
+        ModalSaveCancel.create({
             title: M.util.get_string('customizermenuadd', 'theme_remui'),
             body: Templates.render('theme_remui/customizer/elements/menu/menu-add-edit', menuitem),
-            type: ModalFactory.types.SAVE_CANCEL
-        }, $('#create'))
-        .done(function(modal) {
+        }).then(function(modal) {
             modal.show();
             modal.getRoot().on(ModalEvents.save, function(event) {
                 event.preventDefault();
@@ -139,7 +139,8 @@ define('theme_remui/customizer/elements/menu', [
             modal.getRoot().on(ModalEvents.hidden, function() {
                 modal.destroy();
             });
-        });
+            return modal;
+        }).catch(Notification.exception);
     }
 
     /**

@@ -79,7 +79,9 @@
             </div>
         </li>
     </ul>
-    <div class="focus-mode-active-info"><p class="small-info-semibold m-0 ellipsis ellipsis-2 fm-info-text">{{#str}}focusmodeactivenavinfo, theme_remui{{/str}}</p></div>
+    <div class="focus-mode-active-info-wrapper d-flex">
+        <div class="focus-mode-active-info"><p class="small-info-semibold m-0 ellipsis ellipsis-2 fm-info-text">{{#str}}focusmodeactivenavinfo, theme_remui{{/str}}</p></div>
+    </div>
     <ul class="nav navbar-nav h-100 activity-navigation align-items-center justify-content-between m-0 p-0" aria-label="Activity Navigation">
         <li class="nav-item m-0 p-0" id="coursePrevious">
             <a class="nav-link px-2 w-100 h-100 d-flex align-items-center justify-content-center {{^previous}}disabled{{/previous}}" href="{{#previous}}{{previous}}{{/previous}}{{^previous}}javascript:void(0){{/previous}}" {{^previous}}aria-disabled='true'{{/previous}}>

@@ -73,6 +73,16 @@ $timeline-activity-mob-size:48px;
             }
         }
     }
+    .block_recentlyaccessedcourses {
+        .paging-bar-container {
+            padding-right: 50px;
+        }
+        .dashboard-card-deck.one-row {
+            max-width: calc(100% - 1rem);
+            // flex-flow: nowrap;
+            // overflow-x: scroll;
+        }
+    }
 }
 .region-placeholder{
     display: none;
@@ -190,6 +200,10 @@ $timeline-activity-mob-size:48px;
                 display: none !important;
             }
         }
+    }
+    
+    .edw-block-body {
+        border-radius: $card-border-radius !important;
     }
 
     .block-header-wrapper {
@@ -658,6 +672,9 @@ $timeline-activity-mob-size:48px;
         }
         .edw-timeline-filters{
             flex-wrap: wrap;
+            button.dropdown-toggle:hover {
+                color: $white;;
+            }
         }
 
         .edw-timeline-search-filter {
@@ -747,7 +764,7 @@ $timeline-activity-mob-size:48px;
         }
         [data-region="timeline-view"]{
             background-color: $block-body-color;
-            border-radius:$border-radius-lg;
+            border-radius: $card-border-radius;
             overflow: hidden;
             @include get_box_shadow(xs);
 
@@ -1015,5 +1032,94 @@ section[data-block="edwiseradvancedblock"]{
 .block-recentlyaccesseditems{
     .dashboard-card{
         min-height: unset ;
+    }
+}
+
+.block_myoverview .content {
+    z-index: 1;
+}
+
+body.edw-m502 {
+    .block_myoverview.block_with_controls {
+        .block-header-wrapper {
+            [id$="-actions"] {
+                align-items: center;
+                margin-left: auto;
+                padding-right: 10px;
+            }
+        }
+            
+    }
+
+    
+}
+
+.block_calendar_month {
+    .calendarwrapper .calendartable {
+        thead tr{
+            th:first-child {
+                border-top-left-radius: $card-border-radius;
+            }
+            th:last-child {
+                border-top-right-radius: $card-border-radius;
+            }
+        }
+        tbody {
+            tr:last-child {
+                td:first-child {
+                    border-bottom-left-radius: $card-border-radius;
+                }
+                td:last-child {
+                    border-bottom-right-radius: $card-border-radius;
+                }
+            }
+        }
+
+    }
+}
+.block_calendar_upcoming {
+    .edw-block-body {
+        padding: 16px !important;
+    }
+}
+.block_edwiseradvancedblock {
+    .container-fluid  {
+        border-radius:  $card-border-radius !important;
+    }
+}
+@media (max-width: 768px) {
+    .block_calendar_month {
+        .maincalendar {
+            .calendarmonth {
+                td.hasevent {
+                    span.day-number {
+                            display: flex !important;
+                            flex-direction: column-reverse !important;
+                            &::before {
+                                position: relative !important;
+                                display: flex !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+}
+@media (min-width: 769px) {
+    #region-bottom-blocks {
+        .block_calendar_month {
+            .maincalendar {
+                .calendarmonth {
+                    td.hasevent {
+                        span.day-number::before {
+                            content: "";
+                        }
+                        [data-region='day-content'] {
+                            display: inline-block !important;
+                        }
+                    }
+                }
+            }
+        }
     }
 }

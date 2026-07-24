@@ -13,7 +13,6 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/* eslint-disable */
 /**
  * Toolbar.js
  *
@@ -38,7 +37,7 @@ if ( typeof Object.create !== 'function' ) {
     };
 }
 define(['jquery'], function($) {
-	var ToolBar = {
+    var ToolBar = {
         init: function( options, elem ) {
             var self = this;
             self.elem = elem;
@@ -80,18 +79,18 @@ define(['jquery'], function($) {
             if (self.options.event != 'click') {
 
                 var moveTime;
-                function decideTimeout () {
+                var decideTimeout = function() {
                     if (self.$elem.hasClass('pressed')) {
                         moveTime = setTimeout(function() {
                             self.hide();
                         }, 150);
                     } else {
                         clearTimeout(moveTime);
-                    };
+                    }
                 };
 
                 self.$elem.on({
-                    mouseenter: function(event) {
+                    mouseenter: function() {
                         if (self.$elem.hasClass('pressed')) {
                             clearTimeout(moveTime);
                         } else {
@@ -101,12 +100,18 @@ define(['jquery'], function($) {
                 });
 
                 self.$elem.parent().on({
-                    mouseleave: function(event){ decideTimeout(); }
+                    mouseleave: function() {
+                        decideTimeout();
+                    }
                 });
 
                 $('.tool-container').on({
-                    mouseenter: function(event){ clearTimeout(moveTime); },
-                    mouseleave: function(event){ decideTimeout(); }
+                    mouseenter: function() {
+                        clearTimeout(moveTime);
+                    },
+                    mouseleave: function() {
+                        decideTimeout();
+                    }
                 });
             }
 
@@ -135,18 +140,18 @@ define(['jquery'], function($) {
             if (self.options.hover) {
                 var moveTime;
 
-                function decideTimeout () {
+                var decideTimeout = function() {
                     if (self.$elem.hasClass('pressed')) {
                         moveTime = setTimeout(function() {
                             self.hide();
                         }, 150);
                     } else {
                         clearTimeout(moveTime);
-                    };
+                    }
                 };
 
                 self.$elem.on({
-                    mouseenter: function(event) {
+                    mouseenter: function() {
                         if (self.$elem.hasClass('pressed')) {
                             clearTimeout(moveTime);
                         } else {
@@ -156,12 +161,18 @@ define(['jquery'], function($) {
                 });
 
                 self.$elem.parent().on({
-                    mouseleave: function(event){ decideTimeout(); }
+                    mouseleave: function() {
+                        decideTimeout();
+                    }
                 });
 
                 $('.tool-container').on({
-                    mouseenter: function(event){ clearTimeout(moveTime); },
-                    mouseleave: function(event){ decideTimeout(); }
+                    mouseenter: function() {
+                        clearTimeout(moveTime);
+                    },
+                    mouseleave: function() {
+                        decideTimeout();
+                    }
                 });
             }
 

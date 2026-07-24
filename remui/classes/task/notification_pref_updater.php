@@ -24,8 +24,12 @@
 
 namespace theme_remui\task;
 
+/**
+ * Notification preference updater scheduled task.
+ *
+ * Updates notification preferences for the RemUI theme.
+ */
 class notification_pref_updater extends \core\task\scheduled_task {
-
     /**
      * Return the task's name as shown in admin screens.
      *

@@ -31,7 +31,6 @@ namespace theme_remui\output;
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class mod_quiz_renderer extends \mod_quiz\output\renderer {
-
     /**
      * Return the HTML of the quiz timer.
      * @return string HTML content.
@@ -54,7 +53,7 @@ class mod_quiz_renderer extends \mod_quiz\output\renderer {
         $output .= $this->output->render_from_template('mod_quiz/timer', (object)[]);
 
         if (isset($timerstartvalue) && $timerstartvalue != null) {
-            $output .= '<div id="quiztimer" class="quiztimer" data-timer="'.($timerstartvalue - 1).'"></div>';
+            $output .= '<div id="quiztimer" class="quiztimer" data-timer="' . ($timerstartvalue - 1) . '"></div>';
         }
 
         return $output;

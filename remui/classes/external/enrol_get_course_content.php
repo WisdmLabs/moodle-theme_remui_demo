@@ -44,9 +44,9 @@ trait enrol_get_course_content {
      */
     public static function enrol_get_course_content_parameters() {
         return new external_function_parameters(
-            array (
+            [
                 'courseid' => new external_value(PARAM_INT, 'Course Id'),
-            )
+             ]
         );
     }
 
@@ -69,7 +69,7 @@ trait enrol_get_course_content {
         $sections = $modinfo->get_section_info_all();
 
         $sectioncount = 0;
-        $contentdata = array();
+        $contentdata = [];
         foreach ($sections as $sectionnum => $section) {
             // Display Sections/Topics even if they are hidden and restricted.
 
@@ -91,13 +91,16 @@ trait enrol_get_course_content {
             if ($cm->__get('deletioninprogress')) {
                 continue;
             }
+            if ($cm->__get('modname') === 'qbank') {
+                continue;
+            }
             if (isset($contentdata['sections'][$cm->__get('sectionnum')])) {
                 if ($cm->__get('uservisible') || $cm->__get('availableinfo') || $cm->__get('available')) {
                     $activity = [];
                     $activity['name'] = $cm->get_formatted_name();
                     $activity['icon'] = $cm->get_icon_url()->__toString();
                     $activity['modtype'] = $cm->__get('modname');
-                    if($cm->__get('modname') == 'subsection'){
+                    if ($cm->__get('modname') == 'subsection') {
                         $activity['delegatesectionid'] = $cm->__get('customdata')['sectionid'];
                     }
                     $contentdata['sections'][$cm->__get('sectionnum')]['activities'][] = $activity;
@@ -110,17 +113,16 @@ trait enrol_get_course_content {
             }
         }
         $contentarraymap = [];
-        foreach($contentdata['sections'] as $key => $section){
-
+        foreach ($contentdata['sections'] as $key => $section) {
             $contentarraymap[$section['id']] = $key;
         }
 
-        foreach($contentdata['sections'] as &$section ){
-            if(isset($section['activities'])){
-                foreach($section['activities'] as &$activity){
-                    if(isset($activity['delegatesectionid'])){
+        foreach ($contentdata['sections'] as &$section) {
+            if (isset($section['activities'])) {
+                foreach ($section['activities'] as &$activity) {
+                    if (isset($activity['delegatesectionid'])) {
                         $delegatesection = $contentdata['sections'][$contentarraymap[$activity['delegatesectionid']]];
-                        if(isset($delegatesection['activities'])){
+                        if (isset($delegatesection['activities'])) {
                             $delegatesection['inneractivities'] = $delegatesection['activities'];
                             unset($delegatesection['activities']);
                         }
@@ -131,6 +133,8 @@ trait enrol_get_course_content {
             }
         }
 
+        // Reset array keys to ensure sequential indexing for proper JSON array serialization.
+        $contentdata['sections'] = array_values($contentdata['sections']);
         return json_encode($contentdata);
     }
 

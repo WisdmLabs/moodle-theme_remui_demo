@@ -22,9 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class theme_remui_admin_settingspage_tabs extends admin_settingpage {
-
     /** @var The tabs */
-    protected $tabs = array();
+    protected $tabs = [];
 
     /**
      * Add a tab.
@@ -39,6 +38,12 @@ class theme_remui_admin_settingspage_tabs extends admin_settingpage {
         return true;
     }
 
+    /**
+     * Add a tab (alias for add_tab).
+     *
+     * @param admin_settingpage $tab A tab
+     * @return bool True on success
+     */
     public function add($tab) {
         return $this->add_tab($tab);
     }
@@ -63,7 +68,7 @@ class theme_remui_admin_settingspage_tabs extends admin_settingpage {
         $activetab = optional_param('activetab', get_config('theme_remui', 'activetab'), PARAM_ALPHA);
         unset_config('activetab', 'theme_remui');
 
-        $context = array('tabs' => array());
+        $context = ['tabs' => []];
         $havesetactive = false;
 
         foreach ($this->get_tabs() as $tab) {
@@ -77,25 +82,33 @@ class theme_remui_admin_settingspage_tabs extends admin_settingpage {
                 $active = true;
             }
 
-            $context['tabs'][] = array(
+            $context['tabs'][] = [
                 'name' => $tab->name,
                 'displayname' => $tab->visiblename,
                 'html' => $tab->output_html(),
                 'active' => $active,
-            );
+            ];
         }
 
+        // Footer tab.
+        $context['tabs'][] = [
+            'name' => 'theme_remui_footersettings',
+            'displayname' => get_string('footersettings', 'theme_remui'),
+            'html' => get_string('footerpersonalizerinfo', 'theme_remui', ['wwwroot' => $CFG->wwwroot]),
+            'active' => $activetab == 'footersettings',
+            'customclass' => 'remuitab footersettings',
+        ];
         // Add Personalizer tab.
-        $personalizer = $OUTPUT->render_from_template('theme_remui/personalizer', array());
+        $personalizer = $OUTPUT->render_from_template('theme_remui/personalizer', []);
 
         // Personalizer tab.
-        $context['tabs'][] = array(
+        $context['tabs'][] = [
             'name' => 'theme_remui_edwiserpersonalizer',
             'displayname' => get_string('personalizer', 'theme_remui'),
             'html' => $personalizer,
             'active' => $activetab == 'edwiserpersonalizer',
-            'customclass' => 'remuitab edwiserpersonalizer'
-        );
+            'customclass' => 'remuitab edwiserpersonalizer',
+        ];
 
         // Edwiser Site pages settings.
         if (\theme_remui\utility::can_create_page()) {
@@ -104,13 +117,13 @@ class theme_remui_admin_settingspage_tabs extends admin_settingpage {
             $PAGE->requires->js_call_amd('local_edwiserpagebuilder/pageslistsettings', 'init');
             $sitepages = ob_get_clean();
 
-            $context['tabs'][] = array(
+            $context['tabs'][] = [
                 'name' => 'epbsitepages',
                 'displayname' => get_string('sitepagessettings', 'local_edwiserpagebuilder'),
                 'html' => $sitepages,
                 'active' => $activetab == 'epbsitepages',
-                'customclass' => 'remuitab'
-            );
+                'customclass' => 'remuitab',
+            ];
         }
 
         // Add edwiser importer.
@@ -125,50 +138,49 @@ class theme_remui_admin_settingspage_tabs extends admin_settingpage {
             $importer = get_string('importer-missing', 'theme_remui');
         }
 
-
         if (is_plugin_available("local_sitesync")) {
             // Add site sync.
             $sitesyncurl = $CFG->wwwroot . '/local/sitesync/overview.php';
             $sitesynchtml = '<div class="alert alert-warning  fade show" role="alert">
-                                    '.get_string('user_syncinfo', 'local_sitesync').'
+                                    ' . get_string('user_syncinfo', 'local_sitesync') . '
                             </div>
                             <div class="sitesync-button-wrapper">
                                 <a href="' . $sitesyncurl . '" class="btn btn-primary" title="Go to site sync settings">
-                                    '.get_string('site_sync_button_title', 'theme_remui').'
+                                    ' . get_string('site_sync_button_title', 'theme_remui') . '
                                 </a>
                             </div>';
 
             // Site sync tab.
-            $context['tabs'][] = array(
+            $context['tabs'][] = [
                 'name' => 'theme_remui_sitesync',
                 'displayname' => get_string('sitesyncplugintabtext', 'theme_remui'),
                 'html' => $sitesynchtml,
                 'active' => $activetab == 'edwsitesync',
-                'customclass' => 'remuitab edwsitesync'
-            );
+                'customclass' => 'remuitab edwsitesync',
+            ];
         }
 
         // Information center.
-        $context['tabs'][] = array(
+        $context['tabs'][] = [
             'name' => 'edwisersiteimporter',
             'displayname' => get_string('importer', 'theme_remui'),
             'html' => $importer,
             'active' => $activetab == 'edwisersiteimporter',
-            'customclass' => 'remuitab'
-        );
+            'customclass' => 'remuitab',
+        ];
 
         // Announcements tab content.
         ob_start();
         include_once($CFG->dirroot . '/theme/remui/information_center.php');
         $informationcenter = ob_get_clean();
         // Information center.
-        $context['tabs'][] = array(
+        $context['tabs'][] = [
             'name' => 'informationcenter',
             'displayname' => get_string('informationcenter', 'theme_remui'),
             'html' => $informationcenter,
             'active' => $activetab == 'informationcenter',
-            'customclass' => 'remuitab'
-        );
+            'customclass' => 'remuitab',
+        ];
 
         if (empty($context['tabs'])) {
             return '';
@@ -176,5 +188,4 @@ class theme_remui_admin_settingspage_tabs extends admin_settingpage {
 
         return $OUTPUT->render_from_template('theme_remui/admin_setting_tabs', $context);
     }
-
 }

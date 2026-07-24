@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Theme customizer checkbox element class
  *
@@ -31,7 +32,6 @@ use theme_remui\customizer\customizer;
  * Checkbox element.
  */
 class checkbox extends base {
-
     /**
      * Return help content if available in options
      * @param  bool        $withdefault If true then default value will shown in help
@@ -46,7 +46,7 @@ class checkbox extends base {
                 $default = get_string('enabled', 'admin');
             }
             $help = '<strong>' . get_string('default', 'moodle') . ': ' . $default . '</strong><br>' . $help;
-            $data = new stdClass;
+            $data = new stdClass();
             $data->ltr = !right_to_left();
             $data->text = $help;
             return $OUTPUT->render_from_template('theme_remui/customizer/help_icon', $data);
@@ -114,7 +114,7 @@ class checkbox extends base {
             'default' => $default,
             'value' => $value,
             'type' => 'checkbox',
-            'options' => $this->process_options()
+            'options' => $this->process_options(),
         ]);
     }
 }

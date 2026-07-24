@@ -111,6 +111,7 @@ class Dropdown {
   // Public
 
   toggle() {
+
     if (this._element.disabled || $(this._element).hasClass(CLASS_NAME_DISABLED)) {
       return
     }
@@ -370,8 +371,12 @@ class Dropdown {
   }
 
   static _clearMenus(event) {
+    // Get the actual event target - handle both jQuery event and native event
+    const eventTarget = event && (event.target || event.originalEvent && event.originalEvent.target)
+    const eventType = event && (event.type || (event.originalEvent && event.originalEvent.type))
+
     if (event && (event.which === RIGHT_MOUSE_BUTTON_WHICH ||
-      event.type === 'keyup' && event.which !== TAB_KEYCODE)) {
+      eventType === 'keyup' && event.which !== TAB_KEYCODE)) {
       return
     }
 
@@ -384,7 +389,7 @@ class Dropdown {
         relatedTarget: toggles[i]
       }
 
-      if (event && event.type === 'click') {
+      if (event && eventType === 'click') {
         relatedTarget.clickEvent = event
       }
 
@@ -393,14 +398,99 @@ class Dropdown {
       }
 
       const dropdownMenu = context._menu
-      if (!$(parent).hasClass(CLASS_NAME_SHOW)) {
+      const isShown = $(parent).hasClass(CLASS_NAME_SHOW)
+      if (!isShown) {
         continue
       }
 
-      if (event && (event.type === 'click' &&
-          /input|textarea/i.test(event.target.tagName) || event.type === 'keyup' && event.which === TAB_KEYCODE) &&
-          $.contains(parent, event.target)) {
+      if (event && (eventType === 'click' &&
+          /input|textarea/i.test(eventTarget && eventTarget.tagName) || eventType === 'keyup' && event.which === TAB_KEYCODE) &&
+          eventTarget && $.contains(parent, eventTarget)) {
         continue
+      }
+
+      // Don't close dropdown if click is on a nested dropdown toggle or inside a nested dropdown menu
+      // Check for nested dropdowns even without event by checking if any nested dropdowns are shown
+      const target = eventTarget || document.activeElement
+      if (eventType === 'click' || !event) {
+        // Check if the click target is inside the current dropdown menu
+        // Also check if there are any nested dropdowns that are currently shown
+        const isInMenu = target && $.contains(dropdownMenu, target)
+        const isInParent = target && $.contains(parent, target)
+
+        // Check if there are any nested dropdowns shown inside this menu
+        const nestedShownDropdowns = $(dropdownMenu).find('.dropdown.show, .dropdown-menu.show')
+        const hasNestedShown = nestedShownDropdowns.length > 0
+
+        if (isInMenu || isInParent || hasNestedShown) {
+          // If we have nested shown dropdowns but no target, check if any nested toggle was recently clicked
+          if (!target && hasNestedShown) {
+            // Check if any nested dropdown toggle is inside this menu
+            const nestedTogglesInMenu = $(dropdownMenu).find(SELECTOR_DATA_TOGGLE)
+            if (nestedTogglesInMenu.length > 0) {
+              continue
+            }
+          }
+          // Walk up the DOM tree from target to see if we're inside a nested dropdown structure
+          let currentElement = target
+          let foundNestedDropdown = false
+
+          // If no target but we have nested shown dropdowns, skip closing
+          if (!target && hasNestedShown) {
+            foundNestedDropdown = true
+          }
+
+          while (currentElement && currentElement !== dropdownMenu && currentElement !== parent && !foundNestedDropdown) {
+            const $current = $(currentElement)
+
+            // Check if current element is a dropdown toggle (but not the current toggle)
+            if ($current.is(SELECTOR_DATA_TOGGLE)) {
+              const isNotCurrentToggle = currentElement !== toggles[i]
+              const isInMenu = $.contains(dropdownMenu, currentElement)
+              if (isNotCurrentToggle && isInMenu) {
+                // Found a nested dropdown toggle inside the menu
+                foundNestedDropdown = true
+                break
+              }
+            }
+
+            // Check if current element is inside a dropdown menu that's nested within our menu
+            const closestMenu = $current.closest(SELECTOR_MENU)
+            if (closestMenu.length > 0 && closestMenu[0] !== dropdownMenu) {
+              const isNestedMenuInOurMenu = $.contains(dropdownMenu, closestMenu[0])
+              if (isNestedMenuInOurMenu) {
+                foundNestedDropdown = true
+                break
+              }
+            }
+
+            // Check if current element is inside a dropdown parent that's nested
+            const closestDropdown = $current.closest('.dropdown')
+            if (closestDropdown.length > 0 && closestDropdown[0] !== parent) {
+              const isNestedDropdownInOurMenu = $.contains(dropdownMenu, closestDropdown[0])
+              if (isNestedDropdownInOurMenu) {
+                foundNestedDropdown = true
+                break
+              }
+            }
+
+            // Also check if any ancestor is a dropdown toggle that contains the target
+            const ancestorToggle = $current.closest(SELECTOR_DATA_TOGGLE)
+            if (ancestorToggle.length > 0 && ancestorToggle[0] !== toggles[i]) {
+              const isAncestorToggleInOurMenu = $.contains(dropdownMenu, ancestorToggle[0])
+              if (isAncestorToggleInOurMenu) {
+                foundNestedDropdown = true
+                break
+              }
+            }
+
+            currentElement = currentElement.parentElement
+          }
+
+          if (foundNestedDropdown) {
+            continue
+          }
+        }
       }
 
       const hideEvent = $.Event(EVENT_HIDE, relatedTarget)

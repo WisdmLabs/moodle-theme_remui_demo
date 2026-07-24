@@ -13,12 +13,11 @@
 /* eslint-disable complexity */
 /* eslint-disable no-unused-expressions */
 /*!
- * Sienna Accessibility Widget v1.1
- * (c) 2024 Benny Luk
- * License: GNU
- * Home Page : https://accessibility-widget.pages.dev/
+ * Sienna Accessibility Widget v2.0.1
+ * (c) 2025 Benny Luk
+ * License: MIT
+ * Home Page: https://accessibility-widget.pages.dev/
  * Repository: git+https://github.com/bennyluk/Sienna-Accessibility-Widget.git
- *
  */
 
 (() => {

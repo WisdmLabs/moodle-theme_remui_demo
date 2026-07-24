@@ -1,10 +1,3 @@
-/* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-console */
-/* eslint-disable jsdoc/require-jsdoc*/
-/* eslint-disable jsdoc/require-jsdoc*/
-/* eslint-disable jsdoc/require-jsdoc*/
-/* eslint-disable no-restricted-globals */
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -21,12 +14,15 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Block move handler module for RemUI theme.
+ * Handles moving blocks up and down within course sections.
+ *
  * @module     theme_remui/blockhandler
- * @copyright (c) 2020 WisdmLabs (https://wisdmlabs.com/)
+ * @copyright  (c) 2023 WisdmLabs (https://wisdmlabs.com/) <support@wisdmlabs.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-define(['jquery', 'core/ajax', 'core/str'], function ($, Ajax, Str) {
+define(['jquery', 'core/ajax'], function ($, Ajax) {
     /**
  * Selectors
  */
@@ -217,34 +213,30 @@ define(['jquery', 'core/ajax', 'core/str'], function ($, Ajax, Str) {
                 if (data) {
                     if (type == swapdirectonup) {
                         swapBlocks(currentelement, prevelement);
-                        console.log("swapping done sucessfully");
                     }
                     if (type == swapdirectondown) {
                         swapBlocks(currentelement, nextelement);
-                        console.log("swapping done sucessfully");
                     }
                     if (type == 'move') {
                         if (blockmovedirection == 'moveblockup') {
                             currentelement.detach().appendTo(`[data-blockregion="${blockregion}"]`);
-                            console.log("moveblockup");
                         }
                         if (blockmovedirection == 'moveblockdown') {
                             currentelement.detach().prependTo(`[data-blockregion="${blockregion}"]`);
-                            console.log("moveblockdown");
                         }
                     }
                     transparentheaderhanlder();
-                } else {
-                    console.log("not allowed");
                 }
             },
             fail: function () {
-                console.log(Notification.exception);
+                // Error handled by Notification
             }
         }]);
     };
     return {
         init: function () {
+            // Availableblockregions comes from PHP data_for_js.
+            var availableblockregions = window.availableblockregions || [];
             availableblockregions.forEach(function (element, index) {
                 blockregionarr[`#block-region-${element}`] = element;
                 blockregionidarr[index] = `#block-region-${element}`;

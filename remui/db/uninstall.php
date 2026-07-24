@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Theme remui upgrade hook
  * @package   theme_remui
@@ -21,13 +22,16 @@
  * @author    Yogesh Shirsath
  */
 
-defined('MOODLE_INTERNAL') || die();
-
+/**
+ * Uninstall function for theme_remui.
+ *
+ * @return void
+ */
 function xmldb_theme_remui_uninstall() {
     global $DB;
     $preftable = 'user_preferences';
-    $homepagedepricationflags = $DB->get_records($preftable, array('name' => 'homepagedepricatedseen'));
+    $homepagedepricationflags = $DB->get_records($preftable, ['name' => 'homepagedepricatedseen']);
     foreach ($homepagedepricationflags as $flag) {
-        $DB->update_record($preftable, array('id' => $flag->id, 'name' => 'homepagedepricatedseen' , 'value' => 0));
+        $DB->update_record($preftable, ['id' => $flag->id, 'name' => 'homepagedepricatedseen', 'value' => 0]);
     }
 }

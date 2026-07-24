@@ -25,9 +25,19 @@
 define('COURSE_IDS', 'ids');
 define('MY_COURSE_IDS', 'myids');
 
-use theme_remui\utility as utility;
-use core_completion\progress as progress;
+use theme_remui\utility;
+use core_completion\progress;
+use core\url;
 
+/**
+ * Course handler class.
+ *
+ * Handles course-related queries and functionalities.
+ *
+ * @package   theme_remui
+ * @copyright (c) 2023 WisdmLabs (https://wisdmlabs.com/) <support@wisdmlabs.com>
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class theme_remui_coursehandler {
     /**
      * Get recent courses accessed by user
@@ -43,12 +53,12 @@ class theme_remui_coursehandler {
             WHERE userid = ?
             ORDER BY timeaccess
             DESC';
-        $params = array ('userid' => $USER->id);
+        $params = ['userid' => $USER->id];
         $courses = $DB->get_records_sql($sql, $params, 0, $limit);
         if ($courses) {
             return $courses;
         }
-        return array();
+        return [];
     }
 
 
@@ -99,14 +109,15 @@ class theme_remui_coursehandler {
         if (!$ids) {
             $ids = [];
             $where = 'c.id <> :siteid';
-            $params = array(
+            $params = [
                 'contextcourse' => CONTEXT_COURSE,
-                'siteid' => SITEID);
+                'siteid' => SITEID,
+            ];
             $ctxselect = context_helper::get_preload_record_columns_sql('ctx');
-            $sql = "SELECT c.id, c.category, c.visible, $ctxselect
+            $sql = "SELECT c.id, c.category, c.visible, " . $ctxselect . "
                 FROM {course} c
                 JOIN {context} ctx ON c.id = ctx.instanceid AND ctx.contextlevel = :contextcourse
-                WHERE ". $where;
+                WHERE " . $where;
 
             $list = $DB->get_records_sql($sql, $params);
             $mycourses = enrol_get_my_courses();
@@ -123,7 +134,7 @@ class theme_remui_coursehandler {
             }
             foreach ($list as $id => $value) {
                 $ids[] = (object)[
-                    'tempid' => $id
+                    'tempid' => $id,
                 ];
             }
             $cache->set(COURSE_IDS, $ids);
@@ -145,7 +156,7 @@ class theme_remui_coursehandler {
             if (!empty($mycourses)) {
                 foreach ($mycourses as $id => $value) {
                     $ids[] = (object)[
-                        'tempid' => $id
+                        'tempid' => $id,
                     ];
                 }
             }
@@ -190,7 +201,7 @@ class theme_remui_coursehandler {
         }
 
         // Apply sorting order.
-        switch($options['sort']) {
+        switch ($options['sort']) {
             case 'ASC':
             case 'DESC':
                 $orderby = " ORDER BY c.fullname " . $options['sort'];
@@ -203,15 +214,15 @@ class theme_remui_coursehandler {
                 break;
             case 'highrating':
             case 'lowrating':
-                $courseidsbyratings = Utility::get_all_courseids_sorted_according_rating();
+                $courseidsbyratings = utility::get_all_courseids_sorted_according_rating();
                 if (!empty($courseidsbyratings)) {
                     $direction = $options['sort'] === 'lowrating' ? ' DESC' : '';
                     $casestatements = [];
                     foreach ($courseidsbyratings as $index => $id) {
                         $casestatements[] = "WHEN c.id = $id THEN $index";
                     }
-                    $orderby = " ORDER BY CASE " . implode(' ', $casestatements) . " ELSE " . count($courseidsbyratings) . " END $direction";
-
+                    $orderby = " ORDER BY CASE " . implode(' ', $casestatements) .
+                        " ELSE " . count($courseidsbyratings) . " END $direction";
                 } else {
                     $orderby = " ORDER BY c.timecreated DESC";
                 }
@@ -221,26 +232,26 @@ class theme_remui_coursehandler {
                 break;
         }
 
-        $fields = array('c.id', 'c.category', 'c.sortorder',
+        $fields = ['c.id', 'c.category', 'c.sortorder',
                         'c.shortname', 'c.fullname', 'c.idnumber',
-                        'c.startdate', 'c.enddate', 'c.visible', 'c.cacherev','c.timemodified','c.groupmode');
+                        'c.startdate', 'c.enddate', 'c.visible', 'c.cacherev', 'c.timemodified', 'c.groupmode'];
 
         // Load summary data.
         if (!empty($options['summary'])) {
             $fields[] = 'c.summary';
             $fields[] = 'c.summaryformat';
         } else {
-            $fields[] = $DB->sql_substr('c.summary', 1, 1). ' as hassummary';
+            $fields[] = $DB->sql_substr('c.summary', 1, 1) . ' as hassummary';
         }
 
         // If user is not admin then load viewvable course ids.
         if (!$ismanageroradmin) {
             $ids = $this->get_course_ids();
             if (empty($ids)) {
-                return array(0, []);
+                return [0, []];
             }
             $this->create_temp_table($coursestable, $ids);
-            $join .= " INNER JOIN {" . $coursestable  . "} cids ON c.id = cids.tempid";
+            $join .= " INNER JOIN {" . $coursestable . "} cids ON c.id = cids.tempid";
         }
 
         // Load enrolled courses if mycourses is enabled.
@@ -248,7 +259,7 @@ class theme_remui_coursehandler {
             $ids = $this->get_my_courses();
             if (empty($ids)) {
                 $this->drop_table($mycoursestable);
-                return array(0, []);
+                return [0, []];
             }
             $this->create_temp_table($mycoursestable, $ids);
             $join .= " INNER JOIN {" . $mycoursestable . "} mycids ON c.id = mycids.tempid";
@@ -280,7 +291,7 @@ class theme_remui_coursehandler {
             $this->drop_table($mycoursestable);
         }
 
-        return array($count, $list);
+        return [$count, $list];
     }
 
     /**
@@ -295,14 +306,14 @@ class theme_remui_coursehandler {
             return false;
         }
 
-        $finalarr = array();
+        $finalarr = [];
         $courses = $this->get_recent_accessed_courses($limit);
         foreach ($courses as $key => $course) {
             $templatecontext['hasrecent'] = true;
-            $finalarr[] = array (
+            $finalarr[] = [
                 'id' => $course->courseid,
-                'fullname' => format_text($course->fullname)
-            );
+                'fullname' => format_text($course->fullname),
+            ];
         }
 
         if (empty($finalarr)) {
@@ -312,6 +323,11 @@ class theme_remui_coursehandler {
         return $finalarr;
     }
 
+    /**
+     * Get focus context data.
+     *
+     * @return array Focus context data
+     */
     public function get_focus_context_data() {
         global $PAGE, $CFG, $COURSE, $USER;
 
@@ -319,29 +335,32 @@ class theme_remui_coursehandler {
 
         // Focus Mode Code.
         $focusdata = [];
-        if (($PAGE->pagelayout === 'course' || $PAGE->pagelayout === 'incourse') && $PAGE->pagetype !== "enrol-index") {
-
+        $pagelayout = $PAGE->pagelayout;
+        $pagetype = $PAGE->pagetype;
+        if (($pagelayout === 'course' || $pagelayout === 'incourse') && $pagetype !== "enrol-index") {
             $userpreference = get_user_preferences('enable_focus_mode', null);
             $focusmodpreference = $userpreference ? json_decode($userpreference, true) : null;
             $focusmodesetting = \theme_remui\toolbox::get_setting('focusmode');
 
-
-
             $focusdata['enabled'] = $focusmodesetting;
 
-            // Get course focus mode custom field value if exists
+            // Get course focus mode custom field value if exists.
             $coursefocusmodecustomfield = 0;
             $metadata = get_course_metadata($COURSE->id);
             if (isset($metadata["edwfocusmode"])) {
                 $coursefocusmodecustomfield = $metadata["edwfocusmode"];
             }
 
-            // First check if focusmode setting is enabled
-            if ($focusmodesetting == 0 ||
-                ($focusmodesetting == 1 && $coursefocusmodecustomfield == 0)) {
+            // First check if focusmode setting is enabled.
+            if (
+                $focusmodesetting == 0
+                || ($focusmodesetting == 1 && $coursefocusmodecustomfield == 0)
+            ) {
                 $focusdata['on'] = false;
-            } else if ($focusmodesetting == 1 && $coursefocusmodecustomfield == 1 ||
-                      $focusmodesetting == 2) {
+            } else if (
+                ($focusmodesetting == 1 && $coursefocusmodecustomfield == 1)
+                || $focusmodesetting == 2
+            ) {
                 $focusdata['on'] = true;
             }
 
@@ -356,22 +375,14 @@ class theme_remui_coursehandler {
             $roles = get_user_roles_in_course($USER->id, $COURSE->id);
 
             if (
-                (is_siteadmin($USER) || preg_match('/\b(Teacher|Manager|coursecreator|Non-editing teacher)\b/', $roles)) &&
-                !$focusmodepreferencestatus
+                (is_siteadmin($USER) || preg_match('/\b(Teacher|Manager|coursecreator|Non-editing teacher)\b/', $roles))
+                && !$focusmodepreferencestatus
             ) {
                 $focusdata['on'] = false;
-
-                // Currently this is not requre and in future be will remove this comment
-
-                // if ($PAGE->url->compare(new moodle_url('/course/view.php'), URL_MATCH_BASE)) {
-                //     $focusdata['admininfotext'] = get_string('focusmodeactiveadminmsg', 'theme_remui');
-                //     $focusdata['enableadmininfo'] = true;
-                // }
             }
-            // $focusdata['on'] = get_user_preferences('enable_focus_mode', false) && $focusdata['enabled'];
             if ($focusdata['on']) {
                 $focusdata['btnbg'] = 'btn-danger';
-                $focusdata['btnicon'] = 'edw-icon edw-icon-Cancel';
+                $focusdata['btnicon'] = 'edw-icon edw-icon-Collapse';
                 $focusdata['btntext'] = get_string('focusmodeactivestatetext', 'theme_remui');
             } else {
                 $focusdata['btnbg'] = 'btn-primary';
@@ -382,7 +393,6 @@ class theme_remui_coursehandler {
             if ($PAGE->pagelayout === 'incourse') {
                 $focusdata['courseurl'] = $CFG->wwwroot . '/course/view.php?id=' . $COURSE->id;
             }
-
 
             if (is_enrolled($coursecontext, $USER->id)) {
                 $completion = new \completion_info($COURSE);
@@ -405,7 +415,7 @@ class theme_remui_coursehandler {
      * @param  Object $context Course context
      * @return Array           Array of users
      */
-    public function get_enrolled_students($course, $context,$userid=0,$admin = false) {
+    public function get_enrolled_students($course, $context, $userid = 0, $admin = false) {
         global $DB, $USER;
 
         $groups = [];
@@ -417,17 +427,17 @@ class theme_remui_coursehandler {
         $groups = groups_get_user_groups($course->id, $userid);
         $groups = $groups[0];
 
-        list($esql, $params) = get_enrolled_sql($context, 'moodle/course:isincompletionreports');
+        [$esql, $params] = get_enrolled_sql($context, 'moodle/course:isincompletionreports');
 
         $groupsql = '';
 
-        if(!$admin){
+        if (!$admin) {
             if (!has_capability('moodle/site:accessallgroups', $context) && $course->groupmode == 1) {
                 if (empty($groups)) {
                     return [];
                 }
 
-                list($insql, $inparams) = $DB->get_in_or_equal($groups, SQL_PARAMS_NAMED, 'groups', true, true);
+                [$insql, $inparams] = $DB->get_in_or_equal($groups, SQL_PARAMS_NAMED, 'groups', true, true);
                 $groupsql = " JOIN {groups_members} gm ON gm.groupid $insql AND gm.userid = u.id";
                 $params = array_merge($params, $inparams);
             }
@@ -474,35 +484,29 @@ class theme_remui_coursehandler {
      *
      * @return array
      */
-    public function set_course_stats($course,$admins=false) {
+    public function set_course_stats($course, $admins = false) {
+        $statsjson = json_decode(get_config('theme_remui', "edwcoursestats"), true);
 
-        $statsjson = json_decode(get_config('theme_remui',"edwcoursestats"),true);
-
-        $stats = array();
+        $stats = [];
         $context = \context_course::instance($course->id);
         // This capability is allowed to only students - 'moodle/course:isincompletionreports'.
-        if($admins){
-
+        if ($admins) {
             $adminuser = get_admin();
 
-            $enrolledusers = $this->get_enrolled_students($course, $context,$adminuser->id,true);
+            $enrolledusers = $this->get_enrolled_students($course, $context, $adminuser->id, true);
 
-            $stats = $this->calculate_course_stats($course,$enrolledusers);
+            $stats = $this->calculate_course_stats($course, $enrolledusers);
 
-            $statsjson["course".$course->id] = $stats;
+            $statsjson["course" . $course->id] = $stats;
 
             set_config("edwcoursestats", json_encode($statsjson), "theme_remui");
-
-        }else{
-
+        } else {
             $enrolledusers = $this->get_enrolled_students($course, $context);
 
-            $stats = $this->calculate_course_stats($course,$enrolledusers);
-
+            $stats = $this->calculate_course_stats($course, $enrolledusers);
         }
 
         return $stats;
-
     }
 
     /**
@@ -512,10 +516,8 @@ class theme_remui_coursehandler {
      * @param array $enrolledusers The array of enrolled users.
      * @return array The course statistics, including the number of completed, in-progress, and not-started courses.
      */
-
     public function calculate_course_stats($course, $enrolledusers) {
-
-        $stats = array();
+        $stats = [];
         $coursepercentage = new \core_completion\progress();
         $stats['completed'] = 0;
         $stats['inprogress'] = 0;
@@ -546,7 +548,6 @@ class theme_remui_coursehandler {
         }
 
         return $stats;
-
     }
 
     /**
@@ -557,24 +558,18 @@ class theme_remui_coursehandler {
      * @return array
      */
     public function get_course_stats($course) {
+        $statsjson = json_decode(get_config('theme_remui', "edwcoursestats"), true);
 
-        $statsjson = json_decode(get_config('theme_remui',"edwcoursestats"),true);
+        $stats = [];
 
-        $stats = array();
-
-        if(isset($statsjson["course".$course->id])){
-
-            $stats = $statsjson["course".$course->id];
-
-        }else{
-
-            $stats = $this->set_course_stats($course,true);
-
+        if (isset($statsjson["course" . $course->id])) {
+            $stats = $statsjson["course" . $course->id];
+        } else {
+            $stats = $this->set_course_stats($course, true);
         }
 
         // It will not update the course stats in db it will calculate and return it.
-        if($course->groupmode == 1 && !$this->is_admin_or_manager()){
-
+        if ($course->groupmode == 1 && !$this->is_admin_or_manager()) {
             $stats = $this->set_course_stats($course);
         }
         return $stats;
@@ -587,12 +582,11 @@ class theme_remui_coursehandler {
      * @return array
      */
     public function set_dashboard_stats($userid) {
-
-        $statsjson = json_decode(get_config('theme_remui',"edwdashboardstats"),true);
+        $statsjson = json_decode(get_config('theme_remui', "edwdashboardstats"), true);
 
         $coursepercentage = new \core_completion\progress();
 
-        $stats = array();
+        $stats = [];
 
         $courses = enrol_get_users_courses($userid);
 
@@ -601,6 +595,15 @@ class theme_remui_coursehandler {
         $activitiescomplete = 0;
         $activitiesdue = 0;
         foreach ($courses as $key => $course) {
+            if (
+                empty($course->visible) && !has_capability(
+                    'moodle/course:viewhiddencourses',
+                    \context_course::instance($course->id),
+                    $userid
+                )
+            ) {
+                continue;
+            }
             $coursescount++;
             $completion = new \completion_info($course);
             $progresspercentvalue = $coursepercentage->get_course_progress_percentage($course, $userid);
@@ -618,7 +621,6 @@ class theme_remui_coursehandler {
                 if ($progresspercentvalue == "100") {
                     $coursescompleted++;
                 }
-
             }
         }
 
@@ -630,7 +632,6 @@ class theme_remui_coursehandler {
         $statsjson[$userid] = $stats;
 
         set_config("edwdashboardstats", json_encode($statsjson), "theme_remui");
-
     }
 
     /**
@@ -640,21 +641,18 @@ class theme_remui_coursehandler {
      * @return array
      */
     public function get_dashboard_stats() {
-
         global $USER;
 
-        $statsjson = json_decode(get_config('theme_remui',"edwdashboardstats"),true);
+        $statsjson = json_decode(get_config('theme_remui', "edwdashboardstats"), true);
 
-        $stats = array();
+        $stats = [];
 
-        if(isset($statsjson[$USER->id])){
-
+        if (isset($statsjson[$USER->id])) {
             $stats = $statsjson[$USER->id];
-
-        }else{
+        } else {
             $this->set_dashboard_stats($USER->id);
 
-            $statsjson = json_decode(get_config('theme_remui',"edwdashboardstats"),true);
+            $statsjson = json_decode(get_config('theme_remui', "edwdashboardstats"), true);
 
             $stats = $statsjson[$USER->id];
         }
@@ -662,21 +660,25 @@ class theme_remui_coursehandler {
     }
 
 
+    /**
+     * Reset dashboard stats for users in course.
+     *
+     * @param object $course Course object
+     */
     public function reset_dashboard_stats_for_users_incourse($course) {
-
         $coursecontext = \context_course::instance($course->id);
 
-        $courseuserids = get_enrolled_users($coursecontext,'',0,'u.id',);
+        $courseuserids = get_enrolled_users($coursecontext, '', 0, 'u.id');
 
-        // Convert the array of objects to an array of associative arrays
-        $courseuseridsArray = array_map(function($user) {
+        // Convert the array of objects to an array of associative arrays.
+        $courseuseridsarray = array_map(function ($user) {
             return (array) $user;
         }, $courseuserids);
 
-        // Use array_column to extract the 'id' values
-        $courseuserids = array_column($courseuseridsArray, 'id');
+        // Use array_column to extract the 'id' values.
+        $courseuserids = array_column($courseuseridsarray, 'id');
 
-        $statsjson = json_decode(get_config('theme_remui',"edwdashboardstats"),true);
+        $statsjson = json_decode(get_config('theme_remui', "edwdashboardstats"), true);
 
         // Ensure $statsjson is always an array to avoid errors in array_diff_key().
         // This handles cases where the config is missing or empty, so we safely proceed with an empty array.
@@ -684,19 +686,18 @@ class theme_remui_coursehandler {
             $statsjson = [];
         }
 
-        // Remove keys from $statsjson where values are present in $courseuserids
+        // Remove keys from $statsjson where values are present in $courseuserids.
         $statsjson = array_diff_key($statsjson, $courseuserids);
 
         set_config("edwdashboardstats", json_encode($statsjson), "theme_remui");
-
     }
         /**
          * Returns the data for course filter.
          */
     public static function get_course_filters_data() {
         global $PAGE;
-        $filterdata = array();
-        $catdata = array();
+        $filterdata = [];
+        $catdata = [];
         $categories = \core_course_category::make_categories_list();
         $firstcat = true;
         foreach ($categories as $key => $value) {
@@ -730,16 +731,17 @@ class theme_remui_coursehandler {
         set_user_preference('course_reset_time', time());
     }
 
-        /**
-         * Get cache object for logged in and logged out users
-         * @return Object Cache Object
-         */
+    /**
+     * Get cache object for logged in and logged out users.
+     *
+     * @return \cache\store\store_interface Cache object.
+     */
     private function get_cache() {
         global $USER;
         if (!empty($USER->id) || isguestuser($USER->id)) {
-            return cache::make('theme_remui', 'courses');
+            return \cache::make('theme_remui', 'courses');
         }
-        return cache::make('theme_remui', 'guestcourses');
+        return \cache::make('theme_remui', 'guestcourses');
     }
 
         /**
@@ -776,19 +778,19 @@ class theme_remui_coursehandler {
         global $DB, $CFG, $USER, $OUTPUT;
         $count = 0;
         $coursecount = 0;
-        $coursesarray = array();
+        $coursesarray = [];
         $where = '';
 
         if (!empty($courses)) {
             $coursecount = count($courses);
         }
 
-        require_once($CFG->dirroot.'/course/renderer.php');
+        require_once($CFG->dirroot . '/course/renderer.php');
 
         if (empty($courses)) {
             // Retrieve list of courses in category.
             $where = 'WHERE c.id <> :siteid ';
-            $params = array('siteid' => SITEID);
+            $params = ['siteid' => SITEID];
             $join = '';
             $sesskey = strtolower(sesskey());
             $cattable = 'tmp_catids' . $sesskey;
@@ -798,7 +800,7 @@ class theme_remui_coursehandler {
                 $cats = [];
                 foreach ($categories as $category) {
                     $cats[] = (object)[
-                        'tempid' => $category
+                        'tempid' => $category,
                     ];
                 }
                 if (!empty($categories)) {
@@ -810,11 +812,11 @@ class theme_remui_coursehandler {
             if (!empty($search)) {
                 $search = '%' . str_replace(' ', '%', $search) . '%';
                 $where .= " AND ( LOWER(c.fullname) like LOWER(:name1) OR LOWER(c.shortname) like LOWER(:name2) )";
-                $params = $params + array("name1" => $search, "name2" => $search);
+                $params = $params + ["name1" => $search, "name2" => $search];
             }
             if ($isfilterapplied) {
                 if (!empty($filteredcourseids)) {
-                    list($insql, $inparams) = $DB->get_in_or_equal($filteredcourseids, SQL_PARAMS_NAMED);
+                    [$insql, $inparams] = $DB->get_in_or_equal($filteredcourseids, SQL_PARAMS_NAMED);
                     $where .= " AND c.id $insql";
                     $params = $params + $inparams;
                 } else {
@@ -824,7 +826,7 @@ class theme_remui_coursehandler {
             }
 
             // Get list of courses without preloaded coursecontacts because we don't need them for every course.
-            list($coursecount, $courses) = $this->get_course_records(
+            [$coursecount, $courses] = $this->get_course_records(
                 $where,
                 $join,
                 $params,
@@ -848,9 +850,9 @@ class theme_remui_coursehandler {
             return $coursecount;
         }
 
-        $beginnerecourseids = Utility::get_skilllevel_filtered_courseids([1]);
-        $intermediatecourseids = Utility::get_skilllevel_filtered_courseids([2]);
-        $advancedcourseids = Utility::get_skilllevel_filtered_courseids([3]);
+        $beginnerecourseids = utility::get_skilllevel_filtered_courseids([1]);
+        $intermediatecourseids = utility::get_skilllevel_filtered_courseids([2]);
+        $advancedcourseids = utility::get_skilllevel_filtered_courseids([3]);
 
         // Prepare courses array.
         $chelper = new \coursecat_helper();
@@ -867,26 +869,56 @@ class theme_remui_coursehandler {
             $coursesarray[$count]["courseid"] = $course->id;
             $coursesarray[$count]["coursename"] = strip_tags($chelper->get_course_formatted_name($course));
             $coursesarray[$count]["shortname"] = $course->shortname;
-            $coursesarray[$count]["categoryname"] = format_text($DB->get_record('course_categories', array('id' => $course->category))->name,FORMAT_HTML);
+            $categoryrecord = $DB->get_record('course_categories', ['id' => $course->category]);
+            $coursesarray[$count]["categoryname"] = format_text($categoryrecord->name, FORMAT_HTML);
             $coursesarray[$count]["visible"] = $course->visible;
-            $coursesarray[$count]["courseurl"] = $CFG->wwwroot."/course/view.php?id=".$course->id;
+            $coursesarray[$count]["courseurl"] = $CFG->wwwroot . "/course/view.php?id=" . $course->id;
 
             $slilllevel = null;
-            if (in_array($course->id, $beginnerecourseids)) {
-                $slilllevel = [
-                    'badge' => 'badge-light',
-                    'labeltag' => get_string('skill1', 'theme_remui'),
-                ];
-            } else if (in_array($course->id, $intermediatecourseids)) {
-                $slilllevel = [
-                    'badge' => 'badge-info',
-                    'labeltag' => get_string('skill2', 'theme_remui'),
-                ];
-            } else if (in_array($course->id, $advancedcourseids) ) {
-                $slilllevel = [
-                    'badge' => 'badge-warning',
-                    'labeltag' => get_string('skill3', 'theme_remui'),
-                ];
+
+            // Fetch the field data with join.
+            $sql = "SELECT f.configdata, d.intvalue
+                FROM {customfield_field} f
+                JOIN {customfield_data} d ON f.id = d.fieldid
+                WHERE f.shortname = :shortname
+                AND d.instanceid = :instanceid";
+
+            $params = [
+                'shortname'  => 'edwskilllevel',
+                'instanceid' => $course->id,
+            ];
+
+            $record = $DB->get_record_sql($sql, $params);
+
+            if ($record) {
+                // Decode configdata JSON.
+                $config = json_decode($record->configdata);
+
+                // Options are stored as string separated by \r\n.
+                $options = preg_split('/\r\n|\n|\r/', $config->options);
+
+                // Get the correct option based on intvalue.
+                $intvalue = (int) $record->intvalue;
+                $selectedoption = format_text(isset($options[$intvalue - 1]) ? $options[$intvalue - 1] : null, FORMAT_HTML);
+
+                if ($selectedoption !== null) {
+                    if ($intvalue == 2) {
+                        $slilllevel = [
+                            'badge'    => 'badge-info',
+                            'labeltag' => $selectedoption,
+                        ];
+                    } else if ($intvalue == 3) {
+                        $slilllevel = [
+                            'badge'    => 'badge-warning',
+                            'labeltag' => $selectedoption,
+                        ];
+                    } else {
+                        $slilllevel = [
+                            'badge'    => 'badge-light',
+                            'labeltag' => $selectedoption,
+                        ];
+                    }
+                }
             }
 
             $coursesarray[$count]["skillleveltag"] = $slilllevel;
@@ -896,16 +928,20 @@ class theme_remui_coursehandler {
             $version33 = "2017092100";
             $curversion = $DB->get_record_sql(
                 'SELECT * FROM {config_plugins} WHERE plugin = ? AND name = ?',
-                array('theme_remui', 'version')
+                ['theme_remui', 'version']
             );
             $userenrollink = "/enrol/users.php?id=";
             if ($curversion > $version33) {
                 $userenrollink = "/user/index.php?id=";
             }
-            $coursesarray[$count]["enrollusers"] = $CFG->wwwroot.$userenrollink.$course->id."&version=".$course->id;
-            $coursesarray[$count]["editcourse"] = $CFG->wwwroot."/course/edit.php?id=".$course->id;
-            $coursesarray[$count]["grader"] = $CFG->wwwroot."/grade/report/grader/index.php?id=".$course->id;
-            $coursesarray[$count]["activity"] = $CFG->wwwroot."/report/outline/index.php?id=".$course->id;
+            $enrollusersurl = $CFG->wwwroot . $userenrollink . $course->id . "&version=" . $course->id;
+            $coursesarray[$count]["enrollusers"] = $enrollusersurl;
+            $editcourseurl = $CFG->wwwroot . "/course/edit.php?id=" . $course->id;
+            $coursesarray[$count]["editcourse"] = $editcourseurl;
+            $graderurl = $CFG->wwwroot . "/grade/report/grader/index.php?id=" . $course->id;
+            $coursesarray[$count]["grader"] = $graderurl;
+            $activityurl = $CFG->wwwroot . "/report/outline/index.php?id=" . $course->id;
+            $coursesarray[$count]["activity"] = $activityurl;
             $coursesummary = strip_tags($chelper->get_course_formatted_summary($corecourselistelement));
             $coursesummary = preg_replace('/\n+/', '', $coursesummary);
             $summarystring = $coursesummary;
@@ -919,41 +955,47 @@ class theme_remui_coursehandler {
                     $coursesarray[$count]["usercanmanage"] = true;
                 }
             }
-            // Course enrolled users count
+            // Course enrolled users count.
             $coursesarray[$count]["enrolleduserscount"] = false;
-            if(get_config('theme_remui', 'enrolleduserscountvisibility')){
-                $coursesarray[$count]["enrolleduserscount"] = $this->formatcoursecounts(count($this->get_enrolled_students($course, $context)));
+            if (get_config('theme_remui', 'enrolleduserscountvisibility')) {
+                $enrolledcount = count($this->get_enrolled_students($course, $context));
+                $coursesarray[$count]["enrolleduserscount"] = $this->formatcoursecounts($enrolledcount);
             }
 
             $coursedatevisibility = get_config('theme_remui', 'coursedatevisibility');
             $coursesarray[$count]["showselecteddatesetting"] = false;
-            $coursesarray[$count]["showselecteddatesettingname"] =false;
-            $coursesarray[$count]["showselecteddatesettingdate"] =false;
-            if($coursedatevisibility == 'hidedate'){
-                $coursesarray[$count]["showselecteddatesetting"]  = false;
-            } else if($coursedatevisibility == 'showstartdate'){
-                $coursesarray[$count]["showselecteddatesetting"] = get_string('coursestarted', 'theme_remui').": ".date('M Y', $course->startdate);
+            $coursesarray[$count]["showselecteddatesettingname"] = false;
+            $coursesarray[$count]["showselecteddatesettingdate"] = false;
+            if ($coursedatevisibility == 'hidedate') {
+                $coursesarray[$count]["showselecteddatesetting"] = false;
+            } else if ($coursedatevisibility == 'showstartdate') {
+                $startdatestr = get_string('coursestarted', 'theme_remui') . ": " . date('M Y', $course->startdate);
+                $coursesarray[$count]["showselecteddatesetting"] = $startdatestr;
                 $coursesarray[$count]["showselecteddatesettingname"] = get_string('coursestarted', 'theme_remui');
                 $coursesarray[$count]["showselecteddatesettingdate"] = date('d M Y', $course->startdate);
-            } else if($coursedatevisibility == 'showupdatedate'){
-                $coursesarray[$count]["showselecteddatesetting"] = get_string('courseupdated', 'theme_remui').": ".date('M Y', $course->timemodified);
+            } else if ($coursedatevisibility == 'showupdatedate') {
+                $updatedatestr = get_string('courseupdated', 'theme_remui') . ": " . date('M Y', $course->timemodified);
+                $coursesarray[$count]["showselecteddatesetting"] = $updatedatestr;
                 $coursesarray[$count]["showselecteddatesettingname"] = get_string('courseupdated', 'theme_remui');
                 $coursesarray[$count]["showselecteddatesettingdate"] = date('d M Y', $course->timemodified);
-            }else if($coursedatevisibility == 'showstartwhenend' && $course->enddate){
-                $coursesarray[$count]["showselecteddatesetting"] = get_string('coursestarted', 'theme_remui').": ".date('M Y', $course->startdate);
+            } else if ($coursedatevisibility == 'showstartwhenend' && $course->enddate) {
+                $startdatestr = get_string('coursestarted', 'theme_remui') . ": " . date('M Y', $course->startdate);
+                $coursesarray[$count]["showselecteddatesetting"] = $startdatestr;
                 $coursesarray[$count]["showselecteddatesettingname"] = get_string('coursestarted', 'theme_remui');
                 $coursesarray[$count]["showselecteddatesettingdate"] = date('d M Y', $course->startdate);
-            }else{
+            } else {
                 $coursesarray[$count]["showselecteddatesetting"] = false;
             }
-            $coursesarray[$count]["enrolledusertitletext"] =  get_string('coursecardsenrolledetxt', 'theme_remui' );
-            $coursesarray[$count]["lessonstitletext"]  = get_string('coursecardlessonstext','theme_remui'  );
+            $coursesarray[$count]["enrolledusertitletext"] = get_string('coursecardsenrolledetxt', 'theme_remui');
+            $coursesarray[$count]["lessonstitletext"] = get_string('coursecardlessonstext', 'theme_remui');
 
-            if(get_config('theme_remui', 'showenrolledtextinput')){
-                $coursesarray[$count]["enrolledusertitletext"] = format_text(get_config('theme_remui', 'showenrolledtextinput'),FORMAT_HTML);
+            if (get_config('theme_remui', 'showenrolledtextinput')) {
+                $enrolledtext = get_config('theme_remui', 'showenrolledtextinput');
+                $coursesarray[$count]["enrolledusertitletext"] = format_text($enrolledtext, FORMAT_HTML);
             }
-            if(get_config('theme_remui', 'showlessontextinput')){
-                $coursesarray[$count]["lessonstitletext"] = format_text(get_config('theme_remui', 'showlessontextinput'),FORMAT_HTML);;
+            if (get_config('theme_remui', 'showlessontextinput')) {
+                $lessontext = get_config('theme_remui', 'showlessontextinput');
+                $coursesarray[$count]["lessonstitletext"] = format_text($lessontext, FORMAT_HTML);
             }
 
             // Course enrollment icons.
@@ -961,13 +1003,13 @@ class theme_remui_coursehandler {
                 $iconhtml = '';
                 $iconsarraylength = count($icons);
                 $arraylenthcount = 0;
-                if($iconsarraylength > 2){
+                if ($iconsarraylength > 2) {
                     $coursesarray[$count]["enrollmenticonsremainig"] = $iconsarraylength - 2;
-                }else{
+                } else {
                     $coursesarray[$count]["enrollmenticonsremainig"] = false;
                 }
                 foreach ($icons as $pixicon) {
-                    if($arraylenthcount == 2){
+                    if ($arraylenthcount == 2) {
                         break;
                     }
                     $iconhtml .= $OUTPUT->render($pixicon);
@@ -981,53 +1023,65 @@ class theme_remui_coursehandler {
             $coursesarray[$count]['instructorcount'] = (count($instructors) > 1) ? count($instructors) - 1 : "";
 
             // Get Ratings and Review Context.
-            $rnrshortdesign =false;
+            $rnrshortdesign = false;
             if (is_plugin_available('block_edwiserratingreview')) {
-                $rnrshortdesignarray = utility:: get_ernr_coursecard_design($course);
-                if($rnrshortdesignarray['rnrshortratingvalue'] > 0){
+                $rnrshortdesignarray = utility::get_ernr_coursecard_design($course);
+                if ($rnrshortdesignarray['rnrshortratingvalue'] > 0) {
                     $rnrshortdesign = $rnrshortdesignarray['rnrshortdesign'];
                 }
             }
 
             $coursesarray[$count]["ernrshortdesign"] = $rnrshortdesign;
-             // Get sections information.
+            // Get sections information.
             $modinfo = get_fast_modinfo($course);
             $sections = $modinfo->get_section_info_all();
             $courselessoncount = 0;
-            foreach($sections as $section){
-                if($section->visible){
+            foreach ($sections as $section) {
+                if ($section->visible) {
                     $courselessoncount++;
                 }
             }
             $coursesarray[$count]['lessoncount'] = false;
-            $coursesarray[$count]['multilessonpresent']  = false;
-            $coursesarray[$count]['singleessonpresent']  = false;
-            if(get_config('theme_remui', 'lessonsvisiblityoncoursecard')){
+            $coursesarray[$count]['multilessonpresent'] = false;
+            $coursesarray[$count]['singleessonpresent'] = false;
+            if (get_config('theme_remui', 'lessonsvisiblityoncoursecard')) {
                 $coursesarray[$count]['lessoncount'] = $courselessoncount;
-                if($coursesarray[$count]['lessoncount'] > 1){
-                    $coursesarray[$count]['multilessonpresent']  = true;
-                }else{
-                 $coursesarray[$count]['singleessonpresent']  = true;
+                if ($coursesarray[$count]['lessoncount'] > 1) {
+                    $coursesarray[$count]['multilessonpresent'] = true;
+                } else {
+                    $coursesarray[$count]['singleessonpresent'] = true;
                 }
             }
             foreach ($instructors as $key => $instructor) {
-                $coursesarray[$count]["instructors"][] = array(
+                $coursesarray[$count]["instructors"][] = [
                     'name' => $instructor['username'],
-                    'url'  => $CFG->wwwroot.'/user/profile.php?id='.$key,
-                    'picture' => utility::get_user_picture($DB->get_record('user', array('id' => $key)))
-                );
+                    'url'  => $CFG->wwwroot . '/user/profile.php?id=' . $key,
+                    'picture' => utility::get_user_picture($DB->get_record('user', ['id' => $key])),
+                ];
                 break;
             }
 
             // Course image.
             foreach ($corecourselistelement->get_course_overviewfiles() as $file) {
                 $isimage = $file->is_valid_image();
-                $courseimage = file_encode_url(
-                    "$CFG->wwwroot/pluginfile.php",
-                    '/'. $file->get_contextid(). '/'. $file->get_component(). '/'.
-                    $file->get_filearea(). $file->get_filepath(). $file->get_filename(),
-                    !$isimage
-                );
+                if ($CFG->branch >= '501') {
+                    $courseimage = url::make_pluginfile_url(
+                        $file->get_contextid(),
+                        $file->get_component(),
+                        $file->get_filearea(),
+                        null, // Itemid set to null unless you know it.
+                        $file->get_filepath(),
+                        $file->get_filename(),
+                        !$isimage
+                    )->out();
+                } else {
+                    $courseimage = file_encode_url(
+                        "$CFG->wwwroot/pluginfile.php",
+                        '/' . $file->get_contextid() . '/' . $file->get_component() . '/' .
+                        $file->get_filearea() . $file->get_filepath() . $file->get_filename(),
+                    );
+                }
+
                 if ($isimage) {
                     break;
                 }
@@ -1044,7 +1098,7 @@ class theme_remui_coursehandler {
         if ($totalcount === false) {
             return $coursesarray;
         }
-        return array($coursecount, $coursesarray);
+        return [$coursecount, $coursesarray];
     }
 
 
@@ -1059,13 +1113,13 @@ class theme_remui_coursehandler {
         global $DB;
 
         $allcats = array_keys(\core_course_category::make_categories_list());
-        $allowedcat = array();
+        $allowedcat = [];
 
         if ($categoryid == 'all') {
             return $allcats;
         } else if ($categoryid !== null && is_numeric($categoryid)) {
             $sql = "SELECT * FROM {course_categories} WHERE path LIKE ? OR path LIKE ?";
-            $categories = $DB->get_records_sql($sql, array('%/' . $categoryid, '%/' . $categoryid . '/%'));
+            $categories = $DB->get_records_sql($sql, ['%/' . $categoryid, '%/' . $categoryid . '/%']);
             $allowedcat = array_intersect($allcats, array_keys($categories));
         }
 
@@ -1083,10 +1137,8 @@ class theme_remui_coursehandler {
         $dbman = $DB->get_manager();
 
         $table = new xmldb_table($tablename);
-        // $table->add_field('id', XMLDB_TYPE_INTEGER, 10);
-        // $table->add_field('tempid', XMLDB_TYPE_INTEGER, 10);
 
-        $table->add_field('id', XMLDB_TYPE_INTEGER, 10,XMLDB_UNSIGNED, XMLDB_NOTNULL, XMLDB_SEQUENCE);
+        $table->add_field('id', XMLDB_TYPE_INTEGER, 10, XMLDB_UNSIGNED, XMLDB_NOTNULL, XMLDB_SEQUENCE);
         $table->add_field('tempid', XMLDB_TYPE_INTEGER, 10);
         $table->add_key('primary', XMLDB_KEY_PRIMARY, ['id']);
 
@@ -1115,12 +1167,23 @@ class theme_remui_coursehandler {
         // Course image.
         foreach ($corecourselistelement->get_course_overviewfiles() as $file) {
             $isimage = $file->is_valid_image();
-            $courseimage = file_encode_url(
-                "$CFG->wwwroot/pluginfile.php",
-                '/'. $file->get_contextid(). '/'. $file->get_component(). '/'.
-                $file->get_filearea(). $file->get_filepath(). $file->get_filename(),
-                !$isimage
-            );
+            if ($CFG->branch >= '501') {
+                $courseimage = url::make_pluginfile_url(
+                    $file->get_contextid(),
+                    $file->get_component(),
+                    $file->get_filearea(),
+                    null, // You can pass the itemid here if needed.
+                    $file->get_filepath(),
+                    $file->get_filename(),
+                    !$isimage
+                )->out();
+            } else {
+                $courseimage = file_encode_url(
+                    "$CFG->wwwroot/pluginfile.php",
+                    '/' . $file->get_contextid() . '/' . $file->get_component() . '/' .
+                    $file->get_filearea() . $file->get_filepath() . $file->get_filename(),
+                );
+            }
             if ($isimage) {
                 break;
             }
@@ -1147,36 +1210,45 @@ class theme_remui_coursehandler {
 
         $groupids = 0;
 
-        if($course->groupmode == 1){
+        if ($course->groupmode == 1) {
             $groupids = $usergroups[0];
         }
         $coursecontext = \context_course::instance($courseid);
-        $teachers = get_enrolled_users($coursecontext, 'mod/folder:managefiles', $groupids, '*', 'firstname', $limitfrom = 0, $limitnum = 0, $onlyactive = true);
-        $roles =   new stdClass();
+        $teachers = get_enrolled_users(
+            $coursecontext,
+            'mod/folder:managefiles',
+            $groupids,
+            '*',
+            'firstname',
+            $limitfrom = 0,
+            $limitnum = 0,
+            $onlyactive = true
+        );
+        $roles = new stdClass();
 
         $allroles = get_all_roles();
-        foreach($allroles as $singlerole){
-            if($singlerole->shortname == 'editingteacher'){
+        foreach ($allroles as $singlerole) {
+            if ($singlerole->shortname == 'editingteacher') {
                 $roles = $singlerole;
                 break;
             }
         }
-        if(!isset($roles)){
+        if (!isset($roles)) {
             $roles->id = "";
         }
 
-        $context = array();
+        $context = [];
 
         if ($teachers) {
             $namescount = 4;
             $profilecount = 0;
             foreach ($teachers as $key => $teacher) {
                 if ($frontlineteacher && $profilecount < $namescount) {
-                    $instructor = array();
+                    $instructor = [];
                     $instructor['id'] = $teacher->id;
                     $instructor['name'] = fullname($teacher, true);
                     $instructor['avatars'] = $OUTPUT->user_picture($teacher);
-                    $instructor['teacherprofileurl'] = $CFG->wwwroot.'/user/profile.php?id='.$teacher->id;
+                    $instructor['teacherprofileurl'] = $CFG->wwwroot . '/user/profile.php?id=' . $teacher->id;
                     if ($profilecount != 0) {
                         $instructor['hasanother'] = true;
                     }
@@ -1187,7 +1259,7 @@ class theme_remui_coursehandler {
             if ($profilecount > $namescount) {
                 $context['teachercount'] = $profilecount - $namescount;
             }
-            $context['participantspageurl'] = $CFG->wwwroot.'/user/index.php?id='.$courseid.'&roleid='.$roles->id;
+            $context['participantspageurl'] = $CFG->wwwroot . '/user/index.php?id=' . $courseid . '&roleid=' . $roles->id;
             $context['hasteachers'] = true;
         }
         return $context;
@@ -1197,17 +1269,21 @@ class theme_remui_coursehandler {
      * Get numbers formated in the format of 1k 2k 1m etc
      */
 
-    function formatcoursecounts($number) {
-        // If the number is greater than or equal to 1 million, format as millions
+    /**
+     * Format course counts.
+     *
+     * @param int $number Number to format
+     * @return string Formatted number
+     */
+    public function formatcoursecounts($number) {
+        // If the number is greater than or equal to 1 million, format as millions.
         if ($number >= 1000000) {
             return intval($number / 1000000, 1) . 'm';
-        }
-        // If the number is greater than or equal to 1000, format as thousands
-        elseif ($number >= 1000) {
+        } else if ($number >= 1000) {
+            // If the number is greater than or equal to 1000, format as thousands.
             return intval($number / 1000, 1) . 'k';
-        }
-        // Otherwise, return the original number
-        else {
+        } else {
+            // Otherwise, return the original number.
             return $number;
         }
     }

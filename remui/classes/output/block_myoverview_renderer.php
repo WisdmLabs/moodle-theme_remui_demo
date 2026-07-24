@@ -13,15 +13,23 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * myoverview block renderer
  *
- * @package    block_myoverview
+ * @package    theme_remui
  * @copyright  2016 Ryan Wyllie <ryan@moodle.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 namespace theme_remui\output;
 
+/**
+ * Block myoverview renderer class.
+ *
+ * @package   theme_remui
+ * @copyright (c) 2023 WisdmLabs (https://wisdmlabs.com/) <support@wisdmlabs.com>
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class block_myoverview_renderer extends \block_myoverview\output\renderer {
     /**
      * Return the main content for the block overview.
@@ -35,7 +43,7 @@ class block_myoverview_renderer extends \block_myoverview\output\renderer {
         $viewconarray = [
             'card' => "edw-icon edw-icon-Card-View",
             'list' => "edw-icon edw-icon-List-View-08",
-            'summary' => "edw-icon edw-icon-Topic-View"
+            'summary' => "edw-icon edw-icon-Topic-View",
         ];
         $count = 0;
         foreach ($templatecontext['layouts'] as $layoutitem) {
@@ -44,6 +52,7 @@ class block_myoverview_renderer extends \block_myoverview\output\renderer {
         }
         $templatecontext['dirroot'] = $CFG->wwwroot;
         $templatecontext['cardanimationsetting'] = get_config('theme_remui', 'courseanimation');
+        $templatecontext['moodle_version_gte501'] = ((int)$CFG->branch > 501);
         return $this->render_from_template('block_myoverview/main', $templatecontext);
     }
 }

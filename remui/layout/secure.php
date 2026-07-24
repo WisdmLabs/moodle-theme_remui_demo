@@ -33,7 +33,7 @@ $templatecontext = [
     'output' => $OUTPUT,
     'bodyattributes' => $bodyattributes,
     'sidepreblocks' => $blockshtml,
-    'hasblocks' => $hasblocks
+    'hasblocks' => $hasblocks,
 ];
 
 echo $OUTPUT->render_from_template('theme_remui/secure', $templatecontext);

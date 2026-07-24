@@ -24,14 +24,27 @@
 
 namespace theme_remui;
 
+/**
+ * Product notifications class.
+ *
+ * Handles enrollment and completion history tracking for product notifications.
+ *
+ * @package   theme_remui
+ * @copyright (c) 2023 WisdmLabs (https://wisdmlabs.com/) <support@wisdmlabs.com>
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class productnotifications {
-
-    private $_year;
-    private $_month;
+    /** @var string Current year */
+    private $year;
+    /** @var string Current month */
+    private $month;
+    /** @var string Completion history config prefix */
     private $hcompletion = "course_completion_history_";
+    /** @var string Enrollment history config prefix */
     private $henrollment = "course_enrollment_history_";
+    /** @var string Notification seen config prefix */
     private $notificationseen = "has_notification_seen_";
-    // Month-wise history data.
+    /** @var array Month-wise history data */
     private $defaulthistory = [
         "01" => 0,
         "02" => 0,
@@ -47,26 +60,53 @@ class productnotifications {
         "12" => 0,
     ];
 
+    /**
+     * Constructor.
+     */
     public function __construct() {
-        $this->_year = date('Y');
-        $this->_month = date('m');
+        $this->year = date('Y');
+        $this->month = date('m');
     }
 
+    /**
+     * Get current year.
+     *
+     * @return string Current year
+     */
     public function get_curr_year() {
-        return $this->_year;
+        return $this->year;
     }
 
+    /**
+     * Get current month.
+     *
+     * @return string Current month
+     */
     public function get_curr_month() {
-        return $this->_month;
+        return $this->month;
     }
-    public function get_config_name_by_year($configname, $year=null) {
+
+    /**
+     * Get config name by year.
+     *
+     * @param string $configname Config name prefix
+     * @param string|null $year Year to append, null for current year
+     * @return string Config name with year suffix
+     */
+    public function get_config_name_by_year($configname, $year = null) {
         if ($year == null) {
-            $year = $this->_year;
+            $year = $this->year;
         }
 
-        return $configname.$year;
+        return $configname . $year;
     }
 
+    /**
+     * Get history config value.
+     *
+     * @param string $configname Config name
+     * @return string|false Config value or false if not set
+     */
     public function get_history_config($configname) {
         if ($config = get_config("theme_remui", $configname)) {
             return $config;
@@ -74,6 +114,11 @@ class productnotifications {
         return false;
     }
 
+    /**
+     * Initialize history config with default values.
+     *
+     * @return void
+     */
     public function init_history_config() {
 
         // Course Completion Default Data Set.
@@ -89,10 +134,13 @@ class productnotifications {
         if (!$this->get_history_config($configname)) {
             set_config($configname, json_encode($this->defaulthistory), "theme_remui");
         }
-
     }
 
-    // Update Enrollment History for current month.
+    /**
+     * Update enrollment history for current month.
+     *
+     * @return void
+     */
     public function update_enrollment_history() {
         // Course Enrollment Default Data Set.
         $configname = $this->get_config_name_by_year($this->henrollment);
@@ -105,12 +153,16 @@ class productnotifications {
         $config = json_decode($config, true);
 
         // Save record for current month as this works on event basis.
-        $config[$this->_month] = $config[$this->_month] + 1;
+        $config[$this->month] = $config[$this->month] + 1;
 
         set_config($configname, json_encode($config), "theme_remui");
     }
 
-    // Update Course Completion History for current month.
+    /**
+     * Update course completion history for current month.
+     *
+     * @return void
+     */
     public function update_completion_history() {
         global $DB;
         // Course Enrollment Default Data Set.
@@ -127,21 +179,21 @@ class productnotifications {
 
         // Course Completion.
         $date = "1"; // No need to write it as 01.
-        $year = $this->_year;
+        $year = $this->year;
 
-        $todate = strtotime($year ."/".$this->_month."/".$date);
+        $todate = strtotime($year . "/" . $this->month . "/" . $date);
 
         // This will make sure to add leading '0' to number less than 10.
-        $prevmonth = sprintf('%02d', $this->_month - 1);
+        $prevmonth = sprintf('%02d', $this->month - 1);
 
         // To handle the year change.
-        if ($this->_month == "01") {
+        if ($this->month == "01") {
             $prevmonth = "12";
             $year = $year - 1;
         }
 
         // Converting Human time to epoch.
-        $fromdate = strtotime($year ."/".$prevmonth."/".$date);
+        $fromdate = strtotime($year . "/" . $prevmonth . "/" . $date);
 
         // Fetching the completion records from table.
         $sql = "SELECT * FROM {course_completions} WHERE timecompleted BETWEEN $fromdate AND $todate";
@@ -150,19 +202,22 @@ class productnotifications {
         $config[$prevmonth] = $records; // Save the record in last month for completion.
 
         set_config($configname, json_encode($config), "theme_remui");
-
     }
-    // Generate Notification msg to show.
-    public function get_notification_msg() {
 
+    /**
+     * Generate notification message to show.
+     *
+     * @return \stdClass Notification data object
+     */
+    public function get_notification_msg() {
         // Select current year configuration.
-        $month = $this->_month;
-        $year = $this->_year;
+        $month = $this->month;
+        $year = $this->year;
 
         // Its for new year change.
-        if ($this->_month == '01' || $this->_month == '1') {
+        if ($this->month == '01' || $this->month == '1') {
             $month = '12';
-            $year = $this->_year - 1;
+            $year = $this->year - 1;
         } else {
             $month = sprintf('%02d', $month - 1); // Fetch Last month data.
         }
@@ -195,7 +250,15 @@ class productnotifications {
 
         return $data;
     }
-    // Returns the config, if significant amount is available to show.
+
+    /**
+     * Check if notification should be shown based on config values.
+     *
+     * @param string $configname Config name prefix
+     * @param string $year Year to check
+     * @param string $month Month to check
+     * @return int|false Count value or false if not significant
+     */
     private function can_show_notification($configname, $year, $month) {
         $configname = $this->get_config_name_by_year($configname, $year);
         $config = $this->get_history_config($configname);

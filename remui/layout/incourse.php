@@ -31,17 +31,17 @@ require_once($CFG->dirroot . '/theme/remui/layout/common.php');
 
 if (isset($templatecontext['focusdata']['enabled']) && $templatecontext['focusdata']['enabled']) {
     if (isset($PAGE->cm->id)) {
-        list(
+        [
             $templatecontext['focusdata']['sections'],
             $templatecontext['focusdata']['active'],
             $templatecontext['focusdata']['previous'],
             $templatecontext['focusdata']['next']
-        ) = \theme_remui\utility::get_focus_mode_sections($COURSE, $PAGE->cm->id);
+        ] = \theme_remui\utility::get_focus_mode_sections($COURSE, $PAGE->cm->id);
     } else {
-        list(
+        [
             $templatecontext['focusdata']['sections'],
             $templatecontext['focusdata']['active']
-        ) = \theme_remui\utility::get_focus_mode_sections($COURSE);
+        ] = \theme_remui\utility::get_focus_mode_sections($COURSE);
     }
 }
 

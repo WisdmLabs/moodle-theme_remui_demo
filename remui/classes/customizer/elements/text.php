@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Theme customizer text element class
  *
@@ -28,7 +29,6 @@ namespace theme_remui\customizer\elements;
  * Text element.
  */
 class text extends base {
-
     /**
      * Prepare the output for the setting
      *
@@ -48,7 +48,7 @@ class text extends base {
             'help' => $this->get_help(),
             'default' => $default,
             'type' => 'text',
-            'options' => $this->process_options()
+            'options' => $this->process_options(),
         ];
 
         if (isset($options['responsive']) && $options['responsive'] == true) {
@@ -63,7 +63,7 @@ class text extends base {
                 'default' => $default,
                 'type' => 'text',
                 'classes' => 'setting-tablet',
-                'options' => $this->process_options()
+                'options' => $this->process_options(),
             ];
 
             $default = $this->get_config($this->name . '-mobile');
@@ -75,7 +75,7 @@ class text extends base {
                 'default' => $default,
                 'type' => 'text',
                 'classes' => 'setting-mobile',
-                'options' => $this->process_options()
+                'options' => $this->process_options(),
             ];
         }
 

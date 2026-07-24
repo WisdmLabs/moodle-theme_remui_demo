@@ -255,6 +255,16 @@
                 padding: 56px;
             }
         }
+
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+    }
+    .fp-navbar {
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+    }
+    .fp-repo-items {
+        outline: none;
     }
 }
 

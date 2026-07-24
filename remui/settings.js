@@ -277,10 +277,20 @@ define('theme_remui/settings', ['jquery', 'core_form/changechecker'], function($
             updateTabActionButtons(heading);
         });
     }
+
+    function checkEnableSignup() {
+        if ($('.enableSignUpDescNotice').length > 0) {
+            $('#id_s_theme_remui_enablesignup')
+                .prop('checked', false)
+                .prop('disabled', true);
+        }
+    }
+
     return {
         init: function() {
             init_accordion();
             attach_listener('');
+            checkEnableSignup();
         }
     };
 });

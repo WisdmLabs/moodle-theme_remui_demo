@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Edwiser Remui navigation bar.
  *
@@ -37,7 +38,6 @@ use lang_string;
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class remuinavbar implements \renderable {
-
     /** @var array The individual items of the navbar. */
     protected $items = [];
     /** @var moodle_page The current moodle page. */
@@ -75,7 +75,6 @@ class remuinavbar implements \renderable {
             }
         }
         if ($this->page->context->contextlevel == CONTEXT_COURSE) {
-
             if ($CFG->branch >= 405) {
                 $removesections = course_get_format($this->page->course)->can_sections_be_removed_from_navigation();
             }
@@ -96,7 +95,7 @@ class remuinavbar implements \renderable {
                     $this->remove($this->page->course->id, \breadcrumb_navigation_node::TYPE_COURSE);
                 }
             } else {
-                if (!str_starts_with($this->page->pagetype, 'section-view-') ) {
+                if (!str_starts_with($this->page->pagetype, 'section-view-')) {
                     $this->remove($this->page->course->id, \breadcrumb_navigation_node::TYPE_COURSE);
                 }
             }
@@ -111,12 +110,14 @@ class remuinavbar implements \renderable {
                 case 'group-assign':
                     // Remove the 'Groups' navbar node in the Groupings, Grouping, group Overview and Assign pages.
                     $this->remove('groups');
+                    // Intentional fall-through.
                 case 'backup-backup':
                 case 'backup-restorefile':
                 case 'backup-copy':
                 case 'course-reset':
                     // Remove the 'Import' navbar node in the Backup, Restore, Copy course and Reset pages.
                     $this->remove('import');
+                    // Intentional fall-through.
                 case 'course-user':
                     $this->remove('mygrades');
                     $this->remove('grades');
@@ -285,8 +286,10 @@ class remuinavbar implements \renderable {
      */
     protected function remove_no_link_items(bool $removesections = true): void {
         foreach ($this->items as $key => $value) {
-            if (!$value->is_last() &&
-                    (!$value->has_action() || ($value->type == \navigation_node::TYPE_SECTION && $removesections))) {
+            if (
+                !$value->is_last() &&
+                    (!$value->has_action() || ($value->type == \navigation_node::TYPE_SECTION && $removesections))
+            ) {
                 unset($this->items[$key]);
             }
         }
@@ -306,7 +309,7 @@ class remuinavbar implements \renderable {
         // to compare whether any of the breadcrumb items matches these pairs.
         $navigationviewitems = [];
         foreach ($navigationview->children as $child) {
-            list($childtext, $childaction) = $this->get_node_text_and_action($child);
+            [$childtext, $childaction] = $this->get_node_text_and_action($child);
             if ($childaction) {
                 $navigationviewitems[$childtext] = $childaction;
             }
@@ -314,10 +317,12 @@ class remuinavbar implements \renderable {
         // Loop through the breadcrumb items and if the item's 'text' and 'action' values matches with any of the
         // existing navigation view items, remove it from the breadcrumbs.
         foreach ($this->items as $item) {
-            list($itemtext, $itemaction) = $this->get_node_text_and_action($item);
+            [$itemtext, $itemaction] = $this->get_node_text_and_action($item);
             if ($itemaction) {
-                if (array_key_exists($itemtext, $navigationviewitems) &&
-                        $navigationviewitems[$itemtext] === $itemaction) {
+                if (
+                    array_key_exists($itemtext, $navigationviewitems) &&
+                        $navigationviewitems[$itemtext] === $itemaction
+                ) {
                     $this->remove($item->key);
                 }
             }
@@ -332,8 +337,8 @@ class remuinavbar implements \renderable {
     protected function remove_duplicate_items(): void {
         $taken = [];
         // Reverse the order of the items before filtering so that the first occurrence is removed instead of the last.
-        $filtereditems = array_values(array_filter(array_reverse($this->items), function($item) use (&$taken) {
-            list($itemtext, $itemaction) = $this->get_node_text_and_action($item);
+        $filtereditems = array_values(array_filter(array_reverse($this->items), function ($item) use (&$taken) {
+            [$itemtext, $itemaction] = $this->get_node_text_and_action($item);
             if ($itemaction) {
                 if (array_key_exists($itemtext, $taken) && $taken[$itemtext] === $itemaction) {
                     return false;

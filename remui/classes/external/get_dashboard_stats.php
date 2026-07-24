@@ -42,7 +42,7 @@ trait get_dashboard_stats {
      */
     public static function get_dashboard_stats_parameters() {
         return new external_function_parameters(
-            array ()
+            []
         );
     }
 
@@ -69,12 +69,12 @@ trait get_dashboard_stats {
      */
     public static function get_dashboard_stats_returns() {
         return new \external_single_structure(
-            array (
+            [
                 'coursesenrolled' => new external_value(PARAM_INT, 'Enrolled Users'),
                 'coursescompleted' => new external_value(PARAM_INT, 'Students Completed'),
                 'activitiescompleted' => new external_value(PARAM_INT, 'Students Inprogress'),
-                'activitiesdue' => new external_value(PARAM_INT, 'Students Not Started')
-            )
+                'activitiesdue' => new external_value(PARAM_INT, 'Students Not Started'),
+             ]
         );
     }
 }

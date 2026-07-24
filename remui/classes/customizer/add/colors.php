@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Theme customizer colors trait
  *
@@ -24,8 +25,12 @@
 
 namespace theme_remui\customizer\add;
 
+/**
+ * Colors trait.
+ *
+ * Provides functionality for adding color-related customizer settings.
+ */
 trait colors {
-
     /**
      * Add global color settings.
      *
@@ -40,7 +45,6 @@ trait colors {
         $this->add_background_settings($panel);
 
         $this->add_borders_settings($panel);
-
     }
 
     /**
@@ -55,7 +59,7 @@ trait colors {
             get_string('borderssettings', 'theme_remui'),
             $panel,
             [
-                'collapsed' => true
+                'collapsed' => true,
             ]
         );
 
@@ -69,7 +73,7 @@ trait colors {
             $panel,
             [
                 'help' => get_string('themecolors-lightbordercolor_help', 'theme_remui'),
-                'default' => $this->get_default_color('lightborder')
+                'default' => $this->get_default_color('lightborder'),
             ]
         );
 
@@ -83,7 +87,7 @@ trait colors {
             $panel,
             [
                 'help' => get_string('themecolors-mediumbordercolor_help', 'theme_remui'),
-                'default' => $this->get_default_color('border')
+                'default' => $this->get_default_color('border'),
             ]
         );
 
@@ -107,7 +111,7 @@ trait colors {
             get_string('backgroundsettings', 'theme_remui'),
             $panel,
             [
-                'collapsed' => true
+                'collapsed' => true,
             ]
         );
 
@@ -125,8 +129,8 @@ trait colors {
                 'options' => [
                     'color' => get_string('color', 'theme_remui'),
                     'gradient' => get_string('gradient', 'theme_remui'),
-                    'image' => get_string('image', 'theme_remui')
-                ]
+                    'image' => get_string('image', 'theme_remui'),
+                ],
             ]
         );
 
@@ -140,7 +144,7 @@ trait colors {
             $panel,
             [
                 'help' => get_string('page-background-color_help', 'theme_remui'),
-                'default' => $this->get_default_color('bg')
+                'default' => $this->get_default_color('bg'),
             ]
         );
 
@@ -154,7 +158,7 @@ trait colors {
             $panel,
             [
                 'help' => get_string('gradient-color1_help', 'theme_remui'),
-                'default' => $this->get_default_color('bg')
+                'default' => $this->get_default_color('bg'),
             ]
         );
 
@@ -168,7 +172,7 @@ trait colors {
             $panel,
             [
                 'help' => get_string('gradient-color2_help', 'theme_remui'),
-                'default' => $this->get_default_color('bg')
+                'default' => $this->get_default_color('bg'),
             ]
         );
 
@@ -186,8 +190,8 @@ trait colors {
                 'options' => [
                     'min' => 0,
                     'max' => 360,
-                    'step' => 5
-                ]
+                    'step' => 5,
+                ],
             ]
         );
 
@@ -205,8 +209,8 @@ trait colors {
                 'options' => [
                     'subdirs' => 0,
                     'maxfiles' => 1,
-                    'accepted_types' => array('web_image')
-                ]
+                    'accepted_types' => ['web_image'],
+                ],
             ]
         );
 
@@ -224,7 +228,7 @@ trait colors {
                 'options' => [
                     'scroll' => 'Scroll',
                     'fixed' => 'Fixed',
-                ]
+                ],
             ]
         );
 
@@ -235,8 +239,8 @@ trait colors {
             $panel,
             [
                 'content' => '
-                    <h6 class="h-semibold-6">'.get_string('other-bg-color', 'theme_remui').'</h6>
-                '
+                    <h6 class="h-semibold-6">' . get_string('other-bg-color', 'theme_remui') . '</h6>
+                ',
             ]
         );
 
@@ -250,7 +254,7 @@ trait colors {
             $panel,
             [
                 'help' => get_string('ascent-background-color_help', 'theme_remui'),
-                'default' => $this->get_default_color('ascentbg')
+                'default' => $this->get_default_color('ascentbg'),
             ]
         );
 
@@ -264,7 +268,7 @@ trait colors {
             $panel,
             [
                 'help' => get_string('element-background-color_help', 'theme_remui'),
-                'default' => $this->get_default_color('elementbg')
+                'default' => $this->get_default_color('elementbg'),
             ]
         );
 
@@ -288,7 +292,7 @@ trait colors {
             get_string('brandcolors-heading', 'theme_remui'),
             $panel,
             [
-                'collapsed' => false
+                'collapsed' => false,
             ]
         );
 
@@ -301,7 +305,7 @@ trait colors {
             $panel,
             [
                 'help' => get_string('primary-color_help', 'theme_remui'),
-                'default' => $this->get_default_color('primary')
+                'default' => $this->get_default_color('primary'),
             ]
         );
 
@@ -314,7 +318,7 @@ trait colors {
             $panel,
             [
                 'help' => get_string('secondary-color_help', 'theme_remui'),
-                'default' => $this->get_default_color('secondary')
+                'default' => $this->get_default_color('secondary'),
             ]
         );
 
@@ -327,7 +331,7 @@ trait colors {
             $panel,
             [
                 'help' => get_string('text-color_help', 'theme_remui', get_string('site')),
-                'default' => $this->get_default_color('text')
+                'default' => $this->get_default_color('text'),
             ]
         );
 
@@ -340,7 +344,7 @@ trait colors {
             $panel,
             [
                 'help' => get_string('border-color_help', 'theme_remui', get_string('site')),
-                'default' => $this->get_default_color('border')
+                'default' => $this->get_default_color('border'),
             ]
         );
 
@@ -352,42 +356,24 @@ trait colors {
             [
                 'content' => '
                     <div class="apply-smart-color-panel p-3">
-                        <h6 class="h-bold-6 mb-2">'.get_string('smart-colors-heading', 'theme_remui').'</h6>
+                        <h6 class="h-bold-6 mb-2">' . get_string('smart-colors-heading', 'theme_remui') . '</h6>
                         <div class="notice small-info-regular">
-                            '.get_string('smart-colors-info', 'theme_remui').'
+                            ' . get_string('smart-colors-info', 'theme_remui') . '
                         </div>
-                        <button type="button" name="smart-colors-button" id="id_smart-colors-button" class="btn btn-primary btn-sm">'.get_string('apply', 'theme_remui').'</button>
+                        <button type="button" name="smart-colors-button" id="id_smart-colors-button" ' .
+                        'class="btn btn-primary btn-sm">' . get_string('apply', 'theme_remui') . '</button>
                     </div>
-                '
+                ',
             ]
         );
 
-
-        // $this->add_setting(
-        //     'heading',
-        //     'smart-colors-heading',
-        //     get_string('smart-colors-heading', 'theme_remui'),
-        //     $panel
-        // );
-
-        // $this->add_setting(
-        //     'info',
-        //     'smart-colors-info',
-        //     get_string('smart-colors-info', 'theme_remui'),
-        //     $panel
-        // );
-
-        // $this->add_setting(
-        //     'button',
-        //     'smart-colors-button',
-        //     get_string('apply', 'theme_remui'),
-        //     $panel,
-        //     [
-        //         'options' => [
-        //             'class' => 'btn btn-primary btn-sm'
-        //         ]
-        //     ]
-        // );
+        // Smart colors settings (commented out for future use).
+        // get_string('apply', 'theme_remui'),
+        // $panel,
+        // [
+        // 'options' => [
+        // 'class' => 'btn btn-primary btn-sm'
+        // Smart colors settings (commented out for future use).
 
         $this->add_setting(
             'heading_end',

@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * A login page layout for the remui theme.
  *
@@ -25,11 +26,15 @@ defined('MOODLE_INTERNAL') || die();
 
 global $CFG;
 
-$extraclasses = array();
+$extraclasses = [];
 
 $extraclasses[] = \theme_remui\utility::get_main_bg_class();
 
 $extraclasses[] = get_config('theme_remui', 'loginpagelayout');
+
+if (get_config('theme_remui', 'radio_themepreset') === 'preset-modern') {
+    $extraclasses[] = 'modern-preset';
+}
 
 $bodyattributes = $OUTPUT->body_attributes($extraclasses);
 
@@ -52,7 +57,13 @@ if (get_config("theme_remui", "edw_external_data")) {
     // Set login background URL if a layout type was found
     if ($layouttype) {
         if ($layouttype == "videoformatdemo") {
-            set_config("edwiserdemoredirecturl", $CFG->wwwroot. '/course/view.php?id=26', 'theme_remui');    
+            $edwisedemotype = get_config("theme_remui", "edwisedemotype");
+
+            if ($edwisedemotype == "videoformatdemo") {
+                set_config("edwiserdemoredirecturl", $CFG->wwwroot. '/course/view.php?id=2', 'theme_remui');
+            } else if ( $edwisedemotype == "tryremuidemo" ) {
+                set_config("edwiserdemoredirecturl", $CFG->wwwroot. '/course/view.php?id=26', 'theme_remui');
+            }
         } else if ($layouttype == "pagebuilderdemo") {
             $loginbgurl = "https://staticcdn.edwiser.org/theme_remuiassets/images/demolayouts/classic.jpg";
         } else  {
@@ -66,16 +77,16 @@ $templatecontext = [
     'sitename' => format_string($SITE->shortname, true, ['context' => context_course::instance(SITEID), "escape" => false]),
     'fonts' => $fonts,
     'output' => $OUTPUT,
-    'bodyattributes' => $bodyattributes
+    'bodyattributes' => $bodyattributes,
 ];
 
 $templatecontext['logocontext'] = $this->get_branding_context();
 $templatecontext['signuptextcolor'] = get_config('theme_remui', 'signuptextcolor');
 if (get_config('theme_remui', 'loginpagelayout') != 'logincenter') {
     $templatecontext['canshowdesc'] = true;
-    $templatecontext['brandlogotext'] = format_text(get_config('theme_remui', 'brandlogotext'),FORMAT_HTML,array("noclean" => true));
+    $templatecontext['brandlogotext'] = format_text(get_config('theme_remui', 'brandlogotext'), FORMAT_HTML, ["noclean" => true]);
 }
 
-// Enable accessibility widgets
+// Enable accessibility widgets.
 \theme_remui\utility::enable_edw_aw_menu();
 echo $OUTPUT->render_from_template('theme_remui/login', $templatecontext);

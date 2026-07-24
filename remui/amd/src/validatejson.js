@@ -1,10 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable jsdoc/require-jsdoc*/
-/* eslint-disable jsdoc/require-jsdoc*/
-/* eslint-disable jsdoc/require-jsdoc*/
-/* eslint-disable no-loop-func*/
-/* eslint-disable no-unused-vars */
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -21,8 +14,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * JSON validation module for RemUI theme.
+ * Provides utilities for validating JSON strings and handling URL parameters.
+ *
  * @module     theme_remui/validatejson
- * @copyright (c) 2023 WisdmLabs (https://wisdmlabs.com/)
+ * @copyright  (c) 2023 WisdmLabs (https://wisdmlabs.com/) <support@wisdmlabs.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 

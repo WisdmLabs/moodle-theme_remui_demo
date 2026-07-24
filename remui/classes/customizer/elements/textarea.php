@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Theme customizer textarea element class
  *
@@ -28,7 +29,6 @@ namespace theme_remui\customizer\elements;
  * Textarea element.
  */
 class textarea extends base {
-
     /**
      * Prepare the output for the setting
      *
@@ -46,7 +46,7 @@ class textarea extends base {
             'label' => $label,
             'help' => $this->get_help(),
             'default' => $default,
-            'options' => $this->process_options()
+            'options' => $this->process_options(),
         ]);
     }
 }

@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Theme customizer number element class
  *
@@ -28,7 +29,6 @@ namespace theme_remui\customizer\elements;
  * Number setting element.
  */
 class number extends base {
-
     /**
      * Prepare the output for the setting
      *
@@ -47,7 +47,7 @@ class number extends base {
             'help' => $this->get_help(),
             'default' => $default,
             'type' => 'number',
-            'options' => $this->process_options()
+            'options' => $this->process_options(),
         ];
         if (!isset($options['responsive'])) {
             return $OUTPUT->render_from_template($this->component . '/customizer/elements/input', ['inputs' => $templatecontext]);
@@ -58,7 +58,7 @@ class number extends base {
         if (is_bool($options['responsive'])) {
             $options['responsive'] = [
                 'tablet' => $default,
-                'mobile' => $default
+                'mobile' => $default,
             ];
         }
 
@@ -76,7 +76,7 @@ class number extends base {
                 'default' => $default,
                 'type' => 'number',
                 'classes' => 'setting-' . $device,
-                'options' => $this->process_options()
+                'options' => $this->process_options(),
             ];
         }
         return $OUTPUT->render_from_template($this->component . '/customizer/elements/input', ['inputs' => $templatecontext]);

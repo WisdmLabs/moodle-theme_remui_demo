@@ -37,7 +37,7 @@
         ]
     }
 }}
-
+{{^moodle_version_gte502}}
 {{#edw_navbar}}
 <div class="simplesearchform d-none d-sm-block">
     <form autocomplete="off" action="{{{ action }}}" method="get" accept-charset="utf-8" class="mform m-0 form-inline searchform-navbar">
@@ -50,7 +50,7 @@
                 <span class="sr-only">{{{ searchstring }}}</span>
             </label>
             <div class="input-group-prepend">
-                <button type="submit" class="btn btn-submit" data-action="submit">
+                <button type="submit" class="btn btn-submit d-flex" data-action="submit">
                     <span class="edw-icon edw-icon-Search"></span>
                     <span class="sr-only">{{{ searchstring }}}</span>
                 </button>
@@ -60,10 +60,11 @@
     </form>
 </div>
 {{/edw_navbar}}
+{{/moodle_version_gte502}}
 
-<div id="searchinput-navbar-{{uniqid}}" class="simplesearchform d-sm-none">
+<div id="searchinput-navbar-{{uniqid}}" class="simplesearchform {{^moodle_version_gte502}}d-sm-none{{/moodle_version_gte502}}">
     <div class="collapse" id="searchform-navbar">
-        <form autocomplete="off" action="{{{ action }}}" method="get" accept-charset="utf-8" class="mform m-0 form-inline searchform-navbar">
+        <form autocomplete="off" action="{{{ action }}}" method="get" accept-charset="utf-8" class="mform m-0 form-inline searchform-navbar mx-auto">
             {{#hiddenfields}}
                 <input type="hidden" name="{{ name }}" value="{{ value }}">
             {{/hiddenfields}}
@@ -81,7 +82,6 @@
 
             </div>
             <a class="btn btn-close" data-action="closesearch" data-toggle="collapse" href="#searchform-navbar" role="button" >
-                <span class="edw-icon edw-icon-Cancel"></span>
                 <span class="sr-only">{{#str}} closebuttontitle {{/str}}</span>
             </a>
         </form>

@@ -30,7 +30,8 @@
     // #usernavigation .nav-link {
     //     padding: 0 $primary-nav-padding-x;
     // }
-    .login {
+    .login,
+    .signup {
         display: flex;
         align-items: center;
     }
@@ -92,7 +93,8 @@
                 }
             }
         }
-        .login {
+        .login,
+        .signup {
             display: flex;
             align-items: center;
         }

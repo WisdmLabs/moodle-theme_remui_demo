@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Theme customizer header process trait
  *
@@ -24,7 +25,34 @@
 
 namespace theme_remui\customizer\process;
 
+/**
+ * Header processing trait.
+ *
+ * Provides functionality for processing header-related customizer settings.
+ */
 trait header {
+    /**
+     * Sync hide-home and hide-my-courses back to Moodle core config after save.
+     *
+     * @return void
+     */
+    private function sync_header_settings_to_core() {
+        global $CFG;
+
+        if ($CFG->branch <= 501) {
+            return;
+        }
+
+        $hidehome = get_config('theme_remui', 'hide-home');
+        if ($hidehome !== false) {
+            set_config('enablemyhome', $hidehome ? 0 : 1);
+        }
+
+        $hidemycourses = get_config('theme_remui', 'hide-my-courses');
+        if ($hidemycourses !== false) {
+            set_config('enablemycourses', $hidemycourses ? 0 : 1);
+        }
+    }
 
     /**
      * Get nav header fonts.
@@ -47,14 +75,14 @@ trait header {
         $navbarshadow = $this->get_config('hds-boxshadow-enable');
         $variables['navbar-shadow'] = $navbarshadow ? 'true' : 'false';
         if ($navbarshadow) {
-            $variables['navbar-shadow-size'] = $this->get_config('header-primary-border-bottom-size').'rem';
-            $variables['navbar-shadow-blur'] = $this->get_config('header-primary-border-bottom-blur').'rem';
+            $variables['navbar-shadow-size'] = $this->get_config('header-primary-border-bottom-size') . 'rem';
+            $variables['navbar-shadow-blur'] = $this->get_config('header-primary-border-bottom-blur') . 'rem';
             $variables['navbar-shadow-color'] = $this->get_config('header-primary-border-bottom-color');
         }
 
         $fontsize = $this->get_config('header-site-identity-fontsize', true);
-        $variables['navbar-logo-text-size'] = $fontsize['default']."rem";
-        $variables['navbar-logo-text-size-tablet'] = $fontsize['tablet']."rem";
+        $variables['navbar-logo-text-size'] = $fontsize['default'] . "rem";
+        $variables['navbar-logo-text-size-tablet'] = $fontsize['tablet'] . "rem";
 
         $variables['navbar-logo-bg-color'] = $this->get_config('logo-bg-color');
 

@@ -24,7 +24,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-global $CFG , $PAGE;
+global $CFG, $PAGE;
 
 // Add the optional parameters
 $legacypage = optional_param('legacypage', null, PARAM_TEXT);
@@ -90,7 +90,10 @@ if (\theme_remui\toolbox::get_setting('frontpagechooser') == 0 || $islegacyhomep
     }
 }
 
-if (\theme_remui\toolbox::get_setting('frontpagechooser') == 0 || \theme_remui\toolbox::get_setting('frontpagechooser') == 3 && $PAGE->pagelayout == 'frontpage' ) {
+$frontpagechooser = \theme_remui\toolbox::get_setting('frontpagechooser');
+$isoldfrontpage = ($frontpagechooser == 0);
+$isnewfrontpage = ($frontpagechooser == 3 && $PAGE->pagelayout == 'frontpage');
+if ($isoldfrontpage || $isnewfrontpage) {
     $templatecontext['homepagetransparentheader'] = get_config('theme_remui', 'homepagetransparentheader');
     $templatecontext['frontpageheadercolor'] = get_config('theme_remui', 'frontpageheadercolor');
 }

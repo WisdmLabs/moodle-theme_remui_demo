@@ -57,3 +57,36 @@ $search-field-color: #ccc!default;
     @include get_search_field_style($searchfield-gap, $searchfield-icon-color, $search-field-color, $searchfield-border-rad);
 }
 
+#page-site-index,
+#page-course-search {
+    #page-content {
+        #region-main {
+            .simplesearchform {
+                .input-group {
+                    padding: 12px 16px;
+                    height: 100%;
+                    border-radius: 5px;
+                    border: 1px solid $form-light-border-color-default;
+                    align-items: center !important;
+                    background-color: $white !important;
+                }
+
+                .input-group-prepend {
+                    display: flex;                    
+                    margin-right: -1px;
+                }
+
+                input {
+                    height: 100%;
+                    border: none;
+                    background-color: transparent;
+                    padding: 0;
+                    margin-left: 8px;
+                    &:focus {
+                        box-shadow: none;
+                    }
+                }
+            }
+        }
+    }
+}

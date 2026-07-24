@@ -23,19 +23,19 @@
     ],
     "layouts": {
         "homepage": {
-            "title": "University",
-            "layout": "blocklayout2",
-            "thumbnailurl": "https://staticcdn.edwiser.org/demoimporter/homepage/university.jpeg"
+            "title": "Classic",
+            "layout": "blocklayout4",
+            "thumbnailurl": "https://staticcdn.edwiser.org/demoimporter/homepage/classic.jpeg"
         },
         "aboutus": {
-            "title": "About Us (University)",
-            "layout": "blocklayout9",
-            "thumbnailurl": "https://staticcdn.edwiser.org/CDN/blocklayout9/thumbnail.png"
+            "title": "About Us (School)",
+            "layout": "blocklayout10",
+            "thumbnailurl": "https://staticcdn.edwiser.org/CDN/blocklayout10/thumbnail.png"
         },
         "faqpage": {
-            "title": "FAQ (University)",
-            "layout": "blocklayout13",
-            "thumbnailurl": "https://staticcdn.edwiser.org/CDN/blocklayout13/thumbnail.png"
+            "title": "FAQ (classic)",
+            "layout": "blocklayout12",
+            "thumbnailurl": "https://staticcdn.edwiser.org/CDN/blocklayout12/thumbnail.png"
         }
     },
     "coursedata": [

@@ -23,12 +23,10 @@
  */
 namespace theme_remui\controller;
 
-defined('MOODLE_INTERNAL') || die();
-
 use context_system;
 use Exception;
-use \theme_remui\toolbox;
-use \theme_remui\utility;
+use theme_remui\toolbox;
+use theme_remui\utility;
 
 // Plugins short name appears on the License Menu Page.
 define('PLUGINSHORTNAME', 'Edwiser RemUI');
@@ -60,7 +58,6 @@ define('WDM_LICENSE_PRODUCTSITE', 'wdm_' . PLUGINSLUG . '_product_site');
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class LicenseController {
-
     /**
      * @var string Short Name for plugin.
      */
@@ -119,23 +116,32 @@ class LicenseController {
         if (is_siteadmin()) {
             try {
                 // Return if did not come from license page.
-                if (!isset($_POST['onLicensePage']) || $_POST['onLicensePage'] == 0) {
+                $onlicensepage = optional_param('onLicensePage', 0, PARAM_INT);
+                if ($onlicensepage == 0) {
                     return;
                 }
-                $_POST['onLicensePage'] = false;
-                $licensekey = trim($_POST[EDD_LICENSE_KEY]);
+                $licensekey = optional_param(EDD_LICENSE_KEY, '', PARAM_TEXT);
+                $licensekey = trim($licensekey);
+                $activate = optional_param(EDD_LICENSE_ACTIVATE, null, PARAM_TEXT);
+                $deactivate = optional_param(EDD_LICENSE_DEACTIVATE, null, PARAM_TEXT);
+
+                // Only validate sesskey when performing license actions (activate/deactivate).
+                if ($activate !== null || $deactivate !== null) {
+                    // Validate sesskey to prevent CSRF attacks.
+                    confirm_sesskey();
+                }
                 // Make sure the puchase code looks valid before sending it to Envato.
-                if (preg_match("/([a-f0-9]{32})/", $licensekey)) {
+                // License key format: 32-character hexadecimal string (case-insensitive).
+                if (preg_match("/^[a-f0-9]{32}$/i", $licensekey)) {
                     $controller = new RemUIController($licensekey);
-                    if (isset($_POST[EDD_LICENSE_ACTIVATE])) {
+                    if ($activate !== null) {
                         return $controller->activate_license();
-                    } else if (isset($_POST[EDD_LICENSE_DEACTIVATE])) {
+                    } else if ($deactivate !== null) {
                         return $controller->deactivate_license();
                     }
                 } else {
                     utility::throw_error('entervalidlicensekey', 30);
                 }
-
             } catch (Exception $ex) {
                 // Set the error message, received via exception.
                 set_config(EDD_LICENSE_DATA, $ex->getMessage(), 'theme_remui');
@@ -201,35 +207,17 @@ class LicenseController {
     }
 
     /**
-     * Set response data to plugin config
-     * @param string  $licensestatus License status
-     * @param string  $pluginslug    Plugin slug
-     * @param boolean $settransient  Transient data
+     * Get RemUI license template context.
+     *
+     * @return array Template context array for license settings
      */
-    // public function set_response_data($licensestatus, $pluginslug, $settransient = false) {
-    //     if ($licensestatus == 'valid') {
-    //         self::$responsedata = 'available';
-    //     } else if ($licensestatus == 'expired') {
-    //         self::$responsedata = 'available';
-    //     } else {
-    //         self::$responsedata = 'unavailable';
-    //     }
-
-    //     if ($settransient) {
-    //         $time = time() + (60 * 60 * 24) * (($licensestatus == 'valid') ? 7 : 1);
-    //         $transiantperiod = serialize(array($licensestatus, $time));
-    //         // Set license status check transient to seven days.
-    //         toolbox::set_plugin_config(WDM_LICENSE_TRANS, $transiantperiod);
-    //     }
-    // }
-
     public function get_remui_license_template_context() {
         global $OUTPUT, $PAGE;
 
         $systemcontext = context_system::instance();
         $PAGE->set_context($systemcontext);
 
-        $templatecontext = array();
+        $templatecontext = [];
         $templatecontext['pluginslug'] = PLUGINSLUG;
         $templatecontext['licensestatus'] = get_string('notactive', 'theme_remui');
         $templatecontext['licensestatuscolor'] = "color:red";
@@ -243,7 +231,6 @@ class LicenseController {
             $templatecontext['renewlink'] = toolbox::get_plugin_config(WDM_LICENSE_PRODUCTSITE);
 
             $status = toolbox::get_plugin_config(EDD_LICENSE_STATUS);
-            // $status = 'valid';
             $templatecontext['licensestatus'] = $status;
             if ($status !== false && $status == 'valid') {
                 $status = 'active';
@@ -252,32 +239,32 @@ class LicenseController {
                 $templatecontext["isvalid"] = true;
                 $templatecontext['buttons'] = [
                     [
-                        "name" => "edd_".PLUGINSLUG."_license_deactivate",
+                        "name" => "edd_" . PLUGINSLUG . "_license_deactivate",
                         "value" => get_string('deactivatelicense', 'theme_remui'),
                         "classes" => "btn-danger",
-                    ]
+                    ],
                 ];
             } else {
                 $color  = 'red';
                 $templatecontext['buttons'] = [
                     [
-                        "name" => "edd_".PLUGINSLUG."_license_activate",
+                        "name" => "edd_" . PLUGINSLUG . "_license_activate",
                         "value" => get_string('activatelicense', 'theme_remui'),
                         "classes" => "btn-success",
-                    ]
+                    ],
                 ];
                 if ($status === 'expired') {
                     $templatecontext['buttons'] = [
                         [
-                            "name" => "edd_".PLUGINSLUG."_license_deactivate",
+                            "name" => "edd_" . PLUGINSLUG . "_license_deactivate",
                             "value" => get_string('deactivatelicense', 'theme_remui'),
                             "classes" => "btn-primary",
                         ],
                         [
-                            "name" => "edd_".PLUGINSLUG."_license_renew",
+                            "name" => "edd_" . PLUGINSLUG . "_license_renew",
                             "value" => get_string('renewlicense', 'theme_remui'),
                             "classes" => "btn-info",
-                            "extra" => "onclick=window.open('".$templatecontext['renewlink']."')",
+                            "extra" => "onclick=window.open('" . $templatecontext['renewlink'] . "')",
                         ],
                     ];
                 }
@@ -296,7 +283,7 @@ class LicenseController {
                     'no_activations_left' => 'nolicenselimitleft',
                     'invalid' => 'entervalidlicensekey',
                     'deactivated' => 'licensekeydeactivated',
-                    'failed' => 'activationfailed'
+                    'failed' => 'activationfailed',
                 ];
                 if (isset($alertmessages[$status])) {
                     $alertmessage = $alertmessages[$status];
@@ -308,14 +295,14 @@ class LicenseController {
                         'icon' => "fa-check",
                         'subtext' => "Success",
                         'classes' => 'alert-success',
-                        'text' => get_string($alertmessage, 'theme_remui')
+                        'text' => get_string($alertmessage, 'theme_remui'),
                     ];
                 } else {
                     $templatecontext['alert'] = [
                         'icon' => "fa-ban",
                         'subtext' => "Alert!",
                         'classes' => 'alert-danger',
-                        'text' => get_string($alertmessage, 'theme_remui')
+                        'text' => get_string($alertmessage, 'theme_remui'),
                     ];
                 }
             }
@@ -324,10 +311,10 @@ class LicenseController {
             $color  = 'red';
             $templatecontext['buttons'] = [
                 [
-                    "name" => "edd_".PLUGINSLUG."_license_activate",
+                    "name" => "edd_" . PLUGINSLUG . "_license_activate",
                     "value" => get_string('activatelicense', 'theme_remui'),
                     "classes" => "btn-success",
-                ]
+                ],
             ];
         }
         $error = toolbox::get_plugin_config(EDD_LICENSE_DATA);
@@ -340,7 +327,7 @@ class LicenseController {
                     'icon' => "fa-ban",
                     'subtext' => "Alert!",
                     'classes' => 'alert-danger',
-                    'text' => $error->msg
+                    'text' => $error->msg,
                 ];
             }
         }
@@ -351,7 +338,7 @@ class LicenseController {
                 'icon' => "fa-ban",
                 'subtext' => "Alert!",
                 'classes' => 'alert-danger',
-                'text' => get_string('licensemismatchdesc', 'theme_remui')
+                'text' => get_string('licensemismatchdesc', 'theme_remui'),
             ];
             $templatecontext['licensestatus'] = get_string('licensemismatch', 'theme_remui');
         }
@@ -396,9 +383,16 @@ class LicenseController {
         }
         toolbox::set_plugin_config(
             WDM_LICENSE_TRANS,
-            serialize(array($licensestatus, $time))
+            serialize([$licensestatus, $time])
         );
     }
+
+    /**
+     * Update license status.
+     *
+     * @param object $licensedata License data object
+     * @return string License status
+     */
     public function status_update($licensedata) {
 
         $status = "";
@@ -406,8 +400,10 @@ class LicenseController {
             $status = 'expired';
         } else if ($licensedata->license == 'invalid' && isset($licensedata->error) && $licensedata->error == "disabled") {
             $status = 'disabled';
-        } else if ($licensedata->license == 'invalid' && isset($licensedata->error)
-            && $licensedata->error == "no_activations_left") {
+        } else if (
+            $licensedata->license == 'invalid' && isset($licensedata->error)
+            && $licensedata->error == "no_activations_left"
+        ) {
             $status = 'no_activations_left';
         } else if ($licensedata->license == 'failed') {
             $status = 'failed';
@@ -428,40 +424,21 @@ class LicenseController {
      * @param mixed $config The configuration JSON  contains the license key.
      * @return mixed The result of the license activation or deactivation operation.
      */
-    public function license_handler_for_setup_wizard($key){
+    public function license_handler_for_setup_wizard($key) {
         global $CFG;
-
 
         if (is_siteadmin()) {
             try {
                 $licensekey = trim($key);
 
-                // Make sure the puchase code looks valid before sending it to Envato.
+                // Make sure the purchase code looks valid before sending it to Envato.
                 if (preg_match("/([a-f0-9]{32})/", $licensekey)) {
                     $controller = new RemUIController($licensekey);
-                    // if (isset($_POST[EDD_LICENSE_ACTIVATE])) {
-                    //     return $controller->activate_license();
-                    // } else if (isset($_POST[EDD_LICENSE_DEACTIVATE])) {
-                    //     return $controller->deactivate_license();
-                    // }
-
-                    $initiallicensedata =  $controller->activate_license();
-
+                    $initiallicensedata = $controller->activate_license();
                     return $initiallicensedata;
-
-                    // $finallicensedata =[];
-
-                    // if($initiallicensedata){
-                    //     $finallicensedata = $controller->request_license_data_for_setup_wizard($licensekey);
-                    // }
-                    // $finallicensedata['licensekey'] = $licensekey;
-                    // It will content data of   plugins bundles and license data
-                    // return $finallicensedata;
-
                 } else {
                     utility::throw_error('entervalidlicensekey', 30);
                 }
-
             } catch (Exception $ex) {
                 // Set the error message, received via exception.
                 set_config(EDD_LICENSE_DATA, $ex->getMessage(), 'theme_remui');

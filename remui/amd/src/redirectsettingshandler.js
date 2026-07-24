@@ -1,10 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable jsdoc/require-jsdoc*/
-/* eslint-disable jsdoc/require-jsdoc*/
-/* eslint-disable jsdoc/require-jsdoc*/
-/* eslint-disable no-loop-func*/
-/* eslint-disable no-unused-vars */
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -21,8 +14,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @module     theme_remui/validatejson
- * @copyright (c) 2023 WisdmLabs (https://wisdmlabs.com/)
+ * Redirect settings handler module for RemUI theme.
+ * Handles redirection to specific settings sections and removes homepage importer tab.
+ *
+ * @module     theme_remui/redirectsettingshandler
+ * @copyright  (c) 2023 WisdmLabs (https://wisdmlabs.com/) <support@wisdmlabs.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -42,21 +38,17 @@ define(['jquery'], function($) {
                             $('html, body').animate({
                                 scrollTop: sectionElement.offset().top - 100
                             }, 0);
-                        } else {
-                            console.log('Section ID not found:', sectionId);
                         }
                     }
                 }, 100);
             });
 
             function removeHomepageImporterTab() {
-                console.log("clicked");
                 $('#importer-homepage').remove();
                 $('.nav-tabs .nav-item .nav-link[aria-controls="courses"]').click();
             }
 
             $(window).on('load', function() {
-                let importereCtaClicked = false;
                 setTimeout(() => {
                     removeHomepageImporterTab();
                 }, 300);

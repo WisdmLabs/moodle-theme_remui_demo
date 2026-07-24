@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Theme customizer range element class
  *
@@ -28,7 +29,6 @@ namespace theme_remui\customizer\elements;
  * Range setting element.
  */
 class range extends base {
-
     /**
      * Prepare the output for the setting
      *
@@ -46,7 +46,7 @@ class range extends base {
             'label' => $label,
             'help' => $this->get_help(),
             'default' => $default,
-            'options' => $this->process_options()
+            'options' => $this->process_options(),
         ];
 
         if (isset($options['responsive']) && $options['responsive'] == true) {
@@ -62,7 +62,7 @@ class range extends base {
                 'help' => $this->get_help(false),
                 'default' => $default,
                 'classes' => 'setting-tablet',
-                'options' => $this->process_options()
+                'options' => $this->process_options(),
             ];
 
             $mobile = $this->name . '-mobile';
@@ -75,7 +75,7 @@ class range extends base {
                 'help' => $this->get_help(false),
                 'default' => $default,
                 'classes' => 'setting-mobile',
-                'options' => $this->process_options()
+                'options' => $this->process_options(),
             ];
         }
 

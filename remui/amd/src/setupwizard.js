@@ -1,10 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable jsdoc/require-jsdoc*/
-/* eslint-disable jsdoc/require-jsdoc*/
-/* eslint-disable jsdoc/require-jsdoc*/
-/* eslint-disable no-loop-func*/
-/* eslint-disable no-unused-vars */
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -21,10 +14,12 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * TODO describe module setupwizard
+ * Setup wizard module for RemUI theme.
+ * Handles the initial theme setup process including license validation,
+ * plugin installation, and configuration.
  *
  * @module     theme_remui/setupwizard
- * @copyright  2024 YOUR NAME <your@email.com>
+ * @copyright  (c) 2023 WisdmLabs (https://wisdmlabs.com/) <support@wisdmlabs.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -333,8 +328,8 @@ define(['jquery', 'core/templates', 'core/ajax', 'core/notification', 'core/str'
                         }
                     );
                 },
-                fail: function (ex) {
-                    console.log(ex);
+                fail: function () {
+                    // Error handled by Notification
                 }
             }]);
         }, 500);
@@ -350,9 +345,8 @@ define(['jquery', 'core/templates', 'core/ajax', 'core/notification', 'core/str'
      * - For the "filter_edwiserpbf" plugin, it enables the filter plugin.
      * - It removes the "inprogress" class from the installation status elements for each installed plugin.
      *
-     * @param {Object} $data - The data returned from the plugin installation process.
      */
-    function plugins_setup_after_installation($data) {
+    function plugins_setup_after_installation() {
 
         return new Promise((resolve) => {
             installedPluginList.forEach(async (plugin) => {
@@ -490,7 +484,7 @@ define(['jquery', 'core/templates', 'core/ajax', 'core/notification', 'core/str'
                     action: "save_newplugin_settings",
                     config: JSON.stringify({})
                 },
-                done: function(updateResponse) {
+                done: function() {
                     resolve("true");
                 },
                 fail: function(ex) {
@@ -577,7 +571,7 @@ define(['jquery', 'core/templates', 'core/ajax', 'core/notification', 'core/str'
      */
     function handlePluginInstallation(plugin, url) {
         epb_blocks_setup_info_handler(plugin);
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             Ajax.call([{
                 methodname: 'theme_remui_do_setup_action',
                 args: {
@@ -590,7 +584,7 @@ define(['jquery', 'core/templates', 'core/ajax', 'core/notification', 'core/str'
                     if (response.success) {
                         await updateDatabase(plugin);
                         if(plugin === "local_edwiserpagebuilder") {
-                            let responseblock = await install_builder_advanced_blocks();
+                            await install_builder_advanced_blocks();
                         }
                         epb_blocks_setup_info_handler(plugin, true);
                     } else if (response.error || response.info) {
@@ -687,7 +681,6 @@ define(['jquery', 'core/templates', 'core/ajax', 'core/notification', 'core/str'
 
     function epb_blocks_setup_info_handler(plugin, shouldremove = false) {
         const epb_blocks_setup_info = $(SELECTORS.INSTALLABLE_PLUGINS_WRAPPER + " ." + plugin + "_setup-info");
-        console.log({epb_blocks_setup_info});
         if(epb_blocks_setup_info.length) {
             if (shouldremove) {
                 epb_blocks_setup_info.addClass("d-none");
@@ -714,7 +707,7 @@ define(['jquery', 'core/templates', 'core/ajax', 'core/notification', 'core/str'
 
             // checking all pluigns has installed or not and accroding to it setting the status
             if(Object.entries(data).length) {
-                for (const [plugin, url] of Object.entries(setupwizardContext.pluginslist)) {
+                for (const [plugin] of Object.entries(setupwizardContext.pluginslist)) {
                     if (plugin in data) {
                         await append_template(
                             SELECTORS.INSTALLABLE_PLUGINS_WRAPPER + " #" + plugin + " .installation-status",
@@ -763,7 +756,7 @@ define(['jquery', 'core/templates', 'core/ajax', 'core/notification', 'core/str'
                     await queueInstallation(plugin, url);
                 }
 
-                let save_newplugin_settings_response = await save_newplugin_settings();
+                await save_newplugin_settings();
 
                 await plugins_setup_after_installation(data);
 
@@ -902,7 +895,7 @@ define(['jquery', 'core/templates', 'core/ajax', 'core/notification', 'core/str'
                 })
             },
             done: function(response) {
-                response = JSON.parse(response);
+                JSON.parse(response);
             },
             fail: function(ex) {
                 Notification.exception(ex);
@@ -1015,7 +1008,7 @@ define(['jquery', 'core/templates', 'core/ajax', 'core/notification', 'core/str'
     }
 
     // ******************** IF RemUI didn't active then append this ********************
-    function add_activateremui_step(e) {
+    function add_activateremui_step() {
         $(SELECTORS.SETUPMAIN_WRAPPER + " .setup-container.loading-container").remove();
         $(SELECTORS.SETUPMAIN_WRAPPER + " .setup-container").removeClass("d-none");
     }
@@ -1147,7 +1140,7 @@ define(['jquery', 'core/templates', 'core/ajax', 'core/notification', 'core/str'
      * This function is called as part of the setup wizard initialization process.
      */
     function site_initial_theme_setup(){
-        return new Promise(function(resolve, reject) {
+        return new Promise(function(resolve) {
             Ajax.call([{
                 methodname: 'theme_remui_do_setup_action',
                 args: {
@@ -1157,8 +1150,6 @@ define(['jquery', 'core/templates', 'core/ajax', 'core/notification', 'core/str'
                 done: async function(response) {
 
                     var data = JSON.parse(response);
-
-                    var pageinfo = "";
 
                     var templatecontext = [];
                     // Initialize the arrays first
@@ -1171,7 +1162,7 @@ define(['jquery', 'core/templates', 'core/ajax', 'core/notification', 'core/str'
 
                     $(".site-setup-elem-wraper").removeClass("d-none");
 
-                    for (const [key, value] of Object.entries(data["pluginsetup"])) {
+                    for (const [, value] of Object.entries(data["pluginsetup"])) {
                         setTimeout(() => {
                             $(SELECTORS.SITESETUPLOADER).removeClass("d-flex").addClass('d-none');
                             $(".site-setup-elem-wraper").append(value);
@@ -1506,7 +1497,7 @@ define(['jquery', 'core/templates', 'core/ajax', 'core/notification', 'core/str'
                 window.open(pageurl, '_blank');
             }
         });
-        $(document).on("click", SELECTORS.SKIPSERVERCHECKBTN, function(e){
+        $(document).on("click", SELECTORS.SKIPSERVERCHECKBTN, function(){
             let $questioname = "skip_server_check_info";
             let $submittedata = {
                 question: "User skipped the server permission check step",

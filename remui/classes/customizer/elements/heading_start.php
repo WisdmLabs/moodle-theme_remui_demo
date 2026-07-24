@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Theme customizer heading_start element class
  *
@@ -28,7 +29,6 @@ namespace theme_remui\customizer\elements;
  * Heading start setting element.
  */
 class heading_start extends base {
-
     /**
      * Get css classes for list element
      *
@@ -60,7 +60,7 @@ class heading_start extends base {
         return $OUTPUT->render_from_template($this->component . '/customizer/elements/heading_start', [
             'label' => $label,
             'name' => $this->name,
-            'collapsed' => $collapsed
+            'collapsed' => $collapsed,
         ]);
     }
 }

@@ -15,8 +15,9 @@
     .profile-general-info-wrapper {
         background-color: $white;
         @include get-box-shadow(sm);
-        border-radius: $border-radius-lg;
+        // border-radius: $border-radius-lg;
         margin-bottom: map-get($spacerspx, '12');
+        border-radius: $card-border-radius;
 
     }
     .interest-field-disabled{
@@ -133,8 +134,9 @@
 
         section{
             .about-me-edit-icon-wrapper{
-                border-radius: $border-radius-lg;
+                // border-radius: $border-radius-lg;
                 @include get-drop-shadow(xs);
+                border-radius: $card-border-radius;
             }
 
             .edit-profile-icon-wrapper{
@@ -337,9 +339,10 @@
     gap:map-get($gapspace,'6');
 
     .node_category.card{
-        border-radius: $border-radius-lg;
+        // border-radius: $border-radius-lg;
         border: 1px solid $light-border;
         overflow: hidden;
+        border-radius: $card-border-radius;
 
         .card-body{
             padding: unset;

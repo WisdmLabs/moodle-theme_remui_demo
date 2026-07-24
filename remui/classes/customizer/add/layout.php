@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Theme customizer colors trait
  *
@@ -23,6 +24,11 @@
  */
 namespace theme_remui\customizer\add;
 
+/**
+ * Layout trait.
+ *
+ * Provides functionality for adding global page layout width settings.
+ */
 trait layout {
     /**
      * Add global page layout width settings.
@@ -46,10 +52,9 @@ trait layout {
                 'default' => $default,
                 'options' => [
                     'default' => get_string('defaultpermoodle', 'theme_remui'),
-                    'fullwidth' => get_string('fullwidthlayout', 'theme_remui')
-                ]
+                    'fullwidth' => get_string('fullwidthlayout', 'theme_remui'),
+                ],
             ]
         );
-
     }
 }

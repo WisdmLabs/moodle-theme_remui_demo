@@ -46,19 +46,36 @@
 
     {{#focusdata.enabled}} {{> theme_remui/navbar_fm }} {{/focusdata.enabled}}
 
-    {{^democontext.isvideoformatdemo}}
+    {{^democontext.isdemonavbarhidden}}
         {{> theme_remui/demonavbar }}
-    {{/democontext.isvideoformatdemo}}
+    {{/democontext.isdemonavbarhidden}}
+
+    {{^democontext.isdemonavbarhidden}}
+        {{> theme_remui/demo_floating_button }}
+    {{/democontext.isdemonavbarhidden}}
 
     {{> theme_remui/navbar }}
     {{#courseindex}}
         {{< theme_remui/drawer }}
             {{$id}}theme_remui-drawers-courseindex{{/id}}
             {{$drawerheadercontent}}
-                {{> theme_remui/courseindexdrawercontrols}}
+                {{#moodle_version_gte502}}
+                    <div class="d-flex align-items-center">
+                        <a href="{{courseurl}}" class="course-heading h-bold-4 text-truncate d-inline-block text-decoration-none" title="{{coursename}}">{{coursename}}</a>
+                        {{> theme_remui/courseindexdrawercontrols}}
+                    </div>
+                {{/moodle_version_gte502}}
+                {{^moodle_version_gte502}}
+                    {{> theme_remui/courseindexdrawercontrols}}
+                {{/moodle_version_gte502}}
             {{/drawerheadercontent}}
             {{$drawerclasses}}drawer drawer-left {{#courseindexopen}}show{{/courseindexopen}}{{/drawerclasses}}
             {{$drawercontent}}
+                {{^moodle_version_gte502}}
+                    <div class="p-mb-4">
+                        <span class="course-heading h-bold-4" title="{{#str}} sidebarcoursemenuheading, theme_remui {{/str}}">{{#str}} sidebarcoursemenuheading, theme_remui {{/str}}</span>
+                    </div>
+                {{/moodle_version_gte502}}
                 {{{courseindex}}}
             {{/drawercontent}}
             {{$drawerpreferencename}}drawer-open-index{{/drawerpreferencename}}
@@ -117,6 +134,21 @@
             <div class="drawer-toggles d-flex">
                 {{#courseindex}}
                     <div class="drawer-toggler drawer-left-toggle open-nav d-print-none">
+                    {{#moodle_version_gte501}}
+                        <button
+                            class="btn btn-primary icon-no-margin p-0 newcourseindexicon-toggle"
+                            data-toggler="drawers"
+                            data-action="toggle"
+                            data-target="theme_remui-drawers-courseindex"
+                            data-toggle="tooltip"
+                            data-placement="right"
+                            title="{{#str}}opendrawerindex, core{{/str}}"
+                        >
+                            <span class="sr-only">{{#str}}opendrawerindex, core{{/str}}</span>
+                            <i class="icon fa edw-icon edw-icon-side-bar" aria-hidden="true"></i>
+                        </button>
+                    {{/moodle_version_gte501}}
+                    {{^moodle_version_gte501}}
                         <button
                             class="btn btn-primary icon-no-margin p-0"
                             data-toggler="drawers"
@@ -129,10 +161,31 @@
                             <span class="sr-only">{{#str}}opendrawerindex, core{{/str}}</span>
                             {{#pix}} t/index_drawer, moodle {{/pix}}
                         </button>
+                    {{/moodle_version_gte501}}
                     </div>
                 {{/courseindex}}
                 {{#hasblocks}}
                     <div class="drawer-toggler drawer-right-toggle ml-auto d-print-none">
+                    {{#moodle_version_gte501}}
+                        <button
+                            class="btn btn-primary icon-no-margin p-0 newrightsidebaricon-toggle"
+                            data-toggler="drawers"
+                            data-action="toggle"
+                            data-target="theme_remui-drawers-blocks"
+                            data-toggle="tooltip"
+                            data-placement="right"
+                            title="{{#str}}opendrawerblocks, core{{/str}}"
+                        >
+                            <span class="sr-only">{{#str}}opendrawerblocks, core{{/str}}</span>
+                            <span class="dir-rtl-hide">
+                                <span class="edw-icon edw-icon-side-bar"></span>
+                            </span>
+                            <span class="dir-ltr-hide">
+                                <span class="edw-icon edw-icon-side-bar"></span>
+                            </span>
+                        </button>
+                    {{/moodle_version_gte501}}
+                    {{^moodle_version_gte501}}
                         <button
                             class="btn btn-primary icon-no-margin p-0"
                             data-toggler="drawers"
@@ -150,6 +203,7 @@
                                 <span class="edw-icon edw-icon-Long-Right_24"></span>
                             </span>
                         </button>
+                    {{/moodle_version_gte501}}
                     </div>
                 {{/hasblocks}}
             </div>

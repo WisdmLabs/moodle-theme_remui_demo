@@ -1,6 +1,3 @@
-/* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-console */
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -31,9 +28,9 @@
  * @todo       Final deprecation in Moodle 6.0. See MDL-84465.
  */
 
+import $ from 'jquery';
 import {DefaultAllowlist} from './bootstrap/util/sanitizer';
 import Popover from 'theme_remui/bootstrap/popover';
-import Tooltip from 'theme_remui/bootstrap/tooltip';
 // import log from 'core/log';
 
 /**
@@ -201,5 +198,50 @@ export const init = (element) => {
         var $this = $(this);
         $this.attr('data-toggle', $this.attr('data-bs-toggle'));
     });
-    console.log('Bootstrap 4 compatibility initialized');
+
+    // Report builder
+    const $container = $('#page-admin-reportbuilder-edit');
+    function fixToggleCardAttributes() {
+        $container.find('.reportbuilder-toggle-card .toggle-card-button').each(function() {
+            const $btn = $(this);
+
+            if (!$btn.attr('data-toggle') && $btn.attr('data-bs-toggle')) {
+                $btn.attr('data-toggle', $btn.attr('data-bs-toggle'));
+            }
+            if (!$btn.attr('data-target') && $btn.attr('data-bs-target')) {
+                $btn.attr('data-target', $btn.attr('data-bs-target'));
+            }
+        });
+    }
+    // Run once for existing cards
+    fixToggleCardAttributes();
+    // Watch for dynamically added cards using MutationObserver
+    if ($container.length) {
+        const observer = new MutationObserver(fixToggleCardAttributes);
+        observer.observe($container[0], { childList: true, subtree: true });
+    }
+
+    // Collapse toggles on all pages (admin and user-facing like badges, preferences, etc.)
+    // Excludes RemUI settings and course default completion pages which handle collapse differently.
+    // Also removes data-bs-toggle to prevent Bootstrap 5 double-firing alongside Bootstrap 4.
+    // $('body:not(#page-admin-setting-themesettingremui):not(#page-course-defaultcompletion) a.icons-collapse-expand[data-bs-toggle="collapse"]').each(function() {
+    //     $(this).attr('data-toggle', $(this).attr('data-bs-toggle'));
+    //     $(this).removeAttr('data-bs-toggle');
+    // });
+
+    var webserviceheadertoggle2 = $('.pagelayout-admin:not(#page-admin-setting-themesettingremui):has(.collapsible-actions) a.icons-collapse-expand[data-bs-toggle="collapse"]');
+    webserviceheadertoggle2.attr('data-toggle', webserviceheadertoggle2.attr('data-bs-toggle'));
+    webserviceheadertoggle2.removeAttr('data-bs-toggle');
+
+    $('body.admin .reportbuilder-report .filters-dropdown.dropdown-menu')
+    .addClass('dropdown-menu-right')
+    .removeClass('dropdown-menu-end');
+
+    $('body.path-course .activity-item .activity-completion .activity-information .dropdown.completion-dropdown .dropdown-menu')
+    .addClass('dropdown-menu-right')
+    .removeClass('dropdown-menu-end');
+
+    $('.path-course:not(.dir-rtl) .activity-item .activity-groupmode-info .dropdown-menu-end.dialog-small')
+    .addClass('dropdown-menu-right')
+    .removeClass('dropdown-menu-end');
 };

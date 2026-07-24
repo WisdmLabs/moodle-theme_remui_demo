@@ -30,7 +30,6 @@ define("THEMEREMUI", "theme_remui");
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class toolbox {
-
     /**
      * Core renderer object
      * @var null
@@ -124,7 +123,7 @@ class toolbox {
         } else if ($format === 'format_text') {
             return format_text($settingvalue, FORMAT_PLAIN);
         } else if ($format === 'format_html') {
-            return format_text($settingvalue, FORMAT_HTML, array('trusted' => true, 'noclean' => true));
+            return format_text($settingvalue, FORMAT_HTML, ['trusted' => true, 'noclean' => true]);
         } else if ($format === 'format_file_url') {
             return self::setting_file_url($setting, $setting);
         } else {
@@ -185,7 +184,7 @@ class toolbox {
                 global $PAGE;
                 $corerenderer = null;
                 try {
-                    $corerenderer = $PAGE->get_renderer('theme_'.$PAGE->theme->name, 'core');
+                    $corerenderer = $PAGE->get_renderer('theme_' . $PAGE->theme->name, 'core');
                 } catch (\coding_exception $ce) {
                     // Specialised renderer may not exist in theme.  This is not a coding fault.  We just need to cope.
                     $corerenderer = null;
@@ -197,7 +196,7 @@ class toolbox {
                     // Probably during theme switch, '$CFG->theme' will be accurrate.
                     global $CFG;
                     try {
-                        $corerenderer = $PAGE->get_renderer('theme_'.$CFG->theme, 'core');
+                        $corerenderer = $PAGE->get_renderer('theme_' . $CFG->theme, 'core');
                     } catch (\coding_exception $ce) {
                         // Specialised renderer may not exist in theme.  This is not a coding fault.  We just need to cope.
                         $corerenderer = null;
@@ -280,7 +279,7 @@ class toolbox {
         if (!($logo)) {
             $replacement = 'none';
         } else {
-            $replacement = 'url(\''.$logo.'\')';
+            $replacement = 'url(\'' . $logo . '\')';
         }
         $css = str_replace($tag, $replacement, $css);
         return $css;
@@ -318,7 +317,7 @@ class toolbox {
      * Set plugin config data of multiple config names
      * @param array $configdata Plugin config data array
      */
-    public static function set_plugin_configs($configdata = array()) {
+    public static function set_plugin_configs($configdata = []) {
         foreach ($configdata as $configname => $value) {
             self::set_plugin_config($configname, $value);
         }
@@ -340,12 +339,11 @@ class toolbox {
      */
     public static function remove_plugin_config($confignames) {
         if (!is_array($confignames)) {
-            $confignames = array($confignames);
+            $confignames = [$confignames];
         }
 
         foreach ($confignames as $value) {
             unset_config($value, THEMEREMUI);
         }
     }
-
 }

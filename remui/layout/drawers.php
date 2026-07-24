@@ -29,12 +29,17 @@ global $CFG, $PAGE, $COURSE;
 require_once($CFG->dirroot . '/theme/remui/layout/common.php');
 
 $coursecontext = context_course::instance($COURSE->id);
-if (!is_guest($coursecontext, $USER) &&
+if (
+    !is_guest($coursecontext, $USER) &&
     \theme_remui\toolbox::get_setting('enabledashboardcoursestats') &&
-    $PAGE->pagelayout == 'mydashboard' && $PAGE->pagetype == 'my-index') {
+    $PAGE->pagelayout == 'mydashboard' && $PAGE->pagetype == 'my-index'
+) {
     $templatecontext['isdashboardstatsshow'] = true;
-    $setupstatus = get_config("theme_remui","setupstatus");
-    if(get_config("theme_remui","dashboardpersonalizerinfo") == "show" && ( $setupstatus == "final" || $setupstatus == 'finished' ) && is_siteadmin($USER)) {
+    $setupstatus = get_config("theme_remui", "setupstatus");
+    $personalizerinfo = get_config("theme_remui", "dashboardpersonalizerinfo");
+    $setupcomplete = ($setupstatus == "final" || $setupstatus == 'finished');
+    $isadmin = is_siteadmin($USER);
+    if ($personalizerinfo == "show" && $setupcomplete && $isadmin) {
         $templatecontext['showpersonlizerinfo'] = true;
     }
 }

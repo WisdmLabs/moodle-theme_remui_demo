@@ -1,4 +1,4 @@
-/* eslint-disable no-console, no-unused-vars */
+/* eslint-disable no-unused-vars */
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -14,23 +14,35 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 /**
- * Theme customizer footer js
- * @copyright (c) 2023 WisdmLabs (https://wisdmlabs.com/) <support@wisdmlabs.com>
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @author    Yogesh Shirsath
+ * Theme customizer footer module.
+ * Handles footer customization settings including design selection, content management, and styling.
+ *
+ * @module     theme_remui/customizer/footer
+ * @copyright  (c) 2023 WisdmLabs (https://wisdmlabs.com/) <support@wisdmlabs.com>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @author     Yogesh Shirsath
  */
 
 import $ from "jquery";
 import Templates from "core/templates";
 import Utils from "theme_remui/customizer/utils";
-
+import Ajax from "core/ajax";
 /**
  * Selectors
  */
 var SELECTOR = {
     BASE: "customizer-footer",
     BACKGROUNDCOLOR: '[name="footer-background-color"]',
+    MAINBACKGROUNDCOLOR: '[name="main-footer-area-background-color"]',
+    BOTTOMBACKGROUNDCOLOR: '[name="bottom-footer-area-background-color"]',
     TEXTCOLOR: '[name="footer-text-color"]',
+    MAINAREATEXTCOLOR: '[name="main-footer-area-text-color"]',
+    BOTTOMAREATEXTCOLOR: '[name="bottom-footer-area-text-color"]',
+    BACKGROUNDIMG: '[name="backgroundimgurl"]',
+    BACKGROUNDIMGPOS: '[name="backgroundimg-position"]',
+    BACKGROUNDIMGREPEAT: '[name="backgroundimg-repeat"]',
+    BACKGROUNDIMGSIZE: '[name="backgroundimg-size"]',
+    BACKGROUNDIMGOPACITY: '[name="backgroundimg-opacity"]',
     LINKTEXT: '[name="footer-link-text"]',
     LINKHOVERTEXT: '[name="footer-link-hover-text"]',
     COLUMN: "footercolumn",
@@ -38,6 +50,9 @@ var SELECTOR = {
     COLUMNSHEADING: "#heading_footer-advance-column",
     MENULIST: ".footer-menu-list",
     SHOWLOGO: '[name="footershowlogo"]',
+    SHOWFOOTERWIDGETLOGO: '[name="showfooterwidgetlogo"]',
+    FOOTERWIDGETLOGO: '[name="footerwidgetlogo"]',
+    SHOWEMAILNEWLETTER: '[name="toggle_email_subscribe_settings"]',
     TERMSANDCONDITIONSSHOW: '[name="footertermsandconditionsshow"]',
     TERMSANDCONDITIONS: '[name="footertermsandconditions"]',
     PRIVACYPOLICYSHOW: '[name="footerprivacypolicyshow"]',
@@ -48,7 +63,9 @@ var SELECTOR = {
     DNONE: "d-none",
     DIVIDERCOLOR: '[name="footer-divider-color"]',
     ICONDEFAULTCOLOR: '[name="footer-icon-color"]',
+    ICONDEFAULTBGCOLOR: '[name="footer-icon-bg-color"]',
     ICONHOVERCOLOR: '[name="footer-icon-hover-color"]',
+    FOOTERDESIGNSELECTOR: 'input[name="footer-design-selector"]',
     FOOTERFONTFAMILY: '[name="footerfontfamily"]',
     FOOTERFONTWEIGHT: '[name="footerfontweight"]',
     FOOTERTEXTTRANSFORM: '[name="footerfonttext-transform"]',
@@ -76,7 +93,6 @@ var SELECTOR = {
         [name="twittersetting"],
         [name="linkedinsetting"],
         [name="youtubesetting"],
-        [name="gplussetting"],
         [name="instagramsetting"],
         [name="pinterestsetting"],
         [name="quorasetting"],
@@ -117,11 +133,6 @@ let socialList = {
         'class': "social-linkedin",
         'icon': "icon edw-icon edw-icon-Linkedin",
         'title': M.util.get_string('follometext', 'theme_remui', 'linkedin')
-    },
-    'gplus': {
-        'class': "social-google-plus",
-        'icon': "icon edw-icon edw-icon-Gplus",
-        'title': M.util.get_string('follometext', 'theme_remui', 'gplus')
     },
     'youtube': {
         'class': "social-youtube",
@@ -277,12 +288,12 @@ function isFooterPrimaryVisible() {
                 if (widgetSocials.length == 0) {
                     break;
                 }
-                // eslint-disable-next-line no-loop-func
-                widgetSocials.forEach((social) => {
+                for (let j = 0; j < widgetSocials.length; j++) {
+                    const social = widgetSocials[j];
                     if (socials[social] != "") {
                         hasSocial = visible = true;
                     }
-                });
+                }
                 break;
             case "customhtml":
                 content = $(`[name="${SELECTOR.COLUMN + i}customhtml"]`).val();
@@ -309,17 +320,55 @@ function isFooterPrimaryVisible() {
  * Toggle number of columns
  */
 function toggleColumns() {
-    let columns = $(`[name="${SELECTOR.COLUMN}"]`).val();
+    // Check which column setting is active (footercolumn or footercolumn5)
+    let columns;
+    // if (!$(`[name="footercolumn5"]`).closest(SELECTOR.SETTINGITEM).hasClass(SELECTOR.DNONE)) {
+    //     // footercolumn5 is visible (not hidden), use it
+    //     columns = $(`[name="footercolumn5"]`).val();
+    // } else {
+    //     // footercolumn5 is hidden, use footercolumn
+    //     columns = $(`[name="${SELECTOR.COLUMN}"]`).val();
+    // }
+    if(getActiveFooterDesign() == 'footerdesign2'){
+        columns = $(`[name="footercolumn5"]`).val();
+        $("#id_footercolumn5-range-value").text(columns);
+    }else{
+        columns = $(`[name="${SELECTOR.COLUMN}"]`).val();
+        $("#id_footercolumn-range-value").text(columns);
+    }
+
     let iframeDocument = Utils.getDocument();
-    let i = 1;
-    for (; i <= columns; i++) {
-        $(SELECTOR.COLUMNSHEADING + i).show();
-        $(iframeDocument).find(`#footer-column-${i}`).removeClass(SELECTOR.DNONE);
-    }
-    for (; i <= 4; i++) {
-        $(SELECTOR.COLUMNSHEADING + i).hide();
-        $(iframeDocument).find(`#footer-column-${i}`).addClass(SELECTOR.DNONE);
-    }
+    // if(getActiveFooterDesign() === 'footerdesign0') {
+        let i = 1;
+        for (; i <= columns; i++) {
+            $(SELECTOR.COLUMNSHEADING + i).show();
+            $(iframeDocument).find(`#footer-column-${i}`).removeClass(SELECTOR.DNONE);
+        }
+        for (; i <= 5; i++) {
+            $(SELECTOR.COLUMNSHEADING + i).hide();
+            $(iframeDocument).find(`#footer-column-${i}`).addClass(SELECTOR.DNONE);
+        }
+    // } else {
+    //     let i = 1;
+    //     for (; i <= columns; i++) {
+    //         $(SELECTOR.COLUMNSHEADING + i).show();
+    //         if($(`[name="${SELECTOR.COLUMN + i}type"]`).val() == 'customhtml') {
+    //             $(iframeDocument).find(`#footer-column-${i} .custom-html`).removeClass(SELECTOR.DNONE);
+    //         }
+    //         else {
+    //             $(iframeDocument).find(`#footer-column-${i} .footer-menu`).removeClass(SELECTOR.DNONE);
+    //         }
+    //     }
+    //     for (; i <= 5; i++) {
+    //         $(SELECTOR.COLUMNSHEADING + i).hide();
+    //         if($(`[name="${SELECTOR.COLUMN + i}type"]`).val() == 'customhtml') {
+    //             $(iframeDocument).find(`#footer-column-${i} .custom-html`).addClass(SELECTOR.DNONE);
+    //         }
+    //         else {
+    //             $(iframeDocument).find(`#footer-column-${i} .footer-menu`).addClass(SELECTOR.DNONE);
+    //         }
+    //     }
+    // }
 }
 
 /**
@@ -397,21 +446,73 @@ function contentChange(index) {
 }
 
 /**
+ * Content change with specific content (for TinyMCE integration)
+ * @param {Integer} index Footer column index
+ * @param {String} content HTML content to set
+ */
+function contentChangeWithContent(index, content) {
+    $(Utils.getDocument())
+        .find(`#footer-column-${index} .custom-html .section-html-content`)
+        .html(content);
+}
+
+/**
  * Apply footer colors.
  */
 function footerColors() {
     let backgroundColor = $(SELECTOR.BACKGROUNDCOLOR).spectrum("get").toString();
+    let mainbackgroundColor = $(SELECTOR.MAINBACKGROUNDCOLOR).spectrum("get").toString();
+    let bottombackgroundColor = $(SELECTOR.BOTTOMBACKGROUNDCOLOR).spectrum("get").toString();
     let textColor = $(SELECTOR.TEXTCOLOR).spectrum("get").toString();
+    let mainareatextColor = $(SELECTOR.MAINAREATEXTCOLOR).spectrum("get").toString();
+    let bottomareatextColor = $(SELECTOR.BOTTOMAREATEXTCOLOR).spectrum("get").toString();
     let linkText = $(SELECTOR.LINKTEXT).spectrum("get").toString();
     let linkHoverText = $(SELECTOR.LINKHOVERTEXT).spectrum("get").toString();
     let dividerColor = $(SELECTOR.DIVIDERCOLOR).spectrum("get").toString();
     let icondefaultColor = $(SELECTOR.ICONDEFAULTCOLOR).spectrum("get").toString();
+    let icondefaultBgColor = $(SELECTOR.ICONDEFAULTBGCOLOR).spectrum("get").toString();
     let iconhoverColor = $(SELECTOR.ICONHOVERCOLOR).spectrum("get").toString();
     let footercolumntitlecolor = $(SELECTOR.FOOTERCOLUMMTITLECOLOR).spectrum("get").toString();
     let footerlogocolor = $(SELECTOR.FOOTERLOGOCOLOR).spectrum("get").toString();
+
+    let footerdesign = getActiveFooterDesign();
+    if(footerdesign == 'footerdesign1' || footerdesign == 'footerdesign2') {
+        backgroundColor = bottombackgroundColor;
+        textColor = mainareatextColor;
+    }
+
     let content = `
             #page-footer {
                 background: ${backgroundColor} !important;
+            }
+            #page-footer:has(.section-footer-design-2) .footer-mainsection-wrapper,
+            #page-footer:has(.section-footer-design-3) .footer-mainsection-wrapper {
+                background: ${mainbackgroundColor} !important;
+            }
+            @media screen and (max-width: 767.5px)  {
+                #page-footer:has(.section-footer-design-2) .footer-content-popover,
+                #page-footer:has(.section-footer-design-3) .footer-content-popover {
+                    background: ${mainbackgroundColor} !important;
+                    color: ${mainareatextColor} !important;
+                }
+
+                #page-footer:has(.section-footer-design-4) .footer-content-popover {
+                    background: ${backgroundColor} !important;
+                    color: ${textColor} !important;
+                }
+
+                #page-footer:has(.section-footer-design-2) .footer-content-popover .footer-section a,
+                #page-footer:has(.section-footer-design-3) .footer-content-popover .footer-section a {
+                    color: ${mainareatextColor} !important;
+                }
+
+                #page-footer:has(.section-footer-design-3) .footer-content-popover .icon {
+                    color: ${icondefaultColor} !important;
+                }
+            }
+            #page-footer:has(.section-footer-design-2) .footer-secondarysection-wrapper,
+            #page-footer:has(.section-footer-design-3) .footer-secondarysection-wrapper {
+                background: ${bottombackgroundColor} !important;
             }
             #page-footer .h1,
             #page-footer .h2,
@@ -426,33 +527,89 @@ function footerColors() {
             #page-footer h5,
             #page-footer h6,
             #page-footer p,
-            #page-footer .footer-content-debugging-wrapper,.section-html-content,[id $=reactive-debugpanel] {
+            #page-footer .footer-content-debugging-wrapper,.section-html-content,[id $=reactive-debugpanel],
+            .footer-secondarysection-wrapper p,
+            #page-footer .subscribe-box input {
                 color: ${textColor} !important;
+            }
+            #page-footer:has(.section-footer-design-2) .footer-mainsection-wrapper {
+                color: ${mainareatextColor} !important;
+            }
+            #page-footer:has(.section-footer-design-2) .footer-secondarysection-wrapper p {
+                color: ${bottomareatextColor} !important;
+            }
+            #page-footer:has(.section-footer-design-3) .footer-secondarysection-wrapper p {
+                color: ${bottomareatextColor} !important;
+            }
+            #page-footer .footer-content-debugging-wrapper,[id $=reactive-debugpanel] {
+                color: ${bottomareatextColor} !important;
             }
             #page-footer .footer-mainsection-wrapper a,
             #page-footer .footer-secondarysection-wrapper a,
-            .purgecaches a {
+            #page-footer .purgecaches a {
                 color: ${linkText} !important;
+            }
+            #page-footer:has(.section-footer-design-2) .email-text::after {
+                background-color: ${linkText} !important;
+            }
+            #page-footer:has(.section-footer-design-2) .email-text:hover::after {
+                background-color: ${linkHoverText} !important;
             }
             #page-footer .footer-mainsection-wrapper a:hover,
             #page-footer .footer-secondarysection-wrapper a:hover,
-            .purgecaches a:hover {
+            #page-footer .purgecaches a:hover {
                 color: ${linkHoverText} !important;
             }
             #page-footer hr{
                 border-color: ${dividerColor} !important;
             }
+            #page-footer:has(.section-footer-design-4) .footer-mainsection-wrapper {
+                border-bottom: 1px solid ${dividerColor} !important;
+            }
+            #page-footer:has(.section-footer-design-5) .footer-secondarysection-wrapper,
+            #page-footer:has(.section-footer-design-6) .divider,
+            #page-footer:has(.section-footer-design-7) .footer-secondarysection-wrapper {
+                border-top: 1px solid ${dividerColor} !important;
+            }
+            #page-footer:has(.section-footer-design-5) .hr-vertical.first:not(:last-child) {
+                border-right: 1px solid ${dividerColor} !important;
+            }
+            #page-footer:has(.section-footer-design-4) .footer-secondarysection-wrapper .social-links-wrapper .contentsocial.social-links a {
+                border: 1px solid ${dividerColor} !important;
+            }
             #page-footer .footer-mainsection-wrapper .edw-icon,
-            #page-footer .footer-mainsection-wrapper i {
+            #page-footer .footer-mainsection-wrapper i,
+            #page-footer .footer-secondarysection-wrapper i {
                 color: ${icondefaultColor} !important;
             }
-            #page-footer .footer-mainsection-wrapper .edw-icon:hover,#page-footer .footer-mainsection-wrapper i:hover {
+            #page-footer:has(.section-footer-design-2) .social-links a,
+            #page-footer:has(.section-footer-design-4) .social-links a {
+                background-color: ${icondefaultBgColor} !important;
+            }
+            #page-footer:has(.section-footer-design-2) .social-links a:hover,
+            #page-footer:has(.section-footer-design-4) .social-links a:hover {
+                background-color: ${icondefaultBgColor} !important;
+            }
+
+            #page-footer .footer-mainsection-wrapper .edw-icon:hover,#page-footer .footer-mainsection-wrapper i:hover,
+            #page-footer .footer-secondarysection-wrapper i:hover {
                 color: ${iconhoverColor} !important;
             }
+
+            #page-footer .footer-secondarysection-wrapper .iconsitename i:hover,
+            #page-footer .footer-secondarysection-wrapper .icononly i:hover  {
+                color: ${footerlogocolor} !important;
+            }
+
+            #page-footer:has(.section-footer-design-7) .section-html-content .edw-icon {
+                color: ${textColor} !important;
+            }
+
             #page-footer .ftr-column-title {
                 color: ${footercolumntitlecolor} !important;
             }
-            #page-footer .navbar-brand-logo {
+            #page-footer .navbar-brand-logo,
+            #page-footer .navbar-brand-logo i {
                 color: ${footerlogocolor} !important;
             }
         `;
@@ -556,18 +713,119 @@ function footerFonts() {
 function columnSizeChange() {
     let widths = $(`[name="${SELECTOR.COLUMNSIZE}"]`).val().split(",");
     let iframeDocument = Utils.getDocument();
+    let content = '';
     widths.forEach((width, index) => {
         $(iframeDocument)
             .find(`#footer-column-${index + 1}`)
             .css("flex", `0 0 ${width}%`);
     });
+    content += `
+            [class*="section-footer-design-"] .footer-section-wrapper.d-none {
+                display: block !important;
+            }
+            [class*="section-footer-design-"] .footer-section-wrapper.d-none > *{
+                display: none !important;
+            }
+            `;
+    Utils.putStyle("customizer-footer-column-size", content);
+}
+
+
+function applyBackgroundImgURL(defaultImg = true){
+    let backgroundimg = $(SELECTOR.BACKGROUNDIMG).val();
+    if(!defaultImg){
+        backgroundimg = '';
+        $(SELECTOR.BACKGROUNDIMG).val(123456789);
+    }
+
+    // If background image is empty, set default based on footer design
+    // Dirty code to fix the db related issue with the background images
+    if(backgroundimg == ''){
+        let response = '';
+        if(getActiveFooterDesign() === 'footerdesign1') {
+            response = "https://qastaticcdn.edwiser.org/theme_remuiassets/footerassets/images/FooterDesignBg1.svg";
+        }
+        else if(getActiveFooterDesign() === 'footerdesign2') {
+            response = "https://qastaticcdn.edwiser.org/theme_remuiassets/footerassets/images/FooterDesignBg2.svg";
+        }
+        else if(getActiveFooterDesign() === 'footerdesign3') {
+            response = "https://qastaticcdn.edwiser.org/theme_remuiassets/footerassets/images/FooterDesignBg3.svg";
+        }
+        else if(getActiveFooterDesign() === 'footerdesign4') {
+            response = "https://qastaticcdn.edwiser.org/theme_remuiassets/footerassets/images/FooterDesignBg4.svg";
+        }
+        else if(getActiveFooterDesign() === 'footerdesign6') {
+            response = "https://qastaticcdn.edwiser.org/theme_remuiassets/footerassets/images/FooterDesignBg6.svg";
+        }
+
+        let content = `
+        #page-footer:not(:has(.section-footer-design-1)) .footer-mainsection-wrapper:before {
+            background-image: url('${response}') !important;
+        }
+        `;
+        Utils.putStyle("customizer-footer-backgroundimg", content);
+    } else {
+        // Only call web service if background image is not empty
+        Utils.getFileURL(backgroundimg).done(function(response) {
+            if (response == "") {
+                // Fallback to default if web service returns empty
+                if(getActiveFooterDesign() === 'footerdesign1') {
+                    response = "https://qastaticcdn.edwiser.org/theme_remuiassets/footerassets/images/FooterDesignBg1.svg";
+                }
+                else if(getActiveFooterDesign() === 'footerdesign2') {
+                    response = "https://qastaticcdn.edwiser.org/theme_remuiassets/footerassets/images/FooterDesignBg2.svg";
+                }
+                else if(getActiveFooterDesign() === 'footerdesign3') {
+                    response = "https://qastaticcdn.edwiser.org/theme_remuiassets/footerassets/images/FooterDesignBg3.svg";
+                }
+                else if(getActiveFooterDesign() === 'footerdesign4') {
+                    response = "https://qastaticcdn.edwiser.org/theme_remuiassets/footerassets/images/FooterDesignBg4.svg";
+                }
+                else if(getActiveFooterDesign() === 'footerdesign6') {
+                    response = "https://qastaticcdn.edwiser.org/theme_remuiassets/footerassets/images/FooterDesignBg6.svg";
+                }
+            }
+
+            let content = `
+            #page-footer:not(:has(.section-footer-design-1)) .footer-mainsection-wrapper:before {
+                background-image: url('${response}') !important;
+            }
+            `;
+            Utils.putStyle("customizer-footer-backgroundimg", content);
+        });
+    }
+}
+
+function footerBackgroundImg() {
+    // let backgroundimg = $(SELECTOR.BACKGROUNDIMG).val();
+    let backgroundimgposition = $(SELECTOR.BACKGROUNDIMGPOS).val();
+    let backgroundimgrepeat = $(SELECTOR.BACKGROUNDIMGREPEAT).val();
+    let backgroundimgsize = $(SELECTOR.BACKGROUNDIMGSIZE).val();
+    let backgroundimgopacity = $(SELECTOR.BACKGROUNDIMGOPACITY).val();
+
+    let content = `
+    #page-footer:not(:has(.section-footer-design-1)) .footer-mainsection-wrapper:before {
+        background-position: ${backgroundimgposition} !important;
+        background-repeat: ${backgroundimgrepeat} !important;
+        background-size:  ${backgroundimgsize} !important;
+        opacity: ${backgroundimgopacity} !important;
+    }
+    `;
+    Utils.putStyle("customizer-footer-backgroundimgproperties", content);
 }
 
 /**
  * Generate column size elements.
  */
 function generateColumnSize() {
-    let numberOfColumns = $(`[name="${SELECTOR.COLUMN}"]`).val();
+    // Check which column setting is active (footercolumn or footercolumn5)
+    let numberOfColumns;
+    if(getActiveFooterDesign() == 'footerdesign2'){
+        numberOfColumns = $(`[name="footercolumn5"]`).val();
+    }else{
+        numberOfColumns = $(`[name="${SELECTOR.COLUMN}"]`).val();
+    }
+
     let widths = $(`[name="${SELECTOR.COLUMNSIZE}"]`)
         .val()
         .split(",")
@@ -588,8 +846,14 @@ function generateColumnSize() {
  * @param {String} link link of social setting
  */
 function socialMediaLinks(name, link) {
+    // Skip footer-secondary social media inputs (they are handled by updateSocialMediaPreview)
+    if (name.includes('setting') && !name.match(/\d+$/)) {
+        // This is a footer-secondary input (like "facebooksetting"), skip it
+        return;
+    }
+
     name = name.replace("setting", "");
-    name = name == "gplus" ? "social-google-plus" : "social-" + name;
+    name = "social-" + name;
     let iframeDocument = Utils.getDocument();
     $(iframeDocument)
         .find(`#page-footer .social-links .${name}`)
@@ -761,6 +1025,75 @@ function showLogo() {
         return;
     }
 }
+function displayemailnewsletter() {
+    let iframeDocument = Utils.getDocument();
+
+    // Check the main toggle (only 1 input/btn in the footer)
+
+    let show = false;
+    for (let i = 0; i <= 5; i++) { // or i=1; i<=4; i++ depending on your IDs
+        if ($(`[name="toggle_email_subscribe_settings${i}"]`).is(":checked")) {
+            show = true;
+            $(`#fitem_id_subscribetargetlink${i}`).closest(".setting-type-text").removeClass(SELECTOR.DNONE);
+            $(`#fitem_id_emailinputbordercolor${i}`).closest(".setting-type-color").removeClass(SELECTOR.DNONE);
+            $(`#fitem_id_focusedemailinputoutlinecolor${i}`).closest(".setting-type-color").removeClass(SELECTOR.DNONE);
+            $(`#fitem_id_subscribebuttontextcolor${i}`).closest(".setting-type-color").removeClass(SELECTOR.DNONE);
+            $(`#fitem_id_subscribebuttontexthovercolor${i}`).closest(".setting-type-color").removeClass(SELECTOR.DNONE);
+            $(`#fitem_id_subscribebtnbgcolor${i}`).closest(".setting-type-color").removeClass(SELECTOR.DNONE);
+            $(`#fitem_id_subscribebtnbghovercolor${i}`).closest(".setting-type-color").removeClass(SELECTOR.DNONE);
+        } else {
+            $(`#fitem_id_subscribetargetlink${i}`).closest(".setting-type-text").addClass(SELECTOR.DNONE);
+            $(`#fitem_id_emailinputbordercolor${i}`).closest(".setting-type-color").addClass(SELECTOR.DNONE);
+            $(`#fitem_id_focusedemailinputoutlinecolor${i}`).closest(".setting-type-color").addClass(SELECTOR.DNONE);
+            $(`#fitem_id_subscribebuttontextcolor${i}`).closest(".setting-type-color").addClass(SELECTOR.DNONE);
+            $(`#fitem_id_subscribebuttontexthovercolor${i}`).closest(".setting-type-color").addClass(SELECTOR.DNONE);
+            $(`#fitem_id_subscribebtnbgcolor${i}`).closest(".setting-type-color").addClass(SELECTOR.DNONE);
+            $(`#fitem_id_subscribebtnbghovercolor${i}`).closest(".setting-type-color").addClass(SELECTOR.DNONE);
+        }
+    }
+
+    // Apply toggle to global footer elements once
+    // $(iframeDocument)
+    //     .find("#page-footer .subscribe-box input")
+    //     .toggleClass(SELECTOR.DNONE, !show)
+    //     .toggleClass("d-flex", show);
+
+    // $(iframeDocument)
+    //     .find("#page-footer .subscribe-box .subscribe-btn")
+    //     .toggleClass(SELECTOR.DNONE, !show)
+    //     .toggleClass("d-flex", show);
+
+
+    // let show = $(`[name="toggle_email_subscribe_settings0"]`).is(":checked");
+    // $(iframeDocument)
+    //     .find("#page-footer .subscribe-box input")
+    //     .toggleClass(SELECTOR.DNONE, !show)
+    //     .toggleClass("d-block", show);
+
+    // $(iframeDocument)
+    //     .find("#page-footer .subscribe-box .subscribe-btn")
+    //     .toggleClass(SELECTOR.DNONE, !show)
+    //     .toggleClass("d-block", show);
+    // if(show) {
+    //     $(`#fitem_id_subscribetargetlink0`).closest(".setting-type-text").removeClass(SELECTOR.DNONE);
+    //     $(`#fitem_id_emailinputbordercolor0`).closest(".setting-type-color").removeClass(SELECTOR.DNONE);
+    //     $(`#fitem_id_focusedemailinputoutlinecolor0`).closest(".setting-type-color").removeClass(SELECTOR.DNONE);
+    //     $(`#fitem_id_subscribebuttontextcolor0`).closest(".setting-type-color").removeClass(SELECTOR.DNONE);
+    //     $(`#fitem_id_subscribebuttontexthovercolor0`).closest(".setting-type-color").removeClass(SELECTOR.DNONE);
+    //     $(`#fitem_id_subscribebtnbgcolor0`).closest(".setting-type-color").removeClass(SELECTOR.DNONE);
+    //     $(`#fitem_id_subscribebtnbghovercolor0`).closest(".setting-type-color").removeClass(SELECTOR.DNONE);
+
+    // }else {
+
+    //     $(`#fitem_id_subscribetargetlink0`).closest(".setting-type-text").addClass(SELECTOR.DNONE);
+    //     $(`#fitem_id_emailinputbordercolor0`).closest(".setting-type-color").addClass(SELECTOR.DNONE);
+    //     $(`#fitem_id_focusedemailinputoutlinecolor0`).closest(".setting-type-color").addClass(SELECTOR.DNONE);
+    //     $(`#fitem_id_subscribebuttontextcolor0`).closest(".setting-type-color").addClass(SELECTOR.DNONE);
+    //     $(`#fitem_id_subscribebuttontexthovercolor0`).closest(".setting-type-color").addClass(SELECTOR.DNONE);
+    //     $(`#fitem_id_subscribebtnbgcolor0`).closest(".setting-type-color").addClass(SELECTOR.DNONE);
+    //     $(`#fitem_id_subscribebtnbghovercolor0`).closest(".setting-type-color").addClass(SELECTOR.DNONE);
+    // }
+}
 
 /**
  * Show terms and conditions link in the footer.
@@ -811,6 +1144,21 @@ function privacyPolicyShow() {
         .toggleClass(SELECTOR.DNONE, !show);
 }
 
+function footerWidgetLogoShow() {
+    let iframeDocument = Utils.getDocument();
+    let show = $(SELECTOR.SHOWFOOTERWIDGETLOGO).is(":checked");
+    $(iframeDocument)
+        .find("#fitem_id_footerwidgetlogo")
+        .toggleClass(SELECTOR.DNONE, !show)
+        .toggleClass("d-block", show);
+    $(SELECTOR.FOOTERWIDGETLOGO)
+        .closest(SELECTOR.SETTINGITEM)
+        .toggleClass(SELECTOR.DNONE, !show);
+    $(iframeDocument)
+        .find("#footer-column-1 .footerwidgetlogo")
+        .toggleClass(SELECTOR.DNONE, !show)
+        .toggleClass("d-block", show);
+}
 /**
  * Handle privacy policy link.
  */
@@ -869,7 +1217,8 @@ function copyright() {
             $(iframeDocument).find(".secondary-footer-copyright").data("site")
         )
         .replaceAll("[year]", new Date().getFullYear());
-    $(iframeDocument).find(".secondary-footer-copyright").html('<p class=" mb-0">' + copyright + '</p>');
+    // $(iframeDocument).find(".secondary-footer-copyright").html('<p class=" mb-0">' + copyright + '</p>');
+    $(iframeDocument).find(".secondary-footer-copyright .copyright-text").text(copyright);
 }
 
 /**
@@ -879,20 +1228,118 @@ function apply() {
     footerColors();
     footerFonts();
     generateColumnSize();
+    columnSizeChange();
+    isFooterPrimaryVisible();
     showLogo();
+    displayemailnewsletter();
     termsAndConditionsShow();
     termsAndConditions();
     privacyPolicyShow();
     privacyPolicy();
     copyrightShow();
     copyright();
-    for (let i = 1; i <= 4; i++) {
+    footerWidgetLogoShow();
+
+    for (let i = 1; i <= 5; i++) {
         titleChange(i);
-        contentChange(i);
+        // Use TinyMCE content if available, otherwise fallback to textarea
+        const editorId = `id_footercolumn${i}customhtml`;
+        const $editorElement = $(`#${editorId}`);
+
+        if ($editorElement.siblings('.tox-tinymce').length > 0) {
+            // TinyMCE editor is present, get content and use contentChangeWithContent
+            const content = getTinyMCEContent(editorId);
+            contentChangeWithContent(i, content);
+        } else {
+            // No TinyMCE editor, use regular contentChange
+            contentChange(i);
+        }
         toggleType(i);
         menuChange(i);
-        socialSelectionChanges(i);
+        // socialSelectionChanges(i);
     }
+    // Initialize social media settings visibility on page load
+    initializeSocialSettingsVisibility();
+
+    // Add event listeners for social media input fields
+    initializeSocialMediaInputListeners();
+    // Add event listeners for email subscribe settings
+    initializeEmailSubscribeListeners();
+
+    // Initialize email subscribe settings visibility on page load
+    initializeEmailSubscribeSettingsVisibility();
+}
+
+/**
+ * Initialize TinyMCE event listeners for footer column editors
+ */
+function initializeTinyMCEEvents() {
+    // Wait for TinyMCE to be ready
+    if (typeof window.tinymce !== 'undefined') {
+        // Listen for when TinyMCE editors are added
+        window.tinymce.on('AddEditor', function(e) {
+            const editorId = e.editor.id;
+
+            // Check if this is a footer column editor
+            if (editorId.includes('footercolumn') && editorId.includes('customhtml')) {
+                // Extract column number from editor ID
+                const columnMatch = editorId.match(/footercolumn(\d+)customhtml/);
+                if (columnMatch) {
+                    const columnNumber = columnMatch[1];
+
+                    // Add event listeners for content changes
+                    e.editor.on('input change keyup', function() {
+                        updateFooterColumnContent(columnNumber, e.editor.getContent());
+                    });
+
+                    // Also listen for when editor is ready
+                    e.editor.on('init', function() {
+                        // Initial content load
+                        updateFooterColumnContent(columnNumber, e.editor.getContent());
+                    });
+                }
+            }
+        });
+    } else {
+        // Retry if TinyMCE not ready yet
+        setTimeout(initializeTinyMCEEvents, 100);
+    }
+}
+
+/**
+ * Update footer preview with TinyMCE content
+ * @param {String} columnNumber Footer column number
+ * @param {String} content HTML content to set
+ */
+function updateFooterColumnContent(columnNumber, content) {
+    const iframeDocument = Utils.getDocument();
+    const selector = `#footer-column-${columnNumber} .custom-html .section-html-content`;
+
+    // Update the preview with new content
+    $(iframeDocument).find(selector).html(content);
+
+    // Trigger any other updates that depend on content
+    updateSocialMediaPreview(columnNumber);
+    if (columnNumber === '1') {
+        useFooterWidgetLogo(); // If it's column 1
+    }
+}
+
+/**
+ * Get TinyMCE content safely with fallback
+ * @param {String} editorId TinyMCE editor ID
+ * @return {String} Editor content or textarea fallback
+ */
+function getTinyMCEContent(editorId) {
+    try {
+        if (typeof window.tinymce !== 'undefined' && window.tinymce.get(editorId)) {
+            return window.tinymce.get(editorId).getContent();
+        }
+    } catch (e) {
+    }
+
+    // Fallback to textarea
+    return $(`[name="${editorId.replace('id_', '')}"]`).val() || '';
 }
 
 /**
@@ -904,6 +1351,7 @@ function init() {
     //     .append(`<label>${M.util.get_string('footercolumnsizenote', 'theme_remui')}</label>`);
     generateColumnSize();
     showLogo();
+    displayemailnewsletter();
     $(`[name="${SELECTOR.COLUMNSIZE}"]`).hide();
     $(`[name="${SELECTOR.COLUMNSIZE}"]`).on("change", function() {
         let widths = $(`[name="${SELECTOR.COLUMNSIZE}"]`).val().split(",");
@@ -936,18 +1384,60 @@ function init() {
         isFooterPrimaryVisible();
     });
 
+    // Listen number of columns toggler for footercolumn5 (1-5 columns).
+    $(`[name="footercolumn5"]`).on("change", function() {
+        let width = [];
+        for (let i = 1; i <= $(this).val(); i++) {
+            width.push((100 / $(this).val()).toFixed(0));
+        }
+        $(`[name="${SELECTOR.COLUMNSIZE}"]`).val(width.join(","));
+        generateColumnSize();
+        columnSizeChange();
+        isFooterPrimaryVisible();
+    });
+
     // Listen footer colors.
     $(`
             ${SELECTOR.BACKGROUNDCOLOR},
+            ${SELECTOR.MAINBACKGROUNDCOLOR},
+            ${SELECTOR.BOTTOMBACKGROUNDCOLOR},
             ${SELECTOR.TEXTCOLOR},
+            ${SELECTOR.MAINAREATEXTCOLOR},
+            ${SELECTOR.BOTTOMAREATEXTCOLOR},
             ${SELECTOR.LINKTEXT},
             ${SELECTOR.LINKHOVERTEXT},
             ${SELECTOR.DIVIDERCOLOR},
             ${SELECTOR.ICONDEFAULTCOLOR},
+            ${SELECTOR.ICONDEFAULTBGCOLOR},
             ${SELECTOR.ICONHOVERCOLOR},
             ${SELECTOR.FOOTERCOLUMMTITLECOLOR},
             ${SELECTOR.FOOTERLOGOCOLOR}
         `).on("color.changed", footerColors);
+
+    $(`
+        ${SELECTOR.BACKGROUNDCOLOR}
+    `).on("color.changed", function() {
+        // Get the current background color value
+        let backgroundColor = $(this).spectrum("get").toString();
+
+        // Trigger main area background color change
+        $(SELECTOR.MAINBACKGROUNDCOLOR).spectrum('set', backgroundColor).trigger('color.changed');
+
+        // Trigger bottom background color change
+        $(SELECTOR.BOTTOMBACKGROUNDCOLOR).spectrum('set', backgroundColor).trigger('color.changed');
+    });
+
+    $(`
+        ${SELECTOR.TEXTCOLOR}
+    `).on("color.changed", function() {
+        let textColor = $(this).spectrum("get").toString();
+
+        // Trigger main area text color change
+        $(SELECTOR.MAINAREATEXTCOLOR).spectrum('set', textColor).trigger('color.changed');
+
+        // Trigger bottom area text color change
+        $(SELECTOR.BOTTOMAREATEXTCOLOR).spectrum('set', textColor).trigger('color.changed');
+    });
 
     // Listen footer font settings.
     $(`
@@ -969,9 +1459,31 @@ function init() {
             ${SELECTOR.FOOTERCOLUMMTITLELTRSPACE}
         `).on("input", footerFonts);
 
-    // Observe social media links.
+    $(`
+        ${SELECTOR.BACKGROUNDIMGOPACITY},
+        ${SELECTOR.BACKGROUNDIMGPOS},
+        ${SELECTOR.BACKGROUNDIMGREPEAT},
+        ${SELECTOR.BACKGROUNDIMGSIZE}
+        `).on("change",footerBackgroundImg);
+
+    $(SELECTOR.BACKGROUNDIMG).on("change", applyBackgroundImgURL);
+
+    Utils.fileObserver(
+        $(SELECTOR.BACKGROUNDIMG).siblings(".filemanager")[0],
+        function() {
+            $(SELECTOR.BACKGROUNDIMG).val(window.backgroundimgitemid);
+            applyBackgroundImgURL();
+        }
+    );
+
+    // Observe social media links (footer-primary only - exclude footer-secondary inputs).
     $(SELECTOR.SOCIALICONS).on("input", function() {
-        socialMediaLinks($(this).attr("name"), $(this).val());
+        let inputName = $(this).attr("name");
+        // Skip footer-secondary inputs (they don't end with numbers and are handled by updateSocialMediaPreview)
+        if (!inputName.match(/\d+$/)) {
+            return; // Skip footer-secondary inputs
+        }
+        socialMediaLinks(inputName, $(this).val());
         isFooterPrimaryVisible();
     });
 
@@ -995,6 +1507,25 @@ function init() {
     });
 
     // Listen content change.
+    $(`[name*="${SELECTOR.COLUMN}"][name*="customhtml"]`).on(
+        "input",
+        function() {
+            let index = $(this)
+                .attr("name")
+                .replace(SELECTOR.COLUMN, "")
+                .replace("customhtml", "");
+
+            // Get content from TinyMCE if available, otherwise use textarea
+            const editorId = `id_footercolumn${index}customhtml`;
+            const content = getTinyMCEContent(editorId);
+
+            // Update the content change function to use the retrieved content
+            contentChangeWithContent(index, content);
+            isFooterPrimaryVisible();
+        }
+    );
+
+    // Listen content change. change for atto editor
     $(`[name*="${SELECTOR.COLUMN}"][name*="customhtml"]`).on(
         "change",
         function() {
@@ -1038,11 +1569,11 @@ function init() {
             .attr("name")
             .replace(SELECTOR.COLUMN, "")
             .replace("social", "");
-        socialSelectionChanges(index);
+        // socialSelectionChanges(index);
         isFooterPrimaryVisible();
     });
 
-    // Show social media icon.
+    // Show/hide social media settings based on socialmediaiconcol toggle
     $(`[name*="socialmediaiconcol"]`).on("change", function() {
         let index = $(this)
             .attr("name")
@@ -1050,21 +1581,77 @@ function init() {
             .replace("socialmediaiconcol", "");
         let iframeDocument = Utils.getDocument();
         let show = $(this).is(":checked");
-        $(`[name="${SELECTOR.COLUMN}${index}social"]`)
-            .closest(SELECTOR.SETTINGITEM)
-            .toggleClass(SELECTOR.DNONE, !show);
+        // Show/hide all social media input fields for this column
+        $(`[name*="setting${index}"]`).each(function() {
+            let $socialSetting = $(this);
+            if ($socialSetting.attr('name').includes('setting') &&
+                $socialSetting.attr('name').endsWith(index.toString())) {
+                $socialSetting.closest(SELECTOR.SETTINGITEM).toggleClass(SELECTOR.DNONE, !show);
+            }
+        });
+        initializeSocialSettingsVisibility();
+
+        // Show/hide social media note
         $(`.${SELECTOR.COLUMN}${index}social-note`)
             .closest(SELECTOR.SETTINGITEM)
             .toggleClass(SELECTOR.DNONE, !show);
+        // Show/hide social icons in iframe preview
         $(iframeDocument)
             .find(`#footer-column-${index} .contentsocial`)
             .toggleClass(SELECTOR.DNONE, !show);
+
+        // Show/hide social-links container in iframe preview
+        $(iframeDocument)
+            .find(`#footer-column-${index} .social-links`)
+            .toggleClass(SELECTOR.DNONE, !show);
+    });
+    // Show/hide footer-secondary social media settings based on footersocialmediaicons toggle
+    $(`[name="footersocialmediaicons"]`).on("change", function() {
+        let show = $(this).is(":checked");
+
+        // Show/hide all social media input fields in footer-secondary
+        $(SELECTOR.SOCIALICONS).each(function() {
+            let $socialSetting = $(this);
+            $socialSetting.closest(SELECTOR.SETTINGITEM).toggleClass(SELECTOR.DNONE, !show);
+        });
+
+        // Update iframe preview visibility for footer-secondary
+        let iframeDocument = Utils.getDocument();
+        if (iframeDocument) {
+            let socialLinksContainer = $(iframeDocument).find('.footer-secondarysection-wrapper .social-links');
+            let socialLinksmainContainer = $(iframeDocument).find('.footer-secondarysection-wrapper .social-links-wrapper');
+            if (socialLinksContainer.length > 0) {
+                if (show) {
+                    // Show social media container
+                    socialLinksContainer.removeClass(SELECTOR.DNONE);
+                    if(socialLinksmainContainer) {
+                        socialLinksmainContainer.removeClass(SELECTOR.DNONE);
+                    }
+                    // Show social media in preview by calling updateSocialMediaPreview with existing values
+                    let socialTypes = ['facebook', 'twitter', 'linkedin', 'youtube', 'instagram', 'pinterest', 'quora', 'whatsapp', 'telegram'];
+                    socialTypes.forEach(socialType => {
+                        let $socialInput = $(`[name="${socialType}setting"]`);
+                        if ($socialInput.length > 0 && $socialInput.val()) {
+                            updateSocialMediaPreview('secondary', socialType, $socialInput.val());
+                        }
+                    });
+                } else {
+                    // Hide social media container
+                    socialLinksContainer.addClass(SELECTOR.DNONE);
+                    if(socialLinksmainContainer) {
+                        socialLinksmainContainer.addClass(SELECTOR.DNONE);
+                    }
+                }
+            }
+        }
     });
 
     // Secondary footer.
     // Show logo in the footer.
     $(SELECTOR.SHOWLOGO).on("change", showLogo);
 
+    // Initialize email subscribe event listeners
+    initializeEmailSubscribeListeners();
     // Show terms ans condition link in the footer.
     $(SELECTOR.TERMSANDCONDITIONSSHOW).on("change", termsAndConditionsShow);
 
@@ -1074,6 +1661,7 @@ function init() {
     // Show privacy policy link in the footer.
     $(SELECTOR.PRIVACYPOLICYSHOW).on("change", privacyPolicyShow);
 
+    $(SELECTOR.SHOWFOOTERWIDGETLOGO).on("change", footerWidgetLogoShow);
     // Handle privacy policy link change.
     $(SELECTOR.PRIVACYPOLICY).on("input", privacyPolicy);
 
@@ -1088,15 +1676,1817 @@ function init() {
     // Handle same logo from header toggle.
     $(SELECTOR.USEHEADERLOGO).on("change", useDifferentLogo);
 
+    // Handle same logo from header toggle.
+    $(SELECTOR.FOOTERWIDGETLOGO).on("change", useFooterWidgetLogo);
     // Footer icon image observer.
     Utils.fileObserver(
         $(SELECTOR.SECONDARYFOOTERLOGO).siblings(".filemanager")[0],
         useDifferentLogo
     );
 
+    // Footer icon image observer.
+    Utils.fileObserver(
+        $(SELECTOR.FOOTERWIDGETLOGO).siblings(".filemanager")[0],
+        function() {
+            $(SELECTOR.FOOTERWIDGETLOGO).val(window.footerwidgetlogoitemid);
+            useFooterWidgetLogo();
+        }
+    );
+
+    window.footerSettingsDownloaded = true;
     $(SELECTOR.POWEREDBY).on('change', togglePoweredBy);
+
+    let footerdesignselector = $(SELECTOR.FOOTERDESIGNSELECTOR+':checked');
+
+    window.currentFooterDesign = footerdesignselector.data('flayout');
+
+    $(SELECTOR.FOOTERDESIGNSELECTOR).on('input', () => {
+
+        // Reset download flag when footer design changes
+        window.footerSettingsDownloaded = false;
+
+        const footerdesignselector = $(SELECTOR.FOOTERDESIGNSELECTOR+':checked');
+
+        if (footerdesignselector.length) {
+            const selectedDesign = footerdesignselector.data('flayout');
+
+            // Check if this is the same design that was previously applied
+            if (window.currentFooterDesign === selectedDesign) {
+                handleDesignSpecificSettings(selectedDesign);
+                if (window.originalFooterContent) {
+                    let iframeDocument = Utils.getDocument();
+                    footerdesignloader(true, iframeDocument);
+                    setTimeout(() => {
+                        restoreUserCustomData()
+                            .then(() => {
+                                footerdesignloader(false, iframeDocument);
+                            })
+                            .catch(err => {
+                                footerdesignloader(false, iframeDocument);
+                            });
+                    }, 0);
+                }
+
+                applyBackgroundImgURL();
+                useFooterWidgetLogo();
+            } else {
+                InitiateNewFooterDesign(selectedDesign);
+            }
+        } else {
+        }
+    });
+
+    $("[name='top-area-header-text']").on("input", () => {
+        let iframeDocument = Utils.getDocument();
+        let headertext = $("[name='top-area-header-text']").val();
+        $(iframeDocument).find(".footer-top-area-section-7 .section-heading").html(headertext);
+    });
+
+    $("[name='footerbottomtext'], [name='footerbottomlink']").on("input", () => {
+        let iframeDocument = Utils.getDocument();
+        let footerbottomtext = $("[name='footerbottomtext']").val();
+        let footerbottomlink = $("[name='footerbottomlink']").val();
+        $(iframeDocument).find(".footer-bottomtext").html(footerbottomtext);
+        $(iframeDocument).find(".footer-bottomtext").attr("href", footerbottomlink);
+    });
+
+    $("[name^='footer-template-next-btn-']").on("click", () => {
+        const footerdesignselector = $(SELECTOR.FOOTERDESIGNSELECTOR+':checked');
+        const selectedDesign = footerdesignselector.data('flayout');
+        handleDesignSpecificSettings(selectedDesign);
+    });
+
+    window.backgroundimgitemid = $(SELECTOR.BACKGROUNDIMG).val();
+    window.footerwidgetlogoitemid = $(SELECTOR.FOOTERWIDGETLOGO).val();
+
+    // Initialize TinyMCE event listeners
+    initializeTinyMCEEvents();
+}
+function useFooterWidgetLogo(defaultImg = true, applyModernPreset = false) {
+    let iframeDocument = Utils.getDocument();
+    let show = $(SELECTOR.SHOWFOOTERWIDGETLOGO).is(":checked");
+
+    if (!show) {
+        // Hide the footer widget logo
+        $(iframeDocument).find("#page-footer #footer-column-1 .footerwidgetlogo").addClass(SELECTOR.DNONE);
+        return;
+    }
+
+    let itemid = $(SELECTOR.FOOTERWIDGETLOGO).val();
+    if(!defaultImg){
+        itemid = '';
+        $(SELECTOR.FOOTERWIDGETLOGO).val(234567891);
+    }
+
+    let ismodernpreset = applyModernPreset;
+
+    let response = '';
+    if(itemid == ''){
+        if(getActiveFooterDesign() === 'footerdesign1') {
+            response = "https://qastaticcdn.edwiser.org/theme_remuiassets/footerassets/images/option1.png";
+        }
+        else if(getActiveFooterDesign() === 'footerdesign2') {
+            response = "https://qastaticcdn.edwiser.org/theme_remuiassets/footerassets/images/option2.png";
+        }
+        else if(getActiveFooterDesign() === 'footerdesign3') {
+            response = "https://qastaticcdn.edwiser.org/theme_remuiassets/footerassets/images/option3.png";
+        }
+        else if(getActiveFooterDesign() === 'footerdesign4') {
+            response = "https://qastaticcdn.edwiser.org/theme_remuiassets/footerassets/images/option4.png";
+        }
+        else if(getActiveFooterDesign() === 'footerdesign6') {
+            response = "https://qastaticcdn.edwiser.org/theme_remuiassets/footerassets/images/option6.svg";
+        }
+
+        if (ismodernpreset && response) {
+            response = response.replace(/(\.[^.]+)$/, '-modernpreset$1');
+        }
+
+        // Only update the image source, don't replace the entire content
+        let $logoImg = $(iframeDocument).find("#page-footer #footer-column-1 .footerwidgetlogo");
+        if ($logoImg.length > 0) {
+            // Image exists, just update the source
+            $logoImg.attr("src", response).removeClass(SELECTOR.DNONE);
+        } else {
+            // Image doesn't exist, check if we should add it
+            let $contentHtml = $(iframeDocument).find("#page-footer #footer-column-1 .contenthtml");
+            if ($contentHtml.length > 0) {
+                // Only add if there's no existing footerwidgetlogo in the entire column
+                let $existingLogo = $contentHtml.find('.footerwidgetlogo');
+                if ($existingLogo.length === 0) {
+                    $contentHtml.prepend(`<img src="${response}" class="footerwidgetlogo">`);
+                }
+            }
+        }
+    }else{
+        Utils.getFileURL(itemid).done(function(response) {
+            if (response == "") {
+                // response = M.cfg.wwwroot + "/theme/remui/pix/logomini.png";
+                if(getActiveFooterDesign() === 'footerdesign1') {
+                    response = "https://qastaticcdn.edwiser.org/theme_remuiassets/footerassets/images/option1.png";
+                }
+                else if(getActiveFooterDesign() === 'footerdesign2') {
+                    response = "https://qastaticcdn.edwiser.org/theme_remuiassets/footerassets/images/option2.png";
+                }
+                else if(getActiveFooterDesign() === 'footerdesign3') {
+                    response = "https://qastaticcdn.edwiser.org/theme_remuiassets/footerassets/images/option3.png";
+                }
+                else if(getActiveFooterDesign() === 'footerdesign4') {
+                    response = "https://qastaticcdn.edwiser.org/theme_remuiassets/footerassets/images/option4.png";
+                }
+                else if(getActiveFooterDesign() === 'footerdesign6') {
+                    response = "https://qastaticcdn.edwiser.org/theme_remuiassets/footerassets/images/option6.svg";
+                }
+
+                if (ismodernpreset && response) {
+                    response = response.replace(/(\.[^.]+)$/, '-modernpreset$1');
+                }
+            }
+
+            // Only update the image source, don't replace the entire content
+            let $logoImg = $(iframeDocument).find("#page-footer #footer-column-1 .footerwidgetlogo");
+            if ($logoImg.length > 0) {
+                // Image exists, just update the source
+                $logoImg.attr("src", response).removeClass(SELECTOR.DNONE);
+            } else {
+                // Image doesn't exist, check if we should add it
+                let $contentHtml = $(iframeDocument).find("#page-footer #footer-column-1 .contenthtml");
+                if ($contentHtml.length > 0) {
+                    // Only add if there's no existing footerwidgetlogo in the entire column
+                    let $existingLogo = $contentHtml.find('.footerwidgetlogo');
+                    if ($existingLogo.length === 0) {
+                        $contentHtml.prepend(`<img src="${response}" class="footerwidgetlogo">`);
+                    }
+                }
+            }
+        });
+    }
+
+
+}
+/**
+ * Initialize social media settings visibility based on current checkbox states
+ */
+function initializeSocialSettingsVisibility() {
+    // Initialize column social settings
+    for (let i = 1; i <= 5; i++) {
+        let $checkbox = $(`[name="socialmediaiconcol${i}"]`);
+        if ($checkbox.length > 0) {
+            let show = $checkbox.is(":checked");
+
+            // Show/hide all social media input fields for this column
+            $(`[name*="setting${i}"]`).each(function() {
+                let $socialSetting = $(this);
+                if ($socialSetting.attr('name').includes('setting') &&
+                    $socialSetting.attr('name').endsWith(i.toString())) {
+                    $socialSetting.closest(SELECTOR.SETTINGITEM).toggleClass(SELECTOR.DNONE, !show);
+                }
+            });
+
+            // Show/hide social media note
+            $(`.${SELECTOR.COLUMN}${i}social-note`)
+                .closest(SELECTOR.SETTINGITEM)
+                .toggleClass(SELECTOR.DNONE, !show);
+
+            // Update iframe preview visibility for this column
+            if (show) {
+                // Show social media in preview by calling updateSocialMediaPreview with existing values
+                let socialTypes = ['facebook', 'twitter', 'linkedin', 'youtube', 'instagram', 'pinterest', 'quora', 'whatsapp', 'telegram'];
+                socialTypes.forEach(socialType => {
+                    let $socialInput = $(`[name="${socialType}setting${i}"]`);
+                    if ($socialInput.length > 0 && $socialInput.val()) {
+                        updateSocialMediaPreview(i, socialType, $socialInput.val());
+                    }
+                });
+            } else {
+                // Hide social media in preview by calling updateSocialMediaPreview with empty value
+                updateSocialMediaPreview(i, 'visibility', '');
+            }
+        }
+    }
+
+    // Initialize footer-secondary social settings
+    let $secondaryCheckbox = $(`[name="footersocialmediaicons"]`);
+    if ($secondaryCheckbox.length > 0) {
+        let show = $secondaryCheckbox.is(":checked");
+
+        // Show/hide all social media input fields in footer-secondary
+        $(SELECTOR.SOCIALICONS).each(function() {
+            let $socialSetting = $(this);
+            $socialSetting.closest(SELECTOR.SETTINGITEM).toggleClass(SELECTOR.DNONE, !show);
+        });
+
+        // Don't update iframe preview here - let individual input listeners handle it
+        // This prevents duplicate calls when footer design is applied
+    }
+}
+
+/**
+ * Initialize email subscribe settings visibility on page load
+ */
+function initializeEmailSubscribeSettingsVisibility() {
+    const emailSubscribeColumns = [0, 1, 4, 5];
+    const allSettings = ['subscribetargetlink', 'emailinputbordercolor', 'focusedemailinputoutlinecolor', 'subscribebuttontextcolor', 'subscribebuttontexthovercolor', 'subscribebtnbgcolor', 'subscribebtnbghovercolor'];
+
+    emailSubscribeColumns.forEach(columnIndex => {
+        const $toggle = $(`[name="toggle_email_subscribe_settings${columnIndex}"]`);
+        if ($toggle.length > 0) {
+            const show = $toggle.is(":checked");
+            const iframeDocument = Utils.getDocument();
+            const selector = columnIndex === 0 ? "#page-footer .subscribe-box" : `#footer-column-${columnIndex} .subscribe-box`;
+
+            // Show/hide settings based on current toggle state
+            allSettings.forEach(settingName => {
+                $(`#fitem_id_${settingName}${columnIndex}`).closest(".setting-type-text, .setting-type-color")
+                    .toggleClass(SELECTOR.DNONE, !show);
+            });
+
+            // Update iframe preview based on current toggle state
+            $(iframeDocument).find(selector).toggleClass(SELECTOR.DNONE, !show).toggleClass("d-flex", show);
+        }
+    });
+}
+
+/**
+ * Initialize email subscribe event listeners and handlers
+ */
+function initializeEmailSubscribeListeners() {
+    const emailSubscribeColumns = [0, 1, 4, 5];
+    const styleSettings = ['emailinputbordercolor', 'focusedemailinputoutlinecolor', 'subscribebuttontextcolor', 'subscribebuttontexthovercolor', 'subscribebtnbgcolor', 'subscribebtnbghovercolor'];
+    const allSettings = ['subscribetargetlink', ...styleSettings];
+
+    emailSubscribeColumns.forEach(columnIndex => {
+        // Toggle change listener
+        $(`[name="toggle_email_subscribe_settings${columnIndex}"]`).on("change", function() {
+            const show = $(this).is(":checked");
+            const iframeDocument = Utils.getDocument();
+            const selector = columnIndex === 0 ? "#page-footer .subscribe-box" : `#footer-column-${columnIndex} .subscribe-box`;
+
+            // Show/hide settings
+            allSettings.forEach(settingName => {
+                $(`#fitem_id_${settingName}${columnIndex}`).closest(".setting-type-text, .setting-type-color")
+                    .toggleClass(SELECTOR.DNONE, !show);
+            });
+
+            if (columnIndex === 0) {
+                $(iframeDocument)
+                    .find("#page-footer .footer-container .footer-top-area-section-7")
+                    .toggleClass(SELECTOR.DNONE, !show);
+            }
+
+            // Update iframe preview
+            $(iframeDocument).find(selector).toggleClass(SELECTOR.DNONE, !show).toggleClass("d-flex", show);
+        });
+
+        // Style change listeners
+        styleSettings.forEach(settingName => {
+            $(`[name="${settingName}${columnIndex}"]`).on("color.changed", function() {
+                const styles = {
+                    inputBorder: $(`[name="emailinputbordercolor${columnIndex}"]`).spectrum("get").toString(),
+                    inputOutline: $(`[name="focusedemailinputoutlinecolor${columnIndex}"]`).spectrum("get").toString(),
+                    btnText: $(`[name="subscribebuttontextcolor${columnIndex}"]`).spectrum("get").toString(),
+                    btnTextHover: $(`[name="subscribebuttontexthovercolor${columnIndex}"]`).spectrum("get").toString(),
+                    btnBg: $(`[name="subscribebtnbgcolor${columnIndex}"]`).spectrum("get").toString(),
+                    btnBgHover: $(`[name="subscribebtnbghovercolor${columnIndex}"]`).spectrum("get").toString()
+                };
+
+                const selector = columnIndex === 0 ? "#page-footer .subscribe-box" : `#footer-column-${columnIndex} .subscribe-box`;
+                let additionalcss = '';
+                if(columnIndex === 0){
+                    additionalcss = `${selector} .edw-icon-Email { color: ${styles.inputBorder} !important; }`;
+                }
+                const css = `
+                    ${additionalcss}
+                    ${selector} input { border-color: ${styles.inputBorder} !important; }
+                    ${selector} input:focus { border: 1px solid ${styles.inputOutline} !important; }
+                    ${selector} input:focus ~ .edw-icon-Email { color: ${styles.inputOutline} !important; }
+                    ${selector} .subscribe-btn { color: ${styles.btnText} !important; background-color: ${styles.btnBg} !important; }
+                    ${selector} .subscribe-btn:hover { color: ${styles.btnTextHover} !important; background-color: ${styles.btnBgHover} !important; }
+                `;
+                Utils.putStyle(`email-subscribe-styles-${columnIndex}`, css);
+            });
+        });
+
+        // Target link change listener
+        $(`[name="subscribetargetlink${columnIndex}"]`).on("input", function() {
+            const iframeDocument = Utils.getDocument();
+            const selector = columnIndex === 0 ? "#page-footer .subscribe-btn" : `#footer-column-${columnIndex} .subscribe-btn`;
+            $(iframeDocument).find(selector).attr("href", $(this).val());
+        });
+    });
+}
+
+/**
+ * Initialize event listeners for social media input fields
+ */
+function initializeSocialMediaInputListeners() {
+    // Add listeners for column social media inputs (footer-primary)
+    for (let i = 1; i <= 5; i++) {
+        $(`[name*="setting${i}"]`).each(function() {
+            let $input = $(this);
+            if ($input.attr('name').includes('setting') &&
+                $input.attr('name').endsWith(i.toString())) {
+
+                // Get the social media type from the input name
+                let socialType = $input.attr('name').replace(`setting${i}`, '');
+
+                // Add input event listener for footer-primary columns
+                $input.on('input', function() {
+                    updateSocialMediaPreview(i, socialType, $(this).val());
+                });
+            }
+        });
+    }
+
+    // Add listeners for footer-secondary social media inputs
+    $(SELECTOR.SOCIALICONS).each(function() {
+        let $input = $(this);
+        let inputName = $input.attr('name');
+
+        // Only handle footer-secondary inputs (those without numbers at the end)
+        if (inputName.includes('setting') && !inputName.match(/\d+$/)) {
+            // Get the social media type from the input name
+            let socialType = inputName.replace('setting', '');
+
+            // Add input event listener for footer-secondary
+            $input.on('input', function() {
+                updateSocialMediaPreview('secondary', socialType, $(this).val());
+
+                if ($(".social-links-wrapper .contentsocial.social-links").children().length === 0) {
+                    $(".followustext").addClass(SELECTOR.DNONE);
+                } else {
+                    $(".followustext").removeClass(SELECTOR.DNONE);
+                }
+            });
+        }
+    });
+}
+
+/**
+ * Update social media preview in iframe based on input changes
+ * @param {string|number} column Column number or 'secondary' for footer-secondary
+ * @param {string} socialType Social media type (facebook, twitter, etc.)
+ * @param {string} value Input value
+ */
+function updateSocialMediaPreview(column, socialType, value) {
+    let iframeDocument = Utils.getDocument();
+    let selector, socialLinksContainer;
+
+    if (column === 'secondary') {
+        // Handle footer-secondary social media
+        selector = '.footer-secondarysection-wrapper .social-links';
+        socialLinksContainer = $(iframeDocument).find(selector);
+    } else {
+        // Handle column social media
+        selector = `#footer-column-${column} .social-links`;
+        socialLinksContainer = $(iframeDocument).find(selector);
+    }
+
+    if (socialLinksContainer.length === 0) {
+        return; // Social links container doesn't exist
+    }
+
+
+    // Find existing social media link for this type
+    let existingLink = socialLinksContainer.find(`a[data-social="${socialType}"]`);
+
+    // Clear container and rebuild all social media links
+    socialLinksContainer.empty();
+
+    // Rebuild all social media links from current input values
+    let socialTypes = ['facebook', 'twitter', 'linkedin', 'youtube', 'instagram', 'pinterest', 'quora', 'whatsapp', 'telegram'];
+    socialTypes.forEach(type => {
+        let $input;
+        if (column === 'secondary') {
+            // For footer-secondary, use inputs without column numbers
+            $input = $(`[name="${type}setting"]`);
+        } else {
+            // For columns, use inputs with column numbers
+            $input = $(`[name="${type}setting${column}"]`);
+        }
+        if ($input.length > 0 && $input.val() && $input.val().trim() !== '') {
+            let socialData = socialList[type];
+            if (socialData) {
+                let linkHtml = `<a href="${$input.val()}" class="${socialData.class}" data-social="${type}" title="${socialData.title}"><i class="${socialData.icon}"></i></a>`;
+                socialLinksContainer.append(linkHtml);
+            }
+        }
+    });
 }
 export default {
     init,
     apply,
+    useFooterWidgetLogo,
 };
+
+
+/**
+ * Call personalization action web service
+ * @param {string} action Action type to perform
+ * @param {Object} config Configuration data
+ * @return {Promise} Promise that resolves with response
+ */
+function callPersonalizationAction(action, config) {
+    return Ajax.call([{
+        methodname: 'theme_remui_do_personalization_action',
+        args: {
+            action: action,
+            config: JSON.stringify(config)
+        }
+    }])[0];
+}
+
+
+/**
+ * Apply footer design and show/hide appropriate settings
+ * @param {string} design The footer design to apply (e.g., 'footerdesign1', 'footerdesign2', etc.)
+ */
+/**
+ * Apply footer design and show/hide appropriate settings
+ * @param {string} design The footer design to apply (e.g., 'footerdesign1', 'footerdesign2', etc.)
+ */
+function InitiateNewFooterDesign(design) {
+    let iframeDocument = Utils.getDocument();
+    if(window.originalFooterContent === undefined && window.currentFooterDesign === 'footerdesign6') {
+        let footerTop = iframeDocument.querySelector('#page-footer .footer-top-area-section-7');
+        if (footerTop) {
+            window.footerTop = footerTop;
+        }
+    }
+
+    // Handle design-specific settings
+    handleDesignSpecificSettings(design);
+
+    //Show Loader
+    footerdesignloader(true,iframeDocument);
+    // $(`#publish-settings`).prop('disabled', true);
+    // $(`#reset-settings`).prop('disabled', true);
+    // $(iframeDocument).find("#page-loader-wrapper").toggleClass("d-flex");
+
+    // Call the personalization action to get footer design
+    callPersonalizationAction('get_footer_design_dummy_data', { design: design })
+        .done(function(response) {
+            try {
+                let data = JSON.parse(response, true);
+
+                if (data.success && data.data) {
+                    // Parse the footer design data
+                    let footerConfigData;
+
+                    // Handle different response formats
+                    if (typeof data.data === 'string') {
+                        footerConfigData = JSON.parse(data.data, true);
+                    } else {
+                        footerConfigData = data.data;
+                    }
+
+
+                    // Apply the footer design data using new structure
+                    applyFooterDesignData(footerConfigData);
+
+                    applyBackgroundImgURL(false);
+
+                    useFooterWidgetLogo(false);
+
+                    // // Handle design-specific settings
+                    handleDesignSpecificSettings(design);
+
+                } else {
+                    //Hide the Loader
+                    footerdesignloader(false,iframeDocument);
+                    // $(iframeDocument).find("#page-loader-wrapper").toggleClass("d-flex");
+                    // $(`#publish-settings`).prop('disabled', false);
+                    // $(`#reset-settings`).prop('disabled', false);
+                }
+            } catch (e) {
+                footerdesignloader(false,iframeDocument);
+                // $(iframeDocument).find("#page-loader-wrapper").toggleClass("d-flex");
+                // $(`#reset-settings`).prop('disabled', false);
+            }
+        })
+        .fail(function(error) {
+            // $(iframeDocument).find("#page-loader-wrapper").toggleClass("d-flex");
+            footerdesignloader(false,iframeDocument);
+        });
+}
+
+function footerdesignloader(value,iframeDocument) {
+    $(iframeDocument).find("#page-loader-wrapper").toggleClass("d-flex");
+    $(`#publish-settings`).prop('disabled', value);
+    $(`#reset-settings`).prop('disabled', value);
+    $(`button[name^='footer-template-next-btn-']`).prop('disabled', value);
+}
+
+/**
+ * Hide specific settings based on the selected footer design
+ * @param {string} design The footer design to hide settings for
+ */
+function handleDesignSpecificSettings(design) {
+    // Remove section-footer-design-7 from DOM if any design other than footerdesign6 is active
+    if (design !== 'footerdesign6') {
+        let iframeDocument = Utils.getDocument();
+        let design7Element = iframeDocument.querySelector('.section-footer-design-7');
+        if (design7Element) {
+            design7Element.remove();
+        }
+    }
+
+    switch (design) {
+        case 'footerdesign0':
+            handleDesign0SpecificSettings();
+            break;
+        case 'footerdesign1':
+            handleDesign1SpecificSettings();
+            break;
+        case 'footerdesign2':
+            handleDesign2SpecificSettings();
+            break;
+        case 'footerdesign3':
+            handleDesign3SpecificSettings();
+            break;
+        case 'footerdesign4':
+            handleDesign4SpecificSettings();
+            break;
+        case 'footerdesign5':
+            handleDesign5SpecificSettings();
+            break;
+        case 'footerdesign6':
+            handleDesign6SpecificSettings();
+            break;
+        default:
+            // Default behavior - no hiding
+            break;
+    }
+}
+
+/**
+ * Hide settings specific to Footer Design 7
+ */
+function handleDesign0SpecificSettings() {
+    $(`[data-panel-id="footer-top-area"]`).closest(".group-item").addClass(SELECTOR.DNONE);
+    $(`[data-panel-id="footer-template-background-image"]`).closest(".group-item").addClass(SELECTOR.DNONE);
+    $(`#heading_footer-advance-column5`).closest(".heading-wrapper").addClass(SELECTOR.DNONE);
+    $(`#fitem_id_footercolumn5`).closest(".setting-type-range").addClass(SELECTOR.DNONE);
+    $('[name="main-footer-area-text-color"]').closest(".setting-type-color").addClass(SELECTOR.DNONE);
+    $(`[name="main-footer-area-background-color"]`).closest(".setting-type-color").addClass(SELECTOR.DNONE);
+    $(`[name="bottom-footer-area-background-color"]`).closest(".setting-type-color").addClass(SELECTOR.DNONE);
+    $(`[name="bottom-footer-area-text-color"]`).closest(".setting-type-color").addClass(SELECTOR.DNONE);
+    $(`[name="footersocialmediaicons"]`).closest(".setting-type-checkbox").addClass(SELECTOR.DNONE);
+    $(`[name="footer-icon-bg-color"]`).closest(".setting-type-color").addClass(SELECTOR.DNONE);
+
+    $(`[name="showfooterwidgetlogo"]`).prop('checked',false).trigger('change');
+    $(`[name="showfooterwidgetlogo"]`).closest(".setting-type-checkbox").addClass(SELECTOR.DNONE);
+
+    toggleSocialSettings({ showCol: 'all'});
+
+    $(`#fitem_id_footercolumn`).closest(".setting-type-range").removeClass(SELECTOR.DNONE);
+    $(`#fitem_id_footercolumnsize`).closest(".setting-type-text").removeClass(SELECTOR.DNONE);
+    $(`[name="footer-divider-color"]`).closest(".setting-type-color").removeClass(SELECTOR.DNONE);
+
+    $('[name="toggle_email_subscribe_settings1"]').prop('checked', false).trigger('change');
+    $('[name="toggle_email_subscribe_settings4"]').prop('checked', false).trigger('change');
+
+
+    $('[name="footersocialmediaicons"]').prop('checked', false).trigger('change');
+
+    $('[name="footershowlogo"]').closest(".setting-type-checkbox").removeClass(SELECTOR.DNONE);
+
+    $(`[name="footercolumn1type"]`).closest(SELECTOR.SETTINGITEM).removeClass(SELECTOR.DNONE);
+    $(`[name="footercolumn2type"]`).closest(SELECTOR.SETTINGITEM).removeClass(SELECTOR.DNONE);
+    $(`[name="footercolumn3type"]`).closest(SELECTOR.SETTINGITEM).removeClass(SELECTOR.DNONE);
+    $(`[name="footercolumn4type"]`).closest(SELECTOR.SETTINGITEM).removeClass(SELECTOR.DNONE);
+
+    $(`[name="footercolumn4title"]`).closest(".setting-type-text").removeClass(SELECTOR.DNONE);
+
+    $(`[name="footerbottomtext"]`).closest(SELECTOR.SETTINGITEM).removeClass(SELECTOR.DNONE);
+    $(`[name="footerbottomlink"]`).closest(SELECTOR.SETTINGITEM).removeClass(SELECTOR.DNONE);
+}
+
+const socials = ['facebook', 'twitter', 'linkedin', 'youtube', 'instagram', 'pinterest', 'quora', 'whatsapp', 'telegram'];
+
+function toggleSocialSettings({showCol = null, showEmail = false, showEmailCol = null, hideSocialInputs = true} = {}) {
+    for (let i = 1; i <= 5; i++) {
+        if (showCol === i || showCol === 'all') {
+            $(`#fitem_id_socialmediaiconcol${i}`).closest(".setting-type-checkbox").removeClass(SELECTOR.DNONE);
+        } else {
+            $(`#fitem_id_socialmediaiconcol${i}`).closest(".setting-type-checkbox").addClass(SELECTOR.DNONE);
+        }
+        if (hideSocialInputs) {
+            for (const social of socials) {
+                $(`#fitem_id_${social}setting${i}`).closest(".setting-type-text").addClass(SELECTOR.DNONE);
+            }
+        }
+        if (showEmail && i == showEmailCol) {
+            $(`#fitem_id_toggle_email_subscribe_settings${i}`).closest(".setting-type-checkbox").removeClass(SELECTOR.DNONE);
+        } else {
+            $(`#fitem_id_toggle_email_subscribe_settings${i}`).closest(".setting-type-checkbox").addClass(SELECTOR.DNONE);
+        }
+    }
+}
+
+/**
+ * Hide settings specific to Footer Design 1
+ */
+function handleDesign1SpecificSettings() {
+    // Design 1 shows all settings - nothing to hide
+
+    $(`[name="footercolumn1type"]`).val('customhtml').trigger('change');
+    $(`[name="footercolumn1type"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+
+    $(`[data-panel-id="footer-template-background-image"]`).closest(".group-item").removeClass(SELECTOR.DNONE);
+
+    $(`#heading_footer-advance-column5`).closest(".heading-wrapper").addClass(SELECTOR.DNONE);
+    $(`[data-panel-id="footer-top-area"]`).closest(".group-item").addClass(SELECTOR.DNONE);
+    $(`#fitem_id_footercolumnsize`).closest(".setting-type-text").addClass(SELECTOR.DNONE);
+    $(`#fitem_id_footercolumn`).closest(".setting-type-range").removeClass(SELECTOR.DNONE);
+    $(`#fitem_id_footercolumn5`).closest(".setting-type-range").addClass(SELECTOR.DNONE);
+    toggleSocialSettings({showCol: 4, showEmail: true, showEmailCol: 4});
+
+    $(`#fitem_id_footersocialmediaicons`).closest(".setting-type-checkbox").addClass(SELECTOR.DNONE);
+
+    $(`#fitem_id_main-footer-area-text-color`).closest(".setting-type-color").removeClass(SELECTOR.DNONE);
+    $(`[name="bottom-footer-area-text-color"]`).closest(".setting-type-color").removeClass(SELECTOR.DNONE);
+
+    $(`#fitem_id_footer-divider-color`).closest(".setting-type-color").addClass(SELECTOR.DNONE);
+
+    $(`[name="showfooterwidgetlogo"]`).closest(".setting-type-checkbox").removeClass(SELECTOR.DNONE);
+
+    $(`#fitem_id_main-footer-area-background-color`).closest(".setting-type-color").removeClass(SELECTOR.DNONE);
+    $(`#fitem_id_bottom-footer-area-background-color`).closest(".setting-type-color").removeClass(SELECTOR.DNONE);
+
+    $('[name="footersocialmediaicons"]').prop('checked', false).trigger('change');
+
+    $('[name="footershowlogo"]').prop('checked', false).trigger('change');
+    $('[name="footershowlogo"]').closest(".setting-type-checkbox").addClass(SELECTOR.DNONE);
+
+    $(`[name="footercolumn1title"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+
+    $(`[name="footercolumn1type"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+    $(`[name="footercolumn2type"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+    $(`[name="footercolumn3type"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+    $(`[name="footercolumn4type"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+
+    $(`[name="socialmediaiconcol1"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+    $(`[name="socialmediaiconcol2"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+    $(`[name="socialmediaiconcol3"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+    $(`[name="footerprivacypolicyshow"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+    $(`[name="footertermsandconditionsshow"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+
+    $(`[name="facebooksetting4"]`).closest(SELECTOR.SETTINGITEM).removeClass(SELECTOR.DNONE);
+    $(`[name="twittersetting4"]`).closest(SELECTOR.SETTINGITEM).removeClass(SELECTOR.DNONE);
+    $(`[name="linkedinsetting4"]`).closest(SELECTOR.SETTINGITEM).removeClass(SELECTOR.DNONE);
+    $(`[name="youtubesetting4"]`).closest(SELECTOR.SETTINGITEM).removeClass(SELECTOR.DNONE);
+    $(`[name="instagramsetting4"]`).closest(SELECTOR.SETTINGITEM).removeClass(SELECTOR.DNONE);
+    $(`[name="pinterestsetting4"]`).closest(SELECTOR.SETTINGITEM).removeClass(SELECTOR.DNONE);
+    $(`[name="quorasetting4"]`).closest(SELECTOR.SETTINGITEM).removeClass(SELECTOR.DNONE);
+    $(`[name="whatsappsetting4"]`).closest(SELECTOR.SETTINGITEM).removeClass(SELECTOR.DNONE);
+    $(`[name="telegramsetting4"]`).closest(SELECTOR.SETTINGITEM).removeClass(SELECTOR.DNONE);
+
+    $('[name="toggle_email_subscribe_settings4"]').prop('checked', true).trigger('change');
+
+    $(`[name="footercolumn4title"]`).closest(".setting-type-text").removeClass(SELECTOR.DNONE);
+
+    $(`[name="footerbottomtext"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+    $(`[name="footerbottomlink"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+
+
+    // $(`[name="footercolumn4menu"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+
+    // // Hide custom HTML for column 3
+    // $(`[name="footercolumn3customhtml"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+    // $(`[name="socialmediaiconcol3"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+    // $(`[name="footercolumn3social"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+    // $(`.footercolumn3social-note`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+
+    // Set default column types for design 4
+    // $(`[name="footercolumn2type"]`).val('customhtml').trigger('change');
+    // $(`[name="footercolumn3type"]`).val('menu').trigger('change');
+    // $(`[name="footercolumn4type"]`).val('customhtml').trigger('change');
+}
+
+/**
+ * Hide settings specific to Footer Design 2
+ */
+function handleDesign2SpecificSettings() {
+    // Design 2 shows all settings - nothing to hide
+    $(`[data-panel-id="footer-top-area"]`).closest(".group-item").addClass(SELECTOR.DNONE);
+    $(`#heading_footer-advance-column5`).closest(".heading-wrapper").removeClass(SELECTOR.DNONE);
+    $(`#fitem_id_footercolumnsize`).closest(".setting-type-text").addClass(SELECTOR.DNONE);
+    $(`#fitem_id_footercolumn`).closest(".setting-type-range").addClass(SELECTOR.DNONE);
+    $(`#fitem_id_footercolumn5`).closest(".setting-type-range").removeClass(SELECTOR.DNONE);
+    $(`#fitem_id_footersocialmediaicons`).closest(".setting-type-checkbox").removeClass(SELECTOR.DNONE);
+
+    $(`[data-panel-id="footer-template-background-image"]`).closest(".group-item").removeClass(SELECTOR.DNONE);
+
+    $(`[name="showfooterwidgetlogo"]`).closest(".setting-type-checkbox").removeClass(SELECTOR.DNONE);
+
+    toggleSocialSettings();
+    $(`#fitem_id_main-footer-area-text-color`).closest(".setting-type-color").removeClass(SELECTOR.DNONE);
+    $(`[name="bottom-footer-area-text-color"]`).closest(".setting-type-color").removeClass(SELECTOR.DNONE);
+    $(`#fitem_id_footer-divider-color`).closest(".setting-type-color").addClass(SELECTOR.DNONE);
+
+    $(`#fitem_id_main-footer-area-background-color`).closest(".setting-type-color").removeClass(SELECTOR.DNONE);
+    $(`#fitem_id_bottom-footer-area-background-color`).closest(".setting-type-color").removeClass(SELECTOR.DNONE);
+
+    // $('[name="footersocialmediaicons"]').prop('checked', true).trigger('change');
+
+    $('[name="footershowlogo"]').prop('checked', false).trigger('change');
+    $('[name="footershowlogo"]').closest(".setting-type-checkbox").addClass(SELECTOR.DNONE);
+
+    $('[name="footershowlogo"]').closest(".setting-type-checkbox").addClass(SELECTOR.DNONE);
+
+    $('[name="toggle_email_subscribe_settings1"]').prop('checked', false).trigger('change');
+    $('[name="toggle_email_subscribe_settings4"]').prop('checked', false).trigger('change');
+    $('[name="toggle_email_subscribe_settings5"]').prop('checked', false).trigger('change');
+
+    $(`[name="footerprivacypolicyshow"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+    $(`[name="footertermsandconditionsshow"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+
+
+    $(`[name="footercolumn1title"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+
+    $(`[name="footercolumn1type"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+    $(`[name="footercolumn2type"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+    $(`[name="footercolumn3type"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+    $(`[name="footercolumn4type"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+    $(`[name="footercolumn5type"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+
+    $(`[name="socialmediaiconcol1"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+    $(`[name="socialmediaiconcol2"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+    $(`[name="socialmediaiconcol3"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+    $(`[name="socialmediaiconcol4"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+    $(`[name="socialmediaiconcol5"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+
+    $(`[name="footer-icon-bg-color"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+
+    $(`[name="footercolumn4title"]`).closest(".setting-type-text").removeClass(SELECTOR.DNONE);
+
+    $(`[name="footerbottomtext"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+    $(`[name="footerbottomlink"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+}
+
+/**
+ * Hide settings specific to Footer Design 3
+ */
+function handleDesign3SpecificSettings() {
+    // Design 3 shows all settings - nothing to hide
+    $(`[data-panel-id="footer-top-area"]`).closest(".group-item").addClass(SELECTOR.DNONE);
+    $(`#heading_footer-advance-column5`).closest(".heading-wrapper").addClass(SELECTOR.DNONE);
+    $(`#fitem_id_footercolumnsize`).closest(".setting-type-text").addClass(SELECTOR.DNONE);
+    $(`#fitem_id_footercolumn`).closest(".setting-type-range").removeClass(SELECTOR.DNONE);
+    $(`#fitem_id_footercolumn5`).closest(".setting-type-range").addClass(SELECTOR.DNONE);
+    $(`#fitem_id_footersocialmediaicons`).closest(".setting-type-checkbox").removeClass(SELECTOR.DNONE);
+    toggleSocialSettings({showCol: null, showEmail: true, showEmailCol: 1});
+    $(`[data-panel-id="footer-template-background-image"]`).closest(".group-item").removeClass(SELECTOR.DNONE);
+
+    $(`[name="showfooterwidgetlogo"]`).closest(".setting-type-checkbox").removeClass(SELECTOR.DNONE);
+
+    $(`#fitem_id_main-footer-area-text-color`).closest(".setting-type-color").addClass(SELECTOR.DNONE);
+    $(`#fitem_id_footer-divider-color`).closest(".setting-type-color").removeClass(SELECTOR.DNONE);
+
+    $(`#fitem_id_main-footer-area-background-color`).closest(".setting-type-color").addClass(SELECTOR.DNONE);
+    $(`#fitem_id_bottom-footer-area-background-color`).closest(".setting-type-color").addClass(SELECTOR.DNONE);
+    $(`[name="bottom-footer-area-text-color"]`).closest(".setting-type-color").addClass(SELECTOR.DNONE);
+
+    // $('[name="footersocialmediaicons"]').prop('checked', true).trigger('change');
+
+    $(`[name="footercolumn1title"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+    $('[name="footershowlogo"]').prop('checked', false).trigger('change');
+    $('[name="footershowlogo"]').closest(".setting-type-checkbox").addClass(SELECTOR.DNONE);
+    $(`[name="footerprivacypolicyshow"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+    $(`[name="footertermsandconditionsshow"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+
+    $(`[name="footercolumn1type"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+    $(`[name="footercolumn2type"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+    $(`[name="footercolumn3type"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+    $(`[name="footercolumn4type"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+
+    $(`[name="footercolumn4title"]`).closest(".setting-type-text").removeClass(SELECTOR.DNONE);
+
+    $(`[name="footerbottomtext"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+    $(`[name="footerbottomlink"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+}
+
+/**
+ * Hide settings specific to Footer Design 4
+ */
+function handleDesign4SpecificSettings() {
+    // Design 4 has mixed column types - hide menu for columns 1,2,4
+
+    $(`[data-panel-id="footer-top-area"]`).closest(".group-item").addClass(SELECTOR.DNONE);
+    $(`#heading_footer-advance-column5`).closest(".heading-wrapper").addClass(SELECTOR.DNONE);
+    $(`#fitem_id_footercolumnsize`).closest(".setting-type-text").addClass(SELECTOR.DNONE);
+    $(`#fitem_id_footercolumn`).closest(".setting-type-range").removeClass(SELECTOR.DNONE);
+    $(`#fitem_id_footercolumn5`).closest(".setting-type-range").addClass(SELECTOR.DNONE);
+    $(`#fitem_id_footersocialmediaicons`).closest(".setting-type-checkbox").removeClass(SELECTOR.DNONE);
+    toggleSocialSettings();
+    $(`[data-panel-id="footer-template-background-image"]`).closest(".group-item").removeClass(SELECTOR.DNONE);
+
+    $(`#fitem_id_main-footer-area-background-color`).closest(".setting-type-color").addClass(SELECTOR.DNONE);
+    $(`#fitem_id_bottom-footer-area-background-color`).closest(".setting-type-color").addClass(SELECTOR.DNONE);
+
+    // $('[name="footersocialmediaicons"]').prop('checked', true).trigger('change');
+
+    $('[name="footershowlogo"]').prop('checked', false).trigger('change');
+    $('[name="footershowlogo"]').closest(".setting-type-checkbox").addClass(SELECTOR.DNONE);
+    $(`[name="footerprivacypolicyshow"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+    $(`[name="footertermsandconditionsshow"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+
+
+    $(`[name="footer-icon-bg-color"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+    $(`[name="footercolumn1title"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+
+    $(`[name="footercolumn1type"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+    $(`[name="footercolumn2type"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+    $(`[name="footercolumn3type"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+    $(`[name="footercolumn4type"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+
+    $(`[name="socialmediaiconcol1"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+    $(`[name="main-footer-area-text-color"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+    $(`[name="bottom-footer-area-text-color"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+
+    $(`[name="showfooterwidgetlogo"]`).closest(".setting-type-checkbox").removeClass(SELECTOR.DNONE);
+
+    $('[name="toggle_email_subscribe_settings4"]').prop('checked', false).trigger('change');
+
+    $(`[name="footercolumn4title"]`).closest(".setting-type-text").addClass(SELECTOR.DNONE);
+
+    $(`[name="footerbottomtext"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+    $(`[name="footerbottomlink"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+
+
+}
+
+/**
+ * Hide settings specific to Footer Design 5
+ */
+function handleDesign5SpecificSettings() {
+    // Design 5 shows all settings but has special email subscribe in column 1
+    // Nothing to hide, but set default column types
+    // for (let i = 1; i <= 4; i++) {
+    //     $(`[name="footercolumn${i}type"]`).val('customhtml').trigger('change');
+    // }
+    $(`[data-panel-id="footer-top-area"]`).closest(".group-item").addClass(SELECTOR.DNONE);
+    $(`#heading_footer-advance-column5`).closest(".heading-wrapper").addClass(SELECTOR.DNONE);
+    $(`#fitem_id_footercolumnsize`).closest(".setting-type-text").addClass(SELECTOR.DNONE);
+    $(`#fitem_id_footercolumn`).closest(".setting-type-range").removeClass(SELECTOR.DNONE);
+    $(`#fitem_id_footercolumn5`).closest(".setting-type-range").addClass(SELECTOR.DNONE);
+    $(`#fitem_id_footersocialmediaicons`).closest(".setting-type-checkbox").removeClass(SELECTOR.DNONE);
+    $(`[data-panel-id="footer-template-background-image"]`).closest(".group-item").removeClass(SELECTOR.DNONE);
+    toggleSocialSettings({showCol: null, showEmail: true, showEmailCol: 1});
+
+    $(`#fitem_id_main-footer-area-text-color`).closest(".setting-type-color").removeClass(SELECTOR.DNONE);
+
+    $(`#fitem_id_main-footer-area-background-color`).closest(".setting-type-color").addClass(SELECTOR.DNONE);
+    $(`#fitem_id_bottom-footer-area-background-color`).closest(".setting-type-color").addClass(SELECTOR.DNONE);
+
+    $(`[name="footerprivacypolicyshow"]`).closest(SELECTOR.SETTINGITEM).removeClass(SELECTOR.DNONE);
+    $(`[name="footertermsandconditionsshow"]`).closest(SELECTOR.SETTINGITEM).removeClass(SELECTOR.DNONE);
+    // $('[name="footersocialmediaicons"]').prop('checked', true).trigger('change');
+
+    $('[name="footershowlogo"]').prop('checked', false).trigger('change');
+    $('[name="footershowlogo"]').closest(".setting-type-checkbox").addClass(SELECTOR.DNONE);
+
+    $('[name="showfooterwidgetlogo"]').closest(".setting-type-checkbox").addClass(SELECTOR.DNONE);
+
+    $(`[name="footer-icon-bg-color"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+
+    $(`[name="footercolumn1type"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+    $(`[name="footercolumn2type"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+    $(`[name="footercolumn3type"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+    $(`[name="footercolumn4type"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+
+    $(`[name="socialmediaiconcol1"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+    $(`[name="main-footer-area-text-color"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+    $(`[name="bottom-footer-area-text-color"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+
+    $('[name="toggle_email_subscribe_settings4"]').prop('checked', false).trigger('change');
+
+    $(`[name="footercolumn4title"]`).closest(".setting-type-text").removeClass(SELECTOR.DNONE);
+
+    $(`[name="footerbottomtext"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+    $(`[name="footerbottomlink"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+}
+
+/**
+ * Hide settings specific to Footer Design 6
+ */
+function handleDesign6SpecificSettings() {
+    // Design 6 shows all settings - nothing to hide
+    // Set default column types
+    // for (let i = 1; i <= 4; i++) {
+    //     $(`[name="footercolumn${i}type"]`).val('customhtml').trigger('change');
+    // }
+    $(`[data-panel-id="footer-top-area"]`).closest(".group-item").removeClass(SELECTOR.DNONE);
+    $(`#heading_footer-advance-column5`).closest(".heading-wrapper").addClass(SELECTOR.DNONE);
+    $(`#fitem_id_footercolumnsize`).closest(".setting-type-text").addClass(SELECTOR.DNONE);
+    $(`#fitem_id_footercolumn`).closest(".setting-type-range").removeClass(SELECTOR.DNONE);
+    $(`#fitem_id_footercolumn5`).closest(".setting-type-range").addClass(SELECTOR.DNONE);
+    $(`[data-panel-id="footer-template-background-image"]`).closest(".group-item").removeClass(SELECTOR.DNONE);
+    $(`#fitem_id_footersocialmediaicons`).closest(".setting-type-checkbox").removeClass(SELECTOR.DNONE);
+    toggleSocialSettings();
+    $(`#fitem_id_main-footer-area-text-color`).closest(".setting-type-color").removeClass(SELECTOR.DNONE);
+
+    $(`#fitem_id_main-footer-area-background-color`).closest(".setting-type-color").addClass(SELECTOR.DNONE);
+    $(`#fitem_id_bottom-footer-area-background-color`).closest(".setting-type-color").addClass(SELECTOR.DNONE);
+
+    // $('[name="footersocialmediaicons"]').prop('checked', true).trigger('change');
+
+    $('[name="footershowlogo"]').prop('checked', false).trigger('change');
+    $('[name="footershowlogo"]').closest(".setting-type-checkbox").addClass(SELECTOR.DNONE);
+    $(`[name="footerprivacypolicyshow"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+    $(`[name="footertermsandconditionsshow"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+
+    $('[name="showfooterwidgetlogo"]').closest(".setting-type-checkbox").removeClass(SELECTOR.DNONE);
+
+    $(`[name="footer-icon-bg-color"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+
+    $(`[name="footercolumn1type"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+    $(`[name="footercolumn2type"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+    $(`[name="footercolumn3type"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+    $(`[name="footercolumn4type"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+
+    $(`[name="footercolumn1title"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+
+    $(`[name="socialmediaiconcol1"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+    $(`[name="main-footer-area-text-color"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+    $(`[name="bottom-footer-area-text-color"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+
+    $('[name="toggle_email_subscribe_settings4"]').prop('checked', false).trigger('change');
+
+    $(`[name="footercolumn4title"]`).closest(".setting-type-text").removeClass(SELECTOR.DNONE);
+
+    $(`[name="footerbottomtext"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+    $(`[name="footerbottomlink"]`).closest(SELECTOR.SETTINGITEM).addClass(SELECTOR.DNONE);
+}
+
+/**
+ * Store original footer content and clear sections for new content
+ * @param {Document} iframeDocument The iframe document
+ * @return {Object} Object containing original footer content
+ */
+function storeAndClearFooterSections(iframeDocument) {
+    let originalContent = {};
+
+    // Store footer top section content if it exists
+    // let footerTop = iframeDocument.querySelector('#page-footer .footer-top-area-section-7');
+    let footerTop = window.footerTop;
+    if (footerTop) {
+        originalContent.footerTop = footerTop.innerHTML;
+        footerTop.style.display = 'none';
+    }
+
+    // Store footer main section content and clear it
+    let footerMain = iframeDocument.querySelector('#page-footer .footer-mainsection-wrapper');
+    if (footerMain) {
+        originalContent.footerMain = footerMain.innerHTML;
+        // Clear content but keep the wrapper element
+        footerMain.innerHTML = '';
+        footerMain.style.display = 'block';
+    } else {
+    }
+
+    // Store footer secondary section content and clear it
+    let footerSecondary = iframeDocument.querySelector('#page-footer .footer-secondarysection-wrapper');
+    if (footerSecondary) {
+        originalContent.footerSecondary = footerSecondary.innerHTML;
+        // Clear content but keep the wrapper element
+        footerSecondary.innerHTML = '';
+        footerSecondary.style.display = 'block';
+    } else {
+    }
+
+    return originalContent;
+}
+
+/**
+ * Apply footer design data to the preview using hybrid approach
+ * @param {Object} data Footer design data with setting names and values + HTML content
+ */
+function applyFooterDesignData(data) {
+
+    // Store original content and settings globally for potential restoration
+    let iframeDocument = Utils.getDocument();
+    let originalContent = storeAndClearFooterSections(iframeDocument);
+    if(window.originalFooterContent === undefined) {
+        window.originalFooterContent = originalContent;
+        window.originalFooterSettings = backupFooterSettings();
+    }
+
+    // HYBRID APPROACH: Apply HTML structure first, then settings
+
+    // 1. Apply HTML content structure (like old logic)
+    if (data.htmlcontent && typeof data.htmlcontent === 'object') {
+
+        // Apply footer top HTML
+        if (data.htmlcontent.tophtml) {
+            let footerTop = iframeDocument.querySelector('#page-footer .footer-top-area-section-7');
+            if (footerTop) {
+                footerTop.style.display = 'block';
+                footerTop.innerHTML = data.htmlcontent.tophtml;
+            } else {
+                // Create new footer top section
+                let footerMain = iframeDocument.querySelector('#page-footer .footer-mainsection-wrapper');
+                if (footerMain && footerMain.parentNode) {
+                    let newFooterTop = iframeDocument.createElement('div');
+                    newFooterTop.className = 'section-footer-design-7 footer-top-area-section-7';
+                    newFooterTop.innerHTML = data.htmlcontent.tophtml;
+                    footerMain.parentNode.insertBefore(newFooterTop, footerMain);
+                }
+            }
+        }
+
+        // Apply footer main HTML content
+        if (data.htmlcontent.maincontenthtml) {
+            let footerMain = iframeDocument.querySelector('#page-footer .footer-mainsection-wrapper');
+            if (footerMain) {
+                footerMain.innerHTML = data.htmlcontent.maincontenthtml;
+            }
+        }
+
+        // Apply footer bottom HTML
+        if (data.htmlcontent.bottomhtml) {
+            let footerSecondary = iframeDocument.querySelector('#page-footer .footer-secondarysection-wrapper');
+            if (footerSecondary) {
+                footerSecondary.innerHTML = data.htmlcontent.bottomhtml;
+            }
+        }
+    }
+
+    // 2. Handle footertop settings (if needed)
+    if (!data.footertop || data.footertop === false) {
+        // TODO: Implement footertop handling when needed
+    } else {
+        // Handle footertop settings if they exist
+        if (typeof data.footertop === 'object') {
+            Object.keys(data.footertop).forEach(key => {
+                applySettingValue(key, data.footertop[key]);
+            });
+        }
+    }
+
+    // Handle footerbottom settings
+    if (data.footerbottom && typeof data.footerbottom === 'object') {
+        Object.keys(data.footerbottom).forEach(key => {
+            applySettingValue(key, data.footerbottom[key]);
+        });
+    }
+
+    // Handle configData array - should contain 4 column objects
+    if (data.configData && Array.isArray(data.configData)) {
+
+        data.configData.forEach((columnData, index) => {
+
+            // Apply each setting
+            Object.keys(columnData).forEach(key => {
+                let value = columnData[key];
+
+                // If this is the type setting and it's 'menu', apply type and continue to process menu data
+                if (/^footercolumn\d+type$/.test(key) && value === 'menu') {
+                    applySettingValue(key, value);
+                    // Continue processing other settings including menu data
+                }
+
+                // Apply any other setting normally
+                applySettingValue(key, value);
+            });
+        });
+    }
+
+    // Handle footer colors using existing color logic
+    if (data.footercolors && typeof data.footercolors === 'object') {
+        applyFooterColors(data.footercolors);
+    }
+
+
+    // Scroll to footer to make it visible
+    scrollToFooter(iframeDocument);
+
+    initializeSocialSettingsVisibility();
+
+    // Apply all footer settings to sync the iframe with form controls
+    apply();
+
+    // Sync TinyMCE content after design application (run after apply())
+    syncTinyMCEContentAfterDesign();
+
+    footerdesignloader(false,iframeDocument);
+    // $(iframeDocument).find("#page-loader-wrapper").toggleClass("d-flex");
+    // $(`#publish-settings`).prop('disabled', false);
+    // $(`#reset-settings`).prop('disabled', false);
+}
+
+/**
+ * Sync TinyMCE content after design application
+ */
+function syncTinyMCEContentAfterDesign() {
+    // Wait a bit for TinyMCE to be ready after design application
+    setTimeout(() => {
+        for (let i = 1; i <= 5; i++) {
+            const editorId = `id_footercolumn${i}customhtml`;
+            if (typeof window.tinymce !== 'undefined' && window.tinymce.get(editorId)) {
+                // Get content from textarea and set it in TinyMCE
+                const textareaContent = $(`[name="footercolumn${i}customhtml"]`).val();
+
+                if (textareaContent) {
+                    window.tinymce.get(editorId).setContent(textareaContent);
+                    // Also update the iframe preview with the content
+                    updateFooterColumnContent(i, textareaContent);
+                }
+            } else {
+                // If TinyMCE not available, still update iframe with textarea content
+                const textareaContent = $(`[name="footercolumn${i}customhtml"]`).val();
+                if (textareaContent) {
+                    updateFooterColumnContent(i, textareaContent);
+                }
+            }
+        }
+    }, 1000); // Wait 1 second for everything to be ready
+}
+
+/**
+ * Apply a single setting value to its corresponding form control
+ * @param {string} settingKey The setting name (used as selector)
+ * @param {*} value The value to set
+ */
+function applySettingValue(settingKey, value) {
+    try {
+        let $element = $(`[name="${settingKey}"]`);
+
+        if ($element.length === 0) {
+            return;
+        }
+
+
+        // Handle different input types
+        let inputType = $element.attr('type');
+        let tagName = $element.prop('tagName').toLowerCase();
+
+        if (inputType === 'checkbox') {
+            // Handle checkbox inputs
+            let isChecked = value === true || value === 'true' || value === '1' || value === 1;
+            $element.prop('checked', isChecked).trigger('change');
+
+        } else if (inputType === 'color' || $element.hasClass('spectrum')) {
+            // Handle color inputs (Spectrum color pickers)
+            if ($element.spectrum) {
+                $element.spectrum('set', value).trigger('color.changed');
+            } else {
+                $element.val(value).trigger('change');
+            }
+
+        } else if (tagName === 'select') {
+            // Handle select dropdowns
+            $element.val(value).trigger('change');
+
+        } else if (settingKey.includes('menu') && value && typeof value === 'string') {
+            // Handle menu setting as JSON string - use Templates.render approach
+            // Set the JSON string directly to the textarea
+            $element.val(value).trigger('change');
+
+            // Parse the JSON to get menu items for regeneration
+            try {
+                let menuItems = JSON.parse(value);
+                if (Array.isArray(menuItems)) {
+                    // Regenerate menu DOM items using template approach
+                    if (settingKey.match(/^footercolumn(\d+)menu$/)) {
+                        let columnIndex = settingKey.match(/^footercolumn(\d+)menu$/)[1];
+
+                        // Find the menu element container
+                        let menuRoot = `#fitem_id_${settingKey}`;
+                        let menuElement = $(menuRoot);
+                        if (menuElement.length) {
+                            // Find the menu item list container
+                            let menuItemList = menuElement.find('.customizer-menu-item-list');
+                            if (menuItemList.length > 0) {
+                                // Clear existing menu items
+                                menuItemList.empty();
+
+                                // Use Templates.render to generate menu items using the Mustache template
+                                // Process menu items one by one using the existing template system
+                                let processNextMenuItem = function(items, index) {
+                                    if (index >= items.length) {
+                                        // Update iframe preview with the new menu
+                                        setTimeout(() => {
+                                            menuChange(columnIndex);
+                                        }, 100);
+                                        return;
+                                    }
+
+                                    let item = items[index];
+
+                                    Templates.render('theme_remui/customizer/elements/menu/menu-item', item)
+                                    .done(function(html, js) {
+                                        Templates.appendNodeContents(menuItemList, html, js);
+                                        // Process next item
+                                        processNextMenuItem(items, index + 1);
+                                    })
+                                    .fail(function(error) {
+                                        // Continue with next item even if this one fails
+                                        processNextMenuItem(items, index + 1);
+                                    });
+                                };
+
+                                // Start processing menu items
+                                processNextMenuItem(menuItems, 0);
+
+                            }
+                        }
+                    }
+                }
+            } catch (parseError) {
+                // Silent fail - continue processing other settings
+            }
+
+        } else if (tagName === 'textarea' || inputType === 'text' || inputType === 'number') {
+            // Handle text inputs, textareas, and number inputs
+            $element.val(value).trigger('change');
+            $element.val(value).trigger('input');
+
+        } else if (settingKey.includes('menu') && Array.isArray(value)) {
+            // Handle menu arrays - convert to JSON string
+            $element.val(JSON.stringify(value)).trigger('change');
+
+        } else {
+            // Default handling for other input types
+            $element.val(value).trigger('change');
+        }
+
+        // Additional event triggers for specific settings
+        if (settingKey.includes('customhtml')) {
+            // For HTML editor content, also trigger input event
+            $element.trigger('input');
+        }
+
+    } catch (error) {
+    }
+}
+
+/**
+ * Backup all current footer settings before applying new design
+ * @return {Object} Object containing all current footer settings
+ */
+function backupFooterSettings() {
+    let settings = {};
+
+    try {
+        // Backup footer colors
+        settings.colors = {
+            'footer-background-color': getSettingValue(SELECTOR.BACKGROUNDCOLOR),
+            'main-footer-area-background-color': getSettingValue(SELECTOR.MAINBACKGROUNDCOLOR),
+            'bottom-footer-area-background-color': getSettingValue(SELECTOR.BOTTOMBACKGROUNDCOLOR),
+            'footer-text-color': getSettingValue(SELECTOR.TEXTCOLOR),
+            'main-footer-area-text-color': getSettingValue(SELECTOR.MAINAREATEXTCOLOR),
+            'footer-divider-color': getSettingValue(SELECTOR.DIVIDERCOLOR),
+            'footer-link-text': getSettingValue(SELECTOR.LINKTEXT),
+            'footer-link-hover-text': getSettingValue(SELECTOR.LINKHOVERTEXT),
+            'footer-icon-color': getSettingValue(SELECTOR.ICONDEFAULTCOLOR),
+            'footer-icon-hover-color': getSettingValue(SELECTOR.ICONHOVERCOLOR),
+            'footer-columntitle-color': getSettingValue(SELECTOR.FOOTERCOLUMMTITLECOLOR),
+            'footer-logo-color': getSettingValue(SELECTOR.FOOTERLOGOCOLOR),
+            'footer-icon-bg-color': getSettingValue(SELECTOR.ICONDEFAULTBGCOLOR)
+        };
+
+        // Backup footer fonts
+        settings.fonts = {
+            'footerfontfamily': getSettingValue(SELECTOR.FOOTERFONTFAMILY),
+            'footerfontsize': getSettingValue(SELECTOR.FOOTERFONTSIZE),
+            'footerfontweight': getSettingValue(SELECTOR.FOOTERFONTWEIGHT),
+            'footerfonttext-transform': getSettingValue(SELECTOR.FOOTERTEXTTRANSFORM),
+            'footerfontlineheight': getSettingValue(SELECTOR.FOOTERFONTLINEHEIGHT),
+            'footerfontltrspace': getSettingValue(SELECTOR.FOOTERFONTLTRSPACE),
+            'footer-columntitle-fontfamily': getSettingValue(SELECTOR.FOOTERCOLUMNTITLEFONTFAMILY),
+            'footer-columntitle-fontsize': getSettingValue(SELECTOR.FOOTERCOLUMMTITLEFONTSIZE),
+            'footer-columntitle-fontweight': getSettingValue(SELECTOR.FOOTERCOLUMNTITLEFONTWEIGHT),
+            'footer-columntitle-textransform': getSettingValue(SELECTOR.FOOTERCOLUMMTITLETEXTTRANSFORM),
+            'footer-columntitle-lineheight': getSettingValue(SELECTOR.FOOTERCOLUMMTITLELINEHEIGHT),
+            'footer-columntitle-ltrspace': getSettingValue(SELECTOR.FOOTERCOLUMMTITLELTRSPACE)
+        };
+
+        // Backup footer social media settings (global)
+        settings.social = {
+            'facebooksetting': getSettingValue('facebooksetting'),
+            'twittersetting': getSettingValue('twittersetting'),
+            'linkedinsetting': getSettingValue('linkedinsetting'),
+            'youtubesetting': getSettingValue('youtubesetting'),
+            'instagramsetting': getSettingValue('instagramsetting'),
+            'pinterestsetting': getSettingValue('pinterestsetting'),
+            'quorasetting': getSettingValue('quorasetting'),
+            'whatsappsetting': getSettingValue('whatsappsetting'),
+            'telegramsetting': getSettingValue('telegramsetting')
+        };
+
+        // Backup footer social media settings for each column
+        for (let i = 1; i <= 5; i++) {
+            settings[`socialColumn${i}`] = {
+                'facebooksetting': getSettingValue(`facebooksetting${i}`),
+                'twittersetting': getSettingValue(`twittersetting${i}`),
+                'linkedinsetting': getSettingValue(`linkedinsetting${i}`),
+                'youtubesetting': getSettingValue(`youtubesetting${i}`),
+                'instagramsetting': getSettingValue(`instagramsetting${i}`),
+                'pinterestsetting': getSettingValue(`pinterestsetting${i}`),
+                'quorasetting': getSettingValue(`quorasetting${i}`),
+                'whatsappsetting': getSettingValue(`whatsappsetting${i}`),
+                'telegramsetting': getSettingValue(`telegramsetting${i}`)
+            };
+        }
+
+        // Backup footer-secondary social media settings
+        settings.socialSecondary = {
+            'facebooksetting': getSettingValue('facebooksetting'),
+            'twittersetting': getSettingValue('twittersetting'),
+            'linkedinsetting': getSettingValue('linkedinsetting'),
+            'youtubesetting': getSettingValue('youtubesetting'),
+            'instagramsetting': getSettingValue('instagramsetting'),
+            'pinterestsetting': getSettingValue('pinterestsetting'),
+            'quorasetting': getSettingValue('quorasetting'),
+            'whatsappsetting': getSettingValue('whatsappsetting'),
+            'telegramsetting': getSettingValue('telegramsetting')
+        };
+
+        // Backup footer advance settings
+        settings.advance = {
+            [SELECTOR.COLUMN]: getSettingValue(SELECTOR.COLUMN),
+            'footercolumn5': getSettingValue('footercolumn5'),
+            [SELECTOR.COLUMNSIZE]: getSettingValue(SELECTOR.COLUMNSIZE)
+        };
+
+        // Backup footer column settings (1-5)
+        for (let i = 1; i <= 5; i++) {
+            settings[`column${i}`] = {
+                [`${SELECTOR.COLUMN}${i}type`]: getSettingValue(`${SELECTOR.COLUMN}${i}type`),
+                [`${SELECTOR.COLUMN}${i}title`]: getSettingValue(`${SELECTOR.COLUMN}${i}title`),
+                [`${SELECTOR.COLUMN}${i}customhtml`]: getSettingValue(`${SELECTOR.COLUMN}${i}customhtml`),
+                [`socialmediaiconcol${i}`]: getSettingValue(`socialmediaiconcol${i}`),
+                [`${SELECTOR.COLUMN}${i}social`]: getSettingValue(`${SELECTOR.COLUMN}${i}social`),
+                [`${SELECTOR.COLUMN}${i}menu`]: getSettingValue(`${SELECTOR.COLUMN}${i}menu`)
+            };
+        }
+
+        // Backup footer secondary settings
+        settings.secondary = {
+            'footershowlogo': getSettingValue(SELECTOR.SHOWLOGO),
+            'useheaderlogo': getSettingValue(SELECTOR.USEHEADERLOGO),
+            'footerprivacypolicyshow': getSettingValue(SELECTOR.PRIVACYPOLICYSHOW),
+            'footerprivacypolicy': getSettingValue(SELECTOR.PRIVACYPOLICY),
+            'privacypolicynewtab': getSettingValue(SELECTOR.PRIVACYPOLICYNEWTAB),
+            'footertermsandconditionsshow': getSettingValue(SELECTOR.TERMSANDCONDITIONSSHOW),
+            'footertermsandconditions': getSettingValue(SELECTOR.TERMSANDCONDITIONS),
+            'termsandconditionewtab': getSettingValue(SELECTOR.TERMSANDCONDITIONSNEWTAB),
+            'footercopyrightsshow': getSettingValue(SELECTOR.COPYRIGHTSHOW),
+            'footercopyrights': getSettingValue(SELECTOR.COPYRIGHT),
+            'poweredbyedwiser': getSettingValue(SELECTOR.POWEREDBY)
+        };
+
+        // Backup email subscribe settings for all columns (0-5)
+        settings.emailSubscribe = {};
+        for (let i = 0; i <= 5; i++) {
+            settings.emailSubscribe[`toggle_email_subscribe_settings${i}`] = getSettingValue(`toggle_email_subscribe_settings${i}`);
+            settings.emailSubscribe[`subscribetargetlink${i}`] = getSettingValue(`subscribetargetlink${i}`);
+            settings.emailSubscribe[`emailinputbordercolor${i}`] = getSettingValue(`emailinputbordercolor${i}`);
+            settings.emailSubscribe[`focusedemailinputoutlinecolor${i}`] = getSettingValue(`focusedemailinputoutlinecolor${i}`);
+            settings.emailSubscribe[`subscribebuttontextcolor${i}`] = getSettingValue(`subscribebuttontextcolor${i}`);
+            settings.emailSubscribe[`subscribebuttontexthovercolor${i}`] = getSettingValue(`subscribebuttontexthovercolor${i}`);
+            settings.emailSubscribe[`subscribebtnbgcolor${i}`] = getSettingValue(`subscribebtnbgcolor${i}`);
+            settings.emailSubscribe[`subscribebtnbghovercolor${i}`] = getSettingValue(`subscribebtnbghovercolor${i}`);
+        }
+
+        // Backup footer widget logo settings
+        settings.footerWidgetLogo = {
+            'showfooterwidgetlogo': getSettingValue(SELECTOR.SHOWFOOTERWIDGETLOGO),
+            'footerwidgetlogo': getSettingValue(SELECTOR.FOOTERWIDGETLOGO)
+        };
+
+        let backgroundimagevalue = getSettingValue(SELECTOR.BACKGROUNDIMG);
+        if ($('#fitem_id_backgroundimgurl .fm-empty-container').css('display') == 'block') {
+            backgroundimagevalue = '';
+        }
+
+        settings.footerbackground = {
+            'backgroundimg': backgroundimagevalue,
+            'backgroundimg-opacity': getSettingValue(SELECTOR.BACKGROUNDIMGOPACITY),
+            'backgroundimg-position': getSettingValue(SELECTOR.BACKGROUNDIMGPOS),
+            'backgroundimg-repeat': getSettingValue(SELECTOR.BACKGROUNDIMGREPEAT),
+            'backgroundimg-size': getSettingValue(SELECTOR.BACKGROUNDIMGSIZE)
+        };
+
+
+    } catch (error) {
+        settings = {};
+    }
+
+    return settings;
+}
+
+/**
+ * Restore user's custom footer data when same design is reselected
+ */
+function restoreUserCustomData() {
+    return new Promise((resolve, reject) => {
+        let iframeDocument = Utils.getDocument();
+        if (!iframeDocument) {
+            reject(new Error('Iframe document not found'));
+            return;
+        }
+
+        try {
+
+            // Restore footer content
+            if (window.originalFooterContent) {
+                // Restore footer top section
+                if (window.originalFooterContent.footerTop) {
+                    let footerTop = iframeDocument.querySelector('#page-footer .footer-top-area-section-7');
+                    if (footerTop) {
+                        footerTop.style.display = 'block';
+                        footerTop.innerHTML = window.originalFooterContent.footerTop;
+                    } else {
+                        // Create new footer top section
+                        let footerMain = iframeDocument.querySelector('#page-footer .footer-mainsection-wrapper');
+                        if (footerMain && footerMain.parentNode) {
+                            let newFooterTop = iframeDocument.createElement('div');
+                            newFooterTop.className = 'section-footer-design-7 footer-top-area-section-7';
+                            newFooterTop.innerHTML = window.originalFooterContent.footerTop;
+                            footerMain.parentNode.insertBefore(newFooterTop, footerMain);
+                        }
+                    }
+                }
+
+                // Restore footer main section
+                if (window.originalFooterContent.footerMain) {
+                    let footerMain = iframeDocument.querySelector('#page-footer .footer-mainsection-wrapper');
+                    if (footerMain) {
+                        footerMain.style.display = 'block';
+                        footerMain.innerHTML = window.originalFooterContent.footerMain;
+                    }
+                }
+
+                // Restore footer secondary section
+                if (window.originalFooterContent.footerSecondary) {
+                    let footerSecondary = iframeDocument.querySelector('#page-footer .footer-secondarysection-wrapper');
+                    if (footerSecondary) {
+                        footerSecondary.style.display = 'block';
+                        footerSecondary.innerHTML = window.originalFooterContent.footerSecondary;
+                    }
+                }
+            }
+
+            // Restore footer settings
+            if (window.originalFooterSettings) {
+                restoreFooterSettings(window.originalFooterSettings);
+            }
+
+            // $(SELECTOR.BACKGROUNDIMG).val(window.backgroundimgitemid);
+
+            // Apply background image to preview after restoration
+            // applyBackgroundImgURL();
+
+            // Scroll to footer to make it visible
+            scrollToFooter(iframeDocument);
+
+            // Sync TinyMCE content after restoration
+            syncTinyMCEContentAfterDesign();
+
+            resolve();
+        } catch (error) {
+            reject(error);
+        }
+    });
+}
+
+/**
+ * Restore footer settings from backup
+ * @param {Object} settings Backup settings object
+ */
+function restoreFooterSettings(settings) {
+    try {
+        // Restore colors
+        if (settings.colors) {
+            Object.keys(settings.colors).forEach(colorKey => {
+                const colorValue = settings.colors[colorKey];
+                if (colorValue) {
+                    const $target = $(`[name="${colorKey}"]`);
+                    if ($target.length > 0) {
+                        $target.spectrum('set', colorValue).trigger('color.changed');
+                    }
+                }
+            });
+        }
+
+        // Restore fonts
+        if (settings.fonts) {
+            Object.keys(settings.fonts).forEach(fontKey => {
+                const fontValue = settings.fonts[fontKey];
+                if (fontValue) {
+                    const $target = $(`[name="${fontKey}"]`);
+                    if ($target.length > 0) {
+                        $target.val(fontValue).trigger('change');
+                    }
+                }
+            });
+        }
+
+        // Restore social media settings (global)
+        if (settings.social) {
+            Object.keys(settings.social).forEach(socialKey => {
+                const socialValue = settings.social[socialKey];
+                if (socialValue) {
+                    const $target = $(`[name="${socialKey}"]`);
+                    if ($target.length > 0) {
+                        $target.val(socialValue).trigger('change');
+                    }
+                }
+            });
+        }
+
+        // Restore social media settings for each column
+        for (let i = 1; i <= 5; i++) {
+            const columnKey = `socialColumn${i}`;
+            if (settings[columnKey]) {
+                const columnSocialSettings = settings[columnKey];
+                Object.keys(columnSocialSettings).forEach(socialKey => {
+                    const socialValue = columnSocialSettings[socialKey];
+                    if (socialValue) {
+                        const $target = $(`[name="${socialKey}${i}"]`);
+                        if ($target.length > 0) {
+                            $target.val(socialValue).trigger('change');
+                        }
+                    }
+                });
+            }
+        }
+
+        // Restore footer-secondary social media settings
+        if (settings.socialSecondary) {
+            Object.keys(settings.socialSecondary).forEach(socialKey => {
+                const socialValue = settings.socialSecondary[socialKey];
+                if (socialValue) {
+                    const $target = $(`[name="${socialKey}"]`);
+                    if ($target.length > 0) {
+                        $target.val(socialValue).trigger('change');
+                    }
+                }
+            });
+        }
+
+        // Restore advance settings
+        if (settings.advance) {
+            Object.keys(settings.advance).forEach(advanceKey => {
+                const advanceValue = settings.advance[advanceKey];
+                if (advanceValue) {
+                    const $target = $(`[name="${advanceKey}"]`);
+                    if ($target.length > 0) {
+                        $target.val(advanceValue).trigger('change');
+                    }
+                }
+            });
+        }
+
+        // Restore column settings
+        for (let i = 1; i <= 5; i++) {
+            const columnKey = `column${i}`;
+            if (settings[columnKey]) {
+                const columnSettings = settings[columnKey];
+                Object.keys(columnSettings).forEach(settingKey => {
+                    const settingValue = columnSettings[settingKey];
+                    if (settingValue) {
+                        const $target = $(`[name="${settingKey}"]`);
+                        if ($target.length > 0) {
+                            if (settingKey === 'socialmediaicon') {
+                                // Handle checkbox
+                                $target.prop('checked', settingValue).trigger('change');
+                            } else if (settingKey === 'social') {
+                                // Handle multiple select
+                                try {
+                                    const socialArray = JSON.parse(settingValue);
+                                    $target.val(socialArray).trigger('change');
+                                } catch (e) {
+                                    $target.val(settingValue).trigger('change');
+                                }
+                            } else if (settingKey.includes('menu')) {
+                                applySettingValue(settingKey, settingValue);
+                            } else {
+                                $target.val(settingValue).trigger('change');
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        // Restore secondary settings
+        if (settings.secondary) {
+            Object.keys(settings.secondary).forEach(secondaryKey => {
+                const secondaryValue = settings.secondary[secondaryKey];
+                if (secondaryValue !== null && secondaryValue !== undefined) {
+                    const $target = $(`[name="${secondaryKey}"]`);
+                    if ($target.length > 0) {
+                        if ($target.attr('type') === 'checkbox') {
+                            $target.prop('checked', secondaryValue).trigger('change');
+                        } else {
+                            $target.val(secondaryValue).trigger('change');
+                        }
+                    }
+                }
+            });
+        }
+
+        // Restore email subscribe settings
+        if (settings.emailSubscribe) {
+            Object.keys(settings.emailSubscribe).forEach(emailKey => {
+                const emailValue = settings.emailSubscribe[emailKey];
+                if (emailValue) {
+                    const $target = $(`[name="${emailKey}"]`);
+                    if ($target.length > 0) {
+                        if (emailKey.includes('color')) {
+                            $target.spectrum('set', emailValue).trigger('color.changed');
+                        } else {
+                            $target.val(emailValue).trigger('change');
+                        }
+                    }
+                }
+            });
+        }
+
+        // Restore footer background image settings
+        if (settings.footerbackground) {
+            Object.keys(settings.footerbackground).forEach(backgroundKey => {
+                const backgroundValue = settings.footerbackground[backgroundKey];
+                if (backgroundValue !== null && backgroundValue !== undefined) {
+                    const $target = $(`[name="${backgroundKey}"]`);
+                    if ($target.length > 0) {
+                        if ($target.attr('type') === 'checkbox') {
+                            $target.prop('checked', backgroundValue).trigger('change');
+                        } else {
+                            $target.val(backgroundValue).trigger('change');
+                        }
+                    }
+                }
+            });
+        }
+
+        // Restore footer widget logo settings
+        if (settings.footerWidgetLogo) {
+            Object.keys(settings.footerWidgetLogo).forEach(logoKey => {
+                const logoValue = settings.footerWidgetLogo[logoKey];
+                if (logoValue !== null && logoValue !== undefined) {
+                    const $target = $(`[name="${logoKey}"]`);
+                    if ($target.length > 0) {
+                        if ($target.attr('type') === 'checkbox') {
+                            $target.prop('checked', logoValue).trigger('change');
+                        } else {
+                            $target.val(logoValue).trigger('change');
+                        }
+                    }
+                }
+            });
+        }
+
+    } catch (error) {
+    }
+}
+
+
+
+/**
+ * Helper function to get setting value safely
+ * @param {string} settingNameOrSelector Name of the setting or selector
+ * @return {*} Setting value or null if not found
+ */
+function getSettingValue(settingNameOrSelector) {
+    try {
+        // Check if it's a selector (starts with [name=)
+        const selector = settingNameOrSelector.startsWith('[name=') ? settingNameOrSelector : `[name="${settingNameOrSelector}"]`;
+        const $element = $(selector);
+
+        if ($element.length > 0) {
+            // Check if it's a spectrum color picker
+            if ($element.hasClass('spectrum') || $element.data('spectrum')) {
+                return $element.spectrum('get').toString();
+            }
+            // Check if it's a checkbox
+            if ($element.attr('type') === 'checkbox') {
+                return $element.is(':checked');
+            }
+            // For other input types
+            return $element.val();
+        }
+        return null;
+    } catch (error) {
+        return null;
+    }
+}
+
+/**
+ * Apply footer colors from design data using smartcolor.js logic
+ * @param {Object} colors Footer color configuration
+ */
+function applyFooterColors(colors) {
+
+    // Apply each color directly from JSON to its corresponding setting
+    // Following the exact same pattern as smartcolor.js
+    Object.keys(colors).forEach(colorKey => {
+        const colorValue = colors[colorKey];
+        if (colorValue) {
+            const targetSetting = `[name="${colorKey}"]`;
+            const $target = $(targetSetting);
+
+            if ($target.length > 0) {
+
+                // Use the exact same method as smartcolor.js
+                // All color elements should use spectrum('set') and trigger 'color.changed'
+                $target.spectrum('set', colorValue).trigger('color.changed');
+
+            } else {
+            }
+        }
+    });
+
+}
+
+
+/**
+ * Scroll the iframe content to make the footer visible
+ * @param {Document} iframeDocument The iframe document
+ */
+function scrollToFooter(iframeDocument) {
+    try {
+        // Find the footer element
+        let footer = iframeDocument.querySelector('#page-footer');
+        if (footer) {
+            // Scroll the footer into view with smooth animation
+            footer.scrollIntoView({
+                behavior: 'smooth',
+                block: 'end',
+                inline: 'nearest'
+            });
+
+            // Alternative: Scroll to bottom of the page if scrollIntoView doesn't work
+            setTimeout(() => {
+                if (iframeDocument.documentElement) {
+                    iframeDocument.documentElement.scrollTop = iframeDocument.documentElement.scrollHeight;
+                } else if (iframeDocument.body) {
+                    iframeDocument.body.scrollTop = iframeDocument.body.scrollHeight;
+                }
+            }, 100);
+
+        } else {
+        }
+    } catch (error) {
+
+        // Fallback: Try to scroll the iframe itself
+        try {
+            let iframe = document.querySelector('iframe[src*="customizer"]');
+            if (iframe && iframe.contentWindow) {
+                iframe.contentWindow.scrollTo(0, iframe.contentWindow.document.body.scrollHeight);
+            }
+        } catch (fallbackError) {
+        }
+    }
+}
+
+
+
+function getActiveFooterDesign() {
+    return $(SELECTOR.FOOTERDESIGNSELECTOR+':checked').data('flayout');
+}
+

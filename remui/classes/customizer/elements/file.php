@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Theme customizer file element class
  *
@@ -38,7 +39,6 @@ use moodle_url;
  * File picker element class.
  */
 class file extends base {
-
     /**
      * Get config of setting.
      *
@@ -113,10 +113,10 @@ class file extends base {
 
         require_once("$CFG->libdir/filelib.php");
         require_once("$CFG->dirroot/repository/lib.php");
-        $defaults = array(
+        $defaults = [
             'mainfile' => '', 'subdirs' => 0, 'maxbytes' => -1, 'maxfiles' => 1,
             'accepted_types' => '*', 'return_types' => FILE_INTERNAL, 'areamaxbytes' => FILE_AREA_MAX_BYTES_UNLIMITED,
-            'context' => context_system::instance());
+            'context' => context_system::instance()];
         if (isset($this->options['options'])) {
             foreach ($this->options['options'] as $k => $v) {
                 $defaults[$k] = $v;
@@ -184,7 +184,7 @@ class file extends base {
             'label' => $label,
             'content' => $html,
             'help' => $this->get_help(),
-            'description' => $description
+            'description' => $description,
         ]);
     }
 }

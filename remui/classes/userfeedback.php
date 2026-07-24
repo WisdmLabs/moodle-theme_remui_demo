@@ -26,16 +26,25 @@
 
 namespace theme_remui;
 
-defined('MOODLE_INTERNAL') || die();
-
 use curl;
 
+/**
+ * Edwiser user feedback class.
+ *
+ * Handles sending anonymous user data to improve product compatibility with various plugins and systems.
+ *
+ * @package   theme_remui
+ * @copyright (c) 2023 WisdmLabs (https://wisdmlabs.com/) <support@wisdmlabs.com>
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class userfeedback {
-
     /**
      * Sends the user feedback data to the server.
      *
-     * This method takes the user feedback data as an argument and sends it to the server using a cURL request. The feedback data is encoded as JSON and sent in the request body. The method returns an associative array containing the response from the server, with a 'success' key indicating whether the request was successful or not.
+     * This method takes the user feedback data as an argument and sends it to the server
+     * using a cURL request. The feedback data is encoded as JSON and sent in the request body.
+     * The method returns an associative array containing the response from the server,
+     * with a 'success' key indicating whether the request was successful or not.
      *
      * @param array $feedbackdata The user feedback data to be sent to the server.
      * @return array An associative array containing the response from the server.
@@ -53,10 +62,10 @@ class userfeedback {
             'CURLOPT_URL' => $url,
             'CURLOPT_CUSTOMREQUEST' => "POST",
             'CURLOPT_RETURNTRANSFER' => true,
-            'CURLOPT_HTTPHEADER' => array(
+            'CURLOPT_HTTPHEADER' => [
                 'Content-Type: application/json',
-                'Content-Length: ' . strlen($userfeedbackdata)
-            )
+                'Content-Length: ' . strlen($userfeedbackdata),
+            ],
         ]);
 
         // Execute post.
@@ -67,24 +76,27 @@ class userfeedback {
             $resultarr = [
                 'status' => false,
                 'message' => $curl->error ?: 'Something went wrong while processing the request',
-                'error_code' => $curl->get_errno()
+                'error_code' => $curl->get_errno(),
             ];
         }
 
         return $resultarr;
-
     }
 
 
     /**
      * Prepares the user feedback data to be sent to the server.
      *
-     * This method retrieves the user's information, such as the customer name, email, plugin name, and license key, and combines it with the user feedback data stored in the Moodle configuration. The resulting data is returned as an associative array with the 'responetype' key set to 'usersiteinfo' and the 'usersiteinfo' key containing the user feedback data.
+     * This method retrieves the user's information, such as the customer name, email,
+     * plugin name, and license key, and combines it with the user feedback data stored
+     * in the Moodle configuration. The resulting data is returned as an associative array
+     * with the 'responetype' key set to 'usersiteinfo' and the 'usersiteinfo' key
+     * containing the user feedback data.
      *
+     * @param string $usersiteinfo Optional user site info string
      * @return array An associative array containing the user feedback data.
      */
-
-    public  function prepare_setupdata($usersiteinfo = "") {
+    public function prepare_setupdata($usersiteinfo = "") {
 
         $feedbackdata = $this->get_user_info();
 
@@ -103,14 +115,17 @@ class userfeedback {
     /**
      * Prepares the user feedback data to be sent to the server.
      *
-     * This method retrieves the user's information, such as the customer name, email, plugin name, and license key, and combines it with the user feedback data stored in the Moodle configuration. The resulting data is returned as an associative array with the 'responetype' key set to 'userfeedbacks' and the 'userfeedbacks' key containing the user feedback data.
+     * This method retrieves the user's information, such as the customer name, email,
+     * plugin name, and license key, and combines it with the user feedback data stored
+     * in the Moodle configuration. The resulting data is returned as an associative array
+     * with the 'responetype' key set to 'userfeedbacks' and the 'userfeedbacks' key
+     * containing the user feedback data.
      *
      * @return array An associative array containing the user feedback data.
      */
-    public  function prepare_userfeedbacks($config) {
+    public function prepare_userfeedbacks($config) {
 
         $feedbackdata = $this->get_user_info();
-        // $userfeedback = json_decode(get_config("theme_remui","submited_feedbacks"),true);
         $feedbackdata['responsetype'] = "userfeedbacks";
         $feedbackdata['userfeedbacks'] = $config;
 
@@ -120,7 +135,8 @@ class userfeedback {
     /**
      * Retrieves the user's information, including the customer name, email, plugin name, and license key.
      *
-     * This method retrieves the user's information from the Moodle configuration and returns it as an associative array. The information includes the customer name, email, plugin name, and license key.
+     * This method retrieves the user's information from the Moodle configuration and returns it
+     * as an associative array. The information includes the customer name, email, plugin name, and license key.
      *
      * @return array An associative array containing the user's information.
      */
@@ -129,7 +145,7 @@ class userfeedback {
             'customername' => '',
             'email' => '',
             'pluginame' => '',
-            'licensekey' => ''
+            'licensekey' => '',
         ];
 
         $licensekey = get_config("theme_remui", "edd_remui_license_key");

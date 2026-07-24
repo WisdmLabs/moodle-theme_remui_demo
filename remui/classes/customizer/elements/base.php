@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Theme customizer element base class
  *
@@ -35,7 +36,6 @@ use stdClass;
  * Customizer setting base class.
  */
 abstract class base {
-
     /**
      * Component
      *
@@ -208,13 +208,13 @@ abstract class base {
             return $default;
         }
         $values = [
-            'default' => $default
+            'default' => $default,
         ];
         $options = $this->options['responsive'];
         if (is_bool($options)) {
             $options = [
                 'tablet' => $default,
-                'mobile' => $default
+                'mobile' => $default,
             ];
         }
 
@@ -234,7 +234,8 @@ abstract class base {
         global $OUTPUT;
         if (isset($this->options['help'])) {
             $help = $this->options['help'];
-            if ($withdefault &&
+            if (
+                $withdefault &&
                 (!isset($this->options['withdefault']) ||
                 (!isset($this->options['withdefault']) && $this->options['withdefault'])) &&
                 isset($this->options['default'])
@@ -242,7 +243,7 @@ abstract class base {
                 $default = $this->options['default'] != '' ? $this->options['default'] : get_string('emptysettingvalue', 'admin');
                 $help = '<strong>' . get_string('default', 'moodle') . ': ' . $default . '</strong><br>' . $help;
             }
-            $data = new stdClass;
+            $data = new stdClass();
             $data->ltr = !right_to_left();
             $data->text = $help;
             return $OUTPUT->render_from_template('theme_remui/customizer/help_icon', $data);

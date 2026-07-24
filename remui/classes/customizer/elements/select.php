@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Theme customizer select element class
  *
@@ -30,7 +31,6 @@ use theme_remui\customizer\customizer;
  * Select element.
  */
 class select extends base {
-
     /**
      * Process form save
      *
@@ -78,7 +78,8 @@ class select extends base {
         }
         if (isset($this->options['default']) && $this->options['default'] != '') {
             $help = '';
-            if ($withdefault &&
+            if (
+                $withdefault &&
                 (!isset($this->options['withdefault']) ||
                 (!isset($this->options['withdefault']) && $this->options['withdefault'])) &&
                 isset($this->options['default'])
@@ -101,7 +102,7 @@ class select extends base {
                 $help .= '<strong>' . get_string('default', 'moodle') . ': ' . $value . '</strong><br>';
             }
             $help .= $this->options['help'];
-            $data = new stdClass;
+            $data = new stdClass();
             $data->ltr = !right_to_left();
             $data->text = $help;
             return $OUTPUT->render_from_template('theme_remui/customizer/help_icon', $data);
@@ -122,7 +123,7 @@ class select extends base {
         foreach ($options as $key => $value) {
             $option = [
                 'key' => $key,
-                'value' => $value
+                'value' => $value,
             ];
             if ($key == $default) {
                 $option['selected'] = 'selected';
@@ -148,7 +149,7 @@ class select extends base {
         foreach ($options as $key => $value) {
             $option = [
                 'key' => $key,
-                'value' => $value
+                'value' => $value,
             ];
             if (array_search($key, $default) !== false) {
                 $option['selected'] = 'selected';
@@ -181,7 +182,7 @@ class select extends base {
             'help' => $this->get_help(),
             'default' => $default,
             'multiple' => $this->is_multiple(),
-            'options' => $selectoptions
+            'options' => $selectoptions,
         ]);
     }
 }

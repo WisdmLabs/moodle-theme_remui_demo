@@ -1,7 +1,7 @@
 $card-icon-height :24px;
 $card-icon-width:24px;
 $card-icon-size :16px;
-$card-border-radius:8px;
+$card-border-radius:8px !default;
 $card-list-gap:map-get($gapspace , '6');
 $edw-list-body-padding:map-get($spacerspx, '6');
 // $flex-gap-8:8px;
@@ -14,8 +14,8 @@ $card-list-gap-half: $card-list-gap / 2;
    span.categoryname.small-info-semibold{
       color: $heading-color;
       background-color: $bg-small-ui;
-      padding: 4px 6px;
-      border-radius: 2px;
+      padding: 4px 9px;
+      border-radius: $btn-border-radius;
       width: fit-content;
       white-space: normal;
       word-break: break-word;
@@ -101,12 +101,15 @@ $card-list-gap-half: $card-list-gap / 2;
       padding: 24px;
       border-radius: $card-border-radius;
       border: 1px solid $light-border;
-      filter: drop-shadow(map-get($box-shadows-values, xs));
       gap: map-get($gapspace , 6);
       background-color: $white;
       @include media-breakpoint-down(sm) {
          flex-direction: column;
          padding: 0px;
+      }
+      
+      &:hover {
+         filter: drop-shadow(map-get($box-shadows-values, xs));
       }
 
       .edw-course-img-wrapper {
@@ -231,12 +234,20 @@ $card-list-gap-half: $card-list-gap / 2;
    }
 }
 
+.course-card {
+   border-radius: $card-border-radius;
+}
+
 .dashboard-card {
    border-radius: $card-border-radius;
    border: 1px solid $light-border;
    overflow: hidden;
    min-height: 350px;
-   filter: drop-shadow(map-get($box-shadows-values, xs));
+
+
+   &:hover {
+      filter: drop-shadow(map-get($box-shadows-values, xs));
+   }
 
    .edw-course-img-wrapper {
       &.dashboard-card-img {
@@ -284,6 +295,8 @@ $card-list-gap-half: $card-list-gap / 2;
 }
 
 .edw-course-img-wrapper {
+   border-top-left-radius: $card-border-radius;
+   border-top-right-radius: $card-border-radius;
    .edw-icon {
       font-size: $edw-icon-size-small;
       height: $card-icon-height;
@@ -305,7 +318,7 @@ $card-list-gap-half: $card-list-gap / 2;
    }
 
    .skilltag {
-      border-radius: 2px;
+      border-radius: $btn-border-radius;
 
       &.badge-light {
          background-color: #d9dee3;

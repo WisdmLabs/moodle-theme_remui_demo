@@ -26,25 +26,46 @@ namespace theme_remui\external;
 use external_function_parameters;
 use external_value;
 
+/**
+ * Get message contact list count trait.
+ *
+ * Provides external API functions for getting message contact list count.
+ */
 trait get_msg_contact_list_count {
+    /**
+     * Describes the parameters for get_msg_contact_list_count.
+     *
+     * @return external_function_parameters
+     */
     public static function get_msg_contact_list_count_parameters() {
         return new external_function_parameters(
-            array (
-                'userid' => new external_value(PARAM_RAW, 'userid of logged in user_error'),
-            )
+            [
+                'userid' => new external_value(PARAM_INT, 'User ID of logged in user'),
+             ]
         );
     }
 
+    /**
+     * Get message contact list count.
+     *
+     * @param string $loggedinuserid Logged in user ID
+     * @return string JSON encoded data
+     */
     public static function get_msg_contact_list_count($loggedinuserid) {
         global $USER;
         $contactscount = \core_message\api::count_contacts($USER->id);
         $receivedrequest = \core_message\api::get_received_contact_requests_count($USER->id);
-        $data = array();
-        $data["showmsgcount"] = '<span class ="badge badge-primary edw-msg-panel-badge">'.$contactscount.'</span>';
-        $data["showrequestcount"] = '<span class ="badge badge-primary edw-msg-panel-badge">'.$receivedrequest.'</span>';
+        $data = [];
+        $data["showmsgcount"] = '<span class ="badge badge-primary edw-msg-panel-badge">' . $contactscount . '</span>';
+        $data["showrequestcount"] = '<span class ="badge badge-primary edw-msg-panel-badge">' . $receivedrequest . '</span>';
         return json_encode($data);
     }
 
+    /**
+     * Describes the return value for get_msg_contact_list_count.
+     *
+     * @return external_value
+     */
     public static function get_msg_contact_list_count_returns() {
         return  new external_value(PARAM_RAW, 'count of contacts in messaging panel');
     }

@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Theme customizer color utility. Provide functionality to manupulate colors.
  *
@@ -24,6 +25,12 @@
 
 namespace theme_remui\customizer;
 
+/**
+ * Color utility class.
+ *
+ * Provides functionality to manipulate colors including conversion between hex and RGB,
+ * and applying shades and tints to colors.
+ */
 class color {
     /**
      * Convert hex color code to rgb.
@@ -47,11 +54,11 @@ class color {
         $rgb = $result ? [
             "red" => hexdec($result[1][0]),
             "green" => hexdec($result[2][0]),
-            "blue" => hexdec($result[3][0])
+            "blue" => hexdec($result[3][0]),
         ] : [
             "red" => "00",
             "green" => "00",
-            "blue" => "00"
+            "blue" => "00",
         ];
         return (object) $rgb;
     }

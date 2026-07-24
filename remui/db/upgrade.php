@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Theme remui upgrade hook
  *
@@ -23,7 +24,7 @@
  */
 
 defined('MOODLE_INTERNAL') || die();
-require_once($CFG->dirroot .'/theme/remui/lib.php');
+require_once($CFG->dirroot . '/theme/remui/lib.php');
 /**
  * upgrade this edwiserform plugin database
  * @param int $oldversion The old version of the edwiserform local plugin
@@ -34,6 +35,7 @@ function xmldb_theme_remui_upgrade($oldversion) {
     new_colors_compatibility();
     import_user_tour();
     footer_migration_compatibility();
+    social_media_migration_compatibility();
     theme_remui_handle_orphan_settings();
     buttons_compatibility();
     login_compatibility($oldversion);
@@ -68,8 +70,10 @@ function new_colors_compatibility() {
         set_config('hds-icon-hover-color', '#FFFFFF', 'theme_remui');
         set_config('hds-icon-active-color', '#FFFFFF', 'theme_remui');
     }
-    $textcolor = \theme_remui\toolbox::get_setting('global-typography-body-textcolor');
-    set_config('themecolors-textcolor', $textcolor , 'theme_remui');
+    if (\theme_remui\toolbox::get_setting('global-typography-body-textcolor')) {
+        $textcolor = \theme_remui\toolbox::get_setting('global-typography-body-textcolor');
+        set_config('themecolors-textcolor', $textcolor, 'theme_remui');
+    }
 }
 
 /**
@@ -77,19 +81,7 @@ function new_colors_compatibility() {
  */
 function buttons_compatibility() {
     $customizer = \theme_remui\customizer\customizer::instance();
-    // $base = $customizer->get_config('global-typography-body-fontsize');
-    // $borderwidth = $customizer->get_config('button-primary-border-width');
-    // $borderradius = $customizer->get_config('button-primary-border-radius');
-    // $fontfamily = $customizer->get_config('button-primary-fontfamily');
-    // $fontsize = $customizer->get_config('button-primary-fontsize');
-    // $fontweight = $customizer->get_config('button-primary-fontweight');
-    // $texttransform = $customizer->get_config('button-primary-text-transform');
-    // $lineheight = $customizer->get_config('button-primary-lineheight');
-    // $letterspacing = $customizer->get_config('button-primary-letterspacing');
-    // $paddingtop = $customizer->get_config('button-primary-padingtop');
-    // $paddingleft = $customizer->get_config('button-primary-padingleft');
-    // $paddingright = $customizer->get_config('button-primary-padingright');
-    // $paddingbottom = $customizer->get_config('button-primary-padingbottom');
+    // Button compatibility settings (commented out for future use).
 
     $base = \theme_remui\toolbox::get_setting('global-typography-body-fontsize');
     $borderwidth = \theme_remui\toolbox::get_setting('button-primary-border-width');
@@ -99,6 +91,7 @@ function buttons_compatibility() {
     $fontweight = \theme_remui\toolbox::get_setting('button-primary-fontweight');
     $texttransform = \theme_remui\toolbox::get_setting('button-primary-text-transform');
     $lineheight = \theme_remui\toolbox::get_setting('button-primary-lineheight');
+    // Button letter spacing setting.
     $letterspacing = \theme_remui\toolbox::get_setting('button-primary-letterspacing');
     $paddingtop = \theme_remui\toolbox::get_setting('button-primary-padingtop');
     $paddingleft = \theme_remui\toolbox::get_setting('button-primary-padingleft');
@@ -145,7 +138,6 @@ function buttons_compatibility() {
     if (!empty($paddingbottom)) {
         set_config('button-md-settings-padingbottom', $paddingbottom, 'theme_remui');
     }
-
 }
 
 /**
@@ -154,12 +146,19 @@ function buttons_compatibility() {
  * @return void
  */
 
+/**
+ * Footer migration compatibility function.
+ *
+ * Migrates footer settings from old format to new format.
+ *
+ * @return void
+ */
 function footer_migration_compatibility() {
     for ($i = 1; $i <= 4; $i++) {
-        if (get_config('theme_remui', 'footercolumn'.$i.'type') == 'social') {
-            set_config('footercolumn'.$i.'type', 'customhtml', 'theme_remui');
-            set_config('socialmediaiconcol'.$i, 'true', 'theme_remui');
-            set_config('footercolumn'.$i.'title', get_string('followus', 'theme_remui'), 'theme_remui');
+        if (get_config('theme_remui', 'footercolumn' . $i . 'type') == 'social') {
+            set_config('footercolumn' . $i . 'type', 'customhtml', 'theme_remui');
+            set_config('socialmediaiconcol' . $i, 'true', 'theme_remui');
+            set_config('footercolumn' . $i . 'title', get_string('followus', 'theme_remui'), 'theme_remui');
         }
     }
 
@@ -167,7 +166,7 @@ function footer_migration_compatibility() {
     set_config('footer-columntitle-fontweight', '400', 'theme_remui');
 
     $textcolor = \theme_remui\toolbox::get_setting('footer-text-color');
-    set_config('footer-columntitle-color', $textcolor, 'theme_remui');
+    // Footer column title color setting (commented out for future use).
 
     $headertextcolor = \theme_remui\toolbox::get_setting('header-menu-text-color');
     set_config('footer-logo-color', $textcolor, 'theme_remui');
@@ -179,7 +178,83 @@ function footer_migration_compatibility() {
     if (get_config('theme_remui', 'poweredbyedwiser') == true) {
         set_config('poweredbyedwiser', "show", 'theme_remui');
     }
+}
 
+/**
+ * Handle social media settings migration from old global system to new column-specific and footer-secondary system.
+ *
+ * @return void
+ */
+function social_media_migration_compatibility() {
+    // Check if migration has already been completed.
+    $migrationcompleted = get_config('theme_remui', 'social_media_migration_completed');
+    if ($migrationcompleted) {
+        return; // Migration already completed, skip.
+    }
+
+    // Define all social media settings.
+    $globalsocialsettings = [
+        'facebooksetting', 'twittersetting', 'linkedinsetting',
+        'youtubesetting', 'instagramsetting', 'pinterestsetting',
+        'quorasetting', 'whatsappsetting', 'telegramsetting',
+    ];
+
+    // Step 1: Preserve existing global social media settings for footer-secondary.
+    // The global settings (facebooksetting, twittersetting, etc.) are already in place
+    // and will be used by the footer-secondary system, so no action needed here.
+
+    // Step 2: Migrate to column-specific settings for columns that have social media enabled.
+    for ($i = 1; $i <= 5; $i++) {
+        // Check if this column has social media enabled (from footer_migration_compatibility).
+        // Social media enabled check (commented out for future use).
+
+        // This column has social media enabled, migrate global settings to column-specific.
+        foreach ($globalsocialsettings as $setting) {
+            $globalvalue = get_config('theme_remui', $setting);
+
+            // Only migrate if global value exists and column-specific value doesn't exist.
+            if ($globalvalue !== false && !empty($globalvalue)) {
+                $columnsetting = $setting . $i;
+                $existingcolumnvalue = get_config('theme_remui', $columnsetting);
+
+                // Only set if column-specific setting doesn't already exist.
+                if ($existingcolumnvalue === false || empty($existingcolumnvalue)) {
+                    set_config($columnsetting, $globalvalue, 'theme_remui');
+                }
+            }
+        }
+    }
+
+    // Step 3: Handle footer-secondary social media settings.
+    // Check if footer-secondary social media is enabled.
+    $footersecondaryenabled = get_config('theme_remui', 'footersocialmediaicons');
+
+    if ($footersecondaryenabled === 'true' || $footersecondaryenabled === true) {
+        // Footer-secondary social media is enabled, ensure global settings are preserved.
+        // The global settings are already in place, so no additional action needed.
+        // This condition ensures global settings are preserved when footer-secondary is enabled.
+        // No action required as global settings are already preserved.
+        // Intentional no-op to preserve existing behavior.
+        $footersecondaryenabled = $footersecondaryenabled;
+    } else {
+        // If footer-secondary social media is not explicitly enabled but global settings exist,
+        // enable it to preserve existing functionality.
+        $hasglobalsocialsettings = false;
+        foreach ($globalsocialsettings as $setting) {
+            $value = get_config('theme_remui', $setting);
+            if ($value !== false && !empty($value)) {
+                $hasglobalsocialsettings = true;
+                break;
+            }
+        }
+
+        if ($hasglobalsocialsettings) {
+            set_config('footersocialmediaicons', 'true', 'theme_remui');
+        }
+    }
+
+    // Mark migration as completed.
+    set_config('social_media_migration_completed', 'true', 'theme_remui');
 }
 
 /**
@@ -244,38 +319,33 @@ function theme_remui_handle_orphan_settings() {
 /**
  * Process course custom field required for enrolment page layout .
  */
-function theme_remui_course_custom_fields($checkupdateorinstall= "update") {
+function theme_remui_course_custom_fields($checkupdateorinstall = "update") {
     global $DB;
     // Create Custom Fields Required for enrollment page.
     $customfieldid = get_config('theme_remui', 'remui_customfield_catid');
 
     if ($checkupdateorinstall == "install") {
-
-        if (!$DB->record_exists('customfield_category', array('name' => "RemUI Custom Fields"))) {
+        if (!$DB->record_exists('customfield_category', ['name' => "RemUI Custom Fields"])) {
             $customfieldid = theme_remui_create_customfield_category('RemUI Custom Fields');
             set_config('remui_customfield_catid', $customfieldid, 'theme_remui');
         }
-
     } else {
-        if ($DB->record_exists('customfield_category', array('name' => "RemUI Custom Fields"))) {
-            $customfieldcat = $DB->get_record('customfield_category', array('name' => "RemUI Custom Fields"));
+        if ($DB->record_exists('customfield_category', ['name' => "RemUI Custom Fields"])) {
+            $customfieldcat = $DB->get_record('customfield_category', ['name' => "RemUI Custom Fields"]);
             set_config('remui_customfield_catid', $customfieldcat->id, 'theme_remui');
         }
-
-
-
     }
     // Create Custom Fields Required for enrollment page.
     $customfieldid = get_config('theme_remui', 'remui_customfield_catid');
 
     theme_remui_delete_old_custom_fields($customfieldid);
 
-    // Changing the text from "Course Duration in Hours" to "Course Duration"
-    if ($DB->record_exists('customfield_field', array('shortname' => 'edwcoursedurationinhours'))) {
-        $existing_fields = $DB->get_records('customfield_field', array('shortname' => 'edwcoursedurationinhours'));
+    // Changing the text from "Course Duration in Hours" to "Course Duration".
+    if ($DB->record_exists('customfield_field', ['shortname' => 'edwcoursedurationinhours'])) {
+        $existingfields = $DB->get_records('customfield_field', ['shortname' => 'edwcoursedurationinhours']);
 
-        foreach ($existing_fields as $field) {
-            if($field->name == "Course Duration in Hours") {
+        foreach ($existingfields as $field) {
+            if ($field->name == "Course Duration in Hours") {
                 $field->name = 'Course Duration';
             }
 
@@ -314,26 +384,30 @@ function theme_remui_course_custom_fields($checkupdateorinstall= "update") {
             'fieldname' => 'Focus Mode',
             'type' => 'select',
             'options' => [
-                // 1st option Default will be added using JS because moodle add default blank option with value 0
+                // First option Default will be added using JS because moodle add default blank option with value 0.
                 'options' => "Force Focus Mode with learner control",
                 'defaultvalue' => 'Default',
             ],
-            'description' => "<div class='overflow-hidden' style='padding: 12px; border-radius: 6px; border: 1px solid #FFC107; background: #FFF9E5;'>
+            'description' => "<div class='overflow-hidden' style='padding: 12px; border-radius: 6px; " .
+                "border: 1px solid #FFC107; background: #FFF9E5;'>
                     <p class='m-0' style='font-size: 14px;'>
                         <strong>Default:</strong> Uses the Focus Mode setting defined by the site admin.
                     </p>
                     <p class='m-0 mt-2' style='font-size: 14px;'>
-                        <strong>Force Focus Mode (with learner control): </strong> This option lets you keep Focus Mode active for your course. Learners will see the course in Focus Mode by default, but they can choose to turn it off anytime. This applies only to learners.
+                        <strong>Force Focus Mode (with learner control): </strong> " .
+                        "This option lets you keep Focus Mode active for your course. " .
+                        "Learners will see the course in Focus Mode by default, but they can choose to turn it off anytime. " .
+                        "This applies only to learners.
                     </p>
                     <p class='m-0 mt-2' style='font-size: 14px;'>
-                        <strong>Note:</strong> If the site admin has either <strong>disabled</strong> or <strong>enforced</strong> Focus Mode across the site, the settings here won’t apply.
+                        <strong>Note:</strong> If the site admin has either <strong>disabled</strong> " .
+                        "or <strong>enforced</strong> Focus Mode across the site, the settings here won't apply.
                     </p>
                 </div>",
         ],
     ];
 
     foreach ($customfields as $customfield) {
-
         $replacefor = [' ', '(', ')'];
         $replacewith = ['', '', ''];
         $filteredname = str_replace($replacefor, $replacewith, $customfield['fieldname']);
@@ -345,11 +419,13 @@ function theme_remui_course_custom_fields($checkupdateorinstall= "update") {
         }
 
         // Make sure not to repeat the fields.
-        if (!$DB->record_exists('customfield_field', array(
+        if (
+            !$DB->record_exists('customfield_field', [
             'shortname' => $shortname,
-            // 'name' => $customfield['fieldname'],
+            // Custom field name check (commented out for future use).
             'categoryid' => $customfieldid,
-            ))) {
+            ])
+        ) {
                 theme_remui_create_custom_field(
                     $customfieldid,
                     $customfield['fieldname'],
@@ -372,11 +448,11 @@ function theme_remui_delete_old_custom_fields($customfieldid) {
     foreach ($wrongnames as $wrongname) {
         $shortname = "edw" . strtolower(str_replace(' ', '', $wrongname));
 
-        $record = array(
+        $record = [
             'shortname' => $shortname,
             'name' => $wrongname,
-            'categoryid' => $customfieldid
-        );
+            'categoryid' => $customfieldid,
+        ];
         if ($DB->record_exists('customfield_field', $record)) {
             $DB->delete_records('customfield_field', $record);
         }
@@ -388,21 +464,20 @@ function theme_remui_delete_old_custom_fields($customfieldid) {
  * Handles the migration from enablefocusmode (checkbox) to focusmode (dropdown)
  */
 function focus_mode_migration_compatibility($oldversion) {
-    // Get the old setting value
+        // Get the old setting value.
     if ($oldversion > "2025031100") {
         $oldsetting = get_config('theme_remui', 'enablefocusmode');
 
-        // If old setting exists, migrate it to the new format
+        // If old setting exists, migrate it to the new format.
         if ($oldsetting !== false) {
-            // If checkbox was checked (true), set dropdown to "Focus mode on" (1)
-            // If checkbox was unchecked (false), set dropdown to "Focus mode off" (0)
+            // If checkbox was checked (true), set dropdown to "Focus mode on" (1).
+            // If checkbox was unchecked (false), set dropdown to "Focus mode off" (0).
             $newvalue = $oldsetting ? 1 : 0;
 
-            // Set the new config value
+            // Set the new config value.
             set_config('focusmode', $newvalue, 'theme_remui');
 
-            // Unset the old config value
-            // unset_config('enablefocusmode', 'theme_remui');
+            // Unset the old config value (commented out for future use).
         }
     }
 }

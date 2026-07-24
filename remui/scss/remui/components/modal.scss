@@ -797,8 +797,8 @@
                 box-shadow: unset;
                 .card-item{
                     position: relative;
-                    border: 1px solid $bg-small-ui;
-                    border-radius: 4px;
+                    border: 0px solid $bg-small-ui;
+                    border-radius: $btn-border-radius;
                     background-color: $white;
                     .blockurl {
                         position: absolute;
@@ -981,9 +981,10 @@
             }
             .left-sidebar-bottom-region{
                 background-color: $white;
+                border-radius: $card-border-radius;
                 .action-buttons-modal{
                     margin: map-get($spacerspx, '2') map-get($spacerspx, '6');
-                    background-color: #F5F9FD;
+                    background-color: transparent;
                     .updateblocklist{
                         width: 100%;
                         border: unset;
@@ -999,6 +1000,15 @@
             }
         }
 
+        // SCSS to hide the footer blocks and its category
+        // .left-sidebar{
+        //     .category-list-item[data-target="footers-block"]{
+        //         display: none !important;
+        //     }
+        // }
+        // .block-wrapper.footers-block-blocks{
+        //     display: none !important;
+        // }
     }
     .moodleblocktab{
         .advanceblockblocks{
@@ -1090,3 +1100,64 @@
 .modal-content {
     --bs-body-bg: #FFF;
  }
+.footers-block-blocks.show{
+    position: relative;
+    .footer-warning-container{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        top: 0;
+        left: 0;
+        z-index: 4;
+        &:after{
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0.9;
+            background: #FFF;
+        }
+     }
+     .footer-block-deprication-warning-container{
+        display: flex;
+        flex-direction: column;
+
+        // top: 35%;
+        // left: 50%;
+        transform: translate(0px, 65px);
+        max-width: 480px;
+        width: 100%;
+        height: fit-content;
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid #FFC107;
+        background: #FFEDB8;
+        z-index: 6;
+        opacity: 1;
+        .edw-icon{
+            font-size: 24px;
+            color: black;
+        }
+        h4{
+            @extend .h-semibold-6;
+        }
+        p{
+            @extend .text-link-regular;
+        }
+     }
+}
+
+.modal .modal-dialog .modal-footer{
+    .btn.btn-primary .icon {
+        color: inherit !important;
+    }
+}
+
+.fullwidth-modal.epb_custom_modal .modal-body #epbTabContent .tab-pane .block-cards-wrapper {
+    .card-wrapper {
+        border-radius: $card-border-radius;
+    }
+
+}

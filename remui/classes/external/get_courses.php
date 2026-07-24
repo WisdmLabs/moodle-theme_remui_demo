@@ -43,9 +43,9 @@ trait get_courses {
      */
     public static function get_courses_parameters() {
         return new external_function_parameters(
-            array (
-                'data' => new external_value(PARAM_RAW, 'Courses Params in json.')
-            )
+            [
+                'data' => new external_value(PARAM_RAW, 'Courses Params in json.'),
+             ]
         );
     }
 

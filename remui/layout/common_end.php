@@ -25,8 +25,8 @@ defined('MOODLE_INTERNAL') || die();
 
 $bodyattributes = $OUTPUT->body_attributes($extraclasses);
 
-// Adding a version based class on the body which will be used for adding version based css
-$extraclasses[] = 'edw-m'.get_moodle_release_version_branch();
+// Adding a version based class on the body which will be used for adding version based css.
+$extraclasses[] = 'edw-m' . get_moodle_release_version_branch();
 $bodyattributes = $OUTPUT->body_attributes($extraclasses);
 
 if (get_config('theme_remui', 'pagewidth') == 'fullwidth') {
@@ -69,7 +69,7 @@ if (in_array("full-width-top", $this->page->blocks->get_regions())) {
     }
 }
 
-// bottom region full width.
+// Bottom region full width.
 if (in_array("full-bottom", $this->page->blocks->get_regions())) {
     $addblockbuttonfwbottom = $OUTPUT->addblockbutton('full-bottom');
     $sidefwbottomblocks = $OUTPUT->blocks('full-bottom');
@@ -81,18 +81,13 @@ if (in_array("full-bottom", $this->page->blocks->get_regions())) {
     }
 }
 
-// if ($PAGE->pagetype == 'site-index' &&  \theme_remui\toolbox::get_setting('frontpagechooser') == 1) {
-// $templatecontext['canaddfwtopblocks'] = false;
-// $templatecontext['canaddfullwidthbottomblocks'] = false;
-// }
 // Edwiser Quick Menu.
 if (\theme_remui\toolbox::get_setting('enablequickmenu') && isloggedin()) {
     $templatecontext['edw_quick_menu'] = \theme_remui\utility::edw_quick_menu();
-
 }
 
-$templatecontext['siteinnerloader'] = $CFG->wwwroot.'/theme/remui/pix/siteinnerloader.svg';
-// Add a block floating button
+$templatecontext['siteinnerloader'] = $CFG->wwwroot . '/theme/remui/pix/siteinnerloader.svg';
+// Add a block floating button.
 $templatecontext['addblockfloatmenu'] = \theme_remui\utility::addblockfloatmenu();
 
 $edwpagebuilderavailable = is_plugin_available('local_edwiserpagebuilder');
@@ -115,11 +110,11 @@ if ($PAGE->pagetype == 'site-index' && \theme_remui\toolbox::get_setting('frontp
     $templatecontext['canaddfwtopblocks'] = false;
 }
 
-//It handles the visibility of secondary navigation in edwiserpagebuilder add block modal.
+// It handles the visibility of secondary navigation in edwiserpagebuilder add block modal.
 $PAGE->requires->data_for_js('edwremuithemeinfo', 'available');
 $PAGE->requires->data_for_js('currentpagesubtype', $PAGE->subpage);
 
-//Strings used in block move up and down controls
+// Strings used in block move up and down controls.
 $blockregions = [];
 $regionnamearray = [];
 foreach ($PAGE->blocks->get_regions() as $region) {
@@ -130,7 +125,6 @@ foreach ($PAGE->blocks->get_regions() as $region) {
     $blockregions[] = $region;
 }
 if ($PAGE->user_is_editing()) {
-
     // Important  code used at multiple places.
     $PAGE->requires->data_for_js('availableblockregions', $blockregions);
 
@@ -143,9 +137,15 @@ if ($PAGE->user_is_editing()) {
 // Edwiser navbar layout.
 $templatecontext['navlayout'] = \theme_remui\toolbox::get_setting('header-primary-layout-desktop');
 
+// Moodle version flag for version-specific navbar markup.
+$templatecontext['moodle_version_gte502'] = (int)$CFG->branch > 501;
+
+// Modern preset flag for conditional navbar markup.
+$templatecontext['ismodernpreset'] = get_config('theme_remui', 'radio_themepreset') === 'preset-modern';
+
 $templatecontext['bodyattributes'] = $bodyattributes;
 
-$PAGE->requires->strings_for_js(array(
+$PAGE->requires->strings_for_js([
     'searchcatplaceholdertext',
     'footersettings',
     'coursesettings',
@@ -155,7 +155,11 @@ $PAGE->requires->strings_for_js(array(
     'floataddblockbtnregionselectionmsg',
     'focusmodeactivestatetext',
     'focusmodenormalstatetext',
-), 'theme_remui');
+    'footerblockdepricationwarningtext',
+    'downloadalerttext',
+    'skipdownload',
+    'downloadandcontinue',
+], 'theme_remui');
 
 // RemUI Usage Tracking (RemUI Analytics).
 // It will not work if curl is not istalled.
@@ -166,9 +170,10 @@ $ranalytics->send_usage_analytics();
 $dmhandler = new theme_remui_darkmodehandler(true);
 $templatecontext['canenabledm'] = $dmhandler->init();
 $templatecontext['dmanimate'] = $dmhandler->show_icon_animation();
+$templatecontext['has_dm_or_edit'] = $templatecontext['canenabledm'] || $PAGE->user_allowed_editing();
 
 $questionname = \theme_remui\feedbackcollection::get_current_feedback_questionname();
 $PAGE->requires->js_call_amd('theme_remui/feedbackcollection', 'init', [$questionname]);
 
-// Enable accessibility widgets in theme
+// Enable accessibility widgets in theme.
 \theme_remui\utility::enable_edw_aw_menu();

@@ -29,21 +29,20 @@ use context_system;
  * setupwizard class
  */
 class setupwizard {
-
     /**
      * Performs the specified action using the provided configuration.
      *
      * @param string $action The action to perform.
      * @param mixed $config The configuration data required for the action.
      * @return mixed The result of the action, or an error message if the action function does not exist.
-    */
+     */
     public function perform_action($action, $config) {
-        $functionname = "action_".$action;
+        $functionname = "action_" . $action;
 
         // Check if the function exists before calling it.
         if (method_exists($this, $functionname)) {
             // Call the function dynamically.
-            return call_user_func(array($this, $functionname), $config);
+            return call_user_func([$this, $functionname], $config);
         } else {
             // Handle the case when the function doesn't exist.
             return "Function $functionname does not exist.";
@@ -56,8 +55,8 @@ class setupwizard {
      *
      * @param mixed $config The configuration data required for the action.
      * @return void
-    */
-    public function action_set_theme($config){
+     */
+    public function action_set_theme($config) {
 
         $theme = \theme_config::load('remui');
 
@@ -73,6 +72,12 @@ class setupwizard {
         return $notifytype;
     }
 
+    /**
+     * Skip setup from modal.
+     *
+     * @param string $config Configuration data
+     * @return void
+     */
     public function action_skipsetup_from_modal($config) {
         set_config("setupinstallcheck", "hidemodal", "theme_remui");
     }
@@ -88,9 +93,8 @@ class setupwizard {
      */
     public function action_save_setup_info($config) {
 
-        // $this->set_setup_status("userinformation");
+        // Set setup status (commented out for future use).
         if ($setupuserinfo = get_config('theme_remui', 'setupuserinfo')) {
-
             $config = json_decode($config);
 
             $setupuserinfo = json_decode($setupuserinfo);
@@ -107,28 +111,28 @@ class setupwizard {
         return true;
     }
 
-   /**
-    * Checks the license status and handles the setup wizard configuration.
-    *
-    * This method performs the following tasks:
-    * - Instantiates a LicenseController object
-    * - Calls the license_handler_for_setup_wizard method to retrieve license data
-    * - Saves the license data to the 'edd_remui_setup_license_data' configuration setting
-    * - Retrieves the Remui license template context and stores it in the $templatecontext array
-    *
-    * @param mixed $config The configuration data to be used for the license check.
-    * @return void
-    */
-    public function action_license_check($config){
-        // $this->set_setup_status("licenseactivation");
+    /**
+     * Checks the license status and handles the setup wizard configuration.
+     *
+     * This method performs the following tasks:
+     * - Instantiates a LicenseController object
+     * - Calls the license_handler_for_setup_wizard method to retrieve license data
+     * - Saves the license data to the 'edd_remui_setup_license_data' configuration setting
+     * - Retrieves the Remui license template context and stores it in the $templatecontext array
+     *
+     * @param mixed $config The configuration data to be used for the license check.
+     * @return void
+     */
+    public function action_license_check($config) {
+        // Set setup status (commented out for future use).
         $config = json_decode($config);
 
         $licensecontroller = new \theme_remui\controller\LicenseController();
 
-        if($config->operation == 'activate'){
+        if ($config->operation == 'activate') {
             $licensedata = $licensecontroller->license_handler_for_setup_wizard($config->licensekey);
 
-            if(isset($licensedata->license)  && $licensedata->license == 'valid'){
+            if (isset($licensedata->license)  && $licensedata->license == 'valid') {
                 \theme_remui\toolbox::remove_plugin_config(EDD_LICENSE_ACTION);
             }
         }
@@ -156,7 +160,7 @@ class setupwizard {
      */
     public function action_system_server_check($config) {
         global $CFG;
-        // $this->set_setup_status("servercheck");
+        // Set setup status (commented out for future use).
 
         $result = [
             'requirechecks' => [],
@@ -170,13 +174,13 @@ class setupwizard {
             'allowurlfopencheck' => ini_get('allow_url_fopen'),
         ];
 
-        // Check Moodle version
+        // Check Moodle version.
         if ($CFG->branch < 402) {
             $result["allchecks"] = false;
             $requirechecks['moodleversioncheck'] = false;
         }
 
-        // Check write permissions for plugin directories
+        // Check write permissions for plugin directories.
         $pluginmanager = \core_plugin_manager::instance();
         $plugintypes = [ 'block', 'format', 'filter', 'local'];
         $nonwriteable = [];
@@ -203,7 +207,8 @@ class setupwizard {
             $result['nonwriteablepluginsmsg'] = get_string(
                 'setupwizard:warning2',
                 'theme_remui',
-                ['nonwriteablestr' => $nonwriteablestr]);
+                ['nonwriteablestr' => $nonwriteablestr]
+            );
         }
 
         if (!$requirechecks['internetconnectioncheck']) {
@@ -253,6 +258,12 @@ class setupwizard {
         return true;
     }
 
+    /**
+     * Get installable plugin list.
+     *
+     * @param string $config Configuration data
+     * @return array Plugin list
+     */
     public function action_get_installableplugin_list($config) {
 
         $licensecontext = json_decode(get_config("theme_remui", "edd_remui_setup_license_data"));
@@ -272,16 +283,7 @@ class setupwizard {
             }
         }
 
-        // $pluginlist = (object)[
-        //     "edwiserratingreview" => "https://qastaticcdn.edwiser.org/externalplugins/block_edwiserratingreview.zip",
-        //     "remuiformat" => "https://qastaticcdn.edwiser.org/externalplugins/moodle-format_remuiformat.zip",
-        //     "edwisersiteimporter" => "https://qastaticcdn.edwiser.org/externalplugins/moodle-local_edwisersiteimporter.zip",
-        //     "edwiserpagebuilder" => "https://qastaticcdn.edwiser.org/externalplugins/moodle-local_edwiserpagebuilder.zip",
-        //     "edwiseradvancedblock" => "https://qastaticcdn.edwiser.org/externalplugins/moodle-block_edwiseradvancedblock.zip",
-        //     "edwiserpbf" => "https://qastaticcdn.edwiser.org/externalplugins/filter_edwiserpbf.zip",
-        // ];
-
-        // Define plugin mappings
+        // Define plugin mappings.
         $mapping = [
             'edwiserratingreview' => ['block_edwiserratingreview', 'Edwiser Rating and Review'],
             'remuiformat' => ['format_remuiformat', 'Edwiser Course Format'],
@@ -291,7 +293,7 @@ class setupwizard {
             'edwiserpbf' => ['filter_edwiserpbf', 'Edwiser Page Builder Filter'],
         ];
 
-        // Build plugins array with download URLs
+        // Build plugins array with download URLs.
         $pluginslist = [];
         foreach ($mapping as $oldkey => $data) {
             if (isset($pluginlist->$oldkey)) {
@@ -299,7 +301,9 @@ class setupwizard {
             }
         }
 
-        // Initialize plugin categories
+        // Replace staticcdn with qastaticcdn (commented out for future use).
+
+        // Initialize plugin categories.
         $structuredpluginlist = [
             "edwiseraddons" => [
                 'name' => 'Edwiser add-ons',
@@ -311,7 +315,7 @@ class setupwizard {
             ],
         ];
 
-        // Map and categorize plugins
+        // Map and categorize plugins.
         foreach ($mapping as $oldkey => $data) {
             if (isset($pluginlist->$oldkey)) {
                 $plugin = $data[0];
@@ -331,7 +335,7 @@ class setupwizard {
             }
         }
 
-        $structuredpluginlist = array_filter($structuredpluginlist, function($category) {
+        $structuredpluginlist = array_filter($structuredpluginlist, function ($category) {
             return !empty($category['plugins']);
         });
 
@@ -341,6 +345,12 @@ class setupwizard {
         ];
     }
 
+    /**
+     * Get setup wizard context.
+     *
+     * @param string $config Configuration data
+     * @return array Setup wizard context
+     */
     public function action_get_setupwizard_context($config) {
         global $CFG;
 
@@ -352,10 +362,10 @@ class setupwizard {
             'https://staticcdn.edwiser.org/json/setupwizard_json_files/setupwizard_layout_content.json'
         );
 
-        // This is for final steps
+        // This is for final steps.
         $manualsetupplugins = $setupwizardlayoutcontent["manualsetupplugins"];
 
-        // this is for sitesetup page
+        // This is for sitesetup page.
         $layouts = $setupwizardlayoutcontent["layouts"];
         $coursedata = $setupwizardlayoutcontent["coursedata"];
 
@@ -388,18 +398,24 @@ class setupwizard {
         ];
     }
 
-    public function action_get_layout_info($config){
+    /**
+     * Get layout info.
+     *
+     * @param string $config Configuration data
+     * @return array Layout information
+     */
+    public function action_get_layout_info($config) {
         global $DB;
 
         $config = json_decode($config, true);
 
         $layoutsinfo = [];
 
-        foreach ($config as  $key => $layout) {
-            $record = $DB->get_record('edw_page_blocks', array('title' => $layout["layout"]), "id");
+        foreach ($config as $key => $layout) {
+            $tablename = $DB->get_manager()->table_exists('edw_page_blocks') ? 'edw_page_blocks' : 'local_edwiserpagebuilder_blocks';
+            $record = $DB->get_record($tablename, ['title' => $layout["layout"]], "id");
             if ($record) {
                 $layout["layoutid"] = $record->id;
-
             } else {
                 $layout["layoutid"] = 0;
             }
@@ -407,7 +423,13 @@ class setupwizard {
         }
         return $layoutsinfo;
     }
-    public function action_basic_theme_setup($config){
+    /**
+     * Basic theme setup.
+     *
+     * @param string $config Configuration data
+     * @return array Configuration HTML
+     */
+    public function action_basic_theme_setup($config) {
 
         global $CFG, $SITE;
         $confightml = [];
@@ -422,38 +444,42 @@ class setupwizard {
         $confightml["edwisersiteimporterexist"] = false;
 
         if (set_config('pagewidth', "fullwidth", "theme_remui")) {
-
             $titiletext = get_string("pagewidth", "theme_remui");
             $iconclass = "edw-icon edw-icon-Check";
             $statustext = get_string("done", "theme_remui");
             $infotext = get_string("pagewidthinfo", "theme_remui");
             $keyclass = "themelayout";
 
-            $content  = "<div class=\"content\">
+            $content = "<div class=\"content\">
                             <p class=\"para-regular-2 p-mb-2\">{$infotext}</p>
-                            <div class=\"setup-status\"><span class=\"check-mark-icon type-1 {$iconclass}\"></span> <p class=\"m-0 status-text small-info-regular\">{$statustext}</p></div>
+                            <div class=\"setup-status\">
+                                <span class=\"check-mark-icon type-1 {$iconclass}\"></span>
+                                <p class=\"m-0 status-text small-info-regular\">{$statustext}</p>
+                            </div>
                         </div>";
 
-            $confightml["pluginsetup"]["themelayouthtml"] = $this->generate_configuration_html($titiletext, $keyclass,$content);
+            $confightml["pluginsetup"]["themelayouthtml"] = $this->generate_configuration_html($titiletext, $keyclass, $content);
         }
 
-        if ( set_config('enrolment_page_layout', 1, "theme_remui")){
-
+        if (set_config('enrolment_page_layout', 1, "theme_remui")) {
             $titiletext = get_string("enrolment_layout", "theme_remui");
             $iconclass = "edw-icon edw-icon-Check";
             $statustext = get_string("done", "theme_remui");
             $infotext = get_string("enrollayoutinfo", "theme_remui");
             $keyclass = "enrolpagelayout";
-            $content  = "<div class=\"content\">
+            $content = "<div class=\"content\">
                             <p class=\"para-regular-2 p-mb-2\">{$infotext}</p>
-                            <div class=\"setup-status\"><span class=\"check-mark-icon type-1 {$iconclass}\"></span> <p class=\"m-0 status-text small-info-regular\">{$statustext}</p></div>
+                            <div class=\"setup-status\">
+                                <span class=\"check-mark-icon type-1 {$iconclass}\"></span>
+                                <p class=\"m-0 status-text small-info-regular\">{$statustext}</p>
+                            </div>
                          </div>";
-            $confightml["pluginsetup"]["enrolpagelayout"] = $this->generate_configuration_html($titiletext, $keyclass,$content);
+            $confightml["pluginsetup"]["enrolpagelayout"] = $this->generate_configuration_html($titiletext, $keyclass, $content);
         }
-        //Accessibility widget setting
+        // Accessibility widget setting.
         set_config('enableaccessibilitytools', true, 'theme_remui');
 
-        // color scheme html
+        // Color scheme HTML.
         set_config('sitecolorhex', "#0051F9", 'theme_remui');
         set_config('secondarycolor', "#37be71", 'theme_remui');
         set_config('themecolors-textcolor', "#4c5a73", 'theme_remui');
@@ -474,25 +500,24 @@ class setupwizard {
                         </div>
                         <p class=\"small-info-semibold head-color status-text p-p-2\">{$statustext}</p>
                     </div>";
-        $confightml["pluginsetup"]["colorscheme"] = $this->generate_configuration_html($titiletext, $keyclass,$content);
+        $confightml["pluginsetup"]["colorscheme"] = $this->generate_configuration_html($titiletext, $keyclass, $content);
 
-        // Font family selection html
+        // Font family selection HTML.
         $titiletext = get_string("fontfamilyhead", "theme_remui");
         $iconclass = "edw-icon edw-icon-Check";
         $statustext = "Inter";
         $infotext = "A quick brown fox jumps over the lazy dog.";
         $keyclass = "fontfamilysetup";
-        $content  = "<div class=\"content\">
+        $content = "<div class=\"content\">
                         <span class=\"check-mark-icon type-2 {$iconclass} p-mt-1\"></span>
                         <div>
                             <h5 class=\"h-bold-5 p-mb-2\">{$statustext}</h5>
                             <p class=\"para-regular-1 m-0\">{$infotext}</p>
                         </div>
                     </div>";
-        $confightml["pluginsetup"]["fontfamilysetup"] = $this->generate_configuration_html($titiletext, $keyclass,$content);
+        $confightml["pluginsetup"]["fontfamilysetup"] = $this->generate_configuration_html($titiletext, $keyclass, $content);
 
-
-        // Site logo html
+        // Site logo HTML.
         set_config('logoorsitename', 'iconsitename', 'theme_remui');
         set_config('siteicon', 'graduation-cap', 'theme_remui');
         set_config('logo-bg-color', "#FFFFFF", 'theme_remui');
@@ -505,28 +530,30 @@ class setupwizard {
         $content  = "<div class=\"content\" style=\"color:{$color}\">
                         <span class=\"{$iconclass}\"></span> <p class=\"status-text m-0 d-flex\">{$statustext}</p>
                     </div>";
-        $confightml["pluginsetup"]["logosetup"] = $this->generate_configuration_html($titiletext, $keyclass,$content);
+        $confightml["pluginsetup"]["logosetup"] = $this->generate_configuration_html($titiletext, $keyclass, $content);
 
-        // Home page selection html
+        // Home page selection HTML.
         if (is_plugin_available("local_edwiserpagebuilder")) {
             $titiletext = get_string("homepageselectionhead", "theme_remui");
             $keyclass = "homepagesetup";
             $infotext = get_string("inprogress", "theme_remui");
-            $content  = "<div class=\"content\">
+            $imgurl = $CFG->wwwroot . '/theme/remui/pix/siteinnerloader.svg';
+            $content = "<div class=\"content\">
                             <div class=\"inprogress\">
-                                <img  style=\"margin-right: 4px;\"  src=\"{$CFG->wwwroot}/theme/remui/pix/siteinnerloader.svg\" width=\"16\" height=\"16\">
+                                <img style=\"margin-right: 4px;\" src=\"{$imgurl}\" width=\"16\" height=\"16\">
                                 <span>{$infotext}</span>
                             </div>
                         </div>";
             $confightml["pluginsetup"]["homepagesetup"] = $this->generate_configuration_html($titiletext, $keyclass, $content);
 
-            // other page selection html
+            // Other page selection HTML.
             $titiletext = get_string("otherpageselectionhead", "theme_remui");
             $keyclass = "otherpagesetup";
             $infotext = get_string("inprogress", "theme_remui");
-            $content  = "<div class=\"content\">
+            $imgurl = $CFG->wwwroot . '/theme/remui/pix/siteinnerloader.svg';
+            $content = "<div class=\"content\">
                             <div class=\"inprogress\">
-                                <img  style=\"margin-right: 4px;\"  src=\"{$CFG->wwwroot}/theme/remui/pix/siteinnerloader.svg\" width=\"16\" height=\"16\">
+                                <img style=\"margin-right: 4px;\" src=\"{$imgurl}\" width=\"16\" height=\"16\">
                                 <span>{$infotext}</span>
                             </div>
                         </div>";
@@ -534,68 +561,91 @@ class setupwizard {
             $confightml["edwiserpagebuilderexist"] = true;
         }
 
-
-        // if(is_plugin_available("local_edwisersiteimporter")){
-        //     // demo course import html
-        //     $titiletext = get_string("democourseimporthead","theme_remui");
-        //     $keyclass = "democoursesetup";
-        //     $infotext = get_string("inprogress","theme_remui");
-        //     $content  = "<div class=\"content\">
-        //                     <div class=\"inprogress\">
-        //                         <img  style=\"margin-right: 4px;\"  src=\"{$CFG->wwwroot}/theme/remui/pix/siteinnerloader.svg\" width=\"16\" height=\"16\">
-        //                         <span>{$infotext}</span>
-        //                     </div>
-        //                 </div>";
-        //     $confightml["pluginsetup"]["democoursesetup"] = $this->generate_configuration_html($titiletext, $keyclass,$content);
-        //     $confightml["edwisersiteimporterexist"] = true;
-        // }
+        // Demo course import HTML (commented out for future use).
         return $confightml;
     }
 
-    public function action_set_pagelinks_in_footer($config){
-        $config = json_decode($config,true);
+    /**
+     * Set page links in footer.
+     *
+     * @param string $config Configuration data
+     * @return array Result
+     */
+    public function action_set_pagelinks_in_footer($config) {
+        $config = json_decode($config, true);
 
         $colindex = 1;
 
-        $footercolcontentarr=[];
+        $footercolcontentarr = [];
 
         foreach ($config as $value) {
-            $footercolcontentarr[] = array(
+            $footercolcontentarr[] = [
                 "text" => $value["title"],
                 "address" => $value["publishedpage"],
-            );
+            ];
         }
 
-        set_config("footercolumn","1","theme_remui");
-        set_config("footercolumn".$colindex."type","menu","theme_remui");
-        set_config("footercolumn".$colindex."title","Custom Pages","theme_remui");
-        set_config("footercolumn".$colindex."menu",json_encode($footercolcontentarr),"theme_remui");
+        set_config("footercolumn", "1", "theme_remui");
+        set_config("footercolumn" . $colindex . "type", "menu", "theme_remui");
+        set_config("footercolumn" . $colindex . "title", "Custom Pages", "theme_remui");
+        set_config("footercolumn" . $colindex . "menu", json_encode($footercolcontentarr), "theme_remui");
 
         return true;
     }
 
-    function generate_configuration_html($titiletext, $keyclass,$content) {
+    /**
+     * Generate configuration HTML.
+     *
+     * @param string $titiletext Title text
+     * @param string $keyclass Key class
+     * @param string $content Content
+     * @return string HTML
+     */
+    public function generate_configuration_html($titiletext, $keyclass, $content) {
         return "<div class=\"configuration-wrapper {$keyclass}\">
                     <h5 class=\"title h-semibold-5 p-mb-3\">{$titiletext}</h5>
                     {$content}
                 </div>";
-
     }
 
-    public function set_setup_status($status){
+    /**
+     * Set setup status.
+     *
+     * @param string $status Status
+     * @return void
+     */
+    public function set_setup_status($status) {
         set_config('setupstatus', $status, 'theme_remui');
     }
 
-    public function get_setup_status(){
+    /**
+     * Get setup status.
+     *
+     * @return string Setup status
+     */
+    public function get_setup_status() {
         return get_config('theme_remui', 'setupstatus');
     }
 
-    public function action_set_setup_status($config){
+    /**
+     * Set setup status action.
+     *
+     * @param string $config Configuration data
+     * @return void
+     */
+    public function action_set_setup_status($config) {
         $config = json_decode($config);
         $this->set_setup_status($config->status);
     }
 
-    // *************************************** plugin installation ***************************************
+    // Plugin installation section.
+
+    /**
+     * Plugin download handler.
+     *
+     * @param string $config Configuration data
+     * @return array Downloaded plugin list
+     */
     public function action_plugin_download_handler($config) {
         global $CFG;
 
@@ -611,12 +661,7 @@ class setupwizard {
 
         $plugins = $config["plugins"];
 
-        // $url = "https://qastaticcdn.edwiser.org/externalplugins/pluginlist.json";
-        // // $url = "https://qastaticcdn.edwiser.org/externalplugins/pluginlist.json";
-        // $jsoncontent = file_get_contents($url);
-        // $plugins = json_decode($jsoncontent, true);
-
-        // $this->set_setup_status("sitesetup");
+        // Plugin list URL and setup status (commented out for future use).
 
         if (json_last_error() !== JSON_ERROR_NONE || !is_array($plugins) || !$plugins) {
             return [];
@@ -637,7 +682,7 @@ class setupwizard {
         $downloadedpluginlist = [];
 
         foreach ($plugins as $plugin => $url) {
-            // Check if URL is accessible
+            // Check if URL is accessible.
             $headers = get_headers($url);
             if (!$headers || strpos($headers[0], '200') === false) {
                 continue;
@@ -654,13 +699,18 @@ class setupwizard {
 
             $downloadedpluginlist[$plugin] = $zipfile;
 
-            // $component = $installer->detect_plugin_component($zipfile);
-            // list($type, $name) = \core_component::normalize_component($component);
+            // Component detection (commented out for future use).
         }
 
         return $downloadedpluginlist;
     }
 
+    /**
+     * Check if plugins are installable.
+     *
+     * @param array $plugins Plugins array
+     * @return array Validation results
+     */
     public function check_plugin_installable($plugins) {
         global $CFG;
 
@@ -678,7 +728,7 @@ class setupwizard {
 
         foreach ($plugins as $plugin) {
             $zipfile = $plugin->zipfilepath;
-            list($plugintype, $pluginname) = \core_component::normalize_component($plugin->component);
+            [$plugintype, $pluginname] = \core_component::normalize_component($plugin->component);
             $tmp = make_request_directory();
             $zipcontents = $pluginman->unzip_plugin_file($zipfile, $tmp, $pluginname);
             if (empty($zipcontents)) {
@@ -694,7 +744,7 @@ class setupwizard {
             $validationresults[$plugin->component] = [
                 'result' => $result,
                 'messages' => [],
-                'errors' => []  // New array to store error messages
+                'errors' => [], // New array to store error messages.
             ];
 
             foreach ($validator->get_messages() as $message) {
@@ -707,7 +757,7 @@ class setupwizard {
 
                 $validationresults[$plugin->component]['messages'][] = $messagedata;
 
-                // Store error messages in a separate array
+                // Store error messages in a separate array.
                 if ($messagedata['level'] === 'Error') {
                     $validationresults[$plugin->component]['errors'][] = $messagedata;
                 }
@@ -717,6 +767,12 @@ class setupwizard {
         return $validationresults;
     }
 
+    /**
+     * Plugin install handler.
+     *
+     * @param string $config Configuration data
+     * @return array Installation result
+     */
     public function action_plugin_install_handler($config) {
         global $CFG;
         $config = json_decode($config);
@@ -730,14 +786,14 @@ class setupwizard {
 
         $component = $installer->detect_plugin_component($zipfile);
 
-        // Check if plugin is already installed
+        // Check if plugin is already installed.
         $plugininfo = $pluginman->get_plugin_info($component);
 
         if ($plugininfo) {
             return ['info' => true, "message" => get_string("alreadyinstalled", "theme_remui")];
         }
 
-        list($type, $name) = \core_component::normalize_component($component);
+        [$type, $name] = \core_component::normalize_component($component);
         if ($name == "edwiserpagebuilder") {
             $internetcheck = \theme_remui\utility::check_internet_connection();
             if (!$internetcheck) {
@@ -756,20 +812,14 @@ class setupwizard {
             'zipfilepath' => $zipfile,
         ]];
 
-        // echo \html_writer::start_tag('pre', array('class' => 'plugin-install-console'));
-        // $validated = $pluginman->install_plugins($installable, false, false);
-        // echo \html_writer::end_tag('pre');
+        // Plugin installation console output (commented out for future use).
 
         $validationresults = $this->check_plugin_installable($installable);
         $pluginname = $validationresults[$component]['messages'][0]['info'];
 
         if (!$validationresults[$component]['result']) {
             $errors = $validationresults[$component]['errors'];
-            // $erroroutput = "<div>";
-            // foreach ($errors as $error) {
-            //     $erroroutput .= "<p class='m-0'>[{$error['level']}] {$error['msgcode']}</p>";
-            // }
-            // $erroroutput .= "</div>";
+            // Error output generation (commented out for future use).
             $erroroutput = "<span>";
             foreach ($errors as $error) {
                 $erroroutput .= "[{$error['level']}] {$error['msgcode']}<br>";
@@ -778,8 +828,6 @@ class setupwizard {
 
             return ['error' => true, 'message' => $erroroutput];
         }
-
-
 
         $result = $pluginman->install_plugins($installable, true, true);
 
@@ -790,6 +838,12 @@ class setupwizard {
         return ['success' => true, "message" => "done"];
     }
 
+    /**
+     * Plugin database upgrader handler.
+     *
+     * @param string $config Configuration data
+     * @return array Upgrade result
+     */
     public function action_plugin_database_upgrader_handler($config) {
         global $CFG;
         require_once($CFG->libdir . '/upgradelib.php');
@@ -803,6 +857,12 @@ class setupwizard {
         return true;
     }
 
+    /**
+     * Send user site info to Edwiser.
+     *
+     * @param string $config Configuration data
+     * @return void
+     */
     public function action_send_usersiteinfo_to_edwiser($config) {
         $userfeedback = new \theme_remui\userfeedback();
         $setupdata = $userfeedback->prepare_setupdata($config);
@@ -810,6 +870,13 @@ class setupwizard {
         return true;
     }
 
+    /**
+     * Collect new settings.
+     *
+     * @param object $node Node object
+     * @param array $data Data array
+     * @return void
+     */
     public function collect_new_settings($node, &$data) {
         ob_start();
 
@@ -831,10 +898,16 @@ class setupwizard {
         ob_end_clean();
     }
 
+    /**
+     * Save new plugin settings.
+     *
+     * @return void
+     */
     public function action_save_newplugin_settings() {
         global $CFG;
 
-        ob_start(); // Move ob_start() to the very beginning
+        // Move ob_start() to the very beginning.
+        ob_start();
 
         require_once($CFG->libdir . '/adminlib.php');
         require_once($CFG->libdir . '/upgradelib.php');
@@ -851,7 +924,6 @@ class setupwizard {
 
         $result = false;
         if (!empty((array)$data)) {
-
             ob_end_clean();
 
             ob_start();
@@ -868,6 +940,12 @@ class setupwizard {
         return $result;
     }
 
+    /**
+     * Remove downloaded zip and purge cache.
+     *
+     * @param string $config Configuration data
+     * @return void
+     */
     public function action_remove_downloaded_zip_and_purge_cache($config) {
         global $CFG;
         require_once($CFG->libdir . '/upgradelib.php');
@@ -886,6 +964,12 @@ class setupwizard {
         return true;
     }
 
+    /**
+     * Install builder advanced blocks.
+     *
+     * @param string $config Configuration data
+     * @return void
+     */
     public function action_install_builder_advanced_blocks($config) {
         global $CFG;
         $libpath = $CFG->dirroot . '/local/edwiserpagebuilder/lib.php';
@@ -902,4 +986,3 @@ class setupwizard {
         return true;
     }
 }
-

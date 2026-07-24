@@ -35,7 +35,7 @@
 
 }}
 <div class="add_block_button">
-    <a href="{{link}}" id="addblock-{{uniqid}}" class="btn btn-secondary btn-link block-add text-left" data-key="addblock" data-url="{{escapedlink}}">
+    <a href="{{link}}" id="addblock-{{uniqid}}" class="btn btn-secondary btn-link block-add text-left" data-key="addblock" data-url="{{escapedlink}}" data-blockregion="{{blockregion}}">
         <i class="fa fa-plus py-2 mr-3" aria-hidden="true"></i>
         {{#str}}addblock{{/str}}
         {{#regiontitle}}<span>({{regiontitle}})</span>{{/regiontitle}}
@@ -44,8 +44,8 @@
 
 {{#js}}
     // Initialise the JS for the modal window which displays the blocks available to add.
-    require(['core/addblockmodal','theme_remui/addblockaddedlistners'], function(addBlockModal,addBlockModalAddedListners) {
-        addBlockModal.init('{{pageType}}', '{{pageLayout}}', null, '{{subPage}}');
+    require(['core_block/add_modal','theme_remui/addblockaddedlistners'], function(addBlockModal,addBlockModalAddedListners) {
+        addBlockModal.init(null, '{{pagehash}}');
         addBlockModalAddedListners.init();
     });
 {{/js}}

@@ -26,7 +26,7 @@ body {
                 }
             }
             .site-announcement {
-                top: -100%;
+                top: -100% !important;
             }
             .secondary-navigation,
             #page-footer .footer-mainsection-wrapper,
@@ -73,50 +73,67 @@ body {
                         @include media-breakpoint-only(md) {
                             width: 90% !important;
                         }
-
-                        .focus-mode-active-info {
-                            background-color: #FFF9E5;
-                            border: 2px solid #FFC107;
-                            border-radius: 4px;
-                            padding: map-get($spacerspx, '2') map-get($spacerspx, '1');
-                            opacity: 1;
-                            transition: opacity 0.3s ease;
+                        .focus-mode-active-info-wrapper {
+                            width: 40%;
                             position: absolute;
-                            top: 50%;
+                            top: 130%;
                             left: 50%;
                             transform: translate(-50%, -50%);
+                            z-index: 1;
 
-                            .fm-info-text {
-                              color: #343A40;
+                            .focus-mode-active-info {
+                                display: flex;
+                                margin: auto;
+                                padding: map-get($spacerspx, '2') map-get($spacerspx, '1');
+                                background-color: #FFF9E5;
+                                border: 2px solid #FFC107;
+                                padding-right: 24px;
+                                padding-left: 24px;
+                                border-radius: 4px;
+                                opacity: 1;
+                                transition: opacity 0.3s ease;
+
+                                // Fade out after 3s delay
+                                animation: fadeOut 3s forwards 3s;
+
+                                .fm-info-text {
+                                color: #343A40;
+                                }
+
+
                             }
-
-                            // Animation to fade out after a few seconds
-                            animation: fadeOut 3s forwards 3s; // 2s delay, 3s duration
-
-                            &:hover {
-                              opacity: 1;
-                              animation: none; // Remove animation on hover
-                            }
-                            @include media-breakpoint-down(md){
+                            @include media-breakpoint-down(md) {
                                 position: absolute;
-                                top: 90px; // Adjust as per requirement
+                                top: 90px;
                                 left: 50%;
                                 transform: translate(-50%, 0%);
                                 &.scrolled {
                                     position: relative;
                                 }
                             }
+
                             html[dir="rtl"] & {
                                 right: 50%;
                                 left: unset;
                             }
-                        }
 
-                          @keyframes fadeOut {
-                            to {
-                              opacity: 0;
+                            // Hover effect to increase opacity of the child element
+                            &:hover {
+                                .focus-mode-active-info {
+                                opacity: 1 !important;
+                                animation: none !important; // Cancel fadeOut on hover
+                                }
+                            }
+
+                            @keyframes fadeOut {
+                                to {
+                                opacity: 0;
+                                }
                             }
                         }
+
+
+                        
 
                     }
                     .nav-link {
@@ -481,5 +498,11 @@ body.focusmode {
                 margin: unset;
             }
         }
+    }
+}
+
+body:not(.focusmode){
+    .focus-mode-active-info-wrapper{
+        display: none !important;
     }
 }

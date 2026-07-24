@@ -30,7 +30,7 @@ use moodle_url;
 use core_completion\progress;
 use context_course;
 
-require_once($CFG->dirroot.'/mod/forum/lib.php');
+require_once($CFG->dirroot . '/mod/forum/lib.php');
 
 /**
  * User controller class
@@ -68,7 +68,7 @@ class usercontroller {
         }
 
         if (!empty($CFG->enableblogs)) {
-            include_once($CFG->dirroot .'/blog/locallib.php');
+            include_once($CFG->dirroot . '/blog/locallib.php');
         } else {
             return;
         }
@@ -84,7 +84,7 @@ class usercontroller {
                                   AND (p.userid = ?  OR p.publishstate = 'site')
                                   AND u.id = ?
                                 ORDER BY created DESC";
-            $sqlarray['params'] = array($USER->id, $userobject->id);
+            $sqlarray['params'] = [$USER->id, $userobject->id];
             $blogobj->entries = $DB->get_records_sql($sqlarray['sql'], $sqlarray['params']);
             $userblogcount = count($blogobj->entries);
         }
@@ -120,7 +120,7 @@ class usercontroller {
             $userobject = $USER;
         }
 
-        require_once($CFG->dirroot.'/course/renderer.php');
+        require_once($CFG->dirroot . '/course/renderer.php');
         $chelper = new \coursecat_helper();
 
         $courses = enrol_get_users_courses($userobject->id, true, '*', 'visible DESC, fullname ASC, sortorder ASC');
@@ -147,8 +147,8 @@ class usercontroller {
                 $course->progress  = $percentage;
             }
 
-            $course->link = $CFG->wwwroot."/course/view.php?id=".$course->id;
-            $category = $DB->get_record('course_categories', array("id" => $course->category));
+            $course->link = $CFG->wwwroot . "/course/view.php?id=" . $course->id;
+            $category = $DB->get_record('course_categories', ["id" => $course->category]);
 
             $completioninfo = new \completion_info($course);
             $modules = $completioninfo->get_activities();
@@ -158,14 +158,17 @@ class usercontroller {
             if ($allactivites < 1) {
                 $activitydata = get_string('noactivity', 'theme_remui');
             } else {
-
                 foreach ($modules as $module) {
                     $data = $completioninfo->get_data($module, true, $userobject->id);
                     if ($data->completionstate != COMPLETION_INCOMPLETE) {
                         $completedactivites++;
                     }
                 }
-                $activitydata = get_string('activitydata', 'theme_remui', ['complete' => $completedactivites, 'total' => $allactivites]);
+                $activitydata = get_string(
+                    'activitydata',
+                    'theme_remui',
+                    ['complete' => $completedactivites, 'total' => $allactivites]
+                );
             }
             $course->activitydata = $activitydata;
             $corecourselistelement = new \core_course_list_element($course);
@@ -173,17 +176,17 @@ class usercontroller {
             $course->instructor = "";
             $course->instructorcount = (count($instructors) > 1) ? count($instructors) - 1 : "";
             foreach ($instructors as $key => $instructor) {
-                $pictureurl = utility::get_user_picture($DB->get_record('user', array('id' => $key)));
-                    $course->instructor = array(
+                $pictureurl = utility::get_user_picture($DB->get_record('user', ['id' => $key]));
+                    $course->instructor = [
                     'name' => $instructor['username'],
-                    'url'  => $CFG->wwwroot.'/user/profile.php?id='.$key,
-                    'picture' => $pictureurl->__toString()
-                    );
+                    'url'  => $CFG->wwwroot . '/user/profile.php?id=' . $key,
+                    'picture' => $pictureurl->__toString(),
+                    ];
             }
             $course->categoryname = format_text($category->name, FORMAT_HTML);
             $course->summary = strip_tags($chelper->get_course_formatted_summary(
                 $courseobj,
-                array('overflowdiv' => false, 'noclean' => false, 'para' => false)
+                ['overflowdiv' => false, 'noclean' => false, 'para' => false]
             ));
             $coursehandler = new \theme_remui_coursehandler();
             $course->courseimage = $coursehandler->get_course_image($course);
@@ -200,10 +203,19 @@ class usercontroller {
      * @param  string $country     Country name
      * @return object              Weather result are updated or not
      */
-    public static function save_user_profile_info($fname, $lname, $description, $city, $country, $phonenumber, $department, $address) {
+    public static function save_user_profile_info(
+        $fname,
+        $lname,
+        $description,
+        $city,
+        $country,
+        $phonenumber,
+        $department,
+        $address
+    ) {
         global $USER, $DB;
 
-        $user = $DB->get_record('user', array('id' => $USER->id));
+        $user = $DB->get_record('user', ['id' => $USER->id]);
         $user->firstname = $fname;
         $user->lastname = $lname;
         $user->description = $description;

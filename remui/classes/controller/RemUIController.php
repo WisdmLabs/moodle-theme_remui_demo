@@ -26,7 +26,8 @@ namespace theme_remui\controller;
 use Exception;
 use cache;
 use curl;
-use \theme_remui\toolbox;
+use theme_remui\toolbox;
+use core_useragent;
 
 // Here License Controller has already defined the constants.
 // But on Setup Wizard we need it on RemUI controller
@@ -65,7 +66,6 @@ if (! defined("PLUGINSHORTNAME")) {
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class RemUIController {
-
     /**
      * License key provided by edwiser
      * @var string
@@ -109,9 +109,9 @@ class RemUIController {
             'CURLOPT_RETURNTRANSFER' => 1,
             'CURLOPT_URL' => STOREURL,
             'CURLOPT_POST' => 1,
-            'CURLOPT_USERAGENT' => $_SERVER['HTTP_USER_AGENT'] . ' - ' . $CFG->wwwroot,
+            'CURLOPT_USERAGENT' => core_useragent::get_user_agent_string() . ' - ' . $CFG->wwwroot,
             'CURLOPT_TIMEOUT' => 30,
-            'CURLOPT_SSL_VERIFYPEER' => false
+            'CURLOPT_SSL_VERIFYPEER' => false,
         ]);
 
         // Since edwiser.org dose not accept request from the IPv6 address to solve that problem,
@@ -121,14 +121,14 @@ class RemUIController {
         }
 
         // Send the request & save response to $resp.
-        $resp = $curl->post(STOREURL, array(
+        $resp = $curl->post(STOREURL, [
             'edd_action' => $action,
             'license' => $licensekey,
             'item_name' => urlencode(PLUGINNAME),
             'current_version' => PLUGINVERSION,
             'url' => urlencode($CFG->wwwroot),
-            'CURLOPT_USERAGENT' => $_SERVER['HTTP_USER_AGENT'] . ' - ' . $CFG->wwwroot,
-        ));
+            'CURLOPT_USERAGENT' => core_useragent::get_user_agent_string() . ' - ' . $CFG->wwwroot,
+        ]);
 
         $responsecode = $curl->info['http_code'];
 
@@ -136,7 +136,7 @@ class RemUIController {
             $licensedata = json_decode($resp);
         } catch (Exception $ex) {
             $licensedata = null;
-            // utility::throw_error("errorparsingresponse", 30); // Throw exception - Error while Parsing the response.
+            // Throw exception - Error while parsing the response.
         }
 
         $lcontroller = new \theme_remui\controller\LicenseController();
@@ -158,15 +158,11 @@ class RemUIController {
      * @return boolean returns true if the license data is not null and contains the valid responce code
      */
     public function validate_response($licensedata, $responsecode) {
-        $validresponsecode = array('200', '301');
+        $validresponsecode = ['200', '301'];
         if ($licensedata == null || $licensedata == false || !in_array($responsecode, $validresponsecode)) {
-            // Calculate transiaent period from current period to request.
-            // $transperiod = serialize(array('server_did_not_respond', time() + (60 * 60 * 24)));
-            // // Delete previous record of the transiaent and set new transient to check the license after 24 hrs.
-            // toolbox::set_plugin_config(WDM_LICENSE_TRANS, $transperiod);
-
-            // // Throw exception - Error to get proper response from server.
-            // utility::throw_error("noresponsereceived", 30);
+            // Calculate transient period from current period to request.
+            // Delete previous record of the transient and set new transient to check the license after 24 hrs.
+            // Throw exception - Error to get proper response from server.
             return false;
         }
         return true;
@@ -183,11 +179,13 @@ class RemUIController {
         }
         $curtime = time();
 
-        if (isset($licensedata->expires)
+        if (
+            isset($licensedata->expires)
             && ($licensedata->expires !== false)
             && ($licensedata->expires != 'lifetime')
             && $exptime <= $curtime
-            && $exptime != 0) {
+            && $exptime != 0
+        ) {
             if (isset($licensedata->error) && "no_activations_left" === $licensedata->error) {
                 $licensedata->error = $licensedata->error;
             } else {
@@ -219,8 +217,10 @@ class RemUIController {
             $status = 'expired';
         } else if ($licensedata->license == 'invalid' && isset($licensedata->error) && $licensedata->error == "disabled") {
             $status = 'disabled';
-        } else if ($licensedata->license == 'invalid' && isset($licensedata->error)
-            && $licensedata->error == "no_activations_left") {
+        } else if (
+            $licensedata->license == 'invalid' && isset($licensedata->error)
+            && $licensedata->error == "no_activations_left"
+        ) {
             $status = 'no_activations_left';
         } else if ($licensedata->license == 'failed') {
             $status = 'failed';
@@ -258,7 +258,7 @@ class RemUIController {
                 $time = time() + (60 * 60 * 24) * (($licensestatus == 'valid') ? 7 : 1);
                 toolbox::set_plugin_config(
                     WDM_LICENSE_TRANS,
-                    serialize(array($licensestatus, $time))
+                    serialize([$licensestatus, $time])
                 );
             } else {
                 toolbox::remove_plugin_config(WDM_LICENSE_TRANS);
@@ -288,7 +288,7 @@ class RemUIController {
             // Set linces check transient value on deactivation to 0.
             toolbox::set_plugin_config(
                 WDM_LICENSE_TRANS,
-                serialize(array($licensedata->license, 0))
+                serialize([$licensedata->license, 0])
             );
             return $licensedata;
         }
@@ -350,10 +350,9 @@ class RemUIController {
      * @param mixed $config The configuration object.
      * @return object|null The license data, or null if there was an error.
      */
-    public function request_license_data_for_setup_wizard($key){
+    public function request_license_data_for_setup_wizard($key) {
 
         global $CFG;
-
 
         $licensekey = $key;
 
@@ -364,9 +363,9 @@ class RemUIController {
             'CURLOPT_RETURNTRANSFER' => 1,
             'CURLOPT_URL' => STOREURL,
             'CURLOPT_POST' => 1,
-            'CURLOPT_USERAGENT' => $_SERVER['HTTP_USER_AGENT'] . ' - ' . $CFG->wwwroot,
+            'CURLOPT_USERAGENT' => core_useragent::get_user_agent_string() . ' - ' . $CFG->wwwroot,
             'CURLOPT_TIMEOUT' => 30,
-            'CURLOPT_SSL_VERIFYPEER' => false
+            'CURLOPT_SSL_VERIFYPEER' => false,
         ]);
 
         // Since edwiser.org dose not accept request from the IPv6 address to solve that problem,
@@ -377,13 +376,13 @@ class RemUIController {
 
         $url = "https://edwiser.org/wp-json/edd/v1/validate-license";
         // Send the request & save response to $resp.
-        $resp = $curl->post($url, array(
+        $resp = $curl->post($url, [
             'license_key' => $licensekey,
             'item_name' => urlencode(PLUGINNAME),
             'current_version' => PLUGINVERSION,
             'url' => urlencode($CFG->wwwroot),
-            'CURLOPT_USERAGENT' => $_SERVER['HTTP_USER_AGENT'] . ' - ' . $CFG->wwwroot,
-        ));
+            'CURLOPT_USERAGENT' => core_useragent::get_user_agent_string() . ' - ' . $CFG->wwwroot,
+        ]);
 
         $responsecode = $curl->info['http_code'];
 
@@ -391,10 +390,9 @@ class RemUIController {
             $licensedata = json_decode($resp);
         } catch (Exception $ex) {
             $licensedata = null;
-            // utility::throw_error("errorparsingresponse", 30); // Throw exception - Error while Parsing the response.
+            // Throw exception - Error while parsing the response.
         }
 
         return $licensedata;
-
     }
 }

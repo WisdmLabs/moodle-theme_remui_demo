@@ -401,6 +401,9 @@ aside:not(#block-region-side-pre) {
         border: 1px solid $medium-border;
         color:$paragraph-color;
         padding-right:32px;
+        &:hover{
+            border: 1px solid $medium-border;
+        }
      }
      #calendarviewdropdown{
         border: 1px solid $medium-border;

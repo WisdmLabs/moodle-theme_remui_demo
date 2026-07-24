@@ -21,7 +21,31 @@
  */
 
 import * as View from './blockmyoverview/view';
-import * as ViewNav from 'block_myoverview/view_nav';
+import * as ViewNav from './blockmyoverview/view_nav';
+
+/**
+ * Move course action buttons (Manage/Create) into the block header beside the title.
+ *
+ * @param {object} root The root jQuery element for the overview block.
+ */
+const moveCourseActionsToHeader = (root) => {
+    const actionsEl = document.getElementById(root[0].id + '-actions');
+    if (!actionsEl) {
+        return;
+    }
+    const section = root[0].closest('section[data-block="myoverview"]');
+    if (!section) {
+        return;
+    }
+    const headerWrapper = section.querySelector('.block-header-wrapper');
+    if (!headerWrapper) {
+        return;
+    }
+    actionsEl.classList.remove('d-none');
+    actionsEl.classList.add('d-flex');
+    const controlsWrapper = headerWrapper.querySelector('.controls-wrapper');
+    headerWrapper.insertBefore(actionsEl, controlsWrapper || null);
+};
 
 /**
  * Initialise all of the modules for the overview block.
@@ -34,4 +58,5 @@ export const init = (root, cardanimationsetting) => {
     ViewNav.init(root);
     // Initialise the courses view modules.
     View.init(root, cardanimationsetting);
+    moveCourseActionsToHeader(root);
 };

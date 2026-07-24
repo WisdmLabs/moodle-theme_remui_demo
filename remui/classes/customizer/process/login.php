@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Theme customizer login process trait
  *
@@ -24,6 +25,11 @@
 
 namespace theme_remui\customizer\process;
 
+/**
+ * Login processing trait.
+ *
+ * Provides functionality for processing login-related customizer settings.
+ */
 trait login {
     /**
      * Process login settings
@@ -33,18 +39,12 @@ trait login {
      */
     private function process_login(&$variables) {
 
-        // Login page background opacity.
-        // $opacity = $this->get_config('loginbackgroundopacity');
-        // $css = str_replace('"[[setting:loginbackgroundopacity]]"', "rgba(0, 0, 0, {$opacity})", $css);
-
-        // // Login panel background color.
-        // $color = $this->get_config('loginpanelbackgroundcolor');
-        // $css = str_replace('"[[setting:loginpanelbackgroundcolor]]"', $color, $css);
+        // Login page background opacity and panel background color (commented out for future use).
 
         // Set login background.
         $loginbgsetting = $this->get_config('login-page-setting');
         $variables['login-page-opacity'] = 'null';
-        switch ($loginbgsetting){
+        switch ($loginbgsetting) {
             case 'image':
                 $loginbg = \theme_remui\toolbox::setting_file_url('loginsettingpic', 'loginsettingpic');
                 $loginopacity = $this->get_config('loginbackgroundopacity');
@@ -65,7 +65,7 @@ trait login {
         }
         $variables['login-page-background'] = $loginbg;
 
-        // login form background color
+        // Login form background color.
         $variables['login-container-bg'] = $this->get_config('loginpanelbackgroundcolor');
 
         // Login panel text color.
@@ -79,6 +79,5 @@ trait login {
 
         // Login panel link hover color.
         $variables['loginpanellinkhovercolor']  = $this->get_config('loginpanellinkhovercolor');
-
     }
 }
